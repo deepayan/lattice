@@ -50,9 +50,9 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        panel.arrows, panel.segments, panel.lines, panel.points,
        panel.text,
 
-       strip.custom, trellis.last.object,
+       strip.custom, trellis.last.object
 
-       gplot, gplotArgs
+#       gplot, gplotArgs
        )
 
 
@@ -68,9 +68,9 @@ S3method(print, trellis)
 S3method(update, trellis)
 S3method(summary, trellis)
 
-S3method(gplot, default)
-S3method(gplotArgs, default)
-S3method(gplotArgs, data.frame)
+#S3method(gplot, default)
+#S3method(gplotArgs, default)
+#S3method(gplotArgs, data.frame)
 
 
 
