@@ -350,8 +350,11 @@ densityplot <-
         foo$legend <-
             list(list(fun = "drawSimpleKey",
                       args =
-                      c(list(levels(as.factor(groups))),
-                        if (is.list(auto.key)) auto.key else list())))
+                      updateList(list(text = levels(as.factor(groups)),
+                                      points = TRUE,
+                                      rectangles = FALSE,
+                                      lines = TRUE),
+                                 if (is.list(auto.key)) auto.key else list())))
         foo$legend[[1]]$x <- foo$legend[[1]]$args$x
         foo$legend[[1]]$y <- foo$legend[[1]]$args$y
         foo$legend[[1]]$corner <- foo$legend[[1]]$args$corner
