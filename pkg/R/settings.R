@@ -580,9 +580,9 @@ show.settings <- function(x = NULL)
                   vp = viewport(layout.pos.row = 9, layout.pos.col = 2))
         bar.fill <- theme$bar.fill
         pushViewport(viewport(layout.pos.row = 8,
-                               layout.pos.col = 4,
-                               yscale = extend.limits(c(0,6)),
-                               xscale = extend.limits(c(1,10))))
+                              layout.pos.col = 4,
+                              yscale = extend.limits(c(0,6)),
+                              xscale = extend.limits(c(1,10))))
         grid.rect(x = c(3.5, 4.5, 5.5, 6.5, 7.5), w = rep(5,5),
                   y = c(1,2,3,4,5), h = rep(.5, ,5),
                   default.units = "native",
@@ -592,9 +592,9 @@ show.settings <- function(x = NULL)
         grid.text(lab = "plot.shingle[bar.fill]",
                   vp = viewport(layout.pos.row = 9, layout.pos.col = 4))
         pushViewport(viewport(layout.pos.row = 8,
-                               layout.pos.col = 6,
-                               yscale = extend.limits(c(0,7)),
-                               xscale = extend.limits(c(0,7))))
+                              layout.pos.col = 6,
+                              yscale = extend.limits(c(0,7)),
+                              xscale = extend.limits(c(0,7))))
         grid.rect(y = c(.5, 1, 1.5, 2, 2.5, 3, 3.5), w = rep(1,7),
                   x = c(.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5), h = 1:7,
                   default.units = "native",
@@ -684,6 +684,13 @@ lattice.options <- function(...)
     list(save.object = TRUE,
          drop.unused.levels = list(cond = TRUE, data = TRUE),
          default.theme = getOption("lattice.theme"), ## for back compatibility, usually NULL
+         axis.padding = list(numeric = 0.07, factor = 0.6),
+
+         ## extends limits by this amount, to provide padding for
+         ## numeric and factor scales respectively. Note that the
+         ## value for numeric is multiplicative, while factor is
+         ## additive
+
          axis.units =
          list(outer =
               list(left =

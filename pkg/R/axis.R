@@ -176,9 +176,9 @@ formattedTicksAndLabels.character <-
     ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
                 labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
-    ans$num.limit <-
-        if (is.null(num.limit) || any(is.na(num.limit))) range(ans$at) + c(-0.6, 0.6)
-        else num.limit + c(-0.6, 0.6)
+    ans$num.limit <- c(-1, 1) * lattice.getOption("axis.padding")$factor + 
+        if (is.null(num.limit) || any(is.na(num.limit))) range(ans$at)
+        else num.limit
     ans
 }
 
@@ -195,9 +195,9 @@ formattedTicksAndLabels.expression <-
     ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
                 labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
-    ans$num.limit <-
-        if (is.null(num.limit) || any(is.na(num.limit))) range(ans$at) + c(-0.6, 0.6)
-        else num.limit + c(-0.6, 0.6)
+    ans$num.limit <- c(-1, 1) * lattice.getOption("axis.padding")$factor + 
+        if (is.null(num.limit) || any(is.na(num.limit))) range(ans$at)
+        else num.limit
     ans
 }
 
@@ -299,7 +299,7 @@ formattedTicksAndLabels.POSIXct <-
 
 panel.axis <-
     function(side = c("bottom", "left", "top", "right"),
-             at,
+             at = pretty(scale.range),
              labels = TRUE,
              draw.labels = TRUE,
              check.overlap = FALSE,
@@ -325,24 +325,50 @@ panel.axis <-
 {
     side <- match.arg(side)
     orientation <- if (outside) "outer" else "inner"
-
-    ## at has to be specified. Maybe if there's ever a guaranteed
-    ## accessor for current.viewport()$[xy]scale ...
+    cvp <- current.viewport() ## grid should have accessors for xscale and yscale
+    scale.range <-
+        range(switch(side,
+                     left = cvp$yscale,
+                     top = cvp$xscale,
+                     right = cvp$yscale,
+                     bottom = cvp$xscale))
 
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
+    rot <- rep(rot, length = 2) ## for x- and y-axes respectively
 
-    if (missing(at) || is.null(at))
+#    if (missing(at) || is.null(at))
+#    {
+#        
+#        warning("nothing to draw if at not specified")
+#        return()
+#    }
+
+    if (is.null(at) || length(at) == 0) return()
+    keep.at <- TRUE
+    if (check.overlap) ## remove ticks close to limits
     {
-        warning("nothing to draw if at not specified")
-        return()
+        pad <- lattice.getOption("axis.padding")$numeric
+        scale.range <-
+            extend.limits(scale.range,
+                          prop = - 0.99 * pad / (1 + 2 * pad))
+
+        ## This 'just' includes the original range, assuming scales
+        ## were extended in the usual manner.  This is not exactly
+        ## what axis.padding was designed for, but it should be a good
+        ## enough default.  Of course, we can always add a new option
+        ## specially for this, but right now that seems overkill.
+
+        keep.at <- at >= scale.range[1] & at <= scale.range[2]
     }
-    if (length(at) == 0) return()
 
     if (is.logical(labels))
         labels <-
             if (labels) format(at, trim = TRUE)
             else NULL
+
+    at <- at[keep.at]
+    labels <- labels[keep.at]
 
     nal <- length(at) / 2 + 0.5
     all.id <- seq(along = at)
@@ -354,6 +380,7 @@ panel.axis <-
             if (which.half == "lower") lower.id else upper.id
         }
         else all.id
+
     gp.line <- gpar(col = line.col, alpha = line.alpha,
                     lty = line.lty, lwd = line.lwd)
     gp.text <- gpar(col = text.col, cex = text.cex, alpha = text.alpha,
@@ -416,23 +443,23 @@ panel.axis <-
             just <-
                 if (outside)
                     switch(side,
-                           bottom = if (rot == 0) c("centre", "top") else c("right", "centre"),
-                           top = if (rot == 0) c("centre", "bottom") else c("left", "centre"),
-                           left = if (rot == 90) c("centre", "bottom") else c("right", "centre"),
-                           right = if (rot == 90) c("centre", "top") else c("left", "centre"))
+                           bottom = if (rot[1] == 0) c("centre", "top") else c("right", "centre"),
+                           top = if (rot[1] == 0) c("centre", "bottom") else c("left", "centre"),
+                           left = if (rot[2] == 90) c("centre", "bottom") else c("right", "centre"),
+                           right = if (rot[2] == 90) c("centre", "top") else c("left", "centre"))
                 else
                     switch(side,
-                           bottom = if (rot == 0) c("centre", "bottom") else c("left", "centre"),
-                           top = if (rot == 0) c("centre", "top") else c("right", "centre"),
-                           left = if (rot == 90) c("centre", "top") else c("left", "centre"),
-                           right = if (rot == 90) c("centre", "bottom") else c("right", "centre"))
+                           bottom = if (rot[1] == 0) c("centre", "bottom") else c("left", "centre"),
+                           top = if (rot[1] == 0) c("centre", "top") else c("right", "centre"),
+                           left = if (rot[2] == 90) c("centre", "top") else c("left", "centre"),
+                           right = if (rot[2] == 90) c("centre", "bottom") else c("right", "centre"))
         }
         switch(side,
                bottom =
                grid.text(label = labels[axid],
                          x = unit(at[axid], "native"),
                          y = orient.factor * lab.unit,
-                         rot = rot,
+                         rot = rot[1],
                          check.overlap = check.overlap,
                          just = just,
                          gp = gp.text),
@@ -440,7 +467,7 @@ panel.axis <-
                grid.text(label = labels[axid],
                          x = unit(at[axid], "native"),
                          y = unit(1, "npc") - orient.factor * lab.unit,
-                         rot = rot,
+                         rot = rot[1],
                          check.overlap = check.overlap,
                          just = just,
                          gp = gp.text),
@@ -448,7 +475,7 @@ panel.axis <-
                grid.text(label = labels[axid],
                          y = unit(at[axid], "native"),
                          x = orient.factor * lab.unit,
-                         rot = rot,
+                         rot = rot[2],
                          check.overlap = check.overlap,
                          just = just,
                          gp = gp.text),
@@ -456,7 +483,7 @@ panel.axis <-
                grid.text(label = labels[axid],
                          y = unit(at[axid], "native"),
                          x = unit(1, "npc") - orient.factor * lab.unit,
-                         rot = rot,
+                         rot = rot[2],
                          check.overlap = check.overlap,
                          just = just,
                          gp = gp.text))

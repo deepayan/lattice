@@ -477,8 +477,9 @@ panel.3dwire <-
               as.double(light.source),
               environment(),
               as.integer(shade),
-              as.integer(isParametrizedSurface),
-              PACKAGE="lattice")
+              as.integer(isParametrizedSurface) #,
+              ##PACKAGE="lattice"
+              )
 
 
 
@@ -587,8 +588,10 @@ panel.3dwire <-
               as.double(light.source),
               environment(),
               as.integer(shade),
-              as.integer(isParametrizedSurface),
-              PACKAGE="lattice")
+              as.integer(isParametrizedSurface) #,
+              ##PACKAGE="lattice"
+              )
+              
 
 
 

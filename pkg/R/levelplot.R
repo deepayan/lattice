@@ -28,6 +28,7 @@
 prepanel.default.levelplot <-
     function(x, y, subscripts, ...)
 {
+    pad <- lattice.getOption("axis.padding")$numeric
     if (length(subscripts) > 0)
     {
         x <- x[subscripts]
@@ -59,11 +60,10 @@ prepanel.default.levelplot <-
                           uy[ulen] + diffs[2] / 2)
             }
         }
-        list(xlim =
-             if (is.numeric(x)) extend.limits(xlim, prop = -0.0614) ## these get extended back later
-             else levels(x),
+        list(xlim = if (is.numeric(x)) extend.limits(xlim, prop = -pad/(1 + 2*pad)) 
+             else levels(x),               ##   ^^ these get extended back later
 
-             ylim = if (is.numeric(y)) extend.limits(ylim, prop = -0.0614)
+             ylim = if (is.numeric(y)) extend.limits(ylim, prop = -pad/(1 + 2*pad))
              else levels(y),
 
              dx = if (is.numeric(x)) length(ux) else 1,
