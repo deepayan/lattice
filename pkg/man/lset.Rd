@@ -41,8 +41,8 @@ col.whitebg()
 
 \seealso{
 
-  \code{\link{lattice.theme}}, \code{\link{trellis.device}},
-  \code{\link{show.settings}}, \code{\link{Lattice}}
+  \code{\link{trellis.device}}, \code{\link{show.settings}},
+  \code{\link{Lattice}}
 
 }
 
