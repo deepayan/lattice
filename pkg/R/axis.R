@@ -79,7 +79,7 @@ formattedTicksAndLabels <- function(x, ...)
 
 
 formattedTicksAndLabels.default <-
-    function (x, at = FALSE, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 
     ## meant for when x is numeric
@@ -128,7 +128,7 @@ formattedTicksAndLabels.default <-
 
 
 formattedTicksAndLabels.date <-
-    function (x, at = FALSE, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
     ## handle log scales (not very meaningful, though)
@@ -170,13 +170,16 @@ formattedTicksAndLabels.date <-
 
 
 formattedTicksAndLabels.character <-
-    function (x, at = FALSE, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
-    ans <- list(at = if (is.logical(at)) seq(along = x) else at,
-                labels = if (is.logical(labels)) x else labels,
+    retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
+    ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
+                labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
-    ans$num.limit <- c(0, length(ans$at) + 1)
+    ans$num.limit <-
+        if (is.null(used.at) || any(is.na(used.at))) c(0, length(ans$at) + 1)
+        else range(used.at) + c(-1, 1)
     ans
 }
 
@@ -186,13 +189,16 @@ formattedTicksAndLabels.character <-
 
 
 formattedTicksAndLabels.expression <-
-    function (x, at = FALSE, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
-    ans <- list(at = if (is.logical(at)) seq(along = x) else at,
-                labels = if (is.logical(labels)) x else labels,
+    retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
+    ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
+                labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
-    ans$num.limit <- c(0, length(ans$at) + 1)
+    ans$num.limit <-
+        if (is.null(used.at) || any(is.na(used.at))) c(0, length(ans$at) + 1)
+        else range(used.at) + c(-1, 1)
     ans
 }
 
@@ -201,7 +207,7 @@ formattedTicksAndLabels.expression <-
 
 
 formattedTicksAndLabels.POSIXct <-
-    function (x, at = FALSE, labels = FALSE, logsc = FALSE, 
+    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE, 
               abbreviate = NULL, minlength = 4,
               format.posixt = NULL, ...) 
 {
