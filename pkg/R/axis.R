@@ -55,7 +55,6 @@ calculateAxisComponents <- function(x, ..., abbreviate = NULL, minlength = 4)
     ans <- formattedTicksAndLabels(x, ...)
 
     ## remove labels outside limits
-
     rng <- range(ans$num.limit)
     ok <- ans$at >= rng[1] & ans$at <= rng[2]
     ans$at <- ans$at[ok]
@@ -78,7 +77,8 @@ formattedTicksAndLabels <- function(x, ...)
 
 
 formattedTicksAndLabels.default <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
+              labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 
     ## meant for when x is numeric
@@ -115,7 +115,7 @@ formattedTicksAndLabels.default <-
     list(at = at, labels = if (is.logical(labels))
          paste(logpaste, format(at, trim = TRUE), sep = "") else labels,
          check.overlap = check.overlap,
-         num.limit = if (length(x) == 2) x else range(x))
+         num.limit = if (length(x) == 2) as.numeric(x) else range(as.numeric(x)))
 }
 
 
@@ -127,7 +127,8 @@ formattedTicksAndLabels.default <-
 
 
 formattedTicksAndLabels.date <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
+              labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
     ## handle log scales (not very meaningful, though)
@@ -188,7 +189,8 @@ formattedTicksAndLabels.character <-
 
 
 formattedTicksAndLabels.expression <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
+              labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
@@ -206,7 +208,8 @@ formattedTicksAndLabels.expression <-
 
 
 formattedTicksAndLabels.POSIXct <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE, 
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
+              labels = FALSE, logsc = FALSE, 
               abbreviate = NULL, minlength = 4,
               format.posixt = NULL, ...) 
 {
@@ -288,6 +291,78 @@ formattedTicksAndLabels.POSIXct <-
          check.overlap = FALSE,
          num.limit = num.lim)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## chron 'times' objects
+
+
+
+
+formattedTicksAndLabels.times <-
+    function (x, at = FALSE, used.at = NULL,
+              num.limit = NULL, labels = FALSE, logsc = FALSE, 
+              abbreviate = NULL, minlength = 4, simplify = TRUE, 
+              ...) 
+{
+    ## most arguments ignored for now
+
+    check.overlap <-
+        if (is.logical(at) && is.logical(labels)) TRUE
+        else FALSE
+
+    if (!inherits(x, "times")) 
+        x <- chron(x)
+    bad <- is.na(x) | abs(as.vector(x)) == Inf
+    ## rng <- extend.limits(range(as.numeric(x[!bad])))
+    rng <- range(as.numeric(x[!bad]))
+    tmp <- pretty(rng)
+    att <- attributes(x)
+    at <-
+        structure(tmp, # [tmp >= rng[1] & tmp <= rng[2]],
+                  format = att$format, 
+                  origin = att$origin,
+                  class = att$class)
+    if (inherits(at, "chron")) 
+        class(at) <- class(at)[-1]
+    if (is.logical(labels)) ## labels unspecified
+    {
+        if (!inherits(x, "dates"))
+        {
+            at[c(1, length(at))] <- range(x)
+            if (max(at) == 1) 
+                labels <- format(at - trunc(at), simplify = simplify)
+            else labels <- format(at, simplify = simplify)
+        }
+        else labels <- format(at, simplify = simplify)
+    }
+    ##invisible(list(n = n, at = at, labels = labels))
+
+    list(at = as.numeric(at), labels = labels, 
+         check.overlap = check.overlap,
+         num.limit = if (length(x) == 2) as.numeric(x) else rng)
+}
+
+
+
+
+
+
+
+
 
 
 
