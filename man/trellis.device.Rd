@@ -11,7 +11,7 @@
 \usage{
 trellis.device(device = getOption("device"),
                color = !(dev.name == "postscript"),
-               theme = getOption("lattice.theme"),
+               theme = lattice.getOption("default.theme"),
                new = TRUE,
                retain = FALSE,
                ...)

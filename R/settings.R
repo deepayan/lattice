@@ -280,7 +280,7 @@ trellis.par.set <-
 trellis.device <-
     function(device = getOption("device"),
              color = !(dev.name == "postscript"),
-             theme = getOption("lattice.theme"),
+             theme = lattice.getOption("default.theme"),
 ##             bg = NULL,
              new = TRUE,
              retain = FALSE,
@@ -683,6 +683,7 @@ lattice.options <- function(...)
 .defaultLatticeOptions <- function()
     list(save.object = TRUE,
          drop.unused.levels = list(cond = TRUE, data = TRUE),
+         default.theme = getOption("lattice.theme"), ## for back compatibility, usually NULL
          axis.units =
          list(outer =
               list(left =
