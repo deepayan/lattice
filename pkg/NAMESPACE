@@ -31,10 +31,10 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
 
        ltransform3dMatrix, ltransform3dto3d,
 
-       oneway, panel.3dscatter, panel.3dwire,
-       panel.abline, panel.barchart, panel.bwplot, panel.cloud,
-       panel.curve, panel.densityplot, panel.dotplot, panel.fill,
-       panel.grid, panel.histogram, panel.levelplot, panel.linejoin,
+       oneway, panel.3dscatter, panel.3dwire, panel.abline,
+       panel.barchart, panel.bwplot, panel.cloud, panel.curve,
+       panel.densityplot, panel.dotplot, panel.fill, panel.grid,
+       panel.rug, panel.histogram, panel.levelplot, panel.linejoin,
        panel.lmline, panel.loess, panel.mathdensity, panel.pairs,
        panel.parallel, panel.qq, panel.qqmath, panel.qqmathline,
        panel.splom, panel.stripplot, panel.superpose, panel.axis,
@@ -43,6 +43,9 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        qq, qqmath, rfs, shingle, show.settings, simpleKey, splom,
        strip.default, stripplot, tmd, trellis.device, trellis.par.get,
        trellis.par.set, wireframe, xyplot)
+
+
+## other things to export eventually: reorder.factor, panel.identify
 
 
 S3method("[", shingle)
@@ -54,3 +57,7 @@ S3method(print, trellis)
 S3method(summary, shingle)
 S3method(update, trellis)
 
+
+### Local variables:
+### mode: R
+### End:
