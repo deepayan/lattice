@@ -90,6 +90,7 @@ panel.axis(side = c("bottom", "left", "top", "right"),
     supplied. See the formal argument list for valid names.
   }
 }
+
 \details{
   \code{panel.axis} can draw axis tick marks inside or outside a
   panel (more precisely, a grid viewport). It honours the (native) axis
