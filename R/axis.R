@@ -126,6 +126,7 @@ formattedTicksAndLabels.default <-
 
 
 
+
 formattedTicksAndLabels.date <-
     function (x, at = FALSE, used.at = NULL, num.limit = NULL,
               labels = FALSE, logsc = FALSE,
@@ -205,7 +206,10 @@ formattedTicksAndLabels.expression <-
 
 
 
+## FIXME: add a method for "Date" here (regurgitate axis.Date)
 
+## formattedTicksAndLabels.Date <-
+    
 
 formattedTicksAndLabels.POSIXct <-
     function (x, at = FALSE, used.at = NULL, num.limit = NULL,
@@ -427,18 +431,28 @@ panel.axis <-
             if (labels) format(at, trim = TRUE)
             else NULL
 
-    ## skip ticks outside axis limits
-    keep.at <- at >= scale.range[1] & at <= scale.range[2]
-    at <- at[keep.at]
-    labels <- labels[keep.at]
-
-    keep.labels <- TRUE
     if (check.overlap) ## remove ticks close to limits
     {
         pad <- lattice.getOption("skip.boundary.labels")
         scale.range <- extend.limits(scale.range, prop = -pad)
-        keep.labels <- at >= scale.range[1] & at <= scale.range[2]
     }
+
+    ## skip ticks outside (or close to) axis limits
+    keep.at <- at >= scale.range[1] & at <= scale.range[2]
+    at <- at[keep.at]
+    labels <- labels[keep.at]
+    keep.labels <- TRUE
+
+    ## could possibly treat ticks and labels separately, but that
+    ## wasn't liked much I'll still keep 'keep.labels' around for now,
+    ## but it's currently redundant
+
+    ## if (check.overlap)
+    ## {
+    ##     pad <- lattice.getOption("something else")
+    ##     scale.range <- extend.limits(scale.range, prop = -pad)
+    ##     keep.labels <- at >= scale.range[1] & at <= scale.range[2]
+    ## }
 
     nal <- length(at) / 2 + 0.5
     all.id <- seq(along = at)
@@ -480,31 +494,32 @@ panel.axis <-
         else unit(x = axis.settings$pad1 * axis.units$pad1$x, units = axis.units$pad1$units)
     orient.factor <- if (outside) -1 else 1
 
-    switch(side, 
-           bottom = 
-           grid.segments(x0 = unit(at[axid], "native"),
-                         x1 = unit(at[axid], "native"),
-                         y0 = unit(0, "npc"),
-                         y1 = orient.factor * tck.unit,
-                         gp = gp.line),
-           top = 
-           grid.segments(x0 = unit(at[axid], "native"),
-                         x1 = unit(at[axid], "native"),
-                         y0 = unit(1, "npc"),
-                         y1 = unit(1, "npc") - orient.factor * tck.unit,
-                         gp = gp.line),
-           left = 
-           grid.segments(y0 = unit(at[axid], "native"),
-                         y1 = unit(at[axid], "native"),
-                         x0 = unit(0, "npc"),
-                         x1 = orient.factor * tck.unit,
-                         gp = gp.line),
-           right =
-           grid.segments(y0 = unit(at[axid], "native"),
-                         y1 = unit(at[axid], "native"),
-                         x0 = unit(1, "npc"),
-                         x1 = unit(1, "npc") - orient.factor * tck.unit,
-                         gp = gp.line))
+    if (tck.unit.x != 0)
+        switch(side, 
+               bottom = 
+               grid.segments(x0 = unit(at[axid], "native"),
+                             x1 = unit(at[axid], "native"),
+                             y0 = unit(0, "npc"),
+                             y1 = orient.factor * tck.unit,
+                             gp = gp.line),
+               top = 
+               grid.segments(x0 = unit(at[axid], "native"),
+                             x1 = unit(at[axid], "native"),
+                             y0 = unit(1, "npc"),
+                             y1 = unit(1, "npc") - orient.factor * tck.unit,
+                             gp = gp.line),
+               left = 
+               grid.segments(y0 = unit(at[axid], "native"),
+                             y1 = unit(at[axid], "native"),
+                             x0 = unit(0, "npc"),
+                             x1 = orient.factor * tck.unit,
+                             gp = gp.line),
+               right =
+               grid.segments(y0 = unit(at[axid], "native"),
+                             y1 = unit(at[axid], "native"),
+                             x0 = unit(1, "npc"),
+                             x1 = unit(1, "npc") - orient.factor * tck.unit,
+                             gp = gp.line))
 
     if (draw.labels && !is.null(labels))
     {
