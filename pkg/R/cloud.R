@@ -92,10 +92,13 @@ ltransform3dto3d <- function(x, R.mat, dist = 0) {
 
 
 prepanel.default.cloud <-
-    function(distance = 0, xlim, ylim, zlim, zoom = 1,
-             rot.mat, aspect, ...)
+    function(perspective = TRUE,
+             distance = if (perspective) 0.2 else 0, 
+             xlim, ylim, zlim, zoom = 0.8,
+             screen = list(z = 40, x = -60),
+             R.mat = diag(4), aspect, ...)
 {
-
+    rot.mat <- ltransform3dMatrix(screen = screen, R.mat = R.mat)
     aspect <- rep(aspect, length=2)
     corners <-
         rbind(x = c(-1,1,1,-1,-1,1,1,-1),
@@ -589,12 +592,15 @@ panel.3dwire <-
 
 
 panel.cloud <-
-    function(x, y, z, subscripts,
+    function(x, y, subscripts, z,
              groups = NULL,
-             distance, xlim, ylim, zlim,
+             perspective = TRUE,
+             distance = if (perspective) 0.2 else 0, 
+             xlim, ylim, zlim,
              panel.3d.cloud = "panel.3dscatter",
              panel.3d.wireframe = "panel.3dwire",
-             rot.mat, aspect,
+             screen = list(z = 40, x = -60),
+             R.mat = diag(4), aspect,
              par.box = NULL,
 
              xlab, ylab, zlab,
@@ -605,8 +611,8 @@ panel.cloud <-
 
              ## The main problem with scales is that it is difficult
              ## to figure out the best way to place the scales.  They
-             ## be specified explicitly using scpos if default is not
-             ## OK
+             ## can be specified explicitly using scpos if default is
+             ## not OK
 
              scpos,
              ...,
@@ -618,6 +624,9 @@ panel.cloud <-
     mode(x) <- "numeric"
     mode(y) <- "numeric"
     mode(z) <- "numeric"
+
+    ## calculate rotation matrix:
+    rot.mat <- ltransform3dMatrix(screen = screen, R.mat = R.mat)
 
 
 
@@ -1369,7 +1378,8 @@ wireframe <-
 
 
 
-
+## FIXME: need settings for wireframe line colors (wires), cloud
+## points/cross lines (cloud.3d),
 
 
 
@@ -1393,14 +1403,17 @@ cloud <-
              ylim = if (is.factor(y)) levels(y) else range(y, na.rm = TRUE),
              zlab,
              zlim = if (is.factor(z)) levels(z) else range(z, na.rm = TRUE),
-             distance = .2,
-             perspective = TRUE,
-             R.mat = diag(4),
-             screen = list(z = 40, x = -60),
-             zoom = .8,
+
+#             distance = .2,
+#             perspective = TRUE,
+#             R.mat = diag(4),
+#             screen = list(z = 40, x = -60),
+             zoom = 0.8,
              at,
-             pretty = FALSE,
              drape = FALSE,
+
+
+             pretty = FALSE,
              drop.unused.levels = TRUE,
              ...,
              colorkey = any(drape),
@@ -1628,11 +1641,6 @@ cloud <-
     ## Step 6: Evaluate layout, panel.args.common and panel.args
 
 
-    ## calculate rotation matrix:
-
-
-    rot.mat <- ltransform3dMatrix(screen = screen, R.mat = R.mat)
-
     if (!drape) col.regions <- trellis.par.get("background")$col
 
     ## region
@@ -1675,14 +1683,20 @@ cloud <-
 
 
     foo$panel.args.common <-
-        c(list(x = x, y = y, z = z, rot.mat = rot.mat, zoom = zoom,
+        c(list(x = x, y = y, z = z,
+
+               ##rot.mat = rot.mat,
+               zoom = zoom,
+
                xlim = xlim, ylim = ylim, zlim = zlim,
                xlab = xlab, ylab = ylab, zlab = zlab,
                xlab.default = form$right.x.name,
                ylab.default = form$right.y.name,
                zlab.default = form$left.name,
                aspect = aspect,
-               distance = if (perspective) distance else 0,
+
+               ##distance = if (perspective) distance else 0,
+
                scales.3d = scales.3d,
                col.at = at, col.regions = col.regions),
           dots)
