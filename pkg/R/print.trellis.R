@@ -116,7 +116,7 @@ print.trellis <-
              panel.height = lattice.getOption("layout.heights")$panel,
              panel.width = lattice.getOption("layout.widths")$panel,
              save.object = lattice.getOption("save.object"),
-             vp.prefix,
+             prefix,
              ...)
 {
     if (is.null(dev.list())) trellis.device()
@@ -143,10 +143,10 @@ print.trellis <-
     ## this means this plot will be the first one on a new page
     if (new) lattice.setStatus(plot.index = 1)
 
-    ## get default vp.prefix
-    if (missing(vp.prefix))
-        vp.prefix <- as.character(lattice.getStatus("plot.index"))
-    lattice.setStatus(current.prefix = vp.prefix)
+    ## get default prefix
+    if (missing(prefix))
+        prefix <- paste("plot", lattice.getStatus("plot.index"), sep = "")
+    lattice.setStatus(current.prefix = prefix)
     lattice.setStatus(plot.index = 1 + lattice.getStatus("plot.index"))
 
     fontsize.text <- trellis.par.get("fontsize")$text

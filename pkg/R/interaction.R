@@ -93,7 +93,6 @@ panel.identify <-
 
 
 
-
 trellis.vpname <-
     function(name =
              c("position", "split", "split.location", "toplevel",
@@ -132,6 +131,7 @@ trellis.vpname <-
                  legend = paste("legend", side, "vp", sep = ".")),
           sep = ".")
 }
+
 
 
 trellis.grobname <-

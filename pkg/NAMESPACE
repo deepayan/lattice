@@ -47,7 +47,7 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        do.breaks,
        lattice.getOption, lattice.options,
        trellis.focus, trellis.unfocus, trellis.switchFocus,
-       trellis.panelArgs, trellis.vpname,
+       trellis.panelArgs, trellis.vpname, trellis.grobname,
 
        panel.arrows, panel.segments, panel.lines, panel.points,
        panel.text,

@@ -7,6 +7,7 @@
      panel.height = lattice.getOption("layout.heights")$panel,
      panel.width = lattice.getOption("layout.widths")$panel,
      save.object = lattice.getOption("save.object"),
+     prefix,
      \dots)
 }
 \description{
@@ -32,13 +33,14 @@
     including lattice plots in an arbitrary grid viewport (see the
     details section).
   }
-  \item{panel.width, panel.height}{ lists with 2 components, that should
-    be valid \code{x} and \code{units} arguments to \code{unit()} (the
-    \code{data} argument cannot be specified currently, but can be
-    considered for addition if needed). The resulting \code{unit} object
-    will be the width/height of each panel in the Lattice plot. These
-    arguments can be used to explicitly control the dimensions of the
-    panel, rather than letting them expand to maximize available space.
+  \item{panel.width, panel.height}{
+    lists with 2 components, that should be valid \code{x} and
+    \code{units} arguments to \code{unit()} (the \code{data} argument
+    cannot be specified currently, but can be considered for addition if
+    needed).  The resulting \code{unit} object will be the width/height
+    of each panel in the Lattice plot. These arguments can be used to
+    explicitly control the dimensions of the panel, rather than letting
+    them expand to maximize available space.
 
     Note that this option should not be used in conjunction with
     non-default values of the \code{aspect} argument in the original
@@ -52,16 +54,25 @@
     panel's data after the plot is done, making it possible to enhance
     the plot after the fact.  This also allows the user to invoke the
     \code{update} method on the current plot, even if it was not
-    assigned to a variable explicitly.
-
-    Note that there is no actual public API yet to do these things.
+    assigned to a variable explicitly.  For more details, see
+    \code{link{trellis.focus}}.
+  }
+  \item{prefix}{
+    character string used as a prefix in viewport and grob names, used
+    to distinguish similar viewports if a page contains multiple plots. 
+    The default is based on the serial number of the current plot on the
+    current page (which is one more than the number of plots that have
+    been drawn on the page before the current plot).  If supplied
+    explicitly, this has to be a valid R symbol name (briefly, it must
+    start with a letter or a period followed by a letter) and must not
+    contain the grid path separator (currently ``::'').
   }
   \item{\dots}{extra arguments, ignored}
 }
 \details{
   This is the default print method for objects of class
-  \code{"trellis"}, produced by calls to functions like \code{xyplot,
-    bwplot} etc. It is usually called automatically when a trellis
+  \code{"trellis"}, produced by calls to functions like \code{xyplot},
+  \code{bwplot} etc. It is usually called automatically when a trellis
   object is produced. It can also be called explicitly to control plot
   positioning by means of the arguments \code{split} and
   \code{position}.
@@ -77,17 +88,9 @@
 
   Unlike in older versions of Lattice (and Grid), the grid display tree
   is retained after the plot is produced, making it possible to access
-  individual viewport locations and make additions to the plot. The full
-  tree can be viewed using the grid function
-  \code{\link[grid:current.viewport]{current.vpTree}}, and individual
-  viewports can be `seeked' using
-  \code{\link[grid:viewports]{seekViewport}}.  The viewports that
-  correspond to panels (which is what the user would be interested in)
-  have names of the form \code{panel.n}, where \code{n} is a simple
-  incremental counter for the panels. These names can be used in
-  \code{seekViewport}. For multi-page displays, only the viewports for
-  the last page are available.  This functionality is still very new,
-  and details may change in the future.
+  individual viewport locations and make additions to the plot.  For
+  more details and a lattice level interface to these viewports, see
+  \code{link{trellis.focus}}.
 
 }
 
@@ -96,9 +99,12 @@
 }
 
 \seealso{
-  \code{\link{Lattice}}, \code{\link[grid:unit]{unit}}
+  \code{\link{Lattice}}, \code{\link[grid:unit]{unit}},
+  \code{link{trellis.focus}}
 }
+
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+
 \examples{
 
 p11 <- histogram( ~ height | voice.part, data = singer, xlab="Height")
