@@ -444,7 +444,7 @@ show.settings <- function(x = NULL)
                           yscale = c(0,len+1),
                           xscale = c(0,1)))
     for (i in 1:len) {
-        grid.rect(y = unit(i, "native"), h = unit(.5, "native"),
+        grid.rect(y = unit(i, "native"), height = unit(.5, "native"),
                   gp = gpar(fill = strip.background$col[i]))
     }
     popViewport()
@@ -459,7 +459,7 @@ show.settings <- function(x = NULL)
                           yscale = c(0,len+1),
                           xscale = c(0,1)))
     for (i in 1:len) {
-        grid.rect(y = unit(i, "native"), h = unit(.5, "native"),
+        grid.rect(y = unit(i, "native"), height = unit(.5, "native"),
                   gp = gpar(fill = strip.shingle$col[i]))
     }
     popViewport()
@@ -540,7 +540,7 @@ show.settings <- function(x = NULL)
                           yscale = extend.limits(c(0,6)),
                           xscale = extend.limits(c(1,10))))
     grid.rect(x = c(3.5, 4.5, 5.5, 6.5, 7.5), w = rep(5,5),
-              y = c(1,2,3,4,5), h = rep(.5, ,5),
+              y = c(1,2,3,4,5), height = rep(.5, ,5),
               default.units = "native",
               gp =
               gpar(fill = bar.fill$col,
@@ -750,7 +750,11 @@ lattice.options <- function(...)
          list(left.padding = list(x = 2, units = "mm", data = NULL),
               key.left = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
               key.ylab.padding = list(x = 2, units = "mm", data = NULL),
-              ylab = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+
+              ## changed in 2.1.0
+              ylab = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+
+
               ylab.axis.padding = list(x = 2, units = "mm", data = NULL),
               axis.left = list(x = 0, units = "mm", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),

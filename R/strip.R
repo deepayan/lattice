@@ -54,7 +54,7 @@ strip.default <-
              par.strip.text = trellis.par.get("add.text"))
 {
     pushViewport(viewport(y = (which.given-0.5)/length(which.panel),
-                          h = 1/length(which.panel),
+                          height = 1/length(which.panel),
                           name = paste("strip.default", which.given, sep = ".")))
     name <- var.name[which.given]
     level <- which.panel[which.given]
