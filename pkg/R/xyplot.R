@@ -96,7 +96,7 @@ panel.xyplot <-
 
 
     if ("g" %in% type)
-        panel.grid()
+        panel.grid(h = -1, v = -1)
 
     if ("p" %in% type)
         lpoints(x = x, y = y, cex = cex, font = font,
