@@ -73,7 +73,8 @@ getLabelList <- function(label, text.settings, default.label = NULL)
         if (is.list(label)) ans[names(label)] <- label
     }
     else ans <- NULL
-    if (is.null(ans$lab) || ans$lab == "") ans <- NULL
+    if (is.null(ans$lab) ||
+        (is.character(ans) && ans$lab == "")) ans <- NULL
     ans
 }
 
@@ -362,7 +363,10 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
         heights.units <- rep("lines", n.row)
         heights.data <- as.list(1:n.row)
 
-        if (key$title != "" && is.characterOrExpression(key$title)) {
+        if (length(key$title) > 0)
+        {
+            stopifnot(length(key$title) == 1,
+                      is.characterOrExpression(key$title))
             heights.x[1] <- 1.2 * key$cex.title
             heights.units[1] <- "strheight"
             heights.data[[1]] <- key$title
