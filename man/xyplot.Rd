@@ -886,7 +886,6 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
 
 ## user defined panel functions
 
-data(state)
 states <- data.frame(state.x77,
                      state.name = dimnames(state.x77)[[1]], 
                      state.region = state.region) 

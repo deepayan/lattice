@@ -84,7 +84,6 @@ qqmath(formula, distribution = qnorm, f.value = NULL, \dots)
 }
 \examples{
 qqmath(~ rnorm(100), distribution = function(p) qt(p, df = 10))
-data(singer)
 qqmath(~ height | voice.part, aspect = 1, data = singer,
        prepanel = prepanel.qqmathline,
        panel = function(x, y) {

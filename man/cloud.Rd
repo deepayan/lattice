@@ -243,7 +243,7 @@ wireframe(formula, data,
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \examples{
-data(volcano)  ## 87 x 61 matrix
+## volcano  ## 87 x 61 matrix
 wireframe(volcano, shade = TRUE,
           aspect = c(61/87, 0.4),
           light.source = c(10,0,10))

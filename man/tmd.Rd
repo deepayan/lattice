@@ -45,7 +45,6 @@ tmd(object,
   \code{\link{Lattice}}
 }
 \examples{
-data(singer)
 tmd(qqmath(~height|voice.part, data = singer))
 }
 \keyword{dplot}

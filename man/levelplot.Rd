@@ -179,7 +179,6 @@ levelplot(z~x*y, grid, cuts = 50, scales=list(log="e"), xlab="",
 
 #S-PLUS example
 require(stats)
-data(environmental)
 attach(environmental)
 ozo.m <- loess((ozone^(1/3)) ~ wind * temperature * radiation,
        parametric = c("radiation", "wind"), span = 1, degree = 2)

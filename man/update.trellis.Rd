@@ -87,7 +87,6 @@ trellis.last.object()
 }
 
 \examples{
-data(sunspots)
 spots <- by(sunspots, gl(235, 12, lab = 1749:1983), mean)
 old.options <- lattice.options(save.object = TRUE)
 xyplot(spots ~ 1749:1983, xlab = "", type = "l",

@@ -61,7 +61,6 @@ qq(formula, f.value = NULL, ...)
 }
 
 \examples{
-data(singer)
 qq(voice.part ~ height, aspect = 1, data = singer,
    subset = (voice.part == "Bass 2" | voice.part == "Tenor 1"))
 }

@@ -31,7 +31,6 @@ rfs(model, layout=c(2, 1), xlab="f-value", distribution = qunif,...)
   \code{\link{xyplot}}, \code{\link{Lattice}}
 }
 \examples{
-data(singer)
 rfs(oneway(height ~ voice.part, data = singer, spread = 1), aspect = 1)
 }
 \keyword{dplot}
