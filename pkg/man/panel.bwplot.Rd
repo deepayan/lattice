@@ -6,15 +6,19 @@
 }
 \synopsis{
 panel.bwplot(x, y, box.ratio=1, horizontal = TRUE, pch=box.dot$pch,
-             col=box.dot$col, cex = box.dot$cex,
-             font = box.dot$font, fontfamily = box.dot$fontfamily,
-             fontface = box.dot$fontface,
+             col = box.dot$col, cex = box.dot$cex,
+             font = box.dot$font,
+             fontfamily = box.dot$fontfamily,
+             fontface = box.dot$fontface, 
              fill = box.rectangle$fill, varwidth = FALSE,
-             levels.fos = NULL, coef = 1.5, ...)
+             levels.fos = if (horizontal) unique(y) else unique(x),
+             coef = 1.5, ...)
 }
 \usage{
-panel.bwplot(x, y, box.ratio = 1, horizontal, pch, col, cex,
-            fill = "transparent", varwidth = FALSE, coef = 1.5, ...)
+panel.bwplot(x, y,
+             box.ratio = 1, horizontal,
+             pch, col, cex, fill = "transparent",
+             varwidth = FALSE, coef = 1.5, ...)
 }
 \arguments{
   \item{x, y}{ numeric vector or factor. Boxplots drawn for each unique value of
@@ -31,7 +35,9 @@ panel.bwplot(x, y, box.ratio = 1, horizontal, pch, col, cex,
   \item{varwidth}{ logical. If TRUE, widths of boxplots are proportional
     to the number of points used in creating it.}
   \item{coef}{ passed to \code{boxplot.stats}}
-  \item{\dots}{ graphical parameters can be supplied}
+  \item{\dots}{
+    more graphical parameters controlling the display can be supplied
+  }
 }
 \details{
   Creates Box and Whisker plot of \code{x} for every level of

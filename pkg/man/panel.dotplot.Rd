@@ -6,8 +6,9 @@
 }
 \usage{
 panel.dotplot(x, y, horizontal = TRUE,
-              pch, col, lty, lwd, col.line,
-              levels.fos = NULL, groups = NULL,
+              pch, col, lty, lwd, 
+              col.line, levels.fos,
+              groups = NULL,
               \dots)
 }
 \arguments{
@@ -20,15 +21,17 @@ panel.dotplot(x, y, horizontal = TRUE,
     explanation.
   }
   \item{pch, col, lty, lwd, col.line}{ graphical parameters}
-  \item{levels.fos}{ number of levels of \code{y}}
+  \item{levels.fos}{ locations where reference lines will be drawn }
   \item{groups}{ grouping variable (affects graphical parameters)}
-  \item{\dots}{ extra parameters, passed to \code{panel.xyplot} which is
-    responsible for drawing the foreground points (\code{panel.dotplot}
-    only draws the background reference lines).
+  \item{\dots}{
+    extra parameters, passed to \code{panel.xyplot} which is responsible
+    for drawing the foreground points (\code{panel.dotplot} only draws
+    the background reference lines).
   }
 }
-\details{ Creates (possibly grouped) Dotplot of \code{x} against
-  \code{y}
+\details{
+  Creates (possibly grouped) Dotplot of \code{x} against \code{y} or
+  vice versa
 }
 \seealso{\code{\link{dotplot}}}
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
