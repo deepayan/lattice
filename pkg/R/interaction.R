@@ -54,6 +54,8 @@ panel.identify <-
     {
         x <- panel.args$x
         y <- panel.args$y
+        if (missing(labels) && !is.null(panel.args$subscripts))
+            labels <- panel.args$subscripts
     }
     xy <- xy.coords(x, y)
     x <- xy$x
