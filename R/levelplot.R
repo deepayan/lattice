@@ -127,13 +127,13 @@ panel.contourplot <- function(...) panel.levelplot(...)
 ## matrix entries as well
 
 panel.levelplot <-
-    function(x, y, z, zcol,
+    function(x, y, z, 
              subscripts,
-             at = mean(z),
+             at = pretty(z),
              shrink,
              labels = NULL,
              label.style = c("mixed", "flat", "align"),
-             contour = TRUE,
+             contour = FALSE,
              region = TRUE,
              col = add.line$col,
              lty = add.line$lty,
@@ -144,8 +144,20 @@ panel.levelplot <-
              fontface = add.text$fontface,
              col.text = add.text$col,
              ...,
-             col.regions)
+             col.regions = regions$col,
+             alpha.regions = regions$alpha)
 {
+    regions <- trellis.par.get("regions")
+    numcol <- length(at) - 1
+    numcol.r <- length(col.regions)
+    col.regions <-
+        if (numcol.r <= numcol)
+            rep(col.regions, length = numcol)
+        else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
+    zcol <- rep(NA, length(z)) #numeric(length(z))
+    for (i in seq(along = col.regions))
+        zcol[!is.na(x) & !is.na(y) & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
+
     label.style <- match.arg(label.style)
     x <- as.numeric(x[subscripts])
     y <- as.numeric(y[subscripts])
@@ -219,11 +231,27 @@ panel.levelplot <-
                       width = lx[idx] * scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
                       height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
                       default.units = "native",
-                      gp = gpar(fill=col.regions[zcol], col = NULL))
+                      gp = gpar(fill=col.regions[zcol], col = NULL, alpha = alpha.regions))
 
         
         if (contour)
         {
+            ## Processing the labels argument
+            if (is.logical(labels) && !labels) labels <- NULL
+            else
+            {
+                if (is.logical(labels)) labels <- format(at, trim = TRUE)
+                text <- trellis.par.get("add.text") # something better ?
+                tmp <- list(label = if (is.list(labels)) labels[[1]] else labels,
+                            col = text$col, rot = text$rot,
+                            cex = text$cex,
+                            fontfamily = text$fontfamily,
+                            fontface = text$fontface,
+                            font = text$font)
+                labels <- updateList(tmp, if (is.list(labels)) labels else list())
+                if (!is.characterOrExpression(labels$label))
+                    labels$label <- format(at)
+            }
 
             add.line <- trellis.par.get("add.line")
             add.text <- trellis.par.get("add.text")
@@ -396,17 +424,18 @@ levelplot <-
              xlim,
              ylab,
              ylim,
+
+             ## at, region etc should be ideally in panel.levelplot only, but is needed for colorkey
              at,
-             contour = FALSE,
              cuts = 15,
-             labels = FALSE,
              pretty = FALSE,
              region = TRUE,
              drop.unused.levels = TRUE,
              ...,
              default.scales = list(),
              colorkey = region,
-             col.regions = trellis.par.get("regions")$col,
+             col.regions,
+             alpha.regions,
              subset = TRUE)
 {
 
@@ -452,12 +481,12 @@ levelplot <-
         }
 
 
-    ## We need to be careful with subscripts here. It HAS to be there,
-    ## and it's to be used to index x, y, z (and not only groups,
-    ## unlike in xyplot etc). This means we have to subset groups as
-    ## well, which is about the only use for the subscripts calculated
-    ## in latticeParseFormula, after which subscripts is regenerated
-    ## as a straight sequence indexing the variables
+    ## We need to be careful with 'subscripts' here. It HAS to be
+    ## there, and it's to be used to index x, y, z (and not only
+    ## groups, unlike in xyplot etc). This means we have to subset
+    ## groups as well, which is about the only use for the subscripts
+    ## calculated in latticeParseFormula, after which subscripts is
+    ## regenerated as a straight sequence indexing the variables
 
     if (!is.null(form$groups))
         groups <-
@@ -509,23 +538,6 @@ levelplot <-
                           xlab.default = form$right.x.name,
                           ylab.default = form$right.y.name), dots))
 
-    ## Processing the labels argument
-    if (is.logical(labels) && !labels) labels <- NULL
-    else
-    {
-        if (is.logical(labels)) labels <- format(at, trim = TRUE)
-        text <- trellis.par.get("add.text") # something better ?
-        labels <- list(label = if (is.list(labels)) labels[[1]] else labels,
-                       col = text$col, rot = text$rot,
-                       cex = text$cex,
-                       fontfamily = text$fontfamily,
-                       fontface = text$fontface,
-                       font = text$font)
-        if (is.list(labels)) labels[names(labels)] <- labels
-        if (!is.characterOrExpression(labels$label))
-            labels$label <- format(at)
-    }
-
     
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
@@ -543,12 +555,14 @@ levelplot <-
     ## Step 3: Decide if limits were specified in call:
 
     have.xlim <- !missing(xlim)
-    if (!is.null(foo$x.scales$limit)) {
+    if (!is.null(foo$x.scales$limit))
+    {
         have.xlim <- TRUE
         xlim <- foo$x.scales$limit
     }
     have.ylim <- !missing(ylim)
-    if (!is.null(foo$y.scales$limit)) {
+    if (!is.null(foo$y.scales$limit))
+    {
         have.ylim <- TRUE
         ylim <- foo$y.scales$limit
     }
@@ -593,44 +607,91 @@ levelplot <-
     ## Most levelplot/contourplot specific code here
 
 
-    ## region
-    numcol <- length(at)-1
-    numcol.r <- length(col.regions)
 
-    col.regions <-
-        if (numcol.r <= numcol)
-            rep(col.regions, length = numcol)
-        else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
 
     if (is.logical(colorkey))
     {
-        if (colorkey) colorkey <-
-            list(space = "right", col = col.regions,
-                 at = at, tick.number = 7)
+        if (colorkey)
+        {
+            colorkey <- list(at = at, space = "right")
+            if (!missing(col.regions)) colorkey$col <- col.regions
+            if (!missing(alpha.regions)) colorkey$alpha <- alpha.regions
+        }
         else colorkey <- NULL
     }
     else if (is.list(colorkey))
     {
-        #foo$colorkey <- colorkey
-        if (is.null(colorkey$col)) colorkey$col <- col.regions
-        if (is.null(colorkey$at)) colorkey$at <- at
-        if (is.null(colorkey$space)) colorkey$space <-
-            if (any(c("x", "y", "corner") %in% names(colorkey))) "inside" else "right"
+        tmp <- ## FIXME: does the inside thing work? probably not 
+            list(space = if (any(c("x", "y", "corner") %in% names(colorkey))) "inside" else "right",
+                 at = at)
+        if (!missing(col.regions)) tmp$col <- col.regions
+        if (!missing(alpha.regions)) tmp$alpha <- alpha.regions
+        colorkey <- updateList(tmp, colorkey)
     }
     foo$legend <-
         construct.legend(foo$legend,
                          colorkey,
                          fun = "draw.colorkey")
 
-    zcol <- rep(NA, length(z)) #numeric(length(z))
-    for (i in seq(along=col.regions))
-        zcol[!id.na & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
-
     foo$panel.args.common <-
-        c(list(x=x, y=y, z=z, at=at, labels=labels,
-               region = region, contour = contour,
-               zcol=zcol, col.regions=col.regions),
-          dots)
+        c(list(x = x, y = y, z = z, at = at,
+               region = region), dots)
+    if (!missing(col.regions)) foo$panel.args.common$col.regions <- col.regions
+    if (!missing(alpha.regions)) foo$panel.args.common$alpha.regions <- alpha.regions
+
+
+
+
+
+
+
+
+
+# ############### premature calculation of col.regions
+#     ## region
+#     numcol <- length(at)-1
+#     numcol.r <- length(col.regions)
+
+#     col.regions <-
+#         if (numcol.r <= numcol)
+#             rep(col.regions, length = numcol)
+#         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
+
+#     if (is.logical(colorkey))
+#     {
+#         if (colorkey) colorkey <-
+#             list(space = "right", col = col.regions,
+#                  at = at, tick.number = 7)
+#         else colorkey <- NULL
+#     }
+#     else if (is.list(colorkey))
+#     {
+#         #foo$colorkey <- colorkey
+#         if (is.null(colorkey$col)) colorkey$col <- col.regions
+#         if (is.null(colorkey$at)) colorkey$at <- at
+#         if (is.null(colorkey$space)) colorkey$space <-
+#             if (any(c("x", "y", "corner") %in% names(colorkey))) "inside" else "right"
+#     }
+#     foo$legend <-
+#         construct.legend(foo$legend,
+#                          colorkey,
+#                          fun = "draw.colorkey")
+
+#     zcol <- rep(NA, length(z)) #numeric(length(z))
+#     for (i in seq(along=col.regions))
+#         zcol[!id.na & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
+
+#     foo$panel.args.common <-
+#         c(list(x=x, y=y, z=z, at=at,
+#                labels=labels,
+#                region = region, contour = contour,
+#                zcol=zcol,
+#                col.regions=col.regions),
+#           dots)
+# ##############################
+
+
+
 
     if (!is.null(groups)) foo$panel.args.common$groups <- groups
 
