@@ -104,7 +104,7 @@ update.trellis <-
     nm <- names(upcall)
     if (!is.null(nm))
     {
-        nm <- nm[nm != ""]
+        nm <- nm[nm != "" & nm != "object"]
         object$call[nm] <- upcall[nm]
     }
 
