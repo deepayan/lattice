@@ -7,7 +7,7 @@ opar <- par(ask = TRUE)
 old.settings <- trellis.par.get()
 
 ## changing settings to new 'theme'
-lset(theme = col.whitebg())
+trellis.par.set(theme = col.whitebg())
 
 ## simulated example, histogram and kernel density estimate superposed
 x <- rnorm(500)
@@ -48,9 +48,9 @@ xyplot(Murder ~ Population | state.region, data = states,
        main = list("Murder Rates in US states", col = "brown", font = 4))
 
 ##graphical parameters for xlab etc can also be changed permanently
-lset(list(par.xlab.text = list(font = 2),
-          par.ylab.text = list(font = 2),
-          par.main.text = list(font = 4, col = "brown")))
+trellis.par.set(list(par.xlab.text = list(font = 2),
+                     par.ylab.text = list(font = 2),
+                     par.main.text = list(font = 4, col = "brown")))
 
 ## Same with some multiple line text
 levels(states$state.region) <-
@@ -66,9 +66,9 @@ xyplot(Murder  ~ Population | state.region, data = states,
        main = "Murder Rates in US states")
 
 ##setting these back to their defaults
-lset(list(par.xlab.text = list(font = 1),
-          par.ylab.text = list(font = 1),
-          par.main.text = list(font = 2, col = "black")))
+trellis.par.set(list(par.xlab.text = list(font = 1),
+                     par.ylab.text = list(font = 1),
+                     par.main.text = list(font = 2, col = "black")))
 
 
 ##levelplot
@@ -144,8 +144,26 @@ xyplot(y~x | a, aspect = "fill",
        sub=expression(frac(demonstrating, expressions)))
 
 
+require(grid)
 
-lset(theme = old.settings)
+qq(gl(2, 100) ~ c(runif(100, min = -2, max = 2), rnorm(100)),
+   xlab =
+   textGrob(rep("Uniform", 2), 
+            x = unit(.5, "npc") + unit(c(.5, 0), "mm"),
+            y = unit(.5, "npc") + unit(c(0, .5), "mm"),
+            gp = gpar(col = c("black", "red"), cex = 3)),
+   ylab =
+   textGrob(rep("Normal", 2), rot = 90,
+            x = unit(.5, "npc") + unit(c(.5, 0), "mm"),
+            y = unit(.5, "npc") + unit(c(0, .5), "mm"),
+            gp = gpar(col = c("black", "red"), cex = 3)),
+   main = "Q-Q plot")
+
+
+
+
+
+trellis.par.set(theme = old.settings)
 
 par(opar)
 
