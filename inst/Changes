@@ -77,6 +77,10 @@ changes in behaviour
    anyway. As in model formulae, I(x+y) works as expected.
 
 
+ o default behaviour of qq and qqmath changed (from S-PLUS behaviour)
+   to match corresponding base functions qqplot and qqnorm
+
+
 bug fixes
 ---------
 

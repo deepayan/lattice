@@ -1,10 +1,19 @@
-2004-03-22  Deepayan  <deepayan@punashcha>
+2004-04-08  Deepayan Sarkar  <deepayan@stat.wisc.edu>
+
+	* R/qq.R, R/qqmath.R, man/qq.Rd, man/qqmath.Rd: changed default
+	behaviour of qq and qqmath to use actual data instead of sample
+	quantiles. The new behaviour is different from the corresponding
+	S-PLUS functions, but is closer to analogous base functions qqplot
+	and qqnorm
+
+
+2004-03-22  Deepayan Sarkar  <deepayan@stat.wisc.edu>
 
 	* R/print.trellis.R: changed behaviour of skip
 
 	* man/xyplot.Rd: updated docs for skip
 
-2004-03-19  Deepayan  <deepayan@punashcha>
+2004-03-19  Deepayan Sarkar  <deepayan@stat.wisc.edu>
 
 	* utilities.3d.Rd: removed palette.shade from docs
 
@@ -17,13 +26,13 @@
 	setting, but that doesn;t make sense because this is not a display
 	parameter
 
-2004-03-17  Deepayan  <deepayan@punashcha>
+2004-03-17  Deepayan Sarkar  <deepayan@stat.wisc.edu>
 
 	* panel.functions.Rd: added panel.rug in docs
 
 	* lset.Rd: added link to trellis.device
 
-2004-03-13  Deepayan  <deepayan@punashcha>
+2004-03-13  Deepayan Sarkar  <deepayan@stat.wisc.edu>
 
 	* panel.cloud.Rd: added note saying x,y,z could all be matrices
 
