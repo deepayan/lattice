@@ -4,6 +4,21 @@ postscript("scales.ps")
 library(lattice)
 
 
+
+## relation = "free" for factors
+
+dat <- data.frame(a=letters[1:5], b=c("A","A","A","B","B"), y=1:5) 
+dotplot(y ~ a | b, data=dat, scales = "same") 
+dotplot(y ~ a | b, data=dat, scales = "free") 
+dotplot(y ~ a | b, data=dat, scales = "sliced") 
+
+
+
+
+
+
+
+
 ## text axis colors
 
 xyplot(1:10 ~ 1:10,
