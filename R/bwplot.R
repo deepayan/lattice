@@ -54,11 +54,13 @@ prepanel.default.bwplot <-
                  if (is.numeric(y)) range(y[is.finite(y)])
                  else levels(y),
                  ##ylim = c(1-temp, levels.fos + temp),
+                 yat = if (is.factor(y)) sort(unique(as.numeric(y))) else NULL,
                  dx = 1,
                  dy = 1)
         else 
             list(xlim = if (is.numeric(x)) range(x[is.finite(x)]) else levels(x),
                  ##xlim = c(1-temp, levels.fos + temp),
+                 xat = if (is.factor(x)) sort(unique(as.numeric(x))) else NULL,
                  ylim =
                  if (stack) {
                      foo1 <- if (any(y > 0)) range( by(y[y>0], x[y>0], sum)) else 0
@@ -745,8 +747,8 @@ bwplot <-
              drop.unused.levels = TRUE,
              ...,
              default.scales =
-             if (horizontal) list(y = list(tck = 0, alternating = FALSE))
-             else list(x = list(tck = 0, alternating = FALSE)),
+             if (horizontal) list(y = list(tck = 0, alternating = FALSE, rot = 0))
+             else list(x = list(tck = 0, alternating = FALSE, rot = 90)),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
