@@ -773,7 +773,7 @@ bwplot(formula,
     In this case, this function is called once for each panel,
     potentially with all arguments that are passed to the panel function
     for that panel. (More specifically, if this function has a
-    \code{\ldots} argument, then all panel arguments are passed,
+    \code{\dots} argument, then all panel arguments are passed,
     otherwise, only named arguments that match are passed.) For a single
     conditioning variable, the levels of that variable are then sorted
     so that these values are in ascending order. For multiple
