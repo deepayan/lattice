@@ -31,10 +31,14 @@ prepanel.default.parallel <-
 
 
 
-panel.parallel <- function(z, subscripts,
-                           col=superpose.line$col,
-                           lwd=superpose.line$lwd,
-                           lty=superpose.line$lty, ...)
+panel.parallel <-
+    function(z, subscripts,
+             groups = NULL,
+             col = superpose.line$col,
+             lwd = superpose.line$lwd,
+             lty = superpose.line$lty,
+             alpha = superpose.line$alpha,
+             ...)
 {
 
     superpose.line <- trellis.par.get("superpose.line")
@@ -42,9 +46,21 @@ panel.parallel <- function(z, subscripts,
 
     n.r <- ncol(z)
     n.c <- length(subscripts)
-    col <- rep(col, length=n.c)
-    lty <- rep(lty, length=n.c)
-    lwd <- rep(lwd, length=n.c)
+    if (is.null(groups)) {
+        col <- rep(col, length = n.c)
+        lty <- rep(lty, length = n.c)
+        lwd <- rep(lwd, length = n.c)
+        alpha <- rep(alpha, length = n.c)
+    }
+    else
+    {
+        gnum <- as.integer(as.factor(groups))
+        n.g <- length(unique(gnum))
+        col <- rep(col, length = n.g)
+        lty <- rep(lty, length = n.g)
+        lwd <- rep(lwd, length = n.g)
+        alpha <- rep(alpha, length = n.g)
+    }
 
     llim <- numeric(n.r)
     ulim <- numeric(n.r)
@@ -61,17 +77,81 @@ panel.parallel <- function(z, subscripts,
             dif[i] <- ulim[i] - llim[i]
         }
    
-
-    for (i in seq(along=subscripts))
-    {
-        x <- (as.numeric(z[subscripts[i],,])-llim)/dif
-        grid.lines(x = x,
-                   y=1:n.r, 
-                   gp = gpar(col=col[i], lty=lty[i], lwd=lwd[i]),
-                   default.units="native")
-    }
-    
+    if (is.null(groups))
+        for (i in seq(along=subscripts))
+        {
+            x <- (as.numeric(z[subscripts[i],,])-llim)/dif
+            grid.lines(x = x,
+                       y = 1:n.r, 
+                       gp =
+                       gpar(col = col[i],
+                            lty = lty[i],
+                            lwd = lwd[i],
+                            alpha = alpha[i]),
+                       default.units = "native")
+        }
+    else 
+        for (i in seq(along = subscripts))
+        {
+            x <- (as.numeric(z[subscripts[i],,])-llim)/dif
+            grid.lines(x = x,
+                       y = 1:n.r, 
+                       gp =
+                       gpar(col = col[gnum[subscripts[i]]],
+                            lty = lty[gnum[subscripts[i]]],
+                            lwd = lwd[gnum[subscripts[i]]],
+                            alpha = alpha[gnum[subscripts[i]]]),
+                       default.units="native")
+        }
+    invisible()
 }
+
+
+
+
+
+
+# panel.parallel.old <- function(z, subscripts,
+#                                col=superpose.line$col,
+#                                lwd=superpose.line$lwd,
+#                                lty=superpose.line$lty, ...)
+# {
+
+#     superpose.line <- trellis.par.get("superpose.line")
+#     reference.line <- trellis.par.get("reference.line")
+
+#     n.r <- ncol(z)
+#     n.c <- length(subscripts)
+#     col <- rep(col, length=n.c)
+#     lty <- rep(lty, length=n.c)
+#     lwd <- rep(lwd, length=n.c)
+
+#     llim <- numeric(n.r)
+#     ulim <- numeric(n.r)
+#     dif <- numeric(n.r)
+#     if (n.r > 0)
+#         for(i in 1:n.r) {
+#             grid.lines(x = c(0,1), y = c(i,i),
+#                        default.units = "native",
+#                        gp = gpar(col = reference.line$col,
+#                        lwd = reference.line$lwd,
+#                        lty = reference.line$lty))
+#             llim[i] <- range(as.numeric(z[,i]))[1]
+#             ulim[i] <- range(as.numeric(z[,i]))[2]
+#             dif[i] <- ulim[i] - llim[i]
+#         }
+   
+
+#     for (i in seq(along=subscripts))
+#     {
+#         x <- (as.numeric(z[subscripts[i],,])-llim)/dif
+#         grid.lines(x = x,
+#                    y=1:n.r, 
+#                    gp = gpar(col=col[i], lty=lty[i], lwd=lwd[i]),
+#                    default.units="native")
+#     }
+    
+# }
 
 
 
