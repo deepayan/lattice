@@ -37,6 +37,7 @@ getLabelList <- function(label, text.settings, default.label = NULL)
 {
     if (!is.null(label))
     {
+        if (inherits(label, "grob")) return(label)
         ans <- list(label = 
                     if (is.characterOrExpression(label)) label
                     else if (is.list(label) && (is.null(names(label)) || names(label)[1] == "")) label[[1]]
@@ -58,6 +59,19 @@ getLabelList <- function(label, text.settings, default.label = NULL)
 
 
 
+
+grobFromLabelList <- function(lab, name = "label", rot = 0)
+{
+    if (is.null(lab)) return (NULL)
+    if (inherits(lab, "grob")) return(lab)
+
+    textGrob(label = lab$label, name= name, rot = rot,
+             gp =
+             gpar(col = lab$col,
+                  fontfamily = lab$fontfamily,
+                  fontface = chooseFace(lab$fontface, lab$font),
+                  cex = lab$cex))
+}
 
 
 
@@ -355,10 +369,10 @@ print.trellis <-
 
     ## get lists for main, sub, xlab, ylab
 
-    main <- getLabelList(x$main, trellis.par.get("par.main.text"))
-    sub <- getLabelList(x$sub, trellis.par.get("par.sub.text"))
-    xlab <- getLabelList(x$xlab, trellis.par.get("par.xlab.text"), x$xlab.default)
-    ylab <- getLabelList(x$ylab, trellis.par.get("par.ylab.text"), x$ylab.default)
+    main <- grobFromLabelList(getLabelList(x$main, trellis.par.get("par.main.text")), name = "main")
+    sub <- grobFromLabelList(getLabelList(x$sub, trellis.par.get("par.sub.text")), name = "sub")
+    xlab <- grobFromLabelList(getLabelList(x$xlab, trellis.par.get("par.xlab.text"), x$xlab.default), name = "xlab")
+    ylab <- grobFromLabelList(getLabelList(x$ylab, trellis.par.get("par.ylab.text"), x$ylab.default), name = "ylab", rot = 90)
 
 
     ## get par.strip.text
@@ -428,44 +442,76 @@ print.trellis <-
                                   gpar(fontsize = fontsize.text),
                                   name = "lattice.topvp"))
 
+#             if (!is.null(main))
+#                 grid.text(label = main$label, name= "main",
+#                           gp =
+#                           gpar(col = main$col,
+#                                fontfamily = main$fontfamily,
+#                                fontface = chooseFace(main$fontface, main$font),
+#                                cex = main$cex),
+#                           vp = viewport(layout.pos.row = pos.heights$main, name= "main.vp"))
+
+#             if (!is.null(sub))
+#                 grid.text(label = sub$label, name= "sub",
+#                           gp =
+#                           gpar(col = sub$col,
+#                                fontfamily = sub$fontfamily,
+#                                fontface = chooseFace(sub$fontface, sub$font),
+#                                cex = sub$cex),
+#                           vp = viewport(layout.pos.row = pos.heights$sub, name= "sub.vp"))
+
+#             if (!is.null(xlab))
+#                 grid.text(label = xlab$label, name= "xlab",
+#                           gp =
+#                           gpar(col = xlab$col,
+#                                fontfamily = xlab$fontfamily,
+#                                fontface = chooseFace(xlab$fontface, xlab$font),
+#                                cex = xlab$cex), 
+#                           vp = viewport(layout.pos.row = pos.heights$xlab,
+#                                         layout.pos.col = pos.widths$panel, name= "xlab.vp" ))
+
+#             if (!is.null(ylab))
+#                 grid.text(label = ylab$label, rot = 90, name= "ylab",
+#                           gp =
+#                           gpar(col = ylab$col,
+#                                fontfamily = ylab$fontfamily,
+#                                fontface = chooseFace(ylab$fontface, ylab$font),
+#                                cex = ylab$cex),
+#                           vp = viewport(layout.pos.col = pos.widths$ylab,
+#                                         layout.pos.row = pos.heights$panel, name= "ylab.vp"))
+
+
+
+
             if (!is.null(main))
-                grid.text(label = main$label, name= "main",
-                          gp =
-                          gpar(col = main$col,
-                               fontfamily = main$fontfamily,
-                               fontface = chooseFace(main$fontface, main$font),
-                               cex = main$cex),
-                          vp = viewport(layout.pos.row = pos.heights$main, name= "main.vp"))
-
+            {
+                pushViewport(viewport(layout.pos.row = pos.heights$main, name= "main.vp"))
+                grid.draw(main)
+                upViewport()
+            }
             if (!is.null(sub))
-                grid.text(label = sub$label, name= "sub",
-                          gp =
-                          gpar(col = sub$col,
-                               fontfamily = sub$fontfamily,
-                               fontface = chooseFace(sub$fontface, sub$font),
-                               cex = sub$cex),
-                          vp = viewport(layout.pos.row = pos.heights$sub, name= "sub.vp"))
-
+            {
+                pushViewport(viewport(layout.pos.row = pos.heights$sub, name= "sub.vp"))
+                grid.draw(sub)
+                upViewport()
+            }
             if (!is.null(xlab))
-                grid.text(label = xlab$label, name= "xlab",
-                          gp =
-                          gpar(col = xlab$col,
-                               fontfamily = xlab$fontfamily,
-                               fontface = chooseFace(xlab$fontface, xlab$font),
-                               cex = xlab$cex), 
-                          vp = viewport(layout.pos.row = pos.heights$xlab,
-                                        layout.pos.col = pos.widths$panel, name= "xlab.vp" ))
-
+            {
+                pushViewport(viewport(layout.pos.row = pos.heights$xlab,
+                                      layout.pos.col = pos.widths$panel, name= "xlab.vp" ))
+                grid.draw(xlab)
+                upViewport()
+            }
             if (!is.null(ylab))
-                grid.text(label = ylab$label, rot = 90, name= "ylab",
-                          gp =
-                          gpar(col = ylab$col,
-                               fontfamily = ylab$fontfamily,
-                               fontface = chooseFace(ylab$fontface, ylab$font),
-                               cex = ylab$cex),
-                          vp = viewport(layout.pos.col = pos.widths$ylab,
-                                        layout.pos.row = pos.heights$panel, name= "ylab.vp"))
+            {
+                pushViewport(viewport(layout.pos.col = pos.widths$ylab,
+                                      layout.pos.row = pos.heights$panel, name= "ylab.vp"))
+                grid.draw(ylab)
+                upViewport()
+            }
 
+
+            last.panel <- prod(sapply(x$index.cond, length))
 
             for (row in seq(length = rows.per.page))
                 for (column in seq(length = cols.per.page))
@@ -493,10 +539,7 @@ print.trellis <-
                         ## incremental counter that may be used as a
                         ## panel function argument
 
-                        ## this will also be used to name the panel
-                        ## viewport for later accessing
                         panel.counter <- panel.counter + 1
-
 
                         ## this gives the row position from the bottom
                         actual.row <- if (x$as.table)
@@ -512,6 +555,8 @@ print.trellis <-
                                                     at = if (is.list(x$x.scales$at))
                                                     x$x.scales$at[[panel.number]]
                                                     else x$x.scales$at,
+                                                    used.at = if (!x.relation.same)
+                                                    x$x.at[[panel.number]] else NULL,
                                                     labels =
                                                     if (is.list(x$x.scales$lab))
                                                     x$x.scales$lab[[panel.number]]
@@ -529,6 +574,8 @@ print.trellis <-
                                                     at = if (is.list(x$y.scales$at))
                                                     x$y.scales$at[[panel.number]]
                                                     else x$y.scales$at,
+                                                    used.at = if (!y.relation.same)
+                                                    x$y.at[[panel.number]] else NULL,
                                                     labels = if (is.list(x$y.scales$lab))
                                                     x$y.scales$lab[[panel.number]]
                                                     else x$y.scales$lab,
@@ -547,17 +594,60 @@ print.trellis <-
 ############################################
 
 
-                        ## X-axis
+### whether or not axes are drawn, we'll create viewports for them
+### anyway, so that users can later interactively add axes/other stuff
+### if they wish.  First up, we'll have a 'strip.column.row.off'
+### viewport for the top axes, and then a 'panel.column.row.off'
+### viewport for the other 3.  The names may seem a bit unintuitive,
+### and perhaps they are, but some justification is provided in
+### help(latticeVP.focus)
+
+
+                        pushViewport(viewport(layout.pos.row = pos.row - 1,
+                                              layout.pos.col = pos.col,
+                                              xscale = xscale,
+                                              clip = "off",
+                                              name =
+                                              paste("strip", column, row, "off", sep = ".")))
+                        ## X-axis above
+                        if (x$x.scales$draw && x.relation.same && actual.row == rows.per.page)
+                        {
+                            axstck <- x$x.scales$tck
+                            panel.axis(side = "top",
+                                       at = xlabelinfo$at,
+                                       labels = xlabelinfo$lab,
+                                       draw.labels = (x.alternating[column]==2 ||
+                                                      x.alternating[column]==3), 
+                                       check.overlap = xlabelinfo$check.overlap,
+                                       outside = TRUE,
+                                       tick = TRUE,
+                                       tck = axstck[2],
+                                       rot = xaxis.rot[2],
+                                       text.col = xaxis.col.text,
+                                       text.alpha = xaxis.alpha.text,
+                                       text.cex = xaxis.cex[2],
+                                       text.font = xaxis.font,
+                                       text.fontfamily = xaxis.fontfamily,
+                                       text.fontface = xaxis.fontface,
+                                       line.col = xaxis.col.line,
+                                       line.lty = xaxis.lty,
+                                       line.lwd = xaxis.lwd,
+                                       line.alpha = xaxis.alpha.line)
+                        }
+                        upViewport()
+
+
+                        pushViewport(viewport(layout.pos.row = pos.row,
+                                              layout.pos.col = pos.col,
+                                              xscale = xscale,
+                                              yscale = yscale,
+                                              clip = "off",
+                                              name =
+                                              paste("panel", column, row, "off", sep = ".")))
 
                         ## X-axis below
                         if (x$x.scales$draw && (!x.relation.same || actual.row == 1))
                         {
-                            pushViewport(viewport(layout.pos.row = pos.row,
-                                                  layout.pos.col = pos.col,
-                                                  xscale = xscale,
-                                                  clip = "off",
-                                                  name =
-                                                  paste("bottom", column, row, sep = ".")))
                             axstck <- x$x.scales$tck
                             panel.axis(side = "bottom",
                                        at = xlabelinfo$at,
@@ -580,39 +670,6 @@ print.trellis <-
                                        line.lty = xaxis.lty,
                                        line.lwd = xaxis.lwd,
                                        line.alpha = xaxis.alpha.line)
-                            upViewport()
-                        }
-                        ## X-axis above
-                        if (x$x.scales$draw && x.relation.same && actual.row == rows.per.page)
-                        {
-                            pushViewport(viewport(layout.pos.row = pos.row - 1,
-                                                  layout.pos.col = pos.col,
-                                                  xscale = xscale,
-                                                  clip = "off",
-                                                  name =
-                                                  paste("top", column, row, sep = ".")))
-                            axstck <- x$x.scales$tck
-                            panel.axis(side = "top",
-                                       at = xlabelinfo$at,
-                                       labels = xlabelinfo$lab,
-                                       draw.labels = (x.alternating[column]==2 ||
-                                                      x.alternating[column]==3), 
-                                       check.overlap = xlabelinfo$check.overlap,
-                                       outside = TRUE,
-                                       tick = TRUE,
-                                       tck = axstck[2],
-                                       rot = xaxis.rot[2],
-                                       text.col = xaxis.col.text,
-                                       text.alpha = xaxis.alpha.text,
-                                       text.cex = xaxis.cex[2],
-                                       text.font = xaxis.font,
-                                       text.fontfamily = xaxis.fontfamily,
-                                       text.fontface = xaxis.fontface,
-                                       line.col = xaxis.col.line,
-                                       line.lty = xaxis.lty,
-                                       line.lwd = xaxis.lwd,
-                                       line.alpha = xaxis.alpha.line)
-                            upViewport()
                         }
 
 
@@ -623,13 +680,6 @@ print.trellis <-
                         ## Y-axis to the left
                         if (x$y.scales$draw && (!y.relation.same || column == 1))
                         {
-                            pushViewport(viewport(layout.pos.row = pos.row,
-                                                  layout.pos.col = pos.col,
-                                                  xscale = xscale,
-                                                  yscale = yscale,
-                                                  clip = "off",
-                                                  name =
-                                                  paste("left", column, row, sep = ".")))
                             axstck <- x$y.scales$tck
                             panel.axis(side = "left",
                                        at = ylabelinfo$at,
@@ -652,19 +702,21 @@ print.trellis <-
                                        line.lty = yaxis.lty,
                                        line.lwd = yaxis.lwd,
                                        line.alpha = yaxis.alpha.line)
-                            upViewport()
                         }
 
                         ## Y-axis to the right
-                        if (x$y.scales$draw && y.relation.same && column == cols.per.page)
-                            ## FIXME: add condition to check for last panel on page
+
+                        ## A special case where we need to do this is
+                        ## when the panel is the last one on the page.
+                        ## Unfortunately, I can't think of an easy way
+                        ## to determine this.  One thing I could do,
+                        ## and one that should cover most reasonable
+                        ## cases, is to do this for the absolutely
+                        ## last panel.
+
+                        if (x$y.scales$draw && y.relation.same &&
+                            (column == cols.per.page || panel.counter == last.panel))
                         {
-                            pushViewport(viewport(layout.pos.row = pos.row,
-                                                  layout.pos.col = pos.col,
-                                                  yscale = yscale,
-                                                  clip = "off",
-                                                  name =
-                                                  paste("right", column, row, sep = ".")))
                             axstck <- x$y.scales$tck
                             panel.axis(side = "right",
                                        at = ylabelinfo$at,
@@ -686,9 +738,8 @@ print.trellis <-
                                        line.lty = yaxis.lty,
                                        line.lwd = yaxis.lwd,
                                        line.alpha = yaxis.alpha.line)
-                            upViewport()
                         }
-
+                        upViewport()
 
 
 
@@ -759,11 +810,10 @@ print.trellis <-
                             for(i in seq(length = number.of.cond))
                             {
 
-### I have a choice here. By which.given, do I mean which in the
-### original order, or the permuted order ? This is related to order
-### in which strips are drawn (see above -- perm[i] or just i ?)
+                                ## Here, by which.given, I mean which
+                                ## in the original order, not the
+                                ## permuted order
 
-### currently, original                                
                                 strip(which.given = x$perm.cond[i],
                                       which.panel = which.panel,
 
@@ -918,7 +968,7 @@ print.trellis <-
 
     if (!is.null(x$par.settings))
     {
-        lset(opars)
+        trellis.par.set(theme = opars)
     }
 
     if (save.object)
