@@ -1,9 +1,12 @@
 \name{update.trellis}
 \alias{update.trellis}
-\title{Update Trellis Object}
+\alias{trellis.last.object}
+\title{Retrieve and Update Trellis Object}
 \description{
-  Update method for objects of class ``trellis''
+  Update method for objects of class ``trellis'', and a way to retrieve
+  the last printed trellis object (that was saved).
 }
+
 \synopsis{
 \method{update}{trellis}(object,
        panel,
@@ -33,6 +36,7 @@
 }
 \usage{
 \method{update}{trellis}(object, \dots)
+trellis.last.object()
 }
 \arguments{
   \item{object}{ The object to be updated, of class ``trellis''. }
@@ -74,6 +78,23 @@
   the \code{panel} function. Because of their somewhat special nature,
   updates to objects produced by \code{cloud} and \code{wireframe} do
   not work very well yet.
+
+  The print method for ``trellis'' objects optionally saves the object
+  after printing it.  If this feature is on, \code{trellis.last.object}
+  can retrieve it.  Note that at most one object can be saved at a
+  time.
+
+}
+
+\examples{
+data(sunspots)
+spots <- by(sunspots, gl(235, 12, lab = 1749:1983), mean)
+old.options <- lattice.options(save.object = TRUE)
+xyplot(spots ~ 1749:1983, xlab = "", type = "l",
+       scales = list(x = list(alternating = 2)),
+       main = "Average Yearly Sunspots")
+update(trellis.last.object(), aspect = "xy")
+lattice.options(old.options)
 }
 
 \value{

@@ -4,50 +4,49 @@
 \alias{wireframe}
 \synopsis{
 cloud(formula,
-      data = parent.frame(),
-      allow.multiple = is.null(groups) || outer,
-      outer = FALSE,
-      auto.key = FALSE,
-      aspect = c(1,1),
-      panel = "panel.cloud",
-      prepanel = NULL,
-      scales = list(),
-      strip = TRUE,
-      groups = NULL,
-      xlab,
-      xlim = if (is.factor(x)) levels(x) else range(x, na.rm = TRUE),
-      ylab,
-      ylim = if (is.factor(y)) levels(y) else range(y, na.rm = TRUE),
-      zlab,
-      zlim = if (is.factor(z)) levels(z) else range(z, na.rm = TRUE),
-      zoom = .8,
-      at,
-      drape = FALSE,
-      pretty = FALSE,
-      drop.unused.levels = TRUE,
-      ...,
-      default.scales,
-      colorkey = any(drape),
-      col.regions, cuts = 70,
-      subset = TRUE,
-      axs.default = "r")
+             data = parent.frame(),
+             allow.multiple = is.null(groups) || outer,
+             outer = FALSE,
+             auto.key = FALSE,
+             aspect = c(1,1),
+             panel = "panel.cloud",
+             prepanel = NULL,
+             scales = list(),
+             strip = TRUE,
+             groups = NULL,
+             xlab,
+             xlim = if (is.factor(x)) levels(x) else range(x, na.rm = TRUE),
+             ylab,
+             ylim = if (is.factor(y)) levels(y) else range(y, na.rm = TRUE),
+             zlab,
+             zlim = if (is.factor(z)) levels(z) else range(z, na.rm = TRUE),
+             at,
+             drape = FALSE,
+             pretty = FALSE,
+             drop.unused.levels = TRUE,
+             ...,
+             default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
+             colorkey = any(drape),
+             col.regions,
+             alpha.regions,
+             cuts = 70,
+             subset = TRUE,
+             axs.default = "r")
 wireframe(formula,
-          data = parent.frame(),
-          panel = "panel.wireframe",
-          prepanel = NULL,
-          strip = TRUE,
-          groups = NULL,
-          cuts = 70,
-          pretty = FALSE,
-          drape = FALSE,
-          ...,
-          col.regions = trellis.par.get("regions")$col,
-          colorkey = any(drape),
-          subset = TRUE)
+             data = parent.frame(),
+             panel = "panel.wireframe",
+             prepanel = NULL,
+             strip = TRUE,
+             groups = NULL,
+             cuts = 70,
+             pretty = FALSE,
+             drape = FALSE,
+             ...,
+             colorkey = any(drape),
+             subset = TRUE)
 }
 \usage{
-cloud(formula,
-      data,
+cloud(formula, data,
       aspect = c(1, 1),
       scales = list(distance = rep(1, 3), arrows = TRUE),
       zlab,
@@ -63,8 +62,9 @@ wireframe(formula, data,
           colorkey = any(drape),
           cuts = 70,
           zoom,
-          scales),
-          \dots)
+          scales,
+          \dots,
+          col.regions)
 }
 \description{
   Draws 3d scatter plots and surfaces.
@@ -95,24 +95,54 @@ wireframe(formula, data,
     \code{filled.contour} and \code{image}, \code{formula} can be a
     matrix.
   }
-  \item{data}{data frame in which variables are evaluated}
+  \item{data}{ data frame in which variables are evaluated }
   \item{aspect}{ vector of length 2, giving the relative aspects of the
     y-size/x-size and z-size/x-size of the enclosing rectangle.}
-  \item{scales}{ describes scales. Can contain lists named x, y and
-    z. Arrows are drawn if \code{arrows=TRUE}, otherwise tick marks with
-    labels are drawn. Both can be suppressed by \code{draw=FALSE}.
-    Several other components that work in the usual \code{scales}
-    argument also work here (see \code{\link{xyplot}}).
+  \item{scales}{
+    a list describing the scales.  As with other high level functions
+    (see \code{\link{xyplot}} for details), this list can contain
+    parameters in name=value form.  It can also contain components with
+    the special names \code{x}, \code{y} and \code{z}, which can be
+    similar lists with axis-specific values overriding the ones
+    specified in \code{scales}. 
+
+    The most common use for this argument is to set \code{arrows=FALSE},
+    which causes tick marks and labels to be used instead of arrows
+    being drawn (the default).  Both can be suppressed by
+    \code{draw=FALSE}.
+
+    Other components that work in the \code{scales} argument of
+    \code{xyplot} etc should also work here (as long as they make
+    sense), including explicit specification of tick mark locations and
+    labels.  (Not everything is implemented yet, but if you find
+    something that should work but doesn't, feel free to bug the
+    maintainer.)
+
+    Note, however, that for these functions \code{scales} cannot contain
+    information that is specific to particular panels.  If you really
+    need that, consider using the \code{scales.3d} argument of
+    \code{panel.cloud}.
   }
-  \item{zlab}{z label}
-  \item{zlim}{z limits}
-
-
+  \item{zlab}{
+    label describing the z variable. Similar to \code{xlab} and
+    \code{ylab} in other high level functions
+  }
+  \item{zlim}{
+    limits for the z-axis. Similar to \code{xlim} and \code{ylim} in
+    other high level functions
+  }
   \item{zoom}{
     factor by which to scale the picture. Useful to get the variable
-    names into the plot
+    names into the plot.  This is actually only used in the default
+    prepanel function. 
   }
-  \item{drape}{ logical, whether the wireframe is to be draped in color}
+  \item{drape}{
+    logical, whether the wireframe is to be draped in color. If
+    \code{TRUE}, the height of a facet is used to determine its color in
+    a manner similar to the coloring scheme used in
+    \code{\link{levelplot}}.  Otherwise, the background color is used to
+    color the facets.  This argument is ignored if \code{shade=TRUE}.
+  }
   \item{shade}{
     logical, whether the wireframe is to be illuminated from a light
     source. See \code{\link{panel.3dwire}} for details
@@ -121,16 +151,22 @@ wireframe(formula, data,
     these arguments are analogous to those in
     \code{\link{levelplot}}. if \code{drape=TRUE}, \code{at} gives the
     vector of values where the colors change, and \code{col.regions} the
-    vector of colors to be used in that case
+    vector of colors to be used in that case.  These are passed down to
+    the panel function, and also used in the colorkey if appropriate.
+    Defaults to the Trellis setting ``regions''
   }
   \item{cuts}{ the default number of cutpoints if \code{drape=TRUE}}
-  \item{pretty}{ whether the cutpoints should be pretty}
-  \item{colorkey}{
-    whether a color key should be drawn alongside. See
-    \code{\link{levelplot}} for details
+  \item{pretty}{
+    whether automatic choice of cutpoints should be prettfied
   }
-  \item{\dots}{ other arguments, passed to the panel function. In
-    particular, the arguments \code{distance, perspective, screen} and
+  \item{colorkey}{
+    logical indicating whether a color key should be drawn
+    alongside, or a list describing such a key.  See
+    \code{\link{levelplot}} for details.
+  }
+  \item{\dots}{
+    other arguments, passed to the panel function. In particular, the
+    arguments \code{distance}, \code{perspective}, \code{screen} and
     \code{R.mat} are very important in determining the 3-D
     display. These arguments are described in detail in the help page
     for \code{\link{panel.cloud}}
@@ -216,18 +252,17 @@ g <- expand.grid(x = 1:10, y = 5:15, gr = 1:2)
 g$z <- log((g$x^g$g + g$y^2) * g$gr)
 wireframe(z ~ x * y, data = g, groups = gr,
           scales = list(arrows = FALSE),
-          drape = TRUE,
+          drape = TRUE, colorkey = FALSE,
           screen = list(z = 30, x = -60))
 
-data(iris)
 cloud(Sepal.Length ~ Petal.Length * Petal.Width | Species, data = iris,
       screen = list(x = -90, y = 70), distance = .4, zoom = .6)
 
-par.set <- list(axis.line = list(col = "transparent"), clip = list(panel = FALSE))
+par.set <-
+    list(axis.line = list(col = "transparent"), clip = list(panel = FALSE))
 print(cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
             data = iris, cex = .8, 
             groups = Species, 
-            subpanel = panel.superpose,
             main = "Stereo",
             screen = list(z = 20, x = -70, y = 3),
             par.settings = par.set),
@@ -235,7 +270,6 @@ print(cloud(Sepal.Length ~ Petal.Length * Petal.Width,
 print(cloud(Sepal.Length ~ Petal.Length * Petal.Width,
             data = iris, cex = .8, 
             groups = Species,
-            subpanel = panel.superpose,
             main = "Stereo",
             screen = list(z = 20, x = -70, y = 0),
             par.settings = par.set),

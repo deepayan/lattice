@@ -15,17 +15,18 @@ levelplot(formula,
              xlim,
              ylab,
              ylim,
+
+             ## at, region etc should be ideally in panel.levelplot only, but is needed for colorkey
              at,
-             contour = FALSE,
              cuts = 15,
-             labels = FALSE,
              pretty = FALSE,
              region = TRUE,
-             drop.unused.levels,
+             drop.unused.levels = TRUE,
              ...,
-             default.scales,
+             default.scales = list(),
              colorkey = region,
-             col.regions = trellis.par.get("regions")$col,
+             col.regions,
+             alpha.regions,
              subset = TRUE)
 contourplot(formula,
              data = parent.frame(),
@@ -175,6 +176,7 @@ levelplot(z~x*y, grid, cuts = 50, scales=list(log="e"), xlab="",
           ylab="", main="Weird Function", sub="with log scales",
           colorkey = FALSE, region = TRUE)
 
+
 #S-PLUS example
 require(stats)
 data(environmental)
@@ -189,11 +191,10 @@ wtr.marginal <- list(wind = w.marginal, temperature = t.marginal,
 grid <- expand.grid(wtr.marginal)
 grid[, "fit"] <- c(predict(ozo.m, grid))
 contourplot(fit ~ wind * temperature | radiation, data = grid,
-          cuts = 10, region = TRUE,
-          xlab = "Wind Speed (mph)",
-          ylab = "Temperature (F)",
-          main = "Cube Root Ozone (cube root ppb)",
-          col.regions = trellis.par.get("regions")$col)
+            cuts = 10, region = TRUE,
+            xlab = "Wind Speed (mph)",
+            ylab = "Temperature (F)",
+            main = "Cube Root Ozone (cube root ppb)")
 detach()
 }
 \keyword{hplot}

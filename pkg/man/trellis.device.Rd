@@ -12,7 +12,6 @@
 trellis.device(device = getOption("device"),
                color = !(dev.name == "postscript"),
                theme = getOption("lattice.theme"),
-               bg = NULL,
                new = TRUE,
                retain = FALSE,
                ...)
@@ -39,7 +38,6 @@ col.whitebg()
     already be open when it is called, so one may use \code{.Device}
     inside the function to ascertain what device has been opened.
   }
-  \item{bg}{ background color for the device.}
   \item{new}{ logical flag indicating whether a new device should be
     started. If \code{FALSE},  the options for the current device are
     changed to the defaults determined by the other arguments.
@@ -80,7 +78,7 @@ col.whitebg()
 
 \note{
 
-  Trellis Graphics are designed to have a different look and feel on
+  Trellis Graphics is designed to have a different look and feel on
   different devices.  In particular, the default settings for `screen'
   devices are not at all suitable for printing.
 
@@ -93,7 +91,7 @@ col.whitebg()
   The recommended workaround for this is to re-print the trellis object
   after explicitly starting the new device.  The last printed trellis
   object is typically stored in memory, and it is possible to retrieve
-  it using \code{\link{trellis.lastObject}}.
+  it using \code{\link{trellis.last.object}}.
 
   The other option (relevant especially if the trellis plot is enhanced
   interactively after plotting) is to start the initial (screen) device
@@ -103,7 +101,16 @@ col.whitebg()
 
   \code{trellis.device(windows, theme = canonical.theme("pdf"))}
 
+  Note that earlier versions of \code{trellis.device} had a \code{bg}
+  argument to set the background color, but this is no longer supported.
+  If supplied, the \code{bg} argument will be passed on to the device
+  function; however, this will have no effect on the Trellis settings.
+  It is rarely meaningful to change the background alone, and if you
+  feel the need to change the background, consider using the
+  \code{theme} argument.
+
 }
+
 
 \value{
   \code{canonical.theme} returns a list of components defining graphical

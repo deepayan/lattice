@@ -1,6 +1,7 @@
 \name{strip.default}
 \alias{strip.default}
-\title{Default Trellis strip function}
+\alias{strip.custom}
+\title{In-built Trellis Strip Function}
 \usage{
 strip.default(which.given,
               which.panel,
@@ -12,9 +13,16 @@ strip.default(which.given,
               bg = trellis.par.get("strip.background")$col[which.given],
               fg = trellis.par.get("strip.shingle")$col[which.given],
               par.strip.text = trellis.par.get("add.text"))
+strip.custom(\dots)
 }
 \description{
-  function that draws the strips in conditional trellis plots.
+  \code{strip.default} is the function that draws the strips by default
+  in conditioning Trellis plots.  Users can write their own strip
+  functions, but most commonly this involves calling
+  \code{strip.default} with a slightly different arguments.
+  \code{strip.custom} provides a convenient way to obtain new strip
+  functions that differ from \code{strip.default} only in the default
+  values of certain arguments. 
 }
 
 \arguments{
@@ -75,7 +83,21 @@ strip.default(which.given,
   }
   \item{bg}{ strip background color. }
   \item{fg}{ strip foreground color. }
+  \item{\dots}{
+    arguments to be passed on to \code{strip.default}, overriding
+    whatever value it would have normally assumed
+  }
 }
+
+\value{
+  \code{strip.default} is useful for its side-effect, which is to draw
+  a strip appropriate for conditioning Trellis plots.
+  \code{strip.default} returns a function similar to
+  \code{strip.default}
+
+}
+  
+
 \details{ default strip function for trellis functions. Useful 
   mostly because of the \code{style} argument --- non-default styles
   are often more informative, especially when the names of the levels
@@ -85,6 +107,12 @@ strip.default(which.given,
 \seealso{
   \code{\link{xyplot}}, \code{\link{Lattice}} 
 }
+
+\examples{
+xyplot(Petal.Length ~ Petal.Width | Species, iris,
+       strip = strip.custom(style = 4))
+}
+
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \keyword{dplot}
 

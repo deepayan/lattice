@@ -5,6 +5,11 @@
 \alias{lpoints}
 \alias{lsegments}
 \alias{ltext}
+\alias{panel.arrows}
+\alias{panel.lines}
+\alias{panel.points}
+\alias{panel.segments}
+\alias{panel.text}
 \title{Lattice Replacements of base graphics functions}
 \description{
   These functions are intended to replace some commonly used base R
@@ -46,6 +51,11 @@ lpoints(x, \dots)
 lsegments(x0, y0, x1, y1, \dots)
 lsegments(x1, y1, x2, y2, \dots)
 ltext(x, \dots)
+panel.arrows(\dots)
+panel.lines(\dots)
+panel.points(\dots)
+panel.segments(\dots)
+panel.text(\dots)
 }
 \arguments{
   \item{ x, y, x0, y0, x1, y1, x2, y2, xy}{ locations. x2, y2 present
@@ -65,7 +75,10 @@ ltext(x, \dots)
 \details{
   These functions are meant to be grid replacements of the corresponding
   base R graphics functions, to allow existing Trellis code to be used
-  with minimal modification. 
+  with minimal modification.  The functions \code{panel.*} are
+  essentally identical to the \code{l*} versions, are recommended for
+  use in new code (as opposed to ported code) as they have more readable
+  names.
 
   See the documentation of the base functions for usage. Not all
   arguments are always supported. All these correspond to the default
