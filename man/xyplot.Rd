@@ -872,7 +872,7 @@ xyplot(Murder ~ Population | state.region, data = states,
        groups = state.name, 
        panel = function(x, y, subscripts, groups)  
        ltext(x = x, y = y, label = groups[subscripts], cex=1,
-             fontfamily = "HersheyPlain"))
+             fontfamily = "HersheySans"))
 
 data(barley)
 barchart(yield ~ variety | site, data = barley,
