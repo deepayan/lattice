@@ -2010,10 +2010,12 @@ print.trellis <-
 
 
     strip.col.default.bg <-
-        rep(trellis.par.get("strip.background")$col,length=number.of.cond)
+        rep(trellis.par.get("strip.background")$col, length=number.of.cond)
     strip.col.default.fg <-
         rep(trellis.par.get("strip.shingle")$col,length=number.of.cond)
-
+    strip.border <-
+        lapply(trellis.par.get("strip.border"),
+               function(x) rep(x, length=number.of.cond))
 
 
     ## Start layout calculations when only number of panels per page
@@ -2557,12 +2559,11 @@ print.trellis <-
                                       par.strip.text = par.strip.text)
 
 
-## FIXME: add color for rectangle (already axis.line (?))
-                                
+                                ## draw border for strip
                                 grid.rect(gp =
-                                          gpar(col = axis.line$col,
-                                               lty = axis.line$lty,
-                                               lwd = axis.line$lwd))
+                                          gpar(col = strip.border$col[i],
+                                               lty = strip.border$lty[i],
+                                               lwd = strip.border$lwd[i]))
 
                                 upViewport()
                                 
