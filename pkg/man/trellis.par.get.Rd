@@ -101,11 +101,14 @@ show.settings(x = NULL)
 
   \code{trellis.par.set("add.line", add.line)}
 
-  \code{\link{lset}} is a usually more convenient interface to achieve
-  the same end (but is not compatible with S-PLUS), the equivalent usage
-  being:
+  More convenient (but not S compatible) ways to do this are
 
-  \code{lset(list(add.line = list(col = "red")))}
+  \code{trellis.par.set(list(add.line = list(col = "red")))}
+
+  and
+
+  \code{trellis.par.set(add.line = list(col = "red"))}
+  
 
   The actual list of the components in \code{trellis.settings} has not
   been finalized, so I'm not attempting to list them here. The current

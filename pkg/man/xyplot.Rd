@@ -417,6 +417,7 @@ bwplot(formula,
     function, which produces a grid object eventually plotted by the
     print method for ``trellis'' objects.
 
+
     There is also a less flexible but usually sufficient shortcut
     function \code{\link{simpleKey}} that can generate such a list, as
     well as the argument \code{auto.key} that can be convenient in the
@@ -424,6 +425,7 @@ bwplot(formula,
     grouping variable. To use more than one legend, or to have arbitrary
     legends not constrained by the structure imposed by \code{key}, use
     the \code{legend} argument.
+
 
     The position of the key can be controlled in either of two possible
     ways. If a component called \code{space} is present, the key is
@@ -438,6 +440,7 @@ bwplot(formula,
     between 0 and 1, giving coordinates with respect to the whole
     display area.
 
+
     The key essentially consists of a number of columns, possibly
     divided into blocks, each containing some rows.  The contents of the
     key are determined by (possibly repeated) components named
@@ -446,6 +449,7 @@ bwplot(formula,
     controlling their appearance. The \code{key} list itself can contain
     graphical parameters, these would be used if relevant graphical
     components are omitted from the other components.
+
 
     The length (number of rows) of each such column (except ``text''s)
     is taken to be the largest of the lengths of the graphical
@@ -490,7 +494,6 @@ bwplot(formula,
       \item{\code{title}}{
 	string or expression giving a title for the key
       }
- 
       \item{\code{rep}}{
 	logical, defaults to \code{TRUE}.  By default, it's assumed that
 	all columns in the key (except the ``text''s) will have the same
@@ -713,7 +716,6 @@ bwplot(formula,
 	Can be a vector of length 2, to control left/bottom and
 	right/top separately.
       }
-
       \item{\code{font}, \code{fontface}, \code{fontfamily}}{
 	specifies font for axis labels.
       }
@@ -785,27 +787,27 @@ bwplot(formula,
   }
   \item{subscripts}{
     logical specifying whether or not a vector named \code{subscripts}
-    should be passed to the panel function.  Defaults to FALSE, unless
-    \code{groups} is specified, or if the panel function accepts an
-    argument named \code{subscripts}. (One should be careful when
+    should be passed to the panel function.  Defaults to \code{FALSE},
+    unless \code{groups} is specified, or if the panel function accepts
+    an argument named \code{subscripts}. (One should be careful when
     defining the panel function on-the-fly.)
   }
   \item{subset}{
     logical or integer indexing vector (can be specified in terms of
     variables in \code{data}).  Only these rows of \code{data} will be
-    used for the plot.  If \code{subscripts} is TRUE, the subscripts
-    will provide indices to the rows of data before the subsetting is
-    done.  Whether levels of factors in the data frame that are unused
-    after the subsetting will be dropped depends on the
+    used for the plot.  If \code{subscripts} is \code{TRUE}, the
+    subscripts will provide indices to the rows of data before the
+    subsetting is done.  Whether levels of factors in the data frame
+    that are unused after the subsetting will be dropped depends on the
     \code{drop.unused.levels} argument.
   }
-  \item{xlab}{ character string or expression (or a ``grib'') giving
+  \item{xlab}{ character string or expression (or a ``grob'') giving
     label for the x-axis.  Defaults to the expression for \code{x} in
     \code{formula}.  Can be specified as \code{NULL} to omit the label
-    altogether.  Fine control is possible, as described in the entry for
-    \code{main}, with the additional feature that if the \code{label}
-    component is omitted from the list, it is replaced by the default
-    \code{xlab}.
+    altogether.  Finer control is possible, as described in the entry
+    for \code{main}, with the additional feature that if the
+    \code{label} component is omitted from the list, it is replaced by
+    the default \code{xlab}.
   }
   \item{xlim}{ Normally a numeric vector of length 2 (possibly a
     DateTime object) giving minimum and maximum for the x-axis, or, a
@@ -909,7 +911,7 @@ bwplot(formula,
 
     The arguments \code{horizontal} and \code{panel.groups} are
     documented here to avoid confusion, but they are actually not
-    recognised by these high level functions.  Rather, they are passed
+    recognised by these high level functions.  Instead, they are passed
     along to the panel function, as are any other unrecognized
     arguments.
 
@@ -948,7 +950,7 @@ bwplot(formula,
   conditioning variable, the order depends on the order of the levels
   (which for factors is usually in alphabetical order). Both of these
   orders can be modified using the \code{index.cond} and
-  \code{perm.cond} arguments, often using the \code{update} method.
+  \code{perm.cond} arguments, possibly using the \code{update} method.
 }
 
 \note{
@@ -970,7 +972,7 @@ bwplot(formula,
   \code{\link{print.trellis}},
   \code{\link{shingle}},
   \code{\link{banking}},
-  \code{\link{reshape}}
+  \code{\link{reshape}},
   \code{\link{panel.xyplot}},
   \code{\link{panel.bwplot}},
   \code{\link{panel.barchart}},
@@ -981,7 +983,7 @@ bwplot(formula,
   \code{\link{panel.linejoin}},
   \code{\link{strip.default}},
   \code{\link{simpleKey}}
-  \code{\link{lset}}
+  \code{\link{trellis.par.set}}
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \examples{

@@ -5,9 +5,9 @@
 \title{ Initializing Trellis Displays }
 \description{
   \code{trellis.device} initializes a Trellis display device with
-  appropriate settings of the graphics control parameter
-  \code{trellis.settings}.
+  appropriate settings of the graphics control parameters.
 }
+
 \usage{
 trellis.device(device = getOption("device"),
                color = !(dev.name == "postscript"),
@@ -124,8 +124,8 @@ col.whitebg()
 
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \seealso{
-  \code{\link{trellis.par.set}}, \code{\link{lset}}, 
-  \code{\link{postscript}},\code{\link{x11}}, \code{\link{Lattice}}
+  \code{\link{trellis.par.set}}, \code{\link{postscript}},
+  \code{\link{x11}}, \code{\link{Lattice}}
 }
 \keyword{dplot}
 
