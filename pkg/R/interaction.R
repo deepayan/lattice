@@ -43,7 +43,7 @@ panel.identify <-
     function(x, y = NULL, labels = seq(along = x), 
              n = length(x), offset = 0.5,
              threshold = 18, ## in points, roughly 0.25 inches
-             panel.args = latticeVP.panelAgs(),
+             panel.args = latticeVP.panelArgs(),
              ...)
     ## ... goes to ltext
     ## is this interruptible?
@@ -63,7 +63,7 @@ panel.identify <-
     for (i in seq(length = n))
     {
         ll <- grid.locator(unit = "points")
-        if (convertX(ll$x, "npc", TRUE) < 0.0001) break ## need to do better
+        if (is.null(ll)) break ## non-left click
         lx <- convertX(ll$x, "points", TRUE)
         ly <- convertY(ll$y, "points", TRUE)
         pdists <- sqrt((px - lx)^2 + (py - ly)^2)
@@ -110,6 +110,7 @@ latticeVP.focus <-
              highlight = interactive(), 
              ...)
 {
+    latticeVP.unfocus() ## just in case 
     ll <- lattice.getStatus("current.panel.positions")
     name <- match.arg(name)
     latticeVP.unfocus()
