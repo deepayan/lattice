@@ -13,7 +13,8 @@ Rows(x, which)
   \item{which}{ index for members of \code{x}}
 }
 \value {
-  A list similar to \code{x}, with each x[[i]] replaced by x[[i]][which]
+  A list similar to \code{x}, with each \code{x[[i]]} replaced by
+  \code{x[[i]][which]}
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \seealso{\code{\link{xyplot}}, \code{\link{Lattice}}}
