@@ -2,6 +2,7 @@
 \alias{barley}
 \docType{data}
 \title{ Yield data from a Minnesota barley trial }
+
 \description{
   Total yield in bushels per acre for 10 varieties at 6 sites in each of
   two years.
@@ -32,13 +33,13 @@
   three randomized blocks at each of the six  stations during 1931 and
   1932, different land being used each year of the test.
 
-  Immer et al. (1934) present the data for each Year*Site*Variety*Block.  The
-  data here is the average yield across the three blocks.
+  Immer et al. (1934) present the data for each Year*Site*Variety*Block.
+  The data here is the average yield across the three blocks.
 
   Immer et al. (1934) refer (once) to the experiment as being conducted
-  in 1930 and 
-  1931, then later refer to it (repeatedly) as being conducted in 1931
-  and 1932.  Later authors have continued the confusion.
+  in 1930 and 1931, then later refer to it (repeatedly) as being
+  conducted in 1931 and 1932.  Later authors have continued the
+  confusion.
 
   Cleveland (1993) suggests that the data for the Morris site may have
   had the years switched.
@@ -51,6 +52,10 @@
     American Society of Agronomy}, \bold{26}, 403--419.
 }
 
+\author{
+  Documentation contributed by Kevin Wright.
+}
+
 \references{
   Cleveland, William S. (1993). \emph{Visualizing Data}.  Hobart Press,
   Summit, New Jersey.
@@ -59,14 +64,13 @@
   York, 9th edition.
 }
 
-\seealso{
-  \code{\link[MASS]{immer}} in the MASS package for data from the same
-  experiment (expressed as total yield for 3 blocks) for a subset of
-  varieties.
-}
+\seealso{\code{\link[MASS]{immer}} in the MASS package for data from the
+  same experiment 
+  (expressed as total yield for 3 blocks) for a subset of varieties.}
 
 \examples{
 # Graphic suggesting the Morris data switched the years 1931 and 1932
+# Figure 1.1 from Cleveland
 dotplot(variety ~ yield | site, data = barley, groups = year,
         key = simpleKey(levels(barley$year), space = "right"),
         xlab = "Barley Yield (bushels/acre) ",
