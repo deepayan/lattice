@@ -33,7 +33,8 @@ new features
 ------------
 
  o lattice.options(), similar to options(), to control various aspects
-   of lattice plots.
+   of lattice plots.  This is mostly for easier code maintainance, but
+   can be useful for the user too.
 
  o API now supports alpha-transparency (actual support is device
    dependent) where appropriate (some cases might have been missed,
@@ -41,7 +42,7 @@ new features
 
  o API for interacting with and enhancing Trellis plots AFTER they are
    drawn, based on grid functions seekViewport, grid.locator, etc.
-   See ?latticeVP.focus	
+   See ?trellis.focus
 
  o aspect="iso" for `isometric' x- and y-axes.
 
@@ -61,7 +62,7 @@ new features
    panel specific data for use while interacting with and enhancing
    plots after they are printed
 
- o a summary method for trellis objects
+ o a summary method for trellis objects (currently pretty basic)
 
 
 
@@ -80,7 +81,7 @@ changes in behaviour
    updated accordingly
 
  o choice of color for grouped barcharts now taken from a new setting
-   parameter
+   parameter 'superpose.fill' and not 'regions' as previously
 
 
 

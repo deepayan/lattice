@@ -26,6 +26,9 @@
 
 
 
+
+## utility used in panel.identify
+
 getTextPosition <- function(x, y)
     ## returns position 1: below, 2: left, 3: above, 4: right (w.r.t
     ## origin).  Used as a tool in panel.identify.
@@ -43,7 +46,7 @@ panel.identify <-
     function(x, y = NULL, labels = seq(along = x), 
              n = length(x), offset = 0.5,
              threshold = 18, ## in points, roughly 0.25 inches
-             panel.args = latticeVP.panelArgs(),
+             panel.args = trellis.panelArgs(),
              ...)
     ## ... goes to ltext
     ## is this interruptible?
@@ -80,65 +83,78 @@ panel.identify <-
 
 
 
-latticeVP.switch <-
-    function(name = c("panel", "strip"), clip.off = FALSE)
+
+
+trellis.vpname <-
+    function(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
+             column = lattice.getStatus("current.focus.column"),
+             row = lattice.getStatus("current.focus.row"),
+             side = c("left", "top", "right", "bottom", "inside"),
+             clip.off = FALSE)
 {
     name <- match.arg(name)
-    row <- lattice.getStatus("current.focus.row")
-    column <- lattice.getStatus("current.focus.column")
-    if (row == 0 || column == 0)
-        stop("you have to first select a panel using latticeVP.focus()")
-    if (lattice.getStatus("vp.highlighted"))
-    {
-        lvp <- grid.get("lvp.highlight")
-        if (is.null(lvp))
-            stop("inconsistent state, please report as a bug")
-        else
-            grid.remove("lvp.highlight")
-        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
-        else seekViewport(paste(name, column, row, sep = "."))
-        grid.draw(lvp)
-    }
-    else
-    {
-        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
-        else seekViewport(paste(name, column, row, sep = "."))
-    }
-    invisible()
+    side <- match.arg(side)
+
+    switch(name,
+
+           xlab = "xlab.vp",
+           ylab = "ylab.vp",
+           main = "main.vp",
+           sub  = "sub.vp",
+
+           panel =
+           if (clip.off) paste("panel", column, row, "off", "vp",  sep = ".")
+           else paste("panel", column, row, "vp", sep = "."), 
+
+           strip =
+           if (clip.off) paste("strip", column, row, "off", "vp", sep = ".")
+           else paste("strip", column, row, "vp", sep = "."), 
+
+           legend = paste("legend", side, "vp", sep = "."))
 }
 
 
-## Not sure whether (or how) to allow addition of axes.
 
 
-latticeVP.focus <-
-    function(column, row, name = c("panel", "strip"),
-             clip.off = FALSE, 
+
+trellis.focus <-
+    function(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
+             column = stop("column must be specified"),
+             row = stop("row must be specified"),
+             side = c("left", "top", "right", "bottom", "inside"),
+             clip.off = FALSE,
              highlight = interactive(), 
              ...)
 {
-    latticeVP.unfocus() ## just in case 
-    ll <- lattice.getStatus("current.panel.positions")
+    trellis.unfocus()
     name <- match.arg(name)
-    latticeVP.unfocus()
-    if (column > 0 && row > 0 &&
-        column <= ncol(ll) && row <= nrow(ll) &&
-        ll[row, column] > 0) ## to disallow empty positions
-    {
-        lattice.setStatus(current.focus.column = column,
-                          current.focus.row = row)
-        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
-        else seekViewport(paste(name, column, row, sep = "."))
+    side <- match.arg(side)
 
+    if (name == "panel" || name == "strip")
+    {
+        ll <- lattice.getStatus("current.panel.positions")
+        if (column > 0 && row > 0 &&
+            column <= ncol(ll) && row <= nrow(ll) &&
+            ll[row, column] > 0) ## to disallow empty positions
+        {
+            lattice.setStatus(current.focus.column = column,
+                              current.focus.row = row)
+        }
+        else
+            stop("panel position unspecified or invalid")
     }
-    else
-        stop("requested panel position out of bounds")
+    else ## this is for calls from trellis.switchFocus
+    {
+        if (!missing(row)) lattice.setStatus(current.focus.row = row)
+        if (!missing(column)) lattice.setStatus(current.focus.column = column)
+    }
+    lattice.setStatus(vp.depth =
+                      downViewport(lattice.getStatus("topvp.path")) +
+                      downViewport(trellis.vpname(name, side = side, clip.off = clip.off)))
     if (highlight)
     {
         lattice.setStatus(vp.highlighted = TRUE)
-        gplist <- lattice.getOption("highlight.gpar")
-        splist <- list(...)
-        gp <- do.call("gpar", updateList(gplist, splist))
+        gp <- do.call("gpar", updateList(lattice.getOption("highlight.gpar"), list(...)))
         lvp <- rectGrob(name = "lvp.highlight", gp = gp)
         grid.draw(lvp)
     }
@@ -150,7 +166,32 @@ latticeVP.focus <-
 }
 
 
-latticeVP.unfocus <-
+
+trellis.switchFocus <-
+    function(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
+             side = c("left", "top", "right", "bottom", "inside"),
+             clip.off = FALSE,
+             highlight,
+             ...)
+{
+    row <- lattice.getStatus("current.focus.row")
+    column <- lattice.getStatus("current.focus.column")
+    if (missing(highlight)) highlight <- lattice.getStatus("vp.highlighted")
+
+    ## have to evaluate these explicitly to avoid lazy evaluation
+    ## inside trellis.focus
+
+    trellis.focus(name = name,
+                  row = row,
+                  column = column,
+                  side = side, clip.off = clip.off,
+                  highlight = highlight,
+                  ...)
+}
+
+
+
+trellis.unfocus <-
     function()
     ## mainly, undo highlighting
 {
@@ -161,26 +202,30 @@ latticeVP.unfocus <-
     }
     lattice.setStatus(current.focus.column = 0,
                       current.focus.row = 0)
+    upViewport(lattice.getStatus("vp.depth"))
+    lattice.setStatus(vp.depth = 0)
     invisible()
 }
 
 
-latticeVP.panelArgs <-
-    function()
-    ## would work only if current object saved (and not multipage), or
-    ## x explicitly supplied
+
+
+trellis.panelArgs <-
+    function(x, panel.number)
 {
-    if (lattice.getStatus("current.plot.saved"))
-        x <- trellis.last.object()
-    else
-        stop("current plot was not saved, can't retrieve panel data")
     if (lattice.getStatus("current.plot.multipage"))
         warning("plot spans multiple pages, only last page can be updated")
-    row <- lattice.getStatus("current.focus.row")
-    column <- lattice.getStatus("current.focus.column")
-    if (row == 0 || column == 0)
-        stop("you have to first select a panel using latticeVP.focus()")
-    panel.number <- lattice.getStatus("current.panel.positions")[row, column]
+    if (missing(x)) x <- 
+        if (lattice.getStatus("current.plot.saved")) trellis.last.object()
+        else stop("current plot was not saved, can't retrieve panel data")
+    if (missing(panel.number))
+    {
+        row <- lattice.getStatus("current.focus.row")
+        column <- lattice.getStatus("current.focus.column")
+        if (row == 0 || column == 0)
+            stop("you have to first select a panel using trellis.focus()")
+        panel.number <- lattice.getStatus("current.panel.positions")[row, column]
+    }
     c(x$panel.args[[panel.number]],
       x$panel.args.common,
       list(panel.number = panel.number))

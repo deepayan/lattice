@@ -22,7 +22,7 @@ xyplot(formula,
              xlim,
              ylab,
              ylim,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales,
              subscripts = !is.null(groups),
@@ -44,7 +44,7 @@ bwplot(formula,
              ylim,
              box.ratio = 1,
              horizontal = NULL,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales,
              subscripts = !is.null(groups),
@@ -77,7 +77,7 @@ xyplot(formula,
        xlim,
        ylab,
        ylim,
-       drop.unused.levels = TRUE,
+       drop.unused.levels,
        par.settings,
        perm.cond,
        index.cond,
@@ -728,11 +728,14 @@ bwplot(formula,
   }
   \item{drop.unused.levels}{ 
     logical indicating whether the unused levels of factors will be
-    dropped. Defaults to \code{TRUE}, but it is sometimes useful to
-    suppress dropping to preserve an useful layout. For finer control,
-    this argument could also be list containing components \code{cond}
-    and \code{data}, both logical, indicating desired behaviour for
-    conditioning variables and data variables respectively.
+    dropped.  Unused levels are usually dropped, but it is sometimes
+    appropriate to suppress dropping to preserve an useful layout.  For
+    finer control, this argument could also be list containing
+    components \code{cond} and \code{data}, both logical, indicating
+    desired behaviour for conditioning variables and data variables
+    respectively. The default is given by
+    \code{lattice.getOption("drop.unused.levels")} , which is initially
+    set to \code{TRUE} for both components.
   }
   \item{par.settings}{
     a list that could be supplied to \code{\link{lset}}. This enables

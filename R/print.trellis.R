@@ -118,6 +118,8 @@ print.trellis <-
              save.object = lattice.getOption("save.object"),
              ...)
 {
+    topvp.path <- list() ## used to locate main viewport of the current plot later
+
     if (is.null(dev.list())) trellis.device()
     else if (is.null(trellis.par.get()))
         trellis.device(device = .Device, new = FALSE)
@@ -131,9 +133,8 @@ print.trellis <-
         trellis.par.set(theme = x$par.settings)
     }
 
-    bg = trellis.par.get("background")$col
-    new <- TRUE
-    if (lattice.getStatus("print.more") || !newpage) new <- FALSE
+    bg <- trellis.par.get("background")$col
+    new <-  newpage && !lattice.getStatus("print.more")
     lattice.setStatus(print.more = more)
     usual  <- (missing(position) & missing(split))
     ##if (!new && usual)
@@ -141,42 +142,51 @@ print.trellis <-
 
     fontsize.text <- trellis.par.get("fontsize")$text
     
-    if (!missing(position)) {
+    if (!missing(position))
+    {
         if (length(position)!=4) stop("Incorrect value of position")
         if (new)
         {
             grid.newpage()
             grid.rect(gp = gpar(fill = bg, col = "transparent"))
         }
+        topvp.path[[ 1 + length(topvp.path) ]] <-
+            paste("position", "vp", position[1], position[2], position[3], position[4], sep = ".")
         pushViewport(viewport(x = position[1], y = position[2],
                               width = position[3] - position[1],
                               height = position[4] - position[2],
                               just = c("left","bottom"),
-                              name = "position.vp"))
-        
+                              name = topvp.path[[ length(topvp.path) ]]))
+
         if (!missing(split))
         {
             if (length(split)!=4) stop("Incorrect value of split")
-            pushViewport(viewport(layout = grid.layout(nrow=split[4], ncol = split[3]),
-                                  name = "split.vp"))
+            topvp.path[[ 1 + length(topvp.path) ]] <-
+                paste("split", "vp", split[1], split[2], split[3], split[4], sep = ".")
+            pushViewport(viewport(layout = grid.layout(nrow = split[4], ncol = split[3]),
+                                  name = topvp.path[[ length(topvp.path) ]] ))
+            topvp.path[[ 1 + length(topvp.path) ]] <- "split.location.vp"
             pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1],
-                                  name = paste("splitpos", split[1], split[2], "vp", sep = ".")))
+                                  name = topvp.path[[ length(topvp.path) ]] ))
         }
     }
-    
-    
-    else if (!missing(split)) {
-        
+
+
+    else if (!missing(split))
+    {
         if (length(split)!=4) stop("Incorrect value of split")
         if (new)
         {
             grid.newpage()
             grid.rect(gp = gpar(fill = bg, col = "transparent"))
         }
-        pushViewport(viewport(layout = grid.layout(nrow=split[4], ncol = split[3]),
-                              name = "split.vp"))
+        topvp.path[[ 1 + length(topvp.path) ]] <-
+            paste("split", "vp", split[1], split[2], split[3], split[4], sep = ".")
+        pushViewport(viewport(layout = grid.layout(nrow = split[4], ncol = split[3]),
+                              name = topvp.path[[ length(topvp.path) ]] ))
+        topvp.path[[ 1 + length(topvp.path) ]] <- "split.location.vp"
         pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1],
-                              name = paste("splitpos", split[1], split[2], "vp", sep = ".")))
+                              name = topvp.path[[ length(topvp.path) ]] ))
     }
 
 
@@ -437,15 +447,21 @@ print.trellis <-
             
             if (usual)
             {
-                if (new) grid.newpage()
+                if (new)
+                {
+                    grid.newpage()
+                    topvp.path <- list() ## FIXME: what should happen in other cases?
+                }
                 grid.rect(gp = gpar(fill = bg, col = "transparent"))
                 new <- TRUE
             }
 
+            topvp.path[[ 1 + length(topvp.path) ]] <- "lattice.topvp"
+            lattice.setStatus(topvp.path = do.call("vpPath", topvp.path))
             pushViewport(viewport(layout = page.layout,
                                   gp =
                                   gpar(fontsize = fontsize.text),
-                                  name = "lattice.topvp"))
+                                  name = topvp.path[[ length(topvp.path) ]]))
 
 #             if (!is.null(main))
 #                 grid.text(label = main$label, name= "main",
@@ -620,7 +636,7 @@ print.trellis <-
 ### viewport for the top axes, and then a 'panel.column.row.off'
 ### viewport for the other 3.  The names may seem a bit unintuitive,
 ### and perhaps they are, but some justification is provided in
-### help(latticeVP.focus)
+### help(trellis.focus)
 
 
                         pushViewport(viewport(layout.pos.row = pos.row - 1,
@@ -628,7 +644,10 @@ print.trellis <-
                                               xscale = xscale,
                                               clip = "off",
                                               name =
-                                              paste("strip", column, row, "off", sep = ".")))
+                                              trellis.vpname("strip",
+                                                             column = column,
+                                                             row = row,
+                                                             clip.off = TRUE)))
                         ## X-axis above
                         if (x$x.scales$draw && x.relation.same && actual.row == rows.per.page)
                         {
@@ -663,7 +682,11 @@ print.trellis <-
                                               yscale = yscale,
                                               clip = "off",
                                               name =
-                                              paste("panel", column, row, "off", sep = ".")))
+                                              trellis.vpname("panel",
+                                                             column = column,
+                                                             row = row,
+                                                             clip.off = TRUE)))
+
 
                         ## X-axis below
                         if (x$x.scales$draw && (!x.relation.same || actual.row == 1))
@@ -773,7 +796,11 @@ print.trellis <-
                                               xscale = xscale,
                                               yscale = yscale,
                                               clip = trellis.par.get("clip")$panel,
-                                              name = paste("panel", column, row, sep = ".")))
+                                              name =
+                                              trellis.vpname("panel",
+                                                             column = column,
+                                                             row = row,
+                                                             clip.off = FALSE)))
 
 
                         pargs <- c(x$panel.args[[panel.number]],
@@ -824,7 +851,11 @@ print.trellis <-
                             pushViewport(viewport(layout.pos.row = pos.row - 1,
                                                   layout.pos.col = pos.col,
                                                   clip = trellis.par.get("clip")$strip,
-                                                  name = paste("strip", column, row, sep = ".")))
+                                                  name =
+                                                  trellis.vpname("strip",
+                                                                 column = column,
+                                                                 row = row,
+                                                                 clip.off = FALSE)))
 
 
                             for(i in seq(length = number.of.cond))
@@ -879,7 +910,7 @@ print.trellis <-
                     {
                         pushViewport(viewport(layout.pos.col = pos.widths$key.left,
                                               layout.pos.row = range(pos.heights$panel, pos.heights$strip),
-                                              name = "left.legend.vp"))
+                                              name = trellis.vpname("legend", side = "left")))
                         grid.draw(key.gf)
                         upViewport()
                     }
@@ -887,7 +918,7 @@ print.trellis <-
                     {
                         pushViewport(viewport(layout.pos.col = pos.widths$key.right,
                                               layout.pos.row = range(pos.heights$panel, pos.heights$strip),
-                                              name = "right.legend.vp"))
+                                              name = trellis.vpname("legend", side = "right")))
                         grid.draw(key.gf)
                         upViewport()
                     }
@@ -895,7 +926,7 @@ print.trellis <-
                     {
                         pushViewport(viewport(layout.pos.row = pos.heights$key.top,
                                               layout.pos.col = pos.widths$panel,
-                                              name = "top.legend.vp"))
+                                              name = trellis.vpname("legend", side = "top")))
                         grid.draw(key.gf)
                         upViewport()
                     }
@@ -903,7 +934,7 @@ print.trellis <-
                     {
                         pushViewport(viewport(layout.pos.row = pos.heights$key.bottom,
                                               layout.pos.col = pos.widths$panel,
-                                              name = "bottom.legend.vp"))
+                                              name = trellis.vpname("legend", side = "bottom")))
                         grid.draw(key.gf)
                         upViewport()
                     }
@@ -911,7 +942,7 @@ print.trellis <-
                     {
                         pushViewport(viewport(layout.pos.row = c(1, n.row),
                                               layout.pos.col = c(1, n.col),
-                                              name = "inside.legend.vp"))
+                                              name = trellis.vpname("legend", side = "inside")))
 
                         key.corner <-
                             if (is.null(legend[[i]]$corner)) c(0,1)
@@ -1003,7 +1034,8 @@ print.trellis <-
     lattice.setStatus(current.panel.positions = current.panel.positions)
     lattice.setStatus(current.focus.row = 0,
                       current.focus.column = 0,
-                      vp.highlighted = FALSE)
+                      vp.highlighted = FALSE,
+                      vp.depth = 0)
     invisible(x)
 }
 
