@@ -28,16 +28,18 @@ panel.qq(...)
 \arguments{
   \item{x,y}{ variables to be plotted in the scatterplot}
   \item{type}{ character vector consisting of one or more of the
-    following: \code{"p", "l", "h", "b", "o", "s", "S", "r", "smooth"}. 
+    following: \code{"p", "l", "h", "b", "o", "s", "S", "r",
+      "smooth"}. If type has more than one element, an attempt is made
+    to combine the effect of each of the components.
 
     The behaviour if any of the first six are included in \code{type} is
-    similar to the effect of \code{type} in \code{\link{plot}}. 
-    \code{"r"} adds a  regression line (same as
-    \code{\link{panel.lmline}}, except for default graphical
+    similar to the effect of \code{type} in \code{\link{plot}} (type 'b'
+    is actually the same as 'o').  \code{"r"} adds a regression line
+    (same as \code{\link{panel.lmline}}, except for default graphical
     parameters), and \code{"smooth"} adds a lowess fit (same as
     \code{\link{panel.loess}}).
 
-    See example in \code{xyplot} for an example.
+    See \code{example(xyplot)} and \code{demo(lattice)} for examples.
   }
   \item{col, col.line, col.symbol}{
     default colours are obtained from \code{plot.symbol} and
