@@ -79,7 +79,7 @@ ltransform3dto3d <- function(x, R.mat, dist = 0) {
         tdata[2,] <- tdata[2,] / (1/dist - tdata[3,])
     }
 
-    tdata[1:3, ]
+    tdata[1:3, , drop = FALSE]
 }
 
 
@@ -327,7 +327,6 @@ panel.3dwire <-
     ## might be a matrix, which indicates multiple surfaces. Above
     ## description true for each column in that case.
 
-
     ## things are slightly different depending on whether shading is
     ## being done. If not, things are relatively simple, and in
     ## particular polygons are drawn one quadrilateral at a
@@ -546,7 +545,6 @@ panel.3dwire <-
                     }
                 }
             }
-
 
 
         .Call("wireframePanelCalculations",
