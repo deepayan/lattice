@@ -18,18 +18,16 @@ panel.cloud(x, y, subscripts, z,
             panel.3d.cloud = "panel.3dscatter",
             panel.3d.wireframe = "panel.3dwire",
             screen = list(z = 40, x = -60),
-            R.mat = diag(4), aspect,
+            R.mat = diag(4), aspect = c(1, 1),
             par.box = NULL,
             xlab, ylab, zlab,
-            xlab.default, 
-            ylab.default,
-            zlab.default,
+            xlab.default, ylab.default, zlab.default,
             scales.3d,
-            proportion = 0.6, wireframe = FALSE,
+            proportion = 0.6,
+            wireframe = FALSE,
             scpos,
             \dots,
-            col.at,
-            col.regions)
+            at)
 panel.wireframe(\dots)
 panel.3dscatter(x, y, z, rot.mat, distance,
                 groups, type = 'p',
@@ -38,18 +36,23 @@ panel.3dscatter(x, y, z, rot.mat, distance,
                 col, col.point, col.line,
                 lty, lwd, cex, pch,
                 cross, \dots, subscripts)
-panel.3dwire(x, y, z, rot.mat, distance,
-             col.at, col.regions,
+panel.3dwire(x, y, z, rot.mat = diag(4), distance,
              shade = FALSE,
              shade.colors.palette = trellis.par.get("shade.colors")$palette,
              light.source = c(0, 0, 1000),
              xlim.scaled,
              ylim.scaled,
              zlim.scaled,
-             col, lty, lwd, alpha,
+             col = if (shade) "transparent" else "black",
+             lty = 1, lwd = 1,
+             alpha,
              col.groups = superpose.fill$col,
              polynum = 100,
-             \dots)
+             \dots,
+             drape = FALSE,
+             at,
+             col.regions = regions$col,
+             alpha.regions = regions$alpha)
 }
 \arguments{
   \item{x, y, z}{
@@ -154,9 +157,18 @@ panel.3dwire(x, y, z, rot.mat, distance,
     of \code{panel.cloud} to see the details of this enumeration.)
   }
   \item{wireframe}{logical, indicating whether this is a wireframe plot}
-  \item{col.at, col.regions}{
+  \item{drape}{
+    logical, whether the facets will be colored by height, in a manner
+    similar to \code{levelplot}.  This is ignored if \code{shade=TRUE}.
+  }
+  \item{at, col.regions, alpha.regions}{
     deals with specification of colors when \code{drape = TRUE} in
-    \code{\link{wireframe}}
+    \code{\link{wireframe}}.  \code{at} can be a numeric vector,
+    \code{col.regions} a vector of colors, and \code{alpha.regions} a
+    numeric scalar controlling transparency.  The resulting behaviour is
+    similar to \code{\link{levelplot}}, \code{at} giving the breakpoints
+    along the z-axis where colors change, and the other two determining
+    the colors of the facets that fall in between.
   }
   \item{rot.mat}{
     4x4 transformation matrix in homogeneous coordinates. This gives the

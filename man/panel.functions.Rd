@@ -8,7 +8,6 @@
 \alias{panel.lmline}
 \alias{panel.loess}
 \alias{panel.linejoin}
-\alias{panel.identify}
 \alias{panel.mathdensity}
 \title{Useful Panel Functions}
 \description{
@@ -39,25 +38,22 @@ panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd,
     ...)
 }
 \usage{
-panel.abline(a, b, ...)
-panel.abline(coef, ...)
-panel.abline(reg, ...)
-panel.abline(h= ,v= , ...)
+panel.abline(a, b, \dots)
+panel.abline(coef, \dots)
+panel.abline(reg, \dots)
+panel.abline(h= ,v= , \dots)
 panel.curve(expr, from, to, n = 101,
-            curve.type = "l", ...)
+            curve.type = "l", \dots)
 panel.rug(x = NULL, y = NULL,
           regular = TRUE, start, end, \dots)
-panel.fill(col="grey", ...)
-panel.grid(h=3, v=3, ...)
-panel.lmline(x,y,...) = panel.abline(lm(y~x),...)
+panel.fill(col="grey", \dots)
+panel.grid(h=3, v=3, \dots)
+panel.lmline(x,y,\dots) = panel.abline(lm(y~x), \dots)
 panel.loess(x, y, span = 2/3, degree = 1,
             family = c("symmetric", "gaussian"),
             evaluation = 50, \dots)
-panel.linejoin(x, y, fun = mean, horizontal = TRUE, ...)
+panel.linejoin(x, y, fun = mean, horizontal = TRUE, \dots)
 panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
-panel.identify(x, y = NULL, labels = seq(along = x),
-               n = length(x), offset = 0.5,
-               threshold = 18, ...)
 }
 \arguments{
   \item{x, y}{ variables defining the contents of the panel}
@@ -74,6 +70,7 @@ panel.identify(x, y = NULL, labels = seq(along = x),
   \item{expr}{ expression as a function of x or a function to plot as a
     curve
   }
+  \item{n}{ the number of points to use for drawing the curve }
   \item{regular}{ logical indicating whether `rug' to be drawn on the
     regular side (left / bottom) or not (right / top)
   }
@@ -83,10 +80,6 @@ panel.identify(x, y = NULL, labels = seq(along = x),
   }
   \item{from, to}{ optional lower and upper x-limits of curve. If
     missing, limits of current panel are used
-  }
-  \item{n}{ for \code{panel.curve}, the number of points to use for
-    drawing the curve. For \code{panel.identify}, the number of points
-    to identify by default (overridden by a right click)
   }
   \item{curve.type}{ type of curve ('p' for points, etc), passed to
     \code{llines}
@@ -107,18 +100,6 @@ panel.identify(x, y = NULL, labels = seq(along = x),
   \item{dmath}{ A vectorized function that produces density values
     given a numeric vector named \code{x}, e.g., \code{dnorm}}
   \item{args}{ list giving additional arguments to be passed to dmath}
-  \item{labels}{ In \code{panel.identify}, an optional vector of labels
-    associated with each point.
-  }
-  \item{offset}{ the labels are printed either below, above, to the left
-    or to the right of the identified point, depending on the relative
-    location of the mouse click. The \code{offset} specifies (in "char"
-    units) how far from the identified point the labels should be
-    printed.
-  }
-  \item{threshold}{ threshold in grid's "points" units. Points further
-    than these from the mouse click position are not considered}
-
   \item{\dots}{ graphical parameters can be supplied. see function
     definition for details. Color can usually be specified by \code{col,
       col.line} and \code{col.symbol}, the last two overriding the first

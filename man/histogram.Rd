@@ -1,6 +1,7 @@
 \name{histogram}
 \alias{histogram}
 \alias{densityplot}
+\alias{do.breaks}
 \title{Histograms and Kernel Density Plots}
 \synopsis{
 histogram(formula,
@@ -77,6 +78,7 @@ histogram(formula,
 
 densityplot(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
             \dots)
+do.breaks(endpoints, nint)
 }
 \description{
   Draw Histograms and Kernel Density Plots
@@ -111,9 +113,11 @@ densityplot(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
   \item{nint}{ Number of bins. Applies only when \code{breaks} is
     unspecified in the call.
   }
-  \item{endpoints}{ vector of length 2 indicating the range of x-values
-    that is to be covered by the  histogram. Again, applies only when
-    \code{breaks} is unspecified.
+  \item{endpoints}{
+    vector of length 2 indicating the range of x-values that is to be
+    covered by the histogram. Again, applies only when \code{breaks} is
+    unspecified.  In \code{do.breaks}, this specifies the interval that
+    is to be divided up.
   }
   \item{breaks}{ numeric vector of length = (number of bins + 1)
     defining the breakpoints of the bins. Note that when breakpoints are
@@ -165,7 +169,11 @@ densityplot(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
   These and all other high level Trellis functions have several
   arguments in common. These are extensively documented only in the
   help page for \code{xyplot}, which should be consulted to learn more
-  detailed usage. 
+  detailed usage.
+
+  \code{do.breaks} is an utility function that calculates breakpoints
+  given an interval and the number of pieces to break it into.
+  
 }
 \note{
   The form of the arguments accepted by the default
@@ -186,8 +194,6 @@ densityplot(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \examples{
 require(stats)
-data(singer)
-
 histogram( ~ height | voice.part, data = singer, nint = 17,
           endpoints = c(59.5, 76.5), layout = c(2,4), aspect = 1,
           xlab = "Height (inches)")

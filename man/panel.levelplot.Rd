@@ -6,13 +6,13 @@
   This is the default panel function for \code{levelplot}.
 }
 \usage{
-panel.levelplot(x, y, z, zcol,
+panel.levelplot(x, y, z, 
                 subscripts,
-                at = mean(z),
+                at = pretty(z),
                 shrink,
                 labels = NULL,
                 label.style = c("mixed", "flat", "align"),
-                contour = TRUE,
+                contour = FALSE,
                 region = TRUE,
                 col = add.line$col,
                 lty = add.line$lty,
@@ -23,17 +23,16 @@ panel.levelplot(x, y, z, zcol,
                 fontface = add.text$fontface,
                 col.text = add.text$col,
                 \dots,
-                col.regions)
+                col.regions = regions$col,
+                alpha.regions = regions$alpha)
 panel.contourplot(\dots)
 }
 \arguments{
   \item{x, y, z}{ variables defining the plot }
-  \item{zcol}{
-    color numbers for each x,y combination, used as indices for the
-    color vector \code{col.regions}
-  }
   \item{subscripts}{ which points of \code{x,y,z} to draw }
-  \item{at}{ numeric vector specifying cut points }
+  \item{at}{
+    numeric vector specifying breakpoints for change in colors
+  }
   \item{shrink}{
     either a numeric vector of length 2 (meant to work as both x and y
     components), or a list with components x and y which are numeric
@@ -58,7 +57,16 @@ panel.contourplot(\dots)
   \item{col, lty, lwd}{ graphical parameters for contour lines}
   \item{cex, col.text, font, fontfamily, fontface}{ graphical parameters for contour labels}
   \item{\dots}{ extra parameters }
-  \item{col.regions}{ colors indexed by zcol, used if \code{region=TRUE}
+  \item{col.regions}{
+    a vector of colors used if \code{region=TRUE}.  Usually a subset of
+    the colors are used, the exact number being one more than the length
+    of \code{at}.  These are chosen to be roughly equally spaced along
+    \code{col.regions}.  In the unusual case when \code{col.regions} is
+    not longer than \code{at}, it is repeated to be as long as
+    necessary.
+  }
+  \item{alpha.regions}{
+    numeric scalar controlling transparency of facets
   }
 }
 
