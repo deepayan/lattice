@@ -23,13 +23,16 @@
 
 ## retrieve last saved (while printing) trellis object
 
-trellis.last.object <- function(warn = TRUE)
+trellis.last.object <- function(warn = TRUE, ...)
 {
     ans <- get("last.object", envir = .LatticeEnv)
-    if (is.null(ans)) warning("No trellis object currently saved")
+    if (is.null(ans)) {
+        warning("No trellis object currently saved")
+        return(invisible())
+    }
     if (warn && !lattice.getStatus("current.plot.saved"))
         warning("currently saved object is not the last one plotted")
-    ans
+    update(ans, ...)
 }
 
 
@@ -118,7 +121,7 @@ update.trellis <-
         if (length(nm) == 0)
         {
             ## FIXME: drop this message before release
-            cat("nothing to update with")
+            ## cat("nothing to update with")
             return(object)
         }
         object$call[nm] <- upcall[nm]

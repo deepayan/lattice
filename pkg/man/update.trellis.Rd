@@ -37,6 +37,7 @@
 \usage{
 \method{update}{trellis}(object, \dots)
 trellis.last.object()
+trellis.last.object(\dots)
 }
 \arguments{
   \item{object}{ The object to be updated, of class ``trellis''. }
@@ -82,7 +83,8 @@ trellis.last.object()
   The print method for ``trellis'' objects optionally saves the object
   after printing it.  If this feature is on, \code{trellis.last.object}
   can retrieve it.  Note that at most one object can be saved at a
-  time.
+  time.  If \code{trellis.last.object} is called with arguments, these
+  are used to update the retrieved object before returning it.
 
 }
 
@@ -93,6 +95,9 @@ xyplot(spots ~ 1749:1983, xlab = "", type = "l",
        scales = list(x = list(alternating = 2)),
        main = "Average Yearly Sunspots")
 update(trellis.last.object(), aspect = "xy")
+\dontrun{
+trellis.last.object(xlab = "Year")
+}
 lattice.options(old.options)
 }
 
