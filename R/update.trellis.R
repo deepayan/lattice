@@ -168,21 +168,27 @@ update.trellis <-
     }
 
 
+    ## during construction of trellis objects, perm.cond and
+    ## index.cond are calculated by the cond.orders function. We could
+    ## do that here as well, but the perm.cond is really too trivial
+    ## to bother. cond.orders() is called is index.cond is
+    ## non-missing, and then it becomes important that perm.cond is
+    ## processed first (in case it it non-missing as well).
+
     if (!missing(perm.cond))
     {
-        if (all(sort(perm.cond) == object$perm.cond))
+        if (is.null(perm.cond))
+            object$perm.cond <- seq(length = length(object$condlevels))
+        else if (all(sort(perm.cond) == object$perm.cond))
             object$perm.cond <- perm.cond
         else stop("Invalid value of perm.cond")
     }
 
     if (!missing(index.cond))
     {
-        if (is.list(index.cond) && length(index.cond) == length(object$index.cond))
-        {
-            for (i in seq(along = object$condlevels))
-                object$index.cond[[i]] <- seq(length = length(object$condlevels[[i]]))[index.cond[[i]]]
-        }
-        else stop("Invalid value of index.cond")
+        object$index.cond <- index.cond
+        cond.ord <- cond.orders(object)
+        object[names(cond.ord)] <- cond.ord
     }
 
     dots <- list(...)
