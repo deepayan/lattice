@@ -1,6 +1,3 @@
-
-
-
 ### Copyright 2001-2004  Deepayan Sarkar <deepayan@stat.wisc.edu>
 ###
 ### This file is part of the lattice library for R.
@@ -25,12 +22,14 @@ summary.trellis <- function(object, ...)
 {
     cat("\nCall:\n")
     print(object$call)
-    cat("\ny:", object$ylab, "\n")
-    cat("x:", object$xlab, "\n")
+    cat("\nY label:\n")
+    str(object$ylab)
+    cat("\nX label:\n")
+    str(object$xlab)
 
     if (!is.null(names(object$condlevels)))
     {
-        cat("\nLevels of Conditioning variables:\n")
+        cat("\nLevels of Conditioning variables:")
         for (i in seq(along = object$condlevels))
         {
             cat("\n<", i, "> ", names(object$condlevels)[i], "\n", sep = "")
@@ -40,3 +39,6 @@ summary.trellis <- function(object, ...)
     cat("\n")
     invisible()
 }
+
+
+

@@ -46,10 +46,11 @@ show.settings(x = NULL)
     logical, indicating whether a warning should be issued when
     \code{trellis.par.get} is called when no graphics device is open
   }
-  \item{x}{ optional list of components that change the settings (any
-    valid value of \code{theme} in \code{lset}). These are used to
-    modify the current settings (obtained by \code{trellis.par.get})
-    before they are displayed
+  \item{x}{
+    optional list of components that change the settings (any valid
+    value of \code{theme}).  These are used to modify the current
+    settings (obtained by \code{trellis.par.get}) before they are
+    displayed.
   }
 }
 \details{
@@ -69,7 +70,7 @@ show.settings(x = NULL)
   for that device. In practice, this boils down to three distinct
   settings, one for screen devices like \code{x11} and \code{windows},
   one for black and white plots (mostly useful for \code{postscript})
-  and one for color printers (color \code{postcript, pdf}). 
+  and one for color printers (color \code{postcript}, \code{pdf}).
 
   Once a device is open, it's settings can be modified. When another
   instance of the same device is opened later using
