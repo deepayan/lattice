@@ -89,36 +89,37 @@ canonical.theme <- function(name = "null device", color = TRUE)
     ## color settings, modified later if postscript or color = FALSE
     ans <-
         list(fontsize         = list(text = 12, points = 8),
-             background       = list(col = can.col[17]),
+             background       = list(alpha = 0, col = can.col[17]),
              clip             = list(panel = TRUE, strip = TRUE),
-             add.line         = list(col = can.col[1], lty = 1, lwd = 1),
-             add.text         = list(cex = 1, col = can.col[1], font = 1),
-             bar.fill         = list(col = can.col[2]),
-             box.dot          = list(col = can.col[1], cex = 1, font = 1, pch = 16),
-             box.rectangle    = list(col = can.col[2], fill = "transparent", lty = 1, lwd = 1),
-             box.umbrella     = list(col = can.col[2], lty = 2, lwd = 1),
-             dot.line         = list(col = can.col[16], lty = 1, lwd = 1),
-             dot.symbol       = list(cex = 0.8, col = can.col[2], font = 1, pch = 16),
-             plot.line        = list(col = can.col[2], lty = 1, lwd = 1),
-             plot.symbol      = list(cex = 0.8, col = can.col[2], font = 1, pch = 1),
-             reference.line   = list(col = can.col[16], lty = 1, lwd = 1),
-             strip.background = list(col = can.col[c(12, 11, 9, 13, 10, 15, 14)]),
-             strip.shingle    = list(col = can.col[c(5, 4, 2, 6, 3, 8, 7)]),
-             strip.border     = list(col = rep(can.col[1], 7), lty = rep(1, 7), lwd = rep(1, 7)),
-             superpose.line   = list(col = can.col[2:8], lty = rep(1, 7), lwd = rep(1, 7)),
-             superpose.symbol = list(cex = rep(0.8, 7), col = can.col[2:8], font = rep(1, 7), pch = rep(1, 7)),
-             superpose.fill   = list(col = can.col[2:8]),
-             regions          = list(col = rev(cm.colors(100))),
-             shade.colors     = list(palette = function(irr, ref, height, saturation = .9)
-                                hsv(h = height, s = 1 - saturation * (1 - (1-ref)^0.5), v = irr)),
-             axis.line        = list(col = can.col[1], lty = 1, lwd = 1),
-             axis.text        = list(cex = .8, col = can.col[1], font = 1),
-             box.3d           = list(col = can.col[1], lty = 1, lwd = 1),
-             par.xlab.text    = list(cex = 1, col = can.col[1], font = 1),
-             par.ylab.text    = list(cex = 1, col = can.col[1], font = 1),
-             par.zlab.text    = list(cex = 1, col = can.col[1], font = 1),
-             par.main.text    = list(cex = 1.2, col = can.col[1], font = 2),
-             par.sub.text     = list(cex = 1, col = can.col[1], font = 2))
+             add.line         = list(alpha = 0, col = can.col[1], lty = 1, lwd = 1),
+             add.text         = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
+             bar.fill         = list(alpha = 0, col = can.col[2]),
+             box.dot          = list(alpha = 0, col = can.col[1], cex = 1, font = 1, pch = 16),
+             box.rectangle    = list(alpha = 0, col = can.col[2], fill = "transparent", lty = 1, lwd = 1),
+             box.umbrella     = list(alpha = 0, col = can.col[2], lty = 2, lwd = 1),
+             dot.line         = list(alpha = 0, col = can.col[16], lty = 1, lwd = 1),
+             dot.symbol       = list(alpha = 0, cex = 0.8, col = can.col[2], font = 1, pch = 16),
+             plot.line        = list(alpha = 0, col = can.col[2], lty = 1, lwd = 1),
+             plot.symbol      = list(alpha = 0, cex = 0.8, col = can.col[2], font = 1, pch = 1),
+             reference.line   = list(alpha = 0, col = can.col[16], lty = 1, lwd = 1),
+             strip.background = list(alpha = 0, col = can.col[c(12, 11, 9, 13, 10, 15, 14)]),
+             strip.shingle    = list(alpha = 0, col = can.col[c(5, 4, 2, 6, 3, 8, 7)]),
+             strip.border     = list(alpha = 0, col = rep(can.col[1], 7), lty = rep(1, 7), lwd = rep(1, 7)),
+             superpose.line   = list(alpha = 0, col = can.col[2:8], lty = rep(1, 7), lwd = rep(1, 7)),
+             superpose.symbol = list(alpha = rep(0, 7), cex = rep(0.8, 7), col = can.col[2:8], font = rep(1, 7), pch = rep(1, 7)),
+             superpose.fill   = list(alpha = rep(0, 7), col = can.col[2:8]),
+             regions          = list(alpha = 0, col = rev(cm.colors(100))),
+             shade.colors     = list(alpha = 0, palette = function(irr, ref, height, saturation = .9) {
+                 hsv(h = height, s = 1 - saturation * (1 - (1-ref)^0.5), v = irr)
+             }),
+             axis.line        = list(alpha = 0, col = can.col[1], lty = 1, lwd = 1),
+             axis.text        = list(alpha = 0, cex = .8, col = can.col[1], font = 1),
+             box.3d           = list(alpha = 0, col = can.col[1], lty = 1, lwd = 1),
+             par.xlab.text    = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
+             par.ylab.text    = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
+             par.zlab.text    = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
+             par.main.text    = list(alpha = 0, cex = 1.2, col = can.col[1], font = 2),
+             par.sub.text     = list(alpha = 0, cex = 1, col = can.col[1], font = 2))
 
     if (color)
     {
@@ -158,6 +159,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
         ans$superpose.symbol$col <- can.col[rep(1, 7)]
         ans$superpose.symbol$cex <- rep(0.7, 7)
         ans$superpose.symbol$pch <- c(1,3,6,0,5,16,17)
+        ans$superpose.fill$col <- gray(0:6/6)
         ##ans$superpose.symbol$pch <- c("o","+",">","s","w","#","{")
     }
     ans
