@@ -41,7 +41,7 @@ xyplot(Murder ~ Population | state.region, data = states,
        groups = state.name,
        panel = function(x, y, subscripts, groups)  
        ltext(x = x, y = y, label = groups[subscripts],
-             cex=.9, fontfamily = "Hershey", fontface = "italic"),
+             cex=.9, fontfamily = "HersheySans", fontface = "italic"),
        par.strip.text = list(cex = 1.3, font = 4, col = "brown"),
        xlab = list("Estimated Population, July 1, 1975", font = 2),
        ylab = list("Murder Rate (per 100,000 population), 1976", font = 2),
@@ -53,12 +53,13 @@ lset(list(par.xlab.text = list(font = 2),
           par.main.text = list(font = 4, col = "brown")))
 
 ## Same with some multiple line text
-levels(states$state.region) <- c("Northeast", "South", "North\n Central",  "West")
+levels(states$state.region) <-
+    c("Northeast", "South", "North\n Central",  "West")
 xyplot(Murder  ~ Population | state.region, data = states,
        groups = as.character(state.name),
        panel = function(x, y, subscripts, groups)
        ltext(x = x, y = y, label = groups[subscripts], srt = -50, col = "blue",
-             cex=.9, fontfamily = "Hershey"),
+             cex=.9, fontfamily = "HersheySans"),
        par.strip.text = list(cex = 1.3, font = 4, col = "brown", lines = 2),
        xlab = "Estimated Population\nJuly 1, 1975", 
        ylab = "Murder Rate \n(per 100,000 population)\n 1976", 
