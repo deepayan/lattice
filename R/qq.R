@@ -63,7 +63,7 @@ qq <-
              xlim,
              ylab,
              ylim,
-             f.value = ppoints,
+             f.value = NULL,
              drop.unused.levels = TRUE,
              ...,
              subscripts = !is.null(groups),
@@ -248,7 +248,8 @@ qq <-
                 y.val <- tx[ty>=ly[[2]][1] & ty <=ly[[2]][2]]
             }
             n <- max(length(x.val), length(y.val))
-            p  <- f.value(n)
+            ## changed from S-PLUS, where f.value = ppoints is default
+            p  <- if (is.null(f.value)) ppoints(n, a = 1) else f.value(n)
             foo$panel.args[[panel.number]] <-
                 list(x = quantile(x = x.val, probs = p),
                      y = quantile(x = y.val, probs = p))

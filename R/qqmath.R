@@ -238,8 +238,8 @@ qqmath <-
         if (any(id)) {
             foo$panel.args[[panel.number]] <-
                 if (is.null(f.value)) # exact data instead of quantiles
-                    list(x = distribution(f.value(length(x[id]))), 
-                         y = x[id])
+                    list(x = distribution(ppoints(length(x[id]))), 
+                         y = sort(x[id]))
                 else
                     list(x = distribution(f.value(length(x[id]))), 
                          y = quantile(x[id], f.value(length(x[id]))))
