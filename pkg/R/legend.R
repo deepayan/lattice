@@ -52,19 +52,10 @@ simpleKey <- function(text, points = TRUE,
                 fontface = fontface,
                 fontfamily = fontfamily,
                 ...)
-
     if (points) ans$points <-
         Rows(trellis.par.get("superpose.symbol"), foo)
-
-    if (rectangles) {
-        col.regions <- trellis.par.get("regions")$col
-        numcol.r <- length(col.regions)
-        numcol <- length(foo)
-        ans$rectangles <-
-            list(col = 
-                 if (numcol.r <= numcol) rep(col.regions, length = numcol)
-                 else col.regions[floor(1+(foo-1)*(numcol.r-1)/(numcol-1))])
-    }
+    if (rectangles) ans$rectangles <- 
+        Rows(trellis.par.get("superpose.fill"), foo)
     if (lines) ans$lines <-
         Rows(trellis.par.get("superpose.line"), foo)
     ans
