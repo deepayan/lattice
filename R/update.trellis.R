@@ -55,6 +55,8 @@
 ##             ylim,
 ##             par.settings,
 
+
+
 ## ...,  these should probably be added to the list of common panel arguments
 
 
@@ -95,7 +97,17 @@ update.trellis <-
              perm.cond,
 
              ...)
+
 {
+    ## modify call to reflect update
+    upcall <- match.call()
+    nm <- names(upcall)
+    if (!is.null(nm))
+    {
+        nm <- nm[nm != ""]
+        object$call[nm] <- upcall[nm]
+    }
+
 
     have.xlim <- !missing(xlim)    ## needed later
     have.ylim <- !missing(xlim)
