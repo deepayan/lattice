@@ -9,6 +9,7 @@ environmental           Atmospheric environmental conditions in New
                         York City
 equal.count             shingles
 ethanol                 Engine exhaust fumes from burning ethanol
+gplot                   Grouped Display
 histogram               Histograms and Kernel Density Plots
 lattice.options         Low-level Options Controlling Behaviour of
                         Lattice
