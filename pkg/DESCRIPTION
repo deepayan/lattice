@@ -1,6 +1,6 @@
 Package: lattice
-Version: 0.10-7
-Date: 2004/08/28
+Version: 0.10-8
+Date: 2004/09/01
 Priority: recommended
 Title: Lattice Graphics
 Author: Deepayan Sarkar <deepayan@stat.wisc.edu>
@@ -11,4 +11,5 @@ Depends: R (>= 2.0.0)
 Suggests: grid
 Imports: grid, grDevices, graphics, stats
 LazyLoad: yes
+LazyData: yes
 License: GPL version 2 or later
