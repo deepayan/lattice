@@ -20,7 +20,7 @@ histogram(x, type = "density",
 
 ## Using a custom panel function to superpose a fitted normal density
 ## on a Kernel Density Estimate
-data(singer)
+
 densityplot( ~ height | voice.part, data = singer, layout = c(2, 4),  
             xlab = "Height (inches)",
             ylab = "Kernel Density\n with Normal Fit",
@@ -32,7 +32,7 @@ densityplot( ~ height | voice.part, data = singer, layout = c(2, 4),
             } )
 
 ## user defined panel functions and fonts
-data(state)
+
 states <- data.frame(state.x77,
                      state.name = dimnames(state.x77)[[1]], 
                      state.region = factor(state.region)) 
@@ -72,9 +72,9 @@ trellis.par.set(list(par.xlab.text = list(font = 1),
 
 
 ##levelplot
-data(volcano)
+
 levelplot(volcano, colorkey = list(space = "top"),
-          sub = "Maunga Whau volcano")
+          sub = "Maunga Whau volcano", aspect = "iso")
 
 ## wireframe
 wireframe(volcano, shade = TRUE,
@@ -100,7 +100,7 @@ wireframe(zzz ~ xx * yy, shade = TRUE, light.source = c(3,3,3))
 
 
 ## Example with panel.superpose. 
-data(iris)
+
 xyplot(Petal.Length~Petal.Width, data = iris, groups=Species, 
        panel = panel.superpose,
        type = c("p", "smooth"), span=.75,
@@ -144,6 +144,8 @@ xyplot(y~x | a, aspect = "fill",
        sub=expression(frac(demonstrating, expressions)))
 
 
+## grob's as xlab, ylab 
+
 require(grid)
 
 qq(gl(2, 100) ~ c(runif(100, min = -2, max = 2), rnorm(100)),
@@ -160,7 +162,33 @@ qq(gl(2, 100) ~ c(runif(100, min = -2, max = 2), rnorm(100)),
    main = "Q-Q plot")
 
 
+## non-trivial strip function
 
+barchart(variety ~ yield | year * site, barley,
+         layout = c(4, 3),
+         between = list(x = c(0, 0.5, 0)),
+         strip =
+         function(which.given,
+                  which.panel,
+                  factor.levels,
+                  bg = trellis.par.get("strip.background")$col[which.given],
+                  ...) {
+             if (which.given == 1)
+             {
+                 grid.rect(x = .26, just = "right",
+                           gp = gpar(fill = bg, col = "transparent"))
+                 ltext(factor.levels[which.panel[which.given]],
+                       x = .24, y = .5, adj = 1)
+             }
+             if (which.given == 2)
+             {
+                 grid.rect(x = .26, just = "left",
+                           gp = gpar(fill = bg, col = "transparent"))
+                 ltext(factor.levels[which.panel[which.given]],
+                       x = .28, y = .5, adj = 0)
+             }
+             grid.rect()
+         }, par.strip.text = list(lines = 0.4))
 
 
 trellis.par.set(theme = old.settings)
