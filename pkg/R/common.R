@@ -66,6 +66,18 @@ latticeParseFormula <-
              subscripts = FALSE, drop = NULL)
     ## this function mostly written by Saikat
 {
+
+    ## by this time, groups is usually already evaluated.  To make
+    ## things slightly more convenient, we will now also allow groups
+    ## to be of the form groups = ~g, in which case g will be
+    ## evaluated now
+
+    if (inherits(groups, "formula"))
+    {
+        groupVar <- as.character(groups)[2]
+        groups <- eval(parse(text = groupVar), data, parent.frame())
+    }
+
     if (is.null(drop)) drop <- TRUE
     if (is.list(drop))
     {
