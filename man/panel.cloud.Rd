@@ -41,12 +41,12 @@ panel.3dscatter(x, y, z, rot.mat, distance,
 panel.3dwire(x, y, z, rot.mat, distance,
              col.at, col.regions,
              shade = FALSE,
-             shade.colors = trellis.par.get("shade.colors")$palette,
+             shade.colors.palette = trellis.par.get("shade.colors")$palette,
              light.source = c(0, 0, 1000),
              xlim.scaled,
              ylim.scaled,
              zlim.scaled,
-             col,
+             col, lty, lwd, alpha,
              col.groups = superpose.fill$col,
              polynum = 100,
              \dots)
@@ -196,7 +196,7 @@ panel.3dwire(x, y, z, rot.mat, distance,
     logical, indicating whether the surface is to be colored using an
     illumination model with a single light source
   }
-  \item{shade.colors}{
+  \item{shade.colors.palette}{
     a function (or the name of one) that is supposed to calculate the
     color of a facet when shading is being used. Three pieces of
     information is available to the function: first, the cosine of the
@@ -206,9 +206,9 @@ panel.3dwire(x, y, z, rot.mat, distance,
     non-lambertian surfaces); and third, the scaled (average) height of
     that particular facet with respect to the total plot z-axis limits.
 
-    All three numbers should be between 0 and 1. The \code{shade.colors}
-    function should return a valid color. The default function is
-    obtained from the Lattice settings.
+    All three numbers should be between 0 and 1. The
+    \code{shade.colors.palette} function should return a valid
+    color. The default function is obtained from the trellis settings.
   }
   \item{light.source}{
     a 3-vector representing (in cartesian coordinates) the light
@@ -224,7 +224,9 @@ panel.3dwire(x, y, z, rot.mat, distance,
     intensive. This argument controls the trade-off.
   }
   \item{col.groups}{colors for different groups}
-  \item{col, col.point, col.line, lty, lwd, cex, pch}{graphical parameters}
+  \item{col, col.point, col.line, lty, lwd, cex, pch, alpha}{
+    graphical parameters
+  }
   \item{\dots}{ other parameters, passed down when appropriate}
 }
 \details{

@@ -1,14 +1,14 @@
 \name{lset}
 \alias{lset}
-\alias{col.whitebg}
-\title{Simple Interfaces to modify Trellis Settings}
+\title{Simple Interfaces to modify Trellis Settings - Deprecated}
 \description{
   A (hopefully) simpler alternative interface to
-  \code{trellis.par.get/set}. NOT S compatible
+  \code{trellis.par.get/set}.  NOT S compatible.  This is (informally)
+  deprecated, since the same functionality is now available with
+  \code{trellis.par.set}
 }
 \usage{
 lset(theme = col.whitebg())
-col.whitebg()
 }
 \arguments{
   \item{theme}{ a list decribing how to change the settings of the
@@ -27,11 +27,6 @@ col.whitebg()
   This function is expected to be used in conjunction with functions
   that return `themes', i.e., lists which when supplied to \code{lset}
   change the overall look and feel of the display.
-
-  \code{col.whitebg} is one such function, which returns a list which
-  when supplied to \code{lset} changes the background to transparent and
-  the other colors to something suitable. Contributions of more such
-  `themes' are welcome. 
 
   \code{lset} is used to modify the settings on a one-time basis. It is
   also possible to make persistent changes in the default theme used via

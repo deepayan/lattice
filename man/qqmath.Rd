@@ -24,6 +24,7 @@ qqmath(formula,
              distribution = qnorm,
              drop.unused.levels,
              ...,
+             default.scales,
              subscripts = !is.null(groups),
              subset = TRUE)
 }

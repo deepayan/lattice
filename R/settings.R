@@ -89,41 +89,83 @@ canonical.theme <- function(name = "null device", color = TRUE)
     ## color settings, modified later if postscript or color = FALSE
     ans <-
         list(fontsize         = list(text = 12, points = 8),
-             background       = list(alpha = 0, col = can.col[17]),
-             clip             = list(panel = TRUE, strip = TRUE),
-             add.line         = list(alpha = 0, col = can.col[1], lty = 1, lwd = 1),
-             add.text         = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
-             bar.fill         = list(alpha = 0, col = can.col[2]),
-             box.dot          = list(alpha = 0, col = can.col[1], cex = 1, font = 1, pch = 16),
-             box.rectangle    = list(alpha = 0, col = can.col[2], fill = "transparent", lty = 1, lwd = 1),
-             box.umbrella     = list(alpha = 0, col = can.col[2], lty = 2, lwd = 1),
-             dot.line         = list(alpha = 0, col = can.col[16], lty = 1, lwd = 1),
-             dot.symbol       = list(alpha = 0, cex = 0.8, col = can.col[2], font = 1, pch = 16),
-             plot.line        = list(alpha = 0, col = can.col[2], lty = 1, lwd = 1),
-             plot.symbol      = list(alpha = 0, cex = 0.8, col = can.col[2], font = 1, pch = 1),
-             reference.line   = list(alpha = 0, col = can.col[16], lty = 1, lwd = 1),
-             strip.background = list(alpha = 0, col = can.col[c(12, 11, 9, 13, 10, 15, 14)]),
-             strip.shingle    = list(alpha = 0, col = can.col[c(5, 4, 2, 6, 3, 8, 7)]),
-             strip.border     = list(alpha = 0, col = rep(can.col[1], 7), lty = rep(1, 7), lwd = rep(1, 7)),
-             superpose.line   = list(alpha = 0, col = can.col[2:8], lty = rep(1, 7), lwd = rep(1, 7)),
-             superpose.symbol = list(alpha = rep(0, 7), cex = rep(0.8, 7), col = can.col[2:8], font = rep(1, 7), pch = rep(1, 7)),
-             superpose.fill   = list(alpha = rep(0, 7), col = can.col[2:8]),
-             regions          = list(alpha = 0, col = rev(cm.colors(100))),
-             shade.colors     = list(alpha = 0, palette = function(irr, ref, height, saturation = .9) {
+             background       = list(alpha = 1, col = can.col[17]),
+             clip             = list(panel = "on", strip = "on"),
+             add.line         = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
+             add.text         = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
+             bar.fill         = list(alpha = 1, col = can.col[2], border = "black", lty = 1, lwd = 1),
+             box.dot          = list(alpha = 1, col = can.col[1], cex = 1, font = 1, pch = 16),
+             box.rectangle    = list(alpha = 1, col = can.col[2], fill = "transparent", lty = 1, lwd = 1),
+             box.umbrella     = list(alpha = 1, col = can.col[2], lty = 2, lwd = 1),
+             dot.line         = list(alpha = 1, col = can.col[16], lty = 1, lwd = 1),
+             dot.symbol       = list(alpha = 1, cex = 0.8, col = can.col[2], font = 1, pch = 16),
+             plot.line        = list(alpha = 1, col = can.col[2], lty = 1, lwd = 1),
+             plot.symbol      = list(alpha = 1, cex = 0.8, col = can.col[2], font = 1, pch = 1),
+             reference.line   = list(alpha = 1, col = can.col[16], lty = 1, lwd = 1),
+             strip.background = list(alpha = 1, col = can.col[c(12, 11, 9, 13, 10, 15, 14)]),
+             strip.shingle    = list(alpha = 1, col = can.col[c(5, 4, 2, 6, 3, 8, 7)]),
+             strip.border     = list(alpha = 1, col = rep(can.col[1], 7), lty = rep(1, 7), lwd = rep(1, 7)),
+             superpose.line   = list(alpha = 1, col = can.col[2:8], lty = rep(1, 7), lwd = rep(1, 7)),
+             superpose.symbol = list(alpha = rep(1, 7), cex = rep(0.8, 7), col = can.col[2:8],
+                                     font = rep(1, 7), pch = rep(1, 7)),
+             superpose.fill   = list(alpha = rep(1, 7), col = can.col[2:8],
+                                     border = rep("black", 7), lty = rep(1, 7), lwd = rep(1, 7)),
+             regions          = list(alpha = 1, col = rev(cm.colors(100))),
+             shade.colors     = list(alpha = 1, palette = function(irr, ref, height, saturation = .9) {
                  hsv(h = height, s = 1 - saturation * (1 - (1-ref)^0.5), v = irr)
              }),
-             axis.line        = list(alpha = 0, col = can.col[1], lty = 1, lwd = 1),
-             axis.text        = list(alpha = 0, cex = .8, col = can.col[1], font = 1),
-             box.3d           = list(alpha = 0, col = can.col[1], lty = 1, lwd = 1),
-             par.xlab.text    = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
-             par.ylab.text    = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
-             par.zlab.text    = list(alpha = 0, cex = 1, col = can.col[1], font = 1),
-             par.main.text    = list(alpha = 0, cex = 1.2, col = can.col[1], font = 2),
-             par.sub.text     = list(alpha = 0, cex = 1, col = can.col[1], font = 2))
+             axis.line        = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
+             axis.text        = list(alpha = 1, cex = .8, col = can.col[1], font = 1),
+
+             ## NEW: controls widths of tick marks and padding of labels
+             axis.components  = list(left = list(tck = 1, pad1 = 1, pad2 = 1),
+                                     top = list(tck = 1, pad1 = 1, pad2 = 1),
+                                     right = list(tck = 1, pad1 = 1, pad2 = 1),
+                                     bottom = list(tck = 1, pad1 = 1, pad2 = 1)),
+             ## NEW: controls widths of basic layout's components
+             layout.heights   = list(top.padding = 1,
+                                     main = 1,
+                                     main.key.padding = 1,
+                                     key.top = 1,
+                                     key.axis.padding = 1,
+                                     axis.top = 1,
+                                     strip = 1,
+                                     panel = 1, ## shouldn't be changed
+                                     axis.panel = 1,
+                                     between = 1,
+                                     axis.bottom = 1,
+                                     axis.xlab.padding = 1,
+                                     xlab = 1,
+                                     xlab.key.padding = 1,
+                                     key.bottom = 1,
+                                     key.sub.padding = 1,
+                                     sub = 1,
+                                     bottom.padding = 1),
+             layout.widths    = list(left.padding = 1,
+                                     key.left = 1,
+                                     key.ylab.padding = 1,
+                                     ylab = 1,
+                                     ylab.axis.padding = 1,
+                                     axis.left = 1,
+                                     axis.panel = 1,
+                                     panel = 1, ## shouldn't be changed
+                                     between = 1,
+                                     axis.right = 1,
+                                     axis.key.padding = 1,
+                                     key.right = 1,
+                                     right.padding = 1),
+
+             box.3d           = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
+             par.xlab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
+             par.ylab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
+             par.zlab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
+             par.main.text    = list(alpha = 1, cex = 1.2, col = can.col[1], font = 2),
+             par.sub.text     = list(alpha = 1, cex = 1, col = can.col[1], font = 2))
 
     if (color)
     {
-        if (name == "postscript" || name == "pdf") {
+        if (name == "postscript" || name == "pdf")
+        {
             ans$plot.symbol$col <- can.col[6]
             ans$plot.line$col <- can.col[6]
             ans$dot.symbol$col <- can.col[6]
@@ -195,20 +237,40 @@ trellis.par.get <-
 
 
 trellis.par.set <-
-    function(name, value, warn = TRUE)
+    function(name, value, ..., theme, warn = TRUE)
 {
     ## the default device is opened if none already open
     if (is.null(dev.list())) {
         trellis.device()
-        if (warn) cat("Note: The default device has been opened to honour attempt to modify trellis settings\n\n")
+        if (warn)
+            cat("Note: The default device has been opened to honour attempt to modify trellis settings\n",
+                fill = TRUE)
     }
 
+
+
+
+
     ## if (name %in% names(lattice.theme[[.Device]])) NEEDED as a safeguard ?
-    if (!is.list(value)) stop("value must be a list")
+    ## if (!is.list(value)) stop("value must be a list")
     lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     ## make sure a list for this device is present
     if (is.null(lattice.theme[[.Device]])) trellis.device(device = .Device, new = FALSE)
-    lattice.theme[[.Device]][[name]] <- value
+    ## WAS: lattice.theme[[.Device]][[name]] <- value
+
+    if (missing(theme))
+        if (!missing(value))
+        {
+            theme <- list(value)
+            names(theme) <- name
+        }
+        else if (!missing(name) && is.list(name))
+        {
+            theme <- name
+        }
+        else theme <- list(...)
+
+    lattice.theme[[.Device]] <- updateList(lattice.theme[[.Device]], theme)
     assign("lattice.theme", lattice.theme, envir=.LatticeEnv)
     invisible()
 }
@@ -571,23 +633,109 @@ lattice.getOption <- function(name)
 
 lattice.options <- function(...)
 {
+    ## this would have been really simple if only form allowed were
+    ## lattice.options("foo", "bar") and
+    ## lattice.options(foo=1, bar=2). But it could also be
+    ## lattice.options(foo=1, "bar"), which makes some juggling necessary
+    
     new <- list(...)
     if (length(new) == 1 && is.list(new[[1]])) new <- new[[1]]
-    print(new)
     old <- .LatticeEnv$lattice.options
     ## any reason to prefer get("lattice.options", envir = .LatticeEnv)?
-    if (length(new) == 0) return(old) ## no args, returns full options list
+
+    ## if no args supplied, returns full options list
+    if (length(new) == 0) return(old) 
+
     nm <- names(new)
     if (is.null(nm)) return(old[unlist(new)]) ## typically getting opions, not setting
     isNamed <- nm != "" ## typically all named when setting, but could have mix
     if (any(!isNamed)) nm[!isNamed] <- unlist(new[!isNamed])
     ## so now everything has non-"" names, but only the isNamed ones should be set
     ## everything should be returned, however
+
     retVal <- old[nm]
     names(retVal) <- nm
     nm <- nm[isNamed]
-    .LatticeEnv$lattice.options[nm] <- new[nm]
+    modified <- updateList(retVal[nm], new[nm])
+    .LatticeEnv$lattice.options[names(modified)] <- modified
     retVal
 }
+
+
+
+.defaultLatticeOptions <- function()
+    list(save.object = TRUE,
+         axis.units =
+         list(outer =
+              list(left =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm")),
+                   top =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm")),
+                   right =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm")),
+                   bottom =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm"))),
+
+              inner =
+              list(left =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm")),
+                   top =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm")),
+                   right =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm")),
+                   bottom =
+                   list(tick = list(x = 2, units = "mm"),
+                        pad1 = list(x = 2, units = "mm"),
+                        pad2 = list(x = 2, units = "mm")))),
+
+
+         layout.heights =
+         list(top.padding = list(x = 2, units = "mm", data = NULL),
+              main = list(x = 0, units = "strheight", data = ""),
+              main.key.padding = list(x = 2, units = "mm", data = NULL),
+              key.top = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+              key.axis.padding = list(x = 2, units = "mm", data = NULL),
+              axis.top = list(x = 0, units = "mm", data = NULL),
+              strip = list(x = 1.1, units = "lines", data = NULL),
+              panel = list(x = 1, units = "null", data = NULL),
+              axis.panel = list(x = 0, units = "mm", data = NULL),
+              between = list(x = 5, units = "mm", data = NULL),
+              axis.bottom = list(x = 0, units = "mm", data = NULL),
+              axis.xlab.padding = list(x = 2, units = "mm", data = NULL),
+              xlab = list(x = 0, units = "strheight", data = ""),
+              xlab.key.padding = list(x = 2, units = "mm", data = NULL),
+              key.bottom = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+              key.sub.padding = list(x = 2, units = "mm", data = NULL),
+              sub = list(x = 0, units = "strheight", data = ""),
+              bottom.padding = list(x = 2, units = "mm", data = NULL)),
+         layout.widths =
+         list(left.padding = list(x = 2, units = "mm", data = NULL),
+              key.left = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+              key.ylab.padding = list(x = 2, units = "mm", data = NULL),
+              ylab = list(x = 0, units = "strheight", data = ""),
+              ylab.axis.padding = list(x = 2, units = "mm", data = NULL),
+              axis.left = list(x = 0, units = "mm", data = NULL),
+              axis.panel = list(x = 0, units = "mm", data = NULL),
+              panel = list(x = 1, units = "null", data = NULL),
+              between = list(x = 5, units = "mm", data = NULL),
+              axis.right = list(x = 0, units = "mm", data = NULL),
+              axis.key.padding = list(x = 2, units = "mm", data = NULL),
+              key.right = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+              right.padding = list(x = 2, units = "mm", data = NULL))
+         )
 
 

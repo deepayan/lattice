@@ -20,6 +20,7 @@ splom(formula,
              varnames,
              drop.unused.levels,
              ...,
+             default.scales,
              subset = TRUE)
 parallel(formula,
              data = parent.frame(),
@@ -37,6 +38,7 @@ parallel(formula,
              varnames,
              drop.unused.levels,
              ...,
+             default.scales,
              subset = TRUE)
 }
 \usage{

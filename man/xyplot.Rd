@@ -24,6 +24,7 @@ xyplot(formula,
              ylim,
              drop.unused.levels = TRUE,
              ...,
+             default.scales,
              subscripts = !is.null(groups),
              subset = TRUE)
 bwplot(formula,
@@ -45,6 +46,7 @@ bwplot(formula,
              horizontal = NULL,
              drop.unused.levels = TRUE,
              ...,
+             default.scales,
              subscripts = !is.null(groups),
              subset = TRUE)
 }
@@ -80,6 +82,7 @@ xyplot(formula,
        perm.cond,
        index.cond,
        \dots,
+       default.scales,
        panel.groups = "panel.xyplot",
        subscripts,
        subset)
@@ -787,7 +790,13 @@ bwplot(formula,
     subsets that go into each panel. In the \code{update} method, both
     can be set to \code{NULL}, which reverts these back to their
     defaults.
-  }  
+  }
+  \item{ default.scales }{
+    list giving the default values of \code{scales} for a particular
+    high level function.  This should not be of any interest to the
+    normal user, but may be helpful when defining other functions that
+    act as a wrapper to one of the high level lattice functions.
+  }
   \item{\dots}{ other arguments, passed to the panel function.
 
     The arguments \code{horizontal} and \code{panel.groups} are

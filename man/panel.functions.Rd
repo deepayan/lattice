@@ -8,7 +8,6 @@
 \alias{panel.lmline}
 \alias{panel.loess}
 \alias{panel.linejoin}
-\alias{panel.axis}
 \alias{panel.identify}
 \alias{panel.mathdensity}
 \title{Useful Panel Functions}
@@ -38,26 +37,6 @@ panel.rug(x = NULL, y = NULL,
 panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd, 
     lty = reference.line$lty, col, col.line = reference.line$col, 
     ...)
-panel.axis(side = 1:4,
-             at,
-             labels = TRUE,
-             tick = TRUE,
-             half = TRUE,
-             which.half = c("lower", "upper", "upper","lower"),
-
-             tck = as.numeric(tick),
-             rot = if (is.logical(labels)) 0 else c(90, 0),
-
-             text.col,
-             text.cex,
-
-             text.font,
-             text.fontfamily,
-             text.fontface,
-
-             line.col,
-             line.lty,
-             line.lwd)
 }
 \usage{
 panel.abline(a, b, ...)
@@ -76,10 +55,6 @@ panel.loess(x, y, span = 2/3, degree = 1,
             evaluation = 50, \dots)
 panel.linejoin(x, y, fun = mean, horizontal = TRUE, ...)
 panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
-panel.axis(side = 1:4, at,
-           labels = TRUE, tick = TRUE,
-           half = TRUE, which.half = c("lower", "upper", "upper","lower"),
-           tck = 1, rot)
 panel.identify(x, y = NULL, labels = seq(along = x),
                n = length(x), offset = 0.5,
                threshold = 18, ...)
@@ -113,8 +88,6 @@ panel.identify(x, y = NULL, labels = seq(along = x),
     drawing the curve. For \code{panel.identify}, the number of points
     to identify by default (overridden by a right click)
   }
-
-
   \item{curve.type}{ type of curve ('p' for points, etc), passed to
     \code{llines}
   }
@@ -134,27 +107,8 @@ panel.identify(x, y = NULL, labels = seq(along = x),
   \item{dmath}{ A vectorized function that produces density values
     given a numeric vector named \code{x}, e.g., \code{dnorm}}
   \item{args}{ list giving additional arguments to be passed to dmath}
-
-  \item{side}{ subset of 1:4, indicating which side which }
-  \item{at}{ location of labels. No default.}
-  \item{labels}{ for \code{panel.axis}, logical indicating whether
-    labels are to be drawn, or the labels to go along with \code{at}.
-    For \code{panel.identify}, an optional vector of labels associated
-    with each point.
-  }
-  \item{tick}{ logical, whether to draw ticks }
-  \item{half}{
-    logical, whether only half of scales will be drawn for each side
-  }
-  \item{which.half}{
-    character vector of length 4 (recycled if necessary), each being
-    either ``lower'' or ``upper''. Indicates which half is to be used
-    for tick locations if \code{half = TRUE}, for sides 1 to 4
-  }
-  \item{tck}{ numeric scalar, tick length }
-  \item{rot}{
-    numeric 4-vector (recycled if necessary), rotation angles for sides
-    1 to 4
+  \item{labels}{ In \code{panel.identify}, an optional vector of labels
+    associated with each point.
   }
   \item{offset}{ the labels are printed either below, above, to the left
     or to the right of the identified point, depending on the relative

@@ -11,8 +11,11 @@ latticeParseFormula     Parse Trellis formula
 levelplot               Level Plots
 llines                  Lattice Replacements of base graphics
                         functions
-lset                    Simple Interfaces to modify Trellis Settings
+lset                    Simple Interfaces to modify Trellis Settings -
+                        Deprecated
 oneway                  Fit One-way Model
+panel.axis              Panel Function for Drawing Axis Ticks and
+                        Labels
 panel.barchart          Default Panel Function for barchart
 panel.bwplot            Default Panel Function for bwplot
 panel.cloud             Default Panel Function for cloud
@@ -32,6 +35,7 @@ prepanel.lmline         Useful Prepanel Function for Lattice
 print.trellis           Print Trellis Objects
 qq                      Quantile-Quantile Plots of Two Samples
 qqmath                  Q-Q Plot with Theoretical Distribution
+reorderFactor           Reorder levels of a factor
 rfs                     Residual and Fit Spread Plots
 simpleKey               Function to generate a simple key
 splom                   Scatter Plot Matrices

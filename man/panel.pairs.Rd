@@ -51,12 +51,14 @@ diag.panel.splom(varname = NULL, limits, at = NULL, lab = NULL,
              varname.fontface = add.text$fontface,
 
              axis.text.col = axis.text$col,
+             axis.text.alpha = axis.text$alpha,
              axis.text.cex = axis.text$cex,
              axis.text.font = axis.text$font,
              axis.text.fontfamily = axis.text$fontfamily,
              axis.text.fontface = axis.text$fontface,
 
              axis.line.col = axis.line$col,
+             axis.line.alpha = axis.line$alpha,
              axis.line.lty = axis.line$lty,
              axis.line.lwd = axis.line$lwd,
              ...)

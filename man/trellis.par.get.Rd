@@ -5,20 +5,47 @@
 \title{ Graphical Parameters for Trellis Displays }
 \description{
   Functions used to query, display and modify graphical parameters for
-  fine control of Trellis displays.
+  fine control of Trellis displays.  Modifications are made to the
+  settings for the currently active device only.
+}
+
+\synopsis{
+trellis.par.set(name, value, ..., theme, warn = TRUE)
 }
 \usage{
 trellis.par.get(name = NULL)
 trellis.par.set(name, value, warn)
+trellis.par.set(theme)
+trellis.par.set(\dots)
 show.settings(x = NULL)
 }
 \arguments{
-  \item{name}{ character giving the name of a component. For a list of
-    valid values type \code{names(trellis.par.get())}.
+  \item{name}{ character giving the name of a component. If unspecified,
+    \code{names(trellis.par.get())} returns a list containing all the
+    current settings (this can be used to get the valid values for
+    \code{name})
   }
-  \item{value}{ a list giving the desired value of the component. }
-  \item{warn}{ logical, whether a warning should be issued when
-    \code{trellis.par.get} is called when no graphics device is open }
+  \item{value}{
+    a list giving the desired value of the component. Components that
+    are already defined as part of the current settings but are not
+    mentioned in \code{value} will remain unchanged.
+  }
+  \item{theme}{
+    a list decribing how to change the settings, similar to what is
+    returned by \code{trellis.par.get()}.  This is purely for
+    convenience, allowing multiple calls to \code{trellis.par.set} to be
+    condensed into one.  The name of each component must be a valid
+    \code{name} as described above, with the corresponding value a valid
+    \code{value} as described above.
+  }
+  \item{\dots}{
+    Multiple settings can be specified in \code{name = value} form.
+    Equivalent to calling with \code{theme = list(\dots)}
+  }
+  \item{warn}{
+    logical, indicating whether a warning should be issued when
+    \code{trellis.par.get} is called when no graphics device is open
+  }
   \item{x}{ optional list of components that change the settings (any
     valid value of \code{theme} in \code{lset}). These are used to
     modify the current settings (obtained by \code{trellis.par.get})

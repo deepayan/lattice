@@ -31,6 +31,8 @@ construct.scales <-
              labels = FALSE,
              col = FALSE,
              col.line = col,
+             alpha = FALSE,
+             alpha.line = alpha,
              log = FALSE,
              font = FALSE,
              fontfamily = FALSE,
@@ -54,6 +56,7 @@ construct.scales <-
                  fontfamily = fontfamily, fontface = fontface, 
                  at = at, labels = labels,
                  col = col, col.line = col.line,
+                 alpha = alpha, alpha.line = alpha.line,
                  log = log,
                  alternating = alternating,
                  relation = relation,
@@ -105,6 +108,8 @@ construct.3d.scales <-
              labels = FALSE,
              col = FALSE,
              col.line = col,
+             alpha = FALSE,
+             alpha.line = col,
              log = FALSE,
              font = FALSE,
              fontfamily = FALSE,
@@ -126,6 +131,7 @@ construct.3d.scales <-
                  fontfamily = fontfamily, fontface = fontface, 
                  at = at, labels = labels,
                  col = col, col.line = col.line,
+                 alpha = alpha, alpha.line = alpha.line,
                  log = log, arrows = arrows,
                  relation = relation, format = format,
                  abbreviate = abbreviate, minlength = minlength)
@@ -348,7 +354,8 @@ limits.and.aspect <-
                 prenames <- names(formals(prepanel))
                 if (!("..." %in% prenames)) pargs <- pargs[prenames]
                 pretem <- do.call("prepanel", pargs)
-                tem[names(pretem)] <- pretem
+                tem <- updateList(tem, pretem)
+                ## tem[names(pretem)] <- pretem
             }
             x.limits[[count]] <- tem$xlim
             y.limits[[count]] <- tem$ylim
@@ -392,11 +399,11 @@ limits.and.aspect <-
     if (is.character(aspect))
 
         if (aspect == "xy") {
-
+#print(dxdy)
             aspect <- median(unlist(lapply(dxdy, banking)),
                              na.rm = TRUE) * y.limits$slicelen /
                                  x.limits$slicelen
-
+#print(aspect)
             if (y.relation == "free")
                 warning("aspect=xy when y-relation=free is not sensible")
 
