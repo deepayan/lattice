@@ -233,7 +233,6 @@ panel.levelplot <-
                       default.units = "native",
                       gp = gpar(fill=col.regions[zcol], col = NULL, alpha = alpha.regions))
 
-        
         if (contour)
         {
             ## Processing the labels argument
@@ -248,7 +247,9 @@ panel.levelplot <-
                             fontfamily = text$fontfamily,
                             fontface = text$fontface,
                             font = text$font)
-                labels <- updateList(tmp, if (is.list(labels)) labels else list())
+
+                labels <- updateList(tmp, if (is.list(labels)) labels else list()) # FIXME: risky
+
                 if (!is.characterOrExpression(labels$label))
                     labels$label <- format(at)
             }
@@ -286,66 +287,73 @@ panel.levelplot <-
                 ## if too small, don't add label. How small is small ?
                 ## Should depend on resolution. How ?
 
-                ## if length(val$x) > 10  ?
-                if (!is.null(labels))
+                if (length(val$x) > 5)
                 {
-
-                    slopes <- diff(val$y) / diff(val$x)
-
-                    if (label.style == "flat")
+                    if (!is.null(labels))
                     {
-                        ## draw label at 'flattest' position along contour
+                        slopes <- diff(val$y) / diff(val$x)
+                        ## slopes[is.na(slopes)] <- 0
 
-                        textloc <- which.min(abs(slopes))
-                        rotangle <- 0
-                    }
-                    else if (label.style == "align")
-                    {
+                        if (label.style == "flat")
+                        {
+                            ## draw label at 'flattest' position along contour
 
-                        ## draw label at 'deepest' position along
-                        ## contour, depth being min distance to either
-                        ## of the four edges, scaled appropriately
+                            textloc <- which.min(abs(slopes))
+                            rotangle <- 0
+                        }
+                        else if (label.style == "align")
+                        {
 
-                        rx <- range(ux)
-                        ry <- range(uy)
-                        depth <- pmin(pmin(val$x - rx[1], rx[2] - val$x) / diff(rx), 
-                                      pmin(val$y - ry[1], ry[2] - val$y) / diff(ry))
-                        textloc <- min(which.max(depth), length(slopes)) 
+                            ## draw label at 'deepest' position along
+                            ## contour, depth being min distance to either
+                            ## of the four edges, scaled appropriately
+
+                            rx <- range(ux)
+                            ry <- range(uy)
+                            depth <- pmin(pmin(val$x - rx[1], rx[2] - val$x) / diff(rx), 
+                                          pmin(val$y - ry[1], ry[2] - val$y) / diff(ry))
+                            textloc <- min(which.max(depth), length(slopes)) 
                                         # slopes has one less entry,
                                         # and textloc indexes slopes
 
-                        rotangle <- atan(slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
-                    }
-                    else if (label.style == "mixed")
-                    {
-
-                        ## mix both. align for contours whose flattest
-                        ## portion is too close to edge
-
-                        rx <- range(ux)
-                        ry <- range(uy)
-                        depth <- pmin(pmin(val$x - rx[1], rx[2] - val$x) / diff(rx), 
-                                      pmin(val$y - ry[1], ry[2] - val$y) / diff(ry))
-                        textloc <- which.min(abs(slopes))
-                        rotangle <- 0
-
-                        if (depth[textloc] < .05 ) {
-                            textloc <- min(which.max(depth), length(slopes))
                             rotangle <- atan(slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
                         }
+                        else if (label.style == "mixed")
+                        {
+
+                            ## mix both. align for contours whose flattest
+                            ## portion is too close to edge
+
+                            rx <- range(ux)
+                            ry <- range(uy)
+                            depth <- pmin(pmin(val$x - rx[1], rx[2] - val$x) / diff(rx), 
+                                          pmin(val$y - ry[1], ry[2] - val$y) / diff(ry))
+                            textloc <- which.min(abs(slopes))
+                            rotangle <- 0
+
+
+                            if (depth[textloc] < .05 ) {
+                                textloc <- min(which.max(depth), length(slopes))
+                                rotangle <- atan(slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
+                            }
+
+                        }
+                        else stop("Invalid label.style")
+
+                        i <- match(val$level, at)
+
+                        
+                        ltext(lab = labels$lab[i], adj = c(.5, 0),
+                              srt = rotangle,
+                              col = labels$col,
+                              cex = labels$cex,
+                              font = labels$font,
+                              fontfamily = labels$fontfamily,
+                              fontface = labels$fontface,
+                              x = .5 * (val$x[textloc]+val$x[textloc + 1]),
+                              y = .5 * (val$y[textloc]+val$y[textloc + 1]))
 
                     }
-                    else stop("Invalid label.style")
-
-                    i <- match(val$level, at)
-
-                    ltext(lab = labels$lab[i], adj = c(.5, 0),
-                          srt = rotangle,
-                          col = col.text, cex = cex, font = font,
-                          fontfamily = fontfamily, fontface = fontface,
-                          x = .5 * (val$x[textloc]+val$x[textloc + 1]),
-                          y = .5 * (val$y[textloc]+val$y[textloc + 1]))
-
                 }
             }
         }
