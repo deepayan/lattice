@@ -1,6 +1,8 @@
 
+require(grid)
+old.prompt <- grid.prompt()
+grid.prompt(TRUE)
 
-opar <- par(ask = TRUE)
 
 ## store current settings, to be restored later
 
@@ -146,8 +148,6 @@ xyplot(y~x | a, aspect = "fill",
 
 ## grob's as xlab, ylab 
 
-require(grid)
-
 qq(gl(2, 100) ~ c(runif(100, min = -2, max = 2), rnorm(100)),
    xlab =
    textGrob(rep("Uniform", 2), 
@@ -193,5 +193,6 @@ barchart(variety ~ yield | year * site, barley,
 
 trellis.par.set(theme = old.settings)
 
-par(opar)
+grid.prompt(old.prompt)
+
 
