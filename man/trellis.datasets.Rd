@@ -3,16 +3,14 @@
 \alias{singer}
 \alias{melanoma}
 \alias{ethanol}
-\alias{sunspot}
 \alias{environmental}
 \non_function{}
 \title{Data Sets in the Lattice library}
 \usage{
-data(singer)
-data(melanoma)
-data(ethanol)
-data(sunspot)
-data(environmental)
+singer
+melanoma
+ethanol
+environmental
 }
 \description{
   These data sets are included to facilitate the same examples as S-PLUS
