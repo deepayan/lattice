@@ -2262,7 +2262,8 @@ print.trellis <-
                         grid.rect(gp =
                                   gpar(col = axis.line$col,
                                        lty = axis.line$lty,
-                                       lwd = axis.line$lwd))
+                                       lwd = axis.line$lwd,
+                                       fill = "transparent"))
 
                         upViewport()
 
@@ -2563,7 +2564,8 @@ print.trellis <-
                                 grid.rect(gp =
                                           gpar(col = strip.border$col[i],
                                                lty = strip.border$lty[i],
-                                               lwd = strip.border$lwd[i]))
+                                               lwd = strip.border$lwd[i],
+                                               fill = "transparent"))
 
                                 upViewport()
                                 
