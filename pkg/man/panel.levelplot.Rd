@@ -1,5 +1,6 @@
 \name{panel.levelplot}
 \alias{panel.levelplot}
+\alias{panel.contourplot}
 \title{ Default Panel Function for levelplot }
 \description{
   This is the default panel function for \code{levelplot}.
@@ -23,6 +24,7 @@ panel.levelplot(x, y, z, zcol,
                 col.text = add.text$col,
                 \dots,
                 col.regions)
+panel.contourplot(\dots)
 }
 \arguments{
   \item{x, y, z}{ variables defining the plot }
@@ -64,7 +66,8 @@ panel.levelplot(x, y, z, zcol,
 
   The same function is used for both \code{levelplot} and
   \code{contourplot} (which differ only in default values of some
-  arguments). 
+  arguments). \code{panel.contourplot} is a simple wrapper to
+  \code{panel.levelplot}.
 
   When \code{contour=TRUE}, the \code{contourLines} function is used to
   calculate the contour lines.
