@@ -1249,6 +1249,7 @@ panel.cloud <-
             if (scales.3d$x.scales$arrows) {
                 larrows(x0 = taxes[1, 1], y0 = taxes[2, 1],
                         x1 = taxes[1, 2], y1 = taxes[2, 2],
+                        length = 0.02, unit = "npc",
                         lty = xaxis.lty,
                         lwd = xaxis.lwd,
                         col = xaxis.col.line)
@@ -1271,6 +1272,7 @@ panel.cloud <-
             if (scales.3d$y.scales$arrows) {
                 larrows(x0 = taxes[1, 3], y0 = taxes[2, 3],
                         x1 = taxes[1, 4], y1 = taxes[2, 4],
+                        length = 0.02, unit = "npc",
                         lty = yaxis.lty,
                         lwd = yaxis.lwd,
                         col = yaxis.col.line)
@@ -1292,6 +1294,7 @@ panel.cloud <-
             if (scales.3d$z.scales$arrows) {
                 larrows(x0 = taxes[1, 5], y0 = taxes[2, 5],
                         x1 = taxes[1, 6], y1 = taxes[2, 6],
+                        length = 0.02, unit = "npc",
                         lty = zaxis.lty,
                         lwd = zaxis.lwd,
                         col = zaxis.col.line)

@@ -17,8 +17,8 @@
 }
 \synopsis{
 larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
-        angle = 30, code = 2, length = 0.25, col =
-        add.line$col, alpha = add.line$alpha, lty =
+        angle = 30, code = 2, length = 0.25, unit = "inches",
+        col = add.line$col, alpha = add.line$alpha, lty =
         add.line$lty, lwd = add.line$lwd, fill = NULL, \dots)
 llines(x, y = NULL, type = "l", col = plot.line$col,
     alpha = plot.line$alpha, 
@@ -46,7 +46,7 @@ ltext(x, y = NULL, labels = seq(along = x), col = add.text$col,
     offset = 0.5, \dots)  
 }
 \usage{
-larrows(x0, y0, x1, y1, \dots)
+larrows(x0, y0, x1, y1, length = 0.25, unit = "inches", \dots)
 llines(x, y, \dots)
 lplot.xy(xy, \dots)
 lpoints(x, \dots)
@@ -62,6 +62,13 @@ panel.text(\dots)
 \arguments{
   \item{ x, y, x0, y0, x1, y1, x2, y2, xy}{ locations. x2, y2 present
     for S compatibility
+  }
+  \item{length, unit}{
+    determines extent of arrow head.  \code{length} specifies the length
+    in terms of \code{unit}, which can be any valid grid unit as long as
+    it doesn't need a \code{data} argument.  \code{unit} defaults to
+    inches, which is the only option in the base version of the
+    function, \code{\link{arrows}}.
   }
   \item{\dots}{
     other arguments, including ones to control graphical parameters like
