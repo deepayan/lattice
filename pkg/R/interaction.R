@@ -43,11 +43,17 @@ panel.identify <-
     function(x, y = NULL, labels = seq(along = x), 
              n = length(x), offset = 0.5,
              threshold = 18, ## in points, roughly 0.25 inches
+             panel.args = latticeVP.panelAgs(),
              ...)
     ## ... goes to ltext
     ## is this interruptible?
     ## doesn't track points already identified
 {
+    if (missing(x))
+    {
+        x <- panel.args$x
+        y <- panel.args$y
+    }
     xy <- xy.coords(x, y)
     x <- xy$x
     y <- xy$y
@@ -75,18 +81,22 @@ panel.identify <-
 
 
 latticeVP.switch <-
-    function(name = c("panel", "strip"))
+    function(name = c("panel", "strip"), clip.off = FALSE)
 {
     name <- match.arg(name)
     if (lattice.getStatus("vp.highlighted"))
     {
         lvp <- grid.get("lvp.highlight")
         grid.remove("lvp.highlight")
-        seekViewport(paste(name, column, row, sep = "."))
+        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
+        else seekViewport(paste(name, column, row, sep = "."))
         grid.draw(lvp)
     }
     else
-        seekViewport(paste(name, column, row, sep = "."))
+    {
+        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
+        else seekViewport(paste(name, column, row, sep = "."))
+    }
     invisible()
 }
 
@@ -96,6 +106,7 @@ latticeVP.switch <-
 
 latticeVP.focus <-
     function(column, row, name = c("panel", "strip"),
+             clip.off = FALSE, 
              highlight = interactive(), 
              ...)
 {
@@ -114,7 +125,8 @@ latticeVP.focus <-
         splist <- list(...)
         gp <- do.call("gpar", updateList(gplist, splist))
         lvp <- rectGrob(name = "lvp.highlight", gp = gp)
-        seekViewport(paste(name, column, row, sep = "."))
+        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
+        else seekViewport(paste(name, column, row, sep = "."))
         grid.draw(lvp)
     }
     else lattice.setStatus(vp.highlighted = FALSE)
@@ -137,27 +149,22 @@ latticeVP.unfocus <-
 }
 
 
-
-trellis.last.object <- function()
-    get(last.object, envir = .LatticeEnv)
-
-
 latticeVP.panelArgs <-
-    function(x = NULL)
-    ## would work only if current object saved (and not multipage)
+    function()
+    ## would work only if current object saved (and not multipage), or
+    ## x explicitly supplied
 {
-    if (is.null(x))
-        if (lattice.getStatus("current.plot.saved"))
-            x <- trellis.last.object()
-        else
-            stop("current plot was not saved, can't retrieve panel data")
+    if (lattice.getStatus("current.plot.saved"))
+        x <- trellis.last.object()
+    else
+        stop("current plot was not saved, can't retrieve panel data")
     if (lattice.getStatus("current.plot.multipage"))
         warning("plot spans multiple pages, only last page can be updated")
-    
     row <- lattice.getStatus("current.focus.row")
     column <- lattice.getStatus("current.focus.column")
+    if (row == 0 || column == 0)
+        stop("you have to first select a panel using latticeVP.focus()")
     panel.number <- lattice.getStatus("current.panel.positions")[row, column]
-
-    c(x$panel.args[[panel.number]], x$panel.args.common)
+    c(x$panel.args[[panel.number]], x$panel.args.common, list(panel.number = panel.number))
 }
 
