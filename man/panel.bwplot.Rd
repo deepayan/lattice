@@ -12,13 +12,13 @@ panel.bwplot(x, y, box.ratio=1, horizontal = TRUE, pch=box.dot$pch,
              fontface = box.dot$fontface, 
              fill = box.rectangle$fill, varwidth = FALSE,
              levels.fos = if (horizontal) unique(y) else unique(x),
-             coef = 1.5, ...)
+             coef = 1.5, do.out = TRUE, ...)
 }
 \usage{
 panel.bwplot(x, y,
              box.ratio = 1, horizontal,
              pch, col, cex, fill = "transparent",
-             varwidth = FALSE, coef = 1.5, ...)
+             varwidth = FALSE, coef = 1.5, do.out = TRUE, ...)
 }
 \arguments{
   \item{x, y}{ numeric vector or factor. Boxplots drawn for each unique value of
@@ -34,7 +34,7 @@ panel.bwplot(x, y,
   \item{fill}{ color to fill the boxplot}
   \item{varwidth}{ logical. If TRUE, widths of boxplots are proportional
     to the number of points used in creating it.}
-  \item{coef}{ passed to \code{boxplot.stats}}
+  \item{coef, do.out}{ passed to \code{boxplot.stats}}
   \item{\dots}{
     more graphical parameters controlling the display can be supplied
   }

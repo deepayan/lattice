@@ -475,7 +475,7 @@ panel.bwplot <-
              fontface = box.dot$fontface, 
              fill = box.rectangle$fill, varwidth = FALSE,
              levels.fos = if (horizontal) unique(y) else unique(x),
-             coef = 1.5, ...)
+             coef = 1.5, do.out = TRUE, ...)
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
@@ -507,7 +507,7 @@ panel.bwplot <-
         {
 
             ## yval  <- i
-            stats <- boxplot.stats(x[y==yval], coef = coef)
+            stats <- boxplot.stats(x[y==yval], coef = coef, do.out = do.out)
             
             if (stats$n>0)
             {
@@ -583,7 +583,7 @@ panel.bwplot <-
 
         for (xval in levels.fos) {
             ##xval  <- i
-            stats <- boxplot.stats(y[x==xval], coef = coef)
+            stats <- boxplot.stats(y[x==xval], coef = coef, do.out = do.out)
 
             if (stats$n>0)
             {
