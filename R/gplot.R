@@ -5,6 +5,16 @@
 ### dispatch
 
 
+## Making gplot generic, but we only plan to use the default method,
+## making use of the gplotArgs generic
+
+gplot <- function(x, ...)
+    UseMethod("gplot")
+
+
+## The rest concerns gplot.default
+
+
 ## The idea of the gplot function is as follows: It can be thought of
 ## as a new plot method, typically to be applied to data frames.  It
 ## would eventually call a lattice function, but there would be a few
@@ -26,9 +36,13 @@
 
 
 
+
+
 gplotArgs <- function(x, ...)
     UseMethod("gplotArgs")
 
+
+## not very useful.  More methods defined below.
 
 gplotArgs.default <- 
     function(x, ...)
@@ -36,7 +50,9 @@ gplotArgs.default <-
     updateList(attr(x, "gplot.args"), list(...))
 }
 
-gplot <- function(x, ...)
+
+
+gplot.default <- function(x, ...)
 {
     callList <- updateList(list(data = x), gplotArgs(x, ...))
     plotFun <- callList$plotFun
@@ -135,7 +151,7 @@ panel.df <- # combines above 2, should be called
     {
         if (grid) panel.grid()
         if (groupsNull) panel.df.nn(x = x, y = y, ...)
-        else panel.superpose(x = x, groups = groups,
+        else panel.superpose(x = x, y = y, groups = groups,
                              panel.groups = panel.df.nn, ...)
     }
     else if (yFactor && !xFactor)
@@ -204,17 +220,20 @@ getGroupsFormula <- function(formula)
 ## care of by as.character.formula
 
 
-getTypeInDF <- function(x, data)
-{
-    if (x == "1") "one"
-    else if (is.factor(data[[x]])) "factor"
-    else if (is.numeric(data[[x]])) "numeric"
-    else stop(paste("don't recognize", class(data[[x]])))
-}
+# getTypeInDF <- function(x, data)
+# {
+#     if (x == "1") "one"
+#     else if (is.factor(data[[x]])) "factor"
+#     else if (is.numeric(data[[x]])) "numeric"
+#     else stop(paste("don't recognize", class(data[[x]])))
+# }
+
+
 
 ## should work with expressions like log(height) as well
-getTypeInDF2 <- function(x, data)
+getTypeInDF <- function(x, data)
 {
+    if (all(is.na(x))) return(NA)
     x <- eval(parse(text = x), data, parent.frame())
     if (length(x) == 1 && x == 1) "one"
     else if (is.factor(x)) "factor"
@@ -231,7 +250,7 @@ getTypeInDF2 <- function(x, data)
 ## "gplot.args" attribute, followed by ...
 
 gplotArgs.data.frame <-
-    function(x, display.formula, outer = FALSE,
+    function(x, display.formula, outer = FALSE, inner = FALSE,
              groups = NULL,
              ...,
              subset = TRUE)
@@ -285,8 +304,63 @@ gplotArgs.data.frame <-
             list(resp = getResponseFormula(model.formula),
                  cov = getCovariateFormula(model.formula),
                  grp = getGroupsFormula(model.formula))
+
+
+
+
+        if (ginfo$order.groups)
+        {
+            ## reorder grp based on values of resp
+
+            if (is.null(ginfo$FUN)) ginfo$FUN <- function(x, ...) max(x, na.rm = TRUE)
+
+            respVar <- vars$resp
+            grpVar <- vars$grp
+
+            scores <- tapply(x[[respVar]], x[[grpVar]], ginfo$FUN)
+
+            if (inherits(ginfo$outer, "formula"))
+            {
+                outerVar <- getCovariateFormula(ginfo$outer)
+                outer.unique <- tapply(x[[outerVar]], x[[grpVar]], unique)
+                ord <- order(outer.unique, scores)
+            }
+            else
+                ord <- order(scores)
+
+            x[[grpVar]] <- factor(x[[grpVar]], levels = names(scores)[ord])
+        }
+
+
+
+
+
+
+        ## display formula may be further modified by inner and outer.
+        ## How does that affect rest of the calculations?
+
+        if (is.logical(outer) && outer) outer <- ginfo$outer
+        if (is.logical(inner) && inner) inner <- ginfo$inner
+
+        ## both cannot happen. outer makes outer the conditioning
+        ## variables, normal grp becomes groups. inner behaves as
+        ## groups. outer takes precedence.
+
+        if (inherits(outer, "formula"))
+        {
+            if (is.null(groups)) groups <- as.formula(paste("~", vars$grp))
+            vars$grp <- getCovariateFormula(outer)
+        }
+        else if (inherits(inner, "formula"))
+        {
+            ## FIXME: this may not be the right thing to do
+            if (is.null(groups)) groups <- inner
+        }
+    
+
+
         varTypes <-
-            lapply(vars, getTypeInDF2, data = x)
+            lapply(vars, getTypeInDF, data = x)
 
         ## Next step depends on varTypes
 
@@ -311,13 +385,18 @@ gplotArgs.data.frame <-
         stop("no formula!")
     }
 
+
+
+
+
     ## determine default plot function based on display.formula
 
     dvars <-
         list(resp = getResponseFormula(ans$display.formula),
-             cov = getCovariateFormula(ans$display.formula))
+             cov = getCovariateFormula(ans$display.formula),
+             grp = getGroupsFormula(ans$display.formula)) ## NA is none
     dvarTypes <-
-        lapply(dvars, getTypeInDF2, data = x)
+        lapply(dvars, getTypeInDF, data = x)
     if (dvarTypes$resp == "numeric" && dvarTypes$cov == "numeric")
         plotFun <- "xyplot"
     else if (dvarTypes$resp == "factor" && dvarTypes$cov == "numeric")
@@ -329,44 +408,41 @@ gplotArgs.data.frame <-
 
     ## other stuff in ginfo?
 
+    ylab.constructed <-
+        if ("labels" %in% names(ginfo) && dvars$resp %in% names(ginfo$labels))
+            ginfo$labels[[dvars$resp]]
+        else dvars$resp
+    xlab.constructed <-
+        if ("labels" %in% names(ginfo) && dvars$cov %in% names(ginfo$labels))
+            ginfo$labels[[dvars$cov]]
+        else dvars$cov
+    if ("units" %in% names(ginfo) && dvars$resp %in% names(ginfo$units))
+        ylab.constructed <- paste(ylab.constructed, ginfo$units[[dvars$resp]])
+    if ("units" %in% names(ginfo) && dvars$cov %in% names(ginfo$units))
+        xlab.constructed <- paste(xlab.constructed, ginfo$units[[dvars$cov]])
+
+
     ans <-
         updateList(ans,
                    list(plotFun = plotFun,
+                        data = x,
                         panel = panel.df,
                         groups = groups,
-                        subset = subset))
-                      
-    ans <- updateList(ans, attr(x, "gplot.args")) ## leave this out?
+                        subset = subset,
+                        xlab = xlab.constructed, ylab = ylab.constructed,
+                        aspect = if (plotFun == "xyplot") "xy" else "fill",
+                        auto.key =
+                        switch(plotFun,
+                               xyplot = list(points = FALSE, lines = TRUE, space = "right"),
+                               dotplot = list(points = TRUE, space = "right"))))
+
+
+    
+    if (!is.null(gplot.args))
+        ans <- updateList(ans, gplot.args) ## leave this out?
     updateList(ans, list(...))
 }
 
 
-
-
-
-## new version of groupedData
-
-groupedData <-
-    function(formula, data,
-             order.groups = TRUE,
-             FUN = function(x, y, ...) max(y, na.rm = TRUE),
-             outer = NULL, inner = NULL,
-             labels = list(), units = list(), ...)
-
-### outer: only used to order panels - same level of outer clustered
-### inner: equivalent of groups. Not sure what more than one means
-### ...: stored separately, can be used to override gplotArgs calculations
-{
-    attr(data, "ginfo") <-
-        list(formula = formula,
-             order.groups = order.groups,
-             FUN = FUN,
-             outer = outer,
-             inner = inner,
-             labels = labels,
-             units = units)
-    attr(data, "gplot.args") <- list(...)
-    data
-}
 
 

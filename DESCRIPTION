@@ -1,6 +1,6 @@
 Package: lattice
-Version: 0.10-13
-Date: 2004/10/29
+Version: 0.11-1
+Date: 2004/10/30
 Priority: recommended
 Title: Lattice Graphics
 Author: Deepayan Sarkar <deepayan@stat.wisc.edu>
