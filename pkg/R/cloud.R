@@ -307,16 +307,19 @@ panel.3dwire <-
     function(x, y, z, rot.mat = diag(4), distance,
              col.at, col.regions,
              shade = FALSE,
-             shade.colors = trellis.par.get("shade.colors")$palette,
+             shade.colors.palette = trellis.par.get("shade.colors")$palette,
              light.source = c(0, 0, 1000),
              xlim.scaled,
              ylim.scaled,
              zlim.scaled,
-             col = "black",
+             col = if (shade) "transparent" else "black",
+             lty = 1, lwd = 1,
+             alpha,
              col.groups = superpose.fill$col,
              polynum = 100,
              ...)
 {
+
     ## a faster version of panel.3dwire that takes advantage of grid
     ## in R >= 1.8.1's multiple polygon drawing capabilities. The
     ## solution is a bit hackish, it basically keeps track of the
@@ -385,38 +388,17 @@ panel.3dwire <-
     if (shade)
     {
 
-        shade.colors <-
-            if (is.character(shade.colors)) get(shade.colors)
-            else eval(shade.colors)
+        shade.colors.palette <-
+            if (is.character(shade.colors.palette)) get(shade.colors.palette)
+            else eval(shade.colors.palette)
 
         pol.x <- numeric(polynum * 3)
         pol.y <- numeric(polynum * 3)
 
-        if (shade) {
-            pol.fill <- character(polynum)
-            pol.col <- "transparent"
-            pol.alpha <- trellis.par.get("shade.colors")$alpha
-        }
-        else if (length(col.regions) > 1) {
-            pol.fill <- vector(mode(col.regions), polynum)
-            pol.col <-
-                if (ngroups == 1 || length(col) == 1) col[1]
-                else vector(mode(col), polynum)
-            pol.alpha <- trellis.par.get("regions")$alpha
-        }
-        else if (ngroups == 1) {
-            pol.fill <- col.regions[1]
-            pol.col <- col[1]
-            pol.alpha <- trellis.par.get("regions")$alpha
-        }
-        else {
-            pol.fill <- vector(mode(col.groups), polynum)
-            pol.col <-
-                if (length(col) == 1) col[1]
-                else vector(mode(col), polynum)
-            pol.alpha <- superpose.fill$alpha
-        }
-
+        pol.fill <- character(polynum)
+        pol.col <- col
+        pol.alpha <- trellis.par.get("shade.colors")$alpha
+        if (!missing(alpha)) pol.alpha <- alpha
 
         count <- 0 ## counts number of polygons stacked up so far
 
@@ -441,7 +423,8 @@ panel.3dwire <-
                     pol.y[3 * count + 1:3] <<- yy
 
                     count <<- count + 1
-                    pol.fill[count] <<- shade.colors(misc[1], misc[2], height)
+                    pol.fill[count] <<-
+                        shade.colors.palette(misc[1], misc[2], height)
 
                     if (count == polynum)
                     {
@@ -449,6 +432,7 @@ panel.3dwire <-
                                      default.units = "native",
                                      gp = gpar(fill = pol.fill,
                                      col = pol.col,
+                                     lty = lty, lwd = lwd,
                                      alpha = pol.alpha))
                         count <<- 0
                     }
@@ -481,6 +465,7 @@ panel.3dwire <-
                          default.units = "native", id.length = rep(3, count),
                          gp = gpar(fill = rep(pol.fill, length = count),
                          col = rep(pol.col, length = count),
+                         lty = lty, lwd = lwd,
                          alpha = pol.alpha))
         }
 
@@ -513,6 +498,7 @@ panel.3dwire <-
                 else vector(mode(col), polynum)
             pol.alpha <- superpose.fill$alpha
         }
+        if (!missing(alpha)) pol.alpha <- alpha
 
 
         count <- 0 ## counts number of polygons stacked up so far
@@ -555,6 +541,7 @@ panel.3dwire <-
                                      default.units = "native",
                                      gp = gpar(fill = pol.fill,
                                      col = pol.col,
+                                     lty = lty, lwd = lwd,
                                      alpha = pol.alpha))
                         count <<- 0
                     }
@@ -585,6 +572,7 @@ panel.3dwire <-
                          default.units = "native", id.length = rep(4, count),
                          gp = gpar(fill = rep(pol.fill, length = count),
                          col = rep(pol.col, length = count),
+                         lty = lty, lwd = lwd,
                          alpha = pol.alpha))
         }
 
@@ -1407,7 +1395,7 @@ cloud <-
              aspect = c(1,1),
              panel = "panel.cloud",
              prepanel = NULL,
-             scales = NULL,
+             scales = list(),
              strip = TRUE,
              groups = NULL,
              xlab,
@@ -1421,6 +1409,7 @@ cloud <-
 #             perspective = TRUE,
 #             R.mat = diag(4),
 #             screen = list(z = 40, x = -60),
+
              zoom = 0.8,
              at,
              drape = FALSE,
@@ -1429,6 +1418,7 @@ cloud <-
              pretty = FALSE,
              drop.unused.levels = TRUE,
              ...,
+             default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
              colorkey = any(drape),
              col.regions, cuts = 70,
              subset = TRUE,
@@ -1587,10 +1577,11 @@ cloud <-
     ## S-PLUS probably doesn't allow x-y-z-specific scales, but I see
     ## no reason not to allow that (will not allow limits, though)
 
-
-    scales.default <- list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default)
-    if (!is.null(scales)) scales.default[names(scales)] <- scales
-    scales.3d <- do.call("construct.3d.scales", scales.default)
+    scales <- updateList(default.scales, scales)
+#    scales <- updateList(  list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default)
+#    if (!is.null(scales)) scales.default[names(scales)] <- scales
+#    scales.3d <- do.call("construct.3d.scales", scales.default)
+    scales.3d <- do.call("construct.3d.scales", scales)
 
 
 

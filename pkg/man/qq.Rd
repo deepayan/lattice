@@ -9,7 +9,8 @@ qq(formula, data = parent.frame(), aspect = "fill",
     panel = panel.qq, prepanel = NULL, scales = list(), strip = TRUE, 
     groups = NULL, xlab, xlim, ylab, ylim, f.value = NULL, 
     drop.unused.levels,
-    ..., subscripts = !is.null(groups), subset = TRUE)
+    ..., default.scales,
+    subscripts = !is.null(groups), subset = TRUE)
 }
 \usage{
 qq(formula, f.value = NULL, ...)

@@ -108,13 +108,13 @@ splom(~iris[1:3]|Species, data = iris,
                 cex = 2)
       }, par.settings = list(clip = list(panel = FALSE)))
 
-seekViewport(vpPath("panel.1", "pairs", "subpanel.3.2"))
+seekViewport(vpPath("panel.1.1", "pairs", "subpanel.3.2"))
 grid.yaxis(main = TRUE)
 
-seekViewport(vpPath("panel.2", "pairs", "subpanel.1.2"))
+seekViewport(vpPath("panel.2.1", "pairs", "subpanel.1.2"))
 grid.yaxis(main = FALSE)
 
-seekViewport(vpPath("panel.3", "pairs", "subpanel.2.2"))
+seekViewport(vpPath("panel.1.2", "pairs", "subpanel.2.2"))
 grid.yaxis(main = FALSE)
 
 

@@ -1,6 +1,7 @@
 \name{trellis.device}
 \alias{trellis.device}
 \alias{canonical.theme}
+\alias{col.whitebg}
 \title{ Initializing Trellis Displays }
 \description{
   \code{trellis.device} initializes a Trellis display device with
@@ -16,6 +17,7 @@ trellis.device(device = getOption("device"),
                retain = FALSE,
                ...)
 canonical.theme(name, color)
+col.whitebg()
 }
 \arguments{
   \item{device}{ name of a function (possibly as a character string)
@@ -59,21 +61,30 @@ canonical.theme(name, color)
   \code{trellis.device} calls the \code{device} function to start a
   display, and sets an appropriate component of the variable
   \code{lattice.theme} (in an unexported environment named
-  \code{.LatticeEnv}) to appropriate (device-specific) values.
+  \code{.LatticeEnv}) to appropriate (device-specific) values.  The
+  device specific settings are determined by \code{canonical.theme}
+  which returns a list (see below).  The settings can subsequently be
+  handled by the interface functions \code{trellis.par.get} and 
+  \code{trellis.par.set}.
 
-  The device specific settings are determined by \code{canonical.theme}
-  which returns a list (see below).
 
-  The settings can subsequently be handled by the interface functions
-  \code{trellis.par.get}, \code{trellis.par.set} and \code{lset}
+  \code{col.whitebg} returns a similar (but smaller) list that is
+  suitable as the \code{theme} argument to \code{trellis.device} and
+  \code{\link{trellis.par.set}}.  It contains settings values which
+  provide colors suitable for plotting on a white background.  Note that
+  the name \code{col.whitebg} is somewhat a misnomer, since it actually
+  sets the background to transparent rather than white.
+
 }
 
 \value{
   \code{canonical.theme} returns a list of components defining graphical
   parameter settings for Lattice displays. It is used internally in
-  \code{trellis.device}, and can also be used as an argument to
-  \code{lset}, or even as \code{theme} in \code{trellis.device} to use
-  the defaults for another device.
+  \code{trellis.device}, and can also be used as the \code{theme}
+  argument to \code{trellis.par.set}, or even as \code{theme} in
+  \code{trellis.device} to use the defaults for another device.
+
+  \code{col.whitebg} returns a similar but smaller list.
 }
 
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}

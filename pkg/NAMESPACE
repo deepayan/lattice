@@ -40,7 +40,7 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        prepanel.loess, prepanel.qqmathline, qq, qqmath, rfs, shingle,
        show.settings, simpleKey, splom, strip.default, stripplot, tmd,
        trellis.device, trellis.par.get, trellis.par.set, wireframe,
-       xyplot, reorder.factor)
+       xyplot, reorderFactor)
 
 
 

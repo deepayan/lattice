@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 2004-04-08  Deepayan Sarkar  <deepayan@stat.wisc.edu>
 
 	* R/qq.R, R/qqmath.R, man/qq.Rd, man/qqmath.Rd: changed default
@@ -5,6 +12,10 @@
 	quantiles. The new behaviour is different from the corresponding
 	S-PLUS functions, but is closer to analogous base functions qqplot
 	and qqnorm
+
+
+	Note that all further changes will be noted in a separate file
+	(lattice.svnlog). 
 
 
 2004-03-22  Deepayan Sarkar  <deepayan@stat.wisc.edu>

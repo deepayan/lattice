@@ -285,3 +285,182 @@ formattedTicksAndLabels.POSIXct <-
 }
 
 
+
+
+
+
+
+
+
+panel.axis <-
+    function(side = c("bottom", "left", "top", "right"),
+             at,
+             labels = TRUE,
+             draw.labels = TRUE,
+             check.overlap = FALSE,
+             outside = FALSE,
+             tick = TRUE,
+             half = !outside, ## whether only half of the ticks will be labeled
+             which.half = switch(side, bottom = "lower", left = "upper", top = "upper", right = "lower"),
+
+             tck = as.numeric(tick),
+             rot = if (is.logical(labels)) 0 else c(90, 0),
+
+             text.col = axis.text$col,
+             text.alpha = axis.text$alpha,
+             text.cex = axis.text$cex,
+             text.font = axis.text$font,
+             text.fontfamily = axis.text$fontfamily,
+             text.fontface = axis.text$fontface,
+
+             line.col = axis.line$col,
+             line.lty = axis.line$lty,
+             line.lwd = axis.line$lwd,
+             line.alpha = axis.line$alpha)
+{
+    side <- match.arg(side) # was: 1=below, 2=left, 3=above and 4=right.
+    orientation <- if (outside) "outer" else "inner"
+
+    ## at has to be specified. Maybe if there's ever a guaranteed
+    ## accessor for current.viewport()$[xy]scale ...
+
+    axis.line <- trellis.par.get("axis.line")
+    axis.text <- trellis.par.get("axis.text")
+
+    if (missing(at) || is.null(at))
+    {
+        warning("nothing to draw if at not specified")
+        return()
+    }
+    if (length(at) == 0) return()
+
+    if (is.logical(labels))
+        labels <-
+            if (labels) format(at, trim = TRUE)
+            else NULL
+
+    nal <- length(at) / 2 + 0.5
+    all.id <- seq(along = at)
+    lower.id <- all.id <= nal
+    upper.id <- all.id >= nal
+    axid <-
+        if (half)
+        {
+            if (which.half == "lower") lower.id else upper.id
+        }
+        else all.id
+    gp.line <- gpar(col = line.col, alpha = line.alpha,
+                    lty = line.lty, lwd = line.lwd)
+    gp.text <- gpar(col = text.col, cex = text.cex, alpha = text.alpha,
+                    fontface = chooseFace(text.fontface, text.font),
+                    fontfamily = text.fontfamily)
+
+    ## We now compute some spacing information based on settings
+    ## (combining trellis settings and the (newer) lattice.options).
+    ## These can only be controlled via these settings and not by
+    ## arguments to this function, for convenience for one thing, and
+    ## also because the same settings will be used elsewhere to leave
+    ## appropriate space.
+
+
+    ## unit representing tick marks
+
+    axis.units <- lattice.getOption("axis.units")[[orientation]][[side]]
+    ## axis.units is of the form:
+    ##     list(outer = list(left = list(tick=, pad1=, pad2=), top = list(...), ...),
+    ##          inner = list(...) )
+    axis.settings <- trellis.par.get("axis.components")[[side]]
+
+    tck.unit.x <- tck * axis.settings$tck * axis.units$tick$x
+    tck.unit <- unit(x = tck.unit.x, units = axis.units$tick$units)
+    lab.unit <-
+        if (tck.unit.x > 0) tck.unit + unit(x = axis.settings$pad1 * axis.units$pad1$x, units = axis.units$pad1$units)
+        else unit(x = axis.settings$pad1 * axis.units$pad1$x, units = axis.units$pad1$units)
+    orient.factor <- if (outside) -1 else 1
+
+    switch(side, 
+           bottom = 
+           grid.segments(x0 = unit(at[axid], "native"),
+                         x1 = unit(at[axid], "native"),
+                         y0 = unit(0, "npc"),
+                         y1 = orient.factor * tck.unit,
+                         gp = gp.line),
+           top = 
+           grid.segments(x0 = unit(at[axid], "native"),
+                         x1 = unit(at[axid], "native"),
+                         y0 = unit(1, "npc"),
+                         y1 = unit(1, "npc") - orient.factor * tck.unit,
+                         gp = gp.line),
+           left = 
+           grid.segments(y0 = unit(at[axid], "native"),
+                         y1 = unit(at[axid], "native"),
+                         x0 = unit(0, "npc"),
+                         x1 = orient.factor * tck.unit,
+                         gp = gp.line),
+           right =
+           grid.segments(y0 = unit(at[axid], "native"),
+                         y1 = unit(at[axid], "native"),
+                         x0 = unit(1, "npc"),
+                         x1 = unit(1, "npc") - orient.factor * tck.unit,
+                         gp = gp.line))
+
+    if (draw.labels && !is.null(labels))
+    {
+        
+        {
+            just <-
+                if (outside)
+                    switch(side,
+                           bottom = if (rot == 0) c("centre", "top") else c("right", "centre"),
+                           top = if (rot == 0) c("centre", "bottom") else c("left", "centre"),
+                           left = if (rot == 90) c("centre", "bottom") else c("right", "centre"),
+                           right = if (rot == 90) c("centre", "top") else c("left", "centre"))
+                else
+                    switch(side,
+                           bottom = if (rot == 0) c("centre", "bottom") else c("left", "centre"),
+                           top = if (rot == 0) c("centre", "top") else c("right", "centre"),
+                           left = if (rot == 90) c("centre", "top") else c("left", "centre"),
+                           right = if (rot == 90) c("centre", "bottom") else c("right", "centre"))
+        }
+        switch(side,
+               bottom =
+               grid.text(label = labels[axid],
+                         x = unit(at[axid], "native"),
+                         y = orient.factor * lab.unit,
+                         rot = rot,
+                         check.overlap = check.overlap,
+                         just = just,
+                         gp = gp.text),
+               top =
+               grid.text(label = labels[axid],
+                         x = unit(at[axid], "native"),
+                         y = unit(1, "npc") - orient.factor * lab.unit,
+                         rot = rot,
+                         check.overlap = check.overlap,
+                         just = just,
+                         gp = gp.text),
+               left =
+               grid.text(label = labels[axid],
+                         y = unit(at[axid], "native"),
+                         x = orient.factor * lab.unit,
+                         rot = rot,
+                         check.overlap = check.overlap,
+                         just = just,
+                         gp = gp.text),
+               right =
+               grid.text(label = labels[axid],
+                         y = unit(at[axid], "native"),
+                         x = unit(1, "npc") - orient.factor * lab.unit,
+                         rot = rot,
+                         check.overlap = check.overlap,
+                         just = just,
+                         gp = gp.text))
+    }
+    return()
+}
+
+
+
+
+
+

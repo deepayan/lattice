@@ -634,12 +634,26 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     ## made FALSE later if labels explicitly specified
     check.overlap <- TRUE
     
+
+    ## Note: there are two 'at'-s here, one is key$at, which specifies
+    ## the breakpoints of the rectangles, and the other is key$lab$at
+    ## (optional) which is the positions of the ticks. We will use the
+    ## 'at' variable for the latter, 'atrange' for the range of the
+    ## former, and keyat explicitly when needed
+
+
+
     ## Getting the locations/dimensions/centers of the rectangles
     key$at <- sort(key$at) ## should check if ordered
     if (length(key$at)!=length(key$col)+1) stop("length(col) must be length(at)-1")
 
+
+
+    ## FIXME: need to handle DateTime classes properly
+
+
     atrange <- range(key$at)
-    scat <- key$at
+    scat <- as.numeric(key$at) ## problems otherwise with DateTime objects (?)
 
     recnum <- length(scat)-1
     reccentre <- (scat[-1] + scat[-length(scat)]) / 2

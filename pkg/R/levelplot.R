@@ -22,33 +22,98 @@
 
 
 
+
+
+
 prepanel.default.levelplot <-
     function(x, y, subscripts, ...)
 {
-    if (is.numeric(x)) {
-        x <- as.numeric(x[subscripts])
-        ux <- sort(unique(x[!is.na(x)]))
-        xlim <-
-            if (length(ux) < 2) ux + c(-1, 1)
-            else c(3 * ux[1] - ux[2], 3 * ux[length(ux)] - ux[length(ux)-1])/2
+    if (length(subscripts) > 0)
+    {
+        x <- x[subscripts]
+        y <- y[subscripts]
+
+        if (is.numeric(x))
+        {
+            ux <- sort(unique(x[is.finite(x)]))
+
+            if ((ulen <- length(ux)) < 2) xlim <- ux + c(-1, 1)
+            else
+            {
+                ## need to be careful here for DateTime classes
+                diffs <- diff(as.numeric(ux))[c(1, ulen-1)]
+                xlim <- c(ux[1] - diffs[1] / 2,
+                          ux[ulen] + diffs[2] / 2)
+            }
+        }
+
+        if (is.numeric(y)) {
+            uy <- sort(unique(y[is.finite(y)]))
+
+            if ((ulen <- length(uy)) < 2) ylim <- uy + c(-1, 1)
+            else
+            {
+                ## need to be careful here for DateTime classes
+                diffs <- diff(as.numeric(uy))[c(1, ulen-1)]
+                ylim <- c(uy[1] - diffs[1] / 2,
+                          uy[ulen] + diffs[2] / 2)
+            }
+        }
+        list(xlim =
+             if (is.numeric(x)) extend.limits(xlim, prop = -0.0614) ## these get extended back later
+             else levels(x),
+
+             ylim = if (is.numeric(y)) extend.limits(ylim, prop = -0.0614)
+             else levels(y),
+
+             dx = if (is.numeric(x)) length(ux) else 1,
+             dy = if (is.numeric(y)) length(uy) else 1)
     }
-    else x <- x[subscripts]
-    if (is.numeric(y)) {
-        y <- as.numeric(y[subscripts])
-        uy <- sort(unique(y[!is.na(y)]))
-        ylim <-
-            if (length(uy) < 2) uy + c(-1, 1)
-            else c(3 * uy[1] - uy[2], 3 * uy[length(uy)] - uy[length(uy)-1])/2
-    }
-    else y <- y[subscripts]
-    list(xlim =
-         if (is.numeric(x)) extend.limits(xlim, prop = -0.0614)
-         else levels(x),
-         ylim = if (is.numeric(y)) extend.limits(ylim, prop = -0.0614)
-         else levels(y),
-         dx = if (is.numeric(x)) length(ux) else 1,
-         dy = if (is.numeric(y)) length(uy) else 1)
+    else
+        list(xlim = c(NA, NA),
+             ylim = c(NA, NA),
+             dx = NA, dy = NA)
 }
+    
+
+
+
+
+
+
+
+
+
+
+## FIXME: old obsolete version, keeping around for a while, just in  case
+
+# prepanel.default.levelplot <-
+#     function(x, y, subscripts, ...)
+# {
+#     if (is.numeric(x)) {
+#         x <- as.numeric(x[subscripts])
+#         ux <- sort(unique(x[!is.na(x)]))
+#         xlim <-
+#             if (length(ux) < 2) ux + c(-1, 1)
+#             else c(3 * ux[1] - ux[2], 3 * ux[length(ux)] - ux[length(ux)-1])/2
+#     }
+#     else x <- x[subscripts]
+#     if (is.numeric(y)) {
+#         y <- as.numeric(y[subscripts])
+#         uy <- sort(unique(y[!is.na(y)]))
+#         ylim <-
+#             if (length(uy) < 2) uy + c(-1, 1)
+#             else c(3 * uy[1] - uy[2], 3 * uy[length(uy)] - uy[length(uy)-1])/2
+#     }
+#     else y <- y[subscripts]
+#     list(xlim =
+#          if (is.numeric(x)) extend.limits(xlim, prop = -0.0614) ## these get extended back later
+#          else levels(x),
+#          ylim = if (is.numeric(y)) extend.limits(ylim, prop = -0.0614)
+#          else levels(y),
+#          dx = if (is.numeric(x)) length(ux) else 1,
+#          dy = if (is.numeric(y)) length(uy) else 1)
+# }
 
 
 
@@ -339,6 +404,7 @@ levelplot <-
              region = TRUE,
              drop.unused.levels = TRUE,
              ...,
+             default.scales = list(),
              colorkey = region,
              col.regions = trellis.par.get("regions")$col,
              subset = TRUE)
@@ -469,6 +535,7 @@ levelplot <-
 
     ## scales <- eval(substitute(scales), data, parent.frame())
     if (is.character (scales)) scales <- list(relation = scales)
+    scales <- updateList(default.scales, scales)
     foo <- c(foo,
              do.call("construct.scales", scales))
 

@@ -23,6 +23,7 @@ levelplot(formula,
              region = TRUE,
              drop.unused.levels,
              ...,
+             default.scales,
              colorkey = region,
              col.regions = trellis.par.get("regions")$col,
              subset = TRUE)

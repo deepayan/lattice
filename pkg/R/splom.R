@@ -44,191 +44,6 @@ panel.splom <-
 
 
 
-panel.axis <-
-    function(side = 1:4,
-             at,
-             labels = TRUE,
-             tick = TRUE,
-             half = TRUE,
-             which.half = c("lower", "upper", "upper","lower"),
-
-             tck = as.numeric(tick),
-             rot = if (is.logical(labels)) 0 else c(90, 0),
-
-             text.col = axis.text$col,
-             text.cex = axis.text$cex,
-             text.font = axis.text$font,
-             text.fontfamily = axis.text$fontfamily,
-             text.fontface = axis.text$fontface,
-
-             line.col = axis.line$col,
-             line.lty = axis.line$lty,
-             line.lwd = axis.line$lwd)
-
-    ## side: 1=below, 2=left, 3=above and 4=right.
-
-{
-
-    ## at has to be specified. Maybe if there's ever a guaranteed
-    ## accessor for current.viewport()$[xy]scale ...
-
-    axis.line <- trellis.par.get("axis.line")
-    axis.text <- trellis.par.get("axis.text")
-
-    if (missing(at) || is.null(at)) {
-        warning("nothing to draw if at not specified")
-        return()
-    }
-
-    half <- rep(half, length = 4)
-    which.half <- rep(which.half, length = 4)
-    rot <- rep(rot, length = 4)
-
-
-    if (is.logical(labels))
-        labels <-
-            if (labels) format(at, trim = TRUE)
-            else NULL
-
-    nal <- length(at) / 2 + 0.5
-    all.id <- seq(along = at)
-    lower.id <- all.id <= nal
-    upper.id <- all.id >= nal
-
-    if (1 %in% side) ## below
-    {
-        i <- 1 ## side, just so code needs minimal change
-        axid <-
-            if (half[i])
-            {
-                if (which.half[i] == "lower") lower.id else upper.id
-            }
-            else all.id
-
-        grid.segments(x0 = unit(at[axid], "native"),
-                      x1 = unit(at[axid], "native"),
-                      y0 = unit(0, "npc"),
-                      y1 = unit(.5 * tck, "lines"),
-                      gp = gpar(col = line.col, cex = text.cex,
-                      lty = line.lty, lwd = line.lwd))
-
-        if (!is.null(labels))
-            grid.text(label = labels[axid],
-                      x = unit(at[axid], "native"),
-                      y = unit(tck, "lines"),
-                      rot = rot[i],
-                      just = if (rot[i] == 0) c("centre", "bottom") else c("left", "centre"),
-                      gp =
-                      gpar(col = text.col,
-                           cex = text.cex,
-                           fontface = chooseFace(text.fontface, text.font),
-                           fontfamily = text.fontfamily))
-    }
-
-    if (3 %in% side) ## top
-    {
-        i <- 3 ## side, just so code needs minimal change
-        axid <-
-            if (half[i])
-            {
-                if (which.half[i] == "lower") lower.id else upper.id
-            }
-            else all.id
-
-        grid.segments(x0 = unit(at[axid], "native"),
-                      x1 = unit(at[axid], "native"),
-                      y0 = unit(1, "npc"),
-                      y1 = unit(1, "npc") - unit(.5 * tck, "lines"),
-                      gp = gpar(col = line.col, cex = text.cex,
-                      lty = line.lty, lwd = line.lwd))
-
-        if (!is.null(labels))
-            grid.text(label = labels[axid],
-                      x = unit(at[axid], "native"),
-                      y = unit(1, "npc") - unit(tck, "lines"),
-                      rot = rot[i],
-                      just = if (rot[i] == 0) c("centre", "top") else c("right", "centre"),
-                      gp =
-                      gpar(col = text.col,
-                           cex = text.cex,
-                           fontface = chooseFace(text.fontface, text.font),
-                           fontfamily = text.fontfamily))
-    }
-
-
-
-    if (2 %in% side) ## left
-    {
-        i <- 2 ## side, just so code needs minimal change
-        axid <-
-            if (half[i])
-            {
-                if (which.half[i] == "lower") lower.id else upper.id
-            }
-            else all.id
-
-        grid.segments(y0 = unit(at[axid], "native"),
-                      y1 = unit(at[axid], "native"),
-                      x0 = unit(0, "npc"),
-                      x1 = unit(.5 * tck, "lines"),
-                      gp = gpar(col = line.col, cex = text.cex,
-                      lty = line.lty, lwd = line.lwd))
-
-        if (!is.null(labels))
-            grid.text(label = labels[axid],
-                      y = unit(at[axid], "native"),
-                      x = unit(tck, "lines"),
-                      rot = rot[i],
-                      just = if (rot[i] == 90) c("centre", "top") else c("left", "centre"),
-                      gp =
-                      gpar(col = text.col,
-                           cex = text.cex,
-                           fontface = chooseFace(text.fontface, text.font),
-                           fontfamily = text.fontfamily))
-    }
-
-    if (4 %in% side) ## right
-    {
-        i <- 4 ## side, just so code needs minimal change
-        axid <-
-            if (half[i])
-            {
-                if (which.half[i] == "lower") lower.id else upper.id
-            }
-            else all.id
-
-        grid.segments(y0 = unit(at[axid], "native"),
-                      y1 = unit(at[axid], "native"),
-                      x0 = unit(1, "npc"),
-                      x1 = unit(1, "npc") - unit(.5 * tck, "lines"),
-                      gp = gpar(col = line.col, cex = text.cex,
-                      lty = line.lty, lwd = line.lwd))
-
-        if (!is.null(labels))
-            grid.text(label = labels[axid],
-                      y = unit(at[axid], "native"),
-                      x = unit(1, "npc") - unit(tck, "lines"),
-                      rot = rot[i],
-                      just = if (rot[i] == 90) c("centre", "bottom") else c("right", "centre"),
-                      gp =
-                      gpar(col = text.col,
-                           cex = text.cex,
-                           fontface = chooseFace(text.fontface, text.font),
-                           fontfamily = text.fontfamily))
-    }
-
-    return()
-}
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -244,12 +59,14 @@ diag.panel.splom <-
              varname.fontface = add.text$fontface,
 
              axis.text.col = axis.text$col,
+             axis.text.alpha = axis.text$alpha,
              axis.text.cex = axis.text$cex,
              axis.text.font = axis.text$font,
              axis.text.fontfamily = axis.text$fontfamily,
              axis.text.fontface = axis.text$fontface,
 
              axis.line.col = axis.line$col,
+             axis.line.alpha = axis.line$alpha,
              axis.line.lty = axis.line$lty,
              axis.line.lwd = axis.line$lwd,
              ...)
@@ -286,26 +103,27 @@ diag.panel.splom <-
                     format(at, trim = TRUE)
                 }
         }
+        for (side in c("left", "top", "right", "bottom"))
+            panel.axis(side = side,
+                       at = at,
+                       labels = lab,
+                       tick = TRUE,
+                       half = TRUE,
 
-        panel.axis(side = 1:4,
-                   at = at,
-                   labels = lab,
-                   tick = TRUE,
-                   half = TRUE,
-                   which.half = c("lower", "upper", "upper","lower"),
+                       tck = 1, ## from scales ?
+                       rot = rot, 
 
-                   tck = 1, ## from scales ?
-                   rot = rot, 
+                       text.col = axis.text.col,
+                       text.alpha = axis.text.alpha,
+                       text.cex = axis.text.cex,
+                       text.font = axis.text.font,
+                       text.fontfamily = axis.text.fontfamily,
+                       text.fontface = axis.text.fontface,
 
-                   text.col = axis.text.col,
-                   text.cex = axis.text.cex,
-                   text.font = axis.text.font,
-                   text.fontfamily = axis.text.fontfamily,
-                   text.fontface = axis.text.fontface,
-
-                   line.col = axis.line.col,
-                   line.lty = axis.line.lty,
-                   line.lwd = axis.line.lwd)
+                       line.col = axis.line.col,
+                       line.alpha = axis.line.alpha,
+                       line.lty = axis.line.lty,
+                       line.lwd = axis.line.lwd)
     }
 }
 
@@ -536,6 +354,7 @@ splom <-
              varnames,
              drop.unused.levels = TRUE,
              ...,
+             default.scales = list(draw = FALSE, relation = "same", axs = "i"),
              subset = TRUE)
 {
 
@@ -639,10 +458,11 @@ splom <-
 
     ## some defaults for scales
 
-    if (is.null(scales$draw)) scales$draw <- FALSE
-    if (is.null(scales$relation)) scales$relation <- "same"
-    if (is.null(scales$axs)) scales$axs <- "i"
+#     if (is.null(scales$draw)) scales$draw <- FALSE
+#     if (is.null(scales$relation)) scales$relation <- "same"
+#     if (is.null(scales$axs)) scales$axs <- "i"
 
+    scales <- updateList(default.scales, scales)
     foo <- c(foo,
              do.call("construct.scales", scales))
 

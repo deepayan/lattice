@@ -1,7 +1,7 @@
 
 
 
-### Copyright 2001-2003 Deepayan Sarkar <deepayan@stat.wisc.edu> and 
+### Copyright 2001-2004 Deepayan Sarkar <deepayan@stat.wisc.edu> and 
 ###
 ### This file is part of the lattice library for R.
 ### It is made available under the terms of the GNU General Public
@@ -30,7 +30,7 @@ chooseFace <- function(fontface = NULL, font = 1)
 lpretty <- function(x, ...) { 
     eps <- 1e-10
     at <- pretty(x[is.finite(x)], ...)
-    at <- ifelse(abs(at-round(at, 3))<eps, round(at, 3), at)
+    ifelse(abs(at-round(at, 3))<eps, round(at, 3), at)
 }
 
 
@@ -67,12 +67,6 @@ oneway <-
 }
 
 
-do.breaks  <- function(endpoints, nint)
-{
-    if (length(endpoints)!=2) stop("error")
-    endpoints[1] + diff(endpoints) * 0:nint / nint
-}
-
 
 is.characterOrExpression <- function(x)
     is.character(x) || is.expression(x)
@@ -94,25 +88,40 @@ as.factorOrShingle <- function(x, subset = TRUE, drop = FALSE)
 
 
 
-"[.shingle" <-
-    function(x, subset, drop = FALSE)
+
+## update elements of a list recursively. Used in updating trellis or
+## lattice settings using trellis.par.set and lattice.options
+## respectively
+
+updateList <-
+    function(x, val)
 {
-    if (!is.shingle(x)) stop("x must be a shingle")
-    ans <- as.numeric(x)[subset]
-    attr(ans, "levels") <- levels(x)
-    class(attr(ans, "levels")) <- "shingleLevel"
-    if (drop) {
-        xlvs <- levels(ans)
-        dl <- logical(nlevels(ans))
-        for (i in seq(along=dl))
-            dl[i] <- any( ans >= xlvs[[i]][1] & ans <= xlvs[[i]][2] )
-        attr(ans, "levels") <- xlvs[dl]
-        class(attr(ans, "levels")) <- "shingleLevel"
+    if (!is.list(x) || !is.list(val))
+        stop("Both x and val must be lists")
+    xnames <- names(x)
+    for (v in names(val))
+    {
+        existing <- v %in% xnames
+        if (existing && is.list(x[[v]]) && is.list(val[[v]]))
+            x[[v]] <- updateList(x[[v]], val[[v]])
+        else 
+            x[[v]] <- val[[v]]
     }
-    class(ans) <- "shingle"
-    ans
+    x
 }
 
+
+
+
+
+
+## Next 3 are convenience functions following those available in Trellis
+
+do.breaks  <- function(endpoints, nint)
+{
+    if (length(endpoints)!=2) stop("error")
+    endpoints[1] + diff(endpoints) * 0:nint / nint
+}
 
 
 Rows <- function(x, which)
@@ -123,240 +132,20 @@ Rows <- function(x, which)
 }
 
 
-reorder.factor <- function(Factor, X, Function = mean,
-                           ..., 
-                           order = is.ordered(Factor))
-    (if (order) ordered else factor)(Factor,
+reorderFactor <-
+    function(x, X, FUN = mean,
+             ..., 
+             order = is.ordered(x))
+    (if (order) ordered else factor)(x,
                                      levels = names(sort(tapply(X,
-                                     Factor, Function, ...))))
-
-
-
-
-make.list.from.intervals <- function(x)
-{
-    if (ncol(x)!=2) stop("x must be matrix with 2 columns")
-    if (nrow(x)<1) stop("x must be matrix with at least 1 row")
-    ans <- as.list(1:nrow(x))
-    for (i in 1:nrow(x))
-        ans[[i]] <- x[i,]
-    ans
-}
-
-
-
-equal.count <-
-    function(x, ...)
-{
-    attr(x, "levels") <- make.list.from.intervals(co.intervals(x,...))
-    class(attr(x, "levels")) <- "shingleLevel"
-    class(x) <- "shingle"
-    x
-}
-
-
-
-shingle <-
-    function(x, intervals=sort(unique(x)))
-{
-    if (ncol(as.matrix(intervals))==1)
-        intervals <- cbind(intervals, intervals)
-    else if (ncol(as.matrix(intervals)) > 2)
-        stop("bad value of 'intervals'")
-    attr(x, "levels") <- make.list.from.intervals(intervals)
-    class(attr(x, "levels")) <- "shingleLevel"
-    class(x) <- "shingle"
-    x
-}
-
-
-as.data.frame.shingle <- as.data.frame.factor
-
-is.shingle <-
-    function(x) inherits(x, "shingle")
-
-
-as.shingle <-
-    function(x) if (is.shingle(x)) x else shingle(x)
-
-
-
-summary.shingle <- function(object, ...) print.shingle(object, ...)
-
-
-print.shingleLevel <-
-    function(x, ...) {
-        print(do.call("rbind", x))
-        invisible(x)
-    }
-
-print.shingle <- function(x, showValues = TRUE, ...) {
-    cat("\nData:\n")
-    if (showValues) print(as.numeric(x))
-    l <- levels(x)
-    n <- nlevels(x)
-    if (n<1) cat("\nno intervals\n")
-    else {
-        int <- data.frame(min = numeric(n), max = numeric(n), count = numeric(n))
-        for (i in 1:n) {
-            int$min[i] <- l[[i]][1]
-            int$max[i] <- l[[i]][2]
-            int$count[i] <- length(x[x>=l[[i]][1] & x<=l[[i]][2]])
-        }
-        cat("\nIntervals:\n")
-        print(int)
-        olap <- numeric(n-1)
-        if (n>2)
-            for (i in 1:(n-1))
-                olap[i] <- length(x[ x>=l[[i]][1] & x<=l[[i]][2] &
-                                    x>=l[[i+1]][1] & x<=l[[i+1]][2]])
-        cat("\nOvrlap between adjacent intervals:\n")
-        print(olap)
-    }
-    invisible(x)
-}
-
-
-
-
-
-strip.default <-
-    function(which.given,
-             which.panel,
-             var.name,
-             factor.levels,
-             shingle.intervals,
-             strip.names = c(FALSE, TRUE),
-             style = 1,
-             ## FIXME: not sure how to incorporate alpha in strip colors
-             bg = trellis.par.get("strip.background")$col[which.given],
-             fg = trellis.par.get("strip.shingle")$col[which.given],
-             par.strip.text = trellis.par.get("add.text"))
-{
-    name <- var.name[which.given]
-    level <- which.panel[which.given]
-    strip.names <- rep(strip.names, length = 2)
-    
-    if (is.null(factor.levels)) { # means this is a  shingle, as opposed to a factor
-        if (is.null(shingle.intervals)) stop("both factor.levels and shingle.intervals cannot be NULL")
-        strip.names <- strip.names[2]
-        grid.rect(gp = gpar(fill = bg, col = bg))
-        t <- range(shingle.intervals)
-        r <- (range(shingle.intervals[level,])-t[1])/diff(t)
-        grid.rect(x = unit(r%*%c(.5,.5),"npc"), width = max(unit( c(diff(r), 1), c("npc", "mm"))),
-                  gp = gpar(col=fg, fill=fg))
-        if (strip.names)
-            grid.text(label = name,
-                      gp = 
-                      gpar(col = par.strip.text$col,
-                           alpha = par.strip.text$alpha,
-                           fontfamily = par.strip.text$fontfamily,
-                           fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                           cex = par.strip.text$cex))
-    }
-    else if (is.null(shingle.intervals)) { # factor
-        strip.names <- strip.names[1]
-        x <- factor.levels
-        num <- length(x)
-        if (style == 1) {
-            grid.rect(gp = gpar(fill = bg, col = bg))
-            if (strip.names) {
-                grid.text(name,
-                          x=unit(0.5, "npc") - unit(1, "mm"),
-                          gp =
-                          gpar(col = par.strip.text$col,
-                               alpha = par.strip.text$alpha,
-                               fontfamily = par.strip.text$fontfamily,
-                               fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                               cex = par.strip.text$cex),
-                          just="right")
-                grid.text(":",
-                          x=unit(0.5, "npc"),
-                          gp =
-                          gpar(col = par.strip.text$col,
-                               alpha = par.strip.text$alpha,
-                               fontfamily = par.strip.text$fontfamily,
-                               fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                               cex = par.strip.text$cex))
-                grid.text(x[level],
-                          x=unit(0.5, "npc") + unit(1, "mm"),
-                          gp =
-                          gpar(col = par.strip.text$col,
-                               alpha = par.strip.text$alpha,
-                               fontfamily = par.strip.text$fontfamily,
-                               fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                               cex = par.strip.text$cex),
-                          just="left")
-            }
-            else grid.text(label = x[level],
-                           gp =
-                           gpar(col = par.strip.text$col,
-                                alpha = par.strip.text$alpha,
-                                fontfamily = par.strip.text$fontfamily,
-                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                                cex = par.strip.text$cex))
-        }
-        else if (style == 2) {
-            grid.rect(x = unit((2*level-1)/(2*num), "npc"),
-                      width = unit(1/num, "npc"),
-                      gp = gpar(fill = fg, col = fg))
-            grid.text(label=x,
-                      x = (2*1:num-1)/(2*num),
-                      gp =
-                      gpar(col = par.strip.text$col,
-                           alpha = par.strip.text$alpha,
-                           fontfamily = par.strip.text$fontfamily,
-                           fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                           cex = par.strip.text$cex))
-        }
-        else if (style == 3){
-            grid.rect(gp = gpar(fill = bg, col = bg))
-            grid.rect(x = unit((2*level-1)/(2*num), "npc"),
-                      width = unit(1/num, "npc"),
-                      gp = gpar(fill = fg, col = fg))
-            grid.text(label =
-                      if (strip.names) paste(name, x[level], sep = ": ")
-                      else x[level],
-                      gp =
-                      gpar(col = par.strip.text$col, 
-                           alpha = par.strip.text$alpha,
-                           fontfamily = par.strip.text$fontfamily,
-                           fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                           cex = par.strip.text$cex))
-        }
-        else if(style == 4){
-            grid.rect(gp = gpar(fill = bg, col = bg))
-            grid.rect(x = unit((2*level-1)/(2*num), "npc"),
-                      width = unit(1/num, "npc"),
-                      gp = gpar(fill = fg, col = fg))
-            grid.text(label=x,
-                      x = (2* 1:num - 1)/(2*num),   #using default.units
-                      gp =
-                      gpar(col = par.strip.text$col, 
-                           alpha = par.strip.text$alpha,
-                           fontfamily = par.strip.text$fontfamily,
-                           fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                           cex = par.strip.text$cex))
-        }
-        else if(style >= 5){
-            grid.rect(gp = gpar(fill = bg, col = bg))
-            grid.text(label=x[level],
-                      x = (2* level - 1)/(2*num),   #using default.units
-                      gp =
-                      gpar(col = par.strip.text$col, 
-                           alpha = par.strip.text$alpha,
-                           fontfamily = par.strip.text$fontfamily,
-                           fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
-                           cex = par.strip.text$cex))
-        }
-    }
-}
+                                     x, FUN, ...))))
 
 
 
 
 
 
+## The rest are grid-ified versions of 
 
 lsegments <-
     function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,

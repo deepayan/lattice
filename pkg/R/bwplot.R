@@ -29,9 +29,6 @@ prepanel.default.bwplot <-
              origin = NULL, stack = FALSE,
              levels.fos = length(unique(y)), ...)
 {
-str(x)
-print(stack)
-str(y)
     ## This function needs to work for all high level functions in the
     ## bwplot family, namely bwplot, dotplot, stripplot and
     ## barchart. For all but barchart, this is simply a question of
@@ -73,9 +70,9 @@ str(y)
                  dx = 1,
                  dy = 1)
     }
-    else list(c(NA, NA),
-              c(NA, NA),
-              1, 1)
+    else list(xlim = c(NA, NA),
+              ylim = c(NA, NA),
+              dx = 1, dy = 1)
 }
 
 
@@ -89,6 +86,9 @@ panel.barchart <-
              stack = FALSE,
              groups = NULL, 
              col = if (is.null(groups)) bar.fill$col else superpose.fill$col,
+             border = if (is.null(groups)) bar.fill$border else superpose.fill$border,
+             lty = if (is.null(groups)) bar.fill$lty else superpose.fill$lty,
+             lwd = if (is.null(groups)) bar.fill$lwd else superpose.fill$lwd,
              ...)
 {
     x <- as.numeric(x)
@@ -125,7 +125,9 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd)
-            grid.rect(gp = gpar(fill = col),
+            grid.rect(gp =
+                      gpar(fill = col, col = border,
+                           lty = lty, lwd = lwd),
                       y = y,
                       x = rep(origin, length(y)),
                       height = rep(height, length(y)),
@@ -161,7 +163,11 @@ panel.barchart <-
                 pos <- x[ok][ord] > 0
                 nok <- sum(pos)
                 if (nok > 0)
-                    grid.rect(gp = gpar(fill = col[groups[ok][ord][pos]]),
+                    grid.rect(gp =
+                              gpar(fill = col[groups[ok][ord][pos]],
+                                   col = border[groups[ok][ord][pos]],
+                                   lty = lty[groups[ok][ord][pos]],
+                                   lwd = lwd[groups[ok][ord][pos]]),
                               y = rep(i, nok),
                               x = cumsum(c(0, x[ok][ord][pos][-nok])),
                               height = rep(height, nok),
@@ -171,7 +177,11 @@ panel.barchart <-
                 neg <- x[ok][ord] < 0
                 nok <- sum(neg)
                 if (nok > 0)
-                    grid.rect(gp = gpar(fill = col[groups[ok][ord][neg]]),
+                    grid.rect(gp =
+                              gpar(fill = col[groups[ok][ord][neg]],
+                                   col = border[groups[ok][ord][neg]],
+                                   lty = lty[groups[ok][ord][neg]],
+                                   lwd = lwd[groups[ok][ord][neg]]),
                               y = rep(i, nok),
                               x = cumsum(c(0, x[ok][ord][neg][-nok])),
                               height = rep(height, nok),
@@ -203,7 +213,11 @@ panel.barchart <-
             for (i in unique(y)) {
                 ok <- y == i
                 nok <- sum(ok)
-                grid.rect(gp = gpar(fill = col[groups[ok]]),
+                grid.rect(gp =
+                          gpar(fill = col[groups[ok]],
+                               col = border[groups[ok]],
+                               lty = lty[groups[ok]],
+                               lwd = lwd[groups[ok]]),
                           y = (i + height * (groups[ok] - (nvals + 1)/2)),
                           x = rep(origin, nok), 
                           height = rep(height, nok),
@@ -230,7 +244,9 @@ panel.barchart <-
                              lty = reference.line$lty,
                              lwd = reference.line$lwd)
 
-            grid.rect(gp = gpar(fill = col),
+            grid.rect(gp =
+                      gpar(fill = col, col = border,
+                           lty = lty, lwd = lwd),
                       x = x,
                       y = rep(origin, length(x)),
                       width = rep(width, length(x)),
@@ -247,13 +263,8 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
+            col <- rep(col, length = nvals)
 
-            regions <- trellis.par.get("regions")
-            numcol.r <- length(col)
-            col <- 
-                if (numcol.r <= nvals) rep(col, length = nvals)
-                else col[floor(1+(vals-1)*(numcol.r-1)/(nvals-1))]
-            
             width <- box.ratio/(1 + box.ratio)
 
             if (reference)
@@ -268,7 +279,11 @@ panel.barchart <-
                 pos <- y[ok][ord] > 0
                 nok <- sum(pos)
                 if (nok > 0)
-                    grid.rect(gp = gpar(fill = col[groups[ok][ord][pos]]),
+                    grid.rect(gp =
+                              gpar(fill = col[groups[ok][ord][pos]],
+                                   col = border[groups[ok][ord][pos]],
+                                   lty = lty[groups[ok][ord][pos]],
+                                   lwd = lwd[groups[ok][ord][pos]]),
                               x = rep(i, nok),
                               y = cumsum(c(0, y[ok][ord][pos][-nok])),
                               width = rep(width, nok),
@@ -278,7 +293,11 @@ panel.barchart <-
                 neg <- y[ok][ord] < 0
                 nok <- sum(neg)
                 if (nok > 0)
-                    grid.rect(gp = gpar(fill = col[groups[ok][ord][neg]]),
+                    grid.rect(gp =
+                              gpar(fill = col[groups[ok][ord][neg]],
+                                   col = border[groups[ok][ord][neg]],
+                                   lty = lty[groups[ok][ord][neg]],
+                                   lwd = lwd[groups[ok][ord][neg]]),
                               x = rep(i, nok),
                               y = cumsum(c(0, y[ok][ord][neg][-nok])),
                               width = rep(width, nok),
@@ -298,13 +317,8 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
+            col <- rep(col, length = nvals)
 
-            regions <- trellis.par.get("regions")
-            numcol.r <- length(col)
-            col <- 
-                if (numcol.r <= nvals) rep(col, length = nvals)
-                else col[floor(1+(vals-1)*(numcol.r-1)/(nvals-1))]
-            
             width <- box.ratio/(1 + nvals * box.ratio)
             if (reference)
                 panel.abline(h = origin,
@@ -314,7 +328,11 @@ panel.barchart <-
             for (i in unique(x)) {
                 ok <- x == i
                 nok <- sum(ok)
-                grid.rect(gp = gpar(fill = col[groups[ok]]),
+                grid.rect(gp =
+                          gpar(fill = col[groups[ok]],
+                               col = border[groups[ok]],
+                               lty = lty[groups[ok]],
+                               lwd = lwd[groups[ok]]),
                           x = (i + width * (groups[ok] - (nvals + 1)/2)),
                           y = rep(origin, nok), 
                           width = rep(width, nok),
@@ -726,6 +744,9 @@ bwplot <-
              horizontal = NULL,
              drop.unused.levels = TRUE,
              ...,
+             default.scales =
+             if (horizontal) list(y = list(tck = 0, alternating = FALSE))
+             else list(x = list(tck = 0, alternating = FALSE)),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -836,18 +857,19 @@ bwplot <-
 
     ## The following is to make the default alternating FALSE for factors
     if (is.character(scales)) scales <- list(relation = scales)
-    if (is.null(scales$alternating)) {
-        if (horizontal) {
-            if (is.null(scales$y)) scales$y <- list(alternating = FALSE)
-            else if (is.null(scales$y$alternating)) scales$y$alternating <- FALSE
-        ## bug if y="free" ? but who cares
-        }
-        else {
-            if (is.null(scales$x)) scales$x <- list(alternating = FALSE)
-            else if (is.null(scales$x$alternating)) scales$x$alternating <- FALSE
-        ## bug if x="free" ? but who cares
-        }
-    }
+#     if (is.null(scales$alternating)) {
+#         if (horizontal) {
+#             if (is.null(scales$y)) scales$y <- list(alternating = FALSE)
+#             else if (is.null(scales$y$alternating)) scales$y$alternating <- FALSE
+#         ## bug if y="free" ? but who cares
+#         }
+#         else {
+#             if (is.null(scales$x)) scales$x <- list(alternating = FALSE)
+#             else if (is.null(scales$x$alternating)) scales$x$alternating <- FALSE
+#         ## bug if x="free" ? but who cares
+#         }
+#     }
+    scales <- updateList(default.scales, scales)
     foo <- c(foo,
              do.call("construct.scales", scales))
 
