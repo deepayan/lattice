@@ -257,20 +257,22 @@ qqmath <-
                     cond.max.level)
     }
 
-    foo <- c(foo,
-             limits.and.aspect(prepanel.default.qqmath,
-                               prepanel = prepanel, 
-                               have.xlim = have.xlim, xlim = xlim, 
-                               have.ylim = have.ylim, ylim = ylim, 
-                               x.relation = foo$x.scales$relation,
-                               y.relation = foo$y.scales$relation,
-                               panel.args.common = foo$panel.args.common,
-                               panel.args = foo$panel.args,
-                               aspect = aspect,
-                               nplots = nplots,
-                               x.axs = foo$x.scales$axs,
-                               y.axs = foo$y.scales$axs,
-                               distribution = distribution))
+
+    more.comp <- c(limits.and.aspect(prepanel.default.qqmath,
+                                     prepanel = prepanel, 
+                                     have.xlim = have.xlim, xlim = xlim, 
+                                     have.ylim = have.ylim, ylim = ylim, 
+                                     x.relation = foo$x.scales$relation,
+                                     y.relation = foo$y.scales$relation,
+                                     panel.args.common = foo$panel.args.common,
+                                     panel.args = foo$panel.args,
+                                     aspect = aspect,
+                                     nplots = nplots,
+                                     x.axs = foo$x.scales$axs,
+                                     y.axs = foo$y.scales$axs,
+                                     distribution = distribution),
+                   cond.orders(foo))
+    foo[names(more.comp)] <- more.comp
 
     if (is.null(foo$legend) && !is.null(groups) &&
         (is.list(auto.key) || (is.logical(auto.key) && auto.key)))
