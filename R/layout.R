@@ -361,6 +361,13 @@ calculateGridLayout <-
                              gp = gpar(cex = xaxis.cex[2]))
                 else textGrob("")
 
+            ## FIXME: this is slightly inefficient (refer to email
+            ## exchange with Paul), in the sense that grid has to go
+            ## through a lot of hoops to figure out that the
+            ## dimensions of textGrob("") is 0x0.
+
+
+
             axis.top.unit <-
                 heights.settings[["axis.top"]] *
                     (unit(if (any(x.alternating==2 | x.alternating==3)) 1 else 0,
@@ -595,7 +602,7 @@ calculateGridLayout <-
                     else textGrob("")
             }
             yaxis.panel.unit <-
-                max(unit(rep(1, length(lab.groblist)), "grobheight", data = lab.groblist)) +
+                max(unit(rep(1, length(lab.groblist)), "grobwidth", data = lab.groblist)) +
                     tick.unit + pad1.unit + pad2.unit
         }
     }
