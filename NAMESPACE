@@ -49,7 +49,7 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        ## interaction stuff
 
        latticeVP.switch, latticeVP.focus,
-       switchlatticeVP.unfocus, latticeVP.panelArgs)
+       latticeVP.unfocus, latticeVP.panelArgs)
 
 
 
