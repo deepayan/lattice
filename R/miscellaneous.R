@@ -123,6 +123,10 @@ Rows <- function(x, which)
 }
 
 
+reorder.factor <- function(Factor, X, Function = mean, ...)
+    ordered(Factor,
+            levels = names(sort(tapply(X, Factor, Function, ...))))
+
 
 
 make.list.from.intervals <- function(x)
