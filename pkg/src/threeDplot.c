@@ -525,7 +525,7 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 		 pxx[k] = xx[k];
 		 pyy[k] = yy[k];
 		 pzz[k] = zz[k];
-		 if (R_IsNaNorNA(pxx[k]) || R_IsNaNorNA(pyy[k]) || R_IsNaNorNA(pzz[k]))
+		 if (ISNAN(pxx[k]) || ISNAN(pyy[k]) || ISNAN(pzz[k]))
 		     anyNaOrNan = 1;
 	     }
 	     if (anyNaOrNan == 0) eval(call, env);
@@ -547,13 +547,13 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 		 pxx[k] = xx[k];
 		 pyy[k] = yy[k];
 		 pzz[k] = zz[k];
-		 if (k!=1 && (R_IsNaNorNA(pxx[k]) || R_IsNaNorNA(pyy[k]) || R_IsNaNorNA(pzz[k])))
+		 if (k!=1 && (ISNAN(pxx[k]) || ISNAN(pyy[k]) || ISNAN(pzz[k])))
 		     anyNaOrNan = 1;
 	     }
 	     pxx[1] = xx[3];
 	     pyy[1] = yy[3];
 	     pzz[1] = zz[3];
-	     if (R_IsNaNorNA(pxx[1]) || R_IsNaNorNA(pyy[1]) || R_IsNaNorNA(pzz[1]))
+	     if (ISNAN(pxx[1]) || ISNAN(pyy[1]) || ISNAN(pzz[1]))
 		 anyNaOrNan = 1;
 	     if (anyNaOrNan == 0) eval(call, env);
 
@@ -564,7 +564,7 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 		 pxx[k] = xx[k];
 		 pyy[k] = yy[k];
 		 pzz[k] = zz[k];
-		 if (R_IsNaNorNA(pxx[k]) || R_IsNaNorNA(pyy[k]) || R_IsNaNorNA(pzz[k]))
+		 if (ISNAN(pxx[k]) || ISNAN(pyy[k]) || ISNAN(pzz[k]))
 		     anyNaOrNan = 1;
 	     }
 	     if (anyNaOrNan == 0) eval(call, env);
