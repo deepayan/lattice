@@ -75,13 +75,13 @@ histogram(formula,
           + 1) else do.breaks(endpoints, nint),
           equal.widths = FALSE, 
           \dots)
-
 densityplot(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
             \dots)
 do.breaks(endpoints, nint)
 }
 \description{
-  Draw Histograms and Kernel Density Plots
+  Draw Histograms and Kernel Density Plots, possibly conditioned on
+  other variables.
 }
 \arguments{
   \item{formula}{A formula of the form \code{~ x | g1 * g2 * \dots}
@@ -110,8 +110,9 @@ do.breaks(endpoints, nint)
     are unequally spaced or \code{breaks = NULL}, when it defaults to
     ``density''.
   }
-  \item{nint}{ Number of bins. Applies only when \code{breaks} is
-    unspecified in the call.
+  \item{nint}{
+    Number of bins.  Applies only when \code{breaks} is unspecified in
+    the call.
   }
   \item{endpoints}{
     vector of length 2 indicating the range of x-values that is to be
@@ -136,9 +137,9 @@ do.breaks(endpoints, nint)
     approximately equal area bins will be selected (this would mean that
     the breakpoints will \bold{not} be equally spaced).
   }
-  \item{n}{number of points at which density is to be evaluated}
+  \item{n}{ number of points at which density is to be evaluated }
   \item{plot.points}{ logical specifying whether the \code{x} values
-    should be plotted.
+    should be plotted along the \code{y=0} line.
   }
   \item{ref}{ logical specifying whether a reference x-axis should be
     drawn.
@@ -162,9 +163,9 @@ do.breaks(endpoints, nint)
   density estimate in \code{densityplot} is actually calculated using
   the function \code{density}, and all arguments accepted by it can be
   passed (as \code{\dots}) in the call to \code{densityplot} to control
-  the output. See documentation of \code{density} for details. (Note: The
-  default value of the argument \code{n} of \code{density} is changed to
-  50.)
+  the output.  See documentation of \code{density} for details. (Note:
+  The default value of the argument \code{n} of \code{density} is
+  changed to 50.)
   
   These and all other high level Trellis functions have several
   arguments in common. These are extensively documented only in the
@@ -176,13 +177,14 @@ do.breaks(endpoints, nint)
   
 }
 \note{
-  The form of the arguments accepted by the default
-  panel function \code{panel.histogram} is different from that in
-  S-PLUS. Whereas S-PLUS calculates the heights inside \code{histogram}
-  and passes only the breakpoints and the heights to the panel function,
-  here the original variable \code{x} is passed along with the
-  breakpoints. This allows plots as in the second example below.
+  The form of the arguments accepted by the default panel function
+  \code{panel.histogram} is different from that in S-PLUS. Whereas
+  S-PLUS calculates the heights inside \code{histogram} and passes only
+  the breakpoints and the heights to the panel function, here the
+  original variable \code{x} is passed along with the breakpoints. This
+  allows plots as in the second example below.
 }
+
 \seealso{
   \code{\link{xyplot}},
   \code{\link{panel.histogram}},

@@ -11,13 +11,10 @@ draw.colorkey(key, draw=FALSE, vp=NULL)
 \arguments{
   \item{key}{ A list determining the key. See documentation for
     \code{levelplot}, in particular the section describing the
-    `colorkey' argument for details.
+    `colorkey' argument, for details.
   }
   \item{draw}{ logical, whether the grob is to be drawn. }
   \item{vp}{ viewport }
-}
-\details{
-  Maybe later :)
 }
 \value{
   A Grid frame object (that inherits from ``grob'')
