@@ -109,7 +109,7 @@ calculateGridLayout <-
 
 
 
-    ## list giving positions of various components
+    ## list giving positions (for indexing) of various components
 
     last.panel <- (rows.per.page - 1) * 4 + 9
     between.seq <- seq(length = rows.per.page-1)
@@ -205,7 +205,9 @@ calculateGridLayout <-
     #    w.mult[pos.widths[[nm]]] <- widths.settings[[nm]]
 
 
-    ## set default units. These may be scaled by user controlled [heights/widths].settings (usually just 1)
+    ## set default units. These may be scaled by user controlled
+    ## [heights/widths].settings (usually just 1)
+
     for (nm in names(heights.defaults))
     {
         heights.x[pos.heights[[nm]]] <-
