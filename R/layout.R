@@ -244,23 +244,23 @@ calculateGridLayout <-
 
     if (!is.null(main))
     {
-        heights.x[pos.heights[["main"]]] <- heights.settings[["main"]] * main$cex
-        heights.data[[ pos.heights[["main"]]  ]] <- main$lab
+        heights.x[pos.heights[["main"]]] <- heights.settings[["main"]]
+        heights.data[[ pos.heights[["main"]]  ]] <- main
     }
     if (!is.null(sub))
     {
-        heights.x[pos.heights[["sub"]]] <- heights.settings[["sub"]] * sub$cex
-        heights.data[[ pos.heights[["sub"]]  ]] <- sub$lab
+        heights.x[pos.heights[["sub"]]] <- heights.settings[["sub"]]
+        heights.data[[ pos.heights[["sub"]]  ]] <- sub
     }
     if (!is.null(xlab))
     {
-        heights.x[pos.heights[["xlab"]]] <- heights.settings[["xlab"]] * xlab$cex
-        heights.data[[ pos.heights[["xlab"]]  ]] <- xlab$lab
+        heights.x[pos.heights[["xlab"]]] <- heights.settings[["xlab"]]
+        heights.data[[ pos.heights[["xlab"]]  ]] <- xlab
     }
     if (!is.null(ylab))
     {
-        widths.x[pos.widths[["ylab"]]] <- widths.settings[["ylab"]] * ylab$cex
-        widths.data[[ pos.widths[["ylab"]]  ]] <- ylab$lab
+        widths.x[pos.widths[["ylab"]]] <- widths.settings[["ylab"]]
+        widths.data[[ pos.widths[["ylab"]]  ]] <- ylab
     }
 
     if (!is.null(legend))
@@ -341,11 +341,28 @@ calculateGridLayout <-
             pad2.unit <-
                 unit(axis.units$top$pad2$x * axis.settings$top$pad2,
                      axis.units$top$pad2$units)
+            lab.list <-
+                if (is.character(lab)) as.list(lab)
+                else lapply(lab, function(x) as.expression(x))
             lab.unit <-
-                if (any(x.alternating==2 | x.alternating==3))
-                    unit(1, "grobheight", 
-                         data = list(textGrob(label = lab, rot = xaxis.rot[2], gp = gpar(cex = xaxis.cex[2]))))
+                if (any(x.alternating==2 | x.alternating==3) && length(lab) > 0)
+                    unit(rep(xaxis.cex[2] * c(1, sin(xaxis.rot[2])), each = length(lab.list)),
+                         rep(c("strheight", "strwidth"), each = length(lab.list)),
+                         data = c(lab.list, lab.list))
                 else unit(0, "mm")
+
+
+            ## alternative with grob, doen't currently work
+#            lab.grob <- textGrob(label = lab, gp = gpar(cex = xaxis.cex[2]))
+#            lab.unit <-
+#                if (any(x.alternating==2 | x.alternating==3))
+#                    unit(c(1, sin(abs(xaxis.rot[2]))), c("grobheight", "grobwidth"), 
+#                         data = list(lab.grob, lab.grob))
+#                          list(textGrob(label = lab, rot = xaxis.rot[2],
+#                                        gp = gpar(cex = xaxis.cex[2])),
+#                               textGrob(label = lab, rot = xaxis.rot[2],
+#                                        gp = gpar(cex = xaxis.cex[2]))))
+#                else unit(0, "mm")
 
 
 #             lab.unit <-
@@ -358,7 +375,9 @@ calculateGridLayout <-
 #                                  length(strbar)), "strwidth", strbar)
 #                 }
 #                 else unit(0, "mm")
-            axis.top.unit <- heights.settings[["axis.top"]] * (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
+            axis.top.unit <-
+                heights.settings[["axis.top"]] *
+                    (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
 
 
 
@@ -374,10 +393,14 @@ calculateGridLayout <-
             pad2.unit <-
                 unit(axis.units$bottom$pad2$x * axis.settings$bottom$pad2,
                      axis.units$bottom$pad2$units)
+            lab.list <-
+                if (is.character(lab)) as.list(lab)
+                else lapply(lab, function(x) as.expression(x))
             lab.unit <-
-                if (any(x.alternating==1 | x.alternating==3))
-                    unit(1, "grobheight", 
-                         data = list(textGrob(label = lab, rot = xaxis.rot[1], gp = gpar(cex = xaxis.cex[1]))))
+                if (any(x.alternating==1 | x.alternating==3) && length(lab) > 0)
+                    unit(rep(xaxis.cex[1] * c(1, sin(xaxis.rot[1])), each = length(lab.list)),
+                         rep(c("strheight", "strwidth"), each = length(lab.list)),
+                         data = c(lab.list, lab.list))
                 else unit(0, "mm")
 
 
@@ -392,9 +415,11 @@ calculateGridLayout <-
 #                                  length(strbar)), "strwidth", strbar)
 #                 }
 #                 else unit(0, "mm")
-            axis.bottom.unit <- heights.settings[["axis.bottom"]] * (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
+            axis.bottom.unit <- heights.settings[["axis.bottom"]] *
+                (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
         }
-        else { # relation != same
+        else
+        { # relation != same
 
             ## Basically need to allocate space for the tick labels.
             ## Technically, could have different heights for different
@@ -434,9 +459,24 @@ calculateGridLayout <-
                                             minlength = x$x.scales$minl,
                                             n = x$x.scales$tick.number,
                                             format.posixt = x$x.scales$format)$lab
+                lab.list <- 
+                    if (is.character(lab)) as.list(lab)
+                    else lapply(lab, function(x) as.expression(x))
                 lab.unit[[i]] <-
-                    unit(1, "grobheight", 
-                         data = list(textGrob(label = lab, rot = xaxis.rot[1], gp = gpar(cex = xaxis.cex[1]))))
+                    if (length(lab) == 0)
+                        unit(0, "mm")
+                    else
+                        unit(rep(xaxis.cex[1] * c(1, sin(xaxis.rot[1])), each = length(lab.list)),
+                             rep(c("strheight", "strwidth"), each = length(lab.list)),
+                             data = c(lab.list, lab.list))
+
+
+
+
+
+#                 lab.unit[[i]] <-
+#                     unit(1, "grobheight", 
+#                          data = list(textGrob(label = lab, rot = xaxis.rot[1], gp = gpar(cex = xaxis.cex[1]))))
 
 #                 if (is.character(lab)) 
 #                     strbar <- as.list(lab)
@@ -503,11 +543,27 @@ calculateGridLayout <-
             pad2.unit <-
                 unit(axis.units$right$pad2$x * axis.settings$right$pad2,
                      axis.units$right$pad2$units)
+            lab.list <-
+                if (is.character(lab)) as.list(lab)
+                else lapply(lab, function(x) as.expression(x))
             lab.unit <-
-                if (any(y.alternating==2 | y.alternating==3))
-                    unit(1, "grobwidth", 
-                         data = list(textGrob(label = lab, rot = yaxis.rot[2], gp = gpar(cex = yaxis.cex[2]))))
+                if (any(y.alternating==2 | y.alternating==3) && length(lab) > 0)
+                    unit(rep(yaxis.cex[2] * c(1, abs(cos(yaxis.rot[2]))), each = length(lab.list)),
+                         rep(c("strheight", "strwidth"), each = length(lab.list)),
+                         data = c(lab.list, lab.list))
                 else unit(0, "mm")
+
+
+
+
+
+
+
+#             lab.unit <-
+#                 if (any(y.alternating==2 | y.alternating==3))
+#                     unit(1, "grobwidth", 
+#                          data = list(textGrob(label = lab, rot = yaxis.rot[2], gp = gpar(cex = yaxis.cex[2]))))
+#                 else unit(0, "mm")
 
 
 #             lab.unit <-
@@ -520,7 +576,8 @@ calculateGridLayout <-
 #                                  length(strbar)), "strwidth", strbar)
 #                 }
 #                 else unit(0, "mm")
-            axis.right.unit <- widths.settings[["axis.right"]] * (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
+            axis.right.unit <- widths.settings[["axis.right"]] *
+                (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
 
 
 
@@ -537,11 +594,29 @@ calculateGridLayout <-
             pad2.unit <-
                 unit(axis.units$left$pad2$x * axis.settings$left$pad2,
                      axis.units$left$pad2$units)
+            lab.list <-
+                if (is.character(lab)) as.list(lab)
+                else lapply(lab, function(x) as.expression(x))
             lab.unit <-
-                if (any(y.alternating==1 | y.alternating==3))
-                    unit(1, "grobwidth", 
-                         data = list(textGrob(label = lab, rot = yaxis.rot[1], gp = gpar(cex = yaxis.cex[1]))))
+                if (any(y.alternating==1 | y.alternating==3) && length(lab) > 0)
+                    unit(rep(yaxis.cex[1] * c(1, abs(cos(yaxis.rot[1]))), each = length(lab.list)),
+                         rep(c("strheight", "strwidth"), each = length(lab.list)),
+                         data = c(lab.list, lab.list))
                 else unit(0, "mm")
+
+
+
+
+
+
+
+
+
+#             lab.unit <-
+#                 if (any(y.alternating==1 | y.alternating==3))
+#                     unit(1, "grobwidth", 
+#                          data = list(textGrob(label = lab, rot = yaxis.rot[1], gp = gpar(cex = yaxis.cex[1]))))
+#                 else unit(0, "mm")
 #             lab.unit <-
 #                 if (any(y.alternating==1 | y.alternating==3))
 #                 {
@@ -552,7 +627,8 @@ calculateGridLayout <-
 #                                  length(strbar)), "strwidth", strbar)
 #                 }
 #                 else unit(0, "mm")
-            axis.left.unit <- widths.settings[["axis.left"]] * (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
+            axis.left.unit <- widths.settings[["axis.left"]] *
+                (max(lab.unit) + tick.unit + pad1.unit + pad2.unit)
         }
         else { # relation != same
 
@@ -595,9 +671,21 @@ calculateGridLayout <-
                                             minlength = x$y.scales$minl,
                                             n = x$y.scales$tick.number,
                                             format.posixt = x$y.scales$format)$lab
+                lab.list <- 
+                    if (is.character(lab)) as.list(lab)
+                    else lapply(lab, function(x) as.expression(x))
                 lab.unit[[i]] <-
-                    unit(1, "grobwidth", 
-                         data = list(textGrob(label = lab, rot = yaxis.rot[1], gp = gpar(cex = yaxis.cex[1]))))
+                    if (length(lab) == 0)
+                        unit(0, "mm")
+                    else
+                        unit(rep(yaxis.cex[1] * c(1, abs(cos(yaxis.rot[1]))), each = length(lab.list)),
+                             rep(c("strheight", "strwidth"), each = length(lab.list)),
+                             data = c(lab.list, lab.list))
+
+
+#                 lab.unit[[i]] <-
+#                     unit(1, "grobwidth", 
+#                          data = list(textGrob(label = lab, rot = yaxis.rot[1], gp = gpar(cex = yaxis.cex[1]))))
 
 
 
@@ -659,6 +747,10 @@ calculateGridLayout <-
         }
         else
         {
+            ## FIXME: this would be a good place to add custom
+            ## multipliers for panel axes, once Paul fixes the grid
+            ## bug
+
             for (i in pos.heights[["axis.panel"]])
                 layout.heights <- rearrangeUnit(layout.heights, i, xaxis.panel.unit)
         }
@@ -686,8 +778,8 @@ calculateGridLayout <-
 #                    heights = h.mult * layout.heights,
                     respect = layout.respect)
 
-
-    assign("gridLayout", page.layout, .GlobalEnv)
+#debug
+#    assign("gridLayout", page.layout, .GlobalEnv)
 
 
     list(page.layout = page.layout,
