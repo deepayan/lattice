@@ -85,6 +85,8 @@ changes in behaviour
  o choice of color for grouped barcharts now taken from a new setting
    parameter 'superpose.fill' and not 'regions' as previously
 
+ o arguments to panel.levelplot has changed (this is related to how 
+   default colors are obtained, as described above).
 
 
 

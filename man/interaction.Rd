@@ -18,11 +18,15 @@
 
 \synopsis{
 trellis.panelArgs(x, panel.number)
-trellis.vpname(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
+trellis.vpname(name =
+               c("position", "split", "split.location", "toplevel",
+                 "panel", "strip", "legend", "main", "sub",
+                 "xlab", "ylab", "page"),
                column = lattice.getStatus("current.focus.column"),
                row = lattice.getStatus("current.focus.row"),
                side = c("left", "top", "right", "bottom", "inside"),
-               clip.off = FALSE)
+               clip.off = FALSE,
+               prefix = lattice.getStatus("current.prefix"))
 }
 
 \usage{
@@ -31,9 +35,12 @@ panel.identify(x, y = NULL, labels = seq(along = x),
                threshold = 18,
                panel.args = trellis.panelArgs(),
                \dots)
-trellis.vpname(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
-               column, row, side = c("left", "top", "right", "bottom", "inside"),
-               clip.off = FALSE)
+trellis.vpname(name = c("position", "split", "split.location", "toplevel",
+               "panel", "strip", "legend", "main", "sub", "xlab", "ylab", "page"),
+               column, row,
+               side = c("left", "top", "right", "bottom", "inside"),
+               clip.off = FALSE, prefix)
+trellis.grobname(name, prefix)
 trellis.focus(name, column, row, side, clip.off,
               highlight = interactive(), \dots)
 trellis.switchFocus(name, side, clip.off, highlight, \dots)
@@ -70,17 +77,15 @@ trellis.panelArgs(x, panel.number)
     passed to that panel.
   }
   \item{name}{
-    character string indicating which viewport we are looking at.
-    Partial matching is possible.  Although these do not represent all
-    the viewports created by a lattice plot, they cover most that users
-    might find interesting. 
-  }
-  \item{clip.off}{
-    logical, whether clipping should be off, relevant when \code{name}
-    is ``panel'' or ``strip''.  This is necessary if axes are to be
-    drawn outside the panel or strip.  Note that setting
-    \code{clip.off=FALSE} does not necessarily mean that clipping is on;
-    that is determined by conditions in effect during printing.
+    character string indicating which viewport or grob we are looking
+    for. Although these do not necessarily provide access to all
+    viewports and grobs created by a lattice plot, they cover most that
+    users might find interesting.
+
+    \code{trellis.vpname} and code{trellis.focus} deal with viewport
+    names only, and only accept the values explicitly listed above.
+    \code{trellis.grobname} is meant to create names for grobs, and can
+    currently accept any value.
   }
   \item{column, row}{
     integers, indicating position of the panel or strip that should be
@@ -92,6 +97,25 @@ trellis.panelArgs(x, panel.number)
     character string, relevant only for legends (i.e. when
     \code{name="legend"}), indicating their position.  Partial specification
     is allowed, as long as it is unambiguous.
+  }
+  \item{clip.off}{
+    logical, whether clipping should be off, relevant when \code{name}
+    is ``panel'' or ``strip''.  This is necessary if axes are to be
+    drawn outside the panel or strip.  Note that setting
+    \code{clip.off=FALSE} does not necessarily mean that clipping is on;
+    that is determined by conditions in effect during printing.
+  }
+  \item{prefix}{
+    character string acting as a prefix, meant to distinguish otherwise
+    equivalent viewports in different plots. This only becomes relevant
+    when a particular page is occupied by more than one plot.  Defaults
+    to the value appropriate for the last ``trellis'' object printed, as
+    determined by the code{prefix} argument in
+    \code{\link{print.trellis}}.  Users should not usually need to
+    supply a value for this argument (see note below), however, if
+    supplied explicitly, this has to be a valid R symbol name (briefly,
+    it must start with a letter or a period followed by a letter) and
+    must not contain the grid path separator (currently ``::'')
   }
   \item{highlight}{
     logical, whether the viewport being assigned focus should be
@@ -142,7 +166,8 @@ trellis.panelArgs(x, panel.number)
   (plotting area), which can then be enhanced by calls to standard
   lattice panel functions as well as grid functions.
 
-  \code{trellis.unfocus} unsets the focus.
+  \code{trellis.unfocus} unsets the focus, and makes the top level
+  viewport the current viewport.
 
   \code{trellis.switchFocus} is a convenience function to switch from
   one viewport to another, while preserving the current \code{row} and
@@ -160,22 +185,29 @@ trellis.panelArgs(x, panel.number)
   and not the position in the layout, because a layout determines the
   panel only \bold{after} the object has been printed.
 
+  It is usually not necessary to call \code{trellis.vpname} and
+  \code{trellis.grobname} directly.  However, they can be useful in
+  generating appropriate names in a portable way when using grid
+  functions to interact with the plots directly, as described in the
+  note below.
+
 }
 
 \note{
 
-  The scheme for naming viewports is accessible to the user only upto a
-  certain extent.  In particular, the print method for ``trellis''
-  objects use \code{trellis.vpname} to generate the standard viewport
-  names, as documented here.  However, many other viewport names are
-  hardcoded (and liable to change without notice) without any API to get
-  to them.  This includes the special viewports that need to be created
-  when \code{position} or \code{split} is specified in the \code{print}
-  call, as well as viewports created by various panel functions (notably
-  by \code{splom} for `subpanels').  To navigate to these viewports, it
-  is best to use the grid function \code{current.vpTree} to inspect the
-  current viewport tree and then use \code{seekViewport} or
-  \code{downViewport} as appropriate.
+  The viewports created by lattice is accessible to the user only upto a
+  certain extent, as described above.  In particular,
+  \code{trellis.focus} can only be used to manipulate the last plot
+  drawn.  For full flexibility, use appropriate functions from the grid
+  package directly.  For example,
+  \code{\link[grid:current.viewport]{current.vpTree}} can be used to
+  inspect the current viewport tree and
+  \code{\link[grid:viewports]{seekViewport}} or
+  \code{\link[grid:viewports]{downViewport}} can be used to navigate to
+  these viewports.  For such usage, \code{trellis.vpname} and
+  \code{trellis.grobname} (with a non-default \code{prefix} argument)
+  provides a portable way to access the appropriate viewports and grobs
+  by name.
 
 }
 
@@ -209,7 +241,10 @@ trellis.unfocus()
 
 
 \seealso{
-  \code{\link{identify}}, \code{\link{Lattice}}
+  \code{\link{identify}}, \code{\link{Lattice}},
+  \code{\link{print.trellis}}, 
+  \code{\link[grid:current.viewport]{current.vpTree}},
+  \code{\link[grid:viewports]{viewports}}
 }
 
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}

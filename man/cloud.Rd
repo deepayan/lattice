@@ -70,13 +70,14 @@ wireframe(formula, data,
   Draws 3d scatter plots and surfaces.
 }
 \arguments{
-  \item{formula}{a formula of the form \code{z ~ x * y | g1 * g2 * ...},
-    where \code{z} is a numeric response, and \code{x, y} are numeric
-    values. \code{g1,g2,...}, if present, are conditioning variables
+  \item{formula}{
+    a formula of the form \code{z ~ x * y | g1 * g2 * ...}, where
+    \code{z} is a numeric response, and \code{x, y} are numeric
+    values. \code{g1, g2, \dots}, if present, are conditioning variables
     used for conditioning, and must be either factors or shingles. In
     the case of \code{wireframe}, calculations are based on the
-    assumption the \code{x} and \code{y} values are evaluated on a
-    rectangular grid (defined by their unique values). The grid points
+    assumption that the \code{x} and \code{y} values are evaluated on a
+    rectangular grid defined by their unique values.  The grid points
     need not be equally spaced.
 
     For \code{wireframe}, \code{x}, \code{y} and \code{z} may also be
@@ -96,8 +97,10 @@ wireframe(formula, data,
     matrix.
   }
   \item{data}{ data frame in which variables are evaluated }
-  \item{aspect}{ vector of length 2, giving the relative aspects of the
-    y-size/x-size and z-size/x-size of the enclosing rectangle.}
+  \item{aspect}{
+    vector of length 2, giving the relative aspects of the y-size/x-size
+    and z-size/x-size of the enclosing cube.
+  }
   \item{scales}{
     a list describing the scales.  As with other high level functions
     (see \code{\link{xyplot}} for details), this list can contain
@@ -112,7 +115,7 @@ wireframe(formula, data,
     \code{draw=FALSE}.
 
     Other components that work in the \code{scales} argument of
-    \code{xyplot} etc should also work here (as long as they make
+    \code{xyplot} etc. should also work here (as long as they make
     sense), including explicit specification of tick mark locations and
     labels.  (Not everything is implemented yet, but if you find
     something that should work but doesn't, feel free to bug the
