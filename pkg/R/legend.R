@@ -972,8 +972,3 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
 
 
 
-
-
-
-
-
