@@ -796,5 +796,6 @@ lattice.setStatus <- function (...)
          current.plot.multipage = FALSE,
          current.focus.row = 0,
          current.focus.column = 0,
-         vp.highlighted = FALSE)
+         vp.highlighted = FALSE,
+         plot.index = 1) ## keeps track of multiple plots in a page
 

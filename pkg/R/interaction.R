@@ -41,7 +41,7 @@ getTextPosition <- function(x, y)
 }
 
 
-## FIXME: needs work
+
 panel.identify <-
     function(x, y = NULL, labels = seq(along = x), 
              n = length(x), offset = 0.5,
@@ -49,8 +49,6 @@ panel.identify <-
              panel.args = trellis.panelArgs(),
              ...)
     ## ... goes to ltext
-    ## is this interruptible?
-    ## doesn't track points already identified
 {
     if (missing(x))
     {
@@ -63,7 +61,11 @@ panel.identify <-
     px <- convertX(unit(x, "native"), "points", TRUE)
     py <- convertY(unit(y, "native"), "points", TRUE)
     labels <- as.character(labels)
-    for (i in seq(length = n))
+
+    unmarked <- rep(TRUE, length(x))
+    count <- 0
+
+    while (count < n)
     {
         ll <- grid.locator(unit = "points")
         if (is.null(ll)) break ## non-left click
@@ -71,12 +73,19 @@ panel.identify <-
         ly <- convertY(ll$y, "points", TRUE)
         pdists <- sqrt((px - lx)^2 + (py - ly)^2)
         if (min(pdists, na.rm = TRUE) > threshold)
-            warning("no points within threshold of ", threshold, " points")
+            warning("no points within ", threshold, " points")
         else
         {
             w <- which.min(pdists)
-            pos <- getTextPosition(x = lx - px[w], y = ly - py[w])
-            ltext(x[w], y[w], labels[w], pos = pos, offset = offset, ...)
+            if (unmarked[w])
+            {
+                pos <- getTextPosition(x = lx - px[w], y = ly - py[w])
+                ltext(x[w], y[w], labels[w], pos = pos, offset = offset, ...)
+                unmarked[w] <- FALSE
+                count <- count + 1
+            }
+            else
+                warning("nearest point already identified")
         }
     }
 }
@@ -86,49 +95,62 @@ panel.identify <-
 
 
 trellis.vpname <-
-    function(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
+    function(name =
+             c("position", "split", "split.location", "toplevel",
+               "panel", "strip", "legend", "main", "sub",
+               "xlab", "ylab", "page"),
              column = lattice.getStatus("current.focus.column"),
              row = lattice.getStatus("current.focus.row"),
              side = c("left", "top", "right", "bottom", "inside"),
-             clip.off = FALSE)
+             clip.off = FALSE,
+             prefix = lattice.getStatus("current.prefix"))
 {
     name <- match.arg(name)
     side <- match.arg(side)
 
-    switch(name,
+    paste(prefix, 
+          switch(name,
 
-           xlab = "xlab.vp",
-           ylab = "ylab.vp",
-           main = "main.vp",
-           sub  = "sub.vp",
+                 position = "position.vp",
+                 split = "split.vp",
+                 split.location = "split.location.vp",
+                 toplevel = "toplevel.vp",
 
-           panel =
-           if (clip.off) paste("panel", column, row, "off", "vp",  sep = ".")
-           else paste("panel", column, row, "vp", sep = "."), 
+                 xlab = "xlab.vp",
+                 ylab = "ylab.vp",
+                 main = "main.vp",
+                 sub  = "sub.vp",
 
-           strip =
-           if (clip.off) paste("strip", column, row, "off", "vp", sep = ".")
-           else paste("strip", column, row, "vp", sep = "."), 
+                 panel =
+                 if (clip.off) paste("panel", column, row, "off", "vp",  sep = ".")
+                 else paste("panel", column, row, "vp", sep = "."), 
 
-           legend = paste("legend", side, "vp", sep = "."))
+                 strip =
+                 if (clip.off) paste("strip", column, row, "off", "vp", sep = ".")
+                 else paste("strip", column, row, "vp", sep = "."), 
+
+                 legend = paste("legend", side, "vp", sep = ".")),
+          sep = ".")
 }
 
 
-
+trellis.grobname <-
+    function(name, prefix = lattice.getStatus("current.prefix"))
+{
+    paste(prefix, name, sep = ".")
+}
 
 
 trellis.focus <-
-    function(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
+    function(name,
              column = stop("column must be specified"),
              row = stop("row must be specified"),
-             side = c("left", "top", "right", "bottom", "inside"),
+             side = NULL,
              clip.off = FALSE,
-             highlight = interactive(), 
+             highlight = interactive(),
              ...)
 {
     trellis.unfocus()
-    name <- match.arg(name)
-    side <- match.arg(side)
 
     if (name == "panel" || name == "strip")
     {
@@ -148,9 +170,7 @@ trellis.focus <-
         if (!missing(row)) lattice.setStatus(current.focus.row = row)
         if (!missing(column)) lattice.setStatus(current.focus.column = column)
     }
-    lattice.setStatus(vp.depth =
-                      downViewport(lattice.getStatus("topvp.path")) +
-                      downViewport(trellis.vpname(name, side = side, clip.off = clip.off)))
+    lattice.setStatus(vp.depth = downViewport(trellis.vpname(name, side = side, clip.off = clip.off)))
     if (highlight)
     {
         lattice.setStatus(vp.highlighted = TRUE)
@@ -168,8 +188,8 @@ trellis.focus <-
 
 
 trellis.switchFocus <-
-    function(name = c("panel", "strip", "legend", "xlab", "ylab", "sub", "main"),
-             side = c("left", "top", "right", "bottom", "inside"),
+    function(name,
+             side = NULL,
              clip.off = FALSE,
              highlight,
              ...)
@@ -215,8 +235,8 @@ trellis.panelArgs <-
 {
     if (lattice.getStatus("current.plot.multipage"))
         warning("plot spans multiple pages, only last page can be updated")
-    if (missing(x)) x <- 
-        if (lattice.getStatus("current.plot.saved")) trellis.last.object()
+    if (missing(x)) 
+        if (lattice.getStatus("current.plot.saved")) x <- trellis.last.object()
         else stop("current plot was not saved, can't retrieve panel data")
     if (missing(panel.number))
     {
