@@ -78,7 +78,7 @@ qqmath <-
 ###          f.value = ppoints,
              f.value = NULL,
              distribution = qnorm,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(),
              subscripts = !is.null(groups),

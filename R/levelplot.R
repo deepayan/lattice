@@ -430,7 +430,7 @@ levelplot <-
              cuts = 15,
              pretty = FALSE,
              region = TRUE,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(),
              colorkey = region,

@@ -755,7 +755,7 @@ bwplot <-
              ylim,
              box.ratio = 1,
              horizontal = NULL,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales =
              if (horizontal) list(y = list(tck = 0, alternating = FALSE, rot = 0))

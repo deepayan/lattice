@@ -63,14 +63,14 @@ assign("last.object", NULL, env = .LatticeEnv)
 
 
 
-.First.lib <- function(lib, pkg) {
-    library.dynam(pkg, pkg, lib )
-    if (!require(grid))
-        stop("lattice requires grid, but grid couldn't be loaded")
-    ## this has to be done after .LatticeEnv has been defined (!)
-    lattice.options(.defaultLatticeOptions())
-    lattice.setStatus(.defaultLatticeStatus())
-}
+#.First.lib <- function(lib, pkg) {
+#    library.dynam(pkg, pkg, lib )
+#    if (!require(grid))
+#        stop("lattice requires grid, but grid couldn't be loaded")
+#    ## this has to be done after .LatticeEnv has been defined (!)
+#    lattice.options(.defaultLatticeOptions())
+#    lattice.setStatus(.defaultLatticeStatus())
+#}
 
 
 

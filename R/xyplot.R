@@ -168,7 +168,7 @@ xyplot <-
              xlim,
              ylab,
              ylim,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(),
              subscripts = !is.null(groups),
