@@ -49,7 +49,7 @@
   Lattice functions, see \code{\link{xyplot}}.
 
   To learn how to customise the Graphical parameters used by the Lattice
-  functions, see \code{\link{trellis.par.set}} and \code{\link{lset}}.
+  functions, see \code{\link{trellis.par.set}}.
 
   To learn how to initialise new devices or change the settings of the
   current device, see \code{\link{trellis.device}}
