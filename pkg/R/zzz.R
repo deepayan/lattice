@@ -28,7 +28,7 @@
 
     ## this has to be done after .LatticeEnv has been defined (!)
     lattice.options(.defaultLatticeOptions())
-    lattice.setStatus(list = .defaultLatticeStatus())
+    lattice.setStatus(.defaultLatticeStatus())
 }
 
 .LatticeEnv <- new.env()
@@ -69,7 +69,7 @@ assign("last.object", NULL, env = .LatticeEnv)
         stop("lattice requires grid, but grid couldn't be loaded")
     ## this has to be done after .LatticeEnv has been defined (!)
     lattice.options(.defaultLatticeOptions())
-    lattice.setStatus(list = .defaultLatticeStatus())
+    lattice.setStatus(.defaultLatticeStatus())
 }
 
 

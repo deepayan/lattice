@@ -78,7 +78,7 @@ latticeVP.switch <-
     function(name = c("panel", "strip"))
 {
     name <- match.arg(name)
-    if (lattice.getStatus(vp.highlighted))
+    if (lattice.getStatus("vp.highlighted"))
     {
         lvp <- grid.get("lvp.highlight")
         grid.remove("lvp.highlight")
@@ -99,14 +99,18 @@ latticeVP.focus <-
              highlight = interactive(), 
              ...)
 {
+    ll <- lattice.getStatus("current.panel.positions")
     name <- match.arg(name)
-    latticeVP.exit()
-    lattice.setStatus(current.focus.column = column,
-                      current.focus.row = row)
+    latticeVP.unfocus()
+    if (column > 0 && row > 0 && column <= ncol(ll) && row <= nrow(ll))
+        lattice.setStatus(current.focus.column = column,
+                          current.focus.row = row)
+    else
+        stop("requested panel position out of bounds")
     if (highlight)
     {
         lattice.setStatus(vp.highlighted = TRUE)
-        gplist <- lattice.options("highlight.gpar")
+        gplist <- lattice.getOption("highlight.gpar")
         splist <- list(...)
         gp <- do.call("gpar", updateList(gplist, splist))
         lvp <- rectGrob(name = "lvp.highlight", gp = gp)
@@ -122,8 +126,11 @@ latticeVP.unfocus <-
     function()
     ## mainly, undo highlighting
 {
-    if (lattice.getStatus(vp.highlighted))
+    if (lattice.getStatus("vp.highlighted"))
+    {
         grid.remove("lvp.highlight")
+        lattice.setStatus(vp.highlighted = FALSE)
+    }
     lattice.setStatus(current.focus.column = 0,
                       current.focus.row = 0)
     invisible()
@@ -131,13 +138,26 @@ latticeVP.unfocus <-
 
 
 
-
+trellis.last.object <- function()
+    get(last.object, envir = .LatticeEnv)
 
 
 latticeVP.panelArgs <-
-    function()
+    function(x = NULL)
     ## would work only if current object saved (and not multipage)
 {
-    stop("not implemented yet")
+    if (is.null(x))
+        if (lattice.getStatus("current.plot.saved"))
+            x <- trellis.last.object()
+        else
+            stop("current plot was not saved, can't retrieve panel data")
+    if (lattice.getStatus("current.plot.multipage"))
+        warning("plot spans multiple pages, only last page can be updated")
+    
+    row <- lattice.getStatus("current.focus.row")
+    column <- lattice.getStatus("current.focus.column")
+    panel.number <- lattice.getStatus("current.panel.positions")[row, column]
+
+    c(x$panel.args[[panel.number]], x$panel.args.common)
 }
 

@@ -631,6 +631,8 @@ lattice.getOption <- function(name)
     get("lattice.options", envir = .LatticeEnv)[[name]]
 }
 
+
+## FIXME: lattice.options(foo == 1) doesn't work?
 lattice.options <- function(...)
 {
     ## this would have been really simple if only form allowed were
@@ -639,7 +641,7 @@ lattice.options <- function(...)
     ## lattice.options(foo=1, "bar"), which makes some juggling necessary
     
     new <- list(...)
-    if (length(new) == 1 && is.list(new[[1]])) new <- new[[1]]
+    if (is.null(names(new)) && length(new) == 1 && is.list(new[[1]])) new <- new[[1]]
     old <- .LatticeEnv$lattice.options
     ## any reason to prefer get("lattice.options", envir = .LatticeEnv)?
 
@@ -735,7 +737,10 @@ lattice.options <- function(...)
               axis.right = list(x = 0, units = "mm", data = NULL),
               axis.key.padding = list(x = 2, units = "mm", data = NULL),
               key.right = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
-              right.padding = list(x = 2, units = "mm", data = NULL))
+              right.padding = list(x = 2, units = "mm", data = NULL)),
+
+         highlight.gpar = list(col = "red", lwd = 2)
+
          )
 
 
@@ -746,15 +751,20 @@ lattice.options <- function(...)
 lattice.getStatus <- function(name)
     get("lattice.status", envir = .LatticeEnv)[[name]]
 
-lattice.setStatus <- function(..., list = list())
+lattice.setStatus <- function (...) 
 {
     dots <- list(...)
-    if (length(dots) == 0 && length(list) > 0) dots <- list
-    if (length(dots) == 0) return()
+    if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
+        dots <- dots[[1]]
+    if (length(dots) == 0) 
+        return()
     lattice.status <- get("lattice.status", envir = .LatticeEnv)
     lattice.status[names(dots)] <- dots
     assign("lattice.status", lattice.status, env = .LatticeEnv)
 }
+    
+
+
 
 .defaultLatticeStatus <- function()
     list(print.more = FALSE,
