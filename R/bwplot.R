@@ -112,12 +112,15 @@ panel.barchart <-
     groupSub <- function(groups, subscripts, ...)
         groups[subscripts]
 
-    if (horizontal) {
+    if (horizontal)
+    {
 
         ## No grouping
 
-        if (is.null(groups)) {
-            if (is.null(origin)) {
+        if (is.null(groups))
+        {
+            if (is.null(origin))
+            {
                 origin <- current.viewport()$xscale[1]
                 reference <- FALSE
             }
@@ -141,7 +144,8 @@ panel.barchart <-
 
         ## grouped, with stacked bars
 
-        else if (stack) {
+        else if (stack)
+        {
 
             if (!is.null(origin) && origin != 0)
                 warning("origin forced to 0 for stacked bars")
@@ -150,7 +154,11 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
+
             col <- rep(col, length = nvals)
+            border <- rep(border, length = nvals)
+            lty <- rep(lty, length = nvals)
+            lwd <- rep(lwd, length = nvals)
 
             height <- box.ratio/(1 + box.ratio)
 
@@ -160,7 +168,8 @@ panel.barchart <-
                              lty = reference.line$lty,
                              lwd = reference.line$lwd)
 
-            for (i in unique(y)) {
+            for (i in unique(y))
+            {
                 ok <- y == i
                 ord <- sort.list(groups[ok])
                 pos <- x[ok][ord] > 0
@@ -196,8 +205,10 @@ panel.barchart <-
 
         ## grouped, with side by side bars
 
-        else {
-            if (is.null(origin)) {
+        else
+        {
+            if (is.null(origin))
+            {
                 origin <- current.viewport()$xscale[1]
                 reference <- FALSE
             }
@@ -205,7 +216,11 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
+
             col <- rep(col, length = nvals)
+            border <- rep(border, length = nvals)
+            lty <- rep(lty, length = nvals)
+            lwd <- rep(lwd, length = nvals)
 
             height <- box.ratio/(1 + nvals * box.ratio)
             if (reference)
@@ -213,7 +228,8 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd)
-            for (i in unique(y)) {
+            for (i in unique(y))
+            {
                 ok <- y == i
                 nok <- sum(ok)
                 grid.rect(gp =
@@ -233,9 +249,12 @@ panel.barchart <-
     
     ## if not horizontal
 
-    else {
-        if (is.null(groups)) {
-            if (is.null(origin)) {
+    else
+    {
+        if (is.null(groups))
+        {
+            if (is.null(origin))
+            {
                 origin <- current.viewport()$yscale[1]
                 reference <- FALSE
             }
@@ -257,7 +276,8 @@ panel.barchart <-
                       just = c("centre", "bottom"),
                       default.units = "native")
         }
-        else if (stack) {
+        else if (stack)
+        {
 
             if (!is.null(origin) && origin != 0)
                 warning("origin forced to 0 for stacked bars")
@@ -266,7 +286,11 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
+
             col <- rep(col, length = nvals)
+            border <- rep(border, length = nvals)
+            lty <- rep(lty, length = nvals)
+            lwd <- rep(lwd, length = nvals)
 
             width <- box.ratio/(1 + box.ratio)
 
@@ -276,7 +300,8 @@ panel.barchart <-
                              lty = reference.line$lty,
                              lwd = reference.line$lwd)
 
-            for (i in unique(x)) {
+            for (i in unique(x))
+            {
                 ok <- x == i
                 ord <- sort.list(groups[ok])
                 pos <- y[ok][ord] > 0
@@ -311,8 +336,10 @@ panel.barchart <-
 
             
         }
-        else {
-            if (is.null(origin)) {
+        else
+        {
+            if (is.null(origin))
+            {
                 origin <- current.viewport()$yscale[1]
                 reference = FALSE
             }
@@ -320,7 +347,11 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
+
             col <- rep(col, length = nvals)
+            border <- rep(border, length = nvals)
+            lty <- rep(lty, length = nvals)
+            lwd <- rep(lwd, length = nvals)
 
             width <- box.ratio/(1 + nvals * box.ratio)
             if (reference)
@@ -328,7 +359,8 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd)
-            for (i in unique(x)) {
+            for (i in unique(x))
+            {
                 ok <- x == i
                 nok <- sum(ok)
                 grid.rect(gp =
