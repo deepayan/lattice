@@ -207,6 +207,7 @@ trellis.par.set <-
     if (is.null(lattice.theme[[.Device]])) trellis.device(device = .Device, new = FALSE)
     lattice.theme[[.Device]][[name]] <- value
     assign("lattice.theme", lattice.theme, envir=.LatticeEnv)
+    invisible()
 }
 
 
