@@ -35,17 +35,18 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        panel.barchart, panel.bwplot, panel.cloud, panel.curve,
        panel.densityplot, panel.dotplot, panel.fill, panel.grid,
        panel.rug, panel.histogram, panel.levelplot, panel.linejoin,
-       panel.lmline, panel.loess, panel.mathdensity, panel.pairs,
-       panel.parallel, panel.qq, panel.qqmath, panel.qqmathline,
-       panel.splom, panel.stripplot, panel.superpose, panel.axis,
-       panel.superpose.2, panel.tmd, panel.wireframe, panel.xyplot,
-       parallel, prepanel.lmline, prepanel.loess, prepanel.qqmathline,
-       qq, qqmath, rfs, shingle, show.settings, simpleKey, splom,
-       strip.default, stripplot, tmd, trellis.device, trellis.par.get,
-       trellis.par.set, wireframe, xyplot)
+       panel.identify, panel.lmline, panel.loess, panel.mathdensity,
+       panel.pairs, panel.parallel, panel.qq, panel.qqmath,
+       panel.qqmathline, panel.splom, panel.stripplot,
+       panel.superpose, panel.axis, panel.superpose.2, panel.tmd,
+       panel.wireframe, panel.xyplot, parallel, prepanel.lmline,
+       prepanel.loess, prepanel.qqmathline, qq, qqmath, rfs, shingle,
+       show.settings, simpleKey, splom, strip.default, stripplot, tmd,
+       trellis.device, trellis.par.get, trellis.par.set, wireframe,
+       xyplot)
 
 
-## other things to export eventually: reorder.factor, panel.identify
+## other things to export eventually: reorder.factor
 
 
 S3method("[", shingle)
