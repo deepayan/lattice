@@ -201,7 +201,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
         ans$superpose.symbol$col <- can.col[rep(1, 7)]
         ans$superpose.symbol$cex <- rep(0.7, 7)
         ans$superpose.symbol$pch <- c(1,3,6,0,5,16,17)
-        ans$superpose.fill$col <- gray(0:6/6)
+        ans$superpose.fill$col <- gray( (c(6, 12, 7, 11, 8, 10, 9)/15)^.8 )
         ##ans$superpose.symbol$pch <- c("o","+",">","s","w","#","{")
     }
     ans
@@ -281,7 +281,7 @@ trellis.device <-
     function(device = getOption("device"),
              color = !(dev.name == "postscript"),
              theme = getOption("lattice.theme"),
-             bg = NULL,
+##             bg = NULL,
              new = TRUE,
              retain = FALSE,
              ...)
@@ -290,16 +290,19 @@ trellis.device <-
     if (is.character(device))
     {
         if (new || is.null(dev.list()))
-        {   # to make sure this works even if package graphics is not loaded
+        {   # to make sure this works even if package grDevices is not loaded
             device.call <- try(get(device), silent = TRUE)
             if (inherits(device.call, "try-error"))
-                device.call <- try(utils::getFromNamespace(device, "graphics"), silent = TRUE)
+                device.call <-
+                    try(utils::getFromNamespace(device, "grDevices"),
+                        silent = TRUE)
             if (inherits(device.call, "try-error"))
                 stop(paste("Could not find device function", device))
         }
         dev.name <- device
     }
-    else {
+    else
+    {
         device.call <- device
         dev.name <- deparse(substitute(device))
     }
@@ -307,35 +310,43 @@ trellis.device <-
     ## Start the new device if necessary.
     ## new = FALSE ignored if no devices open.
 
+
+    ## FIXME: remove this warning in some future version
+    if ("bg" %in% names(list(...)))
+        warning("trellis.device has changed, 'bg' may not be doing what you think it is")
+
     if (new || is.null(dev.list()))
     {
         device.call(...)
-        assign(".lattice.print.more", FALSE, envir = .LatticeEnv)
+        lattice.setStatus(print.more = FALSE)
     }
 
     ## Make sure there's an entry for this device in the theme list
     lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
-    if (!(.Device %in% names(lattice.theme))) {
+    if (!(.Device %in% names(lattice.theme)))
+    {
         lattice.theme[[.Device]] <- canonical.theme(name = .Device, color = color)
         assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
     }
 
     ## If retain = FALSE, overwrite with default settings for device
-    if (!retain) lset(canonical.theme(name=.Device, color=color))
+    if (!retain) trellis.par.set(canonical.theme(name=.Device, color=color))
 
     ## get theme as list
-    if (!is.null(theme) && !is.list(theme)) {
+    if (!is.null(theme) && !is.list(theme))
+    {
         if (is.character(theme)) theme <- get(theme)
         if (is.function(theme)) theme <- theme()
-        if (!is.list(theme)) {
+        if (!is.list(theme))
+        {
             warning("Invalid theme specified")
             theme <- NULL
         }
     }
 
     ## apply theme and background
-    if (!is.null(theme)) lset(theme)
-    if (!is.null(bg)) lset(list(background = list(col = bg)))
+    if (!is.null(theme)) trellis.par.set(theme)
+##    if (!is.null(bg)) trellis.par.set(list(background = list(col = bg)))
     return(invisible())
 }
 
@@ -343,12 +354,15 @@ trellis.device <-
 
 lset <- function(theme = col.whitebg())
 {
-    for (item in names(theme)) {
-        foo <- trellis.par.get(item)
-        bar <- theme[[item]]
-        foo[names(bar)] <- bar
-        trellis.par.set(item, foo)
-    }
+    .Deprecated("trellis.par.set")
+    trellis.par.set(theme = theme)
+#     for (item in names(theme))
+#     {
+#         foo <- trellis.par.get(item)
+#         bar <- theme[[item]]
+#         foo[names(bar)] <- bar
+#         trellis.par.set(item, foo)
+#     }
 }
 
 
@@ -386,19 +400,20 @@ show.settings <- function(x = NULL)
         page.layout <- grid.layout(nrow = n.row, ncol = n.col,
                                    widths = unit(widths.x, widths.units),
                                    heights = unit(heights.x, heights.units))
-        if (!get(".lattice.print.more", envir=.LatticeEnv)) grid.newpage()
-        assign(".lattice.print.more", FALSE, envir=.LatticeEnv)
+        if (!lattice.getStatus("print.more")) grid.newpage()
+        lattice.setStatus(print.more = FALSE)
         grid.rect(gp = gpar(fill = theme$background$col,
                   col = "transparent"))
         pushViewport(viewport(layout = page.layout,
-                               gp = gpar(fontsize = theme$fontsize$text)))
+                              gp = gpar(fontsize = theme$fontsize$text)))
         superpose.symbol <- theme$superpose.symbol
         len <- length(superpose.symbol$col)
         pushViewport(viewport(layout.pos.row = 2,
-                               layout.pos.col = 2,
-                               yscale = c(0,len+1),
-                               xscale = c(0,len+1)))
-        for (i in 1:len) {
+                              layout.pos.col = 2,
+                              yscale = c(0,len+1),
+                              xscale = c(0,len+1)))
+        for (i in 1:len)
+        {
             lpoints(y = rep(i, len), x = 1:len,
                     col = superpose.symbol$col[i],
                     cex = superpose.symbol$cex[i],
@@ -660,7 +675,7 @@ lattice.options <- function(...)
     nm <- nm[isNamed]
     modified <- updateList(retVal[nm], new[nm])
     .LatticeEnv$lattice.options[names(modified)] <- modified
-    retVal
+    invisible(retVal)
 }
 
 
@@ -707,28 +722,28 @@ lattice.options <- function(...)
 
          layout.heights =
          list(top.padding = list(x = 2, units = "mm", data = NULL),
-              main = list(x = 0, units = "strheight", data = ""),
+              main = list(x = 0, units = "grobheight", data = textGrob(lab="")),
               main.key.padding = list(x = 2, units = "mm", data = NULL),
               key.top = list(x = 0, units = "grobheight", data = textGrob(lab="")),
               key.axis.padding = list(x = 2, units = "mm", data = NULL),
               axis.top = list(x = 0, units = "mm", data = NULL),
-              strip = list(x = 1.1, units = "lines", data = NULL),
+              strip = list(x = 1, units = "lines", data = NULL),
               panel = list(x = 1, units = "null", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),
               between = list(x = 5, units = "mm", data = NULL),
               axis.bottom = list(x = 0, units = "mm", data = NULL),
               axis.xlab.padding = list(x = 2, units = "mm", data = NULL),
-              xlab = list(x = 0, units = "strheight", data = ""),
+              xlab = list(x = 0, units = "grobheight", data = textGrob(lab="")),
               xlab.key.padding = list(x = 2, units = "mm", data = NULL),
               key.bottom = list(x = 0, units = "grobheight", data = textGrob(lab="")),
               key.sub.padding = list(x = 2, units = "mm", data = NULL),
-              sub = list(x = 0, units = "strheight", data = ""),
+              sub = list(x = 0, units = "grobheight", data = textGrob(lab="")),
               bottom.padding = list(x = 2, units = "mm", data = NULL)),
          layout.widths =
          list(left.padding = list(x = 2, units = "mm", data = NULL),
               key.left = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
               key.ylab.padding = list(x = 2, units = "mm", data = NULL),
-              ylab = list(x = 0, units = "strheight", data = ""),
+              ylab = list(x = 0, units = "grobheight", data = textGrob(lab="")),
               ylab.axis.padding = list(x = 2, units = "mm", data = NULL),
               axis.left = list(x = 0, units = "mm", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),

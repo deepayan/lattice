@@ -21,6 +21,16 @@
 
 
 
+## retrieve last saved (while printing) trellis object
+
+trellis.last.object <- function(warn = TRUE)
+{
+    ans <- get("last.object", envir = .LatticeEnv)
+    if (is.null(ans)) warning("No trellis object currently saved")
+    if (warn && !lattice.getStatus("current.plot.saved"))
+        warning("currently saved object is not the last one plotted")
+    ans
+}
 
 
  
@@ -105,6 +115,12 @@ update.trellis <-
     if (!is.null(nm))
     {
         nm <- nm[nm != "" & nm != "object"]
+        if (length(nm) == 0)
+        {
+            ## FIXME: drop this message before release
+            cat("nothing to update with")
+            return(object)
+        }
         object$call[nm] <- upcall[nm]
     }
 
@@ -149,8 +165,7 @@ update.trellis <-
         ## that are not specified explicitly
 
         if (is.list(par.strip.text))
-            object$par.strip.text[names(par.strip.text)] <-
-                par.strip.text
+            object$par.strip.text <- updateList(object$par.strip.text, par.strip.text)
         else warning("par.strip.text must be a list")
     }
 
@@ -174,8 +189,7 @@ update.trellis <-
         ## that are not specified explicitly
 
         if (is.list(par.settings))
-            object$par.settings[names(par.settings)] <-
-                par.settings
+            object$par.settings <- updateList(object$par.settings, par.settings)
         else warning("par.settings must be a list")
     }
 
@@ -207,7 +221,7 @@ update.trellis <-
     if (length(dots) > 0)
     {
         ##print(dots) ## for debugging, remove later
-        object$panel.args.common[names(dots)] <- dots
+        object$panel.args.common <- updateList(object$panel.args.common, dots)
     }
 
 
@@ -234,14 +248,16 @@ update.trellis <-
     if (!missing(legend))
     {
         if (is.null(legend)) object$legend <- NULL
-        else object$legend[names(legend)] <- legend
+        else object$legend <- updateList(object$legend, legend)
     }
 
     
 
     
-    if (!missing(key))  ## FIXME
+    if (!missing(key))  ## FIXME: why?
     {
+        ## should we allow partial update?
+        ## object$key <- updateList(object$key, key)
         object$key <- key
     }
 
@@ -277,10 +293,6 @@ update.trellis <-
             }
         }
     }
-
-
-
-
 
 
     relationChanged <- FALSE
@@ -398,7 +410,7 @@ update.trellis <-
             }
             else warning(paste("Unrecognized value of aspect:", aspect))
         }
-        else warning("Inappropriate value of aspect")
+        else warning("Invalid value of aspect")
     }
 
 
