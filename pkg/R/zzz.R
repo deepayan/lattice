@@ -28,12 +28,16 @@
 
     ## this has to be done after .LatticeEnv has been defined (!)
     lattice.options(.defaultLatticeOptions())
+    lattice.setStatus(list = .defaultLatticeStatus())
 }
 
 .LatticeEnv <- new.env()
 
 ## Need global variable to handle more in print.trellis
-assign(".lattice.print.more", FALSE, env = .LatticeEnv)
+
+##assign(".lattice.print.more", FALSE, env = .LatticeEnv) - delegated to status list
+
+assign("lattice.status", list(), env = .LatticeEnv)
 assign("lattice.theme", list(), env = .LatticeEnv)
 assign("lattice.options", list(), env = .LatticeEnv)
 assign("last.object", NULL, env = .LatticeEnv)
@@ -65,6 +69,7 @@ assign("last.object", NULL, env = .LatticeEnv)
         stop("lattice requires grid, but grid couldn't be loaded")
     ## this has to be done after .LatticeEnv has been defined (!)
     lattice.options(.defaultLatticeOptions())
+    lattice.setStatus(list = .defaultLatticeStatus())
 }
 
 

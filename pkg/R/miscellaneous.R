@@ -143,12 +143,29 @@ reorderFactor <-
 
 
 
+## panel functions corresponding to standard base functions
+
+panel.points <- function(...) lpoints(...)
+panel.lines <- function(...) llines(...)
+panel.segments <- function(...) lsegments(...)
+panel.text <- function(...) ltext(...)
+panel.arrows <- function(...) larrows(...)
 
 
-## The rest are grid-ified versions of 
+
+
+
+
+
+## The rest are grid-ified versions of standard base 'incremental
+## graphics' functions.  Maybe it's better to push wrappers like
+## panel.points, panel.lines, etc.
+
+
 
 lsegments <-
-    function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
+    function(x0 = NULL, y0 = NULL, x1, y1,
+             x2 = NULL, y2 = NULL,
              col = add.line$col,
              alpha = add.line$alpha,
              lty = add.line$lty,
@@ -162,12 +179,11 @@ lsegments <-
     x1 <- rep(x1, length = ml)
     y0 <- rep(y0, length = ml)
     y1 <- rep(y1, length = ml)
-
     grid.segments(x0 = x0, x1 = x1,
                   y0 = y0, y1 = y1,
                   gp = gpar(lty=lty,
-                  col=col, lwd=lwd, alpha = alpha),
-                  default.units="native")
+                  col = col, lwd = lwd, alpha = alpha),
+                  default.units = "native")
 }
 
 
@@ -178,7 +194,8 @@ larrows <-
 
     if (missing(x0)) {x0 <- x1; x1 <- x2}
     if (missing(y0)) {y0 <- y1; y1 <- y2}
-    if (!is.null(length)) warning("length not implemented in larrows, use proportion instead")
+    if (!is.null(length))
+        warning("length not implemented in larrows, use proportion instead")
 
     angle <- angle / 180 * pi
     start <- rbind(x0, y0)
@@ -223,7 +240,6 @@ ltext <-
              ...)
 {
     add.text <- trellis.par.get("add.text")
-
     xy <- xy.coords(x, y)
     if (length(xy$x) == 0) return()
     ux <- unit(xy$x, "native")
@@ -314,16 +330,13 @@ lplot.xy <-
 {
     x <- xy$x
     y <- xy$y
-
     fontsize.points <- trellis.par.get("fontsize")$points
 
     if (length(x) == 0) return()
-
     else if (type %in% c("l", "o", "b", "c"))
         grid.lines(x = x, y = y,
                    gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
                    default.units = "native")
-    
     else if (type %in% c("p", "o", "b", "c"))
         grid.points(x = x, y = y, 
                     gp =
@@ -333,14 +346,12 @@ lplot.xy <-
                          fontface = chooseFace(fontface, font)),
                     pch = pch, 
                     default.units = "native")
-
     else if (type %in% c("s", "S"))
     {
         ord <- sort.list(x)
         n <- length(x)
         xx <- numeric(2*n-1)
         yy <- numeric(2*n-1)
-
         xx[2*1:n-1] <- x[ord]
         yy[2*1:n-1] <- y[ord]
         xx[2*1:(n-1)] <- x[ord][if (type=="s") -1 else -n]
@@ -349,8 +360,8 @@ lplot.xy <-
                    gp = gpar(lty=lty, col=col.line, lwd=lwd, alpha = alpha),
                    default.units="native")
     }
-
-    else if (type == "h") {
+    else if (type == "h")
+    {
         ylim <- current.viewport()$yscale
         zero <-
             if (ylim[1] > 0) ylim[1]
@@ -361,7 +372,8 @@ lplot.xy <-
                        gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
                        default.units = "native")
     }
-    else if (type == "h") {
+    else if (type == "h")
+    {
         ylim <- current.viewport()$yscale
         zero <-
             if (ylim[1] > 0) ylim[1]
@@ -372,7 +384,8 @@ lplot.xy <-
                       gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
                       default.units="native")
     }
-    else if (type == "H") {
+    else if (type == "H")
+    {
         xlim <- current.viewport()$xscale
         zero <-
             if (xlim[1] > 0) xlim[1]
