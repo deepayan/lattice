@@ -208,7 +208,44 @@ lsegments <-
 }
 
 
+
+
+
+
+
+
 larrows <-
+    function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
+             angle = 30, code = 2, length = 0.25, 
+             col = add.line$col,
+             alpha = add.line$alpha,
+             lty = add.line$lty,
+             lwd = add.line$lwd,
+             fill = NULL, ...)
+{
+    if (missing(x0)) x0 <- x2
+    if (missing(y0)) y0 <- y2
+    ends <- switch(code, "first", "last", "both")
+    add.line <- trellis.par.get("add.line")
+    ml <- max(length(x0), length(x1), length(y0), length(y1))
+    x0 <- rep(x0, length = ml)
+    x1 <- rep(x1, length = ml)
+    y0 <- rep(y0, length = ml)
+    y1 <- rep(y1, length = ml)
+    gp <- gpar(col = col, lty=lty, lwd = lwd, alpha = alpha, fill = fill)
+    sg <- 
+        segmentsGrob(x0 = x0, x1 = x1,
+                     y0 = y0, y1 = y1,
+                     gp = gp, 
+                     default.units = "native")
+    grid.arrows(grob = sg, length = unit(length, "inches"),
+                angle = angle, ends = ends,
+                gp = gp,
+                ...)
+}
+
+
+larrows.old <-
     function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
              angle = 30, code = 2, length = NULL, proportion = .05, ...) 
 {
