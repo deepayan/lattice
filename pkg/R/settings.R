@@ -246,8 +246,7 @@ trellis.par.set <-
     {
         trellis.device()
         if (warn)
-            cat("Note: The default device has been opened to honour attempt to modify trellis settings\n",
-                fill = TRUE)
+            warning("Note: The default device has been opened to honour attempt to modify trellis settings")
     }
 
 
