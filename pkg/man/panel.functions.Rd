@@ -9,6 +9,7 @@
 \alias{panel.loess}
 \alias{panel.linejoin}
 \alias{panel.axis}
+\alias{panel.identify}
 \alias{panel.mathdensity}
 \title{Useful Panel Functions}
 \description{
@@ -79,6 +80,9 @@ panel.axis(side = 1:4, at,
            labels = TRUE, tick = TRUE,
            half = TRUE, which.half = c("lower", "upper", "upper","lower"),
            tck = 1, rot)
+panel.identify(x, y = NULL, labels = seq(along = x),
+               n = length(x), offset = 0.5,
+               threshold = 18, ...)
 }
 \arguments{
   \item{x, y}{ variables defining the contents of the panel}
@@ -86,7 +90,7 @@ panel.axis(side = 1:4, at,
   \item{coef}{ Coefficients of the line to be added as a length 2 vector}
   \item{reg}{ A regression object. The corresponding fitted line will
     be drawn }
-  \item{h,v}{ For panel.abline, numerical vectors giving y and x
+  \item{h,v}{ For \code{panel.abline}, numerical vectors giving y and x
     locations respectively of horizontal and vertical lines to be
     added to the plot. For panel.grid, number of horizontal and vertical
     reference lines to be added to the plot; h=-1 and v=-1 make the
@@ -105,14 +109,19 @@ panel.axis(side = 1:4, at,
   \item{from, to}{ optional lower and upper x-limits of curve. If
     missing, limits of current panel are used
   }
-  \item{n}{ number of points to use for drawing the curve }
+  \item{n}{ for \code{panel.curve}, the number of points to use for
+    drawing the curve. For \code{panel.identify}, the number of points
+    to identify by default (overridden by a right click)
+  }
+
+
   \item{curve.type}{ type of curve ('p' for points, etc), passed to
     \code{llines}
   }
   \item{col}{color}
   \item{span, degree, family, evaluation}{ arguments to 
-    \code{loess.smooth} in the \code{modreg} library. \code{panel.loess}
-    is essentially a wrapper on \code{loess.smooth} 
+    \code{loess.smooth}, around which \code{panel.loess} is essentially
+    a wrapper
   }
   \item{fun}{ the function that will be applied to the subset of x(y)
     determined by the unique values of y(x)}
@@ -128,8 +137,11 @@ panel.axis(side = 1:4, at,
 
   \item{side}{ subset of 1:4, indicating which side which }
   \item{at}{ location of labels. No default.}
-  \item{labels}{ logical indicating whether labels are to be drawn, or
-    the labels to go along with \code{at}}
+  \item{labels}{ for \code{panel.axis}, logical indicating whether
+    labels are to be drawn, or the labels to go along with \code{at}.
+    For \code{panel.identify}, an optional vector of labels associated
+    with each point.
+  }
   \item{tick}{ logical, whether to draw ticks }
   \item{half}{
     logical, whether only half of scales will be drawn for each side
@@ -144,6 +156,15 @@ panel.axis(side = 1:4, at,
     numeric 4-vector (recycled if necessary), rotation angles for sides
     1 to 4
   }
+  \item{offset}{ the labels are printed either below, above, to the left
+    or to the right of the identified point, depending on the relative
+    location of the mouse click. The \code{offset} specifies (in "char"
+    units) how far from the identified point the labels should be
+    printed.
+  }
+  \item{threshold}{ threshold in grid's "points" units. Points further
+    than these from the mouse click position are not considered}
+
   \item{\dots}{ graphical parameters can be supplied. see function
     definition for details. Color can usually be specified by \code{col,
       col.line} and \code{col.symbol}, the last two overriding the first
@@ -175,9 +196,20 @@ panel.axis(side = 1:4, at,
   (native) axis scales within the panel, but the locations need to be
   explicitly specified. Used in \code{\link{panel.pairs}} for
   \code{\link{splom}}.
+
+  \code{panel.identify} is similar to \code{\link{identify}}. When
+  called as part of the panel function, it waits for the user to
+  identify points (in the panel being drawn) via mouse clicks.
+  Clicks other than left-clicks terminate the procedure. It is less
+  sophisticated than \code{identify} in the sense that it does not keep
+  track of points already identified.
+
 }
+
 \seealso{\code{\link[stats:scatter.smooth]{loess.smooth}},
-  \code{\link{trellis.par.get}}}
+  \code{\link{identify}}, \code{\link{trellis.par.get}}
+}
+
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \keyword{dplot}
 
