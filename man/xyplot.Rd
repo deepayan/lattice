@@ -118,24 +118,16 @@ bwplot(formula,
 }
 
 \description{
-  These are the most commonly used Trellis functions to look at pairs of
-  variables. By far the most common is \code{xyplot}, designed mainly
-  for two continuous variates (though factors can be supplied as well,
-  in which case they will simply be coerced to numeric), which produces
-  Conditional Scatterplots. The others are useful when one of the
-  variates is a factor or a shingle. See details below.
-
-  Most of the arguments documented here are also applicable for many of
-  the other Trellis functions. These are not described in any detail
-  elsewhere, and this should be considered the canonical documentation
-  for such arguments.
-
-  Note that any arguments passed to these functions and not recognized
-  by them will be passed to the panel function. Most predefined panel
-  functions have arguments that customize its output. These arguments
-  are described only in the help pages for these panel functions, but
-  can usually be supplied as arguments to the high level plot.  
+  These are the most commonly used high level Trellis functions to plot
+  pairs of variables. By far the most common is \code{xyplot}, designed
+  mainly for two continuous variates (though factors can be supplied as
+  well, in which case they will simply be coerced to numeric), which
+  produces Conditional Scatterplots. The others are useful when one of
+  the variates is a factor or a shingle.  Most of these arguments are
+  also applicable for other high level functions in the lattice package,
+  but are only documented here.
 }
+
 \arguments{
   \item{formula}{
     a formula describing the form of conditioning plot. The formula is
@@ -143,35 +135,25 @@ bwplot(formula,
     that plots of \code{y} (on the y axis) versus \code{x} (on the x
     axis) should be produced conditional on the variables
     \code{g1, g2, \dots}. However, the conditioning variables
-    \code{g1,g2,\dots} may be omitted. For S-PLUS compatibility, the
-    formula can also be written as \code{y ~ x | g1 + g2 + \dots}.
+    \code{g1,g2,\dots} may be omitted. The formula can also be supplied
+    as \code{y ~ x | g1 + g2 + \dots}.
 
-    For all these functions other than \code{xyplot}, a formula of the
-    form \code{ ~ x | g1 * g2 * \dots} is also allowed. In that case,
-    \code{y} defaults to \code{as.factor(names(x))} if \code{x} is
-    named, and a factor with a single level otherwise.
+    For all of these functions, with the exception of \code{xyplot}, a
+    formula of the form \code{ ~ x | g1 * g2 * \dots} is also
+    allowed. In that case, \code{y} defaults to
+    \code{as.factor(names(x))} if \code{x} is named, and a factor with a
+    single level otherwise.
 
     Although it is not recommended, usage of the form \code{dotplot(x)}
     (where the formula argument is not a formula at all) is also
-    allowed, and is equivalent to \code{dotplot{ ~ x}}.
+    allowed, and is equivalent to \code{dotplot( ~ x)}.
     
     The conditioning variables \code{g1, g2, \dots} must be either
-    factors or shingles (Shingles are a way of processing numeric
+    factors or shingles.  Shingles are a way of processing numeric
     variables for use in conditioning. See documentation of
     \code{\link{shingle}} for details. Like factors, they have a
-    `levels' attribute, which is used in producing the conditioning
-    plots). For each unique combination of the levels of the
-    conditioning variables \code{g1, g2, \dots}, a separate panel is
-    produced using the points \code{(x,y)} for the subset of the data
-    (also called packet) defined by that combination.
-
-    The order in which the panels are drawn depends on the order in
-    which the conditioning variables are specified (\code{g1} varies
-    fastest). Within a conditioning variable, the order depends on the
-    order of the levels (which for factors is usually in alphabetical
-    order). Both of these orders can be modified using the
-    \code{index.cond} and \code{perm.cond} arguments, typically in the
-    \code{update} method.
+    `levels' attribute, which is used in producing the conditional
+    plots.
 
     Numeric conditioning variables are converted to shingles by the
     function \code{shingle} (however, using \code{\link{equal.count}}
@@ -190,11 +172,12 @@ bwplot(formula,
     essentially what the \code{groups} argument would produce, if
     \code{y1} and \code{y2} were concatenated to produce a longer
     vector, with the \code{groups} argument being an indicator of which
-    rows come from which variable. In fact, this is exactly what is done
-    internally using the \code{\link{reshape}} function. This feature
-    cannot be used in conjunction with the \code{groups} argument.
+    rows come from which variable.  In fact, this is exactly what is
+    done internally using the \code{\link{reshape}} function. This
+    feature cannot be used in conjunction with the \code{groups}
+    argument.  
 
-    To interpret \code{y1+y2} as a sum, one can either set
+    To interpret \code{y1 + y2} as a sum, one can either set
     \code{allow.multiple=FALSE} or use \code{I(y1+y2)}.
 
     A variation on this feature is when the \code{outer} argument is set
@@ -849,10 +832,47 @@ bwplot(formula,
   by default) will plot it on an appropriate plotting device.
 }
 \details{
-  These are for the most part decriptions generally applicable to all
-  high level Lattice functions, with special emphasis on \code{xyplot,
-    bwplot} etc. For other functions, their individual documentation
-  should be studied in addition to this. 
+
+  The structure of the plot that is produced depends largely on the
+  \code{formula}.  For each unique combination of the levels of the
+  conditioning variables \code{g1, g2, \dots}, a separate panel is
+  produced using the points \code{(x,y)} for the subset of the data
+  (also called packet) defined by that combination.  The panels can be
+  though of as a 3-dimensional array, consisting of one 2-dimensional
+  matrix per page.  The dimesions of this array are determined by the
+  \code{layout} argument.
+
+  If there are no conditioning variables, the plot produced consists of
+  a single panel.
+
+  The coordinate system used by lattice is almost always like a graph,
+  with the origin at the bottom left, with axes increasing to left and
+  up. In particular, panels are by default drawn starting from the
+  bottom left corner, going right and then up; unless \code{as.table =
+    TRUE}, in which case panels are drawn from the top left corner,
+  going right and then down.
+
+  The order of the panels depends on the order in which the conditioning
+  variables are specified, with \code{g1} varying fastest. Within a
+  conditioning variable, the order depends on the order of the levels
+  (which for factors is usually in alphabetical order). Both of these
+  orders can be modified using the \code{index.cond} and
+  \code{perm.cond} arguments, often using the \code{update} method.
+}
+
+\note{
+
+  Most of the arguments documented here are also applicable for the
+  other high level functions in the lattice package. These are not
+  described in any detail elsewhere unless relevant, and this should be
+  considered the canonical documentation for such arguments.
+
+  Any arguments passed to these functions and not recognized by them
+  will be passed to the panel function. Most predefined panel functions
+  have arguments that customize its output. These arguments are
+  described only in the help pages for these panel functions, but can
+  usually be supplied as arguments to the high level plot.
+
 }
 \seealso{
   \code{\link{Lattice}},
