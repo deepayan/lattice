@@ -120,7 +120,7 @@ print.trellis <-
     bg = trellis.par.get("background")$col
     new <- TRUE
     if (lattice.getStatus("print.more") || !newpage) new <- FALSE
-    lattice.getStatus(print.more = more)
+    lattice.setStatus(print.more = more)
     usual  <- (missing(position) & missing(split))
     ##if (!new && usual)
     ##    warning("more is relevant only when split/position is specified")
@@ -341,6 +341,10 @@ print.trellis <-
     cols.per.page <- panel.layout[1]
     rows.per.page <- panel.layout[2]
     number.of.pages <- panel.layout[3]
+    lattice.setStatus(current.plot.multipage = number.of.pages > 1)
+    ## this will also eventually be a 'status' variable
+    current.panel.positions <- matrix(0, rows.per.page, cols.per.page)
+
 
     skip <- rep(x$skip, length = number.of.pages * rows.per.page * cols.per.page)
 
@@ -478,6 +482,7 @@ print.trellis <-
 
                         panel.number <- 
                             do.call("[", c(list(x = order.cond), as.list(cond.current.level)))
+                        current.panel.positions[row, column] <- panel.number
 
                         ## this index retrieves the appropriate entry
                         ## of panel.args and [xy].limits. It has to be
@@ -916,7 +921,14 @@ print.trellis <-
         lset(opars)
     }
 
-    if (save.object) assign("last.object", x, env = .LatticeEnv)
+    if (save.object)
+    {
+        assign("last.object", x, env = .LatticeEnv)
+        lattice.setStatus(current.plot.saved = TRUE)
+    }
+    else
+        lattice.setStatus(current.plot.saved = FALSE)
+    lattice.setStatus(current.panel.positions = current.panel.positions)
     invisible(x)
 }
 
