@@ -88,8 +88,7 @@ panel.barchart <-
              origin = NULL, reference = TRUE,
              stack = FALSE,
              groups = NULL, 
-             col = if (is.null(groups)) bar.fill$col else
-             regions$col,
+             col = if (is.null(groups)) bar.fill$col else superpose.fill$col,
              ...)
 {
     x <- as.numeric(x)
@@ -98,6 +97,7 @@ panel.barchart <-
     if (length(x) < 1) return()
 
     bar.fill <- trellis.par.get("bar.fill")
+    superpose.fill <- trellis.par.get("superpose.fill")
     reference.line <- trellis.par.get("reference.line")
 
 
@@ -145,12 +145,7 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
-
-            regions <- trellis.par.get("regions")
-            numcol.r <- length(col)
-            col <- 
-                if (numcol.r <= nvals) rep(col, length = nvals)
-                else col[floor(1+(vals-1)*(numcol.r-1)/(nvals-1))]
+            col <- rep(col, length = nvals)
 
             height <- box.ratio/(1 + box.ratio)
 
@@ -197,13 +192,8 @@ panel.barchart <-
             vals <- sort(unique(groups))
             nvals <- length(vals)
             groups <- groupSub(groups, ...)
+            col <- rep(col, length = nvals)
 
-            regions <- trellis.par.get("regions")
-            numcol.r <- length(col)
-            col <- 
-                if (numcol.r <= nvals) rep(col, length = nvals)
-                else col[floor(1+(vals-1)*(numcol.r-1)/(nvals-1))]
-            
             height <- box.ratio/(1 + nvals * box.ratio)
             if (reference)
                 panel.abline(v = origin,
