@@ -100,10 +100,21 @@ drawSimpleKey <- function(...)
 
 simpleKey <- function(text, points = TRUE,
                       rectangles = FALSE,
-                      lines = FALSE, ...)
+                      lines = FALSE,
+                      col = add.text$col,
+                      cex = add.text$cex,
+                      font = add.text$font,
+                      fontface = add.text$fontface,
+                      fontfamily = add.text$fontfamily,
+                      ...)
 {
+    add.text <- trellis.par.get("add.text")
     foo <- seq(along = text)
-    ans <- list(text = list(lab = text), ...)
+    ans <- list(text = list(lab = text),
+                col = col, cex = cex, font = font,
+                fontface = fontface,
+                fontfamily = fontfamily,
+                ...)
 
     if (points) ans$points <-
         Rows(trellis.par.get("superpose.symbol"), foo)
@@ -726,7 +737,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     }
     else if (is.list(key$lab))
     {
-        if (!is.null(key$lab$at)) at <- key$lab$at
+        at <- if (!is.null(key$lab$at)) key$lab$at else lpretty(atrange, key$tick.number)
+        at <- at[at>=atrange[1] & at<=atrange[2]]
         labels <- if (!is.null(key$lab$lab)) {
             check.overlap <- FALSE
             key$lab$lab
@@ -770,7 +782,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         heights = unit(heights.x, heights.units),
                         widths = unit(widths.x, widths.units, data = widths.data),
                         respect = TRUE)
-        
+
         key.gf <- frameGrob(layout = key.layout, vp = vp)
 
         key.gf <- placeGrob(key.gf,
@@ -806,6 +818,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         key.gf <- placeGrob(key.gf,
                             labelsGrob, 
                             row = 2, col = 3)
+#        key.gf <- placeGrob(key.gf,
+#                            rectGrob(), 
+#                            row = 2, col = 3)
 
     }
     else if (key$space == "left") {
@@ -2029,7 +2044,7 @@ print.trellis <-
     rows.per.page <- panel.layout[2]
     number.of.pages <- panel.layout[3]
 
-    skip <- rep(x$skip, plots.per.page * rows.per.page * cols.per.page)
+    skip <- rep(x$skip, length = number.of.pages * rows.per.page * cols.per.page)
 
     x.alternating <- rep(x$x.scales$alternating, length = cols.per.page)
     y.alternating <- rep(x$y.scales$alternating, length = rows.per.page)
@@ -2092,8 +2107,8 @@ print.trellis <-
     ## function. Sequential counter keeping track of which panel is
     ## being drawn
 
-
     for(page.number in 1:number.of.pages)
+    {
         if (!any(cond.max.level - cond.current.level < 0)) {
             
             if (usual) {
@@ -2145,7 +2160,7 @@ print.trellis <-
 
             for (row in 1:rows.per.page)
                 for (column in 1:cols.per.page)
-
+                {
                     if (!any(cond.max.level-cond.current.level<0) &&
                         (row-1) * cols.per.page + column <= plots.per.page &&
                         !skip[(page.number-1) * rows.per.page * cols.per.page +
@@ -2614,8 +2629,8 @@ print.trellis <-
                                                       cond.max.level)
 
                     }
-            
-
+                }
+        
 
 
             ## legend / key plotting
@@ -2731,7 +2746,7 @@ print.trellis <-
             
             
         }
-
+    }
     if (!missing(position)) {
         if (!missing(split)) {
             upViewport()
