@@ -220,7 +220,14 @@ trellis.device <-
     ## Get device function
     if (is.character(device))
     {
-        if (new || is.null(dev.list())) device.call <- get(device)
+        if (new || is.null(dev.list()))
+        {   # to make sure this works even if package graphics is not loaded
+            device.call <- try(get(device), silent = TRUE)
+            if (inherits(device.call, "try-error"))
+                device.call <- try(utils::getFromNamespace(device, "graphics"), silent = TRUE)
+            if (inherits(device.call, "try-error"))
+                stop(paste("Could not find device function", device))
+        }
         dev.name <- device
     }
     else {
