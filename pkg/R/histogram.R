@@ -80,7 +80,11 @@ panel.histogram <- function(x,
                             breaks,
                             equal.widths = TRUE,
                             type = "density",
+                            alpha = bar.fill$alpha,
                             col = bar.fill$col,
+                            border = bar.fill$border,
+                            lty = bar.fill$lty,
+                            lwd = bar.fill$lwd,
                             ...)
 {
     x <- as.numeric(x)
@@ -110,10 +114,11 @@ panel.histogram <- function(x,
         nb <- length(breaks)
         if (nb != (length(y)+1)) warning("something is probably wrong")
 
+
         if (nb>1) {
             for(i in 1:(nb-1))
                 if (y[i]>0) {
-                    grid.rect(gp = gpar(fill = col),
+                    grid.rect(gp = gpar(fill = col, alpha = alpha, col = border, lty = lty, lwd = lwd),
                               x = breaks[i],
                               y = 0,
                               height = y[i],
@@ -228,16 +233,13 @@ histogram <-
                           panel = panel,
                           xlab = xlab,
                           ylab = ylab,
-                          xlab.default = form$right.name), dots))
+                          xlab.default = form$right.name,
+                          ylab.default = "dummy"), dots))
                           
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
     foo$call <- match.call()
-
-    ## This is for cases like xlab/ylab = list(cex=2)
-    if (is.list(foo$xlab) && !is.characterOrExpression(foo$xlab$label))
-        foo$xlab$label <- form$right.name
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
@@ -287,10 +289,16 @@ histogram <-
         type <- "density"
     else type <- match.arg(type)
 
-    if (is.logical(foo$ylab$label)) foo$ylab$label <- 
+    ## this is normally done earlier (in trellis.skeleton), but in
+    ## this case we needed to wait till type is determined
+
+    foo$ylab.default <- 
         if (type == "count") "Count"
         else if (type == "percent") "Percent of Total"
         else "Density"
+
+
+
 
     ## Step 5: Process cond
 
