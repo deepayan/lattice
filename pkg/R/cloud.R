@@ -693,10 +693,10 @@ panel.cloud <-
         ## So, get tick labels, and then convert *lim to numeric
         ## Although, this is all unnecessary if arrows = TRUE
 
-
         xlabelinfo <-
             calculateAxisComponents(xlim,
                                     at = scales.3d$x$at,
+                                    ##num.limit = scales.3d$x$num.limit,
                                     labels = scales.3d$x$labels,
                                     logsc = scales.3d$x$log,
                                     abbreviate = scales.3d$x$abbreviate,
@@ -708,6 +708,7 @@ panel.cloud <-
         ylabelinfo <-
             calculateAxisComponents(ylim,
                                     at = scales.3d$y$at,
+                                    ##num.limit = scales.3d$x$num.limit,
                                     labels = scales.3d$y$labels,
                                     logsc = scales.3d$y$log,
                                     abbreviate = scales.3d$y$abbreviate,
@@ -719,6 +720,7 @@ panel.cloud <-
         zlabelinfo <-
             calculateAxisComponents(zlim,
                                     at = scales.3d$z$at,
+                                    ##num.limit = scales.3d$x$num.limit,
                                     labels = scales.3d$z$labels,
                                     logsc = scales.3d$z$log,
                                     abbreviate = scales.3d$z$abbreviate,

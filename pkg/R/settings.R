@@ -787,6 +787,5 @@ lattice.setStatus <- function (...)
          current.plot.multipage = FALSE,
          current.focus.row = 0,
          current.focus.column = 0,
-         current.focus.index = 0,
          vp.highlighted = FALSE)
 

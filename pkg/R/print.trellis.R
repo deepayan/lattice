@@ -552,15 +552,22 @@ print.trellis <-
                             calculateAxisComponents(x =
                                                     if (x.relation.same) x$x.limits
                                                     else x$x.limits[[panel.number]],
+
                                                     at = if (is.list(x$x.scales$at))
                                                     x$x.scales$at[[panel.number]]
                                                     else x$x.scales$at,
+
                                                     used.at = if (!x.relation.same)
-                                                    x$x.at[[panel.number]] else NULL,
+                                                    x$x.used.at[[panel.number]] else x$x.used.at,
+
+                                                    num.limit = if (!x.relation.same)
+                                                    x$x.num.limit[[panel.number]] else x$x.num.limit,
+
                                                     labels =
                                                     if (is.list(x$x.scales$lab))
                                                     x$x.scales$lab[[panel.number]]
                                                     else x$x.scales$lab,
+
                                                     logsc = x$x.scales$log,
                                                     abbreviate = x$x.scales$abbr,
                                                     minlength = x$x.scales$minl,
@@ -571,14 +578,22 @@ print.trellis <-
                             calculateAxisComponents(x =
                                                     if (y.relation.same) x$y.limits
                                                     else x$y.limits[[panel.number]],
+
                                                     at = if (is.list(x$y.scales$at))
                                                     x$y.scales$at[[panel.number]]
                                                     else x$y.scales$at,
+
                                                     used.at = if (!y.relation.same)
-                                                    x$y.at[[panel.number]] else NULL,
-                                                    labels = if (is.list(x$y.scales$lab))
+                                                    x$y.used.at[[panel.number]] else x$y.used.at,
+
+                                                    num.limit = if (!y.relation.same)
+                                                    x$y.num.limit[[panel.number]] else x$y.num.limit,
+
+                                                    labels =
+                                                    if (is.list(x$y.scales$lab))
                                                     x$y.scales$lab[[panel.number]]
                                                     else x$y.scales$lab,
+
                                                     logsc = x$y.scales$log,
                                                     abbreviate = x$y.scales$abbr,
                                                     minlength = x$y.scales$minl,
@@ -979,6 +994,9 @@ print.trellis <-
     else
         lattice.setStatus(current.plot.saved = FALSE)
     lattice.setStatus(current.panel.positions = current.panel.positions)
+    lattice.setStatus(current.focus.row = 0,
+                      current.focus.column = 0,
+                      vp.highlighted = FALSE)
     invisible(x)
 }
 
