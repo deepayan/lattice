@@ -5,7 +5,99 @@ Changes in lattice 0.10
 =======================
 
 
-< check back on svn logs >
+
+improvements
+------------
+
+
+ o relation="free" and "sliced" now work for factors (at least, as
+   well as can be expected)
+
+ o the code that constructs the layout of a lattice plot (in the print
+   method for trellis objects) has been completely rewritten.  This is
+   mostly transparent to the user, but as a side effect, it is now
+   possible to control the details of the layout (things like the
+   amount of padding around the plot, the gap between tick marks and
+   labels) via the trellis settings "layout.heights" and
+   "layout.widths".
+
+ o col.regions and colorkey in levelplot and wireframe now honour
+   settings in effect when the object is printed, and not when the
+   object was created.
+
+ o xlab, ylab, main and sub can now be grobs
+
+
+
+new features
+------------
+
+ o lattice.options(), similar to options(), to control various aspects
+   of lattice plots.
+
+ o API now supports alpha-transparency (actual support is device
+   dependent) where appropriate (some cases might have been missed,
+   and reports of omissions would be appreciated).
+
+ o API for interacting with and enhancing Trellis plots AFTER they are
+   drawn, based on grid functions seekViewport, grid.locator, etc.
+   See ?latticeVP.focus	
+
+ o aspect="iso" for `isometric' x- and y-axes.
+
+ o new 'default.scales' argument to high level functions, useful when
+   writing wrappers
+
+ o convenience function 'strip.custom' to create strip functions from
+   strip.default just by overriding one or more arguments
+
+ o type="H" in lplot.xy (for horizontal line).  New argument
+   'horizontal' for panel.xyplot, which affects what happens for
+   various 'type'-s.
+ 
+ o the print method now (optionally) saves the (last) object printed
+   in a non-visible environment.  This allows retrieval of the last
+   printed object for 'update'-ing, and more importantly, to retrieve
+   panel specific data for use while interacting with and enhancing
+   plots after they are printed
+
+ o a summary method for trellis objects
+
+
+
+
+
+
+
+changes in behaviour
+---------------------
+
+ o lset has been deprecated, and trellis.par.set has been enhanced
+   with equivalent usage
+
+ o the strip function now gets the whole strip area to work with, and
+   is responsible for using it appropriately.  strip.default has been
+   updated accordingly
+
+ o choice of color for grouped barcharts now taken from a new setting
+   parameter
+
+
+
+
+
+bug fixes
+---------
+
+ o axes now drawn on last panel even if it doesn't fall on the border
+   of the layout
+
+ o many other miscellaneous fixes, see SvnLog for some details
+
+
+
+
+
 
 
 
