@@ -1,7 +1,30 @@
 
 
 
+Changes in lattice 0.11
+=======================
 
+improvements
+------------
+
+
+
+new features
+------------
+
+
+
+changes in behaviour
+---------------------
+
+ o behaviour of auto.key = TRUE now function specific
+
+ o auto.key list now allows a 'text' component
+
+
+
+bug fixes
+---------
 
 
 

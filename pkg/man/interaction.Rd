@@ -193,6 +193,20 @@ trellis.panelArgs(x, panel.number)
 
 }
 
+
+\value{
+  \code{panel.identify} returns an integer vector containing the indexes
+  of the identified points.  The equivalent of \code{identify} with
+  \code{pos=TRUE} is not yet implemented, but can be considered for 
+  addition if requested.
+
+  \code{trellis.panelArgs} returns a named list of arguments that were
+  avaliable to the panel function for the chosen panel.
+
+  \code{trellis.vpname} and \code{trellis.grobname} return character
+  strings.
+}
+  
 \note{
 
   The viewports created by lattice is accessible to the user only upto a
@@ -215,7 +229,7 @@ trellis.panelArgs(x, panel.number)
 
 \dontrun{
 xyplot(1:10 ~ 1:10)
-trellis.focus(1, 1)
+trellis.focus("panel", 1, 1)
 panel.identify()
 }
 
