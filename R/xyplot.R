@@ -300,12 +300,26 @@ xyplot <-
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
-    id.na <- is.na(x)|is.na(y)
-    for (var in cond)
-        id.na <- id.na | is.na(var)
-    if (!any(!id.na)) stop("nothing to draw")
-    ## Nothing simpler ?
 
+    ## old NA-handling
+
+#     id.na <- is.na(x)|is.na(y)
+#     for (var in cond)
+#         id.na <- id.na | is.na(var)
+#     if (!any(!id.na)) stop("nothing to draw")
+#     ## Nothing simpler ?
+
+
+    
+    ## new NA-handling: will retain NA's in x, y
+
+    id.na <- do.call("pmax", lapply(cond, is.na))
+    if (!any(!id.na)) stop("nothing to draw")
+
+
+
+
+    
 ## FIXME:     foo$condlevels <- lapply(cond, levels)
 
     ## Step 6: Evaluate layout, panel.args.common and panel.args
