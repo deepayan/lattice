@@ -170,11 +170,14 @@ trellis.focus <-
         if (!missing(row)) lattice.setStatus(current.focus.row = row)
         if (!missing(column)) lattice.setStatus(current.focus.column = column)
     }
-    lattice.setStatus(vp.depth = downViewport(trellis.vpname(name, side = side, clip.off = clip.off)))
+    lattice.setStatus(vp.depth = downViewport(trellis.vpname(name,
+                      side = side, clip.off = clip.off)))
     if (highlight)
     {
         lattice.setStatus(vp.highlighted = TRUE)
-        gp <- do.call("gpar", updateList(lattice.getOption("highlight.gpar"), list(...)))
+        gp <- do.call("gpar",
+                      updateList(lattice.getOption("highlight.gpar"),
+                                 list(...)))
         lvp <- rectGrob(name = "lvp.highlight", gp = gp)
         grid.draw(lvp)
     }
@@ -222,7 +225,8 @@ trellis.unfocus <-
     }
     lattice.setStatus(current.focus.column = 0,
                       current.focus.row = 0)
-    upViewport(lattice.getStatus("vp.depth"))
+    if (lattice.getStatus("vp.depth") > 0)
+        upViewport(lattice.getStatus("vp.depth"))
     lattice.setStatus(vp.depth = 0)
     invisible()
 }

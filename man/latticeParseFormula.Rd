@@ -11,8 +11,7 @@ latticeParseFormula(model, data, dimension = 2,
 \description{
   this function is used by high level Lattice functions like
   \code{xyplot} to parse the formula argument and evaluate various
-  components of the data. Might be useful by itself. \code{y} and
-  \code{g_1,\dots,g_n} may be missing.
+  components of the data.
 }
 
 \arguments{
@@ -20,10 +19,10 @@ latticeParseFormula(model, data, dimension = 2,
     the model/formula to be parsed.  This can be in either of two
     possible forms, one for 2d and one for 3d formulas, determined by
     the \code{dimension} argument. The 2d formulas are of the form
-    \code{y~x|g_1*\dots*g_n}, and the 3d formulas are of the form
-    \code{z~x*y|g_1*\dots*g_n}. In the first form, \code{y} may be
-    omitted. The conditioning variables \code{g_1,
-      \dots,g_n} can be omitted in either case.
+    \code{y ~ x| g1 * \dots *gn}, and the 3d formulas are of the form
+    \code{z ~ x * y | g1 * \dots* gn}. In the first form, \code{y} may
+    be omitted. The conditioning variables \code{g1, \dots,gn} can be
+    omitted in either case.
   }
   \item{data}{ the environment/dataset where the variables in the 
     formula are evaluated. By default, the environment where the

@@ -80,8 +80,8 @@ panel.superpose.2(x, y, panel.groups = "panel.xyplot",
   \item{\dots}{ other arguments (mostly graphical parameters, replicated
     to be as long as the number of groups), ultimately passed down to
     \code{panel.xyplot}. In particular, colour can be specified using 3
-    arguments (\code{col, col.line, col.symbol}), as in
-    \code{panel.xyplot}.
+    arguments (\code{col}, \code{col.line} and \code{col.symbol}), as
+    described in \code{\link{panel.xyplot}}.
   }
 }
 \seealso{

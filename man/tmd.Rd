@@ -22,14 +22,14 @@ tmd(object,
   \item{panel}{ panel function to be used }
   \item{prepanel}{
     prepanel function used to recalculate limits using the modified
-    \code{x, y} values
+    \code{x} and \code{y} values
   }
   \item{\dots}{ other arguments}
 }
 \details{
   The Tukey Mean-difference plot is produced by modifying the (x,y)
   values of each panel as follows: the new coordinates are given by
-  \code{x=(x+y)/2, y=y-x}.
+  \code{x=(x+y)/2} and \code{y=y-x}.
 
   \code{tmd} uses the \code{update} method for ``trellis'' objects,
   which processes all extra arguments supplied to \code{tmd}.

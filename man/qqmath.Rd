@@ -37,11 +37,11 @@ qqmath(formula, distribution = qnorm, f.value = NULL, \dots)
   }
   \item{distribution}{ a quantile function that takes a vector of
     probabilities as argument and produces the corresponding
-    quantiles. Possible values are \code{qnorm,qunif} etc.
+    quantiles. Possible values are \code{qnorm}, \code{qunif} etc.
     Distributions with other required arguments need to be passed in as
-    user defined functions. This is also passed in as an argument to the
-    panel function (though not used by the default panel function), 
-    and the prepanel function if specified, for use in the bery commonly
+    user defined functions.  This is also passed in as an argument to
+    the panel function (though not used by the default panel function),
+    and the prepanel function if specified, for use in the commonly
     used \code{(pre)panel.qqmathline}.
   }
   \item{f.value}{ optional function of a single integer (representing

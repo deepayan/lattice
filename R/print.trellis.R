@@ -348,8 +348,8 @@ print.trellis <-
     ## is pecified (this refers to the layout argument, not grid
     ## layouts)
 
-    if (panel.layout[1] == 0) { # using device dimensions to
-
+    if (panel.layout[1] == 0) # using device dimensions to
+    {
         ddim <- par("din") # calculate default layout
         device.aspect <- ddim[2] / ddim[1]
         panel.aspect <- panel.height[[1]] / panel.width[[1]]
@@ -363,7 +363,8 @@ print.trellis <-
         panel.layout[2] <- m
 
     }
-    else plots.per.page <- panel.layout[1] * panel.layout[2] 
+    ## WAS: else, but then things may become inconsistent with skip
+    plots.per.page <- panel.layout[1] * panel.layout[2] 
 
     ## End layout calculations
 
@@ -547,7 +548,6 @@ print.trellis <-
                         !skip[(page.number-1) * rows.per.page * cols.per.page +
                               (row-1) * cols.per.page + column] )
                     {
-
                         ##panel.number should be same as order.cond[cond.current.level]
                         ##                                          ^^^^^^^^^^^^^^^^^^
                         ##                                          (length not fixed)

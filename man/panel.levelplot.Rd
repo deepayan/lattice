@@ -29,7 +29,10 @@ panel.contourplot(\dots)
 }
 \arguments{
   \item{x, y, z}{ variables defining the plot }
-  \item{subscripts}{ which points of \code{x,y,z} to draw }
+  \item{subscripts}{
+    integer vector indicating what subset of \code{x}, \code{y} and
+    \code{z} to draw
+  }
   \item{at}{
     numeric vector specifying breakpoints for change in colors
   }

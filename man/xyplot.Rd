@@ -140,9 +140,8 @@ bwplot(formula,
 
     For all of these functions, with the exception of \code{xyplot}, a
     formula of the form \code{ ~ x | g1 * g2 * \dots} is also
-    allowed. In that case, \code{y} defaults to
-    \code{as.factor(names(x))} if \code{x} is named, and a factor with a
-    single level otherwise.
+    allowed. In that case, \code{y} defaults to \code{names(x)} if
+    \code{x} is named, and a factor with a single level otherwise.
 
     Although it is not recommended, usage of the form \code{dotplot(x)}
     (where the formula argument is not a formula at all) is also
@@ -160,7 +159,8 @@ bwplot(formula,
     might be more appropriate in many cases) and character vectors are
     coerced to factors.
 
-    The formula can involve expressions, e.g. \code{sqrt(),log()}.
+    The formula can involve expressions, e.g. \code{sqrt()},
+    \code{log()}.
 
     A special case is when the left and/or right sides of the formula
     (before the conditioning variables) contain a `+' sign, e.g.,
@@ -214,7 +214,7 @@ bwplot(formula,
     \code{groups} is explicitly specified or grouping doesn't make sense
     for the default panel function
   }
-  \item{box.ratio}{ applicable to \code{bwplot, barchart} and
+  \item{box.ratio}{ applicable to \code{bwplot}, \code{barchart} and
     \code{stripplot}, specifies the ratio of the width of the rectangles
     to the inter rectangle space.
   }
@@ -433,12 +433,12 @@ bwplot(formula,
     determined by the value of \code{space}, which can be one of
     ``top'', ``bottom'', ``left'' and ``right''. Alternatively, the key
     can be positioned inside the plot region by specifying components
-    \code{x,y} and \code{corner}. \code{x} and \code{y} determine the
-    location of the corner of the key given by \code{corner}, which can
-    be one of \code{c(0,0), c(1,0), c(1,1),c(0,1)}, which denote the
-    corners of the unit square. \code{x} and \code{y} must be numbers
-    between 0 and 1, giving coordinates with respect to the whole
-    display area.
+    \code{x}, \code{y} and \code{corner}. \code{x} and \code{y}
+    determine the location of the corner of the key given by
+    \code{corner}, which can be one of \code{c(0,0)}, \code{c(1,0)},
+    \code{c(1,1)} and \code{c(0,1)}, which denote the corners of the
+    unit square.  \code{x} and \code{y} must be numbers between 0 and 1,
+    giving coordinates with respect to the whole display area.
 
 
     The key essentially consists of a number of columns, possibly
@@ -612,7 +612,7 @@ bwplot(formula,
     prepanel function. This happens globally if the \code{relation}
     component of \code{scales} is \code{"same"}, and on a panel by panel
     basis otherwise. See \code{xlim} to see what forms of the components
-    \code{xlim, ylim} are allowed.
+    \code{xlim} and \code{ylim} are allowed.
 
     The \code{dx} and \code{dy} components are used for banking
     computations in case \code{aspect} is specified as \code{"xy"}.  See
@@ -642,9 +642,9 @@ bwplot(formula,
     \code{relation="sliced"} in \code{scales}.
 
     The prepanel function is responsible for providing a meaningful
-    return value when the \code{x, y} (etc.) variables are zero-length
-    vectors. When nothing is appropriate, values of NA should be
-    returned for the \code{xlim} and \code{ylim} components.
+    return value when the \code{x}, \code{y} (etc.) variables are
+    zero-length vectors.  When nothing is appropriate, values of NA
+    should be returned for the \code{xlim} and \code{ylim} components.
   }
   \item{scales}{ list determining how the x- and y-axes (tick marks and
     labels) are drawn.  The list contains parameters in

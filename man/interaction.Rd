@@ -83,7 +83,7 @@ trellis.panelArgs(x, panel.number)
     viewports and grobs created by a lattice plot, they cover most that
     users might find interesting.
 
-    \code{trellis.vpname} and code{trellis.focus} deal with viewport
+    \code{trellis.vpname} and \code{trellis.focus} deal with viewport
     names only, and only accept the values explicitly listed above.
     \code{trellis.grobname} is meant to create names for grobs, and can
     currently accept any value.
@@ -111,7 +111,7 @@ trellis.panelArgs(x, panel.number)
     equivalent viewports in different plots. This only becomes relevant
     when a particular page is occupied by more than one plot.  Defaults
     to the value appropriate for the last ``trellis'' object printed, as
-    determined by the code{prefix} argument in
+    determined by the \code{prefix} argument in
     \code{\link{print.trellis}}.  Users should not usually need to
     supply a value for this argument (see note below), however, if
     supplied explicitly, this has to be a valid R symbol name (briefly,
@@ -140,11 +140,10 @@ trellis.panelArgs(x, panel.number)
   \code{panel.identify} is similar to \code{\link{identify}}.  When
   called, it waits for the user to identify points (in the panel being
   drawn) via mouse clicks.  Clicks other than left-clicks terminate the
-  procedure. It is less sophisticated than \code{identify} in the sense
-  that it does not keep track of points already identified.  Although it
-  is possible to call it as part of the panel function, it is more
-  typical to use it to identify points after plotting the whole object.
-
+  procedure.  Although it is possible to call it as part of the panel
+  function, it is more typical to use it to identify points after
+  plotting the whole object, in which case a call to
+  \code{trellis.focus} first is necessary.
 
   The process of printing (plotting) a Trellis object builds up a grid
   layout with named viewports which can then be accessed to modify the

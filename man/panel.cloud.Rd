@@ -60,10 +60,10 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     displayed. The interpretation depends on the context. For
     \code{panel.cloud} these are essentially the same as the data passed
     to the high level plot (except if \code{formula} was a matrix, the
-    appropriate \code{x, y} vectors are generated). By the time they are
-    passed to \code{panel.3dscatter} and \code{panel.3dwire}, they have
-    been scaled (to lie inside a bounding box, usually the [-0.5, 0.5]
-    cube).
+    appropriate \code{x} and \code{ y} vectors are generated). By the
+    time they are passed to \code{panel.3dscatter} and
+    \code{panel.3dwire}, they have been scaled (to lie inside a bounding
+    box, usually the [-0.5, 0.5] cube).
 
     Further, for \code{panel.3dwire}, \code{x} and \code{y} are shorter
     than \code{z} and represent the sorted locations defining a
@@ -76,10 +76,10 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     parametrized on a 2-D grid.
   }
   \item{subscripts}{
-    index specifying which points to draw. The same \code{x, y, z} values
-    (representing the whole data) are passed to \code{panel.cloud} for
-    each panel. \code{subscripts} specifies the subset of rows to be
-    used for the particular panel.
+    index specifying which points to draw. The same \code{x}, \code{y}
+    and \code{z} values (representing the whole data) are passed to
+    \code{panel.cloud} for each panel.  \code{subscripts} specifies the
+    subset of rows to be used for the particular panel.
   }
   \item{groups}{
     specification of a grouping variable, passed down from the high
@@ -102,8 +102,9 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     data before being plotted. The initial position starts with the
     viewing point along the positive z-axis, and the x and y axes in the
     usual position. Each component of the list should be named one of
-    \code{x, y, z} (repititions are allowed), with their values
-    indicating the amount of rotation about that axis in degrees.
+    \code{"x"}, \code{"y"} or \code{"z"} (repititions are allowed), with
+    their values indicating the amount of rotation about that axis in
+    degrees.
   }
   \item{R.mat}{
     initial rotation matrix in homogeneous coordinates, to be applied to
@@ -255,8 +256,8 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
 
   The arguments accepted by these two functions are different, since
   they have essentially different purposes. For cloud, the data is
-  unstructured, and \code{x, y, z} are all passed to the
-  \code{panel.3d.cloud} function. For wireframe, on the other hand,
+  unstructured, and \code{x}, \code{y} and \code{z} are all passed to
+  the \code{panel.3d.cloud} function. For wireframe, on the other hand,
   \code{x} and \code{y} are increasing vectors with unique values,
   defining a rectangular grid. \code{z} must be a matrix with
   \code{length(x) * length(y)} rows, and as many columns as the number
