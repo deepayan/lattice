@@ -756,8 +756,14 @@ calculateGridLayout <-
     {
         if (x.relation.same)
         {
-            layout.heights <- rearrangeUnit(layout.heights, pos.heights[["axis.top"]], axis.top.unit)
-            layout.heights <- rearrangeUnit(layout.heights, pos.heights[["axis.bottom"]], axis.bottom.unit)
+            layout.heights <-
+                rearrangeUnit(layout.heights,
+                              pos.heights[["axis.top"]],
+                              trellis.par.get("layout.heights")[["axis.top"]] * axis.top.unit)
+            layout.heights <-
+                rearrangeUnit(layout.heights,
+                              pos.heights[["axis.bottom"]],
+                              trellis.par.get("layout.heights")[["axis.bottom"]] * axis.bottom.unit)
         }
         else
         {
@@ -765,21 +771,41 @@ calculateGridLayout <-
             ## multipliers for panel axes, once Paul fixes the grid
             ## bug
 
-            for (i in pos.heights[["axis.panel"]])
-                layout.heights <- rearrangeUnit(layout.heights, i, xaxis.panel.unit)
+            pcol <- length(pos.heights[["axis.panel"]])
+            axis.panel.mult <-
+                rep(trellis.par.get("layout.heights")[["axis.panel"]],
+                    length = pcol)
+            for (i in seq(length = pcol))
+                layout.heights <-
+                    rearrangeUnit(layout.heights,
+                                  pos.heights[["axis.panel"]][i],
+                                  axis.panel.mult[i] * xaxis.panel.unit)
         }
     }
     if (x$y.scales$draw)
     {
         if (y.relation.same)
         {
-            layout.widths <- rearrangeUnit(layout.widths, pos.widths[["axis.left"]], axis.left.unit)
-            layout.widths <- rearrangeUnit(layout.widths, pos.widths[["axis.right"]], axis.right.unit)
+            layout.widths <-
+                rearrangeUnit(layout.widths,
+                              pos.widths[["axis.left"]],
+                              trellis.par.get("layout.widths")[["axis.left"]] * axis.left.unit)
+            layout.widths <-
+                rearrangeUnit(layout.widths,
+                              pos.widths[["axis.right"]],
+                              trellis.par.get("layout.widths")[["axis.right"]] * axis.right.unit)
         }
         else
         {
-            for (i in pos.widths[["axis.panel"]])
-                layout.widths <- rearrangeUnit(layout.widths, i, yaxis.panel.unit)
+            prow <- length(pos.widths[["axis.panel"]])
+            axis.panel.mult <-
+                rep(trellis.par.get("layout.widths")[["axis.panel"]],
+                    length = prow)
+            for (i in seq(length = prow))
+                layout.widths <-
+                    rearrangeUnit(layout.widths,
+                                  pos.widths[["axis.panel"]][i],
+                                  axis.panel.mult[i] * yaxis.panel.unit)
         }
     }
 
