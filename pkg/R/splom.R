@@ -352,7 +352,7 @@ splom <-
              superpanel = "panel.pairs",
              pscales = 5,
              varnames,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(draw = FALSE, relation = "same", axs = "i"),
              subset = TRUE)

@@ -142,7 +142,7 @@ densityplot <-
              to = NULL,
              cut = NULL,
              na.rm = NULL,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(),
              panel.groups = "panel.densityplot",

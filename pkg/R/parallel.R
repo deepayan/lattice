@@ -93,7 +93,7 @@ parallel <-
              ylab = NULL,
              ylim,
              varnames,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(y = list(alternating = FALSE)),
              subset = TRUE)

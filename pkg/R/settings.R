@@ -682,6 +682,7 @@ lattice.options <- function(...)
 
 .defaultLatticeOptions <- function()
     list(save.object = TRUE,
+         drop.unused.levels = list(cond = TRUE, data = TRUE),
          axis.units =
          list(outer =
               list(left =

@@ -151,13 +151,16 @@ print.trellis <-
         pushViewport(viewport(x = position[1], y = position[2],
                               width = position[3] - position[1],
                               height = position[4] - position[2],
-                              just = c("left","bottom")))
+                              just = c("left","bottom"),
+                              name = "position.vp"))
         
         if (!missing(split))
         {
             if (length(split)!=4) stop("Incorrect value of split")
-            pushViewport(viewport(layout = grid.layout(nrow=split[4], ncol = split[3])))
-            pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1]))
+            pushViewport(viewport(layout = grid.layout(nrow=split[4], ncol = split[3]),
+                                  name = "split.vp"))
+            pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1],
+                                  name = paste("splitpos", split[1], split[2], "vp", sep = ".")))
         }
     }
     
@@ -170,8 +173,10 @@ print.trellis <-
             grid.newpage()
             grid.rect(gp = gpar(fill = bg, col = "transparent"))
         }
-        pushViewport(viewport(layout = grid.layout(nrow=split[4], ncol = split[3])))
-        pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1]))
+        pushViewport(viewport(layout = grid.layout(nrow=split[4], ncol = split[3]),
+                              name = "split.vp"))
+        pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1],
+                              name = paste("splitpos", split[1], split[2], "vp", sep = ".")))
     }
 
 
@@ -905,7 +910,8 @@ print.trellis <-
                     else if (key.space == "inside")
                     {
                         pushViewport(viewport(layout.pos.row = c(1, n.row),
-                                              layout.pos.col = c(1, n.col)))
+                                              layout.pos.col = c(1, n.col),
+                                              name = "inside.legend.vp"))
 
                         key.corner <-
                             if (is.null(legend[[i]]$corner)) c(0,1)
@@ -963,7 +969,8 @@ print.trellis <-
             }
             
             pushViewport(viewport(layout.pos.row = c(1, n.row),
-                                  layout.pos.col = c(1, n.col)))
+                                  layout.pos.col = c(1, n.col),
+                                  name = "page.vp"))
             if (!is.null(x$page)) x$page(page.number)                
             upViewport()
             upViewport()

@@ -64,7 +64,7 @@ qq <-
              ylab,
              ylim,
              f.value = NULL,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(),
              subscripts = !is.null(groups),

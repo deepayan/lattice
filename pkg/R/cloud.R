@@ -1445,7 +1445,7 @@ cloud <-
 
 
              pretty = FALSE,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
              colorkey = any(drape),
@@ -1687,7 +1687,7 @@ cloud <-
     {
         if (colorkey)
         {
-            colorkey <- list(at = at)
+            colorkey <- list(at = at, space = "right")
             if (!missing(col.regions)) colorkey$col <- col.regions
             if (!missing(alpha.regions)) colorkey$alpha <- alpha.regions
         }

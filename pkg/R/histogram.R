@@ -157,7 +157,7 @@ histogram <-
              breaks = if (is.factor(x)) seq(0.5, length = length(levels(x))+1)
              else do.breaks(endpoints, nint),
              equal.widths = TRUE,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(),
              subscripts = !is.null(groups),
