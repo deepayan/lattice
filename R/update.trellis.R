@@ -277,8 +277,8 @@ update.trellis <-
                 object$legend <-
                     list(list(fun = "drawSimpleKey",
                               args =
-                              c(list(levels(as.factor(groups))),
-                                if (is.list(auto.key)) auto.key else list())))
+                              updateList(list(text = levels(as.factor(groups))), 
+                                         if (is.list(auto.key)) auto.key else list())))
                 object$legend[[1]]$x <- object$legend[[1]]$args$x
                 object$legend[[1]]$y <- object$legend[[1]]$args$y
                 object$legend[[1]]$corner <- object$legend[[1]]$args$corner

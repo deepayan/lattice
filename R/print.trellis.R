@@ -386,14 +386,24 @@ print.trellis <-
 
     ## get lists for main, sub, xlab, ylab
 
-    main <- grobFromLabelList(getLabelList(x$main, trellis.par.get("par.main.text")),
-                              name = trellis.grobname("main"))
-    sub <- grobFromLabelList(getLabelList(x$sub, trellis.par.get("par.sub.text")),
-                             name = trellis.grobname("sub"))
-    xlab <- grobFromLabelList(getLabelList(x$xlab, trellis.par.get("par.xlab.text"), x$xlab.default),
-                              name = trellis.grobname("xlab"))
-    ylab <- grobFromLabelList(getLabelList(x$ylab, trellis.par.get("par.ylab.text"), x$ylab.default),
-                              name = trellis.grobname("ylab"), rot = 90)
+    main <-
+        grobFromLabelList(getLabelList(x$main,
+                                       trellis.par.get("par.main.text")),
+                          name = trellis.grobname("main"))
+    sub <-
+        grobFromLabelList(getLabelList(x$sub,
+                                       trellis.par.get("par.sub.text")),
+                          name = trellis.grobname("sub"))
+    xlab <-
+        grobFromLabelList(getLabelList(x$xlab,
+                                       trellis.par.get("par.xlab.text"),
+                                       x$xlab.default),
+                          name = trellis.grobname("xlab"))
+    ylab <-
+        grobFromLabelList(getLabelList(x$ylab,
+                                       trellis.par.get("par.ylab.text"),
+                                       x$ylab.default),
+                          name = trellis.grobname("ylab"), rot = 90)
 
 
     ## get par.strip.text
