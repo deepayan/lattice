@@ -53,13 +53,11 @@ trellis.panelArgs(x, panel.number)
 \arguments{
   \item{x, y}{ variables defining the contents of the panel }
   \item{n}{
-    for \code{panel.curve}, the number of points to use for drawing the
-    curve. For \code{panel.identify}, the number of points to identify
-    by default (overridden by a right click)
+    the number of points to identify by default (overridden by a right
+    click)
   }
   \item{labels}{
-    in \code{panel.identify}, an optional vector of labels associated
-    with each point.
+    an optional vector of labels associated with each point.
   }
   \item{offset}{
     the labels are printed either below, above, to the left or to the
