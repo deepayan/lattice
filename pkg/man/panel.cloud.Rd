@@ -287,5 +287,5 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
 
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
-\seealso{\code{\link{cloud}}}
+\seealso{\code{\link{cloud}}, \code{\link{utilities.3d}}}
 \keyword{dplot}
