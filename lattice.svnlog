@@ -34,10 +34,11 @@ Changed paths:
    M /trunk/lattice/man/trellis.par.get.Rd
    M /trunk/lattice/man/xyplot.Rd
 
-doc updates and changes. Added panel.axis.Rd, unofficially deprecated lset, merging its functionality into trellis.par.set
+doc updates and changes. Added panel.axis.Rd, unofficially deprecated
+lset, merging its functionality into trellis.par.set
 ------------------------------------------------------------------------
-r340 | deepayan | 2004-08-28 12:17:23 -0500 (Sat, 28 Aug 2004) | 1 line
-Changed paths:
+r340 | deepayan | 2004-08-28 12:17:23 -0500 (Sat, 28 Aug 2004) | 1
+line Changed paths:
    M /trunk/lattice/R/axis.R
    M /trunk/lattice/R/bwplot.R
    M /trunk/lattice/R/cloud.R
@@ -54,10 +55,11 @@ Changed paths:
    M /trunk/lattice/R/splom.R
    M /trunk/lattice/R/xyplot.R
 
-layout updates, plus added a new default.scales argument to highlevel functions
+layout updates, plus added a new default.scales argument to highlevel
+functions
 ------------------------------------------------------------------------
-r339 | deepayan | 2004-08-26 22:55:45 -0500 (Thu, 26 Aug 2004) | 1 line
-Changed paths:
+r339 | deepayan | 2004-08-26 22:55:45 -0500 (Thu, 26 Aug 2004) | 1
+line Changed paths:
    M /trunk/lattice/R/layout.R
    M /trunk/lattice/R/settings.R
 
