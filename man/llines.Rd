@@ -59,6 +59,10 @@ ltext(x, \dots)
   methods only. For \code{ltext}, only values 0, .5 and 1 for \code{adj}
   have any effect.
 }
+\note{
+  There's a new \code{type="H"} option wherever appropriate, which is
+  similar to \code{type="h"}, but with horizontal lines.
+}
 \seealso{\code{\link{points}}, \code{\link{lines}},
   \code{\link{text}}, \code{\link{segments}},
   \code{\link{Lattice}}

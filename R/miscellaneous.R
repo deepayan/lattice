@@ -568,10 +568,6 @@ lplot.xy <-
                       y0 = y, y1 = zero,
                       gp = gpar(lty = lty, col = col.line, lwd = lwd),
                       default.units="native")
-#        for (i in seq(along=x))
-#            grid.lines(x = rep(x[i],2), y = c(y[i], zero),
-#                       gp = gpar(lty = lty, col = col.line, lwd = lwd),
-#                       default.units = "native")
     }
     else if (type == "H") {
         xlim <- current.viewport()$xscale
