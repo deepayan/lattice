@@ -167,7 +167,7 @@ bwplot(formula,
     fastest). Within a conditioning variable, the order depends on the
     order of the levels (which for factors is usually in alphabetical
     order). Both of these orders can be modified using the
-    \code{order.cond} and \code{perm.cond} arguments, typically in the
+    \code{index.cond} and \code{perm.cond} arguments, typically in the
     \code{update} method.
 
     Numeric conditioning variables are converted to shingles by the
