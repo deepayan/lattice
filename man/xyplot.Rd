@@ -360,16 +360,18 @@ bwplot(formula,
     all the panels). It can be specified as a ratio (vertical
     size/horizontal size) or as a character string. Legitimate 
     values are "fill" (the default) which tries to make the panels as
-    big as possible to fill the available space, and "xy", which
+    big as possible to fill the available space; "xy", which
     \bold{tries} to compute the aspect based on the 45 degree banking
     rule (see \emph{Visualizing Data} by William S. Cleveland for
-    details). 
+    details); and "iso" for isometric scales, where the relation between
+    physical distance on the device and distance in the data scale are
+    forced to be the same for both axes.
 
     If a \code{prepanel} function is specified, the \code{dx, dy}
     components returned by it are used to compute the aspect, otherwise
     the default prepanel function is used. Currently, only the default
-    prepanel function for \code{xyplot} produces sensible banking
-    calculations.
+    prepanel function for \code{xyplot} can be expected to produce
+    sensible banking calculations.
 
     The current implementation of banking is not very sophisticated, but
     is not totally vague either. See \code{\link{banking}} for details.
@@ -841,7 +843,6 @@ bwplot(formula,
 \examples{
 require(stats)
 ## Tonga Trench Earthquakes
-data(quakes)
 Depth <- equal.count(quakes$depth, number=8, overlap=.1)
 xyplot(lat ~ long | Depth, data = quakes)
 
@@ -849,7 +850,7 @@ xyplot(lat ~ long | Depth, data = quakes)
 ## (obtained from Bill Cleveland's Homepage :
 ## http://cm.bell-labs.com/cm/ms/departments/sia/wsc/, also
 ## available at statlib)
-data(ethanol)
+
 EE <- equal.count(ethanol$E, number=9, overlap=1/4)
 ## Constructing panel functions on the fly; prepanel
 xyplot(NOx ~ C | EE, data = ethanol,
@@ -866,9 +867,7 @@ xyplot(NOx ~ C | EE, data = ethanol,
 
 ## with and without banking
 
-data(sunspots)
-spots <- by(sunspots, gl(235, 12, lab = 1749:1983), mean)
-plot <- xyplot(spots ~ 1749:1983, xlab = "", type = "l",
+plot <- xyplot(sunspot.year ~ 1700:1988, xlab = "", type = "l",
                scales = list(x = list(alternating = 2)),
                main = "Average Yearly Sunspots")
 print(plot, position = c(0, .3, 1, .9), more = TRUE)
@@ -880,7 +879,6 @@ print(update(plot, aspect = "xy", main = "", xlab = "Year"),
 
 ## Multiple variables in formula for grouped displays
 
-data(iris)
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species, 
        data = iris, scales = "free", layout = c(2, 2),
        auto.key = list(x = .6, y = .7, corner = c(0, 0)))
@@ -898,7 +896,6 @@ xyplot(Murder ~ Population | state.region, data = states,
        ltext(x = x, y = y, label = groups[subscripts], cex=1,
              fontfamily = "HersheySans"))
 
-data(barley)
 barchart(yield ~ variety | site, data = barley,
          groups = year, layout = c(1,6),
          ylab = "Barley Yield (bushels/acre)",
@@ -910,7 +907,6 @@ barchart(yield ~ variety | site, data = barley,
          ylab = "Barley Yield (bushels/acre)",
          scales = list(x = list(rot = 45)))
 
-data(singer)
 bwplot(voice.part ~ height, data=singer, xlab="Height (inches)")
 dotplot(variety ~ yield | year * site, data=barley)
 
@@ -922,7 +918,7 @@ dotplot(variety ~ yield | site, data = barley, groups = year,
 stripplot(voice.part ~ jitter(height), data = singer, aspect = 1,
           jitter = TRUE, xlab = "Height (inches)")
 ## Interaction Plot
-data(OrchardSprays)
+
 bwplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
        panel = "panel.superpose",
        panel.groups = "panel.linejoin",
