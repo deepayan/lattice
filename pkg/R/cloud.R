@@ -1723,17 +1723,19 @@ cloud <-
 
     }
 
-    foo <- c(foo,
-             limits.and.aspect(prepanel.default.cloud,
-                               prepanel = prepanel,
-                               have.xlim = have.xlim, xlim = xlim,
-                               have.ylim = have.ylim, ylim = ylim,
-                               x.relation = foo$x.scales$relation,
-                               y.relation = foo$y.scales$relation,
-                               panel.args.common = foo$panel.args.common,
-                               panel.args = foo$panel.args,
-                               aspect = 1,
-                               nplots = nplots))
+
+    more.comp <- c(limits.and.aspect(prepanel.default.cloud,
+                                     prepanel = prepanel,
+                                     have.xlim = have.xlim, xlim = xlim,
+                                     have.ylim = have.ylim, ylim = ylim,
+                                     x.relation = foo$x.scales$relation,
+                                     y.relation = foo$y.scales$relation,
+                                     panel.args.common = foo$panel.args.common,
+                                     panel.args = foo$panel.args,
+                                     aspect = 1,
+                                     nplots = nplots),
+                   cond.orders(foo))
+    foo[names(more.comp)] <- more.comp
 
 
     if (is.null(foo$legend) && !is.null(groups) &&
