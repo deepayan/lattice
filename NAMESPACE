@@ -1,0 +1,52 @@
+
+
+# useDynLib(lattice)
+
+import(grid)
+
+
+
+importFrom(graphics, plot, co.intervals, dev.list, cm.colors, gray, heat.colors)
+importFrom(stats, as.formula, density, fitted.values, loess.smooth, 
+           median, ppoints, qnorm, residuals, update)
+
+
+
+
+export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
+       bwplot, canonical.theme, cloud, col.whitebg, Rows,
+
+#      construct.scales,
+
+       contourplot, densityplot, dotplot, draw.colorkey, draw.key,
+       equal.count, histogram, is.shingle, larrows,
+
+       latticeParseFormula,
+
+       levelplot, llines, lplot.xy, lpoints, lsegments, lset, ltext,
+
+       ltransform3dMatrix, ltransform3dto3d,
+
+       oneway, panel.3dscatter, panel.3dwire,
+       panel.abline, panel.barchart, panel.bwplot, panel.cloud,
+       panel.curve, panel.densityplot, panel.dotplot, panel.fill,
+       panel.grid, panel.histogram, panel.levelplot, panel.linejoin,
+       panel.lmline, panel.loess, panel.mathdensity, panel.pairs,
+       panel.parallel, panel.qq, panel.qqmath, panel.qqmathline,
+       panel.splom, panel.stripplot, panel.superpose, panel.axis,
+       panel.superpose.2, panel.tmd, panel.wireframe, panel.xyplot,
+       parallel, prepanel.lmline, prepanel.loess, prepanel.qqmathline,
+       qq, qqmath, rfs, shingle, show.settings, simpleKey, splom,
+       strip.default, stripplot, tmd, trellis.device, trellis.par.get,
+       trellis.par.set, wireframe, xyplot)
+
+
+S3method("[", shingle)
+S3method(as.data.frame, shingle)
+S3method(plot, shingle)
+S3method(print, shingle)
+S3method(print, shingleLevel)
+S3method(print, trellis)
+S3method(summary, shingle)
+S3method(update, trellis)
+

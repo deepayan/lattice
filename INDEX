@@ -1,0 +1,45 @@
+Lattice                 Lattice Graphics
+Rows                    Extract 'rows' from a list
+banking                 Banking
+barley                  Data Sets in the Lattice library
+cloud                   3d Scatter Plot
+draw.colorkey           Produce a Colorkey for levelplot
+draw.key                Produce a Legend or Key
+equal.count             shingles
+histogram               Histograms and Kernel Density Plots
+latticeParseFormula     Parse Trellis formula
+levelplot               Level Plots
+llines                  Lattice Replacements of base graphics
+                        functions
+lset                    Simple Interfaces to modify Trellis Settings
+oneway                  Fit One-way Model
+panel.barchart          Default Panel Function for barchart
+panel.bwplot            Default Panel Function for bwplot
+panel.cloud             Default Panel Function for cloud
+panel.densityplot       Default Panel Function for densityplot
+panel.dotplot           Default Panel Function for dotplot
+panel.functions         Useful Panel Functions
+panel.histogram         Default Panel Function for histogram
+panel.levelplot         Default Panel Function for levelplot
+panel.pairs             Default Superpanel Function for splom
+panel.parallel          Default Panel Function for parallel
+panel.qqmathline        Useful panel function with qqmath
+panel.stripplot         Default Panel Function for stripplot
+panel.superpose         Panel Function for Display Marked by groups
+panel.tmd               Panel function for tmd
+panel.xyplot            Default Panel Function for xyplot
+prepanel.lmline         Useful Prepanel Function for Lattice
+print.trellis           Print Trellis Objects
+qq                      Quantile-Quantile Plots of Two Samples
+qqmath                  Q-Q Plot with Theoretical Distribution
+rfs                     Residual and Fit Spread Plots
+simpleKey               Function to generate a simple key
+splom                   Scatter Plot Matrices
+strip.default           Default Trellis strip function
+tmd                     Tukey Mean-Difference Plot
+trellis.device          Initializing Trellis Displays
+trellis.object          Lattice Display Object
+trellis.par.get         Graphical Parameters for Trellis Displays
+update.trellis          Update Trellis Object
+utilities.3d            Default Panel Function for cloud
+xyplot                  Common Bivariate Trellis Plots
