@@ -84,10 +84,17 @@ latticeVP.switch <-
     function(name = c("panel", "strip"), clip.off = FALSE)
 {
     name <- match.arg(name)
+    row <- lattice.getStatus("current.focus.row")
+    column <- lattice.getStatus("current.focus.column")
+    if (row == 0 || column == 0)
+        stop("you have to first select a panel using latticeVP.focus()")
     if (lattice.getStatus("vp.highlighted"))
     {
         lvp <- grid.get("lvp.highlight")
-        grid.remove("lvp.highlight")
+        if (is.null(lvp))
+            stop("inconsistent state, please report as a bug")
+        else
+            grid.remove("lvp.highlight")
         if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
         else seekViewport(paste(name, column, row, sep = "."))
         grid.draw(lvp)
@@ -114,9 +121,16 @@ latticeVP.focus <-
     ll <- lattice.getStatus("current.panel.positions")
     name <- match.arg(name)
     latticeVP.unfocus()
-    if (column > 0 && row > 0 && column <= ncol(ll) && row <= nrow(ll))
+    if (column > 0 && row > 0 &&
+        column <= ncol(ll) && row <= nrow(ll) &&
+        ll[row, column] > 0) ## to disallow empty positions
+    {
         lattice.setStatus(current.focus.column = column,
                           current.focus.row = row)
+        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
+        else seekViewport(paste(name, column, row, sep = "."))
+
+    }
     else
         stop("requested panel position out of bounds")
     if (highlight)
@@ -126,11 +140,12 @@ latticeVP.focus <-
         splist <- list(...)
         gp <- do.call("gpar", updateList(gplist, splist))
         lvp <- rectGrob(name = "lvp.highlight", gp = gp)
-        if (clip.off) seekViewport(paste(name, column, row, "off", sep = "."))
-        else seekViewport(paste(name, column, row, sep = "."))
         grid.draw(lvp)
     }
-    else lattice.setStatus(vp.highlighted = FALSE)
+    else
+    {
+        lattice.setStatus(vp.highlighted = FALSE)
+    }
     invisible()
 }
 
@@ -141,7 +156,7 @@ latticeVP.unfocus <-
 {
     if (lattice.getStatus("vp.highlighted"))
     {
-        grid.remove("lvp.highlight")
+        grid.remove("lvp.highlight", warn = FALSE)
         lattice.setStatus(vp.highlighted = FALSE)
     }
     lattice.setStatus(current.focus.column = 0,
@@ -166,6 +181,8 @@ latticeVP.panelArgs <-
     if (row == 0 || column == 0)
         stop("you have to first select a panel using latticeVP.focus()")
     panel.number <- lattice.getStatus("current.panel.positions")[row, column]
-    c(x$panel.args[[panel.number]], x$panel.args.common, list(panel.number = panel.number))
+    c(x$panel.args[[panel.number]],
+      x$panel.args.common,
+      list(panel.number = panel.number))
 }
 

@@ -72,14 +72,13 @@ calculateAxisComponents <- function(x, ..., abbreviate = NULL, minlength = 4)
 
 
 formattedTicksAndLabels <- function(x, ...)
-
     UseMethod("formattedTicksAndLabels")
 
 
 
 
 formattedTicksAndLabels.default <-
-    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 
     ## meant for when x is numeric
@@ -128,7 +127,7 @@ formattedTicksAndLabels.default <-
 
 
 formattedTicksAndLabels.date <-
-    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
     ## handle log scales (not very meaningful, though)
@@ -170,7 +169,7 @@ formattedTicksAndLabels.date <-
 
 
 formattedTicksAndLabels.character <-
-    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
@@ -178,8 +177,8 @@ formattedTicksAndLabels.character <-
                 labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
     ans$num.limit <-
-        if (is.null(used.at) || any(is.na(used.at))) c(0, length(ans$at) + 1)
-        else range(used.at) + c(-1, 1)
+        if (is.null(num.limit) || any(is.na(num.limit))) range(ans$at) + c(-0.6, 0.6)
+        else num.limit + c(-0.6, 0.6)
     ans
 }
 
@@ -189,7 +188,7 @@ formattedTicksAndLabels.character <-
 
 
 formattedTicksAndLabels.expression <-
-    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE,
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
               abbreviate = NULL, minlength = 4, format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
@@ -197,8 +196,8 @@ formattedTicksAndLabels.expression <-
                 labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
     ans$num.limit <-
-        if (is.null(used.at) || any(is.na(used.at))) c(0, length(ans$at) + 1)
-        else range(used.at) + c(-1, 1)
+        if (is.null(num.limit) || any(is.na(num.limit))) range(ans$at) + c(-0.6, 0.6)
+        else num.limit + c(-0.6, 0.6)
     ans
 }
 
@@ -207,7 +206,7 @@ formattedTicksAndLabels.expression <-
 
 
 formattedTicksAndLabels.POSIXct <-
-    function (x, at = FALSE, used.at = NULL, labels = FALSE, logsc = FALSE, 
+    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE, 
               abbreviate = NULL, minlength = 4,
               format.posixt = NULL, ...) 
 {

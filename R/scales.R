@@ -165,14 +165,13 @@ construct.3d.scales <-
 
 
 
-
-
-limitsFromLimitlist <- function(have.lim, lim, relation, limitlist, atlist, axs, nplots)
+limitsFromLimitlist <- function(have.lim, lim, relation, limitlist,
+                                used.at, numlimitlist, axs, nplots)
     ## have.lim: logical, whether xlim/ylim was explicitly specified
     ## lim: the specified limit if have.lim = TRUE
     ## relation: same/free/sliced
     ## limitlist: list of limits from prepanel calculations, one for each panel
-    ## atlist: (optional) numeric locations for factors (lim will be levels including unused ones)
+    ## numlimitlist: (optional) numeric locations for factors (lim will be levels including unused ones)
     ## axs: "r", "i" etc, passed on to extend.limits
 
     ## return value depends on relation. (See limits.and.aspect below
@@ -272,8 +271,8 @@ limitsFromLimitlist <- function(have.lim, lim, relation, limitlist, atlist, axs,
             slicelen[[i]] <-
                 if (is.numeric(limitlist[[i]]))
                     diff(range(limitlist[[i]])) # range unnecessary, but...
-                else if (!any(is.na(atlist[[i]])))
-                    diff(range(atlist[[i]])) + 2
+                else if (!any(is.na(numlimitlist[[i]])))
+                    diff(range(numlimitlist[[i]]))
                 else NA
         slicelen <- (if (axs == "i") 1 else 1.14) * max(unlist(slicelen), na.rm = TRUE)
         for (i in seq(along = limitlist))
@@ -282,7 +281,14 @@ limitsFromLimitlist <- function(have.lim, lim, relation, limitlist, atlist, axs,
                 limitlist[[i]] <-
                     extend.limits(limitlist[[i]], length = slicelen)
         }
-        ans <- list(limits = limitlist, atlist = atlist, slicelen = slicelen)
+        for (i in seq(along = numlimitlist))
+        {
+            if (!all(is.na(numlimitlist[[i]])))
+                numlimitlist[[i]] <-
+                    extend.limits(numlimitlist[[i]], length = slicelen)
+        }
+        ans <- list(limits = limitlist, used.at = used.at,
+                    numlimitlist = numlimitlist, slicelen = slicelen)
     }
 
 
@@ -311,7 +317,8 @@ limitsFromLimitlist <- function(have.lim, lim, relation, limitlist, atlist, axs,
                 limitlist[[i]] <- extend.limits(limitlist[[i]], axs = axs) ## preserves class
             ## o.w., keep it as it is
         }
-        ans <- list(limits = limitlist, atlist = atlist, slicelen = 1)
+        ans <- list(limits = limitlist, used.at = used.at,
+                    numlimitlist = numlimitlist, slicelen = 1)
     }
 
     ans
@@ -351,8 +358,10 @@ limits.and.aspect <-
     if (nplots<1) stop("need at least one panel")
     x.limits <- vector("list", nplots)
     y.limits <- vector("list", nplots)
-    x.at <- vector("list", nplots)
-    y.at <- vector("list", nplots)
+    x.used.at <- vector("list", nplots)
+    y.used.at <- vector("list", nplots)
+    x.num.limit <- vector("list", nplots)
+    y.num.limit <- vector("list", nplots)
     dxdy <- vector("list", nplots)
 
     for (count in seq(length = nplots))
@@ -371,16 +380,20 @@ limits.and.aspect <-
             }
             x.limits[[count]] <- tem$xlim
             y.limits[[count]] <- tem$ylim
-            x.at[[count]] <- if (is.null(tem$xat)) NA else tem$xat
-            y.at[[count]] <- if (is.null(tem$yat)) NA else tem$yat
+            x.used.at[[count]] <- if (is.null(tem$xat)) NA else tem$xat
+            y.used.at[[count]] <- if (is.null(tem$yat)) NA else tem$yat
+            x.num.limit[[count]] <- if (is.null(tem$xat)) NA else range(tem$xat)
+            y.num.limit[[count]] <- if (is.null(tem$yat)) NA else range(tem$yat)
             dxdy[[count]] <- list(tem$dx, tem$dy)
         }
         else  ## this happens for empty panels
         {
             x.limits[[count]] <- c(NA, NA)
             y.limits[[count]] <- c(NA, NA)
-            x.at[[count]] <- NA
-            y.at[[count]] <- NA
+            x.used.at[[count]] <- NA
+            y.used.at[[count]] <- NA
+            x.num.limit[[count]] <- NA
+            y.num.limit[[count]] <- NA
             dxdy[[count]] <- list(NA, NA)
         }
     }
@@ -400,7 +413,8 @@ limits.and.aspect <-
                             lim = xlim,
                             relation = x.relation,
                             limitlist = x.limits,
-                            atlist = x.at,
+                            used.at = x.used.at,
+                            numlimitlist = x.num.limit,
                             axs = x.axs,
                             nplots = nplots)
 
@@ -410,7 +424,8 @@ limits.and.aspect <-
                             lim = ylim,
                             relation = y.relation,
                             limitlist = y.limits,
-                            atlist = y.at,
+                            used.at = y.used.at,
+                            numlimitlist = y.num.limit,
                             axs = y.axs,
                             nplots = nplots)
 
@@ -437,8 +452,10 @@ limits.and.aspect <-
 
     list(x.limits = x.limits$limits,
          y.limits = y.limits$limits,
-         x.at = x.limits$atlist,
-         y.at = y.limits$atlist,
+         x.used.at = x.limits$used.at,
+         y.used.at = y.limits$used.at,
+         x.num.limit = x.limits$numlimitlist,
+         y.num.limit = y.limits$numlimitlist,
          aspect.ratio = aspect,
          prepanel = prepanel)
 }

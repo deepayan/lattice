@@ -314,6 +314,10 @@ calculateGridLayout <-
             lab <- 
                 calculateAxisComponents(x = x$x.limits,
                                         at = x$x.scales$at,
+
+                                        used.at = x$x.used.at,
+                                        num.limit = x$x.num.limit,
+
                                         labels = x$x.scales$lab,
                                         logsc = x$x.scales$log,
                                         abbreviate = x$x.scales$abbr,
@@ -452,6 +456,10 @@ calculateGridLayout <-
                     calculateAxisComponents(x = x$x.limits[[i]],
                                             at = if (is.list(x$x.scales$at))
                                             x$x.scales$at[[i]] else x$x.scales$at,
+
+                                            used.at = x$x.used.at[[i]],
+                                            num.limit = x$x.num.limit[[i]],
+
                                             labels = if (is.list(x$x.scales$lab))
                                             x$x.scales$lab[[i]] else x$x.scales$lab,
                                             logsc = x$x.scales$log,
@@ -516,6 +524,8 @@ calculateGridLayout <-
             lab <- 
                 calculateAxisComponents(x = x$y.limits,
                                         at = x$y.scales$at,
+                                        used.at = x$y.used.at,
+                                        num.limit = x$y.num.limit,
                                         labels = x$y.scales$lab,
                                         logsc = x$y.scales$log,
                                         abbreviate = x$y.scales$abbr,
@@ -664,6 +674,10 @@ calculateGridLayout <-
                     calculateAxisComponents(x = x$y.limits[[i]],
                                             at = if (is.list(x$y.scales$at))
                                             x$y.scales$at[[i]] else x$y.scales$at,
+
+                                            used.at = x$y.used.at[[i]],
+                                            num.limit = x$y.num.limit[[i]],
+
                                             labels = if (is.list(x$y.scales$lab))
                                             x$y.scales$lab[[i]] else x$y.scales$lab,
                                             logsc = x$y.scales$log,
