@@ -12,18 +12,22 @@ simpleKey(text, points = TRUE,
           fontface, fontfamily, \dots)
 }
 \arguments{
-  \item{text}{ character or expression vector, giving levels of grouping
-    variable
+  \item{text}{
+    character or expression vector, to be used as labels for levels of
+    the grouping variable
   }
-  \item{points}{logical}
-  \item{rectangles}{logical}
-  \item{lines}{logical}
+  \item{points}{ logical }
+  \item{rectangles}{ logical }
+  \item{lines}{ logical }
   \item{col, cex, font, fontface, fontfamily}{
     Used as top-level components of the list produced, to be used for
     the text labels. Defaults to the values in
     \code{trellis.par.get("add.text")}
   }
-  \item{\dots}{ arguments added to the list, finally passed to \code{draw.key}}
+  \item{\dots}{
+    further arguments added to the list, eventually passed to
+    \code{draw.key}
+  }
 }
 \details{
   A lattice plot can include a legend (key) if an appropriate list is
@@ -43,8 +47,9 @@ simpleKey(text, points = TRUE,
   etc.
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
-\seealso{\code{\link{draw.key}}, \code{\link{xyplot}}, \code{\link{Lattice}}}
-
+\seealso{
+  \code{\link{draw.key}}, \code{\link{xyplot}}, \code{\link{Lattice}}
+}
 \keyword{dplot}
 
 
