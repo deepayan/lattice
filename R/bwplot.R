@@ -391,6 +391,7 @@ panel.stripplot <-
     function(x, y, jitter.data = FALSE, factor = 0.5,
              horizontal = TRUE, groups = NULL, ...)
 {
+    if (length(x) < 1) return()
     x <- as.numeric(x)
     y <- as.numeric(y)
     y.jitter  <-
