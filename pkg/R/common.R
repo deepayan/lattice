@@ -462,41 +462,103 @@ trellis.skeleton <-
                 x.between = 0,
                 y.between = 0,
                 par.settings = par.settings,
-                par.strip.text = par.strip.text)
+                par.strip.text = par.strip.text,
+                index.cond = index.cond,
+                perm.cond = perm.cond)
 
     if (!is.null(between$x)) foo$x.between <- between$x
     if (!is.null(between$y)) foo$y.between <- between$y
 
     foo$condlevels <- lapply(cond, levels)
 
-    ## the following to be used for changing order of conditioning
-    ## variables and indexing their levels
+    list(foo = foo, dots = list(...))
+}
 
-    foo$index.cond <-
+
+
+
+
+
+
+
+cond.orders <- function(foo, ...) 
+    ## function to determine order of panels within a cond. variable
+    ## foo: trellis object-to-be
+
+    ## calculate actual values for index.cond and perm.cond.
+    ## index.cond can be a function, in which case it would be used to
+    ## determing order of levels within conditioning variables
+
+    ## Question: should these be determined at run-time? Wouldn't be
+    ## impossible, but has the disadvantage that looking at the
+    ## trellis object will be totally uninformative in the default
+    ## case (when both would be NULL). In a sense, this is fine, since
+    ## having index.cond be a function is similar to having a prepanel
+    ## function. After all, the results depend only on the panel
+    ## contents, and those cannot be changed via update.
+
+{
+    
+    ## the following to be used for changing order of conditioning
+    ## variables and indexing their levels. The object foo already has
+    ## components index.cond and perm.cond as whatever was passed to
+    ## the original function call. If these are NULL, suitable
+    ## defaults need to be computed. If foo$index.cond is a function,
+    ## index.cond has to be computed appropriately.
+
+    index.cond <-
         vector(mode = "list",
                length = length(foo$condlevels))
-    for (i in seq(along = foo$condlevels))
-        foo$index.cond[[i]] <- seq(along = foo$condlevels[[i]])
-    foo$perm.cond <- seq(length = length(foo$condlevels))
 
-    if (!is.null(perm.cond))
+    for (i in seq(along = foo$condlevels))
+        index.cond[[i]] <- seq(along = foo$condlevels[[i]])
+    perm.cond <- seq(length = length(foo$condlevels))
+
+    if (!is.null(foo$perm.cond))
     {
-        if (all(sort(perm.cond) == foo$perm.cond))
-            foo$perm.cond <- perm.cond
+        if (all(sort(foo$perm.cond) == perm.cond))
+            perm.cond <- foo$perm.cond
         else  stop("Invalid value of perm.cond")
     }
-    if (!is.null(index.cond))
+    if (!is.null(foo$index.cond))
     {
-        if (is.list(index.cond) && length(index.cond) == length(foo$index.cond))
+        if (is.list(foo$index.cond) && length(foo$index.cond) == length(index.cond))
         {
             for (i in seq(along = foo$condlevels))
-                foo$index.cond[[i]] <- foo$index.cond[[i]][index.cond[[i]]]
+                index.cond[[i]] <- index.cond[[i]][foo$index.cond[[i]]]
+        }
+        else if (is.function(foo$index.cond))
+        {
+            FUN <- foo$index.cond
+            nplots <- length(foo$panel.args)
+            panel.order <- numeric(nplots)
+            for (count in seq(length = nplots))
+            {
+                if (is.list(foo$panel.args[[count]]))
+                {
+                    pargs <- c(foo$panel.args.common, foo$panel.args[[count]], list(...))
+                    prenames <- names(formals(FUN))
+                    if (!("..." %in% prenames)) pargs <- pargs[prenames]
+                    panel.order[count] <- do.call("FUN", pargs)
+                }
+                else  ## this happens for empty panels
+                {
+                    panel.order[count] <- NA
+                }
+            }
+            dim(panel.order) <- sapply(foo$condlevels, length)
+            for (i in seq(along = foo$condlevels))
+                index.cond[[i]] <-
+                    order(apply(panel.order, i, mean, na.rm = TRUE))
         }
         else stop("Invalid value of index.cond")
     }
-
-    list(foo = foo, dots = list(...))
+    list(index.cond = index.cond, perm.cond = perm.cond)
 }
+
+
+
+
 
 
 
