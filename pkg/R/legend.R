@@ -24,8 +24,51 @@
 
 
 
-# convenience function for auto.key
+construct.legend <-
+    function(legend = NULL, key = NULL, fun = "draw.key")
+{
+    if (is.null(legend) && is.null(key)) return(NULL)
+    if (is.null(legend)) legend <- list()
+    if (!is.null(key))
+    {
+        space <- key$space
+        x <- y <- corner <- NULL
 
+        if (is.null(space))
+            {
+                if (any(c("x", "y", "corner") %in% names(key)))
+                {
+                    space <- "inside"
+                    x <- key$x
+                    y <- key$y
+                    corner <- key$corner
+                }
+                else
+                    space <- "top"
+            }
+        if (space != "inside" && space %in% names(legend))
+            stop(paste("component", space, "duplicated in key and legend"))
+
+        key.legend <- list(fun = fun, args = list(key = key, draw = FALSE))
+        key.legend$x <- x
+        key.legend$y <- y
+        key.legend$corner <- corner
+
+        legend <- c(list(key.legend), legend)
+        names(legend)[1] <- space
+    }
+    legend
+}
+
+
+
+
+
+
+
+
+
+# convenience function for auto.key
 drawSimpleKey <- function(...)
     draw.key(simpleKey(...), draw = FALSE)
 
@@ -609,7 +652,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     if (!is.list(key)) stop("key must be a list")
     
     process.key <-
-        function(col,
+        function(col = regions$col,
+                 alpha = regions$alpha,
                  at,
                  tick.number = 7,
                  width = 2,
@@ -617,7 +661,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                  space = "right",
                  ...)
         {
+            regions <- trellis.par.get("regions")
             list(col = col,
+                 alpha = alpha,
                  at = at,
                  tick.number = tick.number,
                  width = width,
@@ -631,6 +677,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
 
     key <- do.call("process.key", key)
 
+## FIXME: delete later
+#str(key)
     ## made FALSE later if labels explicitly specified
     check.overlap <- TRUE
     
@@ -645,7 +693,12 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
 
     ## Getting the locations/dimensions/centers of the rectangles
     key$at <- sort(key$at) ## should check if ordered
-    if (length(key$at)!=length(key$col)+1) stop("length(col) must be length(at)-1")
+    numcol <- length(key$at)-1
+    numcol.r <- length(key$col)
+    key$col <-
+        if (numcol.r <= numcol)
+            rep(key$col, length = numcol)
+        else key$col[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
 
 
 
@@ -733,7 +786,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(yscale = atrange),
                                      height = recdim, 
-                                     gp = gpar(fill = key$col,  col = NULL)),
+                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
                             row = 2, col = 1)
         
         key.gf <- placeGrob(frame = key.gf, 
@@ -804,7 +857,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(yscale = atrange),
                                      height = recdim, 
-                                     gp = gpar(fill = key$col,  col = NULL)),
+                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
                             row = 2, col = 3)
         
         key.gf <- placeGrob(frame = key.gf, 
@@ -870,7 +923,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(xscale = atrange),
                                      width = recdim, 
-                                     gp = gpar(fill = key$col,  col = NULL)),
+                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
                             row = 3, col = 2)
         
         key.gf <- placeGrob(frame = key.gf, 
@@ -937,7 +990,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(xscale = atrange),
                                      width = recdim, 
-                                     gp = gpar(fill = key$col,  col = NULL)),
+                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
                             row = 1, col = 2)
 
         key.gf <- placeGrob(frame = key.gf, 

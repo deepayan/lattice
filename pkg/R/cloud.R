@@ -33,8 +33,8 @@
 ## idea to do things in terms of homogeneous coordinates
 
 
-ltransform3dMatrix <- function(screen, R.mat = diag(4)) {
-
+ltransform3dMatrix <- function(screen, R.mat = diag(4))
+{
     rot.mat <- diag(3)
     screen.names <- names(screen)
     screen <- lapply(screen, "*", pi/180)
@@ -62,8 +62,8 @@ ltransform3dMatrix <- function(screen, R.mat = diag(4)) {
 
 
 
-ltransform3dto3d <- function(x, R.mat, dist = 0) {
-
+ltransform3dto3d <- function(x, R.mat, dist = 0)
+{
     if (length(x) == 0) return(x)
     tdata <- R.mat %*% rbind(x, 1)
 
@@ -94,9 +94,12 @@ ltransform3dto3d <- function(x, R.mat, dist = 0) {
 prepanel.default.cloud <-
     function(perspective = TRUE,
              distance = if (perspective) 0.2 else 0, 
-             xlim, ylim, zlim, zoom = 0.8,
+             xlim, ylim, zlim,
              screen = list(z = 40, x = -60),
-             R.mat = diag(4), aspect, ...)
+             R.mat = diag(4),
+             aspect = c(1, 1),
+             ...,
+             zoom = 0.8)
 {
     rot.mat <- ltransform3dMatrix(screen = screen, R.mat = R.mat)
     aspect <- rep(aspect, length=2)
@@ -305,7 +308,6 @@ panel.3dscatter <-
 
 panel.3dwire <-
     function(x, y, z, rot.mat = diag(4), distance,
-             col.at, col.regions,
              shade = FALSE,
              shade.colors.palette = trellis.par.get("shade.colors")$palette,
              light.source = c(0, 0, 1000),
@@ -317,7 +319,11 @@ panel.3dwire <-
              alpha,
              col.groups = superpose.fill$col,
              polynum = 100,
-             ...)
+             ...,
+             drape = FALSE,
+             at,
+             col.regions = regions$col,
+             alpha.regions = regions$alpha)
 {
 
     ## a faster version of panel.3dwire that takes advantage of grid
@@ -339,6 +345,25 @@ panel.3dwire <-
     ## time. However, if shade=T, facets are drawn triangles at a
     ## time. The difference is mostly in C code, but some distinctions
     ## need to be made here as well
+
+
+
+
+    if (shade) drape <- FALSE ## shade overrides drape
+
+    regions <-
+        if (drape)
+            trellis.par.get("regions")
+        else 
+            trellis.par.get("background")
+    numcol <- length(at) - 1
+    numcol.r <- length(col.regions)
+
+    col.regions <-
+        if (numcol.r <= numcol)
+            rep(col.regions, length = numcol)
+        else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
+
 
 
 
@@ -482,13 +507,13 @@ panel.3dwire <-
             pol.col <-
                 if (ngroups == 1 || length(col) == 1) col[1]
                 else vector(mode(col), polynum)
-            pol.alpha <- trellis.par.get("regions")$alpha
+            pol.alpha <- alpha.regions
         }
         else if (ngroups == 1)
         {
             pol.fill <- col.regions[1]
             pol.col <- col[1]
-            pol.alpha <- trellis.par.get("regions")$alpha
+            pol.alpha <- alpha.regions
         }
         else
         {
@@ -498,6 +523,7 @@ panel.3dwire <-
                 else vector(mode(col), polynum)
             pol.alpha <- superpose.fill$alpha
         }
+        ## FIXME: should alpha override alpha.regions?
         if (!missing(alpha)) pol.alpha <- alpha
 
 
@@ -524,7 +550,7 @@ panel.3dwire <-
 
                     if (length(col.regions) > 1)
                     {
-                        pol.fill[count] <<- col.regions[(seq(along = col.at)[col.at > misc[3]])[1] - 1 ]
+                        pol.fill[count] <<- col.regions[(seq(along = at)[at > misc[3]])[1] - 1 ]
                         if (ngroups > 1 && length(col) > 1) pol.col[count] <<- col[as.integer(misc[4])]
                     }
                     ## nothing to do if ngroups == 1
@@ -601,7 +627,7 @@ panel.cloud <-
              panel.3d.cloud = "panel.3dscatter",
              panel.3d.wireframe = "panel.3dwire",
              screen = list(z = 40, x = -60),
-             R.mat = diag(4), aspect,
+             R.mat = diag(4), aspect = c(1, 1),
              par.box = NULL,
 
              xlab, ylab, zlab,
@@ -609,6 +635,7 @@ panel.cloud <-
 
              scales.3d,
              proportion = 0.6, wireframe = FALSE,
+             ## zoom = 0.8, ## ignored in panel.cloud
 
              ## The main problem with scales is that it is difficult
              ## to figure out the best way to place the scales.  They
@@ -617,8 +644,10 @@ panel.cloud <-
 
              scpos,
              ...,
-             col.at,
-             col.regions)
+#             drape,
+             at)   ## this is same as 'at' in wireframe
+#             col.regions = regions$col,
+#             alpha.regions = regions$alpha)
 
 {
     ## x, y, z can be matrices
@@ -879,13 +908,13 @@ panel.cloud <-
         x <- cmin$x + clen$x * (x-xlim[1])/diff(xlim)
         y <- cmin$y + clen$y * (y-ylim[1])/diff(ylim)
         z <- cmin$z + clen$z * (z-zlim[1])/diff(zlim)
-        col.at <-
+        at <-
             if (isParametrizedSurface)
             {
                 zrng.scaled <- extend.limits(sqrt(range(x^2 + y^2 + z^2, na.rm = TRUE)))
-                zrng.scaled[1] + diff(zrng.scaled) * (col.at - zrng[1])/diff(zrng)
+                zrng.scaled[1] + diff(zrng.scaled) * (at - zrng[1])/diff(zrng)
             }
-            else cmin$z + clen$z * (col.at - zlim[1])/diff(zlim)
+            else cmin$z + clen$z * (at - zlim[1])/diff(zlim)
 
         zero.scaled <- cmin$z - clen$z * zlim[1]/diff(zlim)
         ## needed in panel.3dscatter for type = 'h'
@@ -1064,8 +1093,8 @@ panel.cloud <-
             pargs <- list(x = x, y = y, z = tmp,
                           rot.mat = rot.mat,
                           distance = distance,
-                          col.at = col.at,
-                          col.regions = col.regions,
+                          at = at,
+##                          col.regions = col.regions,
                           xlim = xlim,
                           ylim = ylim,
                           zlim = zlim,
@@ -1333,7 +1362,6 @@ wireframe <-
              pretty = FALSE,
              drape = FALSE,
              ...,
-             col.regions = trellis.par.get("regions")$col,
              colorkey = any(drape),
              subset = TRUE)
 {
@@ -1356,7 +1384,6 @@ wireframe <-
                    panel = panel, prepanel = prepanel, strip = strip,
                    cuts = cuts,
                    pretty = pretty,
-                   col.regions = col.regions,
                    drape = drape,
                    colorkey = colorkey,
                    axs.default = "i"),
@@ -1410,7 +1437,7 @@ cloud <-
 #             R.mat = diag(4),
 #             screen = list(z = 40, x = -60),
 
-             zoom = 0.8,
+#             zoom = 0.8,
              at,
              drape = FALSE,
 
@@ -1420,7 +1447,9 @@ cloud <-
              ...,
              default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
              colorkey = any(drape),
-             col.regions, cuts = 70,
+             col.regions,
+             alpha.regions,
+             cuts = 70,
              subset = TRUE,
              axs.default = "r")
 
@@ -1449,7 +1478,8 @@ cloud <-
                                 outer = outer, subscripts = TRUE,
                                 drop = drop.unused.levels)
         else {
-            if (is.matrix(formula)) {
+            if (is.matrix(formula))
+            {
                 tmp <- expand.grid(1:nrow(formula), 1:ncol(formula))
                 list(left = as.vector(formula),
                      right.x = tmp[[1]],
@@ -1460,7 +1490,8 @@ cloud <-
                      right.x.name = "row", right.y.name = "column",
                      subscr = seq(length = nrow(tmp)))
             }
-            else if (is.data.frame(formula)) {
+            else if (is.data.frame(formula))
+            {
                 tmp <- expand.grid(rownames(formula), colnames(formula))
                 list(left = as.vector(as.matrix(formula)),
                      right.x = tmp[[1]],
@@ -1515,11 +1546,8 @@ cloud <-
     isParametrizedSurface <-
         is.matrix(x) && is.matrix(y) && is.matrix(z)
 
-
-
-
-
-    if (number.of.cond == 0) {
+    if (number.of.cond == 0)
+    {
         strip <- FALSE
         cond <- list(as.factor(rep(1, length(x))))
         number.of.cond <- 1
@@ -1596,7 +1624,8 @@ cloud <-
     have.xlog <- !is.logical(scales.3d$x.scales$log) || scales.3d$x.scales$log
     have.ylog <- !is.logical(scales.3d$y.scales$log) || scales.3d$y.scales$log
     have.zlog <- !is.logical(scales.3d$z.scales$log) || scales.3d$z.scales$log
-    if (have.xlog) {
+    if (have.xlog)
+    {
         xlog <- scales.3d$x.scales$log
         xbase <-
             if (is.logical(xlog)) 10
@@ -1606,7 +1635,8 @@ cloud <-
         x <- log(x, xbase)
         if (!missing(xlim)) xlim <- log(xlim, xbase)
     }
-    if (have.ylog) {
+    if (have.ylog)
+    {
         ylog <- scales.3d$y.scales$log
         ybase <-
             if (is.logical(ylog)) 10
@@ -1616,7 +1646,8 @@ cloud <-
         y <- log(y, ybase)
         if (!missing(ylim)) ylim <- log(ylim, ybase)
     }
-    if (have.zlog) {
+    if (have.zlog)
+    {
         zlog <- scales.3d$z.scales$log
         zbase <-
             if (is.logical(zlog)) 10
@@ -1645,38 +1676,83 @@ cloud <-
     ## Step 6: Evaluate layout, panel.args.common and panel.args
 
 
-    if (!drape) col.regions <- trellis.par.get("background")$col
 
-    ## region
-    numcol <- length(at) - 1
-    numcol.r <- length(col.regions)
 
-    col.regions <-
-        if (numcol.r <= numcol)
-            rep(col.regions, length = numcol)
-        else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
+
 
 
     if (is.logical(colorkey))
     {
-        if (colorkey) colorkey <-
-            list(space = "right", col = col.regions,
-                 at = at, tick.number = 7)
+        if (colorkey)
+        {
+            colorkey <- list(at = at)
+            if (!missing(col.regions)) colorkey$col <- col.regions
+            if (!missing(alpha.regions)) colorkey$alpha <- alpha.regions
+        }
         else colorkey <- NULL
     }
     else if (is.list(colorkey))
     {
-        ##foo$colorkey <- colorkey
-        if (is.null(colorkey$col)) colorkey$col <- col.regions
-        if (is.null(colorkey$at)) colorkey$at <- at
-        if (is.null(colorkey$space)) colorkey$space <-
-            if (any(c("x", "y", "corner") %in% names(colorkey))) "inside" else "right"
+        tmp <- ## FIXME: does the inside thing work? probably not 
+            list(space = if (any(c("x", "y", "corner") %in% names(colorkey))) "inside" else "right",
+                 at = at)
+        if (!missing(col.regions)) tmp$col <- col.regions
+        if (!missing(alpha.regions)) tmp$alpha <- alpha.regions
+        colorkey <- updateList(tmp, colorkey)
     }
-
     foo$legend <-
         construct.legend(foo$legend,
                          colorkey,
                          fun = "draw.colorkey")
+
+
+
+
+
+
+
+
+
+
+
+
+####################################
+#     if (!drape) col.regions <- trellis.par.get("background")$col
+
+#     ## region
+#     numcol <- length(at) - 1
+#     numcol.r <- length(col.regions)
+
+#     col.regions <-
+#         if (numcol.r <= numcol)
+#             rep(col.regions, length = numcol)
+#         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
+
+
+#     if (is.logical(colorkey))
+#     {
+#         if (colorkey) colorkey <-
+#             list(space = "right", col = col.regions,
+#                  at = at, tick.number = 7)
+#         else colorkey <- NULL
+#     }
+#     else if (is.list(colorkey))
+#     {
+#         ##foo$colorkey <- colorkey
+#         if (is.null(colorkey$col)) colorkey$col <- col.regions
+#         if (is.null(colorkey$at)) colorkey$at <- at
+#         if (is.null(colorkey$space)) colorkey$space <-
+#             if (any(c("x", "y", "corner") %in% names(colorkey))) "inside" else "right"
+#     }
+
+#     foo$legend <-
+#         construct.legend(foo$legend,
+#                          colorkey,
+#                          fun = "draw.colorkey")
+#################################
+
+
+
 
 
 
@@ -1689,21 +1765,30 @@ cloud <-
     foo$panel.args.common <-
         c(list(x = x, y = y, z = z,
 
-               ##rot.mat = rot.mat,
-               zoom = zoom,
+               ## rot.mat = rot.mat,
+               ## zoom = zoom,
 
                xlim = xlim, ylim = ylim, zlim = zlim,
                xlab = xlab, ylab = ylab, zlab = zlab,
                xlab.default = form$right.x.name,
                ylab.default = form$right.y.name,
                zlab.default = form$left.name,
-               aspect = aspect,
 
                ##distance = if (perspective) distance else 0,
 
+               aspect = aspect,
+               drape = drape,
                scales.3d = scales.3d,
-               col.at = at, col.regions = col.regions),
+               at = at),
           dots)
+
+    if (!missing(col.regions)) foo$panel.args.common$col.regions <- col.regions
+    if (!missing(alpha.regions)) foo$panel.args.common$alpha.regions <- alpha.regions
+
+
+
+
+
 
     if (!is.null(groups)) foo$panel.args.common$groups <- groups
 
