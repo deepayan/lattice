@@ -55,6 +55,7 @@ prepanel.default.levelplot <-
 
 
 
+panel.contourplot <- function(...) panel.levelplot(...)
 
 
 ## new version using contourLines, and hopefully to work for missing
@@ -269,7 +270,7 @@ panel.levelplot <-
 contourplot <-
     function(formula,
              data = parent.frame(),
-             panel = "panel.levelplot",
+             panel = "panel.contourplot",
              prepanel = NULL,
              strip = TRUE,
              groups = NULL,
