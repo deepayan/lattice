@@ -117,21 +117,20 @@ bwplot(x ~ y | a * a)
 
 my.barley <- subset( barley, ! ( site == "Grand Rapids" & year == "1932" ) )
 
-dotplot(variety ~ yield | year * site, my.barley, layout=c(6,2), between=list(x=c(0,6)))
+dotplot(variety ~ yield | year * site, my.barley,
+        layout=c(6,2), between=list(x=c(0,6)))
 
 
 
-
-with(my.barley,
-     dotplot(variety ~ yield | year * site, layout=c(6,2),
-             scales =
-             list(rot = 0,
-                  y =
-                  list(relation='sliced', 
-                       at = rep( list( 1:nlevels( variety ), NULL ), 6 ))),
-             par.settings = list(layout.widths = list(axis.panel = rep(c(1, 0), 3)))))
-
-
+dotplot(variety ~ yield | year * site, data = my.barley,
+        layout=c(6,2),
+        scales =
+        list(rot = 0,
+             y =
+             list(relation='sliced', 
+                  at = rep( list( FALSE, NULL ), 6 ))),
+        par.settings =
+        list(layout.widths = list(axis.panel = rep(c(1, 0), 3))))
 
 
 

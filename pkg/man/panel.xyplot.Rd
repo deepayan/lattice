@@ -29,7 +29,7 @@ panel.qq(...)
 \arguments{
   \item{x,y}{ variables to be plotted in the scatterplot}
   \item{type}{ character vector consisting of one or more of the
-    following: \code{"p", "l", "h", "b", "o", "s", "S", "r",
+    following: \code{"p", "l", "h", "b", "o", "s", "S", "r", "g",
       "smooth"}. If type has more than one element, an attempt is made
     to combine the effect of each of the components.
 
@@ -38,7 +38,8 @@ panel.qq(...)
     is actually the same as 'o').  \code{"r"} adds a regression line
     (same as \code{\link{panel.lmline}}, except for default graphical
     parameters), and \code{"smooth"} adds a lowess fit (same as
-    \code{\link{panel.loess}}).
+    \code{\link{panel.loess}}). \code{"g"} adds a reference grid using
+    \code{\link{panel.grid}} in the background.
 
     See \code{example(xyplot)} and \code{demo(lattice)} for examples.
   }

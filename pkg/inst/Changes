@@ -56,6 +56,8 @@ new features
    'horizontal' for panel.xyplot, which affects what happens for
    various 'type'-s.
  
+ o type="g" in panel.xyplot, which draws a reference grid
+
  o the print method now (optionally) saves the (last) object printed
    in a non-visible environment.  This allows retrieval of the last
    printed object for 'update'-ing, and more importantly, to retrieve

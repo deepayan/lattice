@@ -569,15 +569,22 @@ bwplot(formula,
     double height (i.e., contains ``\\n''-s) or if the default height
     seems too small or too large.
   }
-  \item{prepanel}{ function that takes the same arguments as the
-    \code{panel} function and returns a list containing four components
-    \code{xlim, ylim, dx, dy}. If \code{xlim} and \code{ylim} are not
-    explicitly specified (possibly as components in \code{scales}), then
-    the actual limits of the panels are guaranteed to include the limits
-    returned by the prepanel function. This happens globally if the
-    \code{relation} component of \code{scales} is "same", and on a panel
-    by panel basis otherwise. See \code{xlim} to see what forms of the
-    components \code{xlim, ylim} are allowed.
+  \item{prepanel}{
+    function that takes the same arguments as the \code{panel} function
+    and returns a list possibly containing four components \code{xlim},
+    \code{ylim}, \code{dx} and \code{dy}.
+
+    The \code{xlim} and \code{ylim} components are similar to the high
+    level \code{xlim} and \code{ylim} arguments (i.e., they are usually
+    a numeric vector of length 2 defining a range of values, or a
+    character vector representing levels of a factor).  If the
+    \code{xlim} and \code{ylim} arguments are not explicitly specified
+    (possibly as components in \code{scales}), then the actual limits of
+    the panels are guaranteed to include the limits returned by the
+    prepanel function. This happens globally if the \code{relation}
+    component of \code{scales} is \code{"same"}, and on a panel by panel
+    basis otherwise. See \code{xlim} to see what forms of the components
+    \code{xlim, ylim} are allowed.
 
     The \code{dx} and \code{dy} components are used for banking
     computations in case \code{aspect} is specified as "xy". See
@@ -587,6 +594,24 @@ bwplot(formula,
     The return value of the prepanel function need not have all the
     components named above; in case some are missing, they are replaced
     by the usual componentwise defaults.
+
+    If \code{xlim} or \code{ylim} is a character vector (which is
+    appropriate when the corresponding variable is a factor), this
+    implicitly indicates that the scale should include the first
+    \code{n} integers, where \code{n} is the length of \code{xlim} or
+    \code{ylim}, as the case may be.  The elements of the character
+    vector are used as the default labels for these \code{n} integers.
+    Thus, to make this information consistent between panels, the
+    \code{xlim} or \code{ylim} values should represent all the levels of
+    the corresponding factor, even if some are not used within that
+    particular panel.
+
+    In such cases, an additional component \code{xat} or \code{yat} may
+    be returned by the \code{prepanel} function, which should be a
+    subset of \code{1:n}, indicating which of the \code{n} values
+    (levels) are actually represented in the panel.  This is useful when
+    calculating the limits with \code{relation="free"} or
+    \code{relation="sliced"} in \code{scales}.
 
     The prepanel function is responsible for providing a meaningful
     return value when the \code{x, y} (etc.) variables are zero-length
