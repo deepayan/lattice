@@ -7,6 +7,8 @@ draw.colorkey           Produce a Colorkey for levelplot
 draw.key                Produce a Legend or Key
 equal.count             shingles
 histogram               Histograms and Kernel Density Plots
+lattice.options         Low-level Options Controlling Behaviour of
+                        Lattice
 latticeParseFormula     Parse Trellis formula
 levelplot               Level Plots
 llines                  Lattice Replacements of base graphics
@@ -23,6 +25,7 @@ panel.densityplot       Default Panel Function for densityplot
 panel.dotplot           Default Panel Function for dotplot
 panel.functions         Useful Panel Functions
 panel.histogram         Default Panel Function for histogram
+panel.identify          Functions to Interact with Lattice Plots
 panel.levelplot         Default Panel Function for levelplot
 panel.pairs             Default Superpanel Function for splom
 panel.parallel          Default Panel Function for parallel
@@ -39,11 +42,11 @@ reorderFactor           Reorder levels of a factor
 rfs                     Residual and Fit Spread Plots
 simpleKey               Function to generate a simple key
 splom                   Scatter Plot Matrices
-strip.default           Default Trellis strip function
+strip.default           In-built Trellis Strip Function
 tmd                     Tukey Mean-Difference Plot
 trellis.device          Initializing Trellis Displays
 trellis.object          Lattice Display Object
 trellis.par.get         Graphical Parameters for Trellis Displays
-update.trellis          Update Trellis Object
+update.trellis          Retrieve and Update Trellis Object
 utilities.3d            Default Panel Function for cloud
 xyplot                  Common Bivariate Trellis Plots

@@ -8,6 +8,148 @@ This file is an edited version of the subversion logs for lattice
 
 
 
+
+------------------------------------------------------------------------
+r507 | deepayan | 2004-09-01 17:10:31 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/tests/scales.R
+
+added test for relation=free/sliced for factors
+------------------------------------------------------------------------
+r506 | deepayan | 2004-09-01 17:09:44 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/man/interaction.Rd
+
+fixed typos, and hopefully fixed possibility of inconsistent status
+------------------------------------------------------------------------
+r505 | deepayan | 2004-09-01 17:08:42 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+removed stupid use of levels.fos from panel.[dot|bw]plot
+------------------------------------------------------------------------
+r504 | deepayan | 2004-09-01 13:58:20 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/demo/lattice.R
+
+removed lset calls, added example where xlab and ylab are grobs
+------------------------------------------------------------------------
+r503 | deepayan | 2004-09-01 13:57:31 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/man/trellis.datasets.Rd
+
+removed sunspot data, enabled LazyData
+------------------------------------------------------------------------
+r502 | deepayan | 2004-09-01 13:56:24 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/xyplot.Rd
+
+documented new aspect='iso' option
+------------------------------------------------------------------------
+r499 | deepayan | 2004-09-01 13:18:21 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/histogram.Rd
+   A /trunk/lattice/man/lattice.options.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/llines.Rd
+   M /trunk/lattice/man/panel.cloud.Rd
+   M /trunk/lattice/man/panel.functions.Rd
+   M /trunk/lattice/man/panel.levelplot.Rd
+   M /trunk/lattice/man/strip.default.Rd
+   M /trunk/lattice/man/trellis.device.Rd
+   M /trunk/lattice/man/update.trellis.Rd
+
+documentation updates
+------------------------------------------------------------------------
+r498 | deepayan | 2004-09-01 13:12:11 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/interaction.R
+   A /trunk/lattice/man/interaction.Rd
+
+more support for interacting with lattice plots
+------------------------------------------------------------------------
+r497 | deepayan | 2004-09-01 13:10:21 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+updated default prepanel function for relation!=same; also set default
+rot=0 for factors and shingles even when relation!=same
+------------------------------------------------------------------------
+r496 | deepayan | 2004-09-01 13:07:29 -0500 (Wed, 01 Sep 2004) | 1
+line Changed paths:
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/R/print.trellis.R
+
+xlab, main etc can now be grobs; plus misc fixes
+------------------------------------------------------------------------
+r495 | deepayan | 2004-09-01 13:03:45 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/update.trellis.R
+
+miscellaneous updates, formally deprecated lset
+------------------------------------------------------------------------
+r494 | deepayan | 2004-09-01 12:53:09 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/scales.R
+
+added more reasonable behaviour for factors when relation=free/sliced
+------------------------------------------------------------------------
+r493 | deepayan | 2004-09-01 12:47:47 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+
+construct.legend moved over to legend.R
+------------------------------------------------------------------------
+r492 | deepayan | 2004-09-01 12:46:56 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/R/levelplot.R
+
+In levelplot and wireframe, coloring information needs to be shared
+between the panel function and the colorkey. This used to be done by
+evaluating col.regions in the top level function, but this involved
+reading the trellis settings at object creation time and not printing
+time. This has now been fixed. Also other minor juggling of arguments
+------------------------------------------------------------------------
+r491 | deepayan | 2004-09-01 12:41:03 -0500 (Wed, 01 Sep 2004) | 1
+line Changed paths:
+   M /trunk/lattice/R/strip.R
+
+redefined strip.custom, hopefully works better now
+------------------------------------------------------------------------
+r484-r477 | deepayan | 2004-08-29 16:31:36 -0500 (Sun, 29 Aug 2004) | 1 line
+
+more support for interaction
+------------------------------------------------------------------------
+r476 | deepayan | 2004-08-29 16:28:42 -0500 (Sun, 29 Aug 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/trellis.device.Rd
+
+added note about dev.print
+------------------------------------------------------------------------
+r475 | deepayan | 2004-08-28 18:29:34 -0500 (Sat, 28 Aug 2004) | 1 line
+
+first major commit as part of R-packages. There have been several
+local changes after the initial import, which are all being committed
+together. Details can be found in the svn log's of the older
+repository, which have been extracted (and edited) in the new file
+lattice.svnlog (later renamed to SvnLog)
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 ------------------------------------------------------------------------
 r342 | deepayan | 2004-08-28 12:24:25 -0500 (Sat, 28 Aug 2004) | 1 line
 Changed paths:
@@ -58,26 +200,6 @@ line Changed paths:
 layout updates, plus added a new default.scales argument to highlevel
 functions
 ------------------------------------------------------------------------
-r339 | deepayan | 2004-08-26 22:55:45 -0500 (Thu, 26 Aug 2004) | 1
-line Changed paths:
-   M /trunk/lattice/R/layout.R
-   M /trunk/lattice/R/settings.R
-
-layout code more stable now
-------------------------------------------------------------------------
-r338 | deepayan | 2004-08-26 16:03:02 -0500 (Thu, 26 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/R/layout.R
-
-more fixes in layout
-------------------------------------------------------------------------
-r337 | deepayan | 2004-08-26 10:29:26 -0500 (Thu, 26 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/R/layout.R
-   M /trunk/lattice/R/print.trellis.R
-
-minor fixes in new layout code, still a lot more to be done
-------------------------------------------------------------------------
 r336 | deepayan | 2004-08-26 01:16:18 -0500 (Thu, 26 Aug 2004) | 1 line
 Changed paths:
    A /trunk/lattice/R/layout.R
@@ -87,29 +209,15 @@ Changed paths:
 
 major restructuring of print.trellis layout in progress
 ------------------------------------------------------------------------
-r335 | deepayan | 2004-08-25 17:39:13 -0500 (Wed, 25 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/R/axis.R
-   M /trunk/lattice/R/miscellaneous.R
-   M /trunk/lattice/R/settings.R
-   M /trunk/lattice/R/zzz.R
-
-committing updates
-------------------------------------------------------------------------
 r334 | deepayan | 2004-08-25 17:20:33 -0500 (Wed, 25 Aug 2004) | 1 line
 Changed paths:
    M /trunk/lattice/R/bwplot.R
 
-panel.barchart had a bug, fill color code had not been updated for horizontal = FALSE. Fixed.
+panel.barchart had a bug, fill color code had not been updated for
+horizontal = FALSE. Fixed.
 ------------------------------------------------------------------------
-r333 | deepayan | 2004-08-25 12:47:41 -0500 (Wed, 25 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/R/zzz.R
-
-minor fix
-------------------------------------------------------------------------
-r332 | deepayan | 2004-08-25 12:46:50 -0500 (Wed, 25 Aug 2004) | 1 line
-Changed paths:
+r332 | deepayan | 2004-08-25 12:46:50 -0500 (Wed, 25 Aug 2004) | 1
+line Changed paths:
    D /trunk/lattice/install.R
 
 deleting install.R
@@ -185,30 +293,8 @@ Changed paths:
 
 minor changes, plus takes care of split of graphics into graphics and grDevices
 ------------------------------------------------------------------------
-r316 | deepayan | 2004-08-19 09:01:45 -0500 (Thu, 19 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/DESCRIPTION
-
-updated DESCRIPTION
-------------------------------------------------------------------------
-r310 | deepayan | 2004-08-05 09:57:00 -0500 (Thu, 05 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/man/Rows.Rd
-   M /trunk/lattice/man/llines.Rd
-   M /trunk/lattice/man/panel.barchart.Rd
-   M /trunk/lattice/man/panel.cloud.Rd
-   M /trunk/lattice/man/reorder.factor.Rd
-
-doc fixes (notes change in barchart which uses a new setting superpose.fill)
-------------------------------------------------------------------------
-r309 | deepayan | 2004-08-05 09:55:28 -0500 (Thu, 05 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/DESCRIPTION
-
-updating version
-------------------------------------------------------------------------
-r308 | deepayan | 2004-08-05 09:55:07 -0500 (Thu, 05 Aug 2004) | 1 line
-Changed paths:
+r308 | deepayan | 2004-08-05 09:55:07 -0500 (Thu, 05 Aug 2004) | 1
+line Changed paths:
    M /trunk/lattice/R/settings.R
 
 adding initial support for alpha transparency
@@ -218,13 +304,6 @@ Changed paths:
    M /trunk/lattice/src/threeDplot.c
 
 changed order calculations in wireframe (now based on average facet depth)
-------------------------------------------------------------------------
-r306 | deepayan | 2004-08-05 09:53:49 -0500 (Thu, 05 Aug 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/R/cloud.R
-   M /trunk/lattice/R/miscellaneous.R
-
-adding initial support for alpha transparency
 ------------------------------------------------------------------------
 r305 | deepayan | 2004-08-05 09:53:00 -0500 (Thu, 05 Aug 2004) | 1 line
 Changed paths:
@@ -245,12 +324,6 @@ Changed paths:
 
 update now updates call component of trellis object
 ------------------------------------------------------------------------
-r302 | deepayan | 2004-07-27 18:41:17 -0500 (Tue, 27 Jul 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/R/tmd.R
-
-reformatting
-------------------------------------------------------------------------
 r301 | deepayan | 2004-07-26 11:18:38 -0500 (Mon, 26 Jul 2004) | 1 line
 Changed paths:
    M /trunk/lattice/R/zzz.R
@@ -262,17 +335,11 @@ Changed paths:
    M /trunk/lattice/R/print.trellis.R
    M /trunk/lattice/R/settings.R
 
-adding (half-finished) support for non-graphical options and saving last printed trellis object
+adding (half-finished) support for non-graphical options and saving
+last printed trellis object
 ------------------------------------------------------------------------
-r299 | deepayan | 2004-07-26 11:15:08 -0500 (Mon, 26 Jul 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/man/Rows.Rd
-   M /trunk/lattice/man/xyplot.Rd
-
-minor fixes
-------------------------------------------------------------------------
-r298 | deepayan | 2004-07-22 20:25:51 -0500 (Thu, 22 Jul 2004) | 1 line
-Changed paths:
+r298 | deepayan | 2004-07-22 20:25:51 -0500 (Thu, 22 Jul 2004) | 1
+line Changed paths:
    M /trunk/lattice/R/bwplot.R
    M /trunk/lattice/R/legend.R
    M /trunk/lattice/man/panel.barchart.Rd
@@ -294,10 +361,11 @@ Changed paths:
    M /trunk/lattice/man/panel.dotplot.Rd
    M /trunk/lattice/man/panel.xyplot.Rd
 
-added horizontal=FALSE arg to panel.xyplot to control what happens in type = h, s, S
+added horizontal=FALSE arg to panel.xyplot to control what happens in
+type = h, s, S
 ------------------------------------------------------------------------
-r295 | deepayan | 2004-07-18 12:29:32 -0500 (Sun, 18 Jul 2004) | 1 line
-Changed paths:
+r295 | deepayan | 2004-07-18 12:29:32 -0500 (Sun, 18 Jul 2004) | 1
+line Changed paths:
    A /trunk/lattice/man/reorder.factor.Rd
 
 adding docs for reorder.factor
@@ -316,18 +384,11 @@ Changed paths:
 
 bumped up version
 ------------------------------------------------------------------------
-r292 | deepayan | 2004-07-17 14:27:22 -0500 (Sat, 17 Jul 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/NAMESPACE
-
-nothing really, checking if archive on bates5 works
-------------------------------------------------------------------------
 r282 | deepayan | 2004-07-07 02:26:27 -0500 (Wed, 07 Jul 2004) | 2 lines
 Changed paths:
    M /trunk/lattice/tests/scales.R
 
 fixed font secification problems
-
 ------------------------------------------------------------------------
 r281 | deepayan | 2004-07-07 01:35:33 -0500 (Wed, 07 Jul 2004) | 1 line
 Changed paths:
@@ -356,13 +417,6 @@ Changed paths:
    M /trunk/lattice/R/common.R
 
 added the possibility of index.cond being a function.
-
-------------------------------------------------------------------------
-r278 | deepayan | 2004-07-07 01:21:12 -0500 (Wed, 07 Jul 2004) | 2 lines
-Changed paths:
-   M /trunk/lattice/R/panels.R
-
-added panel.identify
 
 ------------------------------------------------------------------------
 r277 | deepayan | 2004-07-07 01:19:57 -0500 (Wed, 07 Jul 2004) | 2 lines
@@ -521,16 +575,6 @@ line Changed paths:
    M /trunk/lattice/R/print.trellis.R
 
 fixed fairly major bug in replication of skip, reported by Stephan Moratti
-------------------------------------------------------------------------
-r133 | deepayan | 2004-04-27 08:10:56 -0500 (Tue, 27 Apr 2004) | 1 line
-Changed paths:
-   M /trunk/lattice/ChangeLog
-   M /trunk/lattice/DESCRIPTION
-   M /trunk/lattice/NAMESPACE
-   M /trunk/lattice/inst/Changes
-   M /trunk/lattice/tests/temp.R
-
-insignificant updates
 ------------------------------------------------------------------------
 r132 | deepayan | 2004-04-27 08:08:06 -0500 (Tue, 27 Apr 2004) | 1 line
 Changed paths:
