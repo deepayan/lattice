@@ -383,11 +383,11 @@ panel.axis <-
              draw.labels = TRUE,
              check.overlap = FALSE,
              outside = FALSE,
-             tick = TRUE,
+             ticks = TRUE,
              half = !outside, ## whether only half of the ticks will be labeled
              which.half = switch(side, bottom = "lower", left = "upper", top = "upper", right = "lower"),
 
-             tck = as.numeric(tick),
+             tck = as.numeric(ticks),
              rot = if (is.logical(labels)) 0 else c(90, 0),
 
              text.col = axis.text$col,

@@ -12,45 +12,30 @@
   \code{\link{xyplot}}, is a list with the ``class'' attribute set to
   ``trellis''.  Many of the components of this list are simply the
   arguments to the high level function that produced the object.  Among
-  them are:
- 
+  them are: \code{as.table}, \code{layout}, \code{page}, \code{panel},
+  \code{prepanel}, \code{main}, \code{sub}, \code{par.settings},
+  \code{par.strip.text}, \code{strip}, \code{skip}, \code{xlab} and
+  \code{ylab}.  Some other typical components are: 
+
   \itemize{
-    \item{\code{as.table}}
-    \item{\code{layout}}
-    \item{\code{page}}
-    \item{\code{panel}}
-    \item{\code{prepanel}}
-    \item{\code{main}}
-    \item{\code{sub}}
-    \item{\code{par.settings}}
-    \item{\code{par.strip.text}}
-    \item{\code{strip}}
-    \item{\code{skip}}
-    \item{\code{xlab}}
-    \item{\code{ylab}}
-  }
-
-  Some other typical components are:
-
-  \describe{
     \item{\code{index.cond}}{
       list with index for each of the conditioning variables
     }
     \item{\code{perm.cond}}{
       permutation of the order of the conditioning variables
     }
-    \item{\code{aspect.fill}} {
+    \item{\code{aspect.fill}}{
       logical, whether \code{aspect} is ``fill''
     }
     \item{\code{aspect.ratio}}{
       numeric, aspect ratio to be used if \code{aspect.fill} is
       \code{FALSE}
     }
-    \item{\code{call}} { call that generated the object. }
-    \item{\code{condlevels}} {
+    \item{\code{call}}{ call that generated the object. }
+    \item{\code{condlevels}}{
       list with levels of the conditioning variables
     }
-    \item{\code{legend}} {
+    \item{\code{legend}}{
       list describing the legend(s) to be drawn
     }
     \item{\code{panel.args}}{
@@ -81,5 +66,6 @@
     %% y.num.limit y.used.at ylab.default
   }
 }
+
 \keyword{classes}
 

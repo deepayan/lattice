@@ -95,8 +95,8 @@
 }
 
 \note{
-  Trying to position a multipage display (using \code{position} and/or
-  \code{split}) will mess things up.
+  Unlike S-PLUS, trying to position a multipage display (using
+  \code{position} and/or \code{split}) will mess things up.
 }
 
 \seealso{

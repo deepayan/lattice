@@ -3,7 +3,7 @@
 \alias{palette.shade}
 \alias{ltransform3dMatrix}
 \alias{ltransform3dto3d}
-\title{ Default Panel Function for cloud }
+\title{ Utility functions for 3-D plots }
 \description{
   These are (related to) the default panel functions for \code{cloud}
   and \code{wireframe}.
@@ -65,5 +65,5 @@ ltransform3dto3d(x, R.mat, dist)
 
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
-\seealso{\code{\link{cloud}}}
+\seealso{\code{\link{cloud}}, \code{\link{panel.cloud}}}
 \keyword{dplot}

@@ -14,11 +14,11 @@ panel.axis(side = c("bottom", "left", "top", "right"),
              draw.labels = TRUE,
              check.overlap = FALSE,
              outside = FALSE,
-             tick = TRUE,
+             ticks = TRUE,
              half = !outside,
              which.half = switch(side, bottom = "lower", left = "upper", top = "upper", right = "lower"),
 
-             tck = as.numeric(tick),
+             tck = as.numeric(ticks),
              rot = if (is.logical(labels)) 0 else c(90, 0),
 
              text.col = axis.text$col,
@@ -40,7 +40,7 @@ panel.axis(side = c("bottom", "left", "top", "right"),
            draw.labels = TRUE,
            check.overlap = FALSE,
            outside = FALSE,
-           tick = TRUE,
+           ticks = TRUE,
            half = !outside,
            which.half,
            tck = 1,
@@ -68,8 +68,10 @@ panel.axis(side = c("bottom", "left", "top", "right"),
   }
   \item{outside}{
     logical, whether to the labels draw outside the panel or inside.
+    Note that \code{outside=TRUE} will only have a visible effect if
+    clipping is disabled for the viewport (panel).
   }
-  \item{tick}{ logical, whether to draw the tickmarks }
+  \item{ticks}{ logical, whether to draw the tickmarks }
   \item{half}{
     logical, whether only half of scales will be drawn for each side
   }
