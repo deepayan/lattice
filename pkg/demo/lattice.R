@@ -1,7 +1,6 @@
 
 require(grid)
-old.prompt <- grid.prompt()
-grid.prompt(TRUE)
+old.prompt <- grid.prompt(TRUE)
 
 
 ## store current settings, to be restored later

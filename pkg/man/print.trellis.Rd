@@ -1,4 +1,5 @@
 \name{print.trellis}
+\alias{print.trellis}
 \title{Print Trellis Objects}
 \usage{
 \method{print}{trellis}(x, position, split,
@@ -11,7 +12,6 @@
 \description{
   Print (plot) a trellis object.
 }
-\alias{print.trellis}
 \arguments{
   \item{x}{ The object to be plotted, of class ``trellis''}
   \item{position}{ a vector of 4 numbers, typically c(xmin, ymin, xmax,
@@ -128,27 +128,27 @@ xyplot(Armed.Forces ~ Year, longley, index.cond = list(rep(1, 6)),
        })
 
 \dontrun{
-grid::seekViewport("panel.1.1")
+grid::seekViewport(trellis.vpname("panel", 1, 1))
 cat("Click somewhere inside the first panel:\n")
 ltext(grid::grid.locator(), lab = "linear")
 }
 
-grid::seekViewport("panel.1.1")
+grid::seekViewport(trellis.vpname("panel", 1, 1))
 grid::grid.text("linear")
 
-grid::seekViewport("panel.2.1")
+grid::seekViewport(trellis.vpname("panel", 2, 1))
 grid::grid.text("quadratic")
 
-grid::seekViewport("panel.3.1")
+grid::seekViewport(trellis.vpname("panel", 3, 1))
 grid::grid.text("cubic")
 
-grid::seekViewport("panel.1.2")
+grid::seekViewport(trellis.vpname("panel", 1, 2))
 grid::grid.text("degree 4")
 
-grid::seekViewport("panel.2.2")
+grid::seekViewport(trellis.vpname("panel", 2, 2))
 grid::grid.text("degree 5")
 
-grid::seekViewport("panel.3.2")
+grid::seekViewport(trellis.vpname("panel", 3, 2))
 grid::grid.text("degree 6")
 }
 \keyword{hplot}

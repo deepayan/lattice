@@ -223,7 +223,7 @@ panel.pairs <-
                 if (as.matrix)
                     pushViewport(viewport(layout.pos.row = i,
                                           layout.pos.col = j,
-                                          name = paste("subpanel", i, j, sep = "."),
+                                          name = paste("subpanel", j, i, sep = "."),
                                           clip = trellis.par.get("clip")$panel,
                                           xscale = if (is.character(lim[[j]]))
                                           c(0, length(lim[[j]]) + 1) else lim[[j]],
@@ -232,7 +232,7 @@ panel.pairs <-
                 else
                     pushViewport(viewport(layout.pos.row = n.var - i + 1,
                                           layout.pos.col = j,
-                                          name = paste("subpanel", i, j, sep = "."),
+                                          name = paste("subpanel", j, i, sep = "."),
                                           clip = trellis.par.get("clip")$panel,
                                           xscale = if (is.character(lim[[j]]))
                                           c(0, length(lim[[j]]) + 1) else lim[[j]],

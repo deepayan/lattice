@@ -23,7 +23,7 @@ cloud(formula,
              at,
              drape = FALSE,
              pretty = FALSE,
-             drop.unused.levels = TRUE,
+             drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
              colorkey = any(drape),
@@ -252,7 +252,7 @@ g <- expand.grid(x = 1:10, y = 5:15, gr = 1:2)
 g$z <- log((g$x^g$g + g$y^2) * g$gr)
 wireframe(z ~ x * y, data = g, groups = gr,
           scales = list(arrows = FALSE),
-          drape = TRUE, colorkey = FALSE,
+          drape = TRUE, colorkey = TRUE,
           screen = list(z = 30, x = -60))
 
 cloud(Sepal.Length ~ Petal.Length * Petal.Width | Species, data = iris,

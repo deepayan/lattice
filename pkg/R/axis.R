@@ -323,7 +323,7 @@ panel.axis <-
              line.lwd = axis.line$lwd,
              line.alpha = axis.line$alpha)
 {
-    side <- match.arg(side) # was: 1=below, 2=left, 3=above and 4=right.
+    side <- match.arg(side)
     orientation <- if (outside) "outer" else "inner"
 
     ## at has to be specified. Maybe if there's ever a guaranteed

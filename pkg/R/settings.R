@@ -344,7 +344,7 @@ trellis.device <-
         }
     }
 
-    ## apply theme and background
+    ## apply theme 
     if (!is.null(theme)) trellis.par.set(theme)
 ##    if (!is.null(bg)) trellis.par.set(list(background = list(col = bg)))
     return(invisible())

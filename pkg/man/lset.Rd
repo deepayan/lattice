@@ -1,12 +1,12 @@
 \name{lset}
 \alias{lset}
-\title{Simple Interfaces to modify Trellis Settings - Deprecated}
+\title{Interface to modify Trellis Settings - Deprecated}
 \description{
-  A (hopefully) simpler alternative interface to
-  \code{trellis.par.get/set}.  NOT S compatible.  This is (informally)
-  deprecated, since the same functionality is now available with
+  A (hopefully) simpler alternative to \code{trellis.par.get/set}.  This
+  is deprecated, and the same functionality is now available with
   \code{trellis.par.set}
 }
+
 \usage{
 lset(theme = col.whitebg())
 }
