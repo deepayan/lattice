@@ -90,12 +90,13 @@
   is retained after the plot is produced, making it possible to access
   individual viewport locations and make additions to the plot.  For
   more details and a lattice level interface to these viewports, see
-  \code{link{trellis.focus}}.
+  \code{\link{trellis.focus}}.
 
 }
 
 \note{
-  Trying to position multipage displays will mess things up.
+  Trying to position a multipage display (using \code{position} and/or
+  \code{split}) will mess things up.
 }
 
 \seealso{
