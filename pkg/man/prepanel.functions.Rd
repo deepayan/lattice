@@ -24,12 +24,12 @@ prepanel.qqmathline(y, distribution, f.value = ppoints, ...)
   \item{\dots}{other arguments}
 }
 \value{
-  usually a list with components \code{xlim, ylim, dx, dy}, the first
-  two being used to calculate panel axes limits, the last two for
-  banking computations. The form of these components are described under
-  \code{\link{xyplot}}. There are also several undocumented prepanel
-  functions that serve as the default for high level functions, e.g.,
-  \code{prepanel.default.xyplot}
+  usually a list with components \code{xlim}, \code{ylim}, \code{dx} and
+  \code{dy}, the first two being used to calculate panel axes limits,
+  the last two for banking computations.  The form of these components
+  are described under \code{\link{xyplot}}.  There are also several
+  undocumented prepanel functions that serve as the default for high
+  level functions, e.g., \code{prepanel.default.xyplot}
 }
 
 \seealso{\code{\link{trellis.par.get}}, \code{\link{xyplot}},

@@ -59,9 +59,7 @@ panel.qq(...)
     \code{panel.loess} respectively.
   }
   \item{horizontal}{ logical. Controls orientation when \code{type} is
-    one of \code{"h", "s", "S"}}
-}
-\details{ 
+    one of \code{"h"}, \code{"s"} or \code{"S"}} } \details{
 
   Creates scatterplot of \code{x} and \code{y}, with various
   modifications possible via the type argument. \code{panel.qq} draws a

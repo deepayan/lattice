@@ -73,7 +73,7 @@ wireframe(formula, data,
 \arguments{
   \item{formula}{
     a formula of the form \code{z ~ x * y | g1 * g2 * ...}, where
-    \code{z} is a numeric response, and \code{x, y} are numeric
+    \code{z} is a numeric response, and \code{x}, \code{y} are numeric
     values. \code{g1, g2, \dots}, if present, are conditioning variables
     used for conditioning, and must be either factors or shingles. In
     the case of \code{wireframe}, calculations are based on the

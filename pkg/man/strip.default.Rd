@@ -79,7 +79,8 @@ strip.custom(\dots)
     Note that unlike S-PLUS, the default value of \code{style} is 1.
   }
   \item{par.strip.text}{ list with parameters controlling the text on
-    each strip, with components \code{col, cex, font}
+    each strip, with components \code{col}, \code{cex}, \code{font},
+    etc.
   }
   \item{bg}{ strip background color. }
   \item{fg}{ strip foreground color. }

@@ -47,7 +47,7 @@ levelplot(formula, data,
           cuts = 15,
           pretty = FALSE,
           region = TRUE,
-          ...,
+          \dots,
           col.regions = trellis.par.get("regions")$col,
           colorkey = region)
 contourplot(formula, data, at,
@@ -55,7 +55,7 @@ contourplot(formula, data, at,
             labels = format(at),
             cuts = 7,
             pretty = TRUE,
-            ...)
+            \dots)
 
 }
 \description{
@@ -64,10 +64,10 @@ contourplot(formula, data, at,
 \alias{levelplot}
 \alias{contourplot}
 \arguments{
-  \item{formula}{a formula of the form \code{z ~ x * y | g1 * g2 * ...},
-    where \code{z} is a numeric response, and \code{x, y} are numeric
-    values evaluated on a rectangular grid.  \code{g1,g2,...} are
-    optional conditional variables, and must be either factors or
+  \item{formula}{a formula of the form \code{z ~ x * y | g1 * g2 * \dots},
+    where \code{z} is a numeric response, and \code{x}, \code{y} are
+    numeric values evaluated on a rectangular grid.  \code{g1, g2, \dots}
+    are optional conditional variables, and must be either factors or
     shingles if present.
 
     Calculations are based on the assumption that all x and y values are
@@ -101,27 +101,36 @@ contourplot(formula, data, at,
     alongside the plot, or a list describing the color key. The list may
     contain the following components:
 
-    \code{space} location of the colorkey, can be one of ``left'',
-    ``right'', ``top'' and ``bottom''. Defaults to ``right''.
+    \describe{
     
-    \code{x,y} location, currently unused
+      \item{\code{space}:}{
+        location of the colorkey, can be one of ``left'', ``right'',
+        ``top'' and ``bottom''. Defaults to ``right''.
+      }
+      
+      \item{\code{x}, \code{y}:}{ location, currently unused }
 
-    \code{col} vector of colors
+      \item{\code{col}:}{ vector of colors }
+      
+      \item{\code{at}:}{
+        numeric vector specifying where the colors change. must be of
+        length 1 more than the col vector.
+      }
 
-    \code{at} numeric vector specifying where the colors change. must be
-    of length 1 more than the col vector.
+      \item{\code{labels}:}{
+        a character vector for labelling the \code{at} values, or more
+        commonly, a list of components \code{labels, at, cex, col,
+          font} describing label positions.
+      }
 
-    \code{labels} a character vector for labelling the \code{at} values,
-    or more commonly, a list of components \code{labels, at, cex, col,
-      font} describing label positions.
+      \item{\code{tick.number}:}{ approximate number of ticks. }
 
-    \code{tick.number} approximate number of ticks.
+      \item{\code{corner}:}{ interacts with x, y; unimplemented }
 
-    \code{corner} interacts with x, y; unimplemented
+      \item{\code{width}:}{ width of the key }
 
-    \code{width} width of the key
-
-    \code{height} length of key w.r.t side of plot.
+      \item{\code{height}:}{ length of key w.r.t side of plot. }
+    }
   }
   \item{contour}{
     logical, whether to draw contour lines.

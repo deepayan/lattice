@@ -29,9 +29,11 @@ as.factorOrShingle(x, subset, drop)
   Functions to handle shingles
 }
 \arguments{
-  \item{x}{ numeric variable or R object, shingle in
-    \code{plot.shingle, x[]}. An object (list of intervals) of class
-    "shingleLevel" in \code{print.shingleLevel}}
+  \item{x}{
+    numeric variable or R object, shingle in \code{plot.shingle} and
+    \code{x[]}. An object (list of intervals) of class "shingleLevel" in
+    \code{print.shingleLevel}
+  }
   \item{object}{ shingle object to be summarized}
   \item{showValues}{ logical, whether to print the numeric part. If
     FALSE, only the intervals are printed}
