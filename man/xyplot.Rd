@@ -1016,7 +1016,7 @@ xyplot(NOx ~ C | EE, data = ethanol,
 
 plot <- xyplot(sunspot.year ~ 1700:1988, xlab = "", type = "l",
                scales = list(x = list(alternating = 2)),
-               main = "Average Yearly Sunspots")
+               main = "Yearly Sunspots")
 print(plot, position = c(0, .3, 1, .9), more = TRUE)
 print(update(plot, aspect = "xy", main = "", xlab = "Year"),
       position = c(0, 0, 1, .3))

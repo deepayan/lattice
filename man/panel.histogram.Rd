@@ -5,7 +5,12 @@
   This is the default panel function for \code{histogram}.
 }
 \usage{
-panel.histogram(x, breaks, equal.widths, type, col, ...)
+panel.histogram(x,
+                breaks,
+                equal.widths = TRUE,
+                type = "density",
+                alpha, col, border, lty, lwd,
+                ...)
 }
 \arguments{
   \item{x}{ The data points for which the histogram is to be drawn} 
@@ -13,8 +18,10 @@ panel.histogram(x, breaks, equal.widths, type, col, ...)
   \item{equal.widths}{ logical used when \code{breaks==NULL} }
   \item{type}{ Type of histogram, possible values being ``percent'',
     ``density'' and ``count''}
-  \item{col}{ Color of bars (NULL for empty), by default
-    \code{bar.fill$col}.}
+  \item{alpha, col, border, lty, lwd}{
+    graphical parameters for bars; defaults are obtained from the
+    \code{bar.fill} settings.
+  }
   \item{\dots}{ other arguments.}
 }
 
