@@ -31,6 +31,9 @@
 ## Need global variable to handle more in print.trellis
 assign(".lattice.print.more", FALSE, env = .LatticeEnv)
 assign("lattice.theme", list(), env = .LatticeEnv)
+assign("lattice.options", list(), env = .LatticeEnv)
+assign("last.object", NULL, env = .LatticeEnv)
+
 
 .noGenerics <- TRUE
 
@@ -52,11 +55,11 @@ assign("lattice.theme", list(), env = .LatticeEnv)
 
 
 
-# .First.lib <- function(lib, pkg) {
-#     library.dynam(pkg, pkg, lib )
-#     if (!require(grid))
-#         stop("lattice requires grid, but grid couldn't be loaded")
-# }
+#.First.lib <- function(lib, pkg) {
+#    library.dynam(pkg, pkg, lib )
+#    if (!require(grid))
+#        stop("lattice requires grid, but grid couldn't be loaded")
+#}
 
 
 
