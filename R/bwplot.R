@@ -25,7 +25,7 @@
 
 prepanel.default.bwplot <-
     function(x, y, box.ratio,
-             horizontal = TRUE,
+             horizontal = TRUE, nlevels,
              origin = NULL, stack = FALSE,
              ...)
 {
@@ -42,6 +42,12 @@ prepanel.default.bwplot <-
 
         temp <- .5  #* box.ratio/(box.ratio+1)
         if (horizontal)
+        {
+            if (!is.factor(y)) ## y came from a shingle
+            {
+                if (missing(nlevels)) nlevels <- length(unique(y))
+                y <- factor(y, levels = 1:nlevels)
+            }
             list(xlim =
                  if (stack) {
                      foo1 <- if (any(x > 0)) range( by(x[x>0], y[x>0, drop = TRUE], sum)) else 0
@@ -50,15 +56,20 @@ prepanel.default.bwplot <-
                  }
                  else if (is.numeric(x)) range(x[is.finite(x)], origin)
                  else levels(x),
-                 ylim =
-                 if (is.shingle(y)) as.character(1:nlevels(y)) else levels(y),
-                 yat = if (is.factor(y)) sort(unique(as.numeric(y))) else NULL,
+                 ylim = levels(y),
+                 yat = sort(unique(as.numeric(y))),
                  dx = 1,
                  dy = 1)
-        else 
-            list(xlim =
-                 if (is.shingle(x)) as.character(1:nlevels(x)) else levels(x),
-                 xat = if (is.factor(x)) sort(unique(as.numeric(x))) else NULL,
+        }
+        else
+        {
+            if (!is.factor(x)) ## x came from a shingle
+            {
+                if (missing(nlevels)) nlevels <- length(unique(x))
+                x <- factor(x, levels = 1:nlevels)
+            }
+            list(xlim = levels(x),
+                 xat = sort(unique(as.numeric(x))),
                  ylim =
                  if (stack) {
                      foo1 <- if (any(y > 0)) range( by(y[y>0], x[y>0], sum)) else 0
@@ -69,6 +80,7 @@ prepanel.default.bwplot <-
                  else levels(y),
                  dx = 1,
                  dy = 1)
+        }
     }
     else list(xlim = c(NA, NA),
               ylim = c(NA, NA),
@@ -969,7 +981,17 @@ bwplot <-
     foo$panel.args.common$horizontal <- horizontal
     if (subscripts) foo$panel.args.common$groups <- groups
 
-
+    ## only used if shingle, important if some levels are missing
+    if (horizontal)
+    {
+        if (!is.f.y) ## y shingle
+            foo$panel.args.common$nlevels <- num.l.y
+    }
+    else
+    {
+        if (!is.f.x) ## x shingle
+            foo$panel.args.common$nlevels <- num.l.x
+    }
 
     nplots <- prod(cond.max.level)
     if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")

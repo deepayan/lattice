@@ -27,6 +27,7 @@ improvements
 
  o xlab, ylab, main and sub can now be grobs
 
+ o datasets get separate documentation, contributed by Kevin Wright
 
 
 new features
