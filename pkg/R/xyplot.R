@@ -36,17 +36,17 @@ prepanel.default.xyplot <-
 
             dx <- numeric(0)
             dy <- numeric(0)
-            for (i in seq(along=vals))
+            for (i in seq(along = vals))
             {
                 id <- (groups[subscripts] == vals[i])
-                ord <- sort.list(x)
-                dx <- c(dx, as.numeric(diff(x[ord])))
-                dy <- c(dy, as.numeric(diff(y[ord])))
+                ord <- order(x[id])
+                dx <- c(dx, as.numeric(diff(x[id][ord])))
+                dy <- c(dy, as.numeric(diff(y[id][ord])))
             }
         }
         else
         {
-            ord <- sort.list(x)
+            ord <- order(x)
             dx = as.numeric(diff(x[ord]))
             dy = as.numeric(diff(y[ord]))            
         }

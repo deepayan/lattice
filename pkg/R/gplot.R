@@ -1,5 +1,13 @@
 
 
+
+
+
+
+
+
+
+
 ### EXPERIMENTAL: a general 'grouped display' function gplot that
 ### could potentially be used to display any R object using S3 method
 ### dispatch
@@ -190,13 +198,13 @@ panel.df <- # combines above 2, should be called
 ## utility functions (defined in nlme, but need to be redefined here)
 ## (check)
 
-getResponseFormula <- function(formula)
+.responseName <- function(formula)
 {
     if (length(formula) == 3) as.character(formula[2])
     else stop("invalid formula")
 }
 
-getCovariateFormula <- function(formula)
+.covariateName <- function(formula)
 {
     RHS <- 
         if (length(formula) == 3) as.character(formula[3])
@@ -206,7 +214,7 @@ getCovariateFormula <- function(formula)
     RHS[1]
 }
 
-getGroupsFormula <- function(formula)
+.groupsName <- function(formula)
 {
     RHS <- 
         if (length(formula) == 3) as.character(formula[3])
@@ -220,18 +228,18 @@ getGroupsFormula <- function(formula)
 ## care of by as.character.formula
 
 
-# getTypeInDF <- function(x, data)
-# {
-#     if (x == "1") "one"
-#     else if (is.factor(data[[x]])) "factor"
-#     else if (is.numeric(data[[x]])) "numeric"
-#     else stop(paste("don't recognize", class(data[[x]])))
-# }
+                                        # .typeInDF <- function(x, data)
+                                        # {
+                                        #     if (x == "1") "one"
+                                        #     else if (is.factor(data[[x]])) "factor"
+                                        #     else if (is.numeric(data[[x]])) "numeric"
+                                        #     else stop(paste("don't recognize", class(data[[x]])))
+                                        # }
 
 
 
 ## should work with expressions like log(height) as well
-getTypeInDF <- function(x, data)
+.typeInDF <- function(x, data)
 {
     if (all(is.na(x))) return(NA)
     x <- eval(parse(text = x), data, parent.frame())
@@ -301,9 +309,9 @@ gplotArgs.data.frame <-
     else if (!is.null(model.formula)) ## the interesting stuff
     {
         vars <-
-            list(resp = getResponseFormula(model.formula),
-                 cov = getCovariateFormula(model.formula),
-                 grp = getGroupsFormula(model.formula))
+            list(resp = .responseName(model.formula),
+                 cov = .covariateName(model.formula),
+                 grp = .groupsName(model.formula))
 
 
 
@@ -321,7 +329,7 @@ gplotArgs.data.frame <-
 
             if (inherits(ginfo$outer, "formula"))
             {
-                outerVar <- getCovariateFormula(ginfo$outer)
+                outerVar <- .covariateName(ginfo$outer)
                 outer.unique <- tapply(x[[outerVar]], x[[grpVar]], unique)
                 ord <- order(outer.unique, scores)
             }
@@ -349,18 +357,18 @@ gplotArgs.data.frame <-
         if (inherits(outer, "formula"))
         {
             if (is.null(groups)) groups <- as.formula(paste("~", vars$grp))
-            vars$grp <- getCovariateFormula(outer)
+            vars$grp <- .covariateName(outer)
         }
         else if (inherits(inner, "formula"))
         {
             ## FIXME: this may not be the right thing to do
             if (is.null(groups)) groups <- inner
         }
-    
+        
 
 
         varTypes <-
-            lapply(vars, getTypeInDF, data = x)
+            lapply(vars, .typeInDF, data = x)
 
         ## Next step depends on varTypes
 
@@ -392,15 +400,15 @@ gplotArgs.data.frame <-
     ## determine default plot function based on display.formula
 
     dvars <-
-        list(resp = getResponseFormula(ans$display.formula),
-             cov = getCovariateFormula(ans$display.formula),
-             grp = getGroupsFormula(ans$display.formula)) ## NA is none
+        list(resp = .responseName(ans$display.formula),
+             cov = .covariateName(ans$display.formula),
+             grp = .groupsName(ans$display.formula)) ## NA is none
     dvarTypes <-
-        lapply(dvars, getTypeInDF, data = x)
+        lapply(dvars, .typeInDF, data = x)
     if (dvarTypes$resp == "numeric" && dvarTypes$cov == "numeric")
-        plotFun <- "xyplot"
+        plotFun.constructed <- "xyplot"
     else if (dvarTypes$resp == "factor" && dvarTypes$cov == "numeric")
-        plotFun <- "dotplot"
+        plotFun.constructed <- "dotplot"
     else {
         str(dvarTypes)
         stop("unsupported combination")
@@ -424,15 +432,15 @@ gplotArgs.data.frame <-
 
     ans <-
         updateList(ans,
-                   list(plotFun = plotFun,
+                   list(plotFun = plotFun.constructed,
                         data = x,
                         panel = panel.df,
                         groups = groups,
                         subset = subset,
                         xlab = xlab.constructed, ylab = ylab.constructed,
-                        aspect = if (plotFun == "xyplot") "xy" else "fill",
+                        aspect = if (plotFun.constructed == "xyplot") "xy" else "fill",
                         auto.key =
-                        switch(plotFun,
+                        switch(plotFun.constructed,
                                xyplot = list(points = FALSE, lines = TRUE, space = "right"),
                                dotplot = list(points = TRUE, space = "right"))))
 

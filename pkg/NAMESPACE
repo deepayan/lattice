@@ -70,7 +70,6 @@ S3method(summary, trellis)
 
 S3method(gplot, default)
 S3method(gplotArgs, default)
-S3method(gplot, data.frame)
 S3method(gplotArgs, data.frame)
 
 
