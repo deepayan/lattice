@@ -320,7 +320,7 @@ bwplot(formula,
     \code{subscripts} as a formal argument. In either case, the
     \code{subscripts} argument passed to the panel function are the
     indices of the \code{x} and \code{y} data for that panel in the
-    original \code{data}, BEFORE taking into account the effect of
+    original \code{data}, AFTER taking into account the effect of
     the \code{subset} argument. Note that \code{groups} remains
     unaffected by any subsetting operations, so
     \code{groups[subscripts]} gives the values of \code{groups} that
@@ -699,10 +699,15 @@ bwplot(formula,
     Note: Much of the function of \code{scales} is accomplished by
     \code{pscales} in \code{splom}.
   }
-  \item{skip}{ logical vector (default \code{FALSE}), replicated to be
-    as long as the number of panels (spanning all pages). If
-    \code{TRUE}, nothing is plotted in the corresponding panel. Useful
-    for arranging plots in an informative manner.
+  \item{skip}{
+    logical vector (default \code{FALSE}), replicated to be as long as
+    the number of panels (spanning all pages). For elements that are
+    \code{TRUE}, the corresponding panel position is skipped; i.e.,
+    nothing is plotted in that position.  The panel that was supposed to
+    be drawn there is now drawn in the next available panel position,
+    and the positions of all the subsequent panels are bumped up
+    accordingly.  This is often useful for arranging plots in an
+    informative manner.
   }
   \item{strip}{logical flag or function. If \code{FALSE}, strips are
     not drawn. Otherwise, strips are drawn using the \code{strip}
