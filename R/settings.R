@@ -104,6 +104,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
              reference.line   = list(col = can.col[16], lty = 1, lwd = 1),
              strip.background = list(col = can.col[c(12, 11, 9, 13, 10, 15, 14)]),
              strip.shingle    = list(col = can.col[c(5, 4, 2, 6, 3, 8, 7)]),
+             strip.border     = list(col = rep(can.col[1], 7), lty = rep(1, 7), lwd = rep(1, 7)),
              superpose.line   = list(col = can.col[2:8], lty = rep(1, 7), lwd = rep(1, 7)),
              regions          = list(col = rev(cm.colors(100))),
              shade.colors     = list(palette = function(irr, ref, height, saturation = .9)
@@ -170,17 +171,17 @@ trellis.par.get <-
 {
     ## the default device is opened if none already open
     if (is.null(dev.list())) trellis.device()
+    lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
 
     ## just in case settings for the current device haven't been
     ## created yet, which may happen if the device is opened by x11(),
     ## say, (i.e., not by trellis.device()) and no trellis object has
-    ## been printed on this device yet:
+    ## been printed on this device yet. 
 
-    if (!(.Device %in% names(get("lattice.theme", envir = .LatticeEnv)))) {
+    if (is.null(lattice.theme[[.Device]])) {
         trellis.device(device = .Device, new = FALSE)
+        lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     }
-
-    lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     if (is.null(name))
         lattice.theme[[.Device]]
     else if (name %in% names(lattice.theme[[.Device]]))
@@ -201,7 +202,9 @@ trellis.par.set <-
 
     ## if (name %in% names(lattice.theme[[.Device]])) NEEDED as a safeguard ?
     if (!is.list(value)) stop("value must be a list")
-    lattice.theme <- get("lattice.theme", envir=.LatticeEnv)
+    lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
+    ## make sure a list for this device is present
+    if (is.null(lattice.theme[[.Device]])) trellis.device(device = .Device, new = FALSE)
     lattice.theme[[.Device]][[name]] <- value
     assign("lattice.theme", lattice.theme, envir=.LatticeEnv)
 }
