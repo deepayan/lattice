@@ -20,7 +20,8 @@ panel.xyplot(x, y, type="p",
              fontface = plot.symbol$fontface,
              lty = plot.line$lty,
              cex = plot.symbol$cex,
-             lwd = plot.line$lwd, ...)
+             lwd = plot.line$lwd,
+             horizontal = FALSE, ...)
 panel.splom(...)
 panel.qqmath(...)
 panel.qq(...)
@@ -56,6 +57,8 @@ panel.qq(...)
     "smooth", these are passed on to \code{panel.lmline} and
     \code{panel.loess} respectively.
   }
+  \item{horizontal}{ logical. Controls orientation when \code{type} is
+    one of \code{"h", "s", "S"}}
 }
 \details{ 
 

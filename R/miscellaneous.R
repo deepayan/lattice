@@ -123,9 +123,13 @@ Rows <- function(x, which)
 }
 
 
-reorder.factor <- function(Factor, X, Function = mean, ...)
-    ordered(Factor,
-            levels = names(sort(tapply(X, Factor, Function, ...))))
+reorder.factor <- function(Factor, X, Function = mean,
+                           ..., 
+                           order = is.ordered(Factor))
+    (if (order) ordered else factor)(Factor,
+                                     levels = names(sort(tapply(X,
+                                     Factor, Function, ...))))
+
 
 
 
@@ -512,12 +516,12 @@ lplot.xy <-
 
     if (length(x) == 0) return()
 
-    if (type %in% c("l", "o", "b", "c"))
+    else if (type %in% c("l", "o", "b", "c"))
         grid.lines(x = x, y = y,
                    gp = gpar(lty = lty, col = col.line, lwd = lwd),
                    default.units = "native")
     
-    if (type %in% c("p", "o", "b", "c"))
+    else if (type %in% c("p", "o", "b", "c"))
         grid.points(x = x, y = y, 
                     gp =
                     gpar(col = col, cex = cex,
@@ -527,7 +531,7 @@ lplot.xy <-
                     pch = pch, 
                     default.units = "native")
 
-    if (type %in% c("s", "S"))
+    else if (type %in% c("s", "S"))
     {
         ord <- sort.list(x)
         n <- length(x)
@@ -543,21 +547,42 @@ lplot.xy <-
                    default.units="native")
     }
 
-    if (type == "h") {
-
+    else if (type == "h") {
         ylim <- current.viewport()$yscale
-
         zero <-
             if (ylim[1] > 0) ylim[1]
             else if (ylim[2] < 0) ylim[2]
             else 0
-
-        ##print(zero) ?
-        ##print(x) 
         for (i in seq(along=x))
             grid.lines(x = rep(x[i],2), y = c(y[i], zero),
                        gp = gpar(lty = lty, col = col.line, lwd = lwd),
                        default.units = "native")
+    }
+    else if (type == "h") {
+        ylim <- current.viewport()$yscale
+        zero <-
+            if (ylim[1] > 0) ylim[1]
+            else if (ylim[2] < 0) ylim[2]
+            else 0
+        grid.segments(x0 = x, x1 = x,
+                      y0 = y, y1 = zero,
+                      gp = gpar(lty = lty, col = col.line, lwd = lwd),
+                      default.units="native")
+#        for (i in seq(along=x))
+#            grid.lines(x = rep(x[i],2), y = c(y[i], zero),
+#                       gp = gpar(lty = lty, col = col.line, lwd = lwd),
+#                       default.units = "native")
+    }
+    else if (type == "H") {
+        xlim <- current.viewport()$xscale
+        zero <-
+            if (xlim[1] > 0) xlim[1]
+            else if (xlim[2] < 0) xlim[2]
+            else 0
+        grid.segments(x0 = x, x1 = zero,
+                      y0 = y, y1 = y,
+                      gp = gpar(lty = lty, col = col.line, lwd = lwd),
+                      default.units="native")
     }
     return()
 }
