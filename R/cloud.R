@@ -313,7 +313,7 @@ panel.3dwire <-
              ylim.scaled,
              zlim.scaled,
              col = "black",
-             col.groups = superpose.line$col,
+             col.groups = superpose.fill$col,
              polynum = 100,
              ...)
 {
@@ -344,10 +344,6 @@ panel.3dwire <-
 
 
 
-
-
-
-
     ## 2004-03-12 new experimental stuff: when x, y, z are all
     ## matrices of the same dimension, they represent a 3-D surface
     ## parametrized on a 2-D grid (the details of the parametrizing
@@ -366,7 +362,7 @@ panel.3dwire <-
     else
     {
         ngroups <- if (is.matrix(z)) ncol(z) else 1
-        superpose.line <- trellis.par.get("superpose.line")
+        superpose.fill <- trellis.par.get("superpose.fill")
         col.groups <- rep(col.groups, length = ngroups)
         if (length(col) > 1) col <- rep(col, length = ngroups)
 
@@ -399,22 +395,26 @@ panel.3dwire <-
         if (shade) {
             pol.fill <- character(polynum)
             pol.col <- "transparent"
+            pol.alpha <- trellis.par.get("shade.colors")$alpha
         }
         else if (length(col.regions) > 1) {
             pol.fill <- vector(mode(col.regions), polynum)
             pol.col <-
                 if (ngroups == 1 || length(col) == 1) col[1]
                 else vector(mode(col), polynum)
+            pol.alpha <- trellis.par.get("regions")$alpha
         }
         else if (ngroups == 1) {
             pol.fill <- col.regions[1]
             pol.col <- col[1]
+            pol.alpha <- trellis.par.get("regions")$alpha
         }
         else {
             pol.fill <- vector(mode(col.groups), polynum)
             pol.col <-
                 if (length(col) == 1) col[1]
                 else vector(mode(col), polynum)
+            pol.alpha <- superpose.fill$alpha
         }
 
 
@@ -424,6 +424,7 @@ panel.3dwire <-
 
             function(xx, yy, misc)
             {
+
                 ## misc:
                 ## 1: cos angle between normal and incident light
                 ## 2: cos angle between reflected light and eye
@@ -446,7 +447,9 @@ panel.3dwire <-
                     {
                         grid.polygon(x = pol.x, y = pol.y, id.length = rep(3, polynum),
                                      default.units = "native",
-                                     gp = gpar(fill = pol.fill, col = pol.col))
+                                     gp = gpar(fill = pol.fill,
+                                     col = pol.col,
+                                     alpha = pol.alpha))
                         count <<- 0
                     }
                 }
@@ -469,12 +472,16 @@ panel.3dwire <-
               PACKAGE="lattice")
 
 
+
+
+
         if (count > 0)
         {
             grid.polygon(x = pol.x[1:(count * 3)], y = pol.y[1:(count * 3)],
                          default.units = "native", id.length = rep(3, count),
                          gp = gpar(fill = rep(pol.fill, length = count),
-                         col = rep(pol.col, length = count)))
+                         col = rep(pol.col, length = count),
+                         alpha = pol.alpha))
         }
 
     }
@@ -490,11 +497,13 @@ panel.3dwire <-
             pol.col <-
                 if (ngroups == 1 || length(col) == 1) col[1]
                 else vector(mode(col), polynum)
+            pol.alpha <- trellis.par.get("regions")$alpha
         }
         else if (ngroups == 1)
         {
             pol.fill <- col.regions[1]
             pol.col <- col[1]
+            pol.alpha <- trellis.par.get("regions")$alpha
         }
         else
         {
@@ -502,6 +511,7 @@ panel.3dwire <-
             pol.col <-
                 if (length(col) == 1) col[1]
                 else vector(mode(col), polynum)
+            pol.alpha <- superpose.fill$alpha
         }
 
 
@@ -543,7 +553,9 @@ panel.3dwire <-
 
                         grid.polygon(x = pol.x, y = pol.y, id.length = rep(4, polynum),
                                      default.units = "native",
-                                     gp = gpar(fill = pol.fill, col = pol.col))
+                                     gp = gpar(fill = pol.fill,
+                                     col = pol.col,
+                                     alpha = pol.alpha))
                         count <<- 0
                     }
                 }
@@ -572,7 +584,8 @@ panel.3dwire <-
             grid.polygon(x = pol.x[1:(count * 4)], y = pol.y[1:(count * 4)],
                          default.units = "native", id.length = rep(4, count),
                          gp = gpar(fill = rep(pol.fill, length = count),
-                         col = rep(pol.col, length = count)))
+                         col = rep(pol.col, length = count),
+                         alpha = pol.alpha))
         }
 
     }
