@@ -1,10 +1,9 @@
 \name{trellis.datasets}
-\alias{barley}
 \alias{singer}
 \alias{melanoma}
 \alias{ethanol}
 \alias{environmental}
-\non_function{}
+\docType{data}
 \title{Data Sets in the Lattice library}
 \usage{
 singer
@@ -12,16 +11,21 @@ melanoma
 ethanol
 environmental
 }
+
 \description{
-  These data sets are included to facilitate the same examples as S-PLUS
-  trellis. (Detailed descriptions of the datasets are omitted for now.)
+  These are data sets included in the \code{lattice} package that are
+  not yet documented separately.  See the 'See Also' section for the
+  ones that are. 
 }
+
 \source{
   These datasets are part of the collection of datasets used in the book
-  \emph{Visualizing Data} by Bill Cleveland, and are available at Bill
-  Cleveland's Homepage
+  \emph{Visualizing Data} by Bill Cleveland, and are available at 
   \url{http://cm.bell-labs.com/cm/ms/departments/sia/wsc/index.html}
   as well as in Statlib.
+}
+\seealso{
+  \code{\link{barley}}
 }
 \keyword{datasets}
 
