@@ -131,7 +131,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
                                      axis.top = 1,
                                      strip = 1,
                                      panel = 1, ## shouldn't be changed
-                                     axis.panel = 1,
+                                     axis.panel = 1, ## can be useful
                                      between = 1,
                                      axis.bottom = 1,
                                      axis.xlab.padding = 1,
@@ -147,7 +147,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
                                      ylab = 1,
                                      ylab.axis.padding = 1,
                                      axis.left = 1,
-                                     axis.panel = 1,
+                                     axis.panel = 1, ## can be useful
                                      panel = 1, ## shouldn't be changed
                                      between = 1,
                                      axis.right = 1,
