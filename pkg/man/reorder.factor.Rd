@@ -31,7 +31,7 @@ reorder.factor(Factor, X, Function = mean, \dots,
   }
 }
 
-\value {
+\value{
   A factor or an ordered factor (depending on the value of
   \code{order}), with the order of the levels determined by
   \code{Function} applied to \code{X} grouped by \code{Factor}. The

@@ -11,7 +11,6 @@ panel.barchart(x, y, box.ratio = 1,
                stack = FALSE,
                groups = NULL, 
                col = if (is.null(groups)) bar.fill$col else superpose.fill$col,
-               regions$col,
                \dots)
 }
 \arguments{

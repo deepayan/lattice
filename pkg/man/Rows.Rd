@@ -12,7 +12,7 @@ Rows(x, which)
   \item{x}{ list with each member a vector of the same length }
   \item{which}{ index for members of \code{x}}
 }
-\value {
+\value{
   A list similar to \code{x}, with each \code{x[[i]]} replaced by
   \code{x[[i]][which]}
 }

@@ -13,20 +13,26 @@
 \synopsis{
 larrows(x0, y0, x1, y1, x2, y2, angle = 30, code = 2, length = NULL, 
     proportion = 0.05, \dots)
-llines(x, y = NULL, type = "l", col = plot.line$col, lty = plot.line$lty, 
+llines(x, y = NULL, type = "l", col = plot.line$col,
+    alpha = plot.line$alpha, 
+    lty = plot.line$lty, 
     lwd = plot.line$lwd, \dots)
 lplot.xy(xy, type, pch = 1, lty = 1, col = 1, cex = 1, lwd = 1,
          font = 1, fontfamily = NULL, fontface = NULL,
-         col.line = col, \dots)  
+         col.line = col, alpha = 0, \dots)  
 lpoints(x, y = NULL, type = "p", col = plot.symbol$col,
         pch = plot.symbol$pch, 
+        alpha = plot.symbol$alpha, 
         font = plot.symbol$font,
         fontfamily  = plot.symbol$fontfamily,
         fontface = plot.symbol$fontface,
         cex = plot.symbol$cex, \dots)  
-lsegments(x0, y0, x1, y1, x2, y2, col = add.line$col, lty = add.line$lty, 
+lsegments(x0, y0, x1, y1, x2, y2, col = add.line$col,
+    alpha = add.line$alpha, 
+    lty = add.line$lty, 
     lwd = add.line$lwd, \dots)
 ltext(x, y = NULL, labels = seq(along = x), col = add.text$col,
+    alpha = add.text$alpha, 
     cex = add.text$cex, srt = 0,
     font, fontfamily = add.text$fontfamily,
     fontface = add.text$fontface, adj = c(0.5, 0.5), pos = NULL,
@@ -46,8 +52,15 @@ ltext(x, \dots)
     for S compatibility
   }
   \item{proportion}{ The proportion of the arrow edges compared to
-  the whole line. This is different from \code{arrows}}
-  \item{\dots}{ other arguments}
+    the whole line. This is different from \code{arrows}}
+  \item{\dots}{
+    other arguments, including ones to control graphical parameters like
+    color, line type, etc. For devices that support alpha-transparency,
+    a numeric argument \code{alpha} between 0 and 1 can be supplied. Be
+    careful with this, since for devices that do not support
+    alpha-transparency, nothing will be drawn at all if this is set to
+    anything other than 0.
+  }
 }
 \details{
   These functions are meant to be grid replacements of the corresponding

@@ -47,7 +47,7 @@ panel.3dwire(x, y, z, rot.mat, distance,
              ylim.scaled,
              zlim.scaled,
              col,
-             col.groups = superpose.line$col,
+             col.groups = superpose.fill$col,
              polynum = 100,
              \dots)
 }
