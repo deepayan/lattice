@@ -283,7 +283,7 @@ formattedTicksAndLabels.POSIXct <-
     if (!mat) 
         z <- x[is.finite(x)]
     z <- z[z >= range[1] & z <= range[2]]
-    labels <- format(z, format = format.posixt)
+    if (mlab) labels <- format(z, format = format.posixt)
     list(at = as.numeric(z), labels = labels,
          check.overlap = FALSE,
          num.limit = num.lim)

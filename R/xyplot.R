@@ -64,7 +64,7 @@ prepanel.default.xyplot <-
 
 
 panel.xyplot <-
-    function(x, y, type="p",
+    function(x, y, type = "p",
              pch = plot.symbol$pch,
              col,
              col.line = plot.line$col,
@@ -94,6 +94,9 @@ panel.xyplot <-
     if ("o" %in% type || "b" %in% type)
         type <- c(type, "p", "l")
 
+
+    if ("g" %in% type)
+        panel.grid()
 
     if ("p" %in% type)
         lpoints(x = x, y = y, cex = cex, font = font,

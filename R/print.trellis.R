@@ -116,10 +116,9 @@ print.trellis <-
              panel.height = lattice.getOption("layout.heights")$panel,
              panel.width = lattice.getOption("layout.widths")$panel,
              save.object = lattice.getOption("save.object"),
+             vp.prefix,
              ...)
 {
-    topvp.path <- list() ## used to locate main viewport of the current plot later
-
     if (is.null(dev.list())) trellis.device()
     else if (is.null(trellis.par.get()))
         trellis.device(device = .Device, new = FALSE)
@@ -140,8 +139,18 @@ print.trellis <-
     ##if (!new && usual)
     ##    warning("more is relevant only when split/position is specified")
 
+
+    ## this means this plot will be the first one on a new page
+    if (new) lattice.setStatus(plot.index = 1)
+
+    ## get default vp.prefix
+    if (missing(vp.prefix))
+        vp.prefix <- as.character(lattice.getStatus("plot.index"))
+    lattice.setStatus(current.prefix = vp.prefix)
+    lattice.setStatus(plot.index = 1 + lattice.getStatus("plot.index"))
+
     fontsize.text <- trellis.par.get("fontsize")$text
-    
+
     if (!missing(position))
     {
         if (length(position)!=4) stop("Incorrect value of position")
@@ -150,24 +159,19 @@ print.trellis <-
             grid.newpage()
             grid.rect(gp = gpar(fill = bg, col = "transparent"))
         }
-        topvp.path[[ 1 + length(topvp.path) ]] <-
-            paste("position", "vp", position[1], position[2], position[3], position[4], sep = ".")
         pushViewport(viewport(x = position[1], y = position[2],
                               width = position[3] - position[1],
                               height = position[4] - position[2],
                               just = c("left","bottom"),
-                              name = topvp.path[[ length(topvp.path) ]]))
+                              name = trellis.vpname("position")))
 
         if (!missing(split))
         {
             if (length(split)!=4) stop("Incorrect value of split")
-            topvp.path[[ 1 + length(topvp.path) ]] <-
-                paste("split", "vp", split[1], split[2], split[3], split[4], sep = ".")
             pushViewport(viewport(layout = grid.layout(nrow = split[4], ncol = split[3]),
-                                  name = topvp.path[[ length(topvp.path) ]] ))
-            topvp.path[[ 1 + length(topvp.path) ]] <- "split.location.vp"
+                                  name = trellis.vpname("split") ))
             pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1],
-                                  name = topvp.path[[ length(topvp.path) ]] ))
+                                  name = trellis.vpname("split.location") ))
         }
     }
 
@@ -180,13 +184,10 @@ print.trellis <-
             grid.newpage()
             grid.rect(gp = gpar(fill = bg, col = "transparent"))
         }
-        topvp.path[[ 1 + length(topvp.path) ]] <-
-            paste("split", "vp", split[1], split[2], split[3], split[4], sep = ".")
         pushViewport(viewport(layout = grid.layout(nrow = split[4], ncol = split[3]),
-                              name = topvp.path[[ length(topvp.path) ]] ))
-        topvp.path[[ 1 + length(topvp.path) ]] <- "split.location.vp"
+                              name = trellis.vpname("split") ))
         pushViewport(viewport(layout.pos.row = split[2], layout.pos.col = split[1],
-                              name = topvp.path[[ length(topvp.path) ]] ))
+                              name = trellis.vpname("split.location") ))
     }
 
 
@@ -384,10 +385,14 @@ print.trellis <-
 
     ## get lists for main, sub, xlab, ylab
 
-    main <- grobFromLabelList(getLabelList(x$main, trellis.par.get("par.main.text")), name = "main")
-    sub <- grobFromLabelList(getLabelList(x$sub, trellis.par.get("par.sub.text")), name = "sub")
-    xlab <- grobFromLabelList(getLabelList(x$xlab, trellis.par.get("par.xlab.text"), x$xlab.default), name = "xlab")
-    ylab <- grobFromLabelList(getLabelList(x$ylab, trellis.par.get("par.ylab.text"), x$ylab.default), name = "ylab", rot = 90)
+    main <- grobFromLabelList(getLabelList(x$main, trellis.par.get("par.main.text")),
+                              name = trellis.grobname("main"))
+    sub <- grobFromLabelList(getLabelList(x$sub, trellis.par.get("par.sub.text")),
+                             name = trellis.grobname("sub"))
+    xlab <- grobFromLabelList(getLabelList(x$xlab, trellis.par.get("par.xlab.text"), x$xlab.default),
+                              name = trellis.grobname("xlab"))
+    ylab <- grobFromLabelList(getLabelList(x$ylab, trellis.par.get("par.ylab.text"), x$ylab.default),
+                              name = trellis.grobname("ylab"), rot = 90)
 
 
     ## get par.strip.text
@@ -447,21 +452,17 @@ print.trellis <-
             
             if (usual)
             {
-                if (new)
-                {
-                    grid.newpage()
-                    topvp.path <- list() ## FIXME: what should happen in other cases?
-                }
+                if (new) grid.newpage()
                 grid.rect(gp = gpar(fill = bg, col = "transparent"))
                 new <- TRUE
             }
 
-            topvp.path[[ 1 + length(topvp.path) ]] <- "lattice.topvp"
-            lattice.setStatus(topvp.path = do.call("vpPath", topvp.path))
             pushViewport(viewport(layout = page.layout,
                                   gp =
                                   gpar(fontsize = fontsize.text),
-                                  name = topvp.path[[ length(topvp.path) ]]))
+                                  name = trellis.vpname("toplevel")))
+
+
 
 #             if (!is.null(main))
 #                 grid.text(label = main$label, name= "main",
@@ -506,27 +507,31 @@ print.trellis <-
 
             if (!is.null(main))
             {
-                pushViewport(viewport(layout.pos.row = pos.heights$main, name= "main.vp"))
+                pushViewport(viewport(layout.pos.row = pos.heights$main,
+                                      name= trellis.vpname("main")))
                 grid.draw(main)
                 upViewport()
             }
             if (!is.null(sub))
             {
-                pushViewport(viewport(layout.pos.row = pos.heights$sub, name= "sub.vp"))
+                pushViewport(viewport(layout.pos.row = pos.heights$sub,
+                                      name= trellis.vpname("sub")))
                 grid.draw(sub)
                 upViewport()
             }
             if (!is.null(xlab))
             {
                 pushViewport(viewport(layout.pos.row = pos.heights$xlab,
-                                      layout.pos.col = pos.widths$panel, name= "xlab.vp" ))
+                                      layout.pos.col = pos.widths$panel,
+                                      name= trellis.vpname("xlab")))
                 grid.draw(xlab)
                 upViewport()
             }
             if (!is.null(ylab))
             {
                 pushViewport(viewport(layout.pos.col = pos.widths$ylab,
-                                      layout.pos.row = pos.heights$panel, name= "ylab.vp"))
+                                      layout.pos.row = pos.heights$panel,
+                                      name= trellis.vpname("ylab")))
                 grid.draw(ylab)
                 upViewport()
             }
@@ -1001,7 +1006,7 @@ print.trellis <-
             
             pushViewport(viewport(layout.pos.row = c(1, n.row),
                                   layout.pos.col = c(1, n.col),
-                                  name = "page.vp"))
+                                  name = trellis.vpname("page")))
             if (!is.null(x$page)) x$page(page.number)                
             upViewport()
             upViewport()

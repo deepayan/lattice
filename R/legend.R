@@ -708,7 +708,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     atrange <- range(key$at)
     scat <- as.numeric(key$at) ## problems otherwise with DateTime objects (?)
 
-    recnum <- length(scat)-1
+    ## recnum <- length(scat)-1
     reccentre <- (scat[-1] + scat[-length(scat)]) / 2
     recdim <- diff(scat)
 

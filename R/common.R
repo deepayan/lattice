@@ -47,14 +47,14 @@ cupdate <- function(index, maxim)
 
 
 
-generateNewName <- function(names.current, new.prefix="gvar")
-{
-    names.current <- as.character(names.current)
-    new.prefix <- as.character(new.prefix)
-    newnames <- c(new.prefix,
-                  paste(gvar, seq(along=names.current), sep=""))
-    newnames[!(newnames %in% names.current)][1]
-}
+# generateNewName <- function(names.current, new.prefix="gvar")
+# {
+#     names.current <- as.character(names.current)
+#     new.prefix <- as.character(new.prefix)
+#     newnames <- c(new.prefix,
+#                   paste(gvar, seq(along=names.current), sep=""))
+#     newnames[!(newnames %in% names.current)][1]
+# }
 
 
 
