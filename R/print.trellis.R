@@ -119,8 +119,8 @@ print.trellis <-
 
     bg = trellis.par.get("background")$col
     new <- TRUE
-    if (get(".lattice.print.more", envir=.LatticeEnv) || !newpage) new <- FALSE
-    assign(".lattice.print.more", more, envir=.LatticeEnv)
+    if (lattice.getStatus("print.more") || !newpage) new <- FALSE
+    lattice.getStatus(print.more = more)
     usual  <- (missing(position) & missing(split))
     ##if (!new && usual)
     ##    warning("more is relevant only when split/position is specified")

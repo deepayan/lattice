@@ -739,3 +739,29 @@ lattice.options <- function(...)
          )
 
 
+
+
+
+
+lattice.getStatus <- function(name)
+    get("lattice.status", envir = .LatticeEnv)[[name]]
+
+lattice.setStatus <- function(..., list = list())
+{
+    dots <- list(...)
+    if (length(dots) == 0 && length(list) > 0) dots <- list
+    if (length(dots) == 0) return()
+    lattice.status <- get("lattice.status", envir = .LatticeEnv)
+    lattice.status[names(dots)] <- dots
+    assign("lattice.status", lattice.status, env = .LatticeEnv)
+}
+
+.defaultLatticeStatus <- function()
+    list(print.more = FALSE,
+         current.plot.saved = FALSE,
+         current.plot.multipage = FALSE,
+         current.focus.row = 0,
+         current.focus.column = 0,
+         current.focus.index = 0,
+         vp.highlighted = FALSE)
+
