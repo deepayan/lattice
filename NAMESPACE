@@ -40,19 +40,20 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        prepanel.loess, prepanel.qqmathline, qq, qqmath, rfs, shingle,
        show.settings, simpleKey, splom, strip.default, stripplot, tmd,
        trellis.device, trellis.par.get, trellis.par.set, wireframe,
-       xyplot,
-
+       xyplot, 
 
        reorderFactor,
 
+       do.breaks,
+       lattice.getOption, lattice.options,
+       latticeVP.focus, latticeVP.unfocus, latticeVP.switch,
+       latticeVP.panelArgs,
 
-       ## interaction stuff
+       panel.arrows, panel.segments, panel.lines, panel.points,
+       panel.text,
 
-       latticeVP.switch, latticeVP.focus,
-       latticeVP.unfocus, latticeVP.panelArgs)
-
-
-
+       strip.custom, trellis.last.object
+       )
 
 
 
