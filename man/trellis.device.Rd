@@ -31,12 +31,15 @@ col.whitebg()
     device opened, or, a function that when called produces such a
     list. The function name can be supplied as a quoted string.
 
-    A possible use of this argument is to change the default settings at
-    session startup, for example by setting \code{options(lattice.theme
-      = "col.whitebg")}. If \code{theme} is a function, it will not be
-    supplied any arguments, however, it is guaranteed that a device will
-    already be open when it is called, so one may use \code{.Device}
-    inside the function to ascertain what device has been opened.
+    A possible use of this argument is to change the default settings by 
+    specifying \code{lattice.options(default.theme = "col.whitebg")}. 
+    For back-compatibility, this is initially (when lattice is loaded)
+    set to \code{options(lattice.theme)}.
+
+    If \code{theme} is a function, it will not be supplied any
+    arguments, however, it is guaranteed that a device will already be
+    open when it is called, so one may use \code{.Device} inside the
+    function to ascertain what device has been opened.
   }
   \item{new}{ logical flag indicating whether a new device should be
     started. If \code{FALSE},  the options for the current device are
