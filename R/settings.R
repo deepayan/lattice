@@ -106,10 +106,11 @@ canonical.theme <- function(name = "null device", color = TRUE)
              strip.shingle    = list(col = can.col[c(5, 4, 2, 6, 3, 8, 7)]),
              strip.border     = list(col = rep(can.col[1], 7), lty = rep(1, 7), lwd = rep(1, 7)),
              superpose.line   = list(col = can.col[2:8], lty = rep(1, 7), lwd = rep(1, 7)),
+             superpose.symbol = list(cex = rep(0.8, 7), col = can.col[2:8], font = rep(1, 7), pch = rep(1, 7)),
+             superpose.fill   = list(col = can.col[2:8]),
              regions          = list(col = rev(cm.colors(100))),
              shade.colors     = list(palette = function(irr, ref, height, saturation = .9)
                                 hsv(h = height, s = 1 - saturation * (1 - (1-ref)^0.5), v = irr)),
-             superpose.symbol = list(cex = rep(0.8, 7), col = can.col[2:8], font = rep(1, 7), pch = rep(1, 7)),
              axis.line        = list(col = can.col[1], lty = 1, lwd = 1),
              axis.text        = list(cex = .8, col = can.col[1], font = 1),
              box.3d           = list(col = can.col[1], lty = 1, lwd = 1),
@@ -559,5 +560,32 @@ show.settings <- function(x = NULL)
 
 
 
+## non-graphical options
 
-    
+lattice.getOption <- function(name)
+{
+    get("lattice.options", envir = .LatticeEnv)[[name]]
+}
+
+lattice.options <- function(...)
+{
+    new <- list(...)
+    if (length(new) == 1 && is.list(new[[1]])) new <- new[[1]]
+    print(new)
+    old <- .LatticeEnv$lattice.options
+    ## any reason to prefer get("lattice.options", envir = .LatticeEnv)?
+    if (length(new) == 0) return(old) ## no args, returns full options list
+    nm <- names(new)
+    if (is.null(nm)) return(old[unlist(new)]) ## typically getting opions, not setting
+    isNamed <- nm != "" ## typically all named when setting, but could have mix
+    if (any(!isNamed)) nm[!isNamed] <- unlist(new[!isNamed])
+    ## so now everything has non-"" names, but only the isNamed ones should be set
+    ## everything should be returned, however
+    retVal <- old[nm]
+    names(retVal) <- nm
+    nm <- nm[isNamed]
+    .LatticeEnv$lattice.options[nm] <- new[nm]
+    retVal
+}
+
+
