@@ -26,7 +26,9 @@ prepanel.default.tmd <-
 
 
 
-panel.tmd <- function(...) {
+panel.tmd <-
+    function(...)
+{
     panel.abline(h=0)
     panel.xyplot(...)
 }
@@ -37,12 +39,13 @@ panel.tmd <- function(...) {
 
 
 
-tmd <- function(object,
-                xlab = "mean",
-                ylab = "difference",
-                panel = "panel.tmd",
-                prepanel = "prepanel.default.tmd",
-                ...)
+tmd <-
+    function(object,
+             xlab = "mean",
+             ylab = "difference",
+             panel = "panel.tmd",
+             prepanel = "prepanel.default.tmd",
+             ...)
 {
 
     ## data x, y are not always in panel.args (they may be in
