@@ -90,14 +90,16 @@ panel.histogram <- function(x,
     x <- as.numeric(x)
 
     grid.lines(x = c(0.05, 0.95),
-               y = unit(c(0,0),"native"),
+               y = unit(c(0,0), "native"),
+               gp = gpar(col = border, lty = lty, lwd = lwd, alpha = alpha)
                default.units = "npc")
         
-    if (length(x)>0) {
+    if (length(x)>0)
+    {
         bar.fill  <- trellis.par.get("bar.fill")
 
-        if (is.null(breaks)) {
-
+        if (is.null(breaks))
+        {
             nint <- round(log2(length(x)) + 1)
             breaks <-
                 if (equal.widths) do.breaks(range(x), nint)
@@ -115,10 +117,14 @@ panel.histogram <- function(x,
         if (nb != (length(y)+1)) warning("something is probably wrong")
 
 
-        if (nb>1) {
+        if (nb>1)
+        {
             for(i in 1:(nb-1))
-                if (y[i]>0) {
-                    grid.rect(gp = gpar(fill = col, alpha = alpha, col = border, lty = lty, lwd = lwd),
+                if (y[i]>0)
+                {
+                    grid.rect(gp =
+                              gpar(fill = col, alpha = alpha,
+                                   col = border, lty = lty, lwd = lwd),
                               x = breaks[i],
                               y = 0,
                               height = y[i],

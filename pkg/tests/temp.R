@@ -136,3 +136,10 @@ dotplot(variety ~ yield | year * site, data = my.barley,
 
 
 dev.off()
+
+
+
+
+
+
+
