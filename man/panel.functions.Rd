@@ -127,21 +127,10 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
   density function. Can be useful in conjunction with \code{histogram}
   and \code{densityplot} to visually estimate goodness of fit.
 
-  \code{panel.axis} draws axis tick marks INSIDE a panel. It honours the
-  (native) axis scales within the panel, but the locations need to be
-  explicitly specified. Used in \code{\link{panel.pairs}} for
-  \code{\link{splom}}.
-
-  \code{panel.identify} is similar to \code{\link{identify}}. When
-  called as part of the panel function, it waits for the user to
-  identify points (in the panel being drawn) via mouse clicks.
-  Clicks other than left-clicks terminate the procedure. It is less
-  sophisticated than \code{identify} in the sense that it does not keep
-  track of points already identified.
-
 }
 
 \seealso{\code{\link[stats:scatter.smooth]{loess.smooth}},
+  \code{\link{panel.axis}}, \code{\link{panel.identify}}
   \code{\link{identify}}, \code{\link{trellis.par.get}}
 }
 
