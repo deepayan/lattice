@@ -100,7 +100,7 @@
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \examples{
-data(singer)
+
 p11 <- histogram( ~ height | voice.part, data = singer, xlab="Height")
 p12 <- densityplot( ~ height | voice.part, data = singer, xlab = "Height")
 p2 <- histogram( ~ height, data = singer, xlab = "Height")
@@ -116,7 +116,6 @@ print(p12, position = c(0,0,.75,.75), split=c(1,2,1,2), more=TRUE)
 print(p2, position = c(.5,.75,1,1), more=FALSE)
 
 ## Using seekViewport
-data(longley)
 
 ## repeat same plot, with different polynomial fits in each panel
 xyplot(Armed.Forces ~ Year, longley, index.cond = list(rep(1, 6)),

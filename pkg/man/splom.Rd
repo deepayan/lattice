@@ -146,7 +146,6 @@ parallel(formula,
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
 \examples{
-data(iris)
 super.sym <- trellis.par.get("superpose.symbol")
 splom(~iris[1:4], groups = Species, data = iris,
       panel = panel.superpose,
