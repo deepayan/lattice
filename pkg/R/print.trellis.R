@@ -51,9 +51,6 @@ rearrangeUnit <- function(x, pos, u)
 
 
 
-
-
-
 ## utility to create a full-fledged list describing a label from parts
 ## (used for main, sub, xlab, ylab)
 
