@@ -189,7 +189,9 @@ canonical.theme <- function(name = "null device", color = TRUE)
         ans$dot.symbol$cex <- 0.85
         ans$plot.line$col <- can.col[1]
         ans$plot.symbol$col <- can.col[1]
-        ans$regions$col <- gray(29:128/128)
+        ## changing this to be like barplot
+        ## ans$regions$col <- gray(29:128/128)
+        ans$regions$col <- grey(seq(0.3^2.2, 0.9^2.2, length = 100)^(1/2.2))
         ans$shade.colors$palette <-
             function(irr, ref, height, w = .5)
                 grey(w * irr + (1 - w) * (1 - (1-ref)^.4))
@@ -201,7 +203,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
         ans$superpose.symbol$col <- can.col[rep(1, 7)]
         ans$superpose.symbol$cex <- rep(0.7, 7)
         ans$superpose.symbol$pch <- c(1,3,6,0,5,16,17)
-        ans$superpose.fill$col <- gray( (c(6, 12, 7, 11, 8, 10, 9)/15)^.8 )
+        ans$superpose.fill$col <- grey( (c(6, 12, 7, 11, 8, 10, 9)/15)^.8 )
         ##ans$superpose.symbol$pch <- c("o","+",">","s","w","#","{")
     }
     ans
@@ -682,7 +684,7 @@ lattice.options <- function(...)
          ## additive
 
 
-         skip.boundary.labels = 0.06,
+         skip.boundary.labels = 0.02,
 
          ## ticks too close to the limits will not be drawn unless
          ## explicitly requested.  Limits will be imploded by this
