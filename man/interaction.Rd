@@ -19,7 +19,7 @@
 panel.identify(x, y = NULL, labels = seq(along = x),
                n = length(x), offset = 0.5,
                threshold = 18,
-               panel.args = latticeVP.panelAgs(),
+               panel.args = latticeVP.panelArgs(),
                \dots)
 latticeVP.switch(name = c("panel", "strip"), clip.off = FALSE)
 latticeVP.focus(column, row, name = c("panel", "strip"),
@@ -124,13 +124,23 @@ latticeVP.focus(1, 1)
 panel.identify()
 }
 
-xyplot(rnorm(100) ~ rnorm(100))
+xyplot(Petal.Length ~ Sepal.Length | Species, iris, layout = c(2, 2))
 Sys.sleep(1)
+
 latticeVP.focus(1, 1)
 do.call("panel.lmline", latticeVP.panelArgs())
-Sys.sleep(1)
+Sys.sleep(0.5)
 latticeVP.unfocus()
 
+latticeVP.focus(2, 1)
+do.call("panel.lmline", latticeVP.panelArgs())
+Sys.sleep(0.5)
+latticeVP.unfocus()
+
+latticeVP.focus(1, 2)
+do.call("panel.lmline", latticeVP.panelArgs())
+Sys.sleep(0.5)
+latticeVP.unfocus()
 
 }
 
