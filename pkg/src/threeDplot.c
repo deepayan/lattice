@@ -220,9 +220,14 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 
      /* Depth Calculation: we need to determine the order in which the
       * quadrilaterals are to be drawn. However, It is not clear what
-      * would be a good criteria to do this. We currently order on the
-      * basis of average facet depth.
+      * would be a good criteria to do this. 
      */
+
+     /* Depth of nearest and farthest corners both have
+	problems. Changing to average depth. This still has problems,
+	but less frequently
+     */
+
 
      for (i = 0; i < nh; i++) {
          double tx, ty, tz, th;
@@ -278,8 +283,11 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 		 / (rot[3] * tx + rot[7] * ty + rot[11] * tz + rot[15]);
 
 	 /*WAS: if (th > heights[i]) heights[i] = th;  similar below*/
-	 if (th < heights[i]) heights[i] = th;
-
+	 /* Why change? causes problems with 3D histogram type
+	    plots. changing back. Revisit later (FIXME) */
+	 /* if (th > heights[i]) heights[i] = th; */
+	 /* Still problems, so changing to average depth */
+	 heights[i] += th;
 
 	 /* (1,1) corner */
 	 tx = x[txi11];
@@ -287,7 +295,8 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 	 tz = z[tzi11];
 	 th = (rot[2] * tx + rot[6] * ty + rot[10] * tz + rot[14]) 
 		 / (rot[3] * tx + rot[7] * ty + rot[11] * tz + rot[15]);
-	 if (th < heights[i]) heights[i] = th;
+	 /* if (th > heights[i]) heights[i] = th; */
+	 heights[i] += th;
 
 
 	 /* (0,1) corner */
@@ -296,7 +305,10 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 	 tz = z[tzi01];
 	 th = (rot[2] * tx + rot[6] * ty + rot[10] * tz + rot[14]) 
 		 / (rot[3] * tx + rot[7] * ty + rot[11] * tz + rot[15]);
-	 if (th < heights[i]) heights[i] = th;
+	 /* if (th > heights[i]) heights[i] = th; */
+	 heights[i] += th;
+
+	 heights[i] /= 4.0;
      }
 
      /* Rprintf("\nFinished depth calculation, ordering...\n");  */
