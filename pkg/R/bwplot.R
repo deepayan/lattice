@@ -840,8 +840,12 @@ bwplot <-
     x <- form$right
     y <- form$left
     if (is.null(y))
+    {
         y <- rep(if (is.null(names(x))) '' else names(x), length = length(x))
-    if (number.of.cond == 0) {
+        y <- factor(y, levels = unique(y))
+    }
+    if (number.of.cond == 0)
+    {
         strip <- FALSE
         cond <- list(as.factor(rep(1, length(x))))
         number.of.cond <- 1
