@@ -521,3 +521,47 @@ panel.mathdensity <-
 }
 
 
+
+getTextPosition <- function(x, y)
+    ## returns position 1: below, 2: left, 3: above, 4: right (w.r.t
+    ## origin)
+{
+    a <- abs(c(x, y))
+    if (y <= 0 && a[1] <= -y) 1
+    else if (x <= 0 && a[2] <= -x) 2
+    else if (y >= 0 && a[1] <= y) 3
+    else if (x >= 0 && a[2] <= x) 4
+}
+
+
+panel.identify <-
+    function (x, y = NULL, labels = seq(along = x), 
+              n = length(x), offset = 0.5,
+              threshold = 18, ## in points, roughly 0.25 inches
+              ...)
+    ## ... goes to ltext
+{
+    xy <- xy.coords(x, y)
+    x <- xy$x
+    y <- xy$y
+    px <- convertX(unit(x, "native"), "points", TRUE)
+    py <- convertY(unit(y, "native"), "points", TRUE)
+    labels <- as.character(labels)
+    for (i in seq(length = n))
+    {
+        ll <- grid.locator(unit = "points")
+        if (convertX(ll$x, "npc", TRUE) < 0.0001) break ## need to do better
+        lx <- convertX(ll$x, "points", TRUE)
+        ly <- convertY(ll$y, "points", TRUE)
+        pdists <- sqrt((px - lx)^2 + (py - ly)^2)
+        if (min(pdists, na.rm = TRUE) > threshold)
+            warning("no points within threshold of ", threshold, " points")
+        else {
+            w <- which.min(pdists)
+            pos <- getTextPosition(x = lx - px[w], y = ly - py[w])
+            ltext(x[w], y[w], labels[w], pos = pos, offset = offset, ...)
+        }
+    }
+}
+
+
