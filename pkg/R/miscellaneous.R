@@ -216,7 +216,7 @@ lsegments <-
 
 larrows <-
     function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
-             angle = 30, code = 2, length = 0.25, 
+             angle = 30, code = 2, length = 0.25, unit = "inches",
              col = add.line$col,
              alpha = add.line$alpha,
              lty = add.line$lty,
@@ -238,7 +238,7 @@ larrows <-
                      y0 = y0, y1 = y1,
                      gp = gp, 
                      default.units = "native")
-    grid.arrows(grob = sg, length = unit(length, "inches"),
+    grid.arrows(grob = sg, length = unit(length, unit),
                 angle = angle, ends = ends,
                 gp = gp,
                 ...)
