@@ -4,8 +4,10 @@
 
 import(grid)
 
-importFrom(graphics, plot, co.intervals, 
-	dev.list, cm.colors, gray, heat.colors)
+
+importFrom(grDevices, dev.list, cm.colors, gray, heat.colors)
+importFrom(graphics, plot, co.intervals)
+
 
 importFrom(stats, as.formula, density, fitted.values, loess.smooth, 
            median, ppoints, qnorm, residuals, update)
@@ -28,7 +30,8 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        oneway, panel.3dscatter, panel.3dwire, panel.abline,
        panel.barchart, panel.bwplot, panel.cloud, panel.curve,
        panel.densityplot, panel.dotplot, panel.fill, panel.grid,
-       panel.rug, panel.histogram, panel.levelplot, panel.linejoin,
+       panel.rug, panel.histogram, panel.levelplot,
+       panel.contourplot, panel.linejoin,
        panel.identify, panel.lmline, panel.loess, panel.mathdensity,
        panel.pairs, panel.parallel, panel.qq, panel.qqmath,
        panel.qqmathline, panel.splom, panel.stripplot,
@@ -37,10 +40,8 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        prepanel.loess, prepanel.qqmathline, qq, qqmath, rfs, shingle,
        show.settings, simpleKey, splom, strip.default, stripplot, tmd,
        trellis.device, trellis.par.get, trellis.par.set, wireframe,
-       xyplot)
+       xyplot, reorder.factor)
 
-
-## other things to export eventually: reorder.factor
 
 
 S3method("[", shingle)
@@ -51,6 +52,7 @@ S3method(print, shingleLevel)
 S3method(print, trellis)
 S3method(summary, shingle)
 S3method(update, trellis)
+S3method(summary, trellis)
 
 
 ### Local variables:
