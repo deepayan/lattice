@@ -96,8 +96,9 @@ as.factorOrShingle <- function(x, subset = TRUE, drop = FALSE)
 updateList <-
     function(x, val)
 {
-    if (!is.list(x) || !is.list(val))
-        stop("Both x and val must be lists")
+    if (is.null(x)) x <- list()
+    if (!is.list(x)) stop("x must be NULL or a list")
+    if (!is.list(val)) stop("val must be a list")
     xnames <- names(x)
     for (v in names(val))
     {
