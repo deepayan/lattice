@@ -4,17 +4,11 @@
 
 import(grid)
 
-
-
 importFrom(graphics, plot, co.intervals, 
 	dev.list, cm.colors, gray, heat.colors)
 
-
-
 importFrom(stats, as.formula, density, fitted.values, loess.smooth, 
            median, ppoints, qnorm, residuals, update)
-
-
 
 
 export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
