@@ -75,7 +75,8 @@ qqmath <-
              xlim,
              ylab,
              ylim,
-             f.value = ppoints,
+###          f.value = ppoints,
+             f.value = NULL,
              distribution = qnorm,
              drop.unused.levels = TRUE,
              ...,
@@ -236,8 +237,12 @@ qqmath <-
         }
         if (any(id)) {
             foo$panel.args[[panel.number]] <-
-                list(x = distribution(f.value(length(x[id]))), 
-                     y = quantile(x[id], f.value(length(x[id]))))
+                if (is.null(f.value)) # exact data instead of quantiles
+                    list(x = distribution(f.value(length(x[id]))), 
+                         y = x[id])
+                else
+                    list(x = distribution(f.value(length(x[id]))), 
+                         y = quantile(x[id], f.value(length(x[id]))))
         }
         else
             foo$panel.args[[panel.number]] <-
