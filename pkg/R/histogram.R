@@ -88,15 +88,15 @@ panel.histogram <- function(x,
                             ...)
 {
     x <- as.numeric(x)
+    bar.fill  <- trellis.par.get("bar.fill")
 
     grid.lines(x = c(0.05, 0.95),
                y = unit(c(0,0), "native"),
-               gp = gpar(col = border, lty = lty, lwd = lwd, alpha = alpha)
+               gp = gpar(col = border, lty = lty, lwd = lwd, alpha = alpha),
                default.units = "npc")
         
     if (length(x)>0)
     {
-        bar.fill  <- trellis.par.get("bar.fill")
 
         if (is.null(breaks))
         {

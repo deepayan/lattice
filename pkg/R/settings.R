@@ -662,12 +662,21 @@ lattice.options <- function(...)
     list(save.object = TRUE,
          drop.unused.levels = list(cond = TRUE, data = TRUE),
          default.theme = getOption("lattice.theme"), ## for back compatibility, usually NULL
+
          axis.padding = list(numeric = 0.07, factor = 0.6),
 
          ## extends limits by this amount, to provide padding for
          ## numeric and factor scales respectively. Note that the
          ## value for numeric is multiplicative, while factor is
          ## additive
+
+
+         skip.boundary.labels = 0.06,
+
+         ## ticks too close to the limits will not be drawn unless
+         ## explicitly requested.  Limits will be imploded by this
+         ## proportion, and anything outside will be skipped.
+
 
          axis.units =
          list(outer =

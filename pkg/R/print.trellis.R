@@ -46,7 +46,6 @@ getLabelList <- function(label, text.settings, default.label = NULL)
                     fontfamily = text.settings$fontfamily,
                     fontface = text.settings$fontface,
                     font = text.settings$font)
-
         if (is.list(label)) ans[names(label)] <- label
     }
     else ans <- NULL
@@ -109,6 +108,7 @@ evaluate.legend <- function(legend)
 
 
 
+## S3 print method for "trellis" objects
 
 print.trellis <-
     function(x, position, split, more = FALSE,
@@ -143,7 +143,7 @@ print.trellis <-
     ## this means this plot will be the first one on a new page
     if (new) lattice.setStatus(plot.index = 1)
 
-    ## get default prefix
+    ## get default prefix for grid viewport/object names
     if (missing(prefix))
         prefix <- paste("plot", lattice.getStatus("plot.index"), sep = "")
     lattice.setStatus(current.prefix = prefix)

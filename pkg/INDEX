@@ -1,11 +1,15 @@
+Lattice                 Lattice Graphics
+Rows                    Extract 'rows' from a list
 banking                 Banking
 barley                  Yield data from a Minnesota barley trial
 cloud                   3d Scatter Plot
 draw.colorkey           Produce a Colorkey for levelplot
 draw.key                Produce a Legend or Key
+environmental           Atmospheric environmental conditions in New
+                        York City
 equal.count             shingles
+ethanol                 Engine exhaust fumes from burning ethanol
 histogram               Histograms and Kernel Density Plots
-Lattice                 Lattice Graphics
 lattice.options         Low-level Options Controlling Behaviour of
                         Lattice
 latticeParseFormula     Parse Trellis formula
@@ -14,6 +18,7 @@ llines                  Lattice Replacements of base graphics
                         functions
 lset                    Interface to modify Trellis Settings -
                         Deprecated
+melanoma                Melanoma skin cancer incidence
 oneway                  Fit One-way Model
 panel.axis              Panel Function for Drawing Axis Ticks and
                         Labels
@@ -38,9 +43,8 @@ print.trellis           Print Trellis Objects
 qq                      Quantile-Quantile Plots of Two Samples
 qqmath                  Q-Q Plot with Theoretical Distribution
 rfs                     Residual and Fit Spread Plots
-Rows                    Extract 'rows' from a list
 simpleKey               Function to generate a simple key
-singer                  Data Sets in the Lattice library
+singer                  Heights of New York Choral Society singers
 splom                   Scatter Plot Matrices
 strip.default           In-built Trellis Strip Function
 tmd                     Tukey Mean-Difference Plot
