@@ -11,13 +11,10 @@ draw.key(key, draw=FALSE, vp=NULL)
 \arguments{
   \item{key}{ A list determining the key. See documentation for
     \code{xyplot}, in particular the section describing the `key'
-    argument for details.
+    argument, for details.
   }
   \item{draw}{ logical, whether the grob is to be drawn. }
   \item{vp}{ viewport }
-}
-\details{
-  Maybe later :)
 }
 \value{
   A Grid frame object (that inherits from ``grob'')

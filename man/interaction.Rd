@@ -5,9 +5,10 @@
 \alias{trellis.switchFocus}
 \alias{trellis.panelArgs}
 \alias{trellis.vpname}
+\alias{trellis.grobname}
 \title{Functions to Interact with Lattice Plots}
 \description{
-  The classical Trellis paradigm is to plot the whole object at once,
+  The classic Trellis paradigm is to plot the whole object at once,
   without the possibility of interacting with it afterwards.  However,
   by keeping track of the grid viewports where the panels and strips are
   drawn, it is possible to go back to them afterwards and enhance them

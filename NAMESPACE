@@ -42,8 +42,6 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        trellis.device, trellis.par.get, trellis.par.set, wireframe,
        xyplot, 
 
-       reorderFactor,
-
        do.breaks,
        lattice.getOption, lattice.options,
        trellis.focus, trellis.unfocus, trellis.switchFocus,
