@@ -413,21 +413,39 @@ ltext <-
              fontface = add.text$fontface,
              adj = c(.5, .5),
              pos = NULL,
+             offset = 0.5,
+             ## FIXME: need an offset argument
              ...)
 {
     add.text <- trellis.par.get("add.text")
 
     xy <- xy.coords(x, y)
     if (length(xy$x) == 0) return()
+    ux <- unit(xy$x, "native")
+    uy <- unit(xy$y, "native")
     if (!is.null(pos))
-        adj <-
-            if (pos == 1) c(.5, 1)
-            else if (pos == 2) c(1, .5)
-            else if (pos == 3) c(.5, 0)
-            else if (pos == 4) c(0, .5)
-            else stop("Invalid value of pos")
+    {
+        if (pos == 1) {
+            uy <- uy - unit(offset, "char")
+            adj <- c(.5, 1)
+        }
+        else if (pos == 2) {
+            ux <- ux - unit(offset, "char")
+            adj <- c(1, .5)
+        }
+        else if (pos == 3) {
+            uy <- uy + unit(offset, "char")
+            adj <- c(.5, 0)
+        }
+        else if (pos == 4) {
+            ux <- ux + unit(offset, "char")
+            adj <- c(0, .5)
+        }
+        else stop("Invalid value of pos")
+        
+    }
     if (length(adj) == 1) adj <- c(adj, .5)
-    grid.text(label = labels, x = xy$x, y = xy$y,
+    grid.text(label = labels, x = ux, y = uy,
               gp =
               gpar(col = col,
                    fontfamily = fontfamily,
@@ -439,8 +457,7 @@ ltext <-
               if (adj[2] == 0) "bottom"
               else if (adj[2] == 1) c("top")
               else "centre"),
-              rot = srt,
-              default.units = "native")
+              rot = srt)
 }
 
 
