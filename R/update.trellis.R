@@ -408,6 +408,12 @@ update.trellis <-
                 object$aspect.ratio <- "xy" ## guaranteed to be modified below
                 recalculateLimits <- TRUE
             }
+            else if (aspect == "iso")
+            {
+                object$aspect.fill <- FALSE
+                object$aspect.ratio <- "iso" ## guaranteed to be modified below
+                recalculateLimits <- TRUE
+            }
             else warning(paste("Unrecognized value of aspect:", aspect))
         }
         else warning("Invalid value of aspect")

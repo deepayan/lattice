@@ -848,6 +848,7 @@ require(stats)
 ## Tonga Trench Earthquakes
 Depth <- equal.count(quakes$depth, number=8, overlap=.1)
 xyplot(lat ~ long | Depth, data = quakes)
+update(trellis.last.object(), aspect = "iso")
 
 ## Examples with data from `Visualizing Data' (Cleveland)
 ## (obtained from Bill Cleveland's Homepage :

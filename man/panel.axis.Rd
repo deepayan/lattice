@@ -9,7 +9,7 @@
 }
 \synopsis{
 panel.axis(side = c("bottom", "left", "top", "right"),
-             at,
+             at = pretty(scale.range),
              labels = TRUE,
              draw.labels = TRUE,
              check.overlap = FALSE,
@@ -43,13 +43,15 @@ panel.axis(side = c("bottom", "left", "top", "right"),
            tick = TRUE,
            half = !outside,
            which.half,
-           tck = 1, rot)
+           tck = 1,
+           rot, \dots)
 }
 \arguments{
-  \item{side}{ character string indicating which side axes are to be
-    drawn on. Partial matching is allowed.
+  \item{side}{
+    character string indicating which side axes are to be drawn
+    on. Partial specification is allowed.
   }
-  \item{at}{ location of labels. No default. }
+  \item{at}{ location of labels }
   \item{labels}{
     the labels to go along with \code{at}. The labels can be a character
     vector or a vector of expressions. Alternatively, this can be a
@@ -60,7 +62,9 @@ panel.axis(side = c("bottom", "left", "top", "right"),
     logical indicating whether labels are to be drawn
   }
   \item{check.overlap}{
-    logical, whether to check for overlapping of labels
+    logical, whether to check for overlapping of labels.  This also has
+    the effect of removing \code{at} values that are `too close' to the
+    limits.
   }
   \item{outside}{
     logical, whether to the labels draw outside the panel or inside.
@@ -77,25 +81,27 @@ panel.axis(side = c("bottom", "left", "top", "right"),
   \item{tck}{
     numeric scalar, multiplier for tick length. Can be negative.
   }
-  \item{rot}{ rotation angles for labels in degrees }
-  \item{\dots}{ graphical parameters can be supplied. see function
-    definition for details. 
+  \item{rot}{
+    rotation angles for labels in degrees. Can be a vector of length 2
+    for x- and y-axes respectively
+  }
+  \item{\dots}{
+    certain graphical parameters (fonts, color, etc) can be
+    supplied. See the formal argument list for valid names.
   }
 }
 \details{
   \code{panel.axis} can draw axis tick marks inside or outside a
   panel (more precisely, a grid viewport). It honours the (native) axis
-  scales, but the locations need to be explicitly specified. Used in
-  \code{\link{panel.pairs}} for \code{\link{splom}}, as well as for all
-  the usual axis drawing by the \code{print} method for ``trellis''
-  objects. With knowledge of the underlying grid layout, it can be used
-  to enhance plots `after the fact' by adding axes in non-standard
-  locations.
-
+  scales. Used in \code{\link{panel.pairs}} for \code{\link{splom}}, as
+  well as for all the usual axis drawing by the print method for
+  ``trellis'' objects. It can also be used to enhance plots `after the
+  fact' by adding axes.
 }
 
 \seealso{
-  \code{\link{Lattice}}, \code{\link{xyplot}}
+  \code{\link{Lattice}}, \code{\link{xyplot}},
+  \code{\link{trellis.focus}}
 }
 
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}

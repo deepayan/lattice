@@ -388,7 +388,7 @@ banking <- function(dx, dy = 1)
 
 extend.limits <-
     function(lim, length=1, axs = "r",
-             prop = if (axs == "i") 0 else 0.07)
+             prop = if (axs == "i") 0 else lattice.getOption("axis.padding")$numeric)
 {
     if (!is.numeric(lim)) NA
     else if(length(lim)==2) {
@@ -408,7 +408,7 @@ extend.limits <-
     }
     else {
         print(lim)
-        stop("improper length of lim in extend.limits")
+        stop("improper length of lim")
     }
 }
 

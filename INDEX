@@ -13,7 +13,7 @@ latticeParseFormula     Parse Trellis formula
 levelplot               Level Plots
 llines                  Lattice Replacements of base graphics
                         functions
-lset                    Simple Interfaces to modify Trellis Settings -
+lset                    Interface to modify Trellis Settings -
                         Deprecated
 oneway                  Fit One-way Model
 panel.axis              Panel Function for Drawing Axis Ticks and
