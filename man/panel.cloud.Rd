@@ -10,13 +10,15 @@
 }
 
 \usage{
-panel.cloud(
-x, y, z, subscripts,
+panel.cloud(x, y, subscripts, z,
             groups = NULL,
-            distance, xlim, ylim, zlim,
+            perspective = TRUE,
+            distance = if (perspective) 0.2 else 0, 
+            xlim, ylim, zlim,
             panel.3d.cloud = "panel.3dscatter",
             panel.3d.wireframe = "panel.3dwire",
-            rot.mat, aspect,
+            screen = list(z = 40, x = -60),
+            R.mat = diag(4), aspect,
             par.box = NULL,
             xlab, ylab, zlab,
             xlab.default, 
@@ -76,7 +78,39 @@ panel.3dwire(x, y, z, rot.mat, distance,
     each panel. \code{subscripts} specifies the subset of rows to be
     used for the particular panel.
   }
-  \item{distance, par.box}{ described in \code{\link{cloud}} }
+  \item{groups}{
+    specification of a grouping variable, passed down from the high
+    level functions.
+  }
+
+  \item{perspective}{
+    logical, whether to plot a perspective view. Setting this to
+    \code{FALSE} is equivalent to setting \code{distance} to 0
+  }
+  \item{distance}{
+    numeric, between 0 and 1, controls amount of perspective. The
+    distance of the viewing point from the origin (in the transformed
+    coordinate system) is \code{1 / distance}. This is described in a
+    little more detail in the documentation for \code{\link{cloud}}
+  }
+
+  \item{screen}{
+    A list determining the sequence of rotations to be applied to the
+    data before being plotted. The initial position starts with the
+    viewing point along the positive z-axis, and the x and y axes in the
+    usual position. Each component of the list should be named one of
+    \code{x, y, z} (repititions are allowed), with their values
+    indicating the amount of rotation about that axis in degrees.
+  }
+  \item{R.mat}{
+    initial rotation matrix in homogeneous coordinates, to be applied to
+    the data before \code{screen} rotates the view further.
+  }
+  \item{par.box}{
+    graphical parameters for box, namely, col, lty and lwd. By default
+    obtained from the parameter \code{box.3d}
+  }
+
   \item{xlim, ylim, zlim}{
     limits for the respective axes. As with other lattice functions,
     these could each be a numeric 2-vector or a character vector
@@ -127,7 +161,7 @@ panel.3dwire(x, y, z, rot.mat, distance,
   \item{rot.mat}{
     4x4 transformation matrix in homogeneous coordinates. This gives the
     rotation matrix combining the \code{screen} and \code{R.mat}
-    arguments to \code{\link{cloud}}
+    arguments to \code{\link{panel.cloud}}
   }
   \item{type}{
     character vector, specifying type of cloud plot. Can include one or
@@ -157,10 +191,6 @@ panel.3dwire(x, y, z, rot.mat, distance,
     This is useful for two reasons. It can be set to \code{FALSE} to use
     `+' as the plotting character in the regular sense. It can also be
     used to force this feature in grouped displays.
-  }
-  \item{groups}{
-    specification of a grouping variable, passed down from the high
-    level functions.
   }
   \item{shade}{
     logical, indicating whether the surface is to be colored using an
@@ -199,9 +229,9 @@ panel.3dwire(x, y, z, rot.mat, distance,
 }
 \details{
   These functions together are responsible for the content drawn inside
-  each panel in \code{cloud} and
-  \code{wireframe}. \code{panel.wireframe} is a wrapper to
-  \code{panel.cloud}, which does the actual work.
+  each panel in \code{cloud} and \code{wireframe}.
+  \code{panel.wireframe} is a wrapper to \code{panel.cloud}, which does
+  the actual work.
 
   \code{panel.cloud} is responsible for drawing the content that does
   not depend on the data, namely, the bounding box, the arrows/scales,

@@ -1,50 +1,48 @@
 \name{cloud}
 \title{3d Scatter Plot}
+\alias{cloud}
+\alias{wireframe}
 \synopsis{
 cloud(formula,
-             data = parent.frame(),
-             allow.multiple = is.null(groups) || outer,
-             outer = FALSE,
-             auto.key = FALSE,
-             aspect = c(1,1),
-             panel = "panel.cloud",
-             prepanel = NULL,
-             scales = NULL,
-             strip = TRUE,
-             groups = NULL,
-             xlab,
-             xlim = if (is.factor(x)) levels(x) else range(x, na.rm = TRUE),
-             ylab,
-             ylim = if (is.factor(y)) levels(y) else range(y, na.rm = TRUE),
-             zlab,
-             zlim = if (is.factor(z)) levels(z) else range(z, na.rm = TRUE),
-             distance = .2,
-             perspective = TRUE,
-             R.mat = diag(4),
-             screen = list(z = 40, x = -60),
-             zoom = .8,
-             at,
-             pretty = FALSE,
-             drape = FALSE,
-             drop.unused.levels,
-             ...,
-             colorkey = any(drape),
-             col.regions, cuts = 70,
-             subset = TRUE,
-             axs.default = "r")
+      data = parent.frame(),
+      allow.multiple = is.null(groups) || outer,
+      outer = FALSE,
+      auto.key = FALSE,
+      aspect = c(1,1),
+      panel = "panel.cloud",
+      prepanel = NULL,
+      scales = NULL,
+      strip = TRUE,
+      groups = NULL,
+      xlab,
+      xlim = if (is.factor(x)) levels(x) else range(x, na.rm = TRUE),
+      ylab,
+      ylim = if (is.factor(y)) levels(y) else range(y, na.rm = TRUE),
+      zlab,
+      zlim = if (is.factor(z)) levels(z) else range(z, na.rm = TRUE),
+      zoom = .8,
+      at,
+      drape = FALSE,
+      pretty = FALSE,
+      drop.unused.levels = TRUE,
+      ...,
+      colorkey = any(drape),
+      col.regions, cuts = 70,
+      subset = TRUE,
+      axs.default = "r")
 wireframe(formula,
-             data = parent.frame(),
-             panel = "panel.wireframe",
-             prepanel = NULL,
-             strip = TRUE,
-             groups = NULL,
-             cuts = 70,
-             pretty = FALSE,
-             drape = FALSE,
-             ...,
-             col.regions = trellis.par.get("regions")$col,
-             colorkey = any(drape),
-             subset = TRUE)
+          data = parent.frame(),
+          panel = "panel.wireframe",
+          prepanel = NULL,
+          strip = TRUE,
+          groups = NULL,
+          cuts = 70,
+          pretty = FALSE,
+          drape = FALSE,
+          ...,
+          col.regions = trellis.par.get("regions")$col,
+          colorkey = any(drape),
+          subset = TRUE)
 }
 \usage{
 cloud(formula,
@@ -53,12 +51,7 @@ cloud(formula,
       scales = list(distance = rep(1, 3), arrows = TRUE),
       zlab,
       zlim, 
-      distance = 0.2,
-      par.box,
-      perspective = TRUE,
-      R.mat = diag(4), 
-      screen = list(z = 40, x = -60),
-      zoom = .9,
+      zoom = 0.8,
       \dots)
 wireframe(formula, data,
           at = pretty(z, cuts),
@@ -68,9 +61,6 @@ wireframe(formula, data,
           pretty = FALSE,
           colorkey = any(drape),
           cuts = 70,
-          distance = 0.2,
-          par.box,
-          screen = list(z = 40, x = -60),
           zoom,
           scales),
           \dots)
@@ -78,8 +68,6 @@ wireframe(formula, data,
 \description{
   Draws 3d scatter plots and surfaces.
 }
-\alias{cloud}
-\alias{wireframe}
 \arguments{
   \item{formula}{a formula of the form \code{z ~ x * y | g1 * g2 * ...},
     where \code{z} is a numeric response, and \code{x, y} are numeric
@@ -117,29 +105,8 @@ wireframe(formula, data,
   }
   \item{zlab}{z label}
   \item{zlim}{z limits}
-  \item{distance}{
-    numeric, between 0 and 1, controls amount of perspective. See
-    details below
-  }
-  \item{par.box}{
-    graphical parameters for box, namely, col, lty and lwd. By default
-    obtained from the parameter \code{box.3d}
-  }
-  \item{perspective}{
-    logical, whether to plot a perspective view. Setting this to
-    \code{FALSE} is equivalent to setting \code{distance=0}
-  }
-  \item{R.mat}{
-    initial rotation matrix in homogeneous coordinates. (Untested)
-  }
-  \item{screen}{
-    A list determining the sequence of rotations to be applied to the
-    data before being plotted. The initial position starts with the
-    viewing point along the positive z-axis, and the x and y axes in the
-    usual position. Each component of the list should be named one of
-    \code{x, y, z} (repititions are allowed), with their values
-    indicating the amount of rotation about that axis in degrees.
-  }
+
+
   \item{zoom}{
     factor by which to scale the picture. Useful to get the variable
     names into the plot
@@ -161,18 +128,24 @@ wireframe(formula, data,
     whether a color key should be drawn alongside. See
     \code{\link{levelplot}} for details
   }
-  \item{\dots}{ other arguments, passed to the panel function }
+  \item{\dots}{ other arguments, passed to the panel function. In
+    particular, the arguments \code{distance, perspective, screen} and
+    \code{R.mat} are very important in determining the 3-D
+    display. These arguments are described in detail in the help page
+    for \code{\link{panel.cloud}}
+  }
 }
 \details{
-  These functions produce three dimensional plots in each panel. The
-  orientation is obtained as follows: the data are scaled to fall within
-  a bounding box that is contained in the [-0.5, 0.5] cube (even smaller
-  for non-default values of \code{aspect}).  The viewing direction is
-  given by a sequence of rotations specified by the \code{screen}
-  argument, starting from the positive Z-axis. The viewing point
-  (camera) is located at a distance of \code{1/distance} from the
-  origin. If \code{perspective=FALSE}, \code{distance} is set to 0
-  (i.e., the viewing point is at an infinite distance).
+  These functions produce three dimensional plots in each panel (as long
+  as the default panel functions are used).  The orientation is obtained
+  as follows: the data are scaled to fall within a bounding box that is
+  contained in the [-0.5, 0.5] cube (even smaller for non-default values
+  of \code{aspect}).  The viewing direction is given by a sequence of
+  rotations specified by the \code{screen} argument, starting from the
+  positive Z-axis. The viewing point (camera) is located at a distance
+  of \code{1/distance} from the origin. If \code{perspective=FALSE},
+  \code{distance} is set to 0 (i.e., the viewing point is at an infinite
+  distance).
 
   \code{cloud} draws a 3-D Scatter Plot, while \code{wireframe} draws a
   3-D surface (usually evaluated on a grid). Multiple surfaces can be
