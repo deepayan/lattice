@@ -20,27 +20,22 @@
 
 
 
-## convenient shortcut to create custom strip functions from strip.default
-## FIXME: remember to export
+## convenient shortcut to create custom strip functions from
+## strip.default. Looks a bit dicey, may not always work :-/
+
 strip.custom <-
-    function(var.name,
-             factor.levels,
-             shingle.intervals,
-             strip.names = c(FALSE, TRUE),
-             style = 1)
+    function(...)
+{
+    args <- list(...)
+    function(...)
     {
-        function(..., var.name,
-                 factor.levels,
-                 shingle.intervals,
-                 strip.names = c(FALSE, TRUE),
-                 style = 1)
-            strip.default(...,
-                          var.name = var.name,
-                          factor.levels = factor.levels,
-                          shingle.intervals = shingle.intervals,
-                          strip.names = strip.names,
-                          style = style)
+        dots <- list(...)
+        do.call("strip.default",
+                updateList(dots, args))
     }
+}
+
+
 
 
 
