@@ -44,7 +44,7 @@ splom                   Scatter Plot Matrices
 strip.default           In-built Trellis Strip Function
 tmd                     Tukey Mean-Difference Plot
 trellis.device          Initializing Trellis Displays
-trellis.object          Lattice Display Object
+trellis.object          A Trellis Plot Object
 trellis.par.get         Graphical Parameters for Trellis Displays
 update.trellis          Retrieve and Update Trellis Object
 utilities.3d            Default Panel Function for cloud
