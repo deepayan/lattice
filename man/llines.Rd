@@ -29,7 +29,8 @@ lsegments(x0, y0, x1, y1, x2, y2, col = add.line$col, lty = add.line$lty,
 ltext(x, y = NULL, labels = seq(along = x), col = add.text$col,
     cex = add.text$cex, srt = 0,
     font, fontfamily = add.text$fontfamily,
-    fontface = add.text$fontface, adj = c(0.5, 0.5), pos = NULL, \dots)  
+    fontface = add.text$fontface, adj = c(0.5, 0.5), pos = NULL,
+    offset = 0.5, \dots)  
 }
 \usage{
 larrows(x0, y0, x1, y1, proportion, \dots)
