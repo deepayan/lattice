@@ -60,7 +60,7 @@ getLabelList <- function(label, text.settings, default.label = NULL)
     {
         ans <- list(label = 
                     if (is.characterOrExpression(label)) label
-                    else if (is.list(label) && names(label)[1] == "") label[[1]]
+                    else if (is.list(label) && (is.null(names(label)) || names(label)[1] == "")) label[[1]]
                     else default.label,
                     col = text.settings$col, cex = text.settings$cex,
                     fontfamily = text.settings$fontfamily,
@@ -831,6 +831,7 @@ print.trellis <-
              newpage = TRUE,
              panel.height = list(1, "null"),
              panel.width = list(1, "null"),
+             save.object = TRUE, ## FIXME: make this lattice.getOption("save.object")
              ...)
 {
     if (is.null(dev.list())) trellis.device()
@@ -1773,27 +1774,18 @@ print.trellis <-
                                                   c("null", "grobheight", "npc"),
                                                   list(1, key.gf, 1)))))
                         }
-                        
-
-
                         pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
                         grid.draw(key.gf)
                         upViewport(3)
                     }
                 }
             }
-
-
-
             
             pushViewport(viewport(layout.pos.row = c(1, n.row),
                                   layout.pos.col = c(1, n.col)))
             if (!is.null(x$page)) x$page(page.number)                
             upViewport()
-            
             upViewport()
-            
-            
         }
     }
     if (!missing(position)) {
@@ -1813,5 +1805,6 @@ print.trellis <-
         lset(opars)
     }
 
+    if (save.object) assign("last.object", x, env = .LatticeEnv)
     invisible(x)
 }
