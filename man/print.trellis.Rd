@@ -104,8 +104,8 @@ data(singer)
 p11 <- histogram( ~ height | voice.part, data = singer, xlab="Height")
 p12 <- densityplot( ~ height | voice.part, data = singer, xlab = "Height")
 p2 <- histogram( ~ height, data = singer, xlab = "Height")
-data(sunspot)
-p3 <- xyplot(sunspot~1:37, aspect="xy", type = "l")
+
+
 ## simple positioning by split
 print(p11, split=c(1,1,1,2), more=TRUE)
 print(p2, split=c(1,2,1,2))
@@ -113,7 +113,7 @@ print(p2, split=c(1,2,1,2))
 ## Combining split and position:
 print(p11, position = c(0,0,.75,.75), split=c(1,1,1,2), more=TRUE)
 print(p12, position = c(0,0,.75,.75), split=c(1,2,1,2), more=TRUE)
-print(p3, position = c(.5,.75,1,1), more=FALSE)
+print(p2, position = c(.5,.75,1,1), more=FALSE)
 
 ## Using seekViewport
 data(longley)
