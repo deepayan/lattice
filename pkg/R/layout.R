@@ -208,14 +208,16 @@ calculateGridLayout <-
     ## set default units. These may be scaled by user controlled [heights/widths].settings (usually just 1)
     for (nm in names(heights.defaults))
     {
-        heights.x[pos.heights[[nm]]] <- heights.settings[[nm]] * heights.defaults[[nm]]$x
+        heights.x[pos.heights[[nm]]] <-
+            heights.settings[[nm]] * heights.defaults[[nm]]$x
         heights.units[pos.heights[[nm]]] <- heights.defaults[[nm]]$units
         if (!is.null(heights.defaults[[nm]]$data))
             heights.data[[ pos.heights[[nm]] ]] <- heights.defaults[[nm]]$data
     }
     for (nm in names(widths.defaults))
     {
-        widths.x[pos.widths[[nm]]] <- widths.settings[[nm]] * widths.defaults[[nm]]$x
+        widths.x[pos.widths[[nm]]] <-
+            widths.settings[[nm]] * widths.defaults[[nm]]$x
         widths.units[pos.widths[[nm]]] <- widths.defaults[[nm]]$units
         if (!is.null(widths.defaults[[nm]]$data))
             widths.data[[ pos.widths[[nm]] ]] <- widths.defaults[[nm]]$data
@@ -224,20 +226,24 @@ calculateGridLayout <-
     ## fine tuning:
 
     if (rows.per.page > 1)
-        heights.x[pos.heights[["between"]]] <- x$y.between * heights.x[pos.heights[["between"]]]
+        heights.x[pos.heights[["between"]]] <-
+            x$y.between * heights.x[pos.heights[["between"]]]
     if (cols.per.page > 1)
-        widths.x[pos.widths[["between"]]] <- x$x.between * widths.x[pos.widths[["between"]]]
+        widths.x[pos.widths[["between"]]] <-
+            x$x.between * widths.x[pos.widths[["between"]]]
 
 
     if (!is.null(panel.height))
     {
-        heights.x[pos.heights[["panel"]]] <- heights.settings[["panel"]] * panel.height[[1]]
+        heights.x[pos.heights[["panel"]]] <-
+            heights.settings[["panel"]] * panel.height[[1]]
         heights.units[pos.heights[["panel"]]] <- panel.height[[2]]
         ##heights.data[[ pos.heights[["panel"]] ]] <- NULL
     }
     if (!is.null(panel.width))
     {
-        widths.x[pos.widths[["panel"]]] <- widths.settings[["panel"]] * panel.width[[1]]
+        widths.x[pos.widths[["panel"]]] <-
+            widths.settings[["panel"]] * panel.width[[1]]
         widths.units[pos.widths[["panel"]]] <- panel.width[[2]]
         ##widths.data[[ pos.widths[["panel"]] ]] <- NULL
     }
@@ -269,29 +275,34 @@ calculateGridLayout <-
         nl <- names(legend)
         if ("left" %in% nl)
         {
-            widths.x[ pos.widths[["key.left"]] ] <- widths.settings[["key.left"]]
+            widths.x[ pos.widths[["key.left"]] ] <-
+                widths.settings[["key.left"]]
             widths.data[[ pos.widths[["key.left"]] ]] <- legend$left$obj
         }
         if ("right" %in% nl)
         {
-            widths.x[ pos.widths[["key.right"]] ] <- widths.settings[["key.right"]]
+            widths.x[ pos.widths[["key.right"]] ] <-
+                widths.settings[["key.right"]]
             widths.data[[ pos.widths[["key.right"]] ]] <- legend$right$obj
         }
         if ("top" %in% nl)
         {
-            heights.x[ pos.heights[["key.top"]] ] <- heights.settings[["key.top"]]
+            heights.x[ pos.heights[["key.top"]] ] <-
+                heights.settings[["key.top"]]
             heights.data[[ pos.heights[["key.top"]] ]] <- legend$top$obj
         }
         if ("bottom" %in% nl)
         {
-            heights.x[ pos.heights[["key.bottom"]] ] <- heights.settings[["key.top"]]
+            heights.x[ pos.heights[["key.bottom"]] ] <-
+                heights.settings[["key.top"]]
             heights.data[[ pos.heights[["key.bottom"]] ]] <- legend$bottom$obj
         }
     }
 
-    heights.x[pos.heights[["strip"]]] <- heights.x[pos.heights[["strip"]]] * heights.settings[["strip"]] *
-        if (is.logical(x$strip)) 0  # which means strip = F, strips not to be drawn
-        else par.strip.text$cex * par.strip.text$lines * number.of.cond
+    heights.x[pos.heights[["strip"]]] <-
+        heights.x[pos.heights[["strip"]]] * heights.settings[["strip"]] *
+            if (is.logical(x$strip)) 0  # which means strip = F, strips not to be drawn
+            else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
 
 

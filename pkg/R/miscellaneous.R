@@ -381,18 +381,19 @@ lplot.xy <-
                    gp = gpar(lty=lty, col=col.line, lwd=lwd, alpha = alpha),
                    default.units="native")
     }
-    else if (type == "h")
-    {
-        ylim <- current.viewport()$yscale
-        zero <-
-            if (ylim[1] > 0) ylim[1]
-            else if (ylim[2] < 0) ylim[2]
-            else 0
-        for (i in seq(along=x))
-            grid.lines(x = rep(x[i],2), y = c(y[i], zero),
-                       gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
-                       default.units = "native")
-    }
+#     else if (type == "h")
+#     {
+#         ylim <- current.viewport()$yscale
+#         zero <-
+#             if (ylim[1] > 0) ylim[1]
+#             else if (ylim[2] < 0) ylim[2]
+#             else 0
+#         for (i in seq(along=x))
+#             grid.lines(x = rep(x[i],2), y = c(y[i], zero),
+#                        gp = gpar(lty = lty, col = col.line,
+#                        lwd = lwd, alpha = alpha),
+#                        default.units = "native")
+#     }
     else if (type == "h")
     {
         ylim <- current.viewport()$yscale
@@ -402,7 +403,9 @@ lplot.xy <-
             else 0
         grid.segments(x0 = x, x1 = x,
                       y0 = y, y1 = zero,
-                      gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
+                      gp =
+                      gpar(lty = lty, col = col.line,
+                           lwd = lwd, alpha = alpha),
                       default.units="native")
     }
     else if (type == "H")
@@ -414,7 +417,9 @@ lplot.xy <-
             else 0
         grid.segments(x0 = x, x1 = zero,
                       y0 = y, y1 = y,
-                      gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
+                      gp =
+                      gpar(lty = lty, col = col.line,
+                           lwd = lwd, alpha = alpha),
                       default.units="native")
     }
     return()

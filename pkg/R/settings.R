@@ -240,7 +240,8 @@ trellis.par.set <-
     function(name, value, ..., theme, warn = TRUE)
 {
     ## the default device is opened if none already open
-    if (is.null(dev.list())) {
+    if (is.null(dev.list()))
+    {
         trellis.device()
         if (warn)
             cat("Note: The default device has been opened to honour attempt to modify trellis settings\n",
@@ -248,14 +249,17 @@ trellis.par.set <-
     }
 
 
-
-
-
     ## if (name %in% names(lattice.theme[[.Device]])) NEEDED as a safeguard ?
     ## if (!is.list(value)) stop("value must be a list")
+
+
     lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     ## make sure a list for this device is present
-    if (is.null(lattice.theme[[.Device]])) trellis.device(device = .Device, new = FALSE)
+    if (is.null(lattice.theme[[.Device]]))
+    {
+        trellis.device(device = .Device, new = FALSE)
+        lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
+    }
     ## WAS: lattice.theme[[.Device]][[name]] <- value
 
     if (missing(theme))

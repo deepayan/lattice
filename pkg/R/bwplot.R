@@ -27,7 +27,6 @@ prepanel.default.bwplot <-
     function(x, y, box.ratio,
              horizontal = TRUE,
              origin = NULL, stack = FALSE,
-             ## levels.fos = if (horizontal) unique(y) else unique(x), 
              ...)
 {
     ## This function needs to work for all high level functions in the
@@ -36,8 +35,8 @@ prepanel.default.bwplot <-
     ## getting the ranges. For stacked barcharts, things are slightly
     ## complicated.
 
-    if (length(x) && length(y)) {
-        
+    if (length(x) && length(y))
+    {
         #if (!is.numeric(x)) x <- as.numeric(x)
         #if (!is.numeric(y)) y <- as.numeric(y)
 
@@ -52,15 +51,13 @@ prepanel.default.bwplot <-
                  else if (is.numeric(x)) range(x[is.finite(x)], origin)
                  else levels(x),
                  ylim =
-                 if (is.numeric(y)) range(y[is.finite(y)])
-                 else levels(y),
-                 ##ylim = c(1-temp, levels.fos + temp),
+                 if (is.shingle(y)) as.character(1:nlevels(y)) else levels(y),
                  yat = if (is.factor(y)) sort(unique(as.numeric(y))) else NULL,
                  dx = 1,
                  dy = 1)
         else 
-            list(xlim = if (is.numeric(x)) range(x[is.finite(x)]) else levels(x),
-                 ##xlim = c(1-temp, levels.fos + temp),
+            list(xlim =
+                 if (is.shingle(x)) as.character(1:nlevels(x)) else levels(x),
                  xat = if (is.factor(x)) sort(unique(as.numeric(x))) else NULL,
                  ylim =
                  if (stack) {
@@ -402,8 +399,6 @@ panel.dotplot <-
     if (horizontal)
     {
         yscale <- current.viewport()$yscale
-        ##if (is.null(levels.fos))
-        ##    levels.fos <- floor(yscale[2])-ceiling(yscale[1])+1
         panel.abline(h = levels.fos,
                      col = col.line,
                      lty = lty, lwd = lwd)
@@ -420,8 +415,6 @@ panel.dotplot <-
     else
     {
         xscale <- current.viewport()$xscale
-        ##if (is.null(levels.fos))
-        ##    levels.fos <- floor(xscale[2])-ceiling(xscale[1])+1
         panel.abline(v = levels.fos, col = col.line,
                      lty = lty, lwd = lwd)
         if (is.null(groups)) 
@@ -494,11 +487,10 @@ panel.bwplot <-
         maxn <- max(by(x, y, length)) ## used if varwidth = TRUE
 
         yscale <- current.viewport()$yscale
-        ##if (is.null(levels.fos)) levels.fos <- floor(yscale[2])-ceiling(yscale[1])+1
         lower <- ceiling(yscale[1])
         height <- box.ratio/(1+box.ratio)
         xscale <- current.viewport()$xscale
-        ##if (levels.fos > 0)
+
         for (yval in levels.fos)
         {
 
@@ -573,12 +565,10 @@ panel.bwplot <-
         maxn <- max(by(y, x, length)) ## used if varwidth = TRUE
 
         xscale <- current.viewport()$xscale
-        ## if (is.null(levels.fos)) levels.fos <- floor(xscale[2])-ceiling(xscale[1])+1
         lower <- ceiling(xscale[1])
         width <- box.ratio/(1+box.ratio)
         yscale <- current.viewport()$yscale
-        ##if (levels.fos > 0)
-        ##for (i in 1:levels.fos) {
+
         for (xval in levels.fos) {
             ##xval  <- i
             stats <- boxplot.stats(y[x==xval], coef = coef)
@@ -977,8 +967,6 @@ bwplot <-
     foo$panel.args.common <- dots
     foo$panel.args.common$box.ratio <- box.ratio
     foo$panel.args.common$horizontal <- horizontal
-##    foo$panel.args.common$levels.fos <- ## fos - the factor/shingle in x/y
-##        if (horizontal) num.l.y else num.l.x
     if (subscripts) foo$panel.args.common$groups <- groups
 
 
