@@ -109,8 +109,12 @@ panel.xyplot <-
 
 
     if ("h" %in% type)
-        if (horizontal) llines(x=x, y=y, type = "H", lty=lty, col=col.line, lwd=lwd)
-        else llines(x=x, y=y, type = "h", lty=lty, col=col.line, lwd=lwd)
+        if (horizontal)
+            llines(x=x, y=y, type = "H",
+                   lty=lty, col=col.line, lwd=lwd)
+        else
+            llines(x=x, y=y, type = "h",
+                   lty=lty, col=col.line, lwd=lwd)
 
 
     ## should this be delegated to llines with type='s'?
