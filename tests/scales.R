@@ -8,7 +8,8 @@ library(lattice)
 
 xyplot(1:10 ~ 1:10,
        scales =
-       list(y = list(fontfamily = 2, cex = 1,
+       list(y = list(font = 2,
+            cex = 1,
             col = "green", col.line = "cyan", tck = 5)),
        xlab = list("one to ten",  fontfamily = "HersheySerif"),
        par.settings =
