@@ -744,12 +744,14 @@ bwplot(formula,
     in the \code{formula}. \code{perm.cond} can modify this order. If
     the trellis display is thought of as an \code{n}-dimensional array,
     then during printing, its dimensions are permuted using
-    \code{perm.cond} as the \code{perm} argument to \code{\link{aperm}}
+    \code{perm.cond} as the \code{perm} argument to \code{\link{aperm}}.
   }
   \item{index.cond}{
     While \code{perm.cond} permutes the dimensions of the
     multidimensional array of panels, \code{index.cond} can be used to
-    subset that array.
+    subset (or reorder) margins of that array. \code{index.cond} can be
+    a list or a function, with behaviour in each case described
+    below. 
 
     The panel display order within each conditioning variable depends on
     the order of their levels. \code{index.cond} can be used to choose a
@@ -767,11 +769,24 @@ bwplot(formula,
     the conditioning variables in the original call, and is not affected
     by \code{perm.cond}.
 
+    Another possibility is to specify \code{index.cond} as a function.
+    In this case, this function is called once for each panel,
+    potentially with all arguments that are passed to the panel function
+    for that panel. (More specifically, if this function has a
+    \code{\ldots} argument, then all panel arguments are passed,
+    otherwise, only named arguments that match are passed.) For a single
+    conditioning variable, the levels of that variable are then sorted
+    so that these values are in ascending order. For multiple
+    conditioning variables, the order for each variable is determined by
+    first taking the average over all other conditioning variables.
+
     Although they can be supplied in high level function calls directly,
     it is more typical to use \code{perm.cond} and \code{index.cond} to
     update an existing ``trellis'' object, thus allowing it to be
     displayed in a different arrangement without re-calculating the data
-    subsets that go into each panel.
+    subsets that go into each panel. In the \code{update} method, both
+    can be set to \code{NULL}, which reverts these back to their
+    defaults.
   }  
   \item{\dots}{ other arguments, passed to the panel function.
 
