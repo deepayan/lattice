@@ -74,7 +74,8 @@ panel.xyplot <-
              fontface = plot.symbol$fontface,
              lty = plot.line$lty,
              cex = plot.symbol$cex,
-             lwd = plot.line$lwd, ...)
+             lwd = plot.line$lwd,
+             horizontal = FALSE, ...)
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
@@ -105,11 +106,13 @@ panel.xyplot <-
 
 
     if ("h" %in% type)
-        llines(x=x, y=y, type = "h", lty=lty, col=col.line, lwd=lwd)
+        if (horizontal) llines(x=x, y=y, type = "H", lty=lty, col=col.line, lwd=lwd)
+        else llines(x=x, y=y, type = "h", lty=lty, col=col.line, lwd=lwd)
 
 
+    ## should this be delegated to llines with type='s'?
     if ("s" %in% type) {
-        ord <- sort.list(x)
+        ord <- if (horizontal) sort.list(y) else sort.list(x)
         n <- length(x)
         xx <- numeric(2*n-1)
         yy <- numeric(2*n-1)
@@ -122,7 +125,7 @@ panel.xyplot <-
                lty=lty, col=col.line, lwd=lwd)
     }
     if ("S" %in% type) {
-        ord <- sort.list(x)
+        ord <- if (horizontal) sort.list(y) else sort.list(x)
         n <- length(x)
         xx <- numeric(2*n-1)
         yy <- numeric(2*n-1)

@@ -22,7 +22,10 @@ panel.dotplot(x, y, horizontal = TRUE,
   \item{pch, col, lty, lwd, col.line}{ graphical parameters}
   \item{levels.fos}{ number of levels of \code{y}}
   \item{groups}{ grouping variable (affects graphical parameters)}
-  \item{\dots}{ extra parameters, ignored}
+  \item{\dots}{ extra parameters, passed to \code{panel.xyplot} which is
+    responsible for drawing the foreground points (\code{panel.dotplot}
+    only draws the background reference lines).
+  }
 }
 \details{ Creates (possibly grouped) Dotplot of \code{x} against
   \code{y}

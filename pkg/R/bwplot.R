@@ -364,10 +364,12 @@ panel.dotplot <-
         panel.abline(h=1:levels.fos, col=col.line,
                      lty=lty, lwd=lwd)
         if (is.null(groups)) 
-            panel.xyplot(x = x, y = y, col = col, pch = pch, ...)
+            panel.xyplot(x = x, y = y, col = col, pch = pch, lty = lty, lwd = lwd, 
+                         horizontal = horizontal, ...)
         else
             panel.superpose(x = x, y = y, groups = groups,
-                            col = col, pch = pch, ...)
+                            col = col, pch = pch, lty = lty, lwd = lwd, 
+                            horizontal = horizontal, ...)
     }
     else {
         xscale <- current.viewport()$xscale
@@ -376,10 +378,13 @@ panel.dotplot <-
         panel.abline(v=1:levels.fos, col=col.line,
                      lty=lty, lwd=lwd)
         if (is.null(groups)) 
-            panel.xyplot(x = x, y = y, col = col, pch = pch, ...)
+            panel.xyplot(x = x, y = y, col = col, pch = pch,
+                         lty = lty, lwd = lwd, 
+                         horizontal = horizontal, ...)
         else 
             panel.superpose(x = x, y = y, groups = groups,
-                            col = col, pch = pch, ...)
+                            col = col, pch = pch, lty = lty, lwd = lwd, 
+                            horizontal = horizontal, ...)
     }
 }
 
@@ -400,8 +405,10 @@ panel.stripplot <-
     x.jitter  <-
         if (!horizontal && jitter.data) jitter(x, factor = factor)
         else x
-    if (is.null(groups)) panel.xyplot(x = x.jitter, y = y.jitter, ...)
-    else panel.superpose(x = x.jitter, y = y.jitter, groups = groups, ...)
+    if (is.null(groups)) panel.xyplot(x = x.jitter, y = y.jitter,
+                                      horizontal = horizontal, ...)
+    else panel.superpose(x = x.jitter, y = y.jitter, groups = groups,
+                         horizontal = horizontal, ...)
 }
 
 
