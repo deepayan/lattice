@@ -1,7 +1,6 @@
 \name{trellis.par.get}
 \alias{trellis.par.get}
 \alias{trellis.par.set}
-\alias{lattice.theme}
 \alias{show.settings}
 \title{ Graphical Parameters for Trellis Displays }
 \description{
@@ -12,7 +11,6 @@
 trellis.par.get(name = NULL)
 trellis.par.set(name, value, warn)
 show.settings(x = NULL)
-lattice.theme
 }
 \arguments{
   \item{name}{ character giving the name of a component. For a list of
@@ -32,13 +30,13 @@ lattice.theme
   that control the look and feel of Trellis displays are highly
   customizable. Also, R can produce graphics on a number of devices, and
   it is expected that a different set of parameters would be more suited
-  to different devices. These parameters are stored in a global variable
-  named \code{lattice.theme}, which is a list whose components define
-  settings for particular devices. The components are idenified by the
-  name of the device they represent (as obtained by \code{.Device}), and
-  are created as and when new devices are opened for the first time
-  using \code{trellis.device} (or Lattice plots are drawn on a device
-  for the first time in that session).
+  to different devices. These parameters are stored internally in a
+  variable named \code{lattice.theme}, which is a list whose components
+  define settings for particular devices. The components are idenified
+  by the name of the device they represent (as obtained by
+  \code{.Device}), and are created as and when new devices are opened
+  for the first time using \code{trellis.device} (or Lattice plots are
+  drawn on a device for the first time in that session).
 
   The initial settings for each device defaults to values appropriate
   for that device. In practice, this boils down to three distinct
@@ -67,13 +65,19 @@ lattice.theme
 
   \code{trellis.par.get} is usually used inside trellis functions to get
   graphical parameters before plotting. Modifications by users via
-  \code{trellis.par.set} is typically done as follows:
+  \code{trellis.par.set} is traditionally done as follows:
 
   \code{add.line <- trellis.par.get("add.line")}
 
   \code{add.line$col <- "red"}
 
   \code{trellis.par.set("add.line", add.line)}
+
+  \code{\link{lset}} is a usually more convenient interface to achieve
+  the same end (but is not compatible with S-PLUS), the equivalent usage
+  being:
+
+  \code{lset(list(add.line = list(col = "red")))}
 
   The actual list of the components in \code{trellis.settings} has not
   been finalized, so I'm not attempting to list them here. The current
@@ -82,10 +86,6 @@ lattice.theme
 
   \code{show.settings} provides a graphical display summarizing some of
   the values in the current setting.
-
-  There are some simpler alternatives that can be used to manipulate the
-  settings. Details can be found in the documentation for \code{lset}.
-
 }
 
 \value{
@@ -93,9 +93,13 @@ lattice.theme
   component. If \code{name} is missing, it returns the full list.
 }
 \author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
-\seealso{\code{\link{trellis.device}}, \code{\link{lset}},
+\seealso{
+  There are some simpler alternatives that can be used to manipulate the
+  settings. Details can be found in the documentation for
+  \code{\link{lset}}. Other related pages: \code{\link{trellis.device}},
   \code{\link{trellis.par.get}},\code{\link{Lattice}}
 }
+
 \examples{
 show.settings()
 }

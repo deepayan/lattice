@@ -38,13 +38,18 @@
   which has to be then \code{print}ed. This often causes confusion when
   the high level functions are called inside another function (most
   often \code{source}) and hence don't produce any output.
+
+  Lattice plots are highly customizable via user-modifiable settings.
+  However, these are completely unrelated to base graphics settings; in
+  particular, changing \code{par()} settings have no effect on lattice
+  plots.
 }
 \seealso{
   To get a general idea of what arguments are generally accepted by
   Lattice functions, see \code{\link{xyplot}}.
 
   To learn how to customise the Graphical parameters used by the Lattice
-  functions, see \code{\link{lattice.theme}} and \code{\link{lset}}.
+  functions, see \code{\link{trellis.par.set}} and \code{\link{lset}}.
 
   To learn how to initialise new devices or change the settings of the
   current device, see \code{\link{trellis.device}}

@@ -28,7 +28,7 @@ levelplot(formula,
              subset = TRUE)
 contourplot(formula,
              data = parent.frame(),
-             panel = "panel.levelplot",
+             panel = "panel.contourplot",
              prepanel = NULL,
              strip = TRUE,
              groups = NULL,

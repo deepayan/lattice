@@ -7,7 +7,9 @@
 \usage{
 simpleKey(text, points = TRUE,
           rectangles = FALSE,
-          lines = FALSE, \dots)
+          lines = FALSE,
+          col, cex, font,
+          fontface, fontfamily, \dots)
 }
 \arguments{
   \item{text}{ character or expression vector, giving levels of grouping
@@ -16,6 +18,11 @@ simpleKey(text, points = TRUE,
   \item{points}{logical}
   \item{rectangles}{logical}
   \item{lines}{logical}
+  \item{col, cex, font, fontface, fontfamily}{
+    Used as top-level components of the list produced, to be used for
+    the text labels. Defaults to the values in
+    \code{trellis.par.get("add.text")}
+  }
   \item{\dots}{ arguments added to the list, finally passed to \code{draw.key}}
 }
 \details{
