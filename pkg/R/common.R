@@ -1,4 +1,4 @@
-### Copyright 2001-2003  Deepayan Sarkar <deepayan@stat.wisc.edu>
+### Copyright 2001-2004  Deepayan Sarkar <deepayan@stat.wisc.edu>
 ### Copyright 2001-2003  Saikat DebRoy <saikat@stat.wisc.edu>
 ###
 ### This file is part of the lattice library for R.
@@ -67,6 +67,13 @@ latticeParseFormula <-
     ## this function mostly written by Saikat
 {
 
+    ## local function to get length-1 names from expressions (deparse
+    ## can be longer). Could be either of the following
+
+    expr2char <- function(x) paste(deparse(x), collapse = "")
+    ## expr2char <- function(x) deparse(x)[1]
+
+
     ## by this time, groups is usually already evaluated.  To make
     ## things slightly more convenient, we will now also allow groups
     ## to be of the form groups = ~g, in which case g will be
@@ -104,7 +111,9 @@ latticeParseFormula <-
     parseCond <-
         function(model)
         {
-            model <- eval(parse(text = paste("~", deparse(model))))[[2]]
+            ## WAS: model <- eval(parse(text = paste("~", deparse(model))))[[2]]
+            ## but that's not good (PR#7395)
+            model <- substitute(~m, list(m = model))[[2]]
             model.vars <- list()
             while (length(model) == 3 && (model[[1]] == as.name("*")
                          || model[[1]] == as.name("+"))) {
@@ -187,7 +196,7 @@ latticeParseFormula <-
             nRHS <- 1
         }
         ans$condition <- vector("list", length(modelRHS.vars))
-        names(ans$condition) <- sapply(modelRHS.vars, deparse)
+        names(ans$condition) <- sapply(modelRHS.vars, expr2char)
         for (i in seq(along = modelRHS.vars)) {
             ans$condition[[i]] <-
                 lrep(as.factorOrShingle(eval(modelRHS.vars[[i]], data, env),
@@ -208,7 +217,7 @@ latticeParseFormula <-
         ## option in wireframe. subset will be ignored in that case.
         ## allow.multiple must be effectively FALSE in that case
 
-        ans$left.name <- deparse(model[[2]])
+        ans$left.name <- expr2char(model[[2]])
         ans$left <-
             lrep(concat(lapply(varsLHS,
                                function(i) {
@@ -260,7 +269,7 @@ latticeParseFormula <-
                                   tmp
                               }))
         }
-        ans$right.name <- deparse(modelRHS)
+        ans$right.name <- expr2char(modelRHS)
         nRows <- length(ans$right)/(nLHS * nRHS)
     }
     else if (dimension == 3 && length(modelRHS) == 3 &&
@@ -293,17 +302,20 @@ latticeParseFormula <-
         ans$right.y <-
             lrep(tmp, nLHS)
         if (inherits(ans$right.y, "POSIXt")) ans$right.y <- as.POSIXct(ans$right.y)
-        ans$right.x.name <- deparse(modelRHS[[2]])
-        ans$right.y.name <- deparse(modelRHS[[3]])
+        ans$right.x.name <- expr2char(modelRHS[[2]])
+        ans$right.y.name <- expr2char(modelRHS[[3]])
         nRows <- length(ans$right.x)/nLHS
     }
     else stop("invalid model")
     
     if (nLHS > 1)
-        LHSgroups <- rep(gl(nLHS, nRows, labels=sapply(varsLHS,
-                                         deparse)), nRHS)
+        LHSgroups <-
+            rep(gl(nLHS, nRows,
+                   labels = sapply(varsLHS, expr2char)),
+                nRHS)
     if (nRHS > 1)
-        RHSgroups <- gl(nRHS, nRows*nLHS, labels=sapply(varsRHS, deparse))
+        RHSgroups <-
+            gl(nRHS, nRows*nLHS, labels = sapply(varsRHS, expr2char))
     newFactor <- 
         if (nLHS > 1 && nRHS > 1) {
             factor(paste(LHSgroups, RHSgroups, sep=" * "))
