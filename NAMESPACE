@@ -52,7 +52,6 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
 
        strip.custom, trellis.last.object
 
-#       gplot, gplotArgs
        )
 
 
@@ -67,10 +66,6 @@ S3method(print, shingleLevel)
 S3method(print, trellis)
 S3method(update, trellis)
 S3method(summary, trellis)
-
-#S3method(gplot, default)
-#S3method(gplotArgs, default)
-#S3method(gplotArgs, data.frame)
 
 
 
