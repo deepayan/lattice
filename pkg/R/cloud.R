@@ -731,6 +731,7 @@ panel.cloud <-
                                     format.posixt = scales.3d$z$format,
                                     n = scales.3d$z$tick.number)
 
+
         x.at <- xlabelinfo$at
         y.at <- ylabelinfo$at
         z.at <- zlabelinfo$at
@@ -1261,6 +1262,7 @@ panel.cloud <-
                           lwd = xaxis.lwd)
                 ltext(x.at.lab, x = x.labs[1,], y = x.labs[2,],
                       cex = xaxis.cex,
+                      srt = xaxis.rot,
                       font = xaxis.font,
                       fontfamily = xaxis.fontfamily,
                       fontface = xaxis.fontface,
@@ -1284,6 +1286,7 @@ panel.cloud <-
                           lwd = yaxis.lwd)
                 ltext(y.at.lab, x = y.labs[1,], y = y.labs[2,],
                       cex = yaxis.cex,
+                      srt = yaxis.rot,
                       font = yaxis.font,
                       fontfamily = yaxis.fontfamily,
                       fontface = yaxis.fontface,
@@ -1306,6 +1309,7 @@ panel.cloud <-
                           lwd = zaxis.lwd)
                 ltext(z.at.lab, x = z.labs[1,], y = z.labs[2,],
                       cex = zaxis.cex,
+                      srt = zaxis.rot,
                       font = zaxis.font,
                       fontfamily = zaxis.fontfamily,
                       fontface = zaxis.fontface,
@@ -1319,29 +1323,76 @@ panel.cloud <-
         ylab <- getLabelList(ylab, trellis.par.get("par.ylab.text"), ylab.default)
         zlab <- getLabelList(zlab, trellis.par.get("par.zlab.text"), zlab.default)
 
+
+
+
+## OLD method - no grobs allowed
+
+#         if (!is.null(xlab))
+#             ltext(xlab$lab, x = tlabs[1, 1], y = tlabs[2, 1],
+#                   cex = xlab$cex,
+#                   srt = xlab$rot,
+#                   font = xlab$font,
+#                   fontfamily = xlab$fontfamily,
+#                   fontface = xlab$fontface,
+#                   col = xlab$col)
+
+#         if (!is.null(ylab))
+#             ltext(ylab$lab, x = tlabs[1, 2], y = tlabs[2, 2],
+#                   cex = ylab$cex,
+#                   srt = ylab$rot,
+#                   font = ylab$font,
+#                   fontfamily = ylab$fontfamily,
+#                   fontface = ylab$fontface,
+#                   col = ylab$col)
+
+#         if (!is.null(zlab))
+#             ltext(zlab$lab, x = tlabs[1, 3], y = tlabs[2, 3],
+#                   cex = zlab$cex,
+#                   srt = zlab$rot,
+#                   font = zlab$font,
+#                   fontfamily = zlab$fontfamily,
+#                   fontface = zlab$fontface,
+#                   col = zlab$col)
+
+        ## slightly different frm xyplot etc, in that rot can be
+        ## supplied in the *lab lists
+
+        xlab <-
+            grobFromLabelList(xlab, name = trellis.grobname("xlab"),
+                              rot = if (is.null(xlab$rot)) 0 else xlab$rot)
+        ylab <-
+            grobFromLabelList(ylab, name = trellis.grobname("ylab"),
+                              rot = if (is.null(ylab$rot)) 0 else ylab$rot)
+        zlab <-
+            grobFromLabelList(zlab, name = trellis.grobname("zlab"),
+                              rot = if (is.null(zlab$rot)) 0 else zlab$rot)
+
         if (!is.null(xlab))
-            ltext(xlab$lab, x = tlabs[1, 1], y = tlabs[2, 1],
-                  cex = xlab$cex,
-                  rot = xlab$rot,
-                  font = xlab$font,
-                  fontfamily = xlab$fontfamily,
-                  fontface = xlab$fontface,
-                  col = xlab$col)
+        {
+            pushViewport(viewport(x = tlabs[1, 1], y = tlabs[2, 1],
+                                  default.units = "native"))
+            grid.draw(xlab)
+            upViewport()
+        }
+
         if (!is.null(ylab))
-            ltext(ylab$lab, x = tlabs[1, 2], y = tlabs[2, 2],
-                  cex = ylab$cex, rot = ylab$rot,
-                  font = ylab$font,
-                  fontfamily = ylab$fontfamily,
-                  fontface = ylab$fontface,
-                  col = ylab$col)
+        {
+            pushViewport(viewport(x = tlabs[1, 2], y = tlabs[2, 2],
+                                  default.units = "native"))
+            grid.draw(ylab)
+            upViewport()
+        }
+
 
         if (!is.null(zlab))
-            ltext(zlab$lab, x = tlabs[1, 3], y = tlabs[2, 3],
-                  cex = zlab$cex, rot = zlab$rot,
-                  font = zlab$font,
-                  fontfamily = zlab$fontfamily,
-                  fontface = zlab$fontface,
-                  col = zlab$col)
+        {
+            pushViewport(viewport(x = tlabs[1, 3], y = tlabs[2, 3],
+                                  default.units = "native"))
+            grid.draw(zlab)
+            upViewport()
+        }
+
     }
 }
 
