@@ -57,7 +57,7 @@ xyplot(formula,
                else "panel.superpose",
        allow.multiple,
        outer,
-       aspect = "fill",
+       aspect = "fill", 
        as.table = FALSE,
        between,
        groups,
@@ -926,9 +926,9 @@ bwplot(formula,
 }
 \details{
 
-  The structure of the plot that is produced depends mostly on the
-  \code{formula}.  For each unique combination of the levels of the
-  conditioning variables \code{g1, g2, \dots}, a separate panel is
+  The structure of the plot that is produced is mostly controlled by the
+  \code{formula} argument.  For each unique combination of the levels of
+  the conditioning variables \code{g1, g2, \dots}, a separate panel is
   produced using the points \code{(x,y)} for the subset of the data
   (also called packet) defined by that combination.  The panels can be
   though of as a 3-dimensional array, consisting of one 2-dimensional
@@ -938,12 +938,20 @@ bwplot(formula,
   If there are no conditioning variables, the plot produced consists of
   a single panel.
 
-  The coordinate system used by lattice is almost always like a graph,
+  The coordinate system used by lattice by default is like a graph,
   with the origin at the bottom left, with axes increasing to left and
   up. In particular, panels are by default drawn starting from the
   bottom left corner, going right and then up; unless \code{as.table =
     TRUE}, in which case panels are drawn from the top left corner,
-  going right and then down.
+  going right and then down.  One might wish to set a global preference
+  for a table-like arrangement by changing the default to
+  \code{as.table=TRUE}; this can be done by setting
+  \code{lattice.options(default.args = list(as.table = TRUE))}.  In
+  fact, default values can be set in this manner for the following
+  arguments: \code{as.table}, \code{aspect}, \code{between},
+  \code{page}, \code{main}, \code{sub}, \code{par.strip.text},
+  \code{layout}, \code{skip} and \code{strip}.  Note that these global
+  defaults are sometimes overridden by individual functions.
 
   The order of the panels depends on the order in which the conditioning
   variables are specified, with \code{g1} varying fastest. Within a

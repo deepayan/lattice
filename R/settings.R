@@ -675,6 +675,18 @@ lattice.options <- function(...)
          drop.unused.levels = list(cond = TRUE, data = TRUE),
          default.theme = getOption("lattice.theme"), ## for back compatibility, usually NULL
 
+         default.args =
+         list(as.table = FALSE,
+              aspect = "fill",
+              between = list(x=0, y=0),
+              ##page = NULL,
+              ##main = NULL,
+              ##sub = NULL,
+              ##par.strip.text = NULL,
+              ##layout = NULL,
+              skip = FALSE,
+              strip = strip.default),
+
          axis.padding = list(numeric = 0.07, factor = 0.6),
 
          ## extends limits by this amount, to provide padding for

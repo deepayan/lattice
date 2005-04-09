@@ -444,28 +444,30 @@ extend.limits <-
 
 trellis.skeleton <-
     function(cond,
-             as.table = FALSE,
-             aspect = "fill",
-             between = list(x=0, y=0),
+             as.table = default.args$as.table,
+             aspect = default.args$aspect,
+             between = default.args$between,
              key = NULL,
              legend = NULL,
-             page = NULL,
-             main = NULL,
-             sub = NULL,
-             par.strip.text = NULL,
-             layout = NULL,
-             skip = FALSE,
-             strip = strip.default,
+             page = default.args$page,
+             main = default.args$main,
+             sub = default.args$sub,
+             par.strip.text = default.args$par.strip.text,
+             layout = default.args$layout,
+             skip = default.args$skip,
+             strip = default.args$strip.default,
              xlab = NULL,
              ylab = NULL,
              xlab.default = NULL,
              ylab.default = NULL,
-             panel = panel,
+             panel,
              par.settings = NULL,
              index.cond = NULL,
              perm.cond = NULL,
              ...)
 {
+    default.args <- lattice.getOption("default.args")
+
     if (is.null(skip)) skip <- FALSE
     foo <- list(as.table = as.table,
                 aspect.fill = aspect == "fill",
