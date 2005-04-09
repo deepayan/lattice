@@ -5,20 +5,28 @@
   This is the default panel function for \code{parallel}.
 }
 \usage{
-panel.parallel(z, subscripts,
+panel.parallel(x, y, z, subscripts,
                groups = NULL,
                col, lwd, lty, alpha,
+               common.scale = TRUE,
+               lower,
+               upper,
                \dots)
 }
 \arguments{
-  \item{z}{ The data frame used for the plot.}
+  \item{x, y}{ dummy variables, ignored. }
+  \item{z}{
+    The data frame used for the plot.  Each column will be coerced to
+    numeric before being plotted, and an error will be issued if this
+    fails.
+  }
   \item{subscripts}{
     The indices of the rows of \code{z} that are to be displyed in this
     panel.
   }
   \item{groups}{
     An optional grouping variable.  If specified, different groups are
-    distinguished by use of different graphical parameters (rows
+    distinguished by use of different graphical parameters (i.e., rows
     of \code{z} in the same group share parameters).
   }
   \item{col, lwd, lty, alpha}{
@@ -26,6 +34,18 @@ panel.parallel(z, subscripts,
     \code{superpose.line}).  If \code{groups} is non-null, these
     parameters used one for each group.  Otherwise, they are recycled
     and used to distinguish between rows of the data frame \code{z}.
+  }
+  \item{common.scale}{
+    logical, whether a common scale should be used columns of \code{z}.
+    Defaults to \code{FALSE}, in which case the horizontal range for
+    each column is different (as determined by \code{lower} and
+    \code{upper}).
+  }
+  \item{lower, upper}{
+    numeric vectors replicated to be as long as the number of columns in
+    \code{z}.  Determines the lower and upper bounds to be used for
+    scaling the corresponding columns of \code{z} after coercing them to
+    numeric.  Defaults to the minimum and maximum of each column.
   }
   \item{\dots}{ other arguments (ignored) }
 }

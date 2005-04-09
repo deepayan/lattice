@@ -21,10 +21,11 @@
 
 
 prepanel.default.parallel <-
-    function(x, y, type, ...)
+    function(x, y, z, ...)
 {
     list(xlim = c(0,1),
-         ylim = c(0,1),
+         ylim = extend.limits(c(1, ncol(as.data.frame(z))), prop = 0.03), 
+         ##ylim = colnames(as.data.frame(z)),
          dx = 1,
          dy = 1)
 }
@@ -32,21 +33,24 @@ prepanel.default.parallel <-
 
 
 panel.parallel <-
-    function(z, subscripts,
+    function(x, y, z, subscripts,
              groups = NULL,
              col = superpose.line$col,
              lwd = superpose.line$lwd,
              lty = superpose.line$lty,
              alpha = superpose.line$alpha,
+             common.scale = TRUE,
+             lower = sapply(z, function(x) min(as.numeric(x), na.rm = TRUE)),
+             upper = sapply(z, function(x) max(as.numeric(x), na.rm = TRUE)),
              ...)
 {
-
     superpose.line <- trellis.par.get("superpose.line")
     reference.line <- trellis.par.get("reference.line")
 
     n.r <- ncol(z)
     n.c <- length(subscripts)
-    if (is.null(groups)) {
+    if (is.null(groups))
+    {
         col <- rep(col, length = n.c)
         lty <- rep(lty, length = n.c)
         lwd <- rep(lwd, length = n.c)
@@ -62,25 +66,41 @@ panel.parallel <-
         alpha <- rep(alpha, length = n.g)
     }
 
-    llim <- numeric(n.r)
-    ulim <- numeric(n.r)
-    dif <- numeric(n.r)
+    if (!common.scale)
+    {
+        lower <- min(lower)
+        upper <- max(upper)
+    }
+    lower <- rep(lower, length = n.r)
+    upper <- rep(upper, length = n.r)
+    dif <- upper - lower
+
     if (n.r > 0)
-        for(i in 1:n.r) {
-            grid.lines(x = c(0,1), y = c(i,i),
-                       default.units = "native",
-                       gp = gpar(col = reference.line$col,
+        panel.segments(x0 = 0, x1 = 1,
+                       y0 = seq(length = n.r),
+                       y1 = seq(length = n.r),
+                       col = reference.line$col,
                        lwd = reference.line$lwd,
-                       lty = reference.line$lty))
-            llim[i] <- range(as.numeric(z[,i]))[1]
-            ulim[i] <- range(as.numeric(z[,i]))[2]
-            dif[i] <- ulim[i] - llim[i]
-        }
-   
+                       lty = reference.line$lty)
+
+
+
+#     for(i in seq(length = n.r))
+#     {
+#         grid.segments(x0 = c(0, 1), y = c(i, i),
+#                       default.units = "native",
+#                       gp = gpar(col = reference.line$col,
+#                       lwd = reference.line$lwd,
+#                       lty = reference.line$lty))
+#         lower[i] <- range(as.numeric(z[,i]))[1]
+#         upper[i] <- range(as.numeric(z[,i]))[2]
+        
+#     }
+    
     if (is.null(groups))
         for (i in seq(along=subscripts))
         {
-            x <- (as.numeric(z[subscripts[i],,])-llim)/dif
+            x <- (as.numeric(z[subscripts[i],,])-lower)/dif
             grid.lines(x = x,
                        y = 1:n.r, 
                        gp =
@@ -93,7 +113,7 @@ panel.parallel <-
     else 
         for (i in seq(along = subscripts))
         {
-            x <- (as.numeric(z[subscripts[i],,])-llim)/dif
+            x <- (as.numeric(z[subscripts[i],,])-lower)/dif
             grid.lines(x = x,
                        y = 1:n.r, 
                        gp =
@@ -175,7 +195,11 @@ parallel <-
              varnames,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
-             default.scales = list(y = list(alternating = FALSE)),
+             default.scales =
+             list(x = list(at = c(0, 1), labels = c("Min", "Max")),
+                  y =
+                  list(alternating = FALSE, axs = "i", tck = 0,
+                       at = 1:ncol(x), labels = colnames(x))),
              subset = TRUE)
 {
 
@@ -273,39 +297,43 @@ parallel <-
     ## overriding at and labels, maybe not necessary
     
     ## scales <- eval(substitute(scales), data, parent.frame())
+
     if (is.character(scales)) scales <- list(relation = scales)
+
 #     if (is.null(scales$alternating)) {
 #         if (is.null(scales$y)) scales$y <- list(alternating = FALSE)
 #         else if (is.null(scales$y$alternating)) scales$y$alternating <- FALSE
 #         ## bug if y="free" but who cares
 #     }
+
+
+
+
     scales <- updateList(default.scales, scales)
     foo <- c(foo, 
              do.call("construct.scales", scales))
 
-    ## forcing this for now. Shouldn't be too hard to give more
-    ## control to the user
+#     ## forcing this for now. Shouldn't be too hard to give more
+#     ## control to the user
 
-    foo$x.scales$at <- c(0,1)
-    foo$x.scales$labels <- c("Min","Max")
-    foo$y.scales$at <- 1:ncol(x)
-    foo$y.scales$labels <- colnames(x)
+#     ##foo$x.scales$at <- c(0,1)
+#     ##foo$x.scales$labels <- c("Min","Max")
+#     ##foo$y.scales$at <- 1:ncol(x)
+#     ##foo$y.scales$labels <- 
     
     ## Step 3: Decide if limits were specified in call:
 
-    if (missing(xlim)) xlim <- extend.limits(c(0,1))
-    if (missing(ylim)) ylim <- extend.limits(c(1,ncol(x)), prop = 0.03) 
-    have.xlim <- TRUE
+    have.xlim <- !missing(xlim)
     if (!is.null(foo$x.scales$limit)) {
         have.xlim <- TRUE
         xlim <- foo$x.scales$limit
     }
-    have.ylim <- TRUE
+    have.ylim <- !missing(ylim)
     if (!is.null(foo$y.scales$limit)) {
         have.ylim <- TRUE
         ylim <- foo$y.scales$limit
     }
-    
+
     ## Step 4: Decide if log scales are being used:
 
     have.xlog <- !is.logical(foo$x.scales$log) || foo$x.scales$log
