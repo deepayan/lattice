@@ -261,7 +261,7 @@ xyplot <-
     ## Step 3: Decide if limits were specified in call:
 
     have.xlim <- !missing(xlim)
-    if (!is.null(foo$x.scales$limit)) {
+    if (!is.null(foo$x.scales$limit)) { # override xlim
         have.xlim <- TRUE
         xlim <- foo$x.scales$limit
     }
