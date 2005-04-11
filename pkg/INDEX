@@ -36,6 +36,7 @@ panel.qqmathline        Useful panel function with qqmath
 panel.stripplot         Default Panel Function for stripplot
 panel.superpose         Panel Function for Display Marked by groups
 panel.tmd               Panel function for tmd
+panel.violin            Panel Function to create Violin Plots
 panel.xyplot            Default Panel Function for xyplot
 prepanel.lmline         Useful Prepanel Function for Lattice
 print.trellis           Print Trellis Objects

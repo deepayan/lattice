@@ -79,8 +79,8 @@ panel.violin(x, y,
 
 bwplot(voice.part ~ height, singer,
        panel = function(..., box.ratio) {
-           panel.violin(..., col = "transparent", varwidth = F, box.ratio = box.ratio)
-           ##panel.points(..., col = 1)
+           panel.violin(..., col = "transparent",
+                        varwidth = FALSE, box.ratio = box.ratio)
            panel.bwplot(..., fill = NULL, box.ratio = .1)
        } )
 

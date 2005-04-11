@@ -7,12 +7,23 @@ Changes in lattice 0.11
 improvements
 ------------
 
+ o panel.superpose.2 (which replicates behaviour of panel.superpose in
+   S-PLUS) revamped, with new features to boot.
 
+ o panel.identify improved
+
+ o larrows improved, slightly different features.
+
+ o [xyz]lab in cloud / wireframe can now be grobs, and honors a 'rot'
+   component for rotation (e.g., zlab = list(rot = 90))
 
 new features
 ------------
 
+ o some finer controls added to parallel (actually panel.parallel)
 
+ o trellis.last.object(...) now behaves like
+   update(trellis.last.object(), ...))
 
 changes in behaviour
 ---------------------
@@ -21,12 +32,19 @@ changes in behaviour
 
  o auto.key list now allows a 'text' component
 
+ o defaults of several standard arguments now taken from
+   lattice.options()
+
+ o type='g' now calls panel.grid(h = -1, v = -1) rather thanjust
+   panel.grid()
+
+ o NA-handling (may have undesirable effects)
 
 
 bug fixes
 ---------
 
-
+ o several minor fixes
 
 
 

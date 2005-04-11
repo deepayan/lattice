@@ -1,4 +1,516 @@
 
+------------------------------------------------------------------------
+r1352 | deepayan | 2005-04-08 23:07:12 -0500 (Fri, 08 Apr 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+
+updated version
+------------------------------------------------------------------------
+r1351 | deepayan | 2005-04-08 23:06:28 -0500 (Fri, 08 Apr 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/man/xyplot.Rd
+
+some standard arguments now take their settings from lattice.options
+------------------------------------------------------------------------
+r1350 | deepayan | 2005-04-08 23:05:43 -0500 (Fri, 08 Apr 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+
+improved behavior of labels in cloud
+------------------------------------------------------------------------
+r1349 | deepayan | 2005-04-08 23:03:28 -0500 (Fri, 08 Apr 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/man/panel.parallel.Rd
+
+update and a couple of new features in parallel
+------------------------------------------------------------------------
+r1293 | deepayan | 2005-03-20 16:42:25 -0600 (Sun, 20 Mar 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+
+warning message reported using warning rather than cat
+------------------------------------------------------------------------
+r1292 | deepayan | 2005-03-20 16:41:49 -0600 (Sun, 20 Mar 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/xyplot.R
+
+type='g' now uses h=-1, v =-1
+------------------------------------------------------------------------
+r1291 | deepayan | 2005-03-20 16:41:09 -0600 (Sun, 20 Mar 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.axis.Rd
+   M /trunk/lattice/man/panel.functions.Rd
+
+removed remnants of old documentation
+------------------------------------------------------------------------
+r1134 | deepayan | 2005-02-21 22:51:50 -0600 (Mon, 21 Feb 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/man/update.trellis.Rd
+
+trellis.last.object can now have arguments that can be used to update retrieved object
+------------------------------------------------------------------------
+r1133 | deepayan | 2005-02-21 22:50:49 -0600 (Mon, 21 Feb 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/man/llines.Rd
+
+added 'unit' argument to larrows, and used that for arrows in cloud
+------------------------------------------------------------------------
+r1132 | deepayan | 2005-02-21 22:49:01 -0600 (Mon, 21 Feb 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/man/panel.bwplot.Rd
+
+added do.out=F as a possible option in panel.bwplot
+------------------------------------------------------------------------
+r1113 | deepayan | 2005-02-17 11:46:49 -0600 (Thu, 17 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/lattice/man/panel.parallel.Rd
+
+updated docs for panel.parallel
+------------------------------------------------------------------------
+r1112 | deepayan | 2005-02-17 11:31:42 -0600 (Thu, 17 Feb 2005) | 2 lines
+Changed paths:
+   M /trunk/lattice/R/parallel.R
+
+added 'groups' argument to panel.parallel
+------------------------------------------------------------------------
+r1102 | deepayan | 2005-02-16 13:26:07 -0600 (Wed, 16 Feb 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+
+reverted to old tick label convention
+------------------------------------------------------------------------
+r1101 | deepayan | 2005-02-16 13:25:05 -0600 (Wed, 16 Feb 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+
+re-implemented larrows, but needs more work
+------------------------------------------------------------------------
+r1100 | deepayan | 2005-02-16 13:24:32 -0600 (Wed, 16 Feb 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+
+changed b&w superpose.fill colors
+------------------------------------------------------------------------
+r1099 | deepayan | 2005-02-16 13:23:37 -0600 (Wed, 16 Feb 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/xyplot.R
+
+changed NA-handling
+------------------------------------------------------------------------
+r1083 | deepayan | 2005-02-12 10:01:05 -0600 (Sat, 12 Feb 2005) | 4 lines
+Changed paths:
+   M /trunk/lattice/R/interaction.R
+
+
+changed default labels to panel.args$subscript if present, when x and
+y chosen by default from the focus-ed panel.
+
+------------------------------------------------------------------------
+r818 | deepayan | 2004-12-06 13:21:19 -0600 (Mon, 06 Dec 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/simpleKey.Rd
+
+misc updates, including panel.identify now returns indices
+------------------------------------------------------------------------
+r786 | deepayan | 2004-11-29 10:18:25 -0600 (Mon, 29 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/R/xyplot.R
+
+changed behaviour of auto.key - text allowed, defaults are function-specific
+------------------------------------------------------------------------
+r785 | deepayan | 2004-11-29 10:17:39 -0600 (Mon, 29 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/strip.R
+
+updates to account for changes in grid for 2.1.0
+------------------------------------------------------------------------
+r784 | deepayan | 2004-11-29 10:14:51 -0600 (Mon, 29 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+
+fixed bad use of deparse
+------------------------------------------------------------------------
+r761 | deepayan | 2004-11-21 19:05:12 -0600 (Sun, 21 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/latticeParseFormula.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/panel.cloud.Rd
+   M /trunk/lattice/man/panel.levelplot.Rd
+   M /trunk/lattice/man/panel.superpose.Rd
+   M /trunk/lattice/man/panel.xyplot.Rd
+   M /trunk/lattice/man/prepanel.functions.Rd
+   M /trunk/lattice/man/qqmath.Rd
+   M /trunk/lattice/man/shingles.Rd
+   M /trunk/lattice/man/strip.default.Rd
+   M /trunk/lattice/man/tmd.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+miscellaneous bugfixes
+------------------------------------------------------------------------
+r731 | deepayan | 2004-11-11 15:36:41 -0600 (Thu, 11 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/trellis.device.Rd
+
+updates theme doc entry
+------------------------------------------------------------------------
+r730 | deepayan | 2004-11-10 11:10:26 -0600 (Wed, 10 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/inst/Changes
+
+final changes for 0.10-14 release
+------------------------------------------------------------------------
+r729 | deepayan | 2004-11-10 10:53:08 -0600 (Wed, 10 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+for named vectors, order is now according to vector, not alphabetically by names
+------------------------------------------------------------------------
+r728 | deepayan | 2004-11-10 10:41:56 -0600 (Wed, 10 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+
+fixed formattedTicksAndLabels.default to always return numeric limits, added a method (.times) for chron objects
+------------------------------------------------------------------------
+r697 | deepayan | 2004-11-03 19:46:46 -0600 (Wed, 03 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   D /trunk/lattice/R/gplot.R
+   D /trunk/lattice/man/gplot.Rd
+
+removed gplot-related code into separate package
+------------------------------------------------------------------------
+r684 | deepayan | 2004-11-01 09:33:03 -0600 (Mon, 01 Nov 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/gplot.R
+   M /trunk/lattice/R/xyplot.R
+
+gplot related changes
+------------------------------------------------------------------------
+r683 | deepayan | 2004-10-30 03:23:22 -0500 (Sat, 30 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/gplot.R
+   M /trunk/lattice/inst/Changes
+   A /trunk/lattice/man/gplot.Rd
+
+updated gplot code, moved groupedData() to lme4
+------------------------------------------------------------------------
+r682 | deepayan | 2004-10-29 17:38:58 -0500 (Fri, 29 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/inst/Changes
+
+misc updates
+------------------------------------------------------------------------
+r681 | deepayan | 2004-10-29 14:18:56 -0500 (Fri, 29 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/tests/temp.R
+
+fixed missing pars in panel.histogram, updated DESCRIPTION
+------------------------------------------------------------------------
+r653 | deepayan | 2004-10-26 00:15:56 -0500 (Tue, 26 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/xyplot.R
+
+misc updates, including important bugfix in trellis.par.set
+------------------------------------------------------------------------
+r652 | deepayan | 2004-10-26 00:10:40 -0500 (Tue, 26 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/barley.Rd
+   A /trunk/lattice/man/environmental.Rd
+   A /trunk/lattice/man/ethanol.Rd
+   A /trunk/lattice/man/melanoma.Rd
+   A /trunk/lattice/man/singer.Rd
+   D /trunk/lattice/man/trellis.datasets.Rd
+
+separate documentation for datasets, contributed by Kevin Wright
+------------------------------------------------------------------------
+r601 | deepayan | 2004-10-18 22:35:04 -0500 (Mon, 18 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+graphical pars were not being replicated in grouped barchart, PR#7293
+------------------------------------------------------------------------
+r600 | deepayan | 2004-10-18 22:33:52 -0500 (Mon, 18 Oct 2004) | 1 line
+Changed paths:
+   A /trunk/lattice/man/barley.Rd
+
+separate documentation for barley data, contributed by Kevin Wright
+------------------------------------------------------------------------
+r599 | deepayan | 2004-10-18 22:33:30 -0500 (Mon, 18 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/trellis.datasets.Rd
+
+separate documentation for barley data, contributed by Kevin Wright
+------------------------------------------------------------------------
+r598 | deepayan | 2004-10-18 22:32:39 -0500 (Mon, 18 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.superpose.Rd
+
+updated and improved panel.superpose.2
+------------------------------------------------------------------------
+r597 | deepayan | 2004-10-18 13:14:24 -0500 (Mon, 18 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+   A /trunk/lattice/R/gplot.R
+   M /trunk/lattice/R/panels.R
+
+reference implementation of gplot (NOTE: MOVED to new package subsequently)
+------------------------------------------------------------------------
+r564 | deepayan | 2004-10-05 15:38:14 -0500 (Tue, 05 Oct 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+
+revamped show.settings, added a panel for superpose.fill
+------------------------------------------------------------------------
+r541 | deepayan | 2004-09-14 20:20:44 -0500 (Tue, 14 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/draw.colorkey.Rd
+   M /trunk/lattice/man/draw.key.Rd
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/interaction.Rd
+   D /trunk/lattice/man/reorder.factor.Rd
+
+removed reorderFactor, updated docs
+------------------------------------------------------------------------
+r538 | deepayan | 2004-09-12 20:41:57 -0500 (Sun, 12 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/print.trellis.Rd
+
+viewport (and grob) names now try use a plot-specific prefix to
+distinguish between similar viewports when multiple plots are drawn on
+a single page. Also some doc updates
+------------------------------------------------------------------------
+r535 | deepayan | 2004-09-10 00:05:05 -0500 (Fri, 10 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/panel.xyplot.Rd
+   M /trunk/lattice/man/xyplot.Rd
+   M /trunk/lattice/tests/temp.R
+
+added type='g', updated docs, especially for the prepanel entry in ?xyplot
+------------------------------------------------------------------------
+r534 | deepayan | 2004-09-10 00:03:19 -0500 (Fri, 10 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/xyplot.R
+
+some cleanups indicated by codetools, plus interaction updates (incomplete)
+------------------------------------------------------------------------
+r533 | deepayan | 2004-09-06 12:24:23 -0500 (Mon, 06 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/tests/temp.R
+
+axis.panel settings can now be used as multipliers for axis widths and heights for relation=free/sliced
+------------------------------------------------------------------------
+r532 | deepayan | 2004-09-04 14:39:00 -0500 (Sat, 04 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+
+exported trellis.vpname
+------------------------------------------------------------------------
+r531 | deepayan | 2004-09-04 14:37:47 -0500 (Sat, 04 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+
+changed names of latticeVP.focus etc
+------------------------------------------------------------------------
+r530 | deepayan | 2004-09-04 14:28:34 -0500 (Sat, 04 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/man/panel.axis.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+amount of extension of axis limits now taken from an option setting, plus misc fixes
+------------------------------------------------------------------------
+r529 | deepayan | 2004-09-04 11:05:58 -0500 (Sat, 04 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/zzz.R
+   M /trunk/lattice/demo/lattice.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/lset.Rd
+   M /trunk/lattice/man/print.trellis.Rd
+   M /trunk/lattice/man/xyplot.Rd
+   M /trunk/lattice/tests/test.R
+
+reorganized interaction code (renamed lattice.VPfocus to
+trellis.focus), plus misc associated changes
+------------------------------------------------------------------------
+r525 | deepayan | 2004-09-03 21:39:31 -0500 (Fri, 03 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/man/trellis.device.Rd
+
+theme in trellis.device now gets default from lattice.options, which
+initially defaults to getOption(lattice.theme) for back-compatibility
+------------------------------------------------------------------------
+r524 | deepayan | 2004-09-03 21:30:07 -0500 (Fri, 03 Sep 2004) | 1
+line Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/R/zzz.R
+
+drop.unused.levels now defaults to lattice.options setting
+------------------------------------------------------------------------
+r523 | deepayan | 2004-09-03 21:08:55 -0500 (Fri, 03 Sep 2004) | 2 lines
+Changed paths:
+   M /trunk/lattice/demo/lattice.R
+
+removed par(ask = TRUE) in favour of grid.prompt
+
+------------------------------------------------------------------------
+r521 | deepayan | 2004-09-02 18:32:29 -0500 (Thu, 02 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/print.trellis.Rd
+   M /trunk/lattice/man/qq.Rd
+   M /trunk/lattice/man/qqmath.Rd
+   M /trunk/lattice/man/rfs.Rd
+   M /trunk/lattice/man/splom.Rd
+   M /trunk/lattice/man/tmd.Rd
+   M /trunk/lattice/man/update.trellis.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+deleted all data() calls
+------------------------------------------------------------------------
+r520 | deepayan | 2004-09-02 18:28:21 -0500 (Thu, 02 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   A /trunk/lattice/SvnLog (from /trunk/lattice/lattice.svnlog:509)
+   M /trunk/lattice/inst/Changes
+   D /trunk/lattice/lattice.svnlog
+
+updated Changes and svn log, renamed svn log file
+------------------------------------------------------------------------
+r519 | deepayan | 2004-09-02 18:27:30 -0500 (Thu, 02 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/demo/lattice.R
+
+added example of non-trivial strip in demo(lattice)
+------------------------------------------------------------------------
+r518 | deepayan | 2004-09-02 18:26:45 -0500 (Thu, 02 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/tests/scales.R
+
+more relation=free/sliced tests for factors
+------------------------------------------------------------------------
+r510 | deepayan | 2004-09-02 17:58:02 -0500 (Thu, 02 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/scales.R
+   M /trunk/lattice/R/settings.R
+
+bugfixes related to relation=free/sliced for factors, and interaction
+------------------------------------------------------------------------
+r508 | deepayan | 2004-09-01 17:10:51 -0500 (Wed, 01 Sep 2004) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.bwplot.Rd
+   M /trunk/lattice/man/panel.dotplot.Rd
+   M /trunk/lattice/man/print.trellis.Rd
+
+documentation updates
+------------------------------------------------------------------------
+
+
 
 This file is an edited version of the subversion logs for lattice
 
