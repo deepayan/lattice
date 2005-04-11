@@ -10,9 +10,12 @@
 prepanel.loess(x, y, span, degree, family, evaluation, ...)
 }
 \usage{
-prepanel.lmline(x, y, ...)
-prepanel.loess(x, y, ...)
-prepanel.qqmathline(y, distribution, f.value = ppoints, ...) 
+prepanel.lmline(x, y, \dots)
+prepanel.loess(x, y, \dots)
+prepanel.qqmathline(y, distribution,
+                    f.value = ppoints,
+                    p = c(0.25, 0.75), 
+                    \dots) 
 }
 \arguments{
   \item{x, y}{x and y values, numeric or factor}
@@ -21,6 +24,10 @@ prepanel.qqmathline(y, distribution, f.value = ppoints, ...)
     prepanel function in \code{qqmath}.
   }
   \item{f.value}{ as used in \code{qqmath}}
+  \item{p}{
+    numeric vector of length two, representing probabilities.
+    Corresponding quantile pairs define the line used.
+  }
   \item{\dots}{other arguments}
 }
 \value{
@@ -36,6 +43,6 @@ prepanel.qqmathline(y, distribution, f.value = ppoints, ...)
   \code{\link{Lattice}}. See \code{\link[modreg]{loess.smooth}} for
   further options to \code{prepanel.loess}
 }
-\author{ Deepayan Sarkar\email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
 

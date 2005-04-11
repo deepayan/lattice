@@ -24,13 +24,14 @@
 
 
 panel.qqmathline <-
-    function(y, distribution, ...)
+    function(y, distribution, p = c(0.25, 0.75), ...)
 {
     y <- as.numeric(y)
+    stopifnot(length(p) == 2)
 
     if (length(y) > 0) {
-        yy <- quantile(y, c(0.25, 0.75))
-        xx <- distribution(c(0.25, 0.75))
+        yy <- quantile(y, p)
+        xx <- distribution(p)
         r <- diff(yy)/diff(xx)
         panel.abline(c( yy[1]-xx[1]*r , r), ...)
     }
@@ -38,15 +39,26 @@ panel.qqmathline <-
 
 
 prepanel.qqmathline <-
-    function(y, distribution, f.value = ppoints, ...)
+    function(y, distribution, f.value = ppoints, p = c(0.25, 0.75), ...)
 {
-    if (!is.numeric(y)) y <- as.numeric(y)
-
-    yy <- quantile(y, c(0.25, 0.75))
-    xx <- distribution(c(0.25, 0.75))
+    ##if (!is.numeric(y)) 
+    y <- as.numeric(y)
+    stopifnot(length(p) == 2)
     n <- length(y)
-    list(ylim = range(y), xlim = range(distribution(f.value(n))),
-         dx = diff(xx), dy = diff(yy))
+
+    if (n > 0)
+    {
+        yy <- quantile(y, p)
+        xx <- distribution(p)
+        list(xlim = range(distribution(f.value(n))),
+             ylim = range(y),
+             dx = diff(xx),
+             dy = diff(yy))
+    }
+    else
+    {
+        list(xlim = c(NA, NA), ylim = c(NA, NA), dx = 1, dy = 1)
+    }
 }
 
 
@@ -149,8 +161,10 @@ qqmath <-
                           panel = panel,
                           xlab = xlab,
                           ylab = ylab,
-                          xlab.default = deparse(substitute(distribution)),
-                          ylab.default = form$right.name), dots))
+                          xlab.default = distribution.name,
+                          ylab.default = form$right.name,
+                          distribution = distribution),
+                     dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
