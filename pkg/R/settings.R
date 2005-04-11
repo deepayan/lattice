@@ -675,6 +675,8 @@ lattice.options <- function(...)
          drop.unused.levels = list(cond = TRUE, data = TRUE),
          default.theme = getOption("lattice.theme"), ## for back compatibility, usually NULL
 
+         banking = banking,
+
          default.args =
          list(as.table = FALSE,
               aspect = "fill",
