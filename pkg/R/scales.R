@@ -350,6 +350,7 @@ limits.and.aspect <-
              panel.args.common = list(),
              panel.args = list(),
              aspect,
+             banking = lattice.getOption("banking"),
              nplots = length(panel.args),
              x.axs = "r", y.axs = "r",
              ...)  ## extra arguments for prepanel (for qqmathline)
