@@ -287,8 +287,7 @@ qqmath <-
                                      aspect = aspect,
                                      nplots = nplots,
                                      x.axs = foo$x.scales$axs,
-                                     y.axs = foo$y.scales$axs,
-                                     distribution = distribution),
+                                     y.axs = foo$y.scales$axs),
                    cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
