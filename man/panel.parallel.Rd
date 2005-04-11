@@ -50,7 +50,7 @@ panel.parallel(x, y, z, subscripts,
   \item{\dots}{ other arguments (ignored) }
 }
 \details{difficult to describe. See example for \code{parallel}}
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{parallel}}}
 \keyword{dplot}
 

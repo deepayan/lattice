@@ -16,7 +16,7 @@ Rows(x, which)
   A list similar to \code{x}, with each \code{x[[i]]} replaced by
   \code{x[[i]][which]}
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{xyplot}}, \code{\link{Lattice}}}
 \keyword{utilities}
 

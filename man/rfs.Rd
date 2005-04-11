@@ -26,7 +26,7 @@ rfs(model, layout=c(2, 1), xlab="f-value", distribution = qunif,...)
   update components of the object and the `print' method (usually called
   by default) will plot it on an appropriate plotting device.
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{oneway}}, \code{\link{qqmath}},
   \code{\link{xyplot}}, \code{\link{Lattice}}
 }

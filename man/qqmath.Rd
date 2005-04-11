@@ -77,7 +77,7 @@ qqmath(formula, distribution = qnorm, f.value = NULL, \dots)
   help page for \code{xyplot}, which should be consulted to learn more
   detailed usage.
 }
-\author{Deepayan Sarkar \url{deepayan@stat.wisc.edu}}
+\author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{xyplot}}, \code{\link{panel.qqmath}},
   \code{\link{panel.qqmathline}}, \code{\link{prepanel.qqmathline}},
   \code{\link{Lattice}}, \code{\link{quantile}}

@@ -104,7 +104,7 @@
   \code{link{trellis.focus}}
 }
 
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 
 \examples{
 

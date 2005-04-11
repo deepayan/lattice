@@ -172,7 +172,7 @@ contourplot(formula, data, at,
   \code{\link{xyplot}}, \code{\link{Lattice}},
   \code{\link{panel.levelplot}}
 }
-\author{Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 x <- seq(pi/4, 5 * pi, length = 100)
 y <- seq(pi/4, 5 * pi, length = 100)

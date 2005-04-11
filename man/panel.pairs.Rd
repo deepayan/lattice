@@ -157,7 +157,7 @@ diag.panel.splom(varname, limits, at, lab, draw = TRUE, ...)
   function in a trellis object produced by splom (taking the `panel'
   function as its argument).
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{splom}}}
 \keyword{dplot}
 

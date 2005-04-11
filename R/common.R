@@ -1,5 +1,5 @@
-### Copyright 2001-2004  Deepayan Sarkar <deepayan@stat.wisc.edu>
-### Copyright 2001-2003  Saikat DebRoy <saikat@stat.wisc.edu>
+### Copyright (C) 2001-2005  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
+### Copyright (C) 2001-2005  Saikat DebRoy <saikat@stat.wisc.edu>
 ###
 ### This file is part of the lattice library for R.
 ### It is made available under the terms of the GNU General Public

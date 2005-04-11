@@ -17,7 +17,7 @@ banking(dx, dy)
   which when adjusted by the panel scale limits will make the median of
   the above absolute slopes a 45 degree line.
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{Lattice}}, \code{\link{xyplot}}}
 \keyword{dplot}
 

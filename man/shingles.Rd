@@ -1,4 +1,3 @@
-% $Id: shingles.Rd,v 1.14 2003/03/03 01:03:32 deepayan Exp $
 \name{shingles}
 \alias{equal.count}
 \alias{plot.shingle}
@@ -90,7 +89,7 @@ print(z)
 print(levels(z))
 \testonly{data.frame(x = equal.count(rnorm(100)), y = rnorm(100))}
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
   \code{\link{xyplot}},
   \code{\link{co.intervals}}, \code{\link{Lattice}} 

@@ -44,7 +44,7 @@ qq(formula, f.value = NULL, ...)
   update components of the object and the `print' method (usually called
   by default) will plot it on an appropriate plotting device.
 }
-\author{Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \details{
   \code{qq} produces a Q-Q plot of two samples.  The default behaviour
   of \code{qq} is different from the corresponding S-PLUS function. See

@@ -25,7 +25,7 @@ panel.histogram(x,
   \item{\dots}{ other arguments.}
 }
 
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{histogram}}}
 \keyword{dplot}
 

@@ -123,7 +123,7 @@ show.settings(x = NULL)
   \code{trellis.par.get} returns a list giving parameters for that
   component. If \code{name} is missing, it returns the full list.
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
   There are some simpler alternatives that can be used to manipulate the
   settings. Details can be found in the documentation for

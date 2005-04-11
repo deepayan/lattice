@@ -125,7 +125,7 @@ col.whitebg()
   \code{col.whitebg} returns a similar but smaller list.
 }
 
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
   \code{\link{trellis.par.set}}, \code{\link{postscript}},
   \code{\link{x11}}, \code{\link{Lattice}}

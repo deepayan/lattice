@@ -105,7 +105,7 @@ lattice.options(old.options)
   An object of class \code{trellis}, by default plotted by
   \code{print.trellis}.
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
   \code{\link{trellis.object}}, \code{\link{Lattice}},
   \code{\link{xyplot}}

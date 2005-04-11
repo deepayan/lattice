@@ -993,7 +993,7 @@ bwplot(formula,
   \code{\link{simpleKey}}
   \code{\link{trellis.par.set}}
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 require(stats)
 ## Tonga Trench Earthquakes

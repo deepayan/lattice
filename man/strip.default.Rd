@@ -114,7 +114,7 @@ xyplot(Petal.Length ~ Petal.Width | Species, iris,
        strip = strip.custom(style = 4))
 }
 
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
 
 

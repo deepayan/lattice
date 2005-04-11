@@ -92,7 +92,7 @@ panel.superpose.2(x, y, panel.groups = "panel.xyplot",
 }
 
 \author{
-  Deepayan Sarkar \email{deepayan@stat.wisc.edu}
+  Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}
   (\code{panel.superpose.2} originally contributed by Neil Klepeis)
 }
 \keyword{dplot}

@@ -253,7 +253,7 @@ wireframe(formula, data,
   \code{\link{panel.cloud}},
   \code{\link{Lattice}}  
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 ## volcano  ## 87 x 61 matrix
 wireframe(volcano, shade = TRUE,
