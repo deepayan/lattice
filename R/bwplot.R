@@ -468,12 +468,16 @@ panel.stripplot <-
 
 
 panel.bwplot <-
-    function(x, y, box.ratio=1, horizontal = TRUE, pch=box.dot$pch,
-             col = box.dot$col, cex = box.dot$cex,
+    function(x, y, box.ratio = 1,
+             horizontal = TRUE,
+             pch = box.dot$pch,
+             col = box.dot$col,
+             cex = box.dot$cex,
              font = box.dot$font,
              fontfamily = box.dot$fontfamily,
              fontface = box.dot$fontface, 
-             fill = box.rectangle$fill, varwidth = FALSE,
+             fill = box.rectangle$fill,
+             varwidth = FALSE,
              levels.fos = if (horizontal) unique(y) else unique(x),
              coef = 1.5, do.out = TRUE, ...)
 {
@@ -488,20 +492,15 @@ panel.bwplot <-
     plot.symbol <- trellis.par.get("plot.symbol")
 
     fontsize.points <- trellis.par.get("fontsize")$points
-
-    ## In case levels.fos is not given (which should not happen), I'll
-    ## be working on the premise that EACH INTEGER in the y-RANGE is a
-    ## potential location of a boxplot. 
+    xscale <- current.viewport()$xscale
+    yscale <- current.viewport()$yscale
 
     if (horizontal)
     {
 
         maxn <- max(by(x, y, length)) ## used if varwidth = TRUE
-
-        yscale <- current.viewport()$yscale
-        lower <- ceiling(yscale[1])
+        ##lower <- ceiling(yscale[1])
         height <- box.ratio/(1+box.ratio)
-        xscale <- current.viewport()$xscale
 
         for (yval in levels.fos)
         {
@@ -575,13 +574,11 @@ panel.bwplot <-
     {
 
         maxn <- max(by(y, x, length)) ## used if varwidth = TRUE
-
-        xscale <- current.viewport()$xscale
-        lower <- ceiling(xscale[1])
+        ##lower <- ceiling(xscale[1])
         width <- box.ratio/(1+box.ratio)
-        yscale <- current.viewport()$yscale
 
-        for (xval in levels.fos) {
+        for (xval in levels.fos)
+        {
             ##xval  <- i
             stats <- boxplot.stats(y[x==xval], coef = coef, do.out = do.out)
 
@@ -648,6 +645,141 @@ panel.bwplot <-
         
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+panel.violin <-
+    function(x, y, box.ratio = 1, horizontal = TRUE,
+
+             alpha = bar.fill$alpha,
+             border = bar.fill$border,
+             lty = bar.fill$lty,
+             lwd = bar.fill$lwd,
+             col = bar.fill$col,
+
+             varwidth = FALSE,
+
+             bw = NULL,
+             adjust = NULL,
+             kernel = NULL,
+             window = NULL,
+             width = NULL,
+             n = 50,
+             from = NULL,
+             to = NULL,
+             cut = NULL,
+             na.rm = TRUE,
+             
+             ...)
+{
+    x <- as.numeric(x)
+    y <- as.numeric(y)
+
+    if (length(x) < 1) return()
+
+    ##reference.line <- trellis.par.get("reference.line")
+    bar.fill <- trellis.par.get("bar.fill")
+
+    ## density doesn't handle unrecognized arguments (not even to
+    ## ignore it).  A tedious but effective way to handle that is to
+    ## have all arguments to density be formal arguments to this panel
+    ## function, as follows:
+
+    darg <- list()
+    darg$bw <- bw
+    darg$adjust <- adjust
+    darg$kernel <- kernel
+    darg$window <- window
+    darg$width <- width
+    darg$n <- n
+    darg$from <- from
+    darg$to <- to
+    darg$cut <- cut
+    darg$na.rm <- na.rm
+
+    my.density <- function(x) do.call("density", c(list(x = x), darg))
+
+    numeric.list <- if (horizontal) split(x, factor(y)) else split(y, factor(x))
+    levels.fos <- as.numeric(names(numeric.list))
+    d.list <- lapply(numeric.list, my.density)
+    ## n.list <- sapply(numeric.list, length)  UNNECESSARY
+    dx.list <- lapply(d.list, "[[", "x")
+    dy.list <- lapply(d.list, "[[", "y")
+
+    max.d <- sapply(dy.list, max)
+    if (varwidth) max.d[] <- max(max.d)
+
+    ##str(max.d)
+    
+    xscale <- current.viewport()$xscale
+    yscale <- current.viewport()$yscale
+    height <- box.ratio / (1 + box.ratio)
+
+    if (horizontal)
+    {
+        for (i in seq(along = levels.fos))
+        {
+            pushViewport(viewport(y = unit(levels.fos[i], "native"),
+                                  height = unit(height, "native"),
+                                  yscale = c(max.d[i] * c(-1, 1)),
+                                  xscale = xscale))
+            grid.polygon(x = c(dx.list[[i]], rev(dx.list[[i]])),
+                         y = c(dy.list[[i]], -rev(dy.list[[i]])),
+                         default.units = "native",
+                         gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
+            popViewport()
+        }
+    }
+    else
+    {
+        for (i in seq(along = levels.fos))
+        {
+            pushViewport(viewport(x = unit(levels.fos[i], "native"),
+                                  width = unit(height, "native"),
+                                  xscale = c(max.d[i] * c(-1, 1)),
+                                  yscale = yscale))
+            grid.polygon(y = c(dx.list[[i]], rev(dx.list[[i]])),
+                         x = c(dy.list[[i]], -rev(dy.list[[i]])),
+                         default.units = "native",
+                         gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
+            popViewport()
+        }
+    }
+    invisible()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
