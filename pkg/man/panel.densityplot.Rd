@@ -24,7 +24,7 @@ panel.densityplot(x, darg, plot.points = TRUE, ref = FALSE,
   \item{col.line}{ color for line, overrides col }
   \item{\dots}{ extra grahical parameters }
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{densityplot}}}
 \keyword{dplot}
 

@@ -46,7 +46,7 @@ simpleKey(text, points = TRUE,
   A list that would work as the \code{key} argument to \code{xyplot}
   etc.
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
   \code{\link{draw.key}}, \code{\link{xyplot}}, \code{\link{Lattice}}
 }

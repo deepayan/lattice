@@ -100,5 +100,5 @@ panel.text(\dots)
   \code{\link{text}}, \code{\link{segments}}, \code{\link{arrows}},
   \code{\link{Lattice}}
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}

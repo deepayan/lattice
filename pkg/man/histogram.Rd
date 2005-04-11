@@ -193,7 +193,7 @@ do.breaks(endpoints, nint)
   \code{\link{panel.mathdensity}},
   \code{\link{Lattice}} 
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 require(stats)
 histogram( ~ height | voice.part, data = singer, nint = 17,

@@ -11,7 +11,7 @@ panel.tmd(...)
 \arguments{
   \item{\dots}{ arguments passed to \code{panel.xyplot}}
 }
-\author{Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{tmd}} ,\code{\link{Lattice}}}
 \keyword{dplot }
 

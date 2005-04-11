@@ -31,6 +31,6 @@ oneway(formula, data, location=mean, spread=function(x) sqrt(var(x)))
   \item{scaled.residuals}{residuals scaled by \code{spread} for their
     group} 
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{rfs}}, \code{\link{Lattice}} }
 \keyword{dplot}

@@ -144,7 +144,7 @@ parallel(formula,
 \seealso{
   \code{\link{xyplot}}, \code{\link{Lattice}}, \code{\link{panel.pairs}}
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 super.sym <- trellis.par.get("superpose.symbol")
 splom(~iris[1:4], groups = Species, data = iris,

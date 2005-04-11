@@ -286,6 +286,6 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
   enough to render intersecting surfaces correctly.
 
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{cloud}}, \code{\link{utilities.3d}}}
 \keyword{dplot}

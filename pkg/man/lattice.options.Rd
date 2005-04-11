@@ -37,7 +37,7 @@ lattice.getOption(name)
   \code{lattice.options}.  If called without any arguments, the full
   list is returned. 
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 
 \seealso{
   \code{\link{options}}, \code{\link{trellis.device}},

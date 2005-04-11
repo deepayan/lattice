@@ -1,6 +1,6 @@
 
 
-### Copyright 2001-2002 Deepayan Sarkar <deepayan@stat.wisc.edu>
+### Copyright (C) 2001-2005 Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
 ###
 ### This file is part of the lattice library for R.
 ### It is made available under the terms of the GNU General Public

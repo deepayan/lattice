@@ -47,5 +47,5 @@ show.settings(col.whitebg())
 # The following reproduces S-PLUS Unix black and white pch:
 #lset(list(superpose.symbol=list(pch=c("o","+",">","s","w","#","\{"))))
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{utilities}

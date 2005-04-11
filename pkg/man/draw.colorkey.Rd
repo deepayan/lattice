@@ -19,7 +19,7 @@ draw.colorkey(key, draw=FALSE, vp=NULL)
 \value{
   A Grid frame object (that inherits from ``grob'')
 }
-\author{Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{xyplot}}}
 \keyword{dplot}
 

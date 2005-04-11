@@ -29,7 +29,7 @@ panel.stripplot(x, y, jitter.data = FALSE, factor = 0.5,
 \details{ Creates stripplot (one dimensional scatterplot) of \code{x}
   for each level of \code{y}
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{stripplot}}}
 \keyword{dplot}
 

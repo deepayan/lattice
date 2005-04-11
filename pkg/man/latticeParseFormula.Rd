@@ -54,5 +54,5 @@ latticeParseFormula(model, data, dimension = 2,
 \seealso{
   \code{\link{xyplot}}, \code{\link{Lattice}}
 }
-\author{Saikat DebRoy, Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{Saikat DebRoy, Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{utilities}

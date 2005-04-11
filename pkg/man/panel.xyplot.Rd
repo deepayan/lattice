@@ -69,7 +69,7 @@ panel.qq(...)
   supplied directly to the high-level \code{xyplot} call.
 
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 
 \seealso{
   \code{\link{panel.superpose}},

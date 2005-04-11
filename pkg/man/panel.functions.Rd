@@ -134,7 +134,7 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
   \code{\link{identify}}, \code{\link{trellis.par.get}}
 }
 
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
 
 

@@ -34,7 +34,7 @@ panel.dotplot(x, y, horizontal = TRUE,
   vice versa
 }
 \seealso{\code{\link{dotplot}}}
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
 
 

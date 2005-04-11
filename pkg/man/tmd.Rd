@@ -40,7 +40,7 @@ tmd(object,
   update components of the object and the `print' method (usually called
   by default) will plot it on an appropriate plotting device.
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{ \code{\link{panel.tmd}}, \code{\link{xyplot}},
   \code{\link{Lattice}}
 }

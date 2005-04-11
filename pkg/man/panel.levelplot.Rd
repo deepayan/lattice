@@ -84,7 +84,7 @@ panel.contourplot(\dots)
   calculate the contour lines.
 } 
 
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{levelplot}}, \code{\link{contourLines}} }
 \keyword{dplot}
 

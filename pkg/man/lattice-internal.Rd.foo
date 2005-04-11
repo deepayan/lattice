@@ -141,7 +141,7 @@ latticeAsFormula(x)
   optional at, generates the locations of tick marks and corresponding
   labels. Ultimately will be a replacement for lpretty.
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{Lattice}}}
 \keyword{internal}
 

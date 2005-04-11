@@ -64,6 +64,6 @@ ltransform3dto3d(x, R.mat, dist)
 %   (average) height (of any particular facet).
 
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{cloud}}, \code{\link{panel.cloud}}}
 \keyword{dplot}

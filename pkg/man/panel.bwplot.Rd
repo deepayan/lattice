@@ -49,7 +49,7 @@ panel.bwplot(x, y,
 \seealso{
   \code{\link{bwplot}}, \code{\link{boxplot.stats}}
 }
-\author{ Deepayan Sarkar \email{deepayan@stat.wisc.edu}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
 
 
