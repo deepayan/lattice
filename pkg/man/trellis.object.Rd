@@ -1,13 +1,15 @@
 \name{trellis.object}
 \alias{trellis.object}
-\non_function{}
+\docType{class}
+%%\non_function{}
 \title{A Trellis Plot Object}
+
 \description{
   This class of objects is returned by high level lattice display
   functions, and is usually plotted by default by its `print' method.
 }
 
-\value{
+\details{
   A trellis object, as returned by high level lattice functions like
   \code{\link{xyplot}}, is a list with the ``class'' attribute set to
   ``trellis''.  Many of the components of this list are simply the
@@ -17,7 +19,7 @@
   \code{par.strip.text}, \code{strip}, \code{skip}, \code{xlab} and
   \code{ylab}.  Some other typical components are: 
 
-  \itemize{
+  \describe{
     \item{\code{index.cond}}{
       list with index for each of the conditioning variables
     }
@@ -60,12 +62,16 @@
       numeric vector of length 2 or list, giving x-axis limits
     }
     \item{\code{y.limits}}{ similar to \code{x.limits} }
-    
-    %% also present, but not documented:
-    %% x.num.limit x.used.at xlab.default
-    %% y.num.limit y.used.at ylab.default
   }
 }
+
+\seealso{
+  \code{\link{Lattice}}, \code{\link{xyplot}},
+  \code{\link{print.trellis}}
+}
+
+\author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
+
 
 \keyword{classes}
 
