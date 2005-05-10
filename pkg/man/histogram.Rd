@@ -96,7 +96,8 @@ do.breaks(endpoints, nint)
     As a special case, the right hand side of the formula (\code{x}) can
     actually contain more than one variable separated by a '+'
     sign. What happens in this case is described in details in the
-    documentation for \code{\link{xyplot}}.
+    documentation for \code{\link{xyplot}}.  Note that in either form,
+    all the variables involved in the formula have to have same length.
   }
   \item{data}{
     optional data frame in which variables are to be evaluated
@@ -138,18 +139,19 @@ do.breaks(endpoints, nint)
     the breakpoints will \bold{not} be equally spaced).
   }
   \item{n}{ number of points at which density is to be evaluated }
-  \item{plot.points}{ logical specifying whether the \code{x} values
-    should be plotted along the \code{y=0} line.
+  \item{plot.points}{
+    logical specifying whether the \code{x} values should be plotted
+    along the \code{y=0} line.
   }
-  \item{ref}{ logical specifying whether a reference x-axis should be
-    drawn.
+  \item{ref}{
+    logical specifying whether a reference x-axis should be drawn.
   }
-  \item{\dots}{ other arguments, passed along to the panel function. In
-    the case of \code{densityplot}, if the default panel function is
-    used, then arguments appropriate to \code{density} can be
-    included. This can control the details of how the Kernel Density
-    Estimates are calculated. See documentation for
-    \code{\link{density}} for details.
+  \item{\dots}{
+    other arguments, passed along to the panel function. In the case of
+    \code{densityplot}, if the default panel function is used, then
+    arguments appropriate to \code{density} can be included. This can
+    control the details of how the Kernel Density Estimates are
+    calculated. See documentation for \code{\link{density}} for details.
   }
 }
 \value{

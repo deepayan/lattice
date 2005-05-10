@@ -653,7 +653,13 @@ bwplot(formula,
     Components of \code{x} and \code{y} affect the respective axes only,
     while those in \code{scales} affect both.  When parameters are
     specified in both lists, the values in \code{x} or \code{y} are
-    used. The possible components are :
+    used.  Note that certain high-level functions have defaults that are
+    specific to a particular axis (e.g., \code{bwplot} has
+    \code{alternating=FALSE} for the y-axis only); these can be
+    overridden only by an entry in the corresponding component of
+    \code{scales}.
+
+    The possible components are :
 
     \describe{
       \item{\code{relation}}{
