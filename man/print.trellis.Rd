@@ -101,7 +101,7 @@
 
 \seealso{
   \code{\link{Lattice}}, \code{\link[grid:unit]{unit}},
-  \code{link{trellis.focus}}
+  \code{\link{trellis.focus}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

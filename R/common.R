@@ -210,7 +210,8 @@ latticeParseFormula <-
         nRHS <- 1
     }
 
-    if (length(model) == 3) {
+    if (length(model) == 3)
+    {
 
         ## Note: special case if tmp is a matrix. This probably means
         ## we are dealing with the parametric 3-D surface rendering
@@ -234,7 +235,8 @@ latticeParseFormula <-
                                })), nRHS)
     }
 
-    if (dimension == 2) {
+    if (dimension == 2)
+    {
 
         ## this part belongs in the first if block, but we need nobs
         ## later in either case, so keeping it here.
@@ -273,7 +275,8 @@ latticeParseFormula <-
         nRows <- length(ans$right)/(nLHS * nRHS)
     }
     else if (dimension == 3 && length(modelRHS) == 3 &&
-             (modelRHS[[1]] == "*" || modelRHS[[1]] == "+")) {
+             (modelRHS[[1]] == "*" || modelRHS[[1]] == "+"))
+    {
 
         ## Note that when dimension = 3, multiple does not apply to
         ## RHS, but nLHS may be > 1
