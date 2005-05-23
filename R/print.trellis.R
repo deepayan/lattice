@@ -102,7 +102,10 @@ evaluate.legend <- function(legend)
 
 
 
+## S3 plot method for "trellis" objects
 
+plot.trellis <- function(x, ...)
+    print(x, ...)
 
 
 
@@ -457,7 +460,7 @@ print.trellis <-
     ## function. Sequential counter keeping track of which panel is
     ## being drawn
 
-    for(page.number in 1:number.of.pages)
+    for(page.number in seq(length = number.of.pages))
     {
         if (!any(cond.max.level - cond.current.level < 0)) {
             

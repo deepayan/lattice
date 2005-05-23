@@ -133,34 +133,6 @@ Rows <- function(x, which)
 }
 
 
-# reorderFactor <-
-#     function(x, X, FUN = mean,
-#              ..., 
-#              order = is.ordered(x))
-#     (if (order) ordered else factor)(x,
-#                                      levels = names(sort(tapply(X,
-#                                      x, FUN, ...))))
-
-
-
-
-# reorder.factor <-
-#     function(x, X, FUN = mean,
-#              ..., 
-#              order = is.ordered(x))
-# {
-#     scores <- tapply(X, x, FUN, ...)
-#     ans <- (if (order) ordered else factor)(x, levels = names(sort(scores)))
-#     attr(ans, "scores") <- scores
-#     ans
-# }
-
-
-
-
-
-
-
 
 
 

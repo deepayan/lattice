@@ -19,6 +19,16 @@
 
 
 
+
+## (By popular demand) function to get axis limits of current panel
+
+current.panel.limits <- function()
+{
+    list(xlim = convertX(unit(c(0,1), "npc"), "native", valueOnly=TRUE),
+         ylim = convertY(unit(c(0,1), "npc"), "native", valueOnly=TRUE))
+}
+
+
 calculateAxisComponents <- function(x, ..., abbreviate = NULL, minlength = 4)
 
     ## This aims to be a general function which given a general
