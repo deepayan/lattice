@@ -1,5 +1,6 @@
 \name{panel.axis}
 \alias{panel.axis}
+\alias{current.panel.limits}
 \title{Panel Function for Drawing Axis Ticks and Labels}
 \description{
   \code{panel.axis} is the function used by lattice to draw axes. It's
