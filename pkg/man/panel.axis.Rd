@@ -2,11 +2,13 @@
 \alias{panel.axis}
 \title{Panel Function for Drawing Axis Ticks and Labels}
 \description{
-  This is the function used by lattice to draw axes. It's typically not
-  used by users, except those wishing to create advanced
-  annotation. Keep in mind issues of clipping when trying to use it
-  as part of the panel function.
+  \code{panel.axis} is the function used by lattice to draw axes. It's
+  typically not used by users, except those wishing to create advanced
+  annotation. Keep in mind issues of clipping when trying to use it as
+  part of the panel function. \code{current.panel.limits} can be used to
+  retrieve a panel's x and y limits.
 }
+
 \synopsis{
 panel.axis(side = c("bottom", "left", "top", "right"),
              at = pretty(scale.range),
@@ -45,6 +47,7 @@ panel.axis(side = c("bottom", "left", "top", "right"),
            which.half,
            tck = 1,
            rot, \dots)
+current.panel.limits()
 }
 \arguments{
   \item{side}{
@@ -100,6 +103,12 @@ panel.axis(side = c("bottom", "left", "top", "right"),
   well as for all the usual axis drawing by the print method for
   ``trellis'' objects. It can also be used to enhance plots `after the
   fact' by adding axes.
+}
+
+\value{
+  \code{current.panel.limits} returns a list with components \code{xlim}
+  and \code{ylim}, which are both numeric vectors of length 2, giving
+  the (native) scales of the current panel (viewport).
 }
 
 \seealso{

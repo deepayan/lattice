@@ -47,7 +47,7 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        trellis.panelArgs, trellis.vpname, trellis.grobname,
 
        panel.arrows, panel.segments, panel.lines, panel.points,
-       panel.text,
+       panel.text, current.panel.limits,
 
        strip.custom, trellis.last.object
 
@@ -63,6 +63,7 @@ S3method(summary, shingle)
 S3method(print, shingleLevel)
 
 S3method(print, trellis)
+S3method(plot, trellis)
 S3method(update, trellis)
 S3method(summary, trellis)
 

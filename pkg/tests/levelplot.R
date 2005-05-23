@@ -1,10 +1,13 @@
 
-postscript("temp.ps")
+postscript("levelplot.ps")
 library(lattice)
 
 data(volcano)
 
-foo <- data.frame(z = as.vector(volcano), x = rep(1:87, 61), y = rep(1:61, each = 87))
+foo <-
+    data.frame(z = as.vector(volcano),
+               x = rep(1:87, 61),
+               y = rep(1:61, each = 87))
 
 levelplot(z ~ x * y, subset(foo, z > 150), contour = T)
 levelplot(z ~ x * y, foo, subset = z > 150, contour = T)
@@ -12,7 +15,6 @@ contourplot(z ~ x * y, foo, subset = z > 150, cuts = 10)
 
 ## subset group interaction has problems:
 
-data(iris)
 cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
       data = iris, cex = 0.8, groups = Species, subpanel = panel.superpose, 
       main = "Stereo", screen = list(z = 20, x = -70, y = 0), subset = 30:60)
@@ -27,6 +29,7 @@ levelplot(Sepal.Length ~ Petal.Length * Petal.Width,
 ## wireframe(z ~ x * y, foo, subset = z > 150)
 
 ## what's this supposed to do ?
+## weird thing is, result is random
 wireframe(z + I(z + 100) ~ x * y, foo, subset = z > 150)
 
 
@@ -44,10 +47,9 @@ volna[20:40, 20:40] <- NA
 levelplot(volna)
 cloud(volna)
 
-## error
-##wireframe(volna)
+wireframe(volna)
 
-## long format even worse, NA's clipped at the beginning
+## long format: NA's clipped at the beginning (??)
 
 
 

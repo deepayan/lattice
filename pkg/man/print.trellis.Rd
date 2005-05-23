@@ -1,5 +1,6 @@
 \name{print.trellis}
 \alias{print.trellis}
+\alias{plot.trellis}
 \title{Print Trellis Objects}
 \usage{
 \method{print}{trellis}(x, position, split,
@@ -9,9 +10,11 @@
      save.object = lattice.getOption("save.object"),
      prefix,
      \dots)
+\method{plot}{trellis}(x, \dots)
 }
 \description{
-  Print (plot) a trellis object.
+  Prints (plots) a trellis object.  The \code{plot} method is identical
+  to the \code{print} method.
 }
 \arguments{
   \item{x}{ The object to be plotted, of class ``trellis''}
