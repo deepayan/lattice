@@ -13,9 +13,10 @@
 \method{plot}{trellis}(x, \dots)
 }
 \description{
-  Prints (plots) a trellis object.  The \code{plot} method is identical
-  to the \code{print} method.
+  Print (plot) a trellis object.  The \code{plot} method is essentially
+  an alias to the \code{print} method, provided for convenience.
 }
+
 \arguments{
   \item{x}{ The object to be plotted, of class ``trellis''}
   \item{position}{ a vector of 4 numbers, typically c(xmin, ymin, xmax,
@@ -70,8 +71,12 @@
     start with a letter or a period followed by a letter) and must not
     contain the grid path separator (currently ``::'').
   }
-  \item{\dots}{extra arguments, ignored}
+  \item{\dots}{
+    extra arguments, ignored by the \code{print} method.  All arguments
+    to the \code{plot} method are passed on to the \code{print} method.
+  }
 }
+
 \details{
   This is the default print method for objects of class
   \code{"trellis"}, produced by calls to functions like \code{xyplot},
@@ -104,7 +109,7 @@
 
 \seealso{
   \code{\link{Lattice}}, \code{\link[grid:unit]{unit}},
-  \code{\link{trellis.focus}}
+  \code{link{trellis.focus}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
