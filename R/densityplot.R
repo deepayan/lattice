@@ -40,6 +40,13 @@ prepanel.default.densityplot <-
              ylim = NA,
              dx = NA,
              dy = NA)
+    else if (length(x) == 1)
+    {
+        list(xlim = x,
+             ylim = NA,
+             dx = NA,
+             dy = NA)
+    }
     else if (is.null(groups))
     {
         if (length(x) > 1)
