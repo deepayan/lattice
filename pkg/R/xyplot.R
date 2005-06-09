@@ -150,7 +150,14 @@ panel.xyplot <-
     if ("smooth" %in% type) {
         panel.loess(x, y, col = col.line, lty = lty, lwd = lwd, ...)
     }
-    
+    if ("a" %in% type)
+        panel.linejoin(x, y, fun = mean,
+                       horizontal = horizontal,
+                       lwd = lwd,
+                       lty = lty,
+                       col = col,
+                       col.line = col.line,
+                       ...)
 }
 
 
