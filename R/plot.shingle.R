@@ -23,10 +23,9 @@
 ## FIXME: not quite what it should be
 
 plot.shingle <-
-    function(x, col = bar.fill$col, aspect = "fill", ...)
+    function(x, aspect = "fill", ...)
 {
 
-    bar.fill <- trellis.par.get("bar.fill")
     foo <- list(call = match.call(),
                 aspect.fill = aspect == "fill",
                 aspect.ratio = if (is.numeric(aspect)) aspect else 1,
@@ -35,7 +34,15 @@ plot.shingle <-
                 key = NULL,
                 layout=c(1,1,1),
                 page = NULL,
-                panel = function(x, col) {
+                panel =
+                function(x,
+                         col = bar.fill$col,
+                         lty = bar.fill$lty,
+                         lwd = bar.fill$lwd,
+                         alpha = bar.fill$alpha,
+                         border = bar.fill$border,
+                         ...) {
+                    bar.fill <- trellis.par.get("bar.fill")
                     ## x is the list of intervals
                     num.l.y <- length(x)
                     if (num.l.y>0)
@@ -45,10 +52,15 @@ plot.shingle <-
                                       width = diff(x[[i]]),
                                       height = .5,
                                       default.units = "native",
-                                      gp = gpar(fill=col)) 
+                                      gp =
+                                      gpar(fill = col,
+                                           alpha = alpha,
+                                           col = border,
+                                           lty = lty,
+                                           lwd = lwd)) 
                 },
                 panel.args = list(list()),
-                panel.args.common = list(x=levels(x), col = col),
+                panel.args.common = list(x=levels(x), ...),
                 par.strip.text = trellis.par.get("add.text"),
                 skip = FALSE,
                 strip = FALSE,

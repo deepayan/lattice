@@ -122,7 +122,7 @@ plot.trellis <-
 
 print.trellis <-
     function(x, position, split, more = FALSE,
-             newpage = TRUE,
+             newpage = TRUE, draw.in = NULL,
              panel.height = lattice.getOption("layout.heights")$panel,
              panel.width = lattice.getOption("layout.widths")$panel,
              save.object = lattice.getOption("save.object"),
@@ -143,7 +143,9 @@ print.trellis <-
     }
 
     bg <- trellis.par.get("background")$col
-    new <-  newpage && !lattice.getStatus("print.more")
+    new <-  newpage && !lattice.getStatus("print.more") && is.null(draw.in)
+    if (!is.null(draw.in)) depth <- downViewport(draw.in)
+
     lattice.setStatus(print.more = more)
     usual  <- (missing(position) & missing(split))
     ##if (!new && usual)
@@ -1048,6 +1050,8 @@ print.trellis <-
     {
         trellis.par.set(theme = opars)
     }
+
+    if (!is.null(draw.in)) upViewport(depth)
 
     if (save.object)
     {

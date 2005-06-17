@@ -4,7 +4,7 @@
 \title{Print Trellis Objects}
 \usage{
 \method{print}{trellis}(x, position, split,
-     more = FALSE, newpage = TRUE,
+     more = FALSE, newpage = TRUE, draw.in = NULL,
      panel.height = lattice.getOption("layout.heights")$panel,
      panel.width = lattice.getOption("layout.widths")$panel,
      save.object = lattice.getOption("save.object"),
@@ -36,6 +36,12 @@
     new page. This option is specific to lattice, and is useful for
     including lattice plots in an arbitrary grid viewport (see the
     details section).
+  }
+  \item{draw.in}{
+    An optional (grid) viewport (used as the \code{name} argument in
+    \code{downViewport}) in which the plot is to be drawn.  If
+    specified, the \code{newpage} argument is ignored.  This feature is
+    not well-tested.
   }
   \item{panel.width, panel.height}{
     lists with 2 components, that should be valid \code{x} and
@@ -87,7 +93,8 @@
 
   When \code{newpage = FALSE}, the current grid viewport is treated as
   the plotting area, making it possible to embed a Lattice plot inside
-  an arbitrary grid viewport.
+  an arbitrary grid viewport.  The \code{draw.in} argument provides an
+  alternative mechanism that may be simpler to use.
 
   The print method uses the information in \code{x} (the object to be
   printed) to produce a display using the Grid graphics engine. At the

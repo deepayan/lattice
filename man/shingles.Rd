@@ -16,7 +16,7 @@ shingle(x, intervals=sort(unique(x)))
 equal.count(x, \dots)
 as.shingle(x)
 is.shingle(x)
-\method{plot}{shingle}(x, col, aspect, \dots)
+\method{plot}{shingle}(x, aspect, \dots)
 \method{print}{shingle}(x, showValues = TRUE, \dots)
 \method{print}{shingleLevel}(x, \dots)
 \method{summary}{shingle}(object, \dots)
@@ -41,11 +41,14 @@ as.factorOrShingle(x, subset, drop)
   \item{intervals}{ numeric vector or matrix with 2 columns}
   \item{subset}{logical vector}
   \item{drop}{whether redundant shingle levels are to be dropped}
-  \item{col}{ color to fill the rectangles, defaults to
-    \code{bar.fill$col}} 
   \item{aspect}{aspect ratio}
-  \item{\dots}{ other arguments, passed to \code{co.intervals}}
+  \item{\dots}{ other arguments, passed down as appropriate.  For
+    example, extra arguments to \code{equal.count} are passed on to
+    \code{co.intervals}.  graphical parameters can be passed as
+    arguments to the \code{plot} method.
+  }
 }
+
 \details{
   A shingle is a data structure used in Trellis, and is meant to be a
   generalization of factors to `continuous' variables. It consists of a
