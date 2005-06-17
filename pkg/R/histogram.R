@@ -290,7 +290,7 @@ histogram <-
     }
 
     if ((have.xlog || is.null(breaks) ||
-         length(unique(round(diff(breaks)))) != 1) &&
+         length(unique(diff(breaks))) != 1) &&
         missing(type))
         type <- "density"
     else type <- match.arg(type)
