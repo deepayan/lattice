@@ -90,14 +90,14 @@ prepanel.default.densityplot <-
 panel.densityplot <-
     function(x,
              darg = list(n = 30),
-             plot.points = TRUE,
+             plot.points = "jitter",
              ref = FALSE,
              col = plot.line$col,
              col.line = col,
+             jitter.amount = 0.01 * diff(current.panel.limits()$ylim),
              ...)
 {
     x <- as.numeric(x)
-
     if (ref)
     {
         reference.line <- trellis.par.get("reference.line")
@@ -115,7 +115,21 @@ panel.densityplot <-
         id <- (h$x>=lim[1] & h$x<=lim[2])
         llines(x = h$x[id], y = h$y[id], col = col.line, ...)
     }
-    if (plot.points) panel.xyplot(x = x, y = rep(0, length(x)), col = col, ...) 
+    switch(as.character(plot.points),
+           "TRUE" =
+           panel.xyplot(x = x, y = rep(0, length(x)),
+                        col = col, ...),
+           "rug" =
+           panel.rug(x = x, 
+                     start = 0, end = 0,
+                     x.units = c("npc", "native"),
+                     col = col.line, ...),
+           "jitter" =
+           panel.xyplot(x = x,
+                        y =
+                        jitter(rep(0, length(x)),
+                               amount = jitter.amount),
+                        col = col, ...))
 }
 
 
@@ -222,15 +236,16 @@ densityplot <-
 
     ## create a skeleton trellis object with the
     ## less complicated components:
-    foo <- do.call("trellis.skeleton",
-                   c(list(cond = cond,
-                          aspect = aspect,
-                          strip = strip,
-                          panel = panel,
-                          xlab = xlab,
-                          ylab = ylab,
-                          xlab.default = form$right.name,
-                          ylab.default = "Density"), dots))
+    foo <-
+        do.call("trellis.skeleton",
+                c(list(cond = cond,
+                       aspect = aspect,
+                       strip = strip,
+                       panel = panel,
+                       xlab = xlab,
+                       ylab = ylab,
+                       xlab.default = form$right.name,
+                       ylab.default = "Density"), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

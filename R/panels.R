@@ -136,21 +136,32 @@ panel.rug <-
              regular = TRUE, 
              start = if (regular) 0 else 0.97,
              end = if (regular) 0.03 else 1,
+             x.units = rep("npc", 2),
+             y.units = rep("npc", 2),
              col = add.line$col,
+             lty = add.line$lty,
+             lwd = add.line$lwd,
+             alpha = add.line$alpha,
              ...)
 {
     add.line <- trellis.par.get("add.line")
+    x.units <- rep(x.units, length = 2)
+    y.units <- rep(y.units, length = 2)
     if (!is.null(x))
     {
         grid.segments(x0 = unit(x, "native"), x1 = unit(x, "native"),
-                      y0 = unit(start, "npc"), y1 = unit(end, "npc"),
-                      gp = gpar(col = col))
+                      y0 = unit(start, x.units[1]), y1 = unit(end, x.units[2]),
+                      gp =
+                      gpar(col = col, lty = lty,
+                           lwd = lwd, alpha = alpha))
     }
     if (!is.null(y))
     {
         grid.segments(y0 = unit(y, "native"), y1 = unit(y, "native"),
-                      x0 = unit(start, "npc"), x1 = unit(end, "npc"),
-                      gp = gpar(col = col))
+                      x0 = unit(start, y.units[1]), x1 = unit(end, y.units[2]),
+                      gp =
+                      gpar(col = col, lty = lty,
+                           lwd = lwd, alpha = alpha))
     }
 }
 
@@ -340,6 +351,7 @@ panel.superpose <-
              fontfamily = superpose.symbol$fontfamily, 
              lty = superpose.line$lty,
              lwd = superpose.line$lwd,
+             alpha = superpose.symbol$alpha,
              ...)
 {
     x <- as.numeric(x)
@@ -365,6 +377,7 @@ panel.superpose <-
         pch <- rep(pch, length=nvals)
         lty <- rep(lty, length=nvals)
         lwd <- rep(lwd, length=nvals)
+        alpha <- rep(alpha, length=nvals)
         cex <- rep(cex, length=nvals)
         font <- rep(font, length=nvals)
         fontface <- rep(fontface, length=nvals)
@@ -379,19 +392,20 @@ panel.superpose <-
         {
             id <- (groups[subscripts] == vals[i])
             if (any(id)) {
-                args <- list(x=x[id],
-                             groups = groups,
-                             subscripts = subscripts[id],
-                             pch = pch[i], cex = cex[i],
-                             font = font[i],
-                             fontface = fontface[i],
-                             fontfamily = fontfamily[i],
-                             col.line = col.line[i],
-                             col.symbol = col.symbol[i],
-                             lty = lty[i],
-                             lwd = lwd[i], ...)
+                args <-
+                    list(x=x[id],
+                         ## groups = groups,
+                         subscripts = subscripts[id],
+                         pch = pch[i], cex = cex[i],
+                         font = font[i],
+                         fontface = fontface[i],
+                         fontfamily = fontfamily[i],
+                         col.line = col.line[i],
+                         col.symbol = col.symbol[i],
+                         lty = lty[i],
+                         lwd = lwd[i],
+                         alpha = alpha[i], ...)
                 if (!is.null(y)) args$y <- y[id]
-
                 do.call("panel.groups", args)
             }
         }

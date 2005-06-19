@@ -140,8 +140,10 @@ do.breaks(endpoints, nint)
   }
   \item{n}{ number of points at which density is to be evaluated }
   \item{plot.points}{
-    logical specifying whether the \code{x} values should be plotted
-    along the \code{y=0} line.
+    logical or character string specifying whether (and how) the
+    \code{x} values should be plotted along the \code{y=0} line.  This
+    argument is passed unchanged to \code{\link{panel.densityplot}},
+    whose help page should be consulted for details.
   }
   \item{ref}{
     logical specifying whether a reference x-axis should be drawn.

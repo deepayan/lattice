@@ -5,27 +5,41 @@
   This is the default panel function for \code{densityplot}.
 }
 \usage{
-panel.densityplot(x, darg, plot.points = TRUE, ref = FALSE,
-                  col, col.line, ...)
+panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
+                  col, col.line, jitter.amount, ...)
 }
 \arguments{
   \item{x}{ data points for which density is to be estimated}
-  \item{darg}{list of arguments to be passed to the \code{density}
+  \item{darg}{
+    list of arguments to be passed to the \code{density}
     function. Typically, this should be a list with zero or more of the
-    following components : \code{bw, adjust, kernel, window, width,
-    give.Rkern, n, from, to, cut, na.rm} (see \code{density} for
-    details)
-} 
-  \item{plot.points}{ logical, specifying whether or not the data 
-    points should be plotted along with the estimated density.
+    following components : \code{bw}, \code{adjust}, \code{kernel},
+    \code{window}, \code{width}, \code{give.Rkern}, \code{n},
+    \code{from}, \code{to}, \code{cut}, \code{na.rm} (see
+    \code{\link{density}} for details)
+  } 
+  \item{plot.points}{
+    logical specifying whether or not the data points should be plotted
+    along with the estimated density.  Alternatively, a character string
+    specifying how the points should be plotted.  Meaningful values are
+    ``rug'', in which case \code{\link{panel.rug}} is used to plot a
+    `rug', and ``jitter'', in which case the points are jittered
+    vertically to better distinguish overlapping points.
   }
   \item{ref}{ logical, whether to draw x-axis }
   \item{col}{ color for points and line}
   \item{col.line}{ color for line, overrides col }
+  \item{jitter.amount}{
+    when \code{plot.points="jitter"}, the value to use as the
+    \code{amount} argument to \code{\link{jitter}}.
+  }
   \item{\dots}{ extra grahical parameters }
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
-\seealso{\code{\link{densityplot}}}
+\seealso{
+  \code{\link{densityplot}},
+  \code{\link{jitter}}
+}
 \keyword{dplot}
 
 

@@ -22,36 +22,25 @@
 
 
 prepanel.default.xyplot <-
-    function(x, y, type, subscripts, groups, ...)
+    function(x, y, type, subscripts, groups = NULL, ...)
 {
-
     ## Note: shingles satisfy is.numeric()
-    if (any(!is.na(x)) && any(!is.na(y))) {
-
-        if (!missing(groups))
+    if (any(!is.na(x)) && any(!is.na(y)))
+    {
+        ord <- order(as.numeric(x))
+        if (!is.null(groups))
         {
-            vals <-
-                if (is.factor(groups)) levels(groups)
-                else sort(unique(groups))
-
-            dx <- numeric(0)
-            dy <- numeric(0)
-            for (i in seq(along = vals))
-            {
-                id <- (groups[subscripts] == vals[i])
-                ord <- order(x[id])
-                dx <- c(dx, as.numeric(diff(x[id][ord])))
-                dy <- c(dy, as.numeric(diff(y[id][ord])))
-            }
+            gg <- groups[subscripts][ord]
+            dx <- unlist(lapply(split(as.numeric(x)[ord], gg), diff))
+            dy <- unlist(lapply(split(as.numeric(y)[ord], gg), diff))
         }
         else
         {
-            ord <- order(x)
-            dx = as.numeric(diff(x[ord]))
-            dy = as.numeric(diff(y[ord]))            
+            dx <- diff(as.numeric(x[ord]))
+            dy <- diff(as.numeric(y[ord]))
         }
-        list(xlim = if (is.numeric(x)) range(x[is.finite(x)]) else levels(x),
-             ylim = if (is.numeric(y)) range(y[is.finite(y)]) else levels(y),
+        list(xlim = if (is.numeric(x)) range(x, finite = TRUE) else levels(x),
+             ylim = if (is.numeric(y)) range(y, finite = TRUE) else levels(y),
              dx = dx, dy = dy)
 
     }
