@@ -54,7 +54,7 @@ prepanel.default.bwplot <-
                      foo2 <- if (any(x < 0)) range( by(x[x<0], y[x<0, drop = TRUE], sum)) else 0
                      range(foo1, foo2)
                  }
-                 else if (is.numeric(x)) range(x[is.finite(x)], origin)
+                 else if (is.numeric(x)) range(x, origin, finite = TRUE)
                  else levels(x),
                  ylim = levels(y),
                  yat = sort(unique(as.numeric(y))),
@@ -76,7 +76,7 @@ prepanel.default.bwplot <-
                      foo2 <- if (any(y < 0)) range( by(y[y<0], x[y<0], sum)) else 0
                      range(foo1, foo2)
                  }
-                 else if (is.numeric(y)) range(y[is.finite(y)], origin)
+                 else if (is.numeric(y)) range(y, origin, finite = TRUE)
                  else levels(y),
                  dx = 1,
                  dy = 1)

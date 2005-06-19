@@ -238,7 +238,7 @@ formattedTicksAndLabels.POSIXct <-
     else x <- as.POSIXct(x)
     range <- as.numeric(range(x))
     d <- range[2] - range[1]
-    z <- c(range, x[is.finite(x)])
+    z <- c(range, x, finite = TRUE)
     if (d < 1.1 * 60) {
         sc <- 1
         if (is.null(format.posixt)) 
