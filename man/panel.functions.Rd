@@ -32,7 +32,13 @@ panel.rug(x = NULL, y = NULL,
           regular = TRUE, 
           start = if (regular) 0 else 0.97,
           end = if (regular) 0.03 else 1,
-          col, ...)
+          x.units = rep("npc", 2),
+          y.units = rep("npc", 2),
+          col = add.line$col,
+          lty = add.line$lty,
+          lwd = add.line$lwd,
+          alpha = add.line$alpha,
+          ...)
 panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd, 
     lty = reference.line$lty, col, col.line = reference.line$col, 
     ...)
@@ -45,7 +51,10 @@ panel.abline(h= ,v= , \dots)
 panel.curve(expr, from, to, n = 101,
             curve.type = "l", \dots)
 panel.rug(x = NULL, y = NULL,
-          regular = TRUE, start, end, \dots)
+          regular = TRUE, start, end,
+          x.units = rep("npc", 2),
+          y.units = rep("npc", 2),
+          \dots)
 panel.fill(col="grey", \dots)
 panel.grid(h=3, v=3, \dots)
 panel.lmline(x,y,\dots) = panel.abline(lm(y~x), \dots)
@@ -78,6 +87,13 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
     coordinates (between 0 and 1). Defaults depend on value of regular,
     and cover 3\% of the panel width and height
   }
+  \item{x.units, y.units}{
+    character vector, replicated to be of length two.  Specifies the
+    (grid) units associated with \code{start} and \code{end} above.
+    \code{x.units} and \code{y.units} are for the rug on the x-axis and
+    y-axis respectively (and thus are associated with \code{start} and
+    \code{end} values on the y and x scales respectively).
+  }
   \item{from, to}{ optional lower and upper x-limits of curve. If
     missing, limits of current panel are used
   }
@@ -101,9 +117,9 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
     given a numeric vector named \code{x}, e.g., \code{dnorm}}
   \item{args}{ list giving additional arguments to be passed to dmath}
   \item{\dots}{ graphical parameters can be supplied. see function
-    definition for details. Color can usually be specified by \code{col,
-      col.line} and \code{col.symbol}, the last two overriding the first
-    for lines and points respectively.
+    definition for details. Color can usually be specified by
+    \code{col}, \code{col.line} and \code{col.symbol}, the last two
+    overriding the first for lines and points respectively.
   }
 }
 \details{
@@ -117,15 +133,20 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
   from the \code{add.line} setting.
 
   \code{panel.linejoin} treats one of x and y as a factor (according to
-  the value of \code{horizontal}, calculates \code{fun} applied to the
+  the value of \code{horizontal}), calculates \code{fun} applied to the
   subsets of the other variable determined by each unique value of the
   factor, and joins them by a line. Can be used in conjunction with
   \code{panel.xyplot} and more commonly with panel.superpose to produce
-  interaction plots. See \code{\link{xyplot}} documentation for an example.
+  interaction plots.  See \code{\link{xyplot}} documentation for an
+  example.
 
   \code{panel.mathdensity} plots a (usually theoretical) probability
-  density function. Can be useful in conjunction with \code{histogram}
-  and \code{densityplot} to visually estimate goodness of fit.
+  density function.  This can be useful in conjunction with
+  \code{histogram} and \code{densityplot} to visually estimate goodness
+  of fit (note, however, that \code{qqmath} is more suitable for this).
+
+  \code{panel.rug} adds a \emph{rug} representation of the (marginal)
+  data to the panel, much like \code{\link{rug}}.
 
 }
 

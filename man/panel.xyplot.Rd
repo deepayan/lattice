@@ -1,13 +1,12 @@
 \name{panel.xyplot}
 \alias{panel.xyplot}
 \alias{panel.splom}
-\alias{panel.qqmath}
 \alias{panel.qq}
 \title{ Default Panel Function for xyplot }
 \description{
   This is the default panel function for \code{xyplot}. Also see
-  \code{panel.superpose}. The default panel functions for
-  \code{splom} and \code{qqmath} are essentially the same function.
+  \code{panel.superpose}.  The default panel functions for
+  \code{splom} and \code{qq} are essentially the same function.
 }
 \usage{
 panel.xyplot(x, y, type="p",
@@ -23,7 +22,6 @@ panel.xyplot(x, y, type="p",
              lwd = plot.line$lwd,
              horizontal = FALSE, ...)
 panel.splom(...)
-panel.qqmath(...)
 panel.qq(...)
 }
 \arguments{
@@ -66,7 +64,7 @@ panel.qq(...)
   45 degree line before calling \code{panel.xyplot}.
 
   Note that most of the arguments controlling the display can be
-  supplied directly to the high-level \code{xyplot} call.
+  supplied directly to the high-level (e.g. \code{xyplot}) call.
 
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
@@ -74,6 +72,6 @@ panel.qq(...)
 \seealso{
   \code{\link{panel.superpose}},
   \code{\link{xyplot}},
-  \code{\link{splom}},\code{\link{qqmath}}
+  \code{\link{splom}}
 }
 \keyword{dplot}

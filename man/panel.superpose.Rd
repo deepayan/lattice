@@ -22,6 +22,7 @@ panel.superpose(x, y = NULL, subscripts, groups,
              fontfamily = superpose.symbol$fontfamily,
              lty = superpose.line$lty,
              lwd = superpose.line$lwd,
+             alpha = superpose.symbol$alpha,
              ...)
 panel.superpose.2(x, y = NULL, subscripts, groups,
                   panel.groups = "panel.xyplot",
@@ -35,6 +36,7 @@ panel.superpose.2(x, y = NULL, subscripts, groups,
                   fontfamily = superpose.symbol$fontfamily, 
                   lty = superpose.line$lty,
                   lwd = superpose.line$lwd,
+                  alpha = superpose.symbol$alpha,
                   type = "p",
                   ...)
 }

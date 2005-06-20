@@ -428,12 +428,13 @@ panel.superpose.2 <-
              fontfamily = superpose.symbol$fontfamily, 
              lty = superpose.line$lty,
              lwd = superpose.line$lwd,
+             alpha = superpose.symbol$alpha,
              type = "p",
              ...)
 {
 
-    ## This is a (very) slightly different version of panel.superpose.
-    ## It has an explicit type argument which behaves like other
+    ## This is a slightly different version of panel.superpose.  It
+    ## has an explicit type argument which behaves like other
     ## graphical parameters, i.e., it is repeated to be as long as the
     ## number of groups, and one used for each group.  This is the
     ## default behaviour of panel.superpose in S-PLUS.
@@ -465,6 +466,7 @@ panel.superpose.2 <-
         pch <- rep(pch, length=nvals)
         lty <- rep(lty, length=nvals)
         lwd <- rep(lwd, length=nvals)
+        alpha <- rep(alpha, length=nvals)
         cex <- rep(cex, length=nvals)
         font <- rep(font, length=nvals)
         fontface <- rep(fontface, length=nvals)
@@ -492,6 +494,7 @@ panel.superpose.2 <-
                              col.symbol = col.symbol[i],
                              lty = lty[i],
                              lwd = lwd[i],
+                             alpha = alpha[i],
                              type = type[[i]], ...)
                 if (!is.null(y)) args$y <- y[id]
 
