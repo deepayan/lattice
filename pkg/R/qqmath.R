@@ -88,6 +88,8 @@ prepanel.qqmath <-
 
 
 
+
+
 panel.qqmath <-
     function(x,
              f.value = NULL,
