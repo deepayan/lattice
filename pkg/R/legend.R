@@ -705,7 +705,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     ## FIXME: need to handle DateTime classes properly
 
 
-    atrange <- range(key$at)
+    atrange <- range(key$at, finite = TRUE)
     scat <- as.numeric(key$at) ## problems otherwise with DateTime objects (?)
 
     ## recnum <- length(scat)-1

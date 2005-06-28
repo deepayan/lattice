@@ -164,7 +164,7 @@ panel.levelplot <-
     minXwid <- min(diff(sort(unique(x))))
     minYwid <- min(diff(sort(unique(y))))
 
-    fullZrange <- range(as.numeric(z), na.rm = TRUE) # for shrinking
+    fullZrange <- range(as.numeric(z), finite = TRUE) # for shrinking
     z <- as.numeric(z[subscripts])
     zcol <- as.numeric(zcol[subscripts])
 
@@ -186,7 +186,7 @@ panel.levelplot <-
         else warning("Invalid shrink, ignored")
     }
 
-    scaleWidth <- function(z, min = .8, max = .8, zl = range(z, na.rm = TRUE)) {
+    scaleWidth <- function(z, min = .8, max = .8, zl = range(z, finite = TRUE)) {
         if (diff(zl) == 0) rep(.5 * (min + max), length(z))
         else min + (max - min) * (z - zl[1]) / diff(zl)
     }
@@ -527,7 +527,7 @@ levelplot <-
     if (missing(xlab)) xlab <- form$right.x.name
     if (missing(ylab)) ylab <- form$right.y.name
 
-    zrng <- extend.limits(range(z[!is.na(z)]))
+    zrng <- extend.limits(range(z, finite = TRUE))
     if (missing(at))
         at <-
             if (pretty) pretty(zrng, cuts)

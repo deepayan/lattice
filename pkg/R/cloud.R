@@ -384,7 +384,7 @@ panel.3dwire <-
         x[x < xlim.scaled[1] | x > xlim.scaled[2]] <- NA
         y[y < ylim.scaled[1] | y > ylim.scaled[2]] <- NA
         z[z < zlim.scaled[1] | z > zlim.scaled[2]] <- NA
-        htrange <- extend.limits(sqrt(range(x^2 + y^2 + z^2, na.rm = TRUE)), prop = 0.01)
+        htrange <- extend.limits(sqrt(range(x^2 + y^2 + z^2, finite = TRUE)), prop = 0.01)
         ngroups <- 1
     }
     else
@@ -671,7 +671,7 @@ panel.cloud <-
         wireframe && is.matrix(x) && is.matrix(y) && is.matrix(z)
 
     if (isParametrizedSurface)
-        zrng <- extend.limits(sqrt(range(x^2 + y^2 + z^2, na.rm = TRUE)))
+        zrng <- extend.limits(sqrt(range(x^2 + y^2 + z^2, finite = TRUE)))
 
 
 
@@ -903,7 +903,7 @@ panel.cloud <-
         ## box ranges and lengths
         cmin <- lapply(corners, min)
         cmax <- lapply(corners, max)
-        clen <- lapply(corners, function(x) diff(range(x)))
+        clen <- lapply(corners, function(x) diff(range(x, finite = TRUE)))
 
 
         ## scaled (to bounding box) data
@@ -913,7 +913,7 @@ panel.cloud <-
         at <-
             if (isParametrizedSurface)
             {
-                zrng.scaled <- extend.limits(sqrt(range(x^2 + y^2 + z^2, na.rm = TRUE)))
+                zrng.scaled <- extend.limits(sqrt(range(x^2 + y^2 + z^2, finite = TRUE)))
                 zrng.scaled[1] + diff(zrng.scaled) * (at - zrng[1])/diff(zrng)
             }
             else cmin$z + clen$z * (at - zlim[1])/diff(zlim)
@@ -1481,11 +1481,11 @@ cloud <-
              strip = TRUE,
              groups = NULL,
              xlab,
-             xlim = if (is.factor(x)) levels(x) else range(x, na.rm = TRUE),
+             xlim = if (is.factor(x)) levels(x) else range(x, finite = TRUE),
              ylab,
-             ylim = if (is.factor(y)) levels(y) else range(y, na.rm = TRUE),
+             ylim = if (is.factor(y)) levels(y) else range(y, finite = TRUE),
              zlab,
-             zlim = if (is.factor(z)) levels(z) else range(z, na.rm = TRUE),
+             zlim = if (is.factor(z)) levels(z) else range(z, finite = TRUE),
 
 #             distance = .2,
 #             perspective = TRUE,
@@ -1614,9 +1614,9 @@ cloud <-
 
     zrng <-
         if (isParametrizedSurface)
-            extend.limits(sqrt(range(x^2 + y^2 + z^2, na.rm = TRUE)))
+            extend.limits(sqrt(range(x^2 + y^2 + z^2, finite = TRUE)))
         else
-            extend.limits(range(as.numeric(z), na.rm = TRUE))
+            extend.limits(range(as.numeric(z), finite = TRUE))
 
 
     if (missing(at))

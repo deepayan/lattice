@@ -52,10 +52,10 @@ qqmath(~ height | voice.part,
        aspect=1, 
        layout=c(2,4),
        prepanel = prepanel.qqmathline,
-       panel = function(x, y) {
+       panel = function(x, ...) {
          panel.grid()
-         panel.qqmathline(y, distribution = qnorm)
-         panel.qqmath(x, y)
+         panel.qqmathline(x, ...)
+         panel.qqmath(x, ...)
        },
        xlab = "Unit Normal Quantile",
        ylab="Height (inches)")

@@ -198,8 +198,8 @@ bwplot(formula,
     functionality provided by \code{horizontal=FALSE} is not
     S-compatible.)
   
-    All points with at least one of its values missing (NA) in any
-    of the variates involved are omitted from the plot.
+%     All points with at least one of its values missing (NA) in any
+%     of the variates involved are omitted from the plot.
   }
   \item{data}{a data frame containing values for any variables in the
     formula, as well as \code{groups} and \code{subset} if applicable. 

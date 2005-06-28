@@ -48,7 +48,7 @@ prepanel.default.histogram <-
         if (is.null(breaks)) {
             nint <- round(log2(length(x)) + 1)
             breaks <-
-                if (equal.widths) do.breaks(range(x), nint)
+                if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
                 else quantile(x, 0:nint/nint)
         }
         h <- hist(x, breaks = breaks, plot = FALSE, ...)
@@ -56,13 +56,13 @@ prepanel.default.histogram <-
             if (type == "count") h$counts
             else if (type == "percent") 100 * h$counts/length(x)
             else h$intensities
-        xlim <- range(x)
+        xlim <- range(x, finite = TRUE)
         ##lbreak <- max(xlim[1], breaks[breaks<=xlim[1]])
         ##ubreak <- min(xlim[2], breaks[breaks>=xlim[2]])
         ## why ?
-        ##list(xlim = range(x, lbreak, ubreak),
-        list(xlim = if (isFactor) xlimits else range(x, breaks),
-             ylim = range(0,y),
+        ##list(xlim = range(x, lbreak, ubreak, finite = TRUE),
+        list(xlim = if (isFactor) xlimits else range(x, breaks, finite = TRUE),
+             ylim = range(0, y, finite = TRUE),
              dx = 1,
              dy = 1)
     }
@@ -102,7 +102,7 @@ panel.histogram <- function(x,
         {
             nint <- round(log2(length(x)) + 1)
             breaks <-
-                if (equal.widths) do.breaks(range(x), nint)
+                if (equal.widths) do.breaks(range(x), nint, finite = TRUE)
                 else quantile(x, 0:nint/nint)
 
         }
@@ -164,7 +164,7 @@ histogram <-
              type = c("percent", "count", "density"),
              nint = if (is.factor(x)) length(levels(x))
              else round(log2(length(x)) + 1),
-             endpoints = extend.limits(range(x[!is.na(x)]), prop = 0.04),
+             endpoints = extend.limits(range(x, finite = TRUE), prop = 0.04),
              breaks = if (is.factor(x)) seq(0.5, length = length(levels(x))+1)
              else do.breaks(endpoints, nint),
              equal.widths = TRUE,
