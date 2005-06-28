@@ -84,11 +84,26 @@ qqmath(formula, data,
 }
 \examples{
 qqmath(~ rnorm(100), distribution = function(p) qt(p, df = 10))
-qqmath(~ height | voice.part, aspect = 1, data = singer,
+qqmath(~ height | voice.part, aspect = "xy", data = singer,
        prepanel = prepanel.qqmathline,
-       panel = function(x, y) {
-          panel.qqmathline(y, distribution = qnorm)
-          panel.qqmath(x, y)
+       panel = function(x, ...) {
+          panel.qqmathline(x, ...)
+          panel.qqmath(x, ...)
+       })
+vp.comb <-
+    factor(sapply(strsplit(as.character(singer$voice.part), split = " "),
+                  "[", 1),
+           levels = c("Bass", "Tenor", "Alto", "Soprano"))
+vp.group <-
+    factor(sapply(strsplit(as.character(singer$voice.part), split = " "),
+                  "[", 2))
+qqmath(~ height | vp.comb, data = singer,
+       groups = vp.group, auto.key = list(space = "right"),
+       aspect = "xy",
+       prepanel = prepanel.qqmathline,
+       panel = function(x, ...) {
+          panel.qqmathline(x, ...)
+          panel.qqmath(x, ...)
        })
 }
 \keyword{dplot}

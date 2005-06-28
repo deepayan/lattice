@@ -28,7 +28,7 @@
 
 
 
-prepanel.qqmath <-
+prepanel.default.qqmath <-
     function(x,
              f.value = NULL,
              distribution = qnorm,
@@ -107,6 +107,7 @@ panel.qqmath <-
         panel.superpose(x, y = NULL,
                         f.value = f.value,
                         distribution = distribution,
+                        qtype = qtype,
                         groups = groups,
                         panel.groups = panel.qqmath,
                         ...)
@@ -134,7 +135,7 @@ panel.qqmath <-
 qqmath <-
     function(formula,
              data = parent.frame(),
-             prepanel = "prepanel.qqmath",
+             prepanel = prepanel.default.qqmath,
              panel = "panel.qqmath",
              groups = NULL,
              distribution = qnorm,
@@ -202,13 +203,33 @@ qqmath <-
 
 
 panel.qqmathline <-
-    function(y, distribution, p = c(0.25, 0.75), ...)
+    function(x, y = x,
+             distribution = qnorm,
+             p = c(0.25, 0.75),
+             qtype = 7,
+             groups = NULL, 
+             ...)
 {
     y <- as.numeric(y)
     stopifnot(length(p) == 2)
-
-    if (length(y) > 0) {
-        yy <- quantile(y, p)
+    distribution <-
+        if (is.function(distribution)) distribution 
+        else if (is.character(distribution)) get(distribution)
+        else eval(distribution)
+    nobs <- sum(!is.na(y))
+    if (!is.null(groups))
+        panel.superpose(x = y, y = NULL,
+                        distribution = distribution,
+                        p = p,
+                        qtype = qtype,
+                        groups = groups,
+                        panel.groups = panel.qqmathline,
+                        ...)
+    else if (nobs)
+    {
+        yy <-
+            quantile(y, p, names = FALSE,
+                     type = qtype, na.rm = TRUE)
         xx <- distribution(p)
         r <- diff(yy)/diff(xx)
         panel.abline(c( yy[1]-xx[1]*r , r), ...)
@@ -217,27 +238,83 @@ panel.qqmathline <-
 
 
 prepanel.qqmathline <-
-    function(y, distribution, f.value = ppoints, p = c(0.25, 0.75), ...)
+    function(x, y = x,
+             distribution = qnorm,
+             p = c(0.25, 0.75),
+             qtype = 7,
+             groups = NULL,
+             subscripts = TRUE,
+             ...)
 {
-    ##if (!is.numeric(y)) 
+    ans <-
+        prepanel.default.qqmath(x,
+                                distribution = distribution,
+                                qtype = qtype,
+                                groups = groups,
+                                subscripts = subscripts,
+                                ...)
     y <- as.numeric(y)
     stopifnot(length(p) == 2)
-    n <- length(y)
-
-    if (n > 0)
+    distribution <-
+        if (is.function(distribution)) distribution 
+        else if (is.character(distribution)) get(distribution)
+        else eval(distribution)
+    nobs <- sum(!is.na(y))
+    getdy <- function(x)
     {
-        yy <- quantile(y, p)
-        xx <- distribution(p)
-        list(xlim = range(distribution(f.value(n))),
-             ylim = range(y),
-             dx = diff(xx),
-             dy = diff(yy))
+        diff(quantile(x, p, names = FALSE,
+                      type = qtype,
+                      na.rm = TRUE))
     }
-    else
+    dy <- 
+        if (!is.null(groups)) sapply(split(y, groups[subscripts]), getdy)
+        else getdy(y)
+    if (!all(is.na(dy)))
     {
-        list(xlim = c(NA, NA), ylim = c(NA, NA), dx = 1, dy = 1)
+        ans$dy <- dy[!is.na(dy)]
+        ans$dx <- rep(diff(distribution(p)), length(ans$dy))
     }
+    ans
 }
+
+
+## panel.qqmathline.old <-
+##     function (y, distribution, p = c(0.25, 0.75), ...)
+## {
+##     y <- as.numeric(y)
+##     stopifnot(length(p) == 2)
+##     if (length(y) > 0) {
+##         yy <- quantile(y, p)
+##         xx <- distribution(p)
+##         r <- diff(yy)/diff(xx)
+##         panel.abline(c(yy[1] - xx[1] * r, r), ...)
+##     }
+## }
+
+
+
+## prepanel.qqmathline.old <-
+##     function(y, distribution, f.value = ppoints, p = c(0.25, 0.75), ...)
+## {
+##     ##if (!is.numeric(y)) 
+##     y <- as.numeric(y)
+##     stopifnot(length(p) == 2)
+##     n <- length(y)
+
+##     if (n > 0)
+##     {
+##         yy <- quantile(y, p)
+##         xx <- distribution(p)
+##         list(xlim = range(distribution(f.value(n))),
+##              ylim = range(y),
+##              dx = diff(xx),
+##              dy = diff(yy))
+##     }
+##     else
+##     {
+##         list(xlim = c(NA, NA), ylim = c(NA, NA), dx = 1, dy = 1)
+##     }
+## }
 
 
 ## prepanel.default.qqmath.old <-

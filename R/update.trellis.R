@@ -268,7 +268,7 @@ update.trellis <-
 
     if (!missing(auto.key))
     {
-        if (!is.null(legend))
+        if (!is.null(object$legend))
             cat(paste("\nNote: auto.key ignored since key already present. \n",
                       "Use update(..., legend = NULL) to remove exisitng legend(s)\n"))
         else 

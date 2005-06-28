@@ -742,44 +742,120 @@ lattice.options <- function(...)
                         pad2 = list(x = 2, units = "mm")))),
 
 
+
+##          axis.units =
+##          list(outer =
+##               list(left =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc")),
+##                    top =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc")),
+##                    right =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc")),
+##                    bottom =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc"))),
+
+##               inner =
+##               list(left =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc")),
+##                    top =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc")),
+##                    right =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc")),
+##                    bottom =
+##                    list(tick = list(x = 0.01, units = "snpc"),
+##                         pad1 = list(x = 0.01, units = "snpc"),
+##                         pad2 = list(x = 0.01, units = "snpc")))),
+
+         
+
          layout.heights =
-         list(top.padding = list(x = 2, units = "mm", data = NULL),
+
+##          list(top.padding = list(x = 2, units = "mm", data = NULL),
+##               main = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               main.key.padding = list(x = 2, units = "mm", data = NULL),
+##               key.top = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               key.axis.padding = list(x = 2, units = "mm", data = NULL),
+##               axis.top = list(x = 0, units = "mm", data = NULL),
+##               strip = list(x = 1, units = "lines", data = NULL),
+##               panel = list(x = 1, units = "null", data = NULL),
+##               axis.panel = list(x = 0, units = "mm", data = NULL),
+##               between = list(x = 5, units = "mm", data = NULL),
+##               axis.bottom = list(x = 0, units = "mm", data = NULL),
+##               axis.xlab.padding = list(x = 2, units = "mm", data = NULL),
+##               xlab = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               xlab.key.padding = list(x = 2, units = "mm", data = NULL),
+##               key.bottom = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               key.sub.padding = list(x = 2, units = "mm", data = NULL),
+##               sub = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               bottom.padding = list(x = 2, units = "mm", data = NULL)),
+##          layout.widths =
+##          list(left.padding = list(x = 2, units = "mm", data = NULL),
+##               key.left = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+##               key.ylab.padding = list(x = 2, units = "mm", data = NULL),
+
+##               ## changed in 2.1.0
+##               ylab = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+
+
+##               ylab.axis.padding = list(x = 2, units = "mm", data = NULL),
+##               axis.left = list(x = 0, units = "mm", data = NULL),
+##               axis.panel = list(x = 0, units = "mm", data = NULL),
+##               panel = list(x = 1, units = "null", data = NULL),
+##               between = list(x = 5, units = "mm", data = NULL),
+##               axis.right = list(x = 0, units = "mm", data = NULL),
+##               axis.key.padding = list(x = 2, units = "mm", data = NULL),
+##               key.right = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+##               right.padding = list(x = 2, units = "mm", data = NULL)),
+
+
+
+         list(top.padding = list(x = 0.01, units = "snpc", data = NULL),
               main = list(x = 0, units = "grobheight", data = textGrob(lab="")),
-              main.key.padding = list(x = 2, units = "mm", data = NULL),
+              main.key.padding = list(x = 0.01, units = "snpc", data = NULL),
               key.top = list(x = 0, units = "grobheight", data = textGrob(lab="")),
-              key.axis.padding = list(x = 2, units = "mm", data = NULL),
+              key.axis.padding = list(x = 0.01, units = "snpc", data = NULL),
               axis.top = list(x = 0, units = "mm", data = NULL),
               strip = list(x = 1, units = "lines", data = NULL),
               panel = list(x = 1, units = "null", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),
               between = list(x = 5, units = "mm", data = NULL),
               axis.bottom = list(x = 0, units = "mm", data = NULL),
-              axis.xlab.padding = list(x = 2, units = "mm", data = NULL),
+              axis.xlab.padding = list(x = 0.01, units = "snpc", data = NULL),
               xlab = list(x = 0, units = "grobheight", data = textGrob(lab="")),
-              xlab.key.padding = list(x = 2, units = "mm", data = NULL),
+              xlab.key.padding = list(x = 0.01, units = "snpc", data = NULL),
               key.bottom = list(x = 0, units = "grobheight", data = textGrob(lab="")),
-              key.sub.padding = list(x = 2, units = "mm", data = NULL),
+              key.sub.padding = list(x = 0.01, units = "snpc", data = NULL),
               sub = list(x = 0, units = "grobheight", data = textGrob(lab="")),
-              bottom.padding = list(x = 2, units = "mm", data = NULL)),
+              bottom.padding = list(x = 0.01, units = "snpc", data = NULL)),
          layout.widths =
-         list(left.padding = list(x = 2, units = "mm", data = NULL),
+         list(left.padding = list(x = 0.01, units = "snpc", data = NULL),
               key.left = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
-              key.ylab.padding = list(x = 2, units = "mm", data = NULL),
-
-              ## changed in 2.1.0
+              key.ylab.padding = list(x = 0.01, units = "snpc", data = NULL),
               ylab = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
-
-
-              ylab.axis.padding = list(x = 2, units = "mm", data = NULL),
+              ylab.axis.padding = list(x = 0.01, units = "snpc", data = NULL),
               axis.left = list(x = 0, units = "mm", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),
               panel = list(x = 1, units = "null", data = NULL),
               between = list(x = 5, units = "mm", data = NULL),
               axis.right = list(x = 0, units = "mm", data = NULL),
-              axis.key.padding = list(x = 2, units = "mm", data = NULL),
+              axis.key.padding = list(x = 0.01, units = "snpc", data = NULL),
               key.right = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
-              right.padding = list(x = 2, units = "mm", data = NULL)),
-
+              right.padding = list(x = 0.01, units = "snpc", data = NULL)),
+         
          highlight.gpar = list(col = "red", lwd = 2)
 
          )

@@ -254,9 +254,11 @@ prepanel.lmline <-
 
     if (length(x)>0) {
         coeff <- coef(lm(y~x))
-        tem <- coeff[1] + coeff[2] * range(x)
-        list(xlim=range(x), ylim=range(y,tem), 
-             dx=diff(range(x)), dy=diff(tem))         
+        tem <- coeff[1] + coeff[2] * range(x, finite = TRUE)
+        list(xlim = range(x, finite = TRUE),
+             ylim = range(y, tem, finite = TRUE), 
+             dx = diff(range(x, finite = TRUE)),
+             dy = diff(tem, finite = TRUE))
     }
     else list(xlim=c(NA,NA), ylim=c(NA,NA), dx=NA, dy=NA)
 }
@@ -311,8 +313,8 @@ prepanel.loess <-
         smooth <-
             loess.smooth(x, y, span = span, family = family,
                          degree = degree, evaluation = evaluation)
-        list(xlim = range(x,smooth$x),
-             ylim = range(y,smooth$y),
+        list(xlim = range(x, smooth$x, finite = TRUE),
+             ylim = range(y, smooth$y, finite = TRUE),
              dx = diff(smooth$x),
              dy = diff(smooth$y))
     }

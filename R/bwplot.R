@@ -50,8 +50,14 @@ prepanel.default.bwplot <-
             }
             list(xlim =
                  if (stack) {
-                     foo1 <- if (any(x > 0)) range( by(x[x>0], y[x>0, drop = TRUE], sum)) else 0
-                     foo2 <- if (any(x < 0)) range( by(x[x<0], y[x<0, drop = TRUE], sum)) else 0
+                     foo1 <-
+                         if (any(x > 0))
+                             range( by(x[x>0], y[x>0, drop = TRUE], sum), finite = TRUE) 
+                         else 0
+                     foo2 <-
+                         if (any(x < 0))
+                             range( by(x[x<0], y[x<0, drop = TRUE], sum), finite = TRUE) 
+                         else 0
                      range(foo1, foo2)
                  }
                  else if (is.numeric(x)) range(x, origin, finite = TRUE)
@@ -72,8 +78,14 @@ prepanel.default.bwplot <-
                  xat = sort(unique(as.numeric(x))),
                  ylim =
                  if (stack) {
-                     foo1 <- if (any(y > 0)) range( by(y[y>0], x[y>0], sum)) else 0
-                     foo2 <- if (any(y < 0)) range( by(y[y<0], x[y<0], sum)) else 0
+                     foo1 <-
+                         if (any(y > 0))
+                             range( by(y[y>0], x[y>0], sum), finite = TRUE)
+                         else 0
+                     foo2 <-
+                         if (any(y < 0))
+                             range( by(y[y<0], x[y<0], sum, finite = TRUE)) 
+                         else 0
                      range(foo1, foo2)
                  }
                  else if (is.numeric(y)) range(y, origin, finite = TRUE)

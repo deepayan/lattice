@@ -65,7 +65,7 @@ prepanel.default.densityplot <-
     {
         vals <- sort(unique(groups))
         nvals <- length(vals)
-        xl <- range(x)
+        xl <- range(x, finite = TRUE)
         yl <- 0
         dxl <- numeric(0) # bad names !!
         dyl <- numeric(0) 
@@ -80,7 +80,9 @@ prepanel.default.densityplot <-
                 dyl <- c(dyl, diff(h$y))
             }
         }
-        list(xlim = range(xl), ylim = range(yl), dx = dxl, dy = dyl)
+        list(xlim = range(xl, finite = TRUE),
+             ylim = range(yl, finite = TRUE),
+             dx = dxl, dy = dyl)
     }
 }
 
