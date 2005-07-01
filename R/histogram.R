@@ -102,7 +102,7 @@ panel.histogram <- function(x,
         {
             nint <- round(log2(length(x)) + 1)
             breaks <-
-                if (equal.widths) do.breaks(range(x), nint, finite = TRUE)
+                if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
                 else quantile(x, 0:nint/nint)
 
         }
