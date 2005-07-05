@@ -31,6 +31,7 @@ prepanel.default.histogram <-
              breaks = NULL,
              equal.widths = TRUE,
              type = "density",
+             nint = round(log2(length(x)) + 1),
              ...)
 {
     if (length(x)<1)
@@ -46,10 +47,10 @@ prepanel.default.histogram <-
         else isFactor <- FALSE
         if (!is.numeric(x)) x <- as.numeric(x)
         if (is.null(breaks)) {
-            nint <- round(log2(length(x)) + 1)
+##             nint <- round(log2(length(x)) + 1)
             breaks <-
                 if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
-                else quantile(x, 0:nint/nint)
+                else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
         h <- hist(x, breaks = breaks, plot = FALSE, ...)
         y <-
@@ -76,16 +77,18 @@ prepanel.default.histogram <-
 
 
 
-panel.histogram <- function(x,
-                            breaks,
-                            equal.widths = TRUE,
-                            type = "density",
-                            alpha = bar.fill$alpha,
-                            col = bar.fill$col,
-                            border = bar.fill$border,
-                            lty = bar.fill$lty,
-                            lwd = bar.fill$lwd,
-                            ...)
+panel.histogram <-
+    function(x,
+             breaks,
+             equal.widths = TRUE,
+             type = "density",
+             nint = round(log2(length(x)) + 1),
+             alpha = bar.fill$alpha,
+             col = bar.fill$col,
+             border = bar.fill$border,
+             lty = bar.fill$lty,
+             lwd = bar.fill$lwd,
+             ...)
 {
     x <- as.numeric(x)
     bar.fill  <- trellis.par.get("bar.fill")
@@ -97,16 +100,13 @@ panel.histogram <- function(x,
         
     if (length(x)>0)
     {
-
         if (is.null(breaks))
         {
-            nint <- round(log2(length(x)) + 1)
+##             nint <- round(log2(length(x)) + 1)
             breaks <-
                 if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
-                else quantile(x, 0:nint/nint)
-
+                else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
-
         h <- hist(x, breaks = breaks, plot = FALSE, ...)
         y <-
             if (type == "count") h$counts
@@ -114,24 +114,33 @@ panel.histogram <- function(x,
             else h$intensities
 
         nb <- length(breaks)
-        if (nb != (length(y)+1)) warning("something is probably wrong")
-
+        if (length(y) != nb-1) warning("problem with hist computations")
 
         if (nb>1)
         {
-            for(i in 1:(nb-1))
-                if (y[i]>0)
-                {
-                    grid.rect(gp =
-                              gpar(fill = col, alpha = alpha,
-                                   col = border, lty = lty, lwd = lwd),
-                              x = breaks[i],
-                              y = 0,
-                              height = y[i],
-                              width = breaks[i+1]-breaks[i],
-                              just = c("left", "bottom"),
-                              default.units = "native")
-                }
+            grid.rect(gp =
+                      gpar(fill = col, alpha = alpha,
+                           col = border, lty = lty, lwd = lwd),
+                      x = breaks[-nb],
+                      y = 0,
+                      height = y,
+                      width = diff(breaks),
+                      just = c("left", "bottom"),
+                      default.units = "native")
+
+##             for(i in seq(length =  nb-1))
+##                 if (y[i]>0)
+##                 {
+##                     grid.rect(gp =
+##                               gpar(fill = col, alpha = alpha,
+##                                    col = border, lty = lty, lwd = lwd),
+##                               x = breaks[i],
+##                               y = 0,
+##                               height = y[i],
+##                               width = breaks[i+1]-breaks[i],
+##                               just = c("left", "bottom"),
+##                               default.units = "native")
+##                 }
         }
     }
 }
@@ -149,7 +158,7 @@ histogram <-
     function(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
-             outer = FALSE,
+             outer = TRUE,
              auto.key = FALSE,
              aspect = "fill",
              panel = "panel.histogram",
@@ -213,14 +222,9 @@ histogram <-
     x <- form$right
     if (number.of.cond == 0) {
         strip <- FALSE
-        cond <- list(as.factor(rep(1, length(x))))
+        cond <- list(gl(1, length(x)))
         number.of.cond <- 1
     }
-
-
-
-
-
 
     
     if (missing(xlab)) xlab <- form$right.name
@@ -283,57 +287,69 @@ histogram <-
         x <- log(x, xbase)
         if (have.xlim) xlim <- log(xlim, xbase)
     }
-    if (have.ylog) {
+    if (have.ylog)
+    {
         warning("Can't have log Y-scale")
         have.ylog <- FALSE
         foo$y.scales$log <- FALSE
     }
 
-    if ((have.xlog || is.null(breaks) ||
-         length(unique(diff(breaks))) != 1) &&
-        missing(type))
+    ## should type default to density?  Yes when a relative frequency
+    ## histogram is going to be misleading
+
+    prefer.density <- 
+        ((is.null(breaks) && !equal.widths) ||
+         (!is.null(breaks) && {
+             ddb <- diff(diff(breaks))
+             identical(FALSE, all.equal(ddb, numeric(length(ddb))))
+         }))
+    if (missing(type) && prefer.density)
         type <- "density"
-    else type <- match.arg(type)
+    type <- match.arg(type)
+    if (prefer.density && type != "density")
+        warning(paste("type='", type, "' can be misleading in this context",
+                      sep = ""))
 
     ## this is normally done earlier (in trellis.skeleton), but in
     ## this case we needed to wait till type is determined
 
-    foo$ylab.default <- 
-        if (type == "count") "Count"
-        else if (type == "percent") "Percent of Total"
-        else "Density"
-
-
-
+    foo$ylab.default <-
+        switch(type,
+               count   = "Count",
+               percent = "Percent of Total",
+               density = "Density")
 
     ## Step 5: Process cond
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
+    ## old NA-handling
+##     id.na <- is.na(x)
+##     for (var in cond)
+##         id.na <- id.na | is.na(var)
+##     if (!any(!id.na)) stop("nothing to draw")
 
-    id.na <- is.na(x)
-    for (var in cond)
-        id.na <- id.na | is.na(var)
+    ## new NA-handling: will retain NA's in x
+
+    id.na <- do.call("pmax", lapply(cond, is.na))
     if (!any(!id.na)) stop("nothing to draw")
-    ## Nothing simpler ?
-
-
 
     ## Step 6: Evaluate layout, panel.args.common and panel.args
 
     ## equal.widths <- eval(equal.widths, data, parent.frame()) #keep this way ?
-    foo$panel.args.common <- c(list(breaks = breaks,
-                                    type = type,
-                                    equal.widths = equal.widths), dots)
+    foo$panel.args.common <-
+        c(list(breaks = breaks,
+               type = type,
+               equal.widths = equal.widths,
+               nint = nint),
+          dots)
     if (subscripts) foo$panel.args.common$groups <- groups
-
 
     nplots <- prod(cond.max.level)
     if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")
     foo$panel.args <- vector(mode = "list", length = nplots)
 
     cond.current.level <- rep(1, number.of.cond)
-
 
     for (panel.number in seq(length = nplots))
     {
