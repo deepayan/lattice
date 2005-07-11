@@ -123,7 +123,7 @@ print.shingle <- function(x, showValues = TRUE, ...) {
             for (i in 1:(n-1))
                 olap[i] <- length(x[ x>=l[[i]][1] & x<=l[[i]][2] &
                                     x>=l[[i+1]][1] & x<=l[[i+1]][2]])
-        cat("\nOvrlap between adjacent intervals:\n")
+        cat("\nOverlap between adjacent intervals:\n")
         print(olap)
     }
     invisible(x)
