@@ -143,6 +143,8 @@ panel.lines <- function(...) llines(...)
 panel.segments <- function(...) lsegments(...)
 panel.text <- function(...) ltext(...)
 panel.arrows <- function(...) larrows(...)
+panel.rect <- function(...) lrect(...)
+
 
 
 
@@ -183,6 +185,22 @@ lsegments <-
 
 
 
+lrect <-
+    function(xleft, ybottom, xright, ytop,
+             x = (xleft + xright) / 2,
+             y = (ybottom + ytop) / 2,
+             width = xright - xleft,
+             height = ytop - ybottom,
+             just = "center", hjust = NULL, vjust = NULL,
+             ...)
+{
+    grid.rect(x = x, y = y,
+              width = width, height = height,
+              default.units = "native",
+              just = just, hjust = hjust, vjust = vjust,
+              gp = gpar(...))
+}
+
 
 
 
@@ -217,40 +235,40 @@ larrows <-
 }
 
 
-larrows.old <-
-    function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
-             angle = 30, code = 2, length = NULL, proportion = .05, ...) 
-{
+## larrows.old <-
+##     function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
+##              angle = 30, code = 2, length = NULL, proportion = .05, ...) 
+## {
 
-    if (missing(x0)) {x0 <- x1; x1 <- x2}
-    if (missing(y0)) {y0 <- y1; y1 <- y2}
-    if (!is.null(length))
-        warning("length not implemented in larrows, use proportion instead")
+##     if (missing(x0)) {x0 <- x1; x1 <- x2}
+##     if (missing(y0)) {y0 <- y1; y1 <- y2}
+##     if (!is.null(length))
+##         warning("length not implemented in larrows, use proportion instead")
 
-    angle <- angle / 180 * pi
-    start <- rbind(x0, y0)
-    end <- rbind(x1, y1)
-    v.forward <- end - start
-    v.backward <- start - end
-    lsegments(x0, y0, x1, y1, ...)
+##     angle <- angle / 180 * pi
+##     start <- rbind(x0, y0)
+##     end <- rbind(x1, y1)
+##     v.forward <- end - start
+##     v.backward <- start - end
+##     lsegments(x0, y0, x1, y1, ...)
     
-    if (code %in% c(1,3)) { # arrow at starting point
-        edge.1 <- proportion * 
-            matrix( c(cos(angle), -sin(angle), sin(angle), cos(angle)), 2, 2) %*% v.forward
-        edge.2 <- proportion *
-            matrix( c(cos(-angle), -sin(-angle), sin(-angle), cos(-angle)), 2, 2) %*% v.forward
-        lsegments(x0, y0, x0 + edge.1[1,], y0 + edge.1[2,], ...)
-        lsegments(x0, y0, x0 + edge.2[1,], y0 + edge.2[2,], ...)
-    }
-    if (code %in% c(2,3)) { # arrow at ending point
-        edge.1 <- proportion * 
-            matrix( c(cos(angle), -sin(angle), sin(angle), cos(angle)), 2, 2) %*% v.backward
-        edge.2 <- proportion *
-            matrix( c(cos(-angle), -sin(-angle), sin(-angle), cos(-angle)), 2, 2) %*% v.backward
-        lsegments(x1, y1, x1 + edge.1[1,], y1 + edge.1[2,], ...)
-        lsegments(x1, y1, x1 + edge.2[1,], y1 + edge.2[2,], ...)
-    }
-}
+##     if (code %in% c(1,3)) { # arrow at starting point
+##         edge.1 <- proportion * 
+##             matrix( c(cos(angle), -sin(angle), sin(angle), cos(angle)), 2, 2) %*% v.forward
+##         edge.2 <- proportion *
+##             matrix( c(cos(-angle), -sin(-angle), sin(-angle), cos(-angle)), 2, 2) %*% v.forward
+##         lsegments(x0, y0, x0 + edge.1[1,], y0 + edge.1[2,], ...)
+##         lsegments(x0, y0, x0 + edge.2[1,], y0 + edge.2[2,], ...)
+##     }
+##     if (code %in% c(2,3)) { # arrow at ending point
+##         edge.1 <- proportion * 
+##             matrix( c(cos(angle), -sin(angle), sin(angle), cos(angle)), 2, 2) %*% v.backward
+##         edge.2 <- proportion *
+##             matrix( c(cos(-angle), -sin(-angle), sin(-angle), cos(-angle)), 2, 2) %*% v.backward
+##         lsegments(x1, y1, x1 + edge.1[1,], y1 + edge.1[2,], ...)
+##         lsegments(x1, y1, x1 + edge.2[1,], y1 + edge.2[2,], ...)
+##     }
+## }
 
 
 
