@@ -128,7 +128,7 @@ col.whitebg()
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
   \code{\link{trellis.par.set}}, \code{\link{postscript}},
-  \code{\link{x11}}, \code{\link{Lattice}}
+  \code{\link{pdf}}, \code{\link{x11}}, \code{\link{Lattice}}
 }
 \keyword{dplot}
 

@@ -5,13 +5,17 @@
   This is the default panel function for \code{bwplot}.
 }
 \synopsis{
-panel.bwplot(x, y, box.ratio=1, horizontal = TRUE, pch=box.dot$pch,
-             col = box.dot$col, cex = box.dot$cex,
+panel.bwplot(x, y, box.ratio = 1,
+             horizontal = TRUE,
+             pch = box.dot$pch,
+             col = box.dot$col,
+             cex = box.dot$cex,
              font = box.dot$font,
              fontfamily = box.dot$fontfamily,
              fontface = box.dot$fontface, 
-             fill = box.rectangle$fill, varwidth = FALSE,
-             levels.fos = if (horizontal) unique(y) else unique(x),
+             fill = box.rectangle$fill,
+             varwidth = FALSE,
+             levels.fos = if (horizontal) sort(unique(y)) else sort(unique(x)),
              coef = 1.5, do.out = TRUE, ...)
 }
 \usage{

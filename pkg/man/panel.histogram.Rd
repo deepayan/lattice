@@ -9,6 +9,7 @@ panel.histogram(x,
                 breaks,
                 equal.widths = TRUE,
                 type = "density",
+                nint = round(log2(length(x)) + 1), 
                 alpha, col, border, lty, lwd,
                 ...)
 }
@@ -18,6 +19,7 @@ panel.histogram(x,
   \item{equal.widths}{ logical used when \code{breaks==NULL} }
   \item{type}{ Type of histogram, possible values being ``percent'',
     ``density'' and ``count''}
+  \item{nint}{ Number of bins for the histogram }
   \item{alpha, col, border, lty, lwd}{
     graphical parameters for bars; defaults are obtained from the
     \code{bar.fill} settings.

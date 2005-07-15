@@ -9,7 +9,7 @@
 xyplot(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
-             outer = FALSE,
+             outer = !is.null(groups),
              auto.key = FALSE,
              aspect = "fill",
              panel = if (is.null(groups)) "panel.xyplot"
@@ -847,7 +847,7 @@ bwplot(formula,
     \code{lattice.getOption("drop.unused.levels")} , which is initially
     set to \code{TRUE} for both components.
   }
-  \item{par.settings}{
+   \item{par.settings}{
     a list that could be supplied to \code{\link{trellis.par.set}}.
     This enables the user to attach some display settings to the trellis
     object itself rather than change the settings globally.  When the
