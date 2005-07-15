@@ -51,7 +51,9 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        panel.arrows, panel.segments, panel.lines, panel.points,
        panel.text, current.panel.limits,
 
-       strip.custom, trellis.last.object
+       strip.custom, trellis.last.object,
+
+       make.groups
 
        )
 

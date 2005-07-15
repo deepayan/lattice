@@ -125,10 +125,7 @@ show.settings(x = NULL)
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
-  There are some simpler alternatives that can be used to manipulate the
-  settings. Details can be found in the documentation for
-  \code{\link{lset}}. Other related pages: \code{\link{trellis.device}},
-  \code{\link{trellis.par.get}},\code{\link{Lattice}}
+  \code{\link{trellis.device}}, \code{\link{Lattice}}
 }
 
 \examples{
