@@ -36,7 +36,12 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        panel.parallel, panel.qq, panel.qqmath,
 ### prepanel.qqmath,
        panel.qqmathline, panel.splom, panel.stripplot,
-       panel.superpose, panel.axis, panel.superpose.2, panel.tmd,
+       panel.superpose, panel.axis, panel.superpose.2,
+
+
+       prepanel.tmd.default, prepanel.tmd.qqmath, panel.tmd.default,
+       panel.tmd.qqmath,
+
        panel.wireframe, panel.xyplot, parallel, prepanel.lmline,
        prepanel.loess, prepanel.qqmathline, qq, qqmath, rfs, shingle,
        show.settings, simpleKey, splom, strip.default, stripplot, tmd,

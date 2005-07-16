@@ -185,7 +185,6 @@ panel.qqmath <-
 
 
 
-
 qqmath <-
     function(formula,
              data = parent.frame(),

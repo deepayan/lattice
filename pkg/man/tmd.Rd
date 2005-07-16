@@ -1,17 +1,40 @@
 \name{tmd}
 \alias{tmd}
+\alias{prepanel.tmd.default}
+\alias{prepanel.tmd.qqmath}
+\alias{panel.tmd.default}
+\alias{panel.tmd.qqmath}
 \title{Tukey Mean-Difference Plot}
 \description{
   Create Tukey Mean-Difference Plots from a trellis object returned by
-  \code{xyplot} and \code{qq}
+  \code{xyplot}, \code{qq} or \code{qqmath}
+}
+\synopsis{
+prepanel.tmd.qqmath(x,
+             f.value = NULL,
+             distribution = qnorm,
+             qtype = 7,
+             groups = NULL,
+             subscripts, ...)
+panel.tmd.qqmath(x,
+             f.value = NULL,
+             distribution = qnorm,
+             qtype = 7,
+             groups = NULL, 
+             subscripts, ...)
+panel.tmd.default(x, y, groups = NULL, ...)
 }
 \usage{
 tmd(object,
     xlab = "mean",
     ylab = "difference",
-    panel = "panel.tmd",
-    prepanel = "prepanel.default.tmd",
+    panel, 
+    prepanel, 
     ...)
+prepanel.tmd.default(x, y, \dots)
+prepanel.tmd.qqmath(x, \dots)
+panel.tmd.default(x, y, \dots)
+panel.tmd.qqmath(x, \dots)
 }
 \arguments{
   \item{object}{ An object of class ``trellis'' returned by
@@ -19,17 +42,35 @@ tmd(object,
   }
   \item{xlab}{ x label}
   \item{ylab}{ y label}
-  \item{panel}{ panel function to be used }
+  \item{panel}{ panel function to be used.  See details below. }
   \item{prepanel}{
-    prepanel function used to recalculate limits using the modified
-    \code{x} and \code{y} values
+    prepanel function.  See details below.
+  }
+  \item{x, y}{
+    data as passed to panel functions in original call.
   }
   \item{\dots}{ other arguments}
 }
 \details{
   The Tukey Mean-difference plot is produced by modifying the (x,y)
   values of each panel as follows: the new coordinates are given by
-  \code{x=(x+y)/2} and \code{y=y-x}.
+  \code{x=(x+y)/2} and \code{y=y-x}, which are then plotted.  The
+  default panel function(s) add a reference line at \code{y=0} as well.
+
+  \code{tmd} acts on the a ``trellis'' object, not on the actual plot
+  this object would have produced.  As such, it only uses the arguments
+  supplied to the panel function in the original call, and completely
+  ignores what the original panel function might have done with this
+  data.  \code{tmd} uses these panel arguments to set up its own scales
+  (using its \code{prepanel} argument) and display (using
+  \code{panel}).  It is thus important to provide suitable prepanel and
+  panel functions to \code{tmd} depending on the original call.
+
+  Such functions currently exist for \code{xyplot}, \code{qq} (the ones
+  with \code{default} in their name) and \code{qqmath}, as listed in the
+  usage section above.  These assume the default displays for the
+  corresponding high-level call.  If unspecified, the code{prepanel} and
+  \code{panel} arguments default to suitable choices.
 
   \code{tmd} uses the \code{update} method for ``trellis'' objects,
   which processes all extra arguments supplied to \code{tmd}.
@@ -41,10 +82,11 @@ tmd(object,
   by default) will plot it on an appropriate plotting device.
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
-\seealso{ \code{\link{panel.tmd}}, \code{\link{xyplot}},
+\seealso{ \code{\link{qq}}, \code{\link{qqmath}}, \code{\link{xyplot}},
   \code{\link{Lattice}}
 }
+
 \examples{
-tmd(qqmath(~height|voice.part, data = singer))
+tmd(qqmath(~height | voice.part, data = singer))
 }
 \keyword{dplot}
