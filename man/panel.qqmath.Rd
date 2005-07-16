@@ -1,6 +1,5 @@
 \name{panel.qqmath}
 \alias{panel.qqmath}
-\alias{prepanel.qqmath}
 \title{ Default Panel and Prepanel Function for qqmath }
 \description{
   This is the default panel function for \code{qqmath}.
@@ -10,11 +9,6 @@ panel.qqmath(x, f.value = NULL,
              distribution = qnorm,
              qtype = 7,
              groups = NULL, \dots)
-prepanel.qqmath(x, f.value = NULL,
-                distribution = qnorm,
-                qtype = 7,
-                groups = NULL,
-                subscripts, \dots)
 }
 \arguments{
   \item{x}{
@@ -32,10 +26,6 @@ prepanel.qqmath(x, f.value = NULL,
     An optional grouping variable.  Within each panel, one Q-Q plot is
     produced for every level of this grouping variable, differentiated
     by different graphical parameters.
-  }
-  \item{subscripts}{
-    This variable will hold the indices of the panel's data in the
-    original data frame.  See \code{\link{xyplot}} for details.
   }
   \item{\dots}{
     further arguments, often graphical parameters.

@@ -20,22 +20,168 @@
 
 
 
-prepanel.default.tmd <-
-    function(...)
-    prepanel.default.xyplot(...)
 
-
-
-panel.tmd <-
-    function(...)
+prepanel.tmd.default <-
+    function(x, y, ...)
 {
-    panel.abline(h=0)
-    panel.xyplot(...)
+    prepanel.default.xyplot(x = (as.numeric(x) + as.numeric(y)) / 2,
+                            y = (as.numeric(y) - as.numeric(x)),
+                            ...)
 }
 
 
 
 
+prepanel.tmd.qqmath <-
+    function(x,
+             f.value = NULL,
+             distribution = qnorm,
+             qtype = 7,
+             groups = NULL,
+             subscripts, ...)
+{
+    if (!is.numeric(x)) x <- as.numeric(x)
+    distribution <-
+        if (is.function(distribution)) distribution 
+        else if (is.character(distribution)) get(distribution)
+        else eval(distribution)
+    nobs <- sum(!is.na(x))
+    getxx <- function(x, f.value = NULL,
+                      nobs = sum(!is.na(x)))
+    {
+        if (is.null(f.value))
+            distribution(ppoints(nobs))
+        else
+            distribution(f.value(nobs))
+    }
+    getyy <- function(x, f.value = NULL,
+                      nobs = sum(!is.na(x)))
+    {
+        if (is.null(f.value))
+            sort(x)
+        else
+            quantile(x, f.value(nobs),
+                     names = FALSE,
+                     type = qtype,
+                     na.rm = TRUE)
+    }
+    if (!nobs)
+        list(xlim = c(NA, NA),
+             ylim = c(NA, NA),
+             dx = NA, dy = NA)
+    else if (!is.null(groups))
+    {
+        sx <- split(x, groups[subscripts])
+        xxlist <- lapply(sx, getxx, f.value = f.value)
+        yylist <- lapply(sx, getyy, f.value = f.value)
+        meanlist <- difflist <-
+            vector(mode = "list", length = length(sx))
+        for (i in seq(along = sx))
+        {
+            meanlist[[i]] <- (xxlist[[i]] + yylist[[1]]) / 2
+            difflist[[i]] <- (yylist[[i]] - xxlist[[1]])
+        }
+        list(xlim = range(unlist(meanlist), na.rm = TRUE),
+             ylim = range(unlist(difflist), na.rm = TRUE),
+             dx = unlist(lapply(meanlist, diff)),
+             dy = unlist(lapply(difflist, diff)))
+    }
+    else 
+    {
+        xx <- getxx(x, f.value, nobs)
+        yy <- getyy(x, f.value, nobs)
+        tmd.mean <- (xx + yy) / 2
+        tmd.diff <- (yy - xx)
+        list(xlim = range(tmd.mean),
+             ylim = range(tmd.diff),
+             dx = diff(tmd.mean),
+             dy = diff(tmd.diff))
+    }
+}
+
+
+
+
+
+panel.tmd.default <-
+    function(x, y, groups = NULL, ...)
+{
+    panel.abline(h=0)
+    if (is.null(groups))
+        panel.xyplot(x = (as.numeric(x) + as.numeric(y)) / 2,
+                     y = (as.numeric(y) - as.numeric(x)),
+                     ...)
+    else
+        panel.superpose(x = (as.numeric(x) + as.numeric(y)) / 2,
+                        y = (as.numeric(y) - as.numeric(x)),
+                        groups = groups, ...)
+}
+
+
+panel.tmd.qqmath <-
+    function(x,
+             f.value = NULL,
+             distribution = qnorm,
+             qtype = 7,
+             groups = NULL, 
+             subscripts, ...)
+{
+    panel.abline(h=0)
+    if (!is.numeric(x)) x <- as.numeric(x)
+    distribution <-
+        if (is.function(distribution)) distribution 
+        else if (is.character(distribution)) get(distribution)
+        else eval(distribution)
+    nobs <- sum(!is.na(x))
+    getxx <- function(x, f.value = NULL,
+                      nobs = sum(!is.na(x)))
+    {
+        if (is.null(f.value))
+            distribution(ppoints(nobs))
+        else
+            distribution(f.value(nobs))
+    }
+    getyy <- function(x, f.value = NULL,
+                      nobs = sum(!is.na(x)))
+    {
+        if (is.null(f.value))
+            sort(x)
+        else
+            quantile(x, f.value(nobs),
+                     names = FALSE,
+                     type = qtype,
+                     na.rm = TRUE)
+    }
+    if (!nobs)
+        NULL
+    else if (!is.null(groups))
+    {
+        sx <- split(x, groups[subscripts])
+        xxlist <- lapply(sx, getxx, f.value = f.value)
+        yylist <- lapply(sx, getyy, f.value = f.value)
+        xx <- unlist(xxlist)
+        yy <- unlist(yylist)
+        tmd.mean <- (xx + yy) / 2
+        tmd.diff <- (yy - xx)
+        tmd.groups <-
+            gl(length(xxlist),
+               sapply(xxlist, length),
+               labels = names(xxlist))
+        tmd.subscripts <- seq(along = xx)
+        panel.superpose(x = tmd.mean, y = tmd.diff,
+                        groups = tmd.groups,
+                        subscripts = tmd.subscripts,
+                        ...)
+    }
+    else 
+    {
+        xx <- getxx(x, f.value, nobs)
+        yy <- getyy(x, f.value, nobs)
+        tmd.mean <- (xx + yy) / 2
+        tmd.diff <- (yy - xx)
+        panel.xyplot(x = tmd.mean, y = tmd.diff, ...)
+    }
+}
 
 
 
@@ -43,27 +189,17 @@ tmd <-
     function(object,
              xlab = "mean",
              ylab = "difference",
-             panel = "panel.tmd",
-             prepanel = "prepanel.default.tmd",
+             panel = if (qqmath) panel.tmd.qqmath else panel.tmd.default,
+             prepanel = if (qqmath) prepanel.tmd.qqmath else prepanel.tmd.default,
              ...)
 {
-
     ## data x, y are not always in panel.args (they may be in
     ## panel.args.common), but they are for xyplot and qq, which are
-    ## all this is supposed to work for. May modify this if there's
-    ## demand.
+    ## all this is supposed to work for (also qqmath, but see below).
+    ## One special case is qqmath, which is treated differently.  May
+    ## modify this for others if there's demand.
 
-    for (panel.number in seq(along = object$panel.args))
-    {
-        p <- object$panel.args[[panel.number]]
-        x <- (as.numeric(p$x) + as.numeric(p$y)) / 2
-        y <- as.numeric(p$y) - as.numeric(p$x)
-
-        object$panel.args[[panel.number]]$x <- x
-        object$panel.args[[panel.number]]$y <- y
-
-    }
-
+    qqmath <- object$call[[1]] == quote(qqmath)
     object$xlab.default <- "mean"
     object$ylab.default <- "difference"
 

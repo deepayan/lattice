@@ -7,20 +7,33 @@
 \synopsis{
 qqmath(formula,
        data = parent.frame(),
-       prepanel = "prepanel.qqmath",
-       panel = "panel.qqmath",
-       groups = NULL,
+       allow.multiple = is.null(groups) || outer,
+       outer = !is.null(groups),
        distribution = qnorm,
        f.value = NULL,
-       xlab = paste(deparse(substitute(distribution)), collapse = ""),
+       auto.key = FALSE,
+       aspect = "fill",
+       panel = "panel.qqmath",
+       ## panel = if (is.null(groups)) "panel.densityplot" else "panel.superpose",
+       prepanel = NULL,
+       scales = list(),
+       strip = TRUE,
+       groups = NULL,
+       xlab,
+       xlim,
        ylab,
+       ylim,
+       drop.unused.levels = lattice.getOption("drop.unused.levels"),
        ...,
+       default.scales = list(),
+       subscripts = !is.null(groups),
        subset = TRUE)
 }
 \usage{
 qqmath(formula, data,
        distribution = qnorm,
        f.value = NULL,
+       panel = "panel.qqmath",
        \dots)
 }
 \arguments{
@@ -51,7 +64,16 @@ qqmath(formula, data,
     similar to what happens for \code{qqnorm}.
 
   }
-  \item{\dots}{Other arguments}
+  \item{panel}{
+    The panel function to be used.  Unlike in older versions, the
+    default panel function does most of the actual computations and has
+    support for grouping.  See \code{\link{panel.qqmath}} for details.
+  }
+  \item{\dots}{
+    Other arguments.  Most standard Trellis arguments (as described in
+    \code{\link{xyplot}}) are honored.  Unrecognized arguments are
+    passed on to the panel function.
+  }
 }
 \value{
   An object of class ``trellis''. The `update' method can be used to

@@ -18,6 +18,7 @@ llines                  Lattice Replacements of base graphics
                         functions
 lset                    Interface to modify Trellis Settings -
                         Deprecated
+make.groups             Grouped data from multiple vectors
 melanoma                Melanoma skin cancer incidence
 oneway                  Fit One-way Model
 panel.axis              Panel Function for Drawing Axis Ticks and
