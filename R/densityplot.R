@@ -136,9 +136,23 @@ panel.densityplot <-
 
 
 
-
-
 densityplot <-
+    function(formula, ...)
+    UseMethod("densityplot")
+
+
+
+densityplot.default <-
+    function(formula, ...)
+{
+    nm <- deparse(substitute(formula))
+    formula <- as.formula(paste("~", nm))
+    UseMethod("densityplot", formula)
+}
+
+
+
+densityplot.formula <-
     function(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,

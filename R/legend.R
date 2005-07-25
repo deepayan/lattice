@@ -242,6 +242,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                          size = key$size,
                          lty = key$lty,
                          cex = key$cex,
+                         pch = key$pch,
                          lwd = key$lwd,
                          type = key$type)
 
@@ -502,20 +503,16 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
         
 
         
-        for (i in 1:number.of.components) {
-
+        for (i in 1:number.of.components)
+        {
             cur <- components[[i]]
-
-            for (j in 1:cur$length) {
-
+            for (j in 1:cur$length)
+            {
                 colblck <- ceiling(j / rows.per.block)
-
                 xx <- (colblck - 1) *
                     (number.of.components*3 + 1) + i*3 - 1
-
                 yy <- j %% rows.per.block + 1
                 if (yy == 1) yy <- rows.per.block + 1
-
                 if (cur$type == "text") {
                     
                     key.gf <- placeGrob(key.gf, 
@@ -541,7 +538,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                                        gp = gpar(fill = cur$pars$col[j])),
                               row = yy, col = xx)
 
-                    ## Need to make changes to support angle/density
+                    ## FIXME: Need to make changes to support angle/density
                 }
                 else if (cur$type == "lines") {
                     if (cur$pars$type[j] == "l") {
@@ -549,10 +546,10 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                             placeGrob(key.gf,
                                       linesGrob(x = c(0,1) * cur$pars$size[j]/max(cur$pars$size),
 
-                                                ## ^^ this should be
-                                                ## centered as well,
-                                                ## but since the
-                                                ## chances that
+                                                ## ^^ FIXME: this
+                                                ## should be centered
+                                                ## as well, but since
+                                                ## the chances that
                                                 ## someone would
                                                 ## actually use this
                                                 ## feature are
@@ -600,17 +597,36 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                                                 lwd = cur$pars$lwd[j])),
                                       row = yy, col = xx)
 
-                        key.gf <-
-                            placeGrob(key.gf, 
-                                      pointsGrob(x = (1:key$divide-1)/(key$divide-1),
-                                                 y = rep(.5, key$divide),
-                                                 gp =
-                                                 gpar(col = cur$pars$col[j], cex = cur$pars$cex[j],
-                                                      fontfamily = cur$pars$fontfamily[j],
-                                                      fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
-                                                      fontsize = fontsize.points),
-                                                 pch = cur$pars$pch[j]),
-                                      row = yy, col = xx)
+                        if (key$divide > 1)
+                        {
+                            key.gf <-
+                                placeGrob(key.gf, 
+                                          pointsGrob(x = (1:key$divide-1)/(key$divide-1),
+                                                     y = rep(.5, key$divide),
+                                                     gp =
+                                                     gpar(col = cur$pars$col[j], 
+                                                          cex = cur$pars$cex[j],
+                                                          fontfamily = cur$pars$fontfamily[j],
+                                                          fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
+                                                          fontsize = fontsize.points),
+                                                     pch = cur$pars$pch[j]),
+                                          row = yy, col = xx)
+                        }
+                        else if (key$divide == 1)
+                        {
+                            key.gf <-
+                                placeGrob(key.gf, 
+                                          pointsGrob(x = 0.5, 
+                                                     y = 0.5, 
+                                                     gp =
+                                                     gpar(col = cur$pars$col[j], 
+                                                          cex = cur$pars$cex[j],
+                                                          fontfamily = cur$pars$fontfamily[j],
+                                                          fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
+                                                          fontsize = fontsize.points),
+                                                     pch = cur$pars$pch[j]),
+                                          row = yy, col = xx)
+                        }
                     }
                 }
                 else if (cur$type == "points") {

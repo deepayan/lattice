@@ -1,5 +1,57 @@
 
 
+Changes in lattice 0.12
+=======================
+
+improvements
+------------
+
+ o panel.bwplot has been re-implemented.  Much faster, avoids direct
+   grid calls
+
+ o panel.densityplot now allows more flexible specifications of
+   'plot.points', specifically, points can be jittered (the new
+   default) or indicated by a `rug'.
+
+ o (more) changes in NA-handling.
+
+new features
+------------
+
+ o A new function make.groups (present in S-PLUS) has been added.
+
+ o there's now panel.rect and lrect (similar to the base function
+   rect)
+
+ o print.trellis has a 'draw.in' argument that can be used to specify
+   a grid viewport to draw the plot in.
+
+changes in behaviour
+---------------------
+
+ o qqmath has been considerably revamped, primarily to allow grouped
+   displays (the older implementation would not have allowed that even
+   with a custom panel function).  In particular, the (pre)panel
+   function(s) now get the raw data as opposed to already computed
+   quantiles. Some old code may stop working.
+
+ o as a consequence of the above, panel.qqmath, panel.qqmathline etc
+   have been rewritten and have different argument lists
+
+ o tmd has been rewritten (mostly to deal with qqmath objects), but
+   this shouldn't be user-visible.
+
+ o densityplot defaults to showing points with random jitter.
+
+
+bug fixes
+---------
+
+ o identification of when 'type' should default to "density" was buggy
+   (inapprpriate rounding)
+
+
+
 
 Changes in lattice 0.11
 =======================
@@ -24,6 +76,13 @@ new features
 
  o trellis.last.object(...) now behaves like
    update(trellis.last.object(), ...))
+
+ o "trellis" objects now have a plot method that's essentially an
+   alias to the print method
+
+ o new function 'current.panel.limits' to retrieve native scales of
+   current panel (only in later versions)
+
 
 changes in behaviour
 ---------------------

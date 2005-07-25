@@ -228,17 +228,15 @@ formattedTicksAndLabels.POSIXct <-
               format.posixt = NULL, ...) 
 {
     ## modified from axis.POSIXct. 
-
     num.lim <- if (length(x) == 2) as.numeric(x) else as.numeric(range(x))
     mat <- is.logical(at)
     mlab <- is.logical(labels)
-
     if (!mat)
         x <- as.POSIXct(at)
     else x <- as.POSIXct(x)
     range <- as.numeric(range(x))
     d <- range[2] - range[1]
-    z <- c(range, x, finite = TRUE)
+    z <- c(range, x[is.finite(x)])
     if (d < 1.1 * 60) {
         sc <- 1
         if (is.null(format.posixt)) 
