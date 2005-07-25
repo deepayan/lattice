@@ -24,7 +24,7 @@
 
 
 prepanel.default.bwplot <-
-    function(x, y, box.ratio,
+    function(x, y, 
              horizontal = TRUE, nlevels,
              origin = NULL, stack = FALSE,
              ...)
@@ -37,10 +37,6 @@ prepanel.default.bwplot <-
 
     if (length(x) && length(y))
     {
-        #if (!is.numeric(x)) x <- as.numeric(x)
-        #if (!is.numeric(y)) y <- as.numeric(y)
-
-        temp <- .5  #* box.ratio/(box.ratio+1)
         if (horizontal)
         {
             if (!is.factor(y)) ## y came from a shingle
@@ -1062,7 +1058,7 @@ barchart <-
 }
 
 
-stripplot <-
+stripplot.old <-
     function(formula,
              data = parent.frame(),
              panel = "panel.stripplot",
@@ -1073,7 +1069,6 @@ stripplot <-
              ...,
              subset = TRUE)
 {
-
     dots <- list(...)
     groups <- eval(substitute(groups), data, parent.frame())
     subset <- eval(substitute(subset), data, parent.frame())
@@ -1088,7 +1083,6 @@ stripplot <-
         formula <- as.formula(paste("~", right.name)) #   deparse(foo)))
         environment(formula) <- parent.frame()
     }
-
     call.list <- c(list(formula = formula, data = data,
                         panel = panel,
                         jitter = jitter,
@@ -1097,14 +1091,81 @@ stripplot <-
                         subset = subset,
                         box.ratio = box.ratio),
                    dots)
-
     ans <- do.call("bwplot", call.list)
     ans$call <- match.call()
     ans
 }
 
 
+
+
+
+
+
+
+
+
+
+stripplot.notworking <-
+    function(formula, data = parent.frame(),
+             panel = "panel.stripplot",
+             ...)
+{
+##     assign("panel", panel, envir = environment())
+##     print(panel)
+    ans <-
+        UseMethod(generic = "bwplot",
+                  object = formula)
+    print("foo")
+    ans$call <- match.call()
+    ans$panel <- panel
+    print(ans$panel)
+    ans
+}
+
+
+
+stripplot <-
+    function(formula, data = parent.frame(),
+             panel = "panel.stripplot",
+             ...)
+{
+    ans <-
+        bwplot(formula, data,
+               panel = panel, ...)
+    ans$call <- match.call()
+    ans
+}
+
+
+
+
+
+
+
+
+
+
 bwplot <-
+    function(formula, ...)
+    UseMethod("bwplot")
+
+
+
+bwplot.default <-
+    function(formula, ...)
+{
+    nm <- deparse(substitute(formula))
+    formula <- as.formula(paste("~", nm))
+    UseMethod("bwplot", formula)
+}
+
+
+
+
+
+
+bwplot.formula <-
     function(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,

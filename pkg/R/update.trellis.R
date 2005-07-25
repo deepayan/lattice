@@ -467,10 +467,13 @@ update.trellis <-
 ## FIXME: how to do this?
 ## `subsetting': shortcut to updating index.cond
 
-## "[.trellis" <- function(x, i, j = NULL, ...)
-## {
-##     index.cond <- list(i, 
-## }
+"[.trellis" <- function(x, i, j, ..., drop = FALSE)
+{
+    ## index.cond <-
+    tmp <- as.list(match.call())[-(1:2)]
+    isj <- "j" %in% names(tmp)
+    tmp
+}
 
 
 
