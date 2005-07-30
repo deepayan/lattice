@@ -6,7 +6,7 @@ fubar <- function() {
     kkk <- 1:10
     names(kkk) <- 1:10
     data = list(x=kkk)
-    dotplot(x^k + rnorm(10), data, allow = T)
+    dotplot(~x^k + rnorm(10), data)
 }
 
 fubar()

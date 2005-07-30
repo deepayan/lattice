@@ -142,11 +142,10 @@ densityplot <-
 
 
 
-densityplot.default <-
+densityplot.numeric <-
     function(formula, ...)
 {
-    nm <- deparse(substitute(formula))
-    formula <- as.formula(paste("~", nm))
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
     UseMethod("densityplot", formula)
 }
 

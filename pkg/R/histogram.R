@@ -152,9 +152,29 @@ panel.histogram <-
 
 
 
-
-
 histogram <-
+    function(formula, ...)
+    UseMethod("histogram")
+
+
+
+histogram.numeric <-
+    function(formula, ...)
+{
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    UseMethod("histogram", formula)
+}
+
+
+histogram.factor <-
+    function(formula, ...)
+{
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    UseMethod("histogram", formula)
+}
+
+
+histogram.formula <-
     function(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
