@@ -65,7 +65,7 @@
     the plot after the fact.  This also allows the user to invoke the
     \code{update} method on the current plot, even if it was not
     assigned to a variable explicitly.  For more details, see
-    \code{link{trellis.focus}}.
+    \code{\link{trellis.focus}}.
   }
   \item{prefix}{
     character string used as a prefix in viewport and grob names, used
@@ -116,7 +116,7 @@
 
 \seealso{
   \code{\link{Lattice}}, \code{\link[grid:unit]{unit}},
-  \code{link{trellis.focus}}
+  \code{\link{trellis.focus}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

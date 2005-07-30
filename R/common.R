@@ -66,7 +66,6 @@ latticeParseFormula <-
              subscripts = FALSE, drop = NULL)
     ## this function mostly written by Saikat
 {
-
     ## local function to get length-1 names from expressions (deparse
     ## can be longer). Could be either of the following
 

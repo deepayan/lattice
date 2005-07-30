@@ -151,9 +151,12 @@ panel.xyplot <-
 
 
 
-
-
 xyplot <-
+    function(formula, ...)
+    UseMethod("xyplot")
+
+
+xyplot.formula <-
     function(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,

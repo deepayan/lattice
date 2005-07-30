@@ -978,173 +978,283 @@ panel.violin <-
 
 
 
+### older versions
+
+
+## dotplot.old <-
+##     function(formula,
+##              data = parent.frame(),
+##              panel = "panel.dotplot",
+##              groups = NULL,
+##              ...,
+##              subset = TRUE)
+## {
+##     ## m <- match.call(expand.dots = FALSE)
+##     ## lapply(dots, eval, data, parent.frame())))
+
+##     dots <- list(...)
+##     groups <- eval(substitute(groups), data, parent.frame())
+##     subset <- eval(substitute(subset), data, parent.frame())
+
+##     right.name <- deparse(substitute(formula))
+
+##     try(formula <- eval(formula), silent = TRUE)
+
+##     foo <- substitute(formula)
+
+##     if (!(is.call(foo) && foo[[1]] == "~")) {
+##         formula <- as.formula(paste("~", right.name)) #   deparse(foo)))
+##         environment(formula) <- parent.frame()
+##     }
+
+##     call.list <- c(list(formula = formula, data = data,
+##                         groups = groups,
+##                         subset = subset,
+##                         panel = panel,
+##                         box.ratio = 0),
+##                    dots)
+##     ans <- do.call("bwplot", call.list)
+##     ans$call <- match.call()
+##     ans
+## }
 
 
 
-dotplot <-
+## barchart.old <-
+##     function(formula,
+##              data = parent.frame(),
+##              panel = "panel.barchart",
+##              box.ratio = 2,
+##              groups = NULL,
+##              ...,
+##              subset = TRUE)
+## {
+
+##     dots <- list(...)
+##     groups <- eval(substitute(groups), data, parent.frame())
+##     subset <- eval(substitute(subset), data, parent.frame())
+
+##     right.name <- deparse(substitute(formula))
+
+##     try(formula <- eval(formula), silent = TRUE)
+
+##     foo <- substitute(formula)
+
+##     if (!(is.call(foo) && foo[[1]] == "~")) {
+##         formula <- as.formula(paste("~", right.name)) #   deparse(foo)))
+##         environment(formula) <- parent.frame()
+##     }
+
+##     call.list <- c(list(formula = formula, data = data,
+##                         groups = groups,
+##                         subset = subset,
+##                         panel = panel,
+##                         box.ratio = box.ratio),
+##                    dots)
+##     ans <- do.call("bwplot", call.list)
+##     ans$call <- match.call()
+##     ans
+## }
+
+
+## stripplot.old <-
+##     function(formula,
+##              data = parent.frame(),
+##              panel = "panel.stripplot",
+##              jitter = FALSE,
+##              factor = .5,
+##              box.ratio = if (jitter) 1 else 0,
+##              groups = NULL,
+##              ...,
+##              subset = TRUE)
+## {
+##     dots <- list(...)
+##     groups <- eval(substitute(groups), data, parent.frame())
+##     subset <- eval(substitute(subset), data, parent.frame())
+
+##     right.name <- deparse(substitute(formula))
+
+##     try(formula <- eval(formula), silent = TRUE)
+
+##     foo <- substitute(formula)
+
+##     if (!(is.call(foo) && foo[[1]] == "~")) {
+##         formula <- as.formula(paste("~", right.name)) #   deparse(foo)))
+##         environment(formula) <- parent.frame()
+##     }
+##     call.list <- c(list(formula = formula, data = data,
+##                         panel = panel,
+##                         jitter = jitter,
+##                         factor = factor,
+##                         groups = groups,
+##                         subset = subset,
+##                         box.ratio = box.ratio),
+##                    dots)
+##     ans <- do.call("bwplot", call.list)
+##     ans$call <- match.call()
+##     ans
+## }
+
+
+
+### dotplot, barchart and stripplot: essentially wrappers to bwplot
+
+
+dotplot <- function(formula, ...) UseMethod("dotplot")
+
+
+dotplot.numeric <-
+    function(formula, ...)
+{
+    ## old version:
+    ## nm <- deparse(substitute(formula))
+    ## formula <- as.formula(paste("~", nm))
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    UseMethod("dotplot", formula)
+}
+
+dotplot.table <-
+    function(formula, data = NULL, groups = TRUE, ...)
+{
+    ocall <- match.call()
+    ## formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    data <- as.data.frame(formula)
+    nms <- names(data)
+    freq <- which(nms == "Freq")
+    nms <- nms[-freq]
+    form <- paste(nms[1], "Freq", sep = "~")
+    nms <- nms[-1]
+    len <- length(nms)
+    if (is.logical(groups) && groups && len > 0)
+    {
+        groups <- as.name(nms[len])
+        nms <- nms[-len]
+        len <- length(nms)
+    }
+    else groups <- NULL
+    if (len > 0)
+    {
+        rest <- paste(nms, collapse = "+")
+        form <- paste(form, rest, sep = "|")
+    }
+    ans <-
+        dotplot(as.formula(form), data, groups = eval(groups),
+                 ...)
+    ans$call <- ocall
+    ans
+}
+
+dotplot.formula <-
     function(formula,
              data = parent.frame(),
              panel = "panel.dotplot",
-             groups = NULL,
-             ...,
-             subset = TRUE)
+             ...)
 {
+    ocall <- ccall <- match.call()
+    ccall$data <- data
+    ccall$panel <- panel
+    ccall[[1]] <- as.name("bwplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
+}
 
-    ## m <- match.call(expand.dots = FALSE)
-    ## lapply(dots, eval, data, parent.frame())))
 
-    dots <- list(...)
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
+barchart <- function(formula, ...) UseMethod("barchart")
 
-    right.name <- deparse(substitute(formula))
 
-    try(formula <- eval(formula), silent = TRUE)
+barchart.numeric <-
+    function(formula, ...)
+{
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    UseMethod("barchart", formula)
+}
 
-    foo <- substitute(formula)
 
-    if (!(is.call(foo) && foo[[1]] == "~")) {
-        formula <- as.formula(paste("~", right.name)) #   deparse(foo)))
-        environment(formula) <- parent.frame()
+
+barchart.table <-
+    function(formula, data = NULL, groups = TRUE,
+             origin = 0, stack = TRUE, ...)
+{
+    ocall <- match.call()
+    ## formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    data <- as.data.frame(formula)
+    nms <- names(data)
+    freq <- which(nms == "Freq")
+    nms <- nms[-freq]
+    form <- paste(nms[1], "Freq", sep = "~")
+    nms <- nms[-1]
+    len <- length(nms)
+    if (is.logical(groups) && groups && len > 0)
+    {
+        groups <- as.name(nms[len])
+        nms <- nms[-len]
+        len <- length(nms)
     }
-
-    call.list <- c(list(formula = formula, data = data,
-                        groups = groups,
-                        subset = subset,
-                        panel = panel,
-                        box.ratio = 0),
-                   dots)
-    ans <- do.call("bwplot", call.list)
-    ans$call <- match.call()
+    else groups <- NULL
+    if (len > 0)
+    {
+        rest <- paste(nms, collapse = "+")
+        form <- paste(form, rest, sep = "|")
+    }
+    ans <-
+        barchart(as.formula(form), data, groups = eval(groups),
+                 origin = origin, stack = stack, 
+                 ...)
+    ans$call <- ocall
     ans
 }
 
 
 
-barchart <-
+barchart.formula <-
     function(formula,
              data = parent.frame(),
              panel = "panel.barchart",
-             box.ratio = 2,
-             groups = NULL,
-             ...,
-             subset = TRUE)
+             box.ratio = 2, 
+             ...)
 {
-
-    dots <- list(...)
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
-
-    right.name <- deparse(substitute(formula))
-
-    try(formula <- eval(formula), silent = TRUE)
-
-    foo <- substitute(formula)
-
-    if (!(is.call(foo) && foo[[1]] == "~")) {
-        formula <- as.formula(paste("~", right.name)) #   deparse(foo)))
-        environment(formula) <- parent.frame()
-    }
-
-    call.list <- c(list(formula = formula, data = data,
-                        groups = groups,
-                        subset = subset,
-                        panel = panel,
-                        box.ratio = box.ratio),
-                   dots)
-    ans <- do.call("bwplot", call.list)
-    ans$call <- match.call()
+    ocall <- ccall <- match.call()
+    ccall$data <- data
+    ccall$panel <- panel
+    ccall$box.ratio <- box.ratio
+    ccall[[1]] <- as.name("bwplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
     ans
 }
 
 
-stripplot.old <-
+stripplot <- function(formula, ...) UseMethod("stripplot")
+
+
+stripplot.numeric <-
+    function(formula, ...)
+{
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    UseMethod("stripplot", formula)
+}
+
+
+stripplot.formula <-
     function(formula,
              data = parent.frame(),
              panel = "panel.stripplot",
-             jitter = FALSE,
-             factor = .5,
-             box.ratio = if (jitter) 1 else 0,
-             groups = NULL,
-             ...,
-             subset = TRUE)
-{
-    dots <- list(...)
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
-
-    right.name <- deparse(substitute(formula))
-
-    try(formula <- eval(formula), silent = TRUE)
-
-    foo <- substitute(formula)
-
-    if (!(is.call(foo) && foo[[1]] == "~")) {
-        formula <- as.formula(paste("~", right.name)) #   deparse(foo)))
-        environment(formula) <- parent.frame()
-    }
-    call.list <- c(list(formula = formula, data = data,
-                        panel = panel,
-                        jitter = jitter,
-                        factor = factor,
-                        groups = groups,
-                        subset = subset,
-                        box.ratio = box.ratio),
-                   dots)
-    ans <- do.call("bwplot", call.list)
-    ans$call <- match.call()
-    ans
-}
-
-
-
-
-
-
-
-
-
-
-
-stripplot.notworking <-
-    function(formula, data = parent.frame(),
-             panel = "panel.stripplot",
              ...)
 {
-##     assign("panel", panel, envir = environment())
-##     print(panel)
-    ans <-
-        UseMethod(generic = "bwplot",
-                  object = formula)
-    print("foo")
-    ans$call <- match.call()
-    ans$panel <- panel
-    print(ans$panel)
-    ans
-}
-
-
-
-stripplot <-
-    function(formula, data = parent.frame(),
-             panel = "panel.stripplot",
-             ...)
-{
-    ans <-
-        bwplot(formula, data,
-               panel = panel, ...)
-    ans$call <- match.call()
+    ocall <- ccall <- match.call()
+    ccall$data <- data
+    ccall$panel <- panel
+    ccall[[1]] <- as.name("bwplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
     ans
 }
 
 
 
 
-
-
-
-
-
+### bwplot (the workhorse)
 
 bwplot <-
     function(formula, ...)
@@ -1152,11 +1262,10 @@ bwplot <-
 
 
 
-bwplot.default <-
+bwplot.numeric <-
     function(formula, ...)
 {
-    nm <- deparse(substitute(formula))
-    formula <- as.formula(paste("~", nm))
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
     UseMethod("bwplot", formula)
 }
 
@@ -1214,8 +1323,6 @@ bwplot.formula <-
                             groups = groups, multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
                             drop = drop.unused.levels)
-
-
     groups <- form$groups
 
     if (!is.function(panel)) panel <- eval(panel)
@@ -1480,13 +1587,10 @@ bwplot.formula <-
                         panel.subscr
             }
         }
-
         cond.current.level <-
             cupdate(cond.current.level,
                     cond.max.level)
     }
-
-
 
     more.comp <- c(limits.and.aspect(prepanel.default.bwplot,
                                      prepanel = prepanel, 
