@@ -374,12 +374,6 @@ update.trellis <-
             stop("the at and labels components of scales may not be lists when relation = same")
     }
 
-
-
-
-
-
-
     ## difficult stuff
 
 #             aspect
@@ -387,9 +381,6 @@ update.trellis <-
 #             scales, #one of the problematic ones
 #             xlim,
 #             ylim,
-
-
-
 
     ## stuff that may need recalculation of limits and aspect ratio
 
@@ -422,14 +413,9 @@ update.trellis <-
         else warning("Invalid value of aspect")
     }
 
-
-
-
-
     if (!missing(prepanel))
     {
         recalculateLimits <- TRUE
-
         prepanel <-
             if (is.function(prepanel)) prepanel 
             else if (is.character(prepanel)) get(prepanel)
@@ -437,10 +423,9 @@ update.trellis <-
     }
     else prepanel <- object$prepanel
 
-
     if (recalculateLimits)
     {
-        prepanel.def <- get(paste("prepanel.default", object$call[[1]], sep = "."))
+        prepanel.def <- object$prepanel.default
         laa <- limits.and.aspect(prepanel.default.function = prepanel.def,
                                  prepanel = prepanel,
                                  have.xlim = have.xlim,
@@ -453,12 +438,8 @@ update.trellis <-
                                  panel.args = object$panel.args,
                                  aspect = object$aspect.ratio)
         ##...)  ## extra arguments for prepanel (for qqmathline)
-
         object[names(laa)] <- laa
-
-
     }
-    
     object
 }
 

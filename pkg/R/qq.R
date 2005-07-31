@@ -50,7 +50,11 @@ panel.qq <-
 
 
 
-qq <-
+qq <- function(formula, ...)  UseMethod("qq")
+
+
+
+qq.formula <-
     function(formula,
              data = parent.frame(),
              aspect = "fill",

@@ -18,6 +18,16 @@ improvements
 new features
 ------------
 
+ o All high level functions are now generic.  This change should be
+   mostly transparent, but there may be some unforeseen side-effects.
+   S3 generics and methods are used (this may change at some point,
+   but not in the near future).  In particular, usage where the first
+   argument 'formula' is not actually a formula has now been
+   formalized and is handled via method dispatch rather than the
+   clumsy hacks in place earlier.
+
+ o aspect='xy' is now allowed when relation='free'
+
  o A new function make.groups (present in S-PLUS) has been added.
 
  o there's now panel.rect and lrect (similar to the base function

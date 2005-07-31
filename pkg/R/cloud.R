@@ -1417,17 +1417,20 @@ wireframe <- function(formula, ...) UseMethod("wireframe")
 
 
 wireframe.matrix <-
-    function(formula, data = NULL, ...)
+    function(formula, data = NULL,
+             zlab = deparse(substitute(formula)),
+             ...)
 {
     if (!missing(data)) warning("explicit data specification ignored")
-    form <- eval(substitute(foo ~ row * column, list(foo = substitute(formula))))
+    form <- eval(z ~ row * column)
     data <-
         expand.grid(row = seq(length = nrow(formula)),
                     column = seq(length = ncol(formula)))
-    data[[deparse(substitute(formula))]] <- as.vector(as.numeric(formula))
+    data$z <- as.vector(as.numeric(formula))
     ## What if rownames/colnames are non-null?
-    wireframe(form, data, ...)
+    wireframe(form, data, zlab = zlab, ...)
 }
+
 
 
 wireframe.formula <-
@@ -1440,7 +1443,6 @@ wireframe.formula <-
     ccall$data <- data
     ccall$panel <- panel
     ccall[[1]] <- as.name("cloud")
-##    print(ccall)
     ans <- eval(ccall, parent.frame())
     ans$call <- ocall
     ans
@@ -1453,6 +1455,22 @@ wireframe.formula <-
 
 
 cloud <- function(formula, ...) UseMethod("cloud")
+
+
+cloud.matrix <-
+    function(formula, data = NULL, type = 'h',
+             zlab = deparse(substitute(formula)),
+             ...)
+{
+    if (!missing(data)) warning("explicit data specification ignored")
+    form <- eval(z ~ row * column)
+    data <-
+        expand.grid(row = seq(length = nrow(formula)),
+                    column = seq(length = ncol(formula)))
+    data$z <- as.vector(as.numeric(formula))
+    ## What if rownames/colnames are non-null?
+    cloud(form, data, type = type, zlab = zlab, ...)
+}
 
 
 cloud.formula <-
@@ -1555,7 +1573,8 @@ cloud.formula <-
     if (!is.null(form$groups))
         groups <-
             if (is.matrix(form$groups)) as.vector(form$groups)[form$subscr]
-            else if (is.data.frame(form$groups)) as.vector(as.matrix(form$groups))[form$subscr]
+            else if (is.data.frame(form$groups))
+                as.vector(as.matrix(form$groups))[form$subscr]
             else form$groups[form$subscr]
 
     subscr <- seq(length = length(form$left))

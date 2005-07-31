@@ -151,9 +151,7 @@ panel.xyplot <-
 
 
 
-xyplot <-
-    function(formula, ...)
-    UseMethod("xyplot")
+xyplot <- function(formula, ...)  UseMethod("xyplot")
 
 
 xyplot.formula <-

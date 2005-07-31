@@ -30,19 +30,19 @@ bwplot(aa ~ xx | zz, df.test,
        ylab = list("ylab", cex = 5))
 
 
-bwplot(zz , df.test)
-bwplot(xx , df.test)
+bwplot(~zz , df.test)
+bwplot(~xx , df.test)
 
 dotplot(zz ~ xx | aa, df.test)
 dotplot(aa ~ xx | zz, df.test)
 
-dotplot(zz , df.test)
-dotplot(xx , df.test)
+dotplot(~zz , df.test)
+dotplot(~xx , df.test)
 
 stripplot(zz ~ xx | aa, df.test)
 stripplot(aa ~ xx | zz, df.test)
-stripplot(zz , df.test)
-stripplot(xx , df.test)
+stripplot(~zz , df.test)
+stripplot(~xx , df.test)
 
 
 

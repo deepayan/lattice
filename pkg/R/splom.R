@@ -333,8 +333,18 @@ panel.pairs <-
 
 
 
+splom <- function(formula, ...)  UseMethod("splom")
 
-splom <-
+
+splom.data.frame <-
+    function(formula, ...)
+{
+    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+    splom(formula, ...)
+}
+
+
+splom.formula <-
     function(formula,
              data = parent.frame(),
              auto.key = FALSE,
@@ -357,7 +367,6 @@ splom <-
              default.scales = list(draw = FALSE, relation = "same", axs = "i"),
              subset = TRUE)
 {
-
     ## dots <- eval(substitute(list(...)), data, parent.frame())
     dots <- list(...)
 
@@ -366,36 +375,36 @@ splom <-
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
 
-    right.name <- deparse(substitute(formula))
-    formula <- eval(substitute(formula), data, parent.frame())
+    ## right.name <- deparse(substitute(formula))
+    ## formula <- eval(substitute(formula), data, parent.frame())
     form <-
-        if (inherits(formula, "formula"))
-            latticeParseFormula(formula, data,
-                                subset = subset, groups = groups,
-                                multiple = FALSE,
-                                outer = FALSE, subscripts = TRUE,
-                                drop = drop.unused.levels)
-        else {
-            if (is.matrix(formula)) {
-                list(left = NULL,
-                     right = as.data.frame(formula)[subset,],
-                     condition = NULL,
-                     left.name = "",
-                     right.name =  right.name,
-                     groups = groups,
-                     subscr = seq(length = nrow(formula))[subset])
-            }
-            else if (is.data.frame(formula)) {
-                list(left = NULL,
-                     right = formula[subset,],
-                     condition = NULL,
-                     left.name = "",
-                     right.name =  right.name,
-                     groups = groups,
-                     subscr = seq(length = nrow(formula))[subset])
-            }
-            else stop("invalid formula")
-        }
+        ## if (inherits(formula, "formula"))
+        latticeParseFormula(formula, data,
+                            subset = subset, groups = groups,
+                            multiple = FALSE,
+                            outer = FALSE, subscripts = TRUE,
+                            drop = drop.unused.levels)
+##         else {
+##             if (is.matrix(formula)) {
+##                 list(left = NULL,
+##                      right = as.data.frame(formula)[subset,],
+##                      condition = NULL,
+##                      left.name = "",
+##                      right.name =  right.name,
+##                      groups = groups,
+##                      subscr = seq(length = nrow(formula))[subset])
+##             }
+##             else if (is.data.frame(formula)) {
+##                 list(left = NULL,
+##                      right = formula[subset,],
+##                      condition = NULL,
+##                      left.name = "",
+##                      right.name =  right.name,
+##                      groups = groups,
+##                      subscr = seq(length = nrow(formula))[subset])
+##             }
+##             else stop("invalid formula")
+##         }
 
 
     ## We need to be careful with subscripts here. It HAS to be there,
