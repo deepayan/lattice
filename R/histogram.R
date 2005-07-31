@@ -152,9 +152,8 @@ panel.histogram <-
 
 
 
-histogram <-
-    function(formula, ...)
-    UseMethod("histogram")
+
+histogram <- function(formula, ...)  UseMethod("histogram")
 
 
 
@@ -162,7 +161,7 @@ histogram.numeric <-
     function(formula, ...)
 {
     formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    UseMethod("histogram", formula)
+    histogram(formula, ...)
 }
 
 
@@ -170,7 +169,7 @@ histogram.factor <-
     function(formula, ...)
 {
     formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    UseMethod("histogram", formula)
+    histogram(formula, ...)
 }
 
 
@@ -212,11 +211,11 @@ histogram.formula <-
     groups <- eval(substitute(groups), data, parent.frame())
     subset <- eval(substitute(subset), data, parent.frame())
 
-    formname <- deparse(substitute(formula))
-    formula <- eval(substitute(formula), data, parent.frame())
+##     formname <- deparse(substitute(formula))
+##     formula <- eval(substitute(formula), data, parent.frame())
 
-    if (!inherits(formula, "formula"))
-        formula <- as.formula(paste("~", formname))
+##     if (!inherits(formula, "formula"))
+##         formula <- as.formula(paste("~", formname))
     
     form <-
         latticeParseFormula(formula, data, subset = subset,

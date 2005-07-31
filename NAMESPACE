@@ -33,10 +33,9 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        panel.grid, panel.rug, panel.histogram, panel.levelplot,
        panel.contourplot, panel.linejoin, panel.identify,
        panel.lmline, panel.loess, panel.mathdensity, panel.pairs,
-       panel.parallel, panel.qq, panel.qqmath,
-### prepanel.qqmath,
-       panel.qqmathline, panel.splom, panel.stripplot,
-       panel.superpose, panel.axis, panel.superpose.2,
+       panel.parallel, panel.qq, panel.qqmath, panel.qqmathline,
+       panel.splom, panel.stripplot, panel.superpose, panel.axis,
+       panel.superpose.2,
 
 
        prepanel.tmd.default, prepanel.tmd.qqmath, panel.tmd.default,
@@ -63,6 +62,7 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        )
 
 
+## Miscellaneous methods
 
 S3method("[", shingle)
 S3method(as.data.frame, shingle)
@@ -71,11 +71,58 @@ S3method(print, shingle)
 S3method(summary, shingle)
 S3method(print, shingleLevel)
 
+## trellis methods (see also tmd below)
+
 S3method(print, trellis)
 S3method(plot, trellis)
 S3method(update, trellis)
 S3method(summary, trellis)
 
+
+
+## methods for high level functions
+
+S3method(barchart,    formula)
+S3method(barchart,    array)
+S3method(barchart,    character)
+S3method(barchart,    factor)
+S3method(barchart,    matrix)
+S3method(barchart,    numeric)
+S3method(barchart,    table)
+S3method(bwplot,      formula)
+S3method(bwplot,      numeric)
+S3method(densityplot, formula)
+S3method(densityplot, numeric)
+S3method(dotplot,     formula)
+S3method(dotplot,     array)
+S3method(dotplot,     character)
+S3method(dotplot,     factor)
+S3method(dotplot,     matrix)
+S3method(dotplot,     numeric)
+S3method(dotplot,     table)
+S3method(histogram,   formula)
+S3method(histogram,   factor)
+S3method(histogram,   numeric)
+S3method(qqmath,      formula)
+S3method(qqmath,      numeric)
+S3method(stripplot,   formula)
+S3method(stripplot,   numeric)
+S3method(qq,          formula)
+S3method(xyplot,      formula)
+S3method(levelplot,   formula)
+S3method(levelplot,   matrix)
+S3method(contourplot, formula)
+S3method(contourplot, matrix)
+S3method(cloud,       formula)
+S3method(cloud,       matrix)
+S3method(wireframe,   formula)
+S3method(wireframe,   matrix)
+S3method(splom,       formula)
+S3method(splom,       data.frame)
+S3method(parallel,    formula)
+S3method(parallel,    data.frame)
+S3method(tmd,         formula)
+S3method(tmd,         trellis)
 
 
 ### Local variables:

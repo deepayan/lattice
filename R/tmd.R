@@ -185,7 +185,14 @@ panel.tmd.qqmath <-
 
 
 
-tmd <-
+
+tmd <- function(object, ...)  UseMethod("tmd")
+
+tmd.formula <-
+    function(object, data = parent.frame(), ...)
+    tmd(xyplot(object, data = data, ...))
+
+tmd.trellis <-
     function(object,
              xlab = "mean",
              ylab = "difference",
@@ -199,7 +206,7 @@ tmd <-
     ## One special case is qqmath, which is treated differently.  May
     ## modify this for others if there's demand.
 
-    qqmath <- object$call[[1]] == quote(qqmath)
+    qqmath <- object$call[[1]] == quote(qqmath.formula) ## bad hack
     object$xlab.default <- "mean"
     object$ylab.default <- "difference"
 

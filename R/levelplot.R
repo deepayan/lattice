@@ -77,49 +77,6 @@ prepanel.default.levelplot <-
     
 
 
-
-
-
-
-
-
-
-
-## FIXME: old obsolete version, keeping around for a while, just in  case
-
-# prepanel.default.levelplot <-
-#     function(x, y, subscripts, ...)
-# {
-#     if (is.numeric(x)) {
-#         x <- as.numeric(x[subscripts])
-#         ux <- sort(unique(x[!is.na(x)]))
-#         xlim <-
-#             if (length(ux) < 2) ux + c(-1, 1)
-#             else c(3 * ux[1] - ux[2], 3 * ux[length(ux)] - ux[length(ux)-1])/2
-#     }
-#     else x <- x[subscripts]
-#     if (is.numeric(y)) {
-#         y <- as.numeric(y[subscripts])
-#         uy <- sort(unique(y[!is.na(y)]))
-#         ylim <-
-#             if (length(uy) < 2) uy + c(-1, 1)
-#             else c(3 * uy[1] - uy[2], 3 * uy[length(uy)] - uy[length(uy)-1])/2
-#     }
-#     else y <- y[subscripts]
-#     list(xlim =
-#          if (is.numeric(x)) extend.limits(xlim, prop = -0.0614) ## these get extended back later
-#          else levels(x),
-#          ylim = if (is.numeric(y)) extend.limits(ylim, prop = -0.0614)
-#          else levels(y),
-#          dx = if (is.numeric(x)) length(ux) else 1,
-#          dy = if (is.numeric(y)) length(uy) else 1)
-# }
-
-
-
-
-
-
 panel.contourplot <- function(...) panel.levelplot(...)
 
 
@@ -361,63 +318,122 @@ panel.levelplot <-
 }
 
 
+contourplot <- function(formula, ...)  UseMethod("contourplot")
 
 
 
+contourplot.matrix <-
+    function(formula, data = NULL, aspect = "iso", ...)
+{
+    if (!missing(data)) warning("explicit data specification ignored")
+    form <- z ~ row * column
+    data <-
+        expand.grid(row = seq(length = nrow(formula)),
+                    column = seq(length = ncol(formula)))
+    data$z <- as.vector(as.numeric(formula))
+    ## if rownames/colnames are non-null, make them factors
+    if (!is.null(rownames(formula)))
+        data$row <- factor(data$row, labels = rownames(formula))
+    if (!is.null(colnames(formula)))
+        data$column <- factor(data$column, labels = colnames(formula))
+    contourplot(form, data, aspect = aspect, ...)
+}
 
 
 
-
-contourplot <-
+contourplot.formula <-
     function(formula,
              data = parent.frame(),
              panel = "panel.contourplot",
-             prepanel = NULL,
-             strip = TRUE,
-             groups = NULL,
              cuts = 7,
              labels = TRUE,
              contour = TRUE,
              pretty = TRUE,
              region = FALSE,
-             ...,
-             subset = TRUE)
-
+             ...)
 {
-    ## m <- match.call(expand.dots = FALSE)
-    dots <- list(...)
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
-
-    if (!is.function(panel)) panel <- eval(panel)
-    if (!is.function(strip)) strip <- eval(strip)
-
-    prepanel <-
-        if (is.function(prepanel)) prepanel 
-        else if (is.character(prepanel)) get(prepanel)
-        else eval(prepanel)
-
-    do.call("levelplot",
-            c(list(formula = substitute(formula),
-                   data = data,
-                   groups = groups,
-                   subset = subset,
-                   panel = panel,
-                   prepanel = prepanel,
-                   strip = strip,
-                   labels = labels,
-                   cuts = cuts,
-                   contour = contour,
-                   pretty = pretty,
-                   region = region),
-              dots))
+    ocall <- ccall <- match.call()
+    ccall$data <- data
+    ccall$panel <- panel
+    ccall$cuts <- cuts
+    ccall$labels <- labels
+    ccall$contour <- contour
+    ccall$pretty <- pretty
+    ccall$region <- region
+    ccall[[1]] <- as.name("levelplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
 
 
 
 
+## contourplot.old <-
+##     function(formula,
+##              data = parent.frame(),
+##              panel = "panel.contourplot",
+##              prepanel = NULL,
+##              strip = TRUE,
+##              groups = NULL,
+##              cuts = 7,
+##              labels = TRUE,
+##              contour = TRUE,
+##              pretty = TRUE,
+##              region = FALSE,
+##              ...,
+##              subset = TRUE)
 
-levelplot <-
+## {
+##     ## m <- match.call(expand.dots = FALSE)
+##     dots <- list(...)
+##     groups <- eval(substitute(groups), data, parent.frame())
+##     subset <- eval(substitute(subset), data, parent.frame())
+
+##     if (!is.function(panel)) panel <- eval(panel)
+##     if (!is.function(strip)) strip <- eval(strip)
+
+##     prepanel <-
+##         if (is.function(prepanel)) prepanel 
+##         else if (is.character(prepanel)) get(prepanel)
+##         else eval(prepanel)
+
+##     do.call("levelplot",
+##             c(list(formula = substitute(formula),
+##                    data = data,
+##                    groups = groups,
+##                    subset = subset,
+##                    panel = panel,
+##                    prepanel = prepanel,
+##                    strip = strip,
+##                    labels = labels,
+##                    cuts = cuts,
+##                    contour = contour,
+##                    pretty = pretty,
+##                    region = region),
+##               dots))
+## }
+
+levelplot <- function(formula, ...)  UseMethod("levelplot")
+
+levelplot.matrix <-
+    function(formula, data = NULL, aspect = "iso", ...)
+{
+    if (!missing(data)) warning("explicit data specification ignored")
+    form <- z ~ row * column
+    data <-
+        expand.grid(row = seq(length = nrow(formula)),
+                    column = seq(length = ncol(formula)))
+    data$z <- as.vector(as.numeric(formula))
+    ## if rownames/colnames are non-null, make them factors
+    if (!is.null(rownames(formula)))
+        data$row <- factor(data$row, labels = rownames(formula))
+    if (!is.null(colnames(formula)))
+        data$column <- factor(data$column, labels = colnames(formula))
+    levelplot(form, data, aspect = aspect, ...)
+}
+
+levelplot.formula <-
     function(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
@@ -446,48 +462,19 @@ levelplot <-
              alpha.regions,
              subset = TRUE)
 {
-
     ##dots <- eval(substitute(list(...)), data, parent.frame())
     dots <- list(...)
-
     groups <- eval(substitute(groups), data, parent.frame())
     subset <- eval(substitute(subset), data, parent.frame())
 
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
-    left.name <- deparse(substitute(formula))
-    formula <- eval(substitute(formula), data, parent.frame())
     form <-
-        if (inherits(formula, "formula"))
-            latticeParseFormula(formula, data, dim = 3,
-                                subset = subset, groups = groups,
-                                multiple = allow.multiple,
-                                outer = outer, subscripts = TRUE,
-                                drop = drop.unused.levels)
-        else {
-            if (is.matrix(formula)) {
-                tmp <- expand.grid(1:nrow(formula), 1:ncol(formula))
-                list(left = as.vector(formula),
-                     right.x = tmp[[1]],
-                     right.y = tmp[[2]],
-                     condition = NULL,
-                     left.name = left.name,
-                     right.x.name = "row", right.y.name = "column",
-                     subscr = seq(length = nrow(tmp)))
-            }
-            else if (is.data.frame(formula)) {
-                tmp <- expand.grid(rownames(formula), colnames(formula))
-                list(left = as.vector(as.matrix(formula)),
-                     right.x = tmp[[1]],
-                     right.y = tmp[[2]],
-                     condition = NULL,
-                     left.name = left.name,
-                     right.x.name = "row", right.y.name = "column",
-                     subscr = seq(length = nrow(tmp)))
-            }
-            else stop("invalid formula")
-        }
-
+        latticeParseFormula(formula, data, dim = 3,
+                            subset = subset, groups = groups,
+                            multiple = allow.multiple,
+                            outer = outer, subscripts = TRUE,
+                            drop = drop.unused.levels)
 
     ## We need to be careful with 'subscripts' here. It HAS to be
     ## there, and it's to be used to index x, y, z (and not only

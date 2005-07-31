@@ -1110,7 +1110,7 @@ dotplot.numeric <-
     ## nm <- deparse(substitute(formula))
     ## formula <- as.formula(paste("~", nm))
     formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    UseMethod("dotplot", formula)
+    dotplot(formula, ...)
 }
 
 dotplot.table <-
@@ -1144,6 +1144,13 @@ dotplot.table <-
     ans
 }
 
+
+dotplot.character <- function(formula, ...) dotplot(table(formula), ...)
+dotplot.factor <- function(formula, ...) dotplot(table(formula), ...)
+dotplot.array <- function(formula, ...) dotplot(as.table(formula), ...)
+dotplot.matrix <- function(formula, ...) dotplot(as.table(formula), ...)
+
+
 dotplot.formula <-
     function(formula,
              data = parent.frame(),
@@ -1167,7 +1174,7 @@ barchart.numeric <-
     function(formula, ...)
 {
     formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    UseMethod("barchart", formula)
+    barchart(formula, ...)
 }
 
 
@@ -1205,6 +1212,10 @@ barchart.table <-
     ans
 }
 
+barchart.character <- function(formula, ...) barchart(table(formula), ...)
+barchart.factor <- function(formula, ...) barchart(table(formula), ...)
+barchart.array <- function(formula, ...) barchart(as.table(formula), ...)
+barchart.matrix <- function(formula, ...) barchart(as.table(formula), ...)
 
 
 barchart.formula <-
@@ -1232,7 +1243,7 @@ stripplot.numeric <-
     function(formula, ...)
 {
     formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    UseMethod("stripplot", formula)
+    stripplot(formula, ...)
 }
 
 
@@ -1256,9 +1267,7 @@ stripplot.formula <-
 
 ### bwplot (the workhorse)
 
-bwplot <-
-    function(formula, ...)
-    UseMethod("bwplot")
+bwplot <- function(formula, ...) UseMethod("bwplot")
 
 
 
@@ -1266,7 +1275,7 @@ bwplot.numeric <-
     function(formula, ...)
 {
     formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    UseMethod("bwplot", formula)
+    bwplot(formula, ...)
 }
 
 
@@ -1300,24 +1309,19 @@ bwplot.formula <-
              subscripts = !is.null(groups),
              subset = TRUE)
 {
-
-    ##m <- match.call(expand.dots = FALSE)
-    ##dots <- m$...
-    ##dots <- lapply(dots, eval, data, parent.frame())
-
     dots <- list(...)
-
     groups <- eval(substitute(groups), data, parent.frame())
     subset <- eval(substitute(subset), data, parent.frame())
 
+    ## step 0: hack to get appropriate legend with auto.key = TRUE in
+    ## barchart (default panel only).  The usual default in bwplot is
+    ## appropriate for dotplot and stripplot (groups is usually not
+    ## meaningful in bwplot itself).
+
+    is.standard.barchart <- is.character(panel) && panel == "panel.barchart"
+
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
 
-    formname <- deparse(substitute(formula))
-    formula <- eval(substitute(formula), data, parent.frame())
-
-    if (!inherits(formula, "formula"))
-        formula <- as.formula(paste("~", formname))
-    
     form <-
         latticeParseFormula(formula, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
@@ -1607,7 +1611,6 @@ bwplot.formula <-
                    cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
-
     if (is.null(foo$legend) && !is.null(groups) &&
         (is.list(auto.key) || (is.logical(auto.key) && auto.key)))
     {
@@ -1615,8 +1618,8 @@ bwplot.formula <-
             list(list(fun = "drawSimpleKey",
                       args =
                       updateList(list(text = levels(as.factor(groups)),
-                                      points = TRUE,
-                                      rectangles = FALSE,
+                                      points = if (is.standard.barchart) FALSE else TRUE,
+                                      rectangles = if (is.standard.barchart) TRUE else FALSE,
                                       lines = FALSE), 
                                  if (is.list(auto.key)) auto.key else list())))
         foo$legend[[1]]$x <- foo$legend[[1]]$args$x

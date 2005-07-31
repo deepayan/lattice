@@ -165,22 +165,29 @@ construct.3d.scales <-
 
 
 
-limitsFromLimitlist <- function(have.lim, lim, relation, limitlist,
-                                used.at, numlimitlist, axs, nplots)
+limitsFromLimitlist <-
+    function(have.lim,
+             lim,
+             relation,
+             limitlist,
+             used.at,
+             numlimitlist,
+             axs,
+             nplots)
     ## have.lim: logical, whether xlim/ylim was explicitly specified
     ## lim: the specified limit if have.lim = TRUE
     ## relation: same/free/sliced
     ## limitlist: list of limits from prepanel calculations, one for each panel
-    ## numlimitlist: (optional) numeric locations for factors (lim will be levels including unused ones)
+    ## numlimitlist: (optional) numeric locations for factors (lim
+    ##                will be levels including unused ones)
     ## axs: "r", "i" etc, passed on to extend.limits
 
-    ## return value depends on relation. (See limits.and.aspect below
-    ## where this is used for partial enlightenment.)
-
+    ## return value depends on relation. (See limits.and.aspect below,
+    ## where this is used, for partial enlightenment.)
 {
 
-    if (relation == "same") {
-
+    if (relation == "same")
+    {
         ## The problem here is that we need to figure out the overall
         ## limit required from the limits of each panel. This could be
         ## a problem for two reasons. First, some panels could have no
@@ -203,28 +210,34 @@ limitsFromLimitlist <- function(have.lim, lim, relation, limitlist,
 
         if (have.lim)
         {
-            if (is.list(lim)) stop("limits cannot be a list when relation = same")
+            if (is.list(lim))
+                stop("limits cannot be a list when relation = same")
             limits <- lim
-            slicelen <- if (is.numeric(lim)) diff(range(lim)) else length(lim) + 2
+            slicelen <-
+                if (is.numeric(lim)) diff(range(lim))
+                else length(lim) + 2
         }
-        else {
+        else
+        {
+            ## should check that all classes are the same. How ? What
+            ## about NA's ? Arrgh!
 
-            ## should check that all classes are the same. How ? What about NA's ? Arrgh!
             ## to handle NA's, how about:
 
             all.na <- unlist(lapply(limitlist, function(x) all(is.na(x))))
-            class.lim <- lapply(limitlist[!all.na],  ## retain non-NA limitlists only
-                                class)
+            class.lim <- ## retain non-NA limitlists only
+                lapply(limitlist[!all.na], class)
             ## class.lim is a list now, may be length 0
-
             limits <- unlist(limitlist) ## loses the class attribute
 
             if (length(limits) > 0)
             {
                 if (is.numeric(limits))
                 {
-                    limits <- extend.limits(range(limits, na.rm = TRUE), axs = axs)
-                    slicelen <- diff(range(limits))
+                    limits <-
+                        extend.limits(range(limits, finite = TRUE),
+                                      axs = axs)
+                    slicelen <- diff(range(limits, finite = TRUE))
                 }
                 else
                 {
@@ -236,26 +249,22 @@ limitsFromLimitlist <- function(have.lim, lim, relation, limitlist,
 
                 if (length(class.lim) > 0)
                     class(limits) <-
-                        if (all(class.lim[[1]] == "integer")) "numeric" else class.lim[[1]]
+                        if (all(class.lim[[1]] == "integer"))
+                            "numeric" else class.lim[[1]]
 
                 ## (have to handle "integer" specially, since variable
                 ## specifications like 1:10 are rather common, and
                 ## class() <- "integer" would turn the limits into
                 ## integers)
-
             }
             else
             {
                 limits <- c(0,1)
                 slicelen <- 1
             }
-
         }
-
         ans <- list(limits = limits, slicelen = slicelen)
     }
-
-
     else if (relation == "sliced")
     {
         if (have.lim)
@@ -274,7 +283,9 @@ limitsFromLimitlist <- function(have.lim, lim, relation, limitlist,
                 else if (!any(is.na(numlimitlist[[i]])))
                     diff(range(numlimitlist[[i]]))
                 else NA
-        slicelen <- (if (axs == "i") 1 else 1.14) * max(unlist(slicelen), na.rm = TRUE)
+        slicelen <-
+            (if (axs == "i") 1 else 1.14) *
+                max(unlist(slicelen), na.rm = TRUE)
         for (i in seq(along = limitlist))
         {
             if (is.numeric(limitlist[[i]]))
@@ -287,56 +298,68 @@ limitsFromLimitlist <- function(have.lim, lim, relation, limitlist,
                 numlimitlist[[i]] <-
                     extend.limits(numlimitlist[[i]], length = slicelen)
         }
-        ans <- list(limits = limitlist, used.at = used.at,
-                    numlimitlist = numlimitlist, slicelen = slicelen)
+        ans <-
+            list(limits = limitlist,
+                 used.at = used.at,
+                 numlimitlist = numlimitlist,
+                 slicelen = slicelen)
     }
-
-
-    else if (relation == "free") {
-
+    else if (relation == "free")
+    {
         if (have.lim)
         {
-            ## FIXME: What's all this about ? I seem to have forgotten
-            ## :-( what should happen if xlim is specified ? Should
-            ## that override "free" ? Make sure docs are consistent
+            ## This is the only situation where limits can be a list
+            ## (doesn't make sense when relation="same", ignored when
+            ## relation="sliced").  Even if limits is not a list (but
+            ## is specified), it will be treated as a list, and
+            ## repeated as necessary (see further comments below).
 
             if (!is.list(lim)) lim <- list(lim)
 
-            id <- logical(length(limitlist))
-            for (i in seq(along = id)) 
-                id[i] <- !any(is.na(limitlist[[i]]))
-            id <- seq(along = id)[id]
-            id <- id[!is.na(id)]  ## how can this be of any use ?
+            ## There's a subtle consideration here.  It is possible
+            ## for some panels to have nothing in them (or only NA's).
+            ## Such panels usually have their prepanel functions
+            ## return NA.  When 'limits' is specified as a list, this
+            ## will be interpreted as the limit specification for the
+            ## non-empty panels only (this is an arbitrary choice, but
+            ## it usually makes more sense, even though it's less
+            ## general than the other choice).
 
+            ## which ones are non-NA?
+            id <- which(sapply(limitlist, function(x) !all(is.na(x))))
+
+            ## replace these with the limits supplied, except if the
+            ## supplied limits are NULL, in which case retain limits
+            ## calculated by prepanel.
+
+            old.limitlist <- limitlist
             limitlist[id] <- lim
+            which.null <- sapply(limitlist, is.null)
+            limitlist[which.null] <- old.limitlist[which.null]
         }
-
         for (i in seq(along = limitlist))
         {
             if (is.numeric(limitlist[[i]])) 
-                limitlist[[i]] <- extend.limits(limitlist[[i]], axs = axs) ## preserves class
+                limitlist[[i]] <- ## preserves class
+                    extend.limits(limitlist[[i]], axs = axs)
             ## o.w., keep it as it is
         }
-        ans <- list(limits = limitlist, used.at = used.at,
-                    numlimitlist = numlimitlist, slicelen = 1)
+        slicelen <- numeric(length(limitlist))
+        for (i in seq(along = limitlist))
+            slicelen[i] <-
+                if (is.numeric(limitlist[[i]]))
+                    diff(range(limitlist[[i]]))
+                else if (!any(is.na(numlimitlist[[i]])))
+                    diff(range(numlimitlist[[i]]))
+                else NA
+        ans <-
+            list(limits = limitlist,
+                 used.at = used.at,
+                 numlimitlist = numlimitlist,
+                 slicelen = slicelen)
     }
-
     ans
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -355,7 +378,6 @@ limits.and.aspect <-
              x.axs = "r", y.axs = "r",
              ...)  ## extra arguments for prepanel (for qqmathline)
 {
-
     if (nplots<1) stop("need at least one panel")
     x.limits <- vector("list", nplots)
     y.limits <- vector("list", nplots)
@@ -418,8 +440,6 @@ limits.and.aspect <-
                             numlimitlist = x.num.limit,
                             axs = x.axs,
                             nplots = nplots)
-
-
     y.limits <-
         limitsFromLimitlist(have.lim = have.ylim,
                             lim = ylim,
@@ -434,23 +454,28 @@ limits.and.aspect <-
     {
         if (aspect == "xy")
         {
-#print(dxdy)
-            aspect <- median(unlist(lapply(dxdy, banking)),
-                             na.rm = TRUE) * y.limits$slicelen /
-                                 x.limits$slicelen
-#print(aspect)
-            if (y.relation == "free" || x.relation == "free")
-                warning("aspect=xy when relation=free is not sensible")
+            aspect <-
+                median(sapply(dxdy, banking) *
+                       y.limits$slicelen /
+                       x.limits$slicelen, 
+                       na.rm = TRUE)
+### old aspect calculation
+##             aspect <- median(unlist(lapply(dxdy, banking)),
+##                              na.rm = TRUE) * y.limits$slicelen /
+##                                  x.limits$slicelen
+##             if (y.relation == "free" || x.relation == "free")
+##                 warning("aspect=xy when relation=free is not sensible")
         }
         else if (aspect == "iso")
         {
-            aspect <- y.limits$slicelen / x.limits$slicelen
+            aspect <-
+                median(y.limits$slicelen / x.limits$slicelen,
+                       na.rm = TRUE)
             if (y.relation == "free" || x.relation == "free")
-                warning("aspect=iso when relation=free is not sensible")
+                warning("aspect=iso approximate since relation=free")
         }
         else aspect <- 1
     }
-
     list(x.limits = x.limits$limits,
          y.limits = y.limits$limits,
          x.used.at = x.limits$used.at,
@@ -458,6 +483,7 @@ limits.and.aspect <-
          x.num.limit = x.limits$numlimitlist,
          y.num.limit = y.limits$numlimitlist,
          aspect.ratio = aspect,
+         prepanel.default = prepanel.default.function,
          prepanel = prepanel)
 }
 

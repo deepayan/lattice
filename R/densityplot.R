@@ -34,7 +34,7 @@ prepanel.default.densityplot <-
              ...)
 {
     if (!is.numeric(x)) x <- as.numeric(x)
-
+    x <- x[!is.na(x)]
     if (length(x) < 1)
         list(xlim = NA,
              ylim = NA,
@@ -100,6 +100,7 @@ panel.densityplot <-
              ...)
 {
     x <- as.numeric(x)
+    x <- x[!is.na(x)]
     if (ref)
     {
         reference.line <- trellis.par.get("reference.line")
@@ -136,9 +137,7 @@ panel.densityplot <-
 
 
 
-densityplot <-
-    function(formula, ...)
-    UseMethod("densityplot")
+densityplot <- function(formula, ...) UseMethod("densityplot")
 
 
 
@@ -146,7 +145,7 @@ densityplot.numeric <-
     function(formula, ...)
 {
     formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    UseMethod("densityplot", formula)
+    densityplot(formula, ...)
 }
 
 
@@ -210,11 +209,11 @@ densityplot.formula <-
     groups <- eval(substitute(groups), data, parent.frame())
     subset <- eval(substitute(subset), data, parent.frame())
 
-    formname <- deparse(substitute(formula))
-    formula <- eval(substitute(formula), data, parent.frame())
+##     formname <- deparse(substitute(formula))
+##     formula <- eval(substitute(formula), data, parent.frame())
 
-    if (!inherits(formula, "formula"))
-        formula <- as.formula(paste("~", formname))
+##     if (!inherits(formula, "formula"))
+##         formula <- as.formula(paste("~", formname))
     
     form <-
         latticeParseFormula(formula, data, subset = subset,
