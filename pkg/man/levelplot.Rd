@@ -1,7 +1,13 @@
 \name{levelplot}
 \title{Level Plots}
+\alias{levelplot}
+\alias{contourplot}
+\alias{levelplot.formula}
+\alias{contourplot.formula}
+\alias{levelplot.matrix}
+\alias{contourplot.matrix}
 \synopsis{
-levelplot(formula,
+\method{levelplot}{formula}(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
@@ -26,22 +32,26 @@ levelplot(formula,
              col.regions,
              alpha.regions,
              subset = TRUE)
-contourplot(formula,
+
+
+\method{contourplot}{formula}(formula,
              data = parent.frame(),
              panel = "panel.contourplot",
-             prepanel = NULL,
-             strip = TRUE,
-             groups = NULL,
              cuts = 7,
              labels = TRUE,
              contour = TRUE,
              pretty = TRUE,
              region = FALSE,
-             ...,
-             subset = TRUE)
+             ...)
+\method{levelplot}{matrix}(formula, data = NULL, aspect = "iso", ...)
+\method{contourplot}{matrix}(formula, data = NULL, aspect = "iso", ...)
 }
 \usage{
-levelplot(formula, data,
+levelplot(formula, \dots)
+contourplot(formula, \dots)
+
+\method{levelplot}{formula}(formula, data,
+          panel = "panel.levelplot",
           at,
           contour = FALSE,
           cuts = 15,
@@ -50,25 +60,30 @@ levelplot(formula, data,
           \dots,
           col.regions = trellis.par.get("regions")$col,
           colorkey = region)
-contourplot(formula, data, at,
-            contour = TRUE,
-            labels = format(at),
-            cuts = 7,
-            pretty = TRUE,
+\method{contourplot}{formula}(formula,
+             data = parent.frame(),
+             panel = "panel.contourplot",
+             cuts = 7,
+             labels = TRUE,
+             contour = TRUE,
+             pretty = TRUE,
+             region = FALSE,
             \dots)
+
+\method{levelplot}{matrix}(formula, aspect = "iso", \dots)
+\method{contourplot}{matrix}(formula, aspect = "iso", \dots)
 
 }
 \description{
   Draw Level Plots and Contour plots.
 }
-\alias{levelplot}
-\alias{contourplot}
 \arguments{
-  \item{formula}{a formula of the form \code{z ~ x * y | g1 * g2 * \dots},
-    where \code{z} is a numeric response, and \code{x}, \code{y} are
-    numeric values evaluated on a rectangular grid.  \code{g1, g2, \dots}
-    are optional conditional variables, and must be either factors or
-    shingles if present.
+  \item{formula}{
+    for the \code{formula} method, a formula of the form \code{z ~ x * y
+      | g1 * g2 * \dots}, where \code{z} is a numeric response, and
+    \code{x}, \code{y} are numeric values evaluated on a rectangular
+    grid.  \code{g1, g2, \dots} are optional conditional variables, and
+    must be either factors or shingles if present.
 
     Calculations are based on the assumption that all x and y values are
     evaluated on a grid (defined by their unique values). The function
@@ -76,12 +91,27 @@ contourplot(formula, data, at,
     not be meaningful.  However, the x and y values need not be equally
     spaced.
 
-    As an extension to partially support the form used in
-    \code{filled.contour} and \code{image}, \code{formula} can be a
-    matrix.
+    Both \code{levelplot} and \code{wireframe} have methods for
+    \code{matrix} objects, in which case \code{formula} provides the
+    \code{z} vector described above, while its rows and columns are
+    interpreted as the \code{x} and \code{y} vectors respectively.  This
+    is similar to the form used in \code{filled.contour} and
+    \code{image}.
   }
   \item{data}{
-    optional data frame in which variables are to be evaluated 
+    For the \code{formula} methods, an optional data frame in which
+    variables in the formula (as well as \code{groups} and
+    \code{subset}, if any) are to be evaluated.  By default, the
+    environment where the function was called from is used.
+  }
+  \item{panel}{
+    panel function used to create the display, as described in
+    \code{\link{xyplot}}
+  }
+  \item{aspect}{
+    For the \code{matrix} methods, the default aspect ratio is chosen to
+    make each cell square.  The usual default is \code{aspect="fill"},
+    as described in \code{\link{xyplot}}.
   }
   \item{at}{
     numeric vector giving breaks along the range of \code{z}. Contours

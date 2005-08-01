@@ -41,4 +41,6 @@ summary.trellis <- function(object, ...)
 }
 
 
+dim.trellis <- function(x)
+    as.integer(sapply(x$condlevels, length))
 

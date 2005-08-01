@@ -180,10 +180,17 @@ parallel <- function(formula, ...)  UseMethod("parallel")
 
 
 parallel.data.frame <-
-    function(formula, ...)
+    function(formula, data = NULL, ...)
 {
-    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    parallel(formula, ...)
+    ocall <- ccall <- match.call()
+    if (!is.null(ccall$data)) 
+        warning("explicit data specification ignored")
+    ccall$data <- list(x = formula)
+    ccall$formula <- ~x
+    ccall[[1]] <- as.name("parallel")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
 
 

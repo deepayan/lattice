@@ -1,5 +1,3 @@
-
-
 ### Copyright (C) 2001-2005 Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
 ###
 ### This file is part of the lattice library for R.

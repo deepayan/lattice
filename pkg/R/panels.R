@@ -598,7 +598,6 @@ panel.linejoin <-
              lty = reference.line$lty,
              col,
              col.line = reference.line$col,
-             type = NULL,
              ...)
 {
     x <- as.numeric(x)
@@ -616,7 +615,7 @@ panel.linejoin <-
         xx <- numeric(length(yy))
         for (i in yy)
             xx[i] <- fun(x[y == vals[i]])
-        llines(xx, vals[yy], col = col.line, lty = lty, lwd = lwd, type = 'l', ...)
+        llines(xx, vals[yy], col = col.line, lty = lty, lwd = lwd, ...)
     }
     else
     {
@@ -625,7 +624,7 @@ panel.linejoin <-
         yy <- numeric(length(xx))
         for (i in xx)
             yy[i] <- fun(y[x == vals[i]])
-        llines(vals[xx], yy, col = col.line, lty = lty, lwd = lwd, type = 'l', ...)
+        llines(vals[xx], yy, col = col.line, lty = lty, lwd = lwd, ...)
      }
 }
 

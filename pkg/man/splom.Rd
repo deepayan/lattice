@@ -1,7 +1,13 @@
 \name{splom}
 \title{Scatter Plot Matrices}
+\alias{splom}
+\alias{parallel}
+\alias{splom.data.frame}
+\alias{parallel.data.frame}
+\alias{splom.formula}
+\alias{parallel.formula}
 \synopsis{
-splom(formula,
+\method{splom}{formula}(formula,
              data = parent.frame(),
              auto.key = FALSE,
              aspect = 1,
@@ -22,7 +28,7 @@ splom(formula,
              ...,
              default.scales,
              subset = TRUE)
-parallel(formula,
+\method{parallel}{formula}(formula,
              data = parent.frame(),
              aspect = "fill",
              between = list(x = 0.5, y = 0.5),
@@ -40,9 +46,14 @@ parallel(formula,
              ...,
              default.scales,
              subset = TRUE)
+\method{splom}{data.frame}(formula, data = NULL, ...)
+\method{parallel}{data.frame}(formula, data = NULL, ...)
 }
 \usage{
-splom(formula,
+splom(formula, \dots)
+parallel(formula, \dots)
+
+\method{splom}{formula}(formula,
       data,
       aspect = 1,
       between = list(x = 0.5, y = 0.5),
@@ -50,29 +61,35 @@ splom(formula,
       superpanel = "panel.pairs",
       pscales = 5,
       varnames, \dots)
-parallel(formula,
+\method{parallel}{formula}(formula,
          data,
          between = list(x = 0.5, y = 0.5),
          panel = "panel.parallel",
          varnames,
          \dots)
+
+\method{splom}{data.frame}(formula, \dots)
+\method{parallel}{data.frame}(formula, \dots)
 }
 \description{
   Draw Conditional Scatter Plot Matrices and Parallel Coordinate Plots
 }
-\alias{splom}
-\alias{parallel}
 \arguments{
-  \item{formula}{ a formula describing the structure of the plot, which
-    should be of the form \code{~ x | g1 * g2 * \dots}, where \code{x}
-    is a data frame or a matrix. Each of \code{g1,g2,\dots} must be
-    either factors or shingles. The conditioning variables
-    \code{g1,g2,\dots} may be omitted, in which case the leading
-    \code{~} may also be omitted.
+  \item{formula}{
+    For the formula method, a formula describing the structure of the
+    plot, which should be of the form \code{~ x | g1 * g2 * \dots},
+    where \code{x} is a data frame or a matrix. Each of
+    \code{g1,g2,\dots} must be either factors or shingles. The
+    conditioning variables \code{g1,g2,\dots} may be omitted, in which
+    case the leading \code{~} may also be omitted.
+
+    For the \code{data.frame} methods, a data frame.
   }
-  \item{data}{ a data frame containing values for any variables in the
-    formula. By default the environment where the function 
-    was called from is used.
+  \item{data}{
+    For the \code{formula} methods, an optional data frame in which
+    variables in the formula (as well as \code{groups} and
+    \code{subset}, if any) are to be evaluated.  By default, the
+    environment where the function was called from is used.
   }
   \item{aspect}{ 
     aspect ratio of each panel (and subpanel), square by default for

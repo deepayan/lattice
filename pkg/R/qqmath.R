@@ -190,10 +190,18 @@ qqmath <- function(formula, ...)  UseMethod("qqmath")
 
 
 qqmath.numeric <-
-    function(formula, ...)
+    function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
 {
-    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    qqmath(formula, ...)
+    ocall <- ccall <- match.call()
+    if (!is.null(ccall$data)) 
+        warning("explicit data specification ignored")
+    ccall$data <- list(x = formula)
+    ccall$xlab <- xlab
+    ccall$formula <- ~x
+    ccall[[1]] <- as.name("qqmath")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
 
 
