@@ -1,9 +1,14 @@
 \name{cloud}
-\title{3d Scatter Plot}
+\title{3d Scatter Plot and Wireframe Surface Plot}
 \alias{cloud}
 \alias{wireframe}
+\alias{cloud.formula}
+\alias{cloud.matrix}
+\alias{wireframe.formula}
+\alias{wireframe.matrix}
 \synopsis{
-cloud(formula,
+\method{cloud}{formula} <-
+    function(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
@@ -32,54 +37,60 @@ cloud(formula,
              cuts = 70,
              subset = TRUE,
              axs.default = "r")
-wireframe(formula,
+\method{wireframe}{formula}(formula,
              data = parent.frame(),
              panel = "panel.wireframe",
-             prepanel = NULL,
-             strip = TRUE,
-             groups = NULL,
-             cuts = 70,
-             pretty = FALSE,
-             drape = FALSE,
-             ...,
-             colorkey = any(drape),
-             subset = TRUE)
+             ...)
+\method{cloud}{matrix}(formula, data = NULL, type = 'h',
+      zlab = deparse(substitute(formula)),
+      \dots)
+\method{wireframe}{matrix}(formula, data = NULL, 
+      zlab = deparse(substitute(formula)),
+      \dots)
 }
 \usage{
-cloud(formula, data,
+cloud(formula, \dots)
+wireframe(formula, \dots)
+\method{cloud}{formula}(formula, data,
       aspect = c(1, 1),
+      panel = "panel.cloud",
       scales = list(distance = rep(1, 3), arrows = TRUE),
       zlab,
       zlim, 
       zoom = 0.8,
       \dots)
-wireframe(formula, data,
+\method{wireframe}{formula}(formula, data,
+          zoom,
+          scales,
           at = pretty(z, cuts),
-          col.regions,
-          alpha.regions,
           drape = FALSE,
           shade = FALSE,
           pretty = FALSE,
           colorkey = any(drape),
           cuts = 70,
-          zoom,
-          scales,
+          col.regions,
+          alpha.regions,
           \dots,
           col.regions)
+\method{cloud}{matrix}(formula, type = 'h', \dots)
+\method{wireframe}{matrix}(formula, \dots)
+)
 }
 \description{
-  Draws 3d scatter plots and surfaces.
+  Generic functions to draw 3d scatter plots and surfaces.  The
+  \code{formula} methods do most of the actual work.
 }
 \arguments{
   \item{formula}{
-    a formula of the form \code{z ~ x * y | g1 * g2 * ...}, where
-    \code{z} is a numeric response, and \code{x}, \code{y} are numeric
-    values. \code{g1, g2, \dots}, if present, are conditioning variables
-    used for conditioning, and must be either factors or shingles. In
-    the case of \code{wireframe}, calculations are based on the
-    assumption that the \code{x} and \code{y} values are evaluated on a
-    rectangular grid defined by their unique values.  The grid points
-    need not be equally spaced.
+
+    For the \code{formula} methods, a formula of the form \code{z ~ x *
+      y | g1 * g2 * ...}, where \code{z} is a numeric response, and
+    \code{x}, \code{y} are numeric values. \code{g1, g2, \dots}, if
+    present, are conditioning variables used for conditioning, and must
+    be either factors or shingles. In the case of \code{wireframe},
+    calculations are based on the assumption that the \code{x} and
+    \code{y} values are evaluated on a rectangular grid defined by their
+    unique values.  The grid points need not be equally spaced.
 
     For \code{wireframe}, \code{x}, \code{y} and \code{z} may also be
     matrices (of the same dimension), in which case they are taken to
@@ -93,17 +104,28 @@ wireframe(formula, data,
     surfaces), missing rows are not allowed, but \code{NA}'s in \code{z}
     are.
 
-    As an extension to partially support the form used in
-    \code{filled.contour} and \code{image}, \code{formula} can be a
-    matrix.
+    Both \code{wireframe} and \code{cloud} have methods for
+    \code{matrix} objects, in which case \code{formula} provides the
+    \code{z} vector described above, while its rows and columns are
+    interpreted as the \code{x} and \code{y} vectors respectively.  This
+    is similar to the form used in \code{filled.contour} and
+    \code{image}.
   }
   \item{data}{
-    data frame in which variables are evaluated.  Ignored is
-    \code{formula} is not really a formula object.
+    for the \code{formula} methods, a data frame in which variables are
+    evaluated.
+  }
+  \item{type}{
+    type of display in \code{cloud} (see \code{\link{panel.3dscatter}}
+    for details).  Defaults to \code{"h"} for the \code{matrix} method.
   }
   \item{aspect}{
     vector of length 2, giving the relative aspects of the y-size/x-size
     and z-size/x-size of the enclosing cube.
+  }
+  \item{panel}{
+    panel function used to create the display.  See
+    \code{\link{panel.cloud}} for (non-trivial) details.
   }
   \item{scales}{
     a list describing the scales.  As with other high level functions

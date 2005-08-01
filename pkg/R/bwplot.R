@@ -1103,15 +1103,47 @@ panel.violin <-
 dotplot <- function(formula, ...) UseMethod("dotplot")
 
 
+## dotplot.numeric <-
+##     function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
+## {
+##     ## old version:
+##     ## nm <- deparse(substitute(formula))
+##     ## formula <- as.formula(paste("~", nm))
+##     ## or formula <- eval(substitute(~foo, list(foo = substitute(formula))))
+##     ## both have the problem that they don't evaluate the formula
+
+## this last attempt had problems with evaluations
+## (e.g. dotplot(x, groups = a):
+
+##     if (!missing(data))
+##         warning("explicit data specification ignored")
+##     dotplot(~x, data = list(x = formula),
+##             xlab = xlab,
+##             ...)
+## }
+
 dotplot.numeric <-
-    function(formula, ...)
+    function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
 {
-    ## old version:
-    ## nm <- deparse(substitute(formula))
-    ## formula <- as.formula(paste("~", nm))
-    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    dotplot(formula, ...)
+    ocall <- ccall <- match.call()
+    if (!is.null(ccall$data)) 
+        warning("explicit data specification ignored")
+    ccall$data <- list(x = formula)
+    ccall$xlab <- xlab
+    ccall$formula <- ~x
+    ccall[[1]] <- as.name("dotplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
+
+
+
+
+
+
+
+
 
 dotplot.table <-
     function(formula, data = NULL, groups = TRUE, ...)
@@ -1145,8 +1177,7 @@ dotplot.table <-
 }
 
 
-dotplot.character <- function(formula, ...) dotplot(table(formula), ...)
-dotplot.factor <- function(formula, ...) dotplot(table(formula), ...)
+dotplot.default <- function(formula, ...) dotplot(table(formula), ...)
 dotplot.array <- function(formula, ...) dotplot(as.table(formula), ...)
 dotplot.matrix <- function(formula, ...) dotplot(as.table(formula), ...)
 
@@ -1171,11 +1202,20 @@ barchart <- function(formula, ...) UseMethod("barchart")
 
 
 barchart.numeric <-
-    function(formula, ...)
+    function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
 {
-    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    barchart(formula, ...)
+    ocall <- ccall <- match.call()
+    if (!is.null(ccall$data)) 
+        warning("explicit data specification ignored")
+    ccall$data <- list(x = formula)
+    ccall$xlab <- xlab
+    ccall$formula <- ~x
+    ccall[[1]] <- as.name("barchart")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
+
 
 
 
@@ -1184,6 +1224,7 @@ barchart.table <-
              origin = 0, stack = TRUE, ...)
 {
     ocall <- match.call()
+    if (!is.null(data)) warning("explicit data specification ignored")
     ## formula <- eval(substitute(~foo, list(foo = substitute(formula))))
     data <- as.data.frame(formula)
     nms <- names(data)
@@ -1212,8 +1253,7 @@ barchart.table <-
     ans
 }
 
-barchart.character <- function(formula, ...) barchart(table(formula), ...)
-barchart.factor <- function(formula, ...) barchart(table(formula), ...)
+barchart.default <- function(formula, ...) barchart(table(formula), ...)
 barchart.array <- function(formula, ...) barchart(as.table(formula), ...)
 barchart.matrix <- function(formula, ...) barchart(as.table(formula), ...)
 
@@ -1240,11 +1280,20 @@ stripplot <- function(formula, ...) UseMethod("stripplot")
 
 
 stripplot.numeric <-
-    function(formula, ...)
+    function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
 {
-    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    stripplot(formula, ...)
+    ocall <- ccall <- match.call()
+    if (!is.null(ccall$data)) 
+        warning("explicit data specification ignored")
+    ccall$data <- list(x = formula)
+    ccall$xlab <- xlab
+    ccall$formula <- ~x
+    ccall[[1]] <- as.name("stripplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
+
 
 
 stripplot.formula <-
@@ -1272,13 +1321,19 @@ bwplot <- function(formula, ...) UseMethod("bwplot")
 
 
 bwplot.numeric <-
-    function(formula, ...)
+    function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
 {
-    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    bwplot(formula, ...)
+    ocall <- ccall <- match.call()
+    if (!is.null(ccall$data)) 
+        warning("explicit data specification ignored")
+    ccall$data <- list(x = formula)
+    ccall$xlab <- xlab
+    ccall$formula <- ~x
+    ccall[[1]] <- as.name("bwplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
-
-
 
 
 
