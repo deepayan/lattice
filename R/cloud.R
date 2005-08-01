@@ -1421,7 +1421,7 @@ wireframe.matrix <-
              zlab = deparse(substitute(formula)),
              ...)
 {
-    if (!missing(data)) warning("explicit data specification ignored")
+    if (!is.null(data)) warning("explicit data specification ignored")
     form <- eval(z ~ row * column)
     data <-
         expand.grid(row = seq(length = nrow(formula)),
@@ -1462,7 +1462,7 @@ cloud.matrix <-
              zlab = deparse(substitute(formula)),
              ...)
 {
-    if (!missing(data)) warning("explicit data specification ignored")
+    if (!is.null(data)) warning("explicit data specification ignored")
     form <- eval(z ~ row * column)
     data <-
         expand.grid(row = seq(length = nrow(formula)),
@@ -1528,40 +1528,11 @@ cloud.formula <-
 
     formula <- eval(substitute(formula), data, parent.frame())
     form <-
-        ## if (inherits(formula, "formula"))
         latticeParseFormula(formula, data, dim = 3,
                             subset = subset, groups = groups,
                             multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
                             drop = drop.unused.levels)
-##         else
-##         {
-##             if (is.matrix(formula))
-##             {
-##                 tmp <- expand.grid(1:nrow(formula), 1:ncol(formula))
-##                 list(left = as.vector(formula),
-##                      right.x = tmp[[1]],
-##                      right.y = tmp[[2]],
-##                      condition = NULL,
-##                      groups = groups,
-##                      left.name = left.name,
-##                      right.x.name = "row", right.y.name = "column",
-##                      subscr = seq(length = nrow(tmp)))
-##             }
-##             else if (is.data.frame(formula))
-##             {
-##                 tmp <- expand.grid(rownames(formula), colnames(formula))
-##                 list(left = as.vector(as.matrix(formula)),
-##                      right.x = tmp[[1]],
-##                      right.y = tmp[[2]],
-##                      condition = NULL,
-##                      groups = groups,
-##                      left.name = "left.name",
-##                      right.x.name = "row", right.y.name = "column",
-##                      subscr = seq(length = nrow(tmp)))
-##             }
-##             else stop("invalid formula")
-##         }
 
     ## We need to be careful with subscripts here. It HAS to be there,
     ## and it's to be used to index x, y, z (and not only groups,
@@ -1594,8 +1565,8 @@ cloud.formula <-
     x <- form$right.x
     y <- form$right.y
 
-    ## 2004-03-12 new experimental stuff: when x, y, z are all
-    ## matrices of the same dimension, they represent a 3-D surface
+    ## (2004-03-12) experimental stuff: when x, y, z are all matrices
+    ## of the same dimension, they represent a 3-D surface
     ## parametrized on a 2-D grid (the details of the parametrizing
     ## grid are unimportant). This is meant only for wireframe
 
@@ -1645,7 +1616,6 @@ cloud.formula <-
     ## need to be passed to the panel function to be processed. These |
     ## xlab / ylab are dummies to satisfy the usual processing        |
     ## routines ------------------------------------------------------+
-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

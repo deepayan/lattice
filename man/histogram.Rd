@@ -1,10 +1,15 @@
 \name{histogram}
 \alias{histogram}
+\alias{histogram.factor}
+\alias{histogram.numeric}
+\alias{histogram.formula}
 \alias{densityplot}
+\alias{densityplot.numeric}
+\alias{densityplot.formula}
 \alias{do.breaks}
 \title{Histograms and Kernel Density Plots}
 \synopsis{
-histogram(formula,
+\method{histogram}{formula}(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
@@ -31,7 +36,7 @@ histogram(formula,
              default.scales = list(),
              subscripts = !is.null(groups),
              subset = TRUE)
-densityplot(formula,
+\method{densityplot}{formula}(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
@@ -65,7 +70,10 @@ densityplot(formula,
              subset = TRUE)
 }
 \usage{
-histogram(formula,
+histogram(formula, \dots)
+densityplot(formula, \dots)
+
+\method{histogram}{formula}(formula,
           data, 
           type = c("percent", "count", "density"),
           nint = if(is.factor(x)) length(levels(x))
@@ -75,8 +83,13 @@ histogram(formula,
           + 1) else do.breaks(endpoints, nint),
           equal.widths = FALSE, 
           \dots)
-densityplot(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
+\method{histogram}{numeric}(formula, \dots)
+\method{histogram}{factor}(formula, \dots)
+
+\method{densityplot}{formula}(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
             \dots)
+\method{densityplot}{numeric}(formula, \dots)
+
 do.breaks(endpoints, nint)
 }
 \description{
@@ -84,23 +97,29 @@ do.breaks(endpoints, nint)
   other variables.
 }
 \arguments{
-  \item{formula}{A formula of the form \code{~ x | g1 * g2 * \dots}
-    indicates that histograms or Kernel Density estimates of \code{x}
-    should be produced conditioned on the levels of the (optional)
-    variables \code{g1,g2,\dots}. When the conditioning variables
-    \code{g1,g2,\dots} are missing, the leading \code{~} can be dropped.
-    
-    \code{x} can be numeric (or factor for \code{histogram}), and each
-    of \code{g1,g2,\dots} must be either factors or shingles.
+  \item{formula}{
 
-    As a special case, the right hand side of the formula (\code{x}) can
-    actually contain more than one variable separated by a '+'
-    sign. What happens in this case is described in details in the
-    documentation for \code{\link{xyplot}}.  Note that in either form,
-    all the variables involved in the formula have to have same length.
+    For the \code{formula} method, a formula of the form \code{~ x | g1
+      * g2 * \dots} indicates that histograms or Kernel Density
+    estimates of \code{x} should be produced conditioned on the levels
+    of the (optional) variables \code{g1, g2, \dots}.  \code{x} can be
+    numeric (or factor for \code{histogram}), and each of \code{g1, g2,
+      \dots} must be either factors or shingles.
+
+    As a special case, the right hand side of the formula can contain
+    more than one variable separated by a \code{+} sign. What happens in
+    this case is described in details in the documentation for
+    \code{\link{xyplot}}.  Note that in either form, all the variables
+    involved in the formula have to have same length.
+
+    For the \code{numeric} and \code{factor} methods, \code{formula}
+    replaces the \code{x} vector described above.  Conditioning is not
+    allowed in these cases.
+
   }
   \item{data}{
-    optional data frame in which variables are to be evaluated
+    For the \code{formula} method, an optional data frame in which
+    variables are to be evaluated.
   }
   \item{type}{ Character string indicating type of histogram to be
     drawn. ``percent'' and ``count'' give relative frequency and

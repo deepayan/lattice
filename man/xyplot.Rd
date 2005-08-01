@@ -1,12 +1,23 @@
 \name{xyplot}
 \title{Common Bivariate Trellis Plots}
 \alias{xyplot}
+\alias{xyplot.formula}
 \alias{barchart}
+\alias{barchart.formula}
+\alias{barchart.numeric}
+\alias{barchart.default}
 \alias{bwplot}
+\alias{bwplot.formula}
+\alias{bwplot.numeric}
 \alias{dotplot}
+\alias{dotplot.formula}
+\alias{dotplot.numeric}
+\alias{dotplot.default}
 \alias{stripplot}
+\alias{stripplot.formula}
+\alias{stripplot.numeric}
 \synopsis{
-xyplot(formula,
+\method{xyplot}{formula}(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
@@ -27,7 +38,7 @@ xyplot(formula,
              default.scales,
              subscripts = !is.null(groups),
              subset = TRUE)
-bwplot(formula,
+\method{bwplot}{formula}(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
@@ -49,9 +60,19 @@ bwplot(formula,
              default.scales,
              subscripts = !is.null(groups),
              subset = TRUE)
+\method{stripplot}{formula}(formula,
+          data,
+          panel = "panel.stripplot",
+          \dots)
 }
 \usage{
-xyplot(formula,
+xyplot(formula, ...)
+dotplot(formula, ...)
+barchart(formula, ...)
+stripplot(formula, ...)
+bwplot(formula, ...)
+
+\method{xyplot}{formula}(formula,
        data = parent.frame(),
        panel = if (is.null(groups)) "panel.xyplot"
                else "panel.superpose",
@@ -86,33 +107,30 @@ xyplot(formula,
        panel.groups = "panel.xyplot",
        subscripts,
        subset)
-dotplot(formula,
-        data, 
+
+\method{dotplot}{formula}(formula,
+        data,
         panel = "panel.dotplot",
-        groups = NULL,
-        ...,
-        subset = TRUE)
-barchart(formula,
+        \dots)
+
+\method{barchart}{formula}(formula,
          data,
          panel = "panel.barchart",
          box.ratio = 2,
-         groups = NULL,
-         ...,
-         subset = TRUE)
-stripplot(formula,
+         \dots)
+
+\method{stripplot}{formula}(formula,
           data,
           panel = "panel.stripplot",
-          jitter = FALSE,
+          jitter.data = FALSE,
           factor = .5,
-          box.ratio = if (jitter) 1 else 0,
-          groups = NULL,
-          ...,
-          subset = TRUE)
-bwplot(formula,
+          \dots)
+
+\method{bwplot}{formula}(formula,
        data,
        panel = "panel.bwplot",
        box.ratio = 1,
-       ...,
+       \dots,
        horizontal,
        subset = TRUE)
 }
@@ -124,29 +142,33 @@ bwplot(formula,
   well, in which case they will simply be coerced to numeric), which
   produces Conditional Scatterplots. The others are useful when one of
   the variates is a factor or a shingle.  Most of these arguments are
-  also applicable for other high level functions in the lattice package,
+  also applicable to other high level functions in the lattice package,
   but are only documented here.
 }
 
 \arguments{
   \item{formula}{
-    a formula describing the form of conditioning plot. The formula is
-    generally of the form \code{y ~ x | g1 * g2 * \dots}, indicating
-    that plots of \code{y} (on the y axis) versus \code{x} (on the x
-    axis) should be produced conditional on the variables
-    \code{g1, g2, \dots}. However, the conditioning variables
-    \code{g1,g2,\dots} may be omitted. The formula can also be supplied
-    as \code{y ~ x | g1 + g2 + \dots}.
+
+    For the \code{formula} methods, a formula describing the form of
+    conditioning plot. The formula is generally of the form \code{y ~ x
+      | g1 * g2 * \dots}, indicating that plots of \code{y} (on the y
+    axis) versus \code{x} (on the x axis) should be produced conditional
+    on the variables \code{g1, g2, \dots}. However, the conditioning
+    variables \code{g1,g2,\dots} may be omitted. The formula can also be
+    supplied as \code{y ~ x | g1 + g2 + \dots}.
 
     For all of these functions, with the exception of \code{xyplot}, a
     formula of the form \code{ ~ x | g1 * g2 * \dots} is also
     allowed. In that case, \code{y} defaults to \code{names(x)} if
     \code{x} is named, and a factor with a single level otherwise.
 
-    Although it is not recommended, usage of the form \code{dotplot(x)}
-    (where the formula argument is not a formula at all) is also
-    allowed, and is equivalent to \code{dotplot( ~ x)}.
-    
+    Other usage of the form \code{dotplot(x)} is handled by method
+    dispatch as appropriate.  The \code{numeric} method is equivalent to
+    a call with no left hand side and no conditioning variables in the
+    formula.  For \code{barchart} and \code{dotplot}, non-trivial
+    methods exist for tables and arrays, documented under
+    \code{\link{barchart.table}}.
+
     The conditioning variables \code{g1, g2, \dots} must be either
     factors or shingles.  Shingles are a way of processing numeric
     variables for use in conditioning. See documentation of
@@ -201,10 +223,11 @@ bwplot(formula,
 %     All points with at least one of its values missing (NA) in any
 %     of the variates involved are omitted from the plot.
   }
-  \item{data}{a data frame containing values for any variables in the
-    formula, as well as \code{groups} and \code{subset} if applicable. 
-    By default the environment where the function was called from is
-    used. 
+  \item{data}{
+    For the \code{formula} method, a data frame containing values for
+    any variables in the formula, as well as \code{groups} and
+    \code{subset} if applicable.  By default the environment where the
+    function was called from is used.
   }
   \item{allow.multiple, outer}{
     logical flags to control what happens with formulas like \code{y1 +
@@ -233,9 +256,10 @@ bwplot(formula,
     contain a \code{minlength} argument in this case, which would be
     passed to the \code{abbreviate} function.
   }
-  \item{jitter}{
+  \item{jitter.data}{
     logical specifying whether the values should be jittered by adding a
-    random noise in stripplot.
+    random noise in stripplot.  This is actually an argument of
+    \code{panel.stripplot}.
   }
   \item{factor}{
     numeric controlling amount of jitter as in \code{\link{jitter}}.
@@ -982,6 +1006,7 @@ bwplot(formula,
 
 }
 \seealso{
+  \code{\link{barchart.table}},
   \code{\link{Lattice}},
   \code{\link{print.trellis}},
   \code{\link{shingle}},

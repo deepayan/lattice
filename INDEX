@@ -1,6 +1,7 @@
 banking                 Banking
+barchart.table          table methods for barchart and dotplot
 barley                  Yield data from a Minnesota barley trial
-cloud                   3d Scatter Plot
+cloud                   3d Scatter Plot and Wireframe Surface Plot
 draw.colorkey           Produce a Colorkey for levelplot
 draw.key                Produce a Legend or Key
 environmental           Atmospheric environmental conditions in New
