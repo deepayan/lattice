@@ -120,6 +120,7 @@ S3method(splom,       formula)
 S3method(splom,       data.frame)
 S3method(parallel,    formula)
 S3method(parallel,    data.frame)
+
 S3method(tmd,         formula)
 S3method(tmd,         trellis)
 

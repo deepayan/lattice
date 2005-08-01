@@ -1,11 +1,13 @@
 \name{qqmath}
 \alias{qqmath}
+\alias{qqmath.formula}
+\alias{qqmath.numeric}
 \title{ Q-Q Plot with Theoretical Distribution }
 \description{
   Quantile-Quantile plot of a sample and a theoretical distribution
 }
 \synopsis{
-qqmath(formula,
+\method{qqmath}{formula}(formula,
        data = parent.frame(),
        allow.multiple = is.null(groups) || outer,
        outer = !is.null(groups),
@@ -28,20 +30,27 @@ qqmath(formula,
        default.scales = list(),
        subscripts = !is.null(groups),
        subset = TRUE)
+\method{qqmath}{numeric}(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
 }
 \usage{
-qqmath(formula, data,
+qqmath(formula, \dots)
+
+\method{qqmath}{formula}(formula, data,
        distribution = qnorm,
        f.value = NULL,
        panel = "panel.qqmath",
        \dots)
+\method{qqmath}{numeric}(formula, \dots)
 }
 \arguments{
   \item{formula}{formula of the form \code{~ x | g1 * g2 * \ldots},
     where \code{x} must be a numeric.
   }
   \item{data}{
-    optional data frame in which variables are to be evaluated
+    For the \code{formula} method, an optional data frame in which
+    variables in the formula (as well as \code{groups} and
+    \code{subset}, if any) are to be evaluated.  By default, the
+    environment where the function was called from is used.
   }
   \item{distribution}{ a quantile function that takes a vector of
     probabilities as argument and produces the corresponding

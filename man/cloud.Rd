@@ -7,8 +7,7 @@
 \alias{wireframe.formula}
 \alias{wireframe.matrix}
 \synopsis{
-\method{cloud}{formula} <-
-    function(formula,
+\method{cloud}{formula}(formula,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
@@ -74,7 +73,6 @@ wireframe(formula, \dots)
           col.regions)
 \method{cloud}{matrix}(formula, type = 'h', \dots)
 \method{wireframe}{matrix}(formula, \dots)
-)
 }
 \description{
   Generic functions to draw 3d scatter plots and surfaces.  The
@@ -108,12 +106,12 @@ wireframe(formula, \dots)
     \code{matrix} objects, in which case \code{formula} provides the
     \code{z} vector described above, while its rows and columns are
     interpreted as the \code{x} and \code{y} vectors respectively.  This
-    is similar to the form used in \code{filled.contour} and
-    \code{image}.
+    is similar to the form used in \code{persp}.
   }
   \item{data}{
-    for the \code{formula} methods, a data frame in which variables are
-    evaluated.
+    for the \code{formula} methods, an optional data frame in which
+    variables in the formula (as well as \code{groups} and
+    \code{subset}, if any) are to be evaluated
   }
   \item{type}{
     type of display in \code{cloud} (see \code{\link{panel.3dscatter}}

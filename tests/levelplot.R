@@ -53,13 +53,10 @@ wireframe(volna)
 
 
 
-splom(iris[,1:4], iris, groups = Species)
-splom(iris[,1:4], iris, groups = Species, subset = 70:130, auto.key = T)
+splom(~iris[,1:4], iris, groups = Species)
+splom(~iris[,1:4], iris, groups = Species, subset = 70:130, auto.key = T)
 
 parallel(~iris[,1:4] | Species, iris, subset = 30:130)
-
-
-
 
 dev.off()
 

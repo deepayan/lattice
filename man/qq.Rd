@@ -1,11 +1,12 @@
 \name{qq}
 \alias{qq}
+\alias{qq.formula}
 \title{ Quantile-Quantile Plots of Two Samples }
 \description{
   Quantile-Quantile plots for comparing two Distributions
 }
 \synopsis{
-qq(formula, data = parent.frame(), aspect = "fill", 
+\method{qq}{formula}(formula, data = parent.frame(), aspect = "fill", 
     panel = panel.qq, prepanel = NULL, scales = list(), strip = TRUE, 
     groups = NULL, xlab, xlim, ylab, ylim, f.value = NULL, 
     drop.unused.levels,
@@ -13,15 +14,23 @@ qq(formula, data = parent.frame(), aspect = "fill",
     subscripts = !is.null(groups), subset = TRUE)
 }
 \usage{
-qq(formula, f.value = NULL, ...)
+qq(formula, \dots)
+\method{qq}{formula}(formula, data, f.value = NULL, \dots)
 }
 \arguments{
-  \item{formula}{formula of the form \code{y ~ x | g1 * g2 * \ldots},
-    where \code{x} must be a numeric, and \code{y} can be a factor,
-    shingle, character or numeric vector, with the restriction that there
-    must be exactly two levels of \code{y}, which divide the values of
-    \code{x} into two groups. Quantiles for these groups will be plotted
-    along the two axes.
+  \item{formula}{
+    For the formula method, a formula of the form \code{y ~ x | g1 * g2
+      * \ldots}, where \code{x} must be a numeric, and \code{y} can be a
+    factor, shingle, character or numeric vector, with the restriction
+    that there must be exactly two levels of \code{y}, which divide the
+    values of \code{x} into two groups. Quantiles for these groups will
+    be plotted along the two axes.
+  }
+  \item{data}{
+    For the \code{formula} methods, an optional data frame in which
+    variables in the formula (as well as \code{groups} and
+    \code{subset}, if any) are to be evaluated.  By default, the
+    environment where the function was called from is used.
   }
   \item{f.value}{ optional function of a single integer (representing
     the larger of the two sample sizes), returning a vector of
@@ -37,7 +46,7 @@ qq(formula, f.value = NULL, ...)
     quantiles. This is similar to what happens for \code{qqplot} but
     different from the default \code{qq} behaviour in S-PLUS.
   }
-  \item{\dots}{Other arguments}
+  \item{\dots}{ Other arguments }
 }
 \value{
   An object of class ``trellis''. The `update' method can be used to

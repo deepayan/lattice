@@ -23,6 +23,7 @@ panel.superpose(x, y = NULL, subscripts, groups,
              lty = superpose.line$lty,
              lwd = superpose.line$lwd,
              alpha = superpose.symbol$alpha,
+             type = "p",
              ...)
 panel.superpose.2(x, y = NULL, subscripts, groups,
                   panel.groups = "panel.xyplot",
@@ -42,9 +43,9 @@ panel.superpose.2(x, y = NULL, subscripts, groups,
 }
 \usage{
 panel.superpose(x, y, panel.groups = "panel.xyplot",
-                subscripts, groups, type="p", ...)
+                subscripts, groups, type = "p", ...)
 panel.superpose.2(x, y, panel.groups = "panel.xyplot",
-                  subscripts, groups, type="p", ...)
+                  subscripts, groups, type = "p", ...)
 }
 \arguments{
   \item{x,y}{ coordinates of the points to be displayed}
@@ -78,6 +79,10 @@ panel.superpose.2(x, y, panel.groups = "panel.xyplot",
     request multiple types per group, specifying \code{type} as a list,
     each component being the desired \code{type} vector for the
     corresponding plot.
+
+    In \code{panel.superpose}, any occurrence of \code{"g"} in
+    \code{type} causes a grid to be drawn, and all such occurrences are
+    removed before \code{type} is passed on to \code{panel.groups}.
   }
   \item{\dots}{ other arguments (mostly graphical parameters, replicated
     to be as long as the number of groups), ultimately passed down to
