@@ -1,13 +1,19 @@
 \name{tmd}
 \alias{tmd}
+\alias{tmd.formula}
+\alias{tmd.trellis}
 \alias{prepanel.tmd.default}
 \alias{prepanel.tmd.qqmath}
 \alias{panel.tmd.default}
 \alias{panel.tmd.qqmath}
 \title{Tukey Mean-Difference Plot}
 \description{
-  Create Tukey Mean-Difference Plots from a trellis object returned by
-  \code{xyplot}, \code{qq} or \code{qqmath}
+  \code{tmd} Creates Tukey Mean-Difference Plots from a trellis object
+  returned by \code{xyplot}, \code{qq} or \code{qqmath}.  The prepanel
+  and panel functions are used as appropriate.  The \code{formula}
+  method for \code{tmd} is provided for convenience, and simply calls
+  \code{tmd} on the object created by calling \code{xyplot} on that
+  formula.
 }
 \synopsis{
 prepanel.tmd.qqmath(x,
@@ -25,12 +31,17 @@ panel.tmd.qqmath(x,
 panel.tmd.default(x, y, groups = NULL, ...)
 }
 \usage{
-tmd(object,
+tmd(object, \dots)
+
+\method{tmd}{trellis}(object,
     xlab = "mean",
     ylab = "difference",
     panel, 
     prepanel, 
-    ...)
+    \dots)
+
+\method{tmd}{trellis}(object, data, \dots)
+
 prepanel.tmd.default(x, y, \dots)
 prepanel.tmd.qqmath(x, \dots)
 panel.tmd.default(x, y, \dots)
@@ -38,11 +49,14 @@ panel.tmd.qqmath(x, \dots)
 }
 \arguments{
   \item{object}{ An object of class ``trellis'' returned by
-    \code{xyplot} or \code{qq}
+    \code{xyplot}, \code{qq} or \code{qqmath}
   }
+  \item{data}{ data used in implicit \code{xyplot} call}
   \item{xlab}{ x label}
   \item{ylab}{ y label}
-  \item{panel}{ panel function to be used.  See details below. }
+  \item{panel}{
+    panel function to be used.  See details below.
+  }
   \item{prepanel}{
     prepanel function.  See details below.
   }
