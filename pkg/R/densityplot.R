@@ -76,8 +76,13 @@ prepanel.default.densityplot <-
                 h <- do.call("density", c(list(x=x[id]), darg))
                 xl <- c(xl, h$x)
                 yl <- c(yl, h$y)
-                dxl <- c(dxl, diff(h$x))
-                dyl <- c(dyl, diff(h$y))
+                ## for banking calculations, include only middle 70% values
+                quants <-
+                    quantile(x[id], prob = c(0.15, 0.85),
+                             names = FALSE, na.rm = TRUE)
+                ok <- h$x > quants[1] & h$x < quant[2]
+                dxl <- c(dxl, diff(h$x[ok]))
+                dyl <- c(dyl, diff(h$y[ok]))
             }
         }
         list(xlim = range(xl, finite = TRUE),

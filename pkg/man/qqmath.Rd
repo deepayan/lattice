@@ -30,7 +30,7 @@
        default.scales = list(),
        subscripts = !is.null(groups),
        subset = TRUE)
-\method{qqmath}{numeric}(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
+\method{qqmath}{numeric}(formula, data = NULL, ylab = deparse(substitute(formula)), ...)
 }
 \usage{
 qqmath(formula, \dots)
