@@ -82,7 +82,8 @@
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 
-barchart(Titanic, scales = list(x = "free"))
+barchart(Titanic, scales = list(x = "free"),
+         auto.key = list(title = "Survived"))
 
 }
 \keyword{hplot}

@@ -1104,6 +1104,12 @@ stripplot(voice.part ~ jitter(height), data = singer, aspect = 1,
           jitter = TRUE, xlab = "Height (inches)")
 ## Interaction Plot
 
+xyplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
+       type = 'a', auto.key = list(points = FALSE, lines = TRUE))
+
+## longer version with no x-ticks
+
+\dontrun{
 bwplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
        panel = "panel.superpose",
        panel.groups = "panel.linejoin",
@@ -1112,5 +1118,6 @@ bwplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
                   c(1:7, 1)), 
                   text = list(lab = as.character(unique(OrchardSprays$rowpos))),
                   columns = 4, title = "Row position"))
+}
 }
 \keyword{hplot}
