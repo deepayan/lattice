@@ -52,9 +52,14 @@ prepanel.default.densityplot <-
         if (length(x) > 1)
         {
             h <- do.call("density", c(list(x=x), darg))
+            ## for banking calculations, include only middle 70% values
+            quants <-
+                quantile(x, prob = c(0.15, 0.85),
+                         names = FALSE, na.rm = TRUE)
+            ok <- h$x > quants[1] & h$x < quants[2]
             list(xlim = range(h$x),
                  ylim = range(h$y),
-                 dx = diff(h$x), dy = diff(h$y))
+                 dx = diff(h$x[ok]), dy = diff(h$y[ok]))
         }
         else
             list(xlim = range(x),
@@ -80,7 +85,7 @@ prepanel.default.densityplot <-
                 quants <-
                     quantile(x[id], prob = c(0.15, 0.85),
                              names = FALSE, na.rm = TRUE)
-                ok <- h$x > quants[1] & h$x < quant[2]
+                ok <- h$x > quants[1] & h$x < quants[2]
                 dxl <- c(dxl, diff(h$x[ok]))
                 dyl <- c(dyl, diff(h$y[ok]))
             }
