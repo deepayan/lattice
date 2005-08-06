@@ -445,7 +445,6 @@ update.trellis <-
 
 
 
-## FIXME: how to do this?
 ## `subsetting': shortcut to updating index.cond
 
 "[.trellis" <- function(x, i, j, ..., drop = FALSE)
@@ -453,10 +452,56 @@ update.trellis <-
     ## index.cond <-
     tmp <- as.list(match.call())[-(1:2)]
     isj <- "j" %in% names(tmp)
-    tmp
+    isi <- "i" %in% names(tmp)
+    if (drop)
+    {
+        warning("drop=TRUE ignored")
+        tmp$drop <- NULL
+    }
+    len <-
+        if (length(dim(x)) == 1) 1
+        else length(tmp) + (1 - isj) + (1 - isi)
+    indices <- rep(list(TRUE), length = len)
+    if (isi)
+    {
+        indices[[1]] <- tmp$i
+        tmp <- tmp[-1]
+    }
+    if (isj)
+    {
+        indices[[2]] <- tmp$j
+        tmp <- tmp[-1]
+    }
+    if (len > 2)
+    {
+        keep <-
+            sapply(tmp,
+                   function(x) 
+                   typeof(x) == "symbol" && as.character(x) == "")
+        tmp[keep] <- list(TRUE)
+        indices[-(1:2)] <- tmp
+    }
+    indices <- lapply(indices, eval)
+    original.levs <- lapply(sapply(x$condlevels, length), seq)
+    stopifnot(length(original.levs) == len)
+    current.levs <-
+        mapply("[", original.levs, x$index.cond,
+               SIMPLIFY = FALSE)
+    new.levs <-
+        mapply("[", current.levs, indices,
+               SIMPLIFY = FALSE)
+    if (any(sapply(new.levs, function(x) any(is.na(x)))))
+        stop("Invalid indices")
+    update(x, index.cond = new.levs)
 }
 
 
 
 
+
+t.trellis <- function(x)
+{
+    stopifnot(length(dim(x)) == 2)
+    update(x, perm.cond = rev(x$perm.cond))
+}
 
