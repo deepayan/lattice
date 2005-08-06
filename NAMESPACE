@@ -77,6 +77,10 @@ S3method(print, trellis)
 S3method(plot, trellis)
 S3method(update, trellis)
 S3method(summary, trellis)
+S3method(dim, trellis)
+S3method(dimnames, trellis)
+S3method("[", trellis)
+S3method(t, trellis)
 
 
 
