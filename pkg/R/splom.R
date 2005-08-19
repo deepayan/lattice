@@ -49,7 +49,9 @@ panel.splom <-
 
 
 diag.panel.splom <-
-    function(varname = NULL, limits, at = NULL, lab = NULL,
+    function(x = NULL,
+
+             varname = NULL, limits, at = NULL, lab = NULL,
              draw = TRUE,
 
              varname.col = add.text$col,
@@ -267,7 +269,8 @@ panel.pairs <-
                     }
                         
 
-                    diag.panel(varname = colnames(z)[i],
+                    diag.panel(x = z[subscripts, j],
+                               varname = colnames(z)[i],
                                limits = lim[[i]],
                                at = axls, lab = labels,
                                draw = draw,
@@ -298,13 +301,13 @@ panel.pairs <-
                 {
                     pargs <-
                         if (!panel.subscripts)
-                            c(list(x = as.numeric(z[subscripts, j]),
-                                   y = as.numeric(z[subscripts, i]),
+                            c(list(x = z[subscripts, j],
+                                   y = z[subscripts, i],
                                    panel.number = panel.number),
                               list(...))
                         else
-                            c(list(x = as.numeric(z[subscripts, j]),
-                                   y = as.numeric(z[subscripts, i]),
+                            c(list(x = z[subscripts, j],
+                                   y = z[subscripts, i],
                                    groups = groups,
                                    subscripts = subscripts,
                                    panel.number = panel.number),
@@ -344,7 +347,7 @@ splom.data.frame <-
         warning("explicit data specification ignored")
     ccall$data <- list(x = formula)
     ccall$formula <- ~x
-    ccall[[1]] <- as.name("parallel")
+    ccall[[1]] <- as.name("splom")
     ans <- eval(ccall, parent.frame())
     ans$call <- ocall
     ans
@@ -584,19 +587,20 @@ splom.formula <-
     }
 
 
-    more.comp <- c(limits.and.aspect(prepanel.default.splom,
-                                     prepanel = prepanel, 
-                                     have.xlim = have.xlim, xlim = xlim, 
-                                     have.ylim = have.ylim, ylim = ylim, 
-                                     x.relation = foo$x.scales$relation,
-                                     y.relation = foo$y.scales$relation,
-                                     panel.args.common = foo$panel.args.common,
-                                     panel.args = foo$panel.args,
-                                     aspect = aspect,
-                                     nplots = nplots,
-                                     x.axs = foo$x.scales$axs,
-                                     y.axs = foo$y.scales$axs),
-                   cond.orders(foo))
+    more.comp <-
+        c(limits.and.aspect(prepanel.default.splom,
+                            prepanel = prepanel, 
+                            have.xlim = have.xlim, xlim = xlim, 
+                            have.ylim = have.ylim, ylim = ylim, 
+                            x.relation = foo$x.scales$relation,
+                            y.relation = foo$y.scales$relation,
+                            panel.args.common = foo$panel.args.common,
+                            panel.args = foo$panel.args,
+                            aspect = aspect,
+                            nplots = nplots,
+                            x.axs = foo$x.scales$axs,
+                            y.axs = foo$y.scales$axs),
+          cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
 

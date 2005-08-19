@@ -34,8 +34,8 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        panel.contourplot, panel.linejoin, panel.identify,
        panel.lmline, panel.loess, panel.mathdensity, panel.pairs,
        panel.parallel, panel.qq, panel.qqmath, panel.qqmathline,
-       panel.splom, panel.stripplot, panel.superpose, panel.axis,
-       panel.superpose.2,
+       panel.splom, diag.panel.splom, panel.stripplot,
+       panel.superpose, panel.axis, panel.superpose.2,
 
 
        prepanel.tmd.default, prepanel.tmd.qqmath, panel.tmd.default,
@@ -48,7 +48,7 @@ export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
        xyplot,
 
        do.breaks,
-       lattice.getOption, lattice.options,
+       lattice.getOption, lattice.options, trellis.currentLayout,
        trellis.focus, trellis.unfocus, trellis.switchFocus,
        trellis.panelArgs, trellis.vpname, trellis.grobname,
 
