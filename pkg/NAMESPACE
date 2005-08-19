@@ -13,7 +13,9 @@ importFrom(stats, as.formula, density, fitted.values, loess.smooth,
            median, ppoints, qnorm, residuals, update)
 
 
-export("[.shingle", as.factorOrShingle, as.shingle, banking, barchart,
+export(
+       ## "[.shingle",
+       as.factorOrShingle, as.shingle, banking, barchart,
        bwplot, canonical.theme, cloud, col.whitebg, Rows,
 
 ### construct.scales,

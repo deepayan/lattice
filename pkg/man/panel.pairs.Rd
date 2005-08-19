@@ -41,7 +41,8 @@ panel.pairs(z,
              axis.line.lwd = axis.line$lwd,
 
              ...)
-diag.panel.splom(varname = NULL, limits, at = NULL, lab = NULL,
+diag.panel.splom(x = NULL,
+             varname = NULL, limits, at = NULL, lab = NULL,
              draw = TRUE,
 
              varname.col = add.text$col,
@@ -77,7 +78,7 @@ panel.pairs(z,
             prepanel.limits = function(x) if (is.factor(x)) levels(x) else
             extend.limits(range(as.numeric(x), na.rm = TRUE)),
             ...)
-diag.panel.splom(varname, limits, at, lab, draw = TRUE, ...)
+diag.panel.splom(x, varname, limits, at, lab, draw = TRUE, ...)
 }
 \arguments{
   \item{z}{ The data frame used for the plot.}
@@ -131,6 +132,10 @@ diag.panel.splom(varname, limits, at, lab, draw = TRUE, ...)
     can be overridden by the corresponding \code{limits} component in
     the \code{pscales} list.
   }
+  \item{x}{
+    data vector corresponding to that row / column (which will be the
+    same for diagonal \sQuote{panels}).
+  }
   \item{varname}{ (scalar) character string or expression that is to be
     written centred within the panel
   }
@@ -153,9 +158,9 @@ diag.panel.splom(varname, limits, at, lab, draw = TRUE, ...)
   }
 }
 \details{
-  This is the function that is actually passed in as the \code{panel}
-  function in a trellis object produced by splom (taking the
-  \code{panel} function as its argument).
+  \code{panel.pairs} is the function that is actually passed in as the
+  \code{panel} function in a trellis object produced by splom (taking
+  the \code{panel} function as its argument).
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
