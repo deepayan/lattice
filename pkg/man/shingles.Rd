@@ -21,7 +21,7 @@ is.shingle(x)
 \method{print}{shingleLevel}(x, \dots)
 \method{summary}{shingle}(object, \dots)
 \method{as.data.frame}{shingle}(x, row.names = NULL, optional = FALSE)
-\method{[}{shingle}(x, subset, drop = FALSE)
+\method{"["}{shingle}(x, subset, drop = FALSE)
 as.factorOrShingle(x, subset, drop)
 }
 \description{
@@ -37,7 +37,9 @@ as.factorOrShingle(x, subset, drop)
   \item{showValues}{ logical, whether to print the numeric part. If
     FALSE, only the intervals are printed}
   \item{row.names}{ a character vector giving the row names for the data frame}
-  \item{optional}{ logical. If `TRUE', setting row names is optional}
+  \item{optional}{
+    logical.  If \code{TRUE}, setting row names is optional
+  }
   \item{intervals}{ numeric vector or matrix with 2 columns}
   \item{subset}{logical vector}
   \item{drop}{whether redundant shingle levels are to be dropped}
@@ -51,11 +53,11 @@ as.factorOrShingle(x, subset, drop)
 
 \details{
   A shingle is a data structure used in Trellis, and is meant to be a
-  generalization of factors to `continuous' variables. It consists of a
-  numeric vector along with some possibly overlapping intervals. These
-  intervals are the `levels' of the shingle. The \code{levels} and
-  \code{nlevels} functions, usually applicable to factors, are also
-  applicable to shingles.
+  generalization of factors to \sQuote{continuous} variables.  It
+  consists of a numeric vector along with some possibly overlapping
+  intervals. These intervals are the \sQuote{levels} of the shingle.
+  The \code{levels} and \code{nlevels} functions, usually applicable to
+  factors, are also applicable to shingles.
 
   There are print methods for shingles, as well as for printing the
   result of \code{levels()} applied to a shingle.
@@ -81,9 +83,9 @@ as.factorOrShingle(x, subset, drop)
 }
 \value{
   \code{x$intervals} for \code{levels.shingle(x)}, 
-  logical for \code{is.shingle}, an object of class ``trellis'' for
+  logical for \code{is.shingle}, an object of class \code{"trellis"} for
   \code{plot} (printed by default by \code{print.trellis}), and 
-  an object of class ``shingle'' for the others.
+  an object of class \code{"shingle"} for the others.
 }
 \examples{
 z <- equal.count(rnorm(50))

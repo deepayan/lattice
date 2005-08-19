@@ -93,7 +93,7 @@ panel.text(\dots)
   have any effect.
 }
 \note{
-  There's a new \code{type="H"} option wherever appropriate, which is
+  There is a new \code{type="H"} option wherever appropriate, which is
   similar to \code{type="h"}, but with horizontal lines.
 }
 \seealso{\code{\link{points}}, \code{\link{lines}},

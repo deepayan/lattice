@@ -5,19 +5,22 @@
 \title{A Trellis Plot Object}
 
 \description{
-  This class of objects is returned by high level lattice display
-  functions, and is usually plotted by default by its `print' method.
+
+  This class of objects is returned by high level lattice functions, and
+  is usually plotted by default by its
+  \code{\link[lattice:print.trellis]{print}} method.
+
 }
 
 \details{
   A trellis object, as returned by high level lattice functions like
-  \code{\link{xyplot}}, is a list with the ``class'' attribute set to
-  ``trellis''.  Many of the components of this list are simply the
-  arguments to the high level function that produced the object.  Among
-  them are: \code{as.table}, \code{layout}, \code{page}, \code{panel},
-  \code{prepanel}, \code{main}, \code{sub}, \code{par.settings},
-  \code{par.strip.text}, \code{strip}, \code{skip}, \code{xlab} and
-  \code{ylab}.  Some other typical components are: 
+  \code{\link{xyplot}}, is a list with the \code{"class"} attribute set
+  to \code{"trellis"}.  Many of the components of this list are simply
+  the arguments to the high level function that produced the object.
+  Among them are: \code{as.table}, \code{layout}, \code{page},
+  \code{panel}, \code{prepanel}, \code{main}, \code{sub},
+  \code{par.settings}, \code{par.strip.text}, \code{strip}, \code{skip},
+  \code{xlab} and \code{ylab}.  Some other typical components are:
 
   \describe{
     \item{\code{index.cond}}{
@@ -27,7 +30,7 @@
       permutation of the order of the conditioning variables
     }
     \item{\code{aspect.fill}}{
-      logical, whether \code{aspect} is ``fill''
+      logical, whether \code{aspect} is \code{"fill"}
     }
     \item{\code{aspect.ratio}}{
       numeric, aspect ratio to be used if \code{aspect.fill} is
@@ -51,7 +54,7 @@
     }
     \item{\code{x.scales}}{
       list describing x-scale, can consist of several other lists,
-      paralleling panel.args, if x-relation is not ``same''
+      paralleling panel.args, if x-relation is not \code{"same"}
     }
     \item{\code{y.scales}}{
       list describing y-scale, similar to \code{x.scales}

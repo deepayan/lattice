@@ -22,9 +22,9 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
     logical specifying whether or not the data points should be plotted
     along with the estimated density.  Alternatively, a character string
     specifying how the points should be plotted.  Meaningful values are
-    ``rug'', in which case \code{\link{panel.rug}} is used to plot a
-    `rug', and ``jitter'', in which case the points are jittered
-    vertically to better distinguish overlapping points.
+    \code{"rug"}, in which case \code{\link{panel.rug}} is used to plot
+    a \sQuote{rug}, and \code{"jitter"}, in which case the points are
+    jittered vertically to better distinguish overlapping points.
   }
   \item{ref}{ logical, whether to draw x-axis }
   \item{col}{ color for points and line}

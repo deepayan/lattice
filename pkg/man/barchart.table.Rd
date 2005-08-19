@@ -57,17 +57,22 @@
   last dimension is optionally used as a grouping variable (to produce
   stacked barcharts by default).  All other dimensions are used as
   conditioning variables.  The order of these variables cannot be
-  altered (except by permuting the original argument usinf \code{t} or
-  \code{aperm}).  For more flexibility, use the formula method after
-  converting the table to a data frame using \code{as.data.frame}.
+  altered (except by permuting the original argument using
+  \code{\link{t}} or \code{\link{aperm}}).  For more flexibility, use
+  the formula method after converting the table to a data frame using
+  the relevant \code{\link[base:as.data.frame.table]{as.data.frame}}
+  method.
 
 }
 
-
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 
 

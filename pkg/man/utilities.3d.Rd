@@ -54,7 +54,7 @@ ltransform3dto3d(x, R.mat, dist)
   coordinate system is very limited, so there may be bugs here.)
 
 %   \code{palette.shade} is the function used by default for calculation
-%   of colors when `shading' a wireframe. Such a function can expect three
+%   of colors when \sQuote{shading} a wireframe. Such a function can expect three
 %   arguments in general, namely \code{irr}, \code{ref} and
 %   \code{height}.  \code{irr} should represent foreshortening, being the
 %   cosine of the angle between the incident light ray and the normal to

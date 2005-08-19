@@ -14,14 +14,14 @@
   A data frame with 120 observations on the following 4 variables.
   \describe{
     \item{yield}{Yield (averaged across three blocks) in bushels/acre.}
-    \item{variety}{Factor with levels \code{'Svansota'}, \code{'No. 462'},
-      \code{'Manchuria'}, \code{'No. 475'}, \code{'Velvet'},
-      \code{'Peatland'}, \code{'Glabron'}, \code{'No. 457'},
-      \code{'Wisconsin No. 38'}, \code{'Trebi'}.}
+    \item{variety}{Factor with levels \code{"Svansota"}, \code{"No. 462"},
+      \code{"Manchuria"}, \code{"No. 475"}, \code{"Velvet"},
+      \code{"Peatland"}, \code{"Glabron"}, \code{"No. 457"},
+      \code{"Wisconsin No. 38"}, \code{"Trebi"}.}
     \item{year}{Factor with levels \code{1932}, \code{1931}}
-    \item{site}{Factor with 6 levels:  \code{'Grand Rapids'},
-      \code{'Duluth'}, \code{'University Farm'}, \code{'Morris'},
-      \code{'Crookston'}, \code{'Waseca'}}
+    \item{site}{Factor with 6 levels:  \code{"Grand Rapids"},
+      \code{"Duluth"}, \code{"University Farm"}, \code{"Morris"},
+      \code{"Crookston"}, \code{"Waseca"}}
   }
 }
 

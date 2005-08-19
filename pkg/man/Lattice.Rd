@@ -35,7 +35,7 @@
 \note{
   High level Lattice functions (like \code{\link{xyplot}}) are different
   from conventional S graphics functions because they don't actually
-  draw anything. Instead, they return an object of class ``trellis''
+  draw anything. Instead, they return an object of class \code{"trellis"}
   which has to be then \code{print}ed. This often causes confusion when
   the high level functions are called inside another function (most
   often \code{source}) and hence don't produce any output.
@@ -60,8 +60,8 @@
   possibilities to enhance the plots thus produced (using \code{locator}
   like functionality).
 
-  Here is a list of `high level' functions in the Lattice library with a
-  brief description of what they do:
+  Here is a list of \sQuote{high level} functions in the Lattice package
+  with a brief description of what they do:
 
   \bold{Univariate:}  
 
@@ -124,7 +124,7 @@
   Cleveland, W.S. (1993) \emph{Visualizing Data}.
 
   Becker, R.A., Cleveland, W.S. and Shyu, M.
-  ``The Visual Design and Control of Trellis Display'',
+  \dQuote{The Visual Design and Control of Trellis Display},
   \emph{Journal of Computational and Graphical Statistics}
 
   Lattice Webpage:

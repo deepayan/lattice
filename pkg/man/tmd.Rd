@@ -48,7 +48,7 @@ panel.tmd.default(x, y, \dots)
 panel.tmd.qqmath(x, \dots)
 }
 \arguments{
-  \item{object}{ An object of class ``trellis'' returned by
+  \item{object}{ An object of class \code{"trellis"} returned by
     \code{xyplot}, \code{qq} or \code{qqmath}
   }
   \item{data}{ data used in implicit \code{xyplot} call}
@@ -71,7 +71,7 @@ panel.tmd.qqmath(x, \dots)
   \code{x=(x+y)/2} and \code{y=y-x}, which are then plotted.  The
   default panel function(s) add a reference line at \code{y=0} as well.
 
-  \code{tmd} acts on the a ``trellis'' object, not on the actual plot
+  \code{tmd} acts on the a \code{"trellis"} object, not on the actual plot
   this object would have produced.  As such, it only uses the arguments
   supplied to the panel function in the original call, and completely
   ignores what the original panel function might have done with this
@@ -86,14 +86,18 @@ panel.tmd.qqmath(x, \dots)
   corresponding high-level call.  If unspecified, the code{prepanel} and
   \code{panel} arguments default to suitable choices.
 
-  \code{tmd} uses the \code{update} method for ``trellis'' objects,
+  \code{tmd} uses the \code{update} method for \code{"trellis"} objects,
   which processes all extra arguments supplied to \code{tmd}.
 }
 
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{ \code{\link{qq}}, \code{\link{qqmath}}, \code{\link{xyplot}},

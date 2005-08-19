@@ -72,7 +72,7 @@ show.settings(x = NULL)
   one for black and white plots (mostly useful for \code{postscript})
   and one for color printers (color \code{postcript}, \code{pdf}).
 
-  Once a device is open, it's settings can be modified. When another
+  Once a device is open, its settings can be modified. When another
   instance of the same device is opened later using
   \code{trellis.device}, the settings for that device are reset to its
   defaults, unless otherwise specified in the call to

@@ -40,7 +40,7 @@
              data = parent.frame(),
              panel = "panel.wireframe",
              ...)
-\method{cloud}{matrix}(formula, data = NULL, type = 'h',
+\method{cloud}{matrix}(formula, data = NULL, type = "h",
       zlab = deparse(substitute(formula)),
       \dots)
 \method{wireframe}{matrix}(formula, data = NULL, 
@@ -71,7 +71,7 @@ wireframe(formula, \dots)
           alpha.regions,
           \dots,
           col.regions)
-\method{cloud}{matrix}(formula, type = 'h', \dots)
+\method{cloud}{matrix}(formula, type = "h", \dots)
 \method{wireframe}{matrix}(formula, \dots)
 }
 \description{
@@ -99,7 +99,7 @@ wireframe(formula, \dots)
     \code{z} vector, or missing rows in the data frame (note however
     that in that case the X and Y grids will be determined only by the
     available values). For a grouped display (producing multiple
-    surfaces), missing rows are not allowed, but \code{NA}'s in \code{z}
+    surfaces), missing rows are not allowed, but \code{NA}-s in \code{z}
     are.
 
     Both \code{wireframe} and \code{cloud} have methods for
@@ -142,7 +142,7 @@ wireframe(formula, \dots)
     \code{xyplot} etc. should also work here (as long as they make
     sense), including explicit specification of tick mark locations and
     labels.  (Not everything is implemented yet, but if you find
-    something that should work but doesn't, feel free to bug the
+    something that should work but does not, feel free to bug the
     maintainer.)
 
     Note, however, that for these functions \code{scales} cannot contain
@@ -183,7 +183,8 @@ wireframe(formula, \dots)
     determines the alpha-transparency on supporting devices.  These are
     passed down to the panel function, and also used in the colorkey if
     appropriate.  The default for \code{col.regions} and
-    \code{alpha.regions} is derived the Trellis setting ``regions''
+    \code{alpha.regions} is derived from the Trellis setting
+    \code{"regions"}
   }
   \item{cuts}{
     if \code{at} is unspecified, the approximate number of cutpoints if
@@ -251,22 +252,27 @@ wireframe(formula, \dots)
   not supported in this case.
 
   The algorithm for identifying which edges of the bounding box are
-  `behind' the points doesn't work in some extreme situations. Also,
-  \code{panel.cloud} tries to figure out the optimal location of the
-  arrows and axis labels automatically, but can fail on occasion
-  (especially when the view is from ``below'' the data). This can be
-  manually controlled by the \code{scpos} argument in
+  \sQuote{behind} the points doesn't work in some extreme
+  situations. Also, \code{\link{panel.cloud}} tries to figure out the
+  optimal location of the arrows and axis labels automatically, but can
+  fail on occasion (especially when the view is from \sQuote{below} the
+  data). This can be manually controlled by the \code{scpos} argument in
   \code{\link{panel.cloud}}.
 
   These and all other high level Trellis functions have several other
   arguments in common. These are extensively documented only in the
-  help page for \code{xyplot}, which should be consulted to learn more
-  detailed usage. 
+  help page for \code{\link{xyplot}}, which should be consulted to learn
+  more detailed usage.
+
 }
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 \seealso{
   \code{\link{xyplot}}, \code{\link{levelplot}},

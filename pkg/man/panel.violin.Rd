@@ -49,9 +49,10 @@ panel.violin(x, y,
     ratio of height of a violin and inter violin space
   }
   \item{horizontal}{
-    logical. If FALSE, the plot is `transposed' in the sense that the
-    behaviours of x and y are switched. x is now the `factor'. See
-    documentation of \code{bwplot} for a fuller explanation.
+    logical. If FALSE, the plot is \sQuote{transposed} in the sense that
+    the behaviours of \code{x} and \code{y} are switched.  \code{x} is
+    now the \sQuote{factor}. See documentation of \code{\link{bwplot}}
+    for a fuller explanation.
   }
   \item{alpha, border, lty, lwd, col}{
     graphical parameters controlling the violin.  Defaults are taken

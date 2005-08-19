@@ -15,10 +15,10 @@ panel.stripplot(x, y, jitter.data = FALSE, factor = 0.5,
   \item{jitter.data}{ whether points should be jittered to avoid
     overplotting.} 
   \item{factor}{factor by which to jitter}
-  \item{horizontal}{ logical. If FALSE, the plot is `transposed' in the
-    sense that the behaviours of x and y are switched. x is now
-    the `factor'.  Interpretation of other arguments change
-    accordingly. See documentation of \code{bwplot} for a fuller
+  \item{horizontal}{ logical. If FALSE, the plot is \sQuote{transposed}
+    in the sense that the behaviours of x and y are switched. x is now
+    the \sQuote{factor}.  Interpretation of other arguments change
+    accordingly. See documentation of \code{\link{bwplot}} for a fuller
     explanation.
   }
   \item{groups}{ optional grouping variable }

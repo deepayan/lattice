@@ -1,6 +1,6 @@
 \name{Rows}
 \alias{Rows}
-\title{Extract `rows' from a list}
+\title{Extract rows from a list}
 \description{
   Convenience function to extract subset of a list. Usually used in
   creating keys.

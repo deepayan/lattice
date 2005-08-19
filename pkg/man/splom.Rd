@@ -145,7 +145,7 @@ parallel(formula, \dots)
   usually not very useful in \code{splom}, and trying to change it may
   have undesired effects.
 
-  \code{parallel} draws Parallel Coordinate Plots. (Difficult to
+  \code{\link{parallel}} draws Parallel Coordinate Plots. (Difficult to
   describe, see example.)
   
   These and all other high level Trellis functions have several
@@ -154,10 +154,15 @@ parallel(formula, \dots)
   detailed usage.
 }
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
+
 \seealso{
   \code{\link{xyplot}}, \code{\link{Lattice}}, \code{\link{panel.pairs}}
 }
