@@ -258,3 +258,8 @@ trellis.panelArgs <-
       list(panel.number = panel.number))
 }
 
+
+
+trellis.currentLayout <- function()
+    lattice.getStatus("current.panel.positions")
+
