@@ -22,10 +22,11 @@ panel.barchart(x, y, box.ratio = 1,
   }
   \item{y}{ Horizontal location of bars, possibly factor}
   \item{box.ratio}{ratio of bar width to inter-bar space}
-  \item{horizontal}{ logical. If FALSE, the plot is `transposed' in the
-    sense that the behaviours of x and y are switched. x is now
-    the `factor'.  Interpretation of other arguments change
-    accordingly. See documentation of \code{bwplot} for a fuller
+  \item{horizontal}{
+    logical. If FALSE, the plot is \sQuote{transposed} in the sense that
+    the behaviours of x and y are switched. x is now the
+    \sQuote{factor}.  Interpretation of other arguments change
+    accordingly. See documentation of \code{\link{bwplot}} for a fuller
     explanation.
   }
   \item{origin}{ origin of the bars. For grouped displays with

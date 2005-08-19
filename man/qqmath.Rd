@@ -85,9 +85,13 @@ qqmath(formula, \dots)
   }
 }
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 \details{
   \code{qqmath} produces a Q-Q plot of the given sample and a

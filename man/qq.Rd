@@ -49,9 +49,13 @@ qq(formula, \dots)
   \item{\dots}{ Other arguments }
 }
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 \author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \details{

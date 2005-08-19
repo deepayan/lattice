@@ -121,14 +121,17 @@ do.breaks(endpoints, nint)
     For the \code{formula} method, an optional data frame in which
     variables are to be evaluated.
   }
-  \item{type}{ Character string indicating type of histogram to be
-    drawn. ``percent'' and ``count'' give relative frequency and
-    frequency histograms, and can be misleading when breakpoints are not
-    equally spaced. ``density'' produces a density scale histogram.
+  \item{type}{
+    Character string indicating type of histogram to be drawn.
+    \code{"percent"} and \code{"count"} give relative frequency
+    and frequency histograms, and can be misleading when breakpoints are
+    not equally spaced. \code{"density"} produces a density scale
+    histogram.
 
-    \code{type} defaults to ``percent'', except when the breakpoints
-    are unequally spaced or \code{breaks = NULL}, when it defaults to
-    ``density''.
+    \code{type} defaults to \code{"percent"}, except when the
+    breakpoints are unequally spaced or \code{breaks = NULL}, when it
+    defaults to \code{"density"}.
+
   }
   \item{nint}{
     Number of bins.  Applies only when \code{breaks} is unspecified in
@@ -176,9 +179,13 @@ do.breaks(endpoints, nint)
   }
 }
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 \details{
   \code{histogram} draws Conditional Histograms, while

@@ -124,12 +124,12 @@ diag.panel.splom(varname, limits, at, lab, draw = TRUE, ...)
     Factor variables are labelled with the factor names. Use pscales=0
     to supress the axes entirely.
   }
-  \item{prepanel.limits}{ The `regular' high level lattice plots such as
-    \code{xyplot} use the \code{prepanel} function for deciding on axis
-    limits from data. This function serves a similar function, and works
-    on a per-variable basis, by calculating the limits, which can be
-    overridden by the corresponding \code{limits} component in the
-    \code{pscales} list.
+  \item{prepanel.limits}{ The \sQuote{regular} high level lattice plots
+    such as \code{xyplot} use the \code{prepanel} function for deciding
+    on axis limits from data.  This function serves a similar function,
+    and works on a per-variable basis, by calculating the limits, which
+    can be overridden by the corresponding \code{limits} component in
+    the \code{pscales} list.
   }
   \item{varname}{ (scalar) character string or expression that is to be
     written centred within the panel
@@ -154,9 +154,10 @@ diag.panel.splom(varname, limits, at, lab, draw = TRUE, ...)
 }
 \details{
   This is the function that is actually passed in as the \code{panel}
-  function in a trellis object produced by splom (taking the `panel'
-  function as its argument).
+  function in a trellis object produced by splom (taking the
+  \code{panel} function as its argument).
 }
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{splom}}}
 \keyword{dplot}

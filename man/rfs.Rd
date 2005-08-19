@@ -22,9 +22,13 @@ rfs(model, layout=c(2, 1), xlab="f-value", distribution = qunif,...)
   \item{\dots}{other arguments}
 }
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{oneway}}, \code{\link{qqmath}},

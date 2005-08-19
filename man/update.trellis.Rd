@@ -1,9 +1,11 @@
 \name{update.trellis}
 \alias{update.trellis}
+\alias{[.trellis}
+\alias{t.trellis}
 \alias{trellis.last.object}
 \title{Retrieve and Update Trellis Object}
 \description{
-  Update method for objects of class ``trellis'', and a way to retrieve
+  Update method for objects of class \code{"trellis"}, and a way to retrieve
   the last printed trellis object (that was saved).
 }
 
@@ -36,11 +38,22 @@
 }
 \usage{
 \method{update}{trellis}(object, \dots)
+\method{t}{trellis}(x)
+\method{"["}{trellis}(x, i, j, \dots, drop = FALSE)
 trellis.last.object()
 trellis.last.object(\dots)
 }
 \arguments{
-  \item{object}{ The object to be updated, of class ``trellis''. }
+
+  \item{object, x}{
+    The object to be updated, of class \code{"trellis"}.
+  }
+
+  \item{i, j}{ indices to be used.  Names are not currently allowed. }
+  \item{drop}{
+    logical, whether dimensions with only one level are to be dropped.
+    Currently ignored, behaves as if it were \code{FALSE}.
+  }
   \item{\dots}{
     arguments that will be used to update \code{object}. See details
     below. 
@@ -51,7 +64,7 @@ trellis.last.object(\dots)
 \details{
 
   All the high level lattice functions such as \code{xyplot} produce an
-  object of (S3) class ``trellis'', which is usually printed by its
+  object of (S3) class \code{"trellis"}, which is usually printed by its
   \code{print} method. However, the object itself can be manipulated and
   modified to a large extent using the \code{update} method, and then
   re-plotted as needed.
@@ -80,11 +93,18 @@ trellis.last.object(\dots)
   updates to objects produced by \code{cloud} and \code{wireframe} do
   not work very well yet.
 
-  The print method for ``trellis'' objects optionally saves the object
-  after printing it.  If this feature is on, \code{trellis.last.object}
-  can retrieve it.  Note that at most one object can be saved at a
-  time.  If \code{trellis.last.object} is called with arguments, these
-  are used to update the retrieved object before returning it.
+  The \code{"["} method is a convenient shortcut for updating
+  \code{index.cond}.  The \code{t} method is a convenient shortcut for
+  updating \code{perm.cond} in the special (but frequent) case where
+  there are exactly two conditioning variables, when it has the effect
+  of switching (\sQuote{transposing}) their order.
+
+  The print method for \code{"trellis"} objects optionally saves the
+  object after printing it.  If this feature is on,
+  \code{trellis.last.object} can retrieve it.  Note that at most one
+  object can be saved at a time.  If \code{\link{trellis.last.object}}
+  is called with arguments, these are used to update the retrieved
+  object before returning it.
 
 }
 

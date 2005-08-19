@@ -134,8 +134,9 @@ contourplot(formula, \dots)
     \describe{
     
       \item{\code{space}:}{
-        location of the colorkey, can be one of ``left'', ``right'',
-        ``top'' and ``bottom''. Defaults to ``right''.
+        location of the colorkey, can be one of \code{"left"},
+	\code{"right"}, \code{"top"} and \code{"bottom"}.  Defaults to
+	\code{"right"}.
       }
       
       \item{\code{x}, \code{y}:}{ location, currently unused }
@@ -194,9 +195,13 @@ contourplot(formula, \dots)
   level calls directly).
 }
 \value{
-  An object of class ``trellis''. The `update' method can be used to
-  update components of the object and the `print' method (usually called
-  by default) will plot it on an appropriate plotting device.
+
+  An object of class \code{"trellis"}. The
+  \code{\link[lattice:update.trellis]{update}} method can be used to
+  update components of the object and the
+  \code{\link[lattice:print.trellis]{print}} method (usually called by
+  default) will plot it on an appropriate plotting device.
+
 }
 \seealso{
   \code{\link{xyplot}}, \code{\link{Lattice}},

@@ -6,6 +6,7 @@
 \alias{trellis.panelArgs}
 \alias{trellis.vpname}
 \alias{trellis.grobname}
+\alias{trellis.currentLayout}
 \title{Functions to Interact with Lattice Plots}
 \description{
   The classic Trellis paradigm is to plot the whole object at once,
@@ -48,6 +49,7 @@ trellis.switchFocus(name, side, clip.off, highlight, \dots)
 trellis.unfocus()
 trellis.panelArgs()
 trellis.panelArgs(x, panel.number)
+trellis.currentLayout()
 }
 
 \arguments{
@@ -99,22 +101,23 @@ trellis.panelArgs(x, panel.number)
   }
   \item{clip.off}{
     logical, whether clipping should be off, relevant when \code{name}
-    is ``panel'' or ``strip''.  This is necessary if axes are to be
-    drawn outside the panel or strip.  Note that setting
+    is \code{"panel"} or \code{"strip"}.  This is necessary if axes are
+    to be drawn outside the panel or strip.  Note that setting
     \code{clip.off=FALSE} does not necessarily mean that clipping is on;
     that is determined by conditions in effect during printing.
+
   }
   \item{prefix}{
     character string acting as a prefix, meant to distinguish otherwise
     equivalent viewports in different plots. This only becomes relevant
     when a particular page is occupied by more than one plot.  Defaults
-    to the value appropriate for the last ``trellis'' object printed, as
+    to the value appropriate for the last \code{"trellis"} object printed, as
     determined by the \code{prefix} argument in
     \code{\link{print.trellis}}.  Users should not usually need to
     supply a value for this argument (see note below), however, if
     supplied explicitly, this has to be a valid R symbol name (briefly,
     it must start with a letter or a period followed by a letter) and
-    must not contain the grid path separator (currently ``::'')
+    must not contain the grid path separator (currently \code{"::"})
   }
   \item{highlight}{
     logical, whether the viewport being assigned focus should be
@@ -160,9 +163,16 @@ trellis.panelArgs(x, panel.number)
   flexibility, use grid functions directly (see note below).
 
   After a successful call to \code{trellis.focus}, the desired viewport
-  (typically panel or strip area) will be made the `current' viewport
-  (plotting area), which can then be enhanced by calls to standard
-  lattice panel functions as well as grid functions.
+  (typically panel or strip area) will be made the \sQuote{current}
+  viewport (plotting area), which can then be enhanced by calls to
+  standard lattice panel functions as well as grid functions.
+
+  It is quite common to have the layout of panels chosen when a
+  \code{"trellis"} object is drawn, and not before then.  Information on
+  the layout (specifically, how many rows and columns, and which packet
+  belongs in which position in this layout) is retained for the last
+  \code{"trellis"} object plotted, and is available through
+  \code{trellis.currentLayout}.
 
   \code{trellis.unfocus} unsets the focus, and makes the top level
   viewport the current viewport.
@@ -177,7 +187,7 @@ trellis.panelArgs(x, panel.number)
   Once a panel or strip is in focus, \code{trellis.panelArgs} can be
   used to retrieve the arguments that were available to the panel
   function at that position.  \code{trellis.panelArgs} can also, more
-  generally, retrieve the panel arguments from any ``trellis'' object.
+  generally, retrieve the panel arguments from any \code{"trellis"} object.
   Note that for this usage, one needs to specify the \code{panel.number}
   (as described under the \code{panel} entry in \code{\link{xyplot}})
   and not the position in the layout, because a layout determines the
@@ -197,6 +207,11 @@ trellis.panelArgs(x, panel.number)
   of the identified points.  The equivalent of \code{identify} with
   \code{pos=TRUE} is not yet implemented, but can be considered for 
   addition if requested.
+
+  \code{trellis.currentLayout} returns a matrix with as many rows and
+  columns as in the layout of panels in the last plot.  Entries in the
+  matrix are integer indices indicating which packet (panel data)
+  occupies that position, with 0 indicating the absence of a panel.
 
   \code{trellis.panelArgs} returns a named list of arguments that were
   avaliable to the panel function for the chosen panel.
@@ -248,6 +263,52 @@ trellis.focus("panel", 1, 2)
 do.call("panel.lmline", trellis.panelArgs())
 Sys.sleep(0.5)
 trellis.unfocus()
+
+
+## choosing loess smoothing parameter
+
+p <- xyplot(dist ~ speed, cars)
+
+panel.loessresid <-
+    function(x = panel.args$x,
+             y = panel.args$y,
+             span,
+             panel.args = trellis.panelArgs())
+{
+    fm <- loess(y ~ x, span = span)
+    xgrid <- do.breaks(current.panel.limits()$xlim, 50)
+    ygrid <- predict(fm, newdata = data.frame(x = xgrid))
+    panel.lines(xgrid, ygrid)
+    pred <- predict(fm)
+    ## center residuals so that they fall inside panel
+    resids <- y - pred + mean(y)
+    fm.resid <- loess.smooth(x, resids, span = span)
+    ##panel.points(x, resids, col = 1, pch = 4)
+    panel.lines(fm.resid, col = 1)
+}
+
+
+spans <- c(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8)
+update(p, index.cond = list(rep(1, length(spans))))
+panel.locs <- trellis.currentLayout()
+
+i <- 1
+
+for (row in 1:nrow(panel.locs))
+    for (column in 1:ncol(panel.locs))
+    if (panel.locs[row, column] > 0)
+{
+    trellis.focus("panel", row = row, column = column,
+                  highlight = FALSE)
+    panel.loessresid(span = spans[i])
+    grid::grid.text(paste("span = ", spans[i]),
+                    x = 0.25,
+                    y = 0.75,
+                    default.units = "npc")
+    trellis.unfocus()
+    i <- i + 1
+}
+
 
 }
 

@@ -28,13 +28,17 @@ panel.bwplot(x, y,
   \item{x, y}{ numeric vector or factor. Boxplots drawn for each unique value of
     \code{y} (\code{x}) if \code{horizontal} is \code{TRUE} (\code{FALSE})}
   \item{box.ratio}{ ratio of box height to inter box space}
-  \item{horizontal}{ logical. If FALSE, the plot is `transposed' in the
-    sense that the behaviours of x and y are switched. x is now
-    the `factor'.  Interpretation of other arguments change
-    accordingly. See documentation of \code{bwplot} for a fuller
+  \item{horizontal}{
+    logical. If FALSE, the plot is \sQuote{transposed} in the sense that
+    the behaviours of x and y are switched. x is now the
+    \sQuote{factor}.  Interpretation of other arguments change
+    accordingly. See documentation of \code{\link{bwplot}} for a fuller
     explanation.
   }
-  \item{pch, col, cex}{ graphical parameters controlling the dot}
+  \item{pch, col, cex}{ graphical parameters controlling the dot.
+    \code{pch="|"} is treated specially, by replacing the dot with a
+    line (similar to \code{\link{boxplot}})
+  }
   \item{fill}{ color to fill the boxplot}
   \item{varwidth}{ logical. If TRUE, widths of boxplots are proportional
     to the number of points used in creating it.}

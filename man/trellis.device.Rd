@@ -82,8 +82,8 @@ col.whitebg()
 \note{
 
   Trellis Graphics is designed to have a different look and feel on
-  different devices.  In particular, the default settings for `screen'
-  devices are not at all suitable for printing.
+  different devices.  In particular, the default settings for
+  \sQuote{screen} devices are not at all suitable for printing.
 
   One technique often used to create printable graphs is through use of
   \code{\link{dev.print}} and related functions (typically via a GUI
@@ -99,8 +99,8 @@ col.whitebg()
   The other option (relevant especially if the trellis plot is enhanced
   interactively after plotting) is to start the initial (screen) device
   with the settings suitable for the eventual target (print)
-  device. For instance, a `windows' device can be opened with `pdf'
-  settings with
+  device. For instance, a \code{windows} device can be opened with
+  \code{pdf} settings with
 
   \code{trellis.device(windows, theme = canonical.theme("pdf"))}
 

@@ -18,7 +18,7 @@
 }
 
 \arguments{
-  \item{x}{ The object to be plotted, of class ``trellis''}
+  \item{x}{ The object to be plotted, of class \code{"trellis"}}
   \item{position}{ a vector of 4 numbers, typically c(xmin, ymin, xmax,
     ymax) that give the lower-left and upper-right corners of a
     rectangle in which the Trellis plot of x is to be positioned. The
@@ -75,7 +75,7 @@
     been drawn on the page before the current plot).  If supplied
     explicitly, this has to be a valid R symbol name (briefly, it must
     start with a letter or a period followed by a letter) and must not
-    contain the grid path separator (currently ``::'').
+    contain the grid path separator (currently \code{"::"}).
   }
   \item{\dots}{
     extra arguments, ignored by the \code{print} method.  All arguments

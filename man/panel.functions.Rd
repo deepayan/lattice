@@ -73,15 +73,16 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
   \item{h,v}{ For \code{panel.abline}, numerical vectors giving y and x
     locations respectively of horizontal and vertical lines to be
     added to the plot. For panel.grid, number of horizontal and vertical
-    reference lines to be added to the plot; h=-1 and v=-1 make the
-    grids aligned with the axis labels (this doesn't always work).
+    reference lines to be added to the plot; \code{h=-1} and \code{v=-1}
+    make the grids aligned with the axis labels (this does not always
+    work).
   }
   \item{expr}{ expression as a function of x or a function to plot as a
     curve
   }
   \item{n}{ the number of points to use for drawing the curve }
-  \item{regular}{ logical indicating whether `rug' to be drawn on the
-    regular side (left / bottom) or not (right / top)
+  \item{regular}{ logical indicating whether the \sQuote{rug} is to be
+    drawn on the regular side (left / bottom) or not (right / top)
   }
   \item{start, end}{ endpoints of rug segments, in normalized parent
     coordinates (between 0 and 1). Defaults depend on value of regular,
@@ -97,8 +98,8 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
   \item{from, to}{ optional lower and upper x-limits of curve. If
     missing, limits of current panel are used
   }
-  \item{curve.type}{ type of curve ('p' for points, etc), passed to
-    \code{llines}
+  \item{curve.type}{ type of curve (\code{"p"} for points, etc), passed
+    to \code{\link{llines}}
   }
   \item{col}{color}
   \item{span, degree, family, evaluation}{ arguments to 
@@ -107,10 +108,10 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
   }
   \item{fun}{ the function that will be applied to the subset of x(y)
     determined by the unique values of y(x)}
-  \item{horizontal}{ logical. If FALSE, the plot is `transposed' in the
-    sense that the behaviours of x and y are switched. x is now
-    the `factor'.  Interpretation of other arguments change
-    accordingly. See documentation of \code{bwplot} for a fuller
+  \item{horizontal}{ logical. If FALSE, the plot is \sQuote{transposed}
+    in the sense that the behaviours of x and y are switched. x is now
+    the \sQuote{factor}.  Interpretation of other arguments change
+    accordingly. See documentation of \code{\link{bwplot}} for a fuller
     explanation.
   }
   \item{dmath}{ A vectorized function that produces density values

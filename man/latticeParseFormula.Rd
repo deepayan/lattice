@@ -32,8 +32,8 @@ latticeParseFormula(model, data, dimension = 2,
   \item{subset}{ index for choosing a subset of the data frame }
   \item{groups}{ the grouping variable, if present}
   \item{multiple, outer}{
-    logicals, determining how a `+' in the y and x components of the
-    formula are processed. See \code{\link{xyplot}} for details
+    logicals, determining how a \sQuote{+} in the y and x components of
+    the formula are processed. See \code{\link{xyplot}} for details
   }
   \item{subscripts}{ logical, whether subscripts are to be calculated }
   \item{drop}{

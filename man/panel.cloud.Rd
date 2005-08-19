@@ -30,7 +30,7 @@ panel.cloud(x, y, subscripts, z,
             at)
 panel.wireframe(\dots)
 panel.3dscatter(x, y, z, rot.mat, distance,
-                groups, type = 'p',
+                groups, type = "p",
                 xlim.scaled, ylim.scaled, zlim.scaled,
                 zero.scaled,
                 col, col.point, col.line,
@@ -123,8 +123,8 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
   \item{panel.3d.cloud, panel.3d.wireframe}{
     functions that draw the data-driven part of the plot (as opposed to
     the bounding box and scales) in \code{cloud} and
-    \code{wireframe}. This function is called after the `back' of the
-    bounding box is drawn, but before the `front' is drawn.
+    \code{wireframe}. This function is called after the \sQuote{back} of
+    the bounding box is drawn, but before the \sQuote{front} is drawn.
 
     Any user-defined custom display would probably want to change these
     functions. The intention is to pass as much information to this
@@ -177,12 +177,15 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     arguments to \code{\link{panel.cloud}}
   }
   \item{type}{
+
     character vector, specifying type of cloud plot. Can include one or
-    more of ``p'', ``l'', ``h'' or ``b''. ``p'' and ``l'' mean `points'
-    and `lines' respectively, and ``b'' means `both'. ``h'' stands for
-    `histogram', and causes a line to be drawn from each point to
+    more of \code{"p"}, \code{"l"}, \code{"h"} or \code{"b"}. \code{"p"}
+    and \code{"l"} mean \sQuote{points} and \sQuote{lines} respectively,
+    and \code{"b"} means \sQuote{both}.  \code{"h"} stands for
+    \sQuote{histogram}, and causes a line to be drawn from each point to
     the X-Y plane (i.e., the plane representing \code{z = 0}), or the
     lower (or upper) bounding box face, whichever is closer.
+
   }
   \item{xlim.scaled, ylim.scaled, zlim.scaled}{
      axis limits (after being scaled to the bounding box) 
@@ -190,20 +193,20 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
   \item{zero.scaled}{
     z-axis location (after being scaled to the bounding box) of the X-Y
     plane in the original data scale, to which lines will be dropped (if
-    within range) from each point when \code{type = 'h'}
+    within range) from each point when \code{type = "h"}
   }
   \item{cross}{
-    logical, defaults to \code{TRUE} if \code{pch='+'}.
-    \code{panel.3dscatter} can represent each point by a 3d `cross' of
-    sorts (it's much easier to understand looking at an example than
-    from a description). This is different from the usual \code{pch}
-    argument, and reflects the depth of the points and the orientation
-    of the axes. This argument indicates whether this feature will be
-    used.
+    logical, defaults to \code{TRUE} if \code{pch = "+"}.
+    \code{panel.3dscatter} can represent each point by a 3d
+    \sQuote{cross} of sorts (it's much easier to understand looking at
+    an example than from a description). This is different from the
+    usual \code{pch} argument, and reflects the depth of the points and
+    the orientation of the axes. This argument indicates whether this
+    feature will be used.
 
     This is useful for two reasons. It can be set to \code{FALSE} to use
-    `+' as the plotting character in the regular sense. It can also be
-    used to force this feature in grouped displays.
+    \code{"+"} as the plotting character in the regular sense. It can
+    also be used to force this feature in grouped displays.
   }
   \item{shade}{
     logical, indicating whether the surface is to be colored using an

@@ -17,8 +17,8 @@ panel.histogram(x,
   \item{x}{ The data points for which the histogram is to be drawn} 
   \item{breaks}{ The breakpoints for the histogram}
   \item{equal.widths}{ logical used when \code{breaks==NULL} }
-  \item{type}{ Type of histogram, possible values being ``percent'',
-    ``density'' and ``count''}
+  \item{type}{ Type of histogram, possible values being \code{"percent"},
+    \code{"density"} and \code{"count"}}
   \item{nint}{ Number of bins for the histogram }
   \item{alpha, col, border, lty, lwd}{
     graphical parameters for bars; defaults are obtained from the

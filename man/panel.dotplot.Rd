@@ -13,11 +13,11 @@ panel.dotplot(x, y, horizontal = TRUE,
 }
 \arguments{
   \item{x,y}{ variables to be plotted in the panel. Typically y is the
-    'factor' }
-  \item{horizontal}{ logical. If FALSE, the plot is `transposed' in the
-    sense that the behaviours of x and y are switched. x is now
-    the `factor'.  Interpretation of other arguments change
-    accordingly. See documentation of \code{bwplot} for a fuller
+    \sQuote{factor} }
+  \item{horizontal}{ logical. If FALSE, the plot is \sQuote{transposed}
+    in the sense that the behaviours of x and y are switched. x is now
+    the \sQuote{factor}.  Interpretation of other arguments change
+    accordingly. See documentation of \code{\link{bwplot}} for a fuller
     explanation.
   }
   \item{pch, col, lty, lwd, col.line}{ graphical parameters}

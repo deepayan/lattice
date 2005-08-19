@@ -3,7 +3,7 @@
 \alias{current.panel.limits}
 \title{Panel Function for Drawing Axis Ticks and Labels}
 \description{
-  \code{panel.axis} is the function used by lattice to draw axes. It's
+  \code{panel.axis} is the function used by lattice to draw axes. It is
   typically not used by users, except those wishing to create advanced
   annotation. Keep in mind issues of clipping when trying to use it as
   part of the panel function. \code{current.panel.limits} can be used to
@@ -67,8 +67,8 @@ current.panel.limits()
   }
   \item{check.overlap}{
     logical, whether to check for overlapping of labels.  This also has
-    the effect of removing \code{at} values that are `too close' to the
-    limits.
+    the effect of removing \code{at} values that are \sQuote{too close}
+    to the limits.
   }
   \item{outside}{
     logical, whether to the labels draw outside the panel or inside.
@@ -80,9 +80,10 @@ current.panel.limits()
     logical, whether only half of scales will be drawn for each side
   }
   \item{which.half}{
-    character string, one of ``lower'' and ``upper''. Indicates which
-    half is to be used for tick locations if \code{half=TRUE}.  Defaults
-    to whatever is suitable for \code{splom}
+    character string, one of \code{"lower"} and
+    \code{"upper"}. Indicates which half is to be used for tick
+    locations if \code{half=TRUE}.  Defaults to whatever is suitable for
+    \code{\link{splom}}
   }
   \item{tck}{
     numeric scalar, multiplier for tick length. Can be negative.
@@ -98,12 +99,14 @@ current.panel.limits()
 }
 
 \details{
+
   \code{panel.axis} can draw axis tick marks inside or outside a
   panel (more precisely, a grid viewport). It honours the (native) axis
   scales. Used in \code{\link{panel.pairs}} for \code{\link{splom}}, as
   well as for all the usual axis drawing by the print method for
-  ``trellis'' objects. It can also be used to enhance plots `after the
-  fact' by adding axes.
+  \code{"trellis"} objects. It can also be used to enhance plots
+  \sQuote{after the fact} by adding axes.
+
 }
 
 \value{
