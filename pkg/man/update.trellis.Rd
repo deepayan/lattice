@@ -37,7 +37,7 @@
        \dots)
 
 \method{t}{trellis}(x)
-\method{"["}{trellis}(x, i, j, \dots, drop = FALSE)
+\method{[}{trellis}(x, i, j, \dots, drop = FALSE)
 trellis.last.object()
 trellis.last.object(\dots)
 }

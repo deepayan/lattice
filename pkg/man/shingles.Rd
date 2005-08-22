@@ -21,7 +21,7 @@ is.shingle(x)
 \method{print}{shingleLevel}(x, \dots)
 \method{summary}{shingle}(object, \dots)
 \method{as.data.frame}{shingle}(x, row.names = NULL, optional = FALSE)
-\method{"["}{shingle}(x, subset, drop = FALSE)
+\method{[}{shingle}(x, subset, drop = FALSE)
 as.factorOrShingle(x, subset, drop)
 }
 \description{
