@@ -38,7 +38,7 @@
 
 \method{t}{trellis}(x)
 \method{[}{trellis}(x, i, j, \dots, drop = FALSE)
-trellis.last.object()
+trellis.last.object(warn = TRUE)
 trellis.last.object(\dots)
 }
 \arguments{
@@ -46,13 +46,14 @@ trellis.last.object(\dots)
   \item{object, x}{
     The object to be updated, of class \code{"trellis"}.
   }
-
   \item{i, j}{ indices to be used.  Names are not currently allowed. }
   \item{drop}{
     logical, whether dimensions with only one level are to be dropped.
     Currently ignored, behaves as if it were \code{FALSE}.
   }
-
+  \item{warn}{
+    logical, whether to warn when no plot is saved.
+  }
   \item{panel, aspect, as.table, between, key, auto.key, legend, layout,
     main, page, par.strip.text, prepanel, scales, skip, strip, sub, xlab,
     xlim, ylab, ylim, par.settings, index.cond, perm.cond, \dots}{
@@ -124,7 +125,8 @@ lattice.options(old.options)
 
 \value{
   An object of class \code{trellis}, by default plotted by
-  \code{print.trellis}.
+  \code{print.trellis}.  \code{trellis.last.object} returns
+  \code{NULL} is no saved object is available.
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
