@@ -8,15 +8,12 @@
   fine control of Trellis displays.  Modifications are made to the
   settings for the currently active device only.
 }
-
-\synopsis{
-trellis.par.set(name, value, ..., theme, warn = TRUE)
-}
 \usage{
+trellis.par.set(name, value, \dots, theme, warn = TRUE)
 trellis.par.get(name = NULL)
-trellis.par.set(name, value, warn)
-trellis.par.set(theme)
-trellis.par.set(\dots)
+% trellis.par.set(name, value, warn)
+% trellis.par.set(theme)
+% trellis.par.set(\dots)
 show.settings(x = NULL)
 }
 \arguments{

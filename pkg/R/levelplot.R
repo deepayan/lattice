@@ -318,31 +318,43 @@ panel.levelplot <-
 }
 
 
-contourplot <- function(formula, ...)  UseMethod("contourplot")
+contourplot <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("contourplot")
+}
 
 
 
 contourplot.matrix <-
-    function(formula, data = NULL, aspect = "iso", ...)
+    function(x, data = NULL, aspect = "iso", ...)
 {
     if (!missing(data)) warning("explicit data specification ignored")
     form <- z ~ row * column
     data <-
-        expand.grid(row = seq(length = nrow(formula)),
-                    column = seq(length = ncol(formula)))
-    data$z <- as.vector(as.numeric(formula))
+        expand.grid(row = seq(length = nrow(x)),
+                    column = seq(length = ncol(x)))
+    data$z <- as.vector(as.numeric(x))
     ## if rownames/colnames are non-null, make them factors
-    if (!is.null(rownames(formula)))
-        data$row <- factor(data$row, labels = rownames(formula))
-    if (!is.null(colnames(formula)))
-        data$column <- factor(data$column, labels = colnames(formula))
+    if (!is.null(rownames(x)))
+        data$row <- factor(data$row, labels = rownames(x))
+    if (!is.null(colnames(x)))
+        data$column <- factor(data$column, labels = colnames(x))
     contourplot(form, data, aspect = aspect, ...)
 }
 
 
 
 contourplot.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              panel = "panel.contourplot",
              cuts = 7,
@@ -414,27 +426,39 @@ contourplot.formula <-
 ##               dots))
 ## }
 
-levelplot <- function(formula, ...)  UseMethod("levelplot")
+levelplot <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("levelplot")
+}
 
 levelplot.matrix <-
-    function(formula, data = NULL, aspect = "iso", ...)
+    function(x, data = NULL, aspect = "iso", ...)
 {
     if (!missing(data)) warning("explicit data specification ignored")
     form <- z ~ row * column
     data <-
-        expand.grid(row = seq(length = nrow(formula)),
-                    column = seq(length = ncol(formula)))
-    data$z <- as.vector(as.numeric(formula))
+        expand.grid(row = seq(length = nrow(x)),
+                    column = seq(length = ncol(x)))
+    data$z <- as.vector(as.numeric(x))
     ## if rownames/colnames are non-null, make them factors
-    if (!is.null(rownames(formula)))
-        data$row <- factor(data$row, labels = rownames(formula))
-    if (!is.null(colnames(formula)))
-        data$column <- factor(data$column, labels = colnames(formula))
+    if (!is.null(rownames(x)))
+        data$row <- factor(data$row, labels = rownames(x))
+    if (!is.null(colnames(x)))
+        data$column <- factor(data$column, labels = colnames(x))
     levelplot(form, data, aspect = aspect, ...)
 }
 
 levelplot.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
@@ -470,7 +494,7 @@ levelplot.formula <-
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
     form <-
-        latticeParseFormula(formula, data, dim = 3,
+        latticeParseFormula(x, data, dim = 3,
                             subset = subset, groups = groups,
                             multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,

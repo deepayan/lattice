@@ -6,24 +6,24 @@
 \alias{dotplot.table}
 \alias{dotplot.array}
 \alias{dotplot.matrix}
-\synopsis{
-\method{barchart}{table}(formula, data = NULL, groups = TRUE,
-             origin = 0, stack = TRUE, ...)
-\method{dotplot}{table}(formula, data = NULL, groups = TRUE, ...)
-}
+% \synopsis{
+% \method{barchart}{table}(formula, data = NULL, groups = TRUE,
+%              origin = 0, stack = TRUE, \dots)
+% \method{dotplot}{table}(formula, data = NULL, groups = TRUE, \dots)
+% }
 \usage{
-\method{barchart}{table}(formula, groups = TRUE,
+\method{barchart}{table}(x, data = NULL, groups = TRUE,
          origin = 0, stack = TRUE, \dots)
 
-\method{barchart}{array}(formula, \dots)
+\method{barchart}{array}(x, \dots)
 
-\method{barchart}{matrix}(formula, \dots)
+\method{barchart}{matrix}(x, \dots)
 
-\method{dotplot}{table}(formula, groups = TRUE, \dots)
+\method{dotplot}{table}(x, data = NULL, groups = TRUE, \dots)
 
-\method{dotplot}{array}(formula, \dots)
+\method{dotplot}{array}(x, \dots)
 
-\method{dotplot}{matrix}(formula, \dots)
+\method{dotplot}{matrix}(x, \dots)
 }
 
 \description{
@@ -35,8 +35,12 @@
 
 
 \arguments{
-  \item{formula}{
+  \item{x}{
     a \code{table}, \code{array} or \code{matrix} object.
+  }
+  \item{data}{
+    should not be specified. If specified, will be ignored with a
+    warning.
   }
   \item{groups}{
     logical, whether to use the last dimension as the grouping variable
@@ -86,9 +90,7 @@
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
-
 barchart(Titanic, scales = list(x = "free"),
          auto.key = list(title = "Survived"))
-
 }
 \keyword{hplot}

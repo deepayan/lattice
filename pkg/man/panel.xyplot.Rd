@@ -20,9 +20,9 @@ panel.xyplot(x, y, type="p",
              lty = plot.line$lty,
              cex = plot.symbol$cex,
              lwd = plot.line$lwd,
-             horizontal = FALSE, ...)
-panel.splom(...)
-panel.qq(...)
+             horizontal = FALSE, \dots)
+panel.splom(\dots)
+panel.qq(\dots)
 }
 \arguments{
   \item{x,y}{ variables to be plotted in the scatterplot}

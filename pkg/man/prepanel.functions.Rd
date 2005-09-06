@@ -6,15 +6,13 @@
 \description{
   These are predefined prepanel functions available in Lattice.
 }
-\synopsis{
-prepanel.loess(x, y, span, degree, family, evaluation, ...)
-}
+
 \usage{
 prepanel.lmline(x, y, \dots)
-prepanel.loess(x, y, \dots)
-prepanel.qqmathline(y, distribution,
-                    f.value = ppoints,
-                    p = c(0.25, 0.75), 
+prepanel.loess(x, y, span, degree, family, evaluation, \dots)
+prepanel.qqmathline(x, y = x, distribution = qnorm,
+                    p = c(0.25, 0.75), qtype = 7,
+                    groups, subscripts,
                     \dots) 
 }
 \arguments{
@@ -23,12 +21,19 @@ prepanel.qqmathline(y, distribution,
     distribution. This is automatically passed in when this is used as a
     prepanel function in \code{qqmath}.
   }
-  \item{f.value}{ as used in \code{qqmath}}
+  \item{qtype}{ type of \code{\link{quantile}}}
   \item{p}{
-    numeric vector of length two, representing probabilities.
-    Corresponding quantile pairs define the line used.
+    numeric vector of length two, representing probabilities.  If used
+    with \code{aspect="xy"}, the aspect ratio will be chosen to make the
+    line passing through the corresponding quantile pairs as close to 45
+    degrees as possible.
   }
-  \item{\dots}{other arguments}
+  \item{span, degree, family, evaluation}{ arguments controlling the
+    underlying \code{\link{loess}} smooth }
+  \item{groups, subscripts}{ See \code{\link{xyplot}}.  Whenever
+    appropriate, calculations are done separately for each group and
+    then combined.  }
+  \item{\dots}{ other arguments }
 }
 \value{
   usually a list with components \code{xlim}, \code{ylim}, \code{dx} and
@@ -39,9 +44,13 @@ prepanel.qqmathline(y, distribution,
   level functions, e.g., \code{prepanel.default.xyplot}
 }
 
-\seealso{\code{\link{trellis.par.get}}, \code{\link{xyplot}},
-  \code{\link{Lattice}}. See \code{\link[modreg]{loess.smooth}} for
-  further options to \code{prepanel.loess}
+\seealso{
+
+  \code{\link{trellis.par.get}}, \code{\link{xyplot}},
+  \code{\link{banking}}, \code{\link{Lattice}}. See
+  \code{\link{loess.smooth}} for further options to
+  \code{prepanel.loess}
+
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}

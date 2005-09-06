@@ -75,41 +75,41 @@ panel.parallel <-
     upper <- rep(upper, length = n.r)
     dif <- upper - lower
 
-    if (n.r > 0)
+    if (n.r > 1)
         panel.segments(x0 = 0, x1 = 1,
                        y0 = seq(length = n.r),
                        y1 = seq(length = n.r),
                        col = reference.line$col,
                        lwd = reference.line$lwd,
                        lty = reference.line$lty)
+    else return(invisible())
 
-
-
-#     for(i in seq(length = n.r))
-#     {
-#         grid.segments(x0 = c(0, 1), y = c(i, i),
-#                       default.units = "native",
-#                       gp = gpar(col = reference.line$col,
-#                       lwd = reference.line$lwd,
-#                       lty = reference.line$lty))
-#         lower[i] <- range(as.numeric(z[,i]))[1]
-#         upper[i] <- range(as.numeric(z[,i]))[2]
-        
-#     }
-    
     if (is.null(groups))
-        for (i in seq(along=subscripts))
+    {
+        for (i in seq(length = n.r-1))
         {
-            x <- (as.numeric(z[subscripts[i],,])-lower)/dif
-            grid.lines(x = x,
-                       y = 1:n.r, 
-                       gp =
-                       gpar(col = col[i],
-                            lty = lty[i],
-                            lwd = lwd[i],
-                            alpha = alpha[i]),
-                       default.units = "native")
-        }
+            x0 <- (as.numeric(z[subscripts, i, ]) - lower[i])/dif[i]
+            x1 <- (as.numeric(z[subscripts, i+1, ]) - lower[i+1])/dif[i+1]
+            panel.segments(x0 = x0, y0 = i, x1 = x1, y1 = i + 1,
+                           col = col,
+                           lty = lty,
+                           lwd = lwd,
+                           alpha = alpha,
+                           ...)
+        }        
+##         for (i in seq(along=subscripts))
+##         {
+##             x <- (as.numeric(z[subscripts[i],,])-lower)/dif
+##             grid.lines(x = x,
+##                        y = 1:n.r, 
+##                        gp =
+##                        gpar(col = col[i],
+##                             lty = lty[i],
+##                             lwd = lwd[i],
+##                             alpha = alpha[i]),
+##                        default.units = "native")
+##         }
+    }
     else 
         for (i in seq(along = subscripts))
         {
@@ -176,17 +176,29 @@ panel.parallel <-
 
 
 
-parallel <- function(formula, ...)  UseMethod("parallel")
+parallel <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("parallel")
+}
 
 
 parallel.data.frame <-
-    function(formula, data = NULL, ...)
+    function(x, data = NULL, ...)
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit data specification ignored")
-    ccall$data <- list(x = formula)
-    ccall$formula <- ~x
+    ccall$data <- list(x = x)
+    ccall$x <- ~x
     ccall[[1]] <- as.name("parallel")
     ans <- eval(ccall, parent.frame())
     ans$call <- ocall
@@ -195,7 +207,7 @@ parallel.data.frame <-
 
 
 parallel.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              aspect = "fill",
              between = list(x = 0.5, y = 0.5),
@@ -227,36 +239,14 @@ parallel.formula <-
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
-    right.name <- deparse(substitute(formula))
-    ## formula <- eval(substitute(formula), data, parent.frame())
+    ## right.name <- deparse(substitute(x))
+    ## x <- eval(substitute(x), data, parent.frame())
     form <-
-        ## if (inherits(formula, "formula"))
-        latticeParseFormula(formula, data,
+        latticeParseFormula(x, data,
                             subset = subset, groups = groups,
                             multiple = FALSE,
                             outer = FALSE, subscripts = TRUE,
                             drop = drop.unused.levels)
-##         else {
-##             if (is.matrix(formula)) {
-##                 list(left = NULL,
-##                      right = as.data.frame(formula)[subset,],
-##                      condition = NULL,
-##                      left.name = "",
-##                      right.name =  right.name,
-##                      groups = groups,
-##                      subscr = seq(length = nrow(formula))[subset])
-##             }
-##             else if (is.data.frame(formula)) {
-##                 list(left = NULL,
-##                      right = formula[subset,],
-##                      condition = NULL,
-##                      left.name = "",
-##                      right.name =  right.name,
-##                      groups = groups,
-##                      subscr = seq(length = nrow(formula))[subset])
-##             }
-##             else stop("invalid formula")
-##         }
 
 
     ## We need to be careful with subscripts here. It HAS to be there,

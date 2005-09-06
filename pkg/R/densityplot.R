@@ -147,21 +147,42 @@ panel.densityplot <-
 
 
 
-densityplot <- function(formula, ...) UseMethod("densityplot")
+densityplot <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("densityplot")
+}
+
 
 
 
 densityplot.numeric <-
-    function(formula, ...)
+    function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    densityplot(formula, ...)
+    ocall <- ccall <- match.call()
+    if (!is.null(ccall$data)) 
+        warning("explicit data specification ignored")
+    ccall$data <- list(x = x)
+    ccall$xlab <- xlab
+    ccall$x <- ~x
+    ccall[[1]] <- as.name("densityplot")
+    ans <- eval(ccall, parent.frame())
+    ans$call <- ocall
+    ans
 }
 
 
 
 densityplot.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
@@ -219,14 +240,8 @@ densityplot.formula <-
     groups <- eval(substitute(groups), data, parent.frame())
     subset <- eval(substitute(subset), data, parent.frame())
 
-##     formname <- deparse(substitute(formula))
-##     formula <- eval(substitute(formula), data, parent.frame())
-
-##     if (!inherits(formula, "formula"))
-##         formula <- as.formula(paste("~", formname))
-    
     form <-
-        latticeParseFormula(formula, data, subset = subset,
+        latticeParseFormula(x, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
                             drop = drop.unused.levels)

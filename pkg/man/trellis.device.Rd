@@ -14,7 +14,7 @@ trellis.device(device = getOption("device"),
                theme = lattice.getOption("default.theme"),
                new = TRUE,
                retain = FALSE,
-               ...)
+               \dots)
 canonical.theme(name, color)
 col.whitebg()
 }

@@ -14,20 +14,47 @@
   These are predefined panel functions available in lattice for use in
   constructing new panel functions (usually on-the-fly).
 }
-\synopsis{
+% \synopsis{
+% panel.abline(a, b = NULL, h = numeric(0), v = numeric(0),
+%     col,
+%     col.line = add.line$col,
+%     lty = add.line$lty,
+%     lwd = add.line$lwd, 
+%     \dots)
+% panel.curve(expr, from, to, n = 101,
+%             curve.type = "l",
+%             col = add.line$col,
+%             lty = add.line$lty,
+%             lwd = add.line$lwd,
+%             type = NULL,
+%             \dots)
+% panel.rug(x = NULL, y = NULL,
+%           regular = TRUE, 
+%           start = if (regular) 0 else 0.97,
+%           end = if (regular) 0.03 else 1,
+%           x.units = rep("npc", 2),
+%           y.units = rep("npc", 2),
+%           col = add.line$col,
+%           lty = add.line$lty,
+%           lwd = add.line$lwd,
+%           alpha = add.line$alpha,
+%           \dots)
+% panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd, 
+%     lty = reference.line$lty, col, col.line = reference.line$col, 
+%     \dots)
+% }
+\usage{
+
 panel.abline(a, b = NULL, h = numeric(0), v = numeric(0),
-    col,
-    col.line = add.line$col,
-    lty = add.line$lty,
-    lwd = add.line$lwd, 
-    ...)
+             col, col.line, lty, lwd, \dots)
+
 panel.curve(expr, from, to, n = 101,
             curve.type = "l",
             col = add.line$col,
             lty = add.line$lty,
             lwd = add.line$lwd,
             type = NULL,
-            ...)
+            \dots)
 panel.rug(x = NULL, y = NULL,
           regular = TRUE, 
           start = if (regular) 0 else 0.97,
@@ -38,48 +65,46 @@ panel.rug(x = NULL, y = NULL,
           lty = add.line$lty,
           lwd = add.line$lwd,
           alpha = add.line$alpha,
-          ...)
+          \dots)
 panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd, 
     lty = reference.line$lty, col, col.line = reference.line$col, 
-    ...)
-}
-\usage{
-panel.abline(a, b, \dots)
-panel.abline(coef, \dots)
-panel.abline(reg, \dots)
-panel.abline(h= ,v= , \dots)
-panel.curve(expr, from, to, n = 101,
-            curve.type = "l", \dots)
-panel.rug(x = NULL, y = NULL,
-          regular = TRUE, start, end,
-          x.units = rep("npc", 2),
-          y.units = rep("npc", 2),
-          \dots)
-panel.fill(col="grey", \dots)
-panel.grid(h=3, v=3, \dots)
-panel.lmline(x,y,\dots) = panel.abline(lm(y~x), \dots)
+    \dots)
+
+% panel.abline(a, b, \dots)
+% panel.abline(coef, \dots)
+% panel.abline(reg, \dots)
+% panel.abline(h= ,v= , \dots)
+panel.fill(col, \dots)
+panel.grid(h=3, v=3, col, col.line, lty, lwd, \dots)
+panel.lmline(x, y, \dots)
 panel.loess(x, y, span = 2/3, degree = 1,
             family = c("symmetric", "gaussian"),
-            evaluation = 50, \dots)
-panel.linejoin(x, y, fun = mean, horizontal = TRUE, \dots)
-panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
+            evaluation = 50,
+            lwd, lty, col, col.line, \dots)
+panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
+                  n = 50, col, col.line, lwd, lty, \dots)
 }
 \arguments{
   \item{x, y}{ variables defining the contents of the panel}
-  \item{a, b}{ Coefficients of the line to be added}
-  \item{coef}{ Coefficients of the line to be added as a length 2 vector}
-  \item{reg}{ A regression object. The corresponding fitted line will
-    be drawn }
-  \item{h,v}{ For \code{panel.abline}, numerical vectors giving y and x
-    locations respectively of horizontal and vertical lines to be
-    added to the plot. For panel.grid, number of horizontal and vertical
-    reference lines to be added to the plot; \code{h=-1} and \code{v=-1}
-    make the grids aligned with the axis labels (this does not always
-    work).
-  }
+  \item{a, b}{ Coefficients of the line to be added.  \code{a} can be a
+    vector of length 2, representing the coefficients of the line to be
+    added, in which case \code{b} should be missing.  \code{a} can also
+    be a suitable \sQuote{regression} object, i.e., an object which has
+    a \code{\link{coef}} method that returns a length 2 numeric vector.
+    The corresponding line will be plotted.  }
+
+%   \item{coef}{ Coefficients of the line to be added as a length 2 vector}
+%   \item{reg}{ A regression object. The corresponding fitted line will
+%     be drawn }
+
+  \item{h, v}{ For \code{panel.abline}, numerical vectors giving
+    locations respectively of horizontal and vertical lines to be added
+    to the plot, in native coordinates.  For \code{panel.grid}, number
+    of horizontal and vertical reference lines to be added to the plot;
+    \code{h=-1} and \code{v=-1} make the grids aligned with the axis
+    labels (but this does not always work).  }
   \item{expr}{ expression as a function of x or a function to plot as a
-    curve
-  }
+    curve }
   \item{n}{ the number of points to use for drawing the curve }
   \item{regular}{ logical indicating whether the \sQuote{rug} is to be
     drawn on the regular side (left / bottom) or not (right / top)
@@ -101,7 +126,7 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
   \item{curve.type}{ type of curve (\code{"p"} for points, etc), passed
     to \code{\link{llines}}
   }
-  \item{col}{color}
+  \item{col, col.line, lty, lwd, type, alpha}{ graphical parameters }
   \item{span, degree, family, evaluation}{ arguments to 
     \code{loess.smooth}, around which \code{panel.loess} is essentially
     a wrapper
@@ -148,6 +173,9 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1))
 
   \code{panel.rug} adds a \emph{rug} representation of the (marginal)
   data to the panel, much like \code{\link{rug}}.
+
+  \code{panel.lmline(x, y)} is equivalent to
+  \code{panel.abline(lm(y~x))}.
 
 }
 

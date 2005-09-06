@@ -37,56 +37,48 @@
 }
 \usage{
 generateNewName(names.current, new.prefix)
-lpretty(x, ...)
+lpretty(x, \dots)
 construct.3d.scales(draw = TRUE, axs = "r", tck = 1, lty = 1, lwd = 1, distance = c(1, 
     1, 1), tick.number = 5, cex = 1, rot = FALSE, at = FALSE, 
     labels = FALSE, col = FALSE, log = FALSE, font = FALSE, arrows = TRUE, 
-    relation = "same", x = NULL, y = NULL, z = NULL, ...) 
+    relation = "same", x = NULL, y = NULL, z = NULL, \dots) 
 construct.scales(draw = TRUE, axs = "r", tck = 1, tick.number = 5, cex = 1,
     rot = FALSE, at = FALSE, labels = FALSE, col = FALSE, 
     log = FALSE, font = FALSE, alternating = TRUE, 
     relation = "same", abbreviate, minlength, limits,
-    x = NULL, y = NULL, ...)  
+    x = NULL, y = NULL, \dots)  
 compute.layout(layout, cond.max.level, skip = FALSE)  
 limits.and.aspect(prepanel.default.function, prepanel = NULL, have.xlim = FALSE, 
     xlim = NULL, have.ylim = FALSE, ylim = NULL, x.relation, 
     y.relation, panel.args.common = list(), panel.args = list(), 
-    aspect, nplots, x.axs, y.axs, ...)
+    aspect, nplots, x.axs, y.axs, \dots)
 trellis.skeleton(as.table = FALSE, aspect = "fill", between = list(x = 0, 
     y = 0), key = NULL, page = NULL, main = NULL, sub = NULL, 
     par.strip.text = list(), skip = FALSE, strip = strip.default, 
-    xlab = NULL, ylab = NULL, panel, ...)
-
-
-
-
-
-Rows(x, which)
-
-
+    xlab = NULL, ylab = NULL, panel, \dots)
 
 extend.limits(lim, length = 1, prop = 0.07) 
 calculateAxisComponents(x, at = FALSE, labels = FALSE, logpaste = "",
               abbreviate = NULL, minlength = 4,
-              format.posixt, ...) 
+              format.posixt, \dots) 
 .lattice.print.more
 cupdate(index, maxim)
 do.breaks(endpoints, nint)
 ldrop.levels(x, subset)
 make.list.from.intervals(x)
-prepanel.default.bwplot(...)
-prepanel.default.levelplot(x, y, wx, wy, subscripts, ...)
+prepanel.default.bwplot(\dots)
+prepanel.default.levelplot(x, y, wx, wy, subscripts, \dots)
 prepanel.default.cloud(distance, xlim, ylim,
         zlim, zoom = 1, rot.mat = rot.mat, 
-        aspect = aspect,...)
-prepanel.default.densityplot(...)
-prepanel.default.histogram(...)
-prepanel.default.parallel(...)
-prepanel.default.qq(...)
-prepanel.default.qqmath(...)
-prepanel.default.splom(...)
-prepanel.default.tmd(...)
-prepanel.default.xyplot(x, y, type, ...)
+        aspect = aspect,\dots)
+prepanel.default.densityplot(\dots)
+prepanel.default.histogram(\dots)
+prepanel.default.parallel(\dots)
+prepanel.default.qq(\dots)
+prepanel.default.qqmath(\dots)
+prepanel.default.splom(\dots)
+prepanel.default.tmd(\dots)
+prepanel.default.xyplot(x, y, type, \dots)
 is.characterOrExpression(x)
 rearrangeUnit(x, pos, u)
 latticeAsFormula(x)

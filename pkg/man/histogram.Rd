@@ -8,22 +8,17 @@
 \alias{densityplot.formula}
 \alias{do.breaks}
 \title{Histograms and Kernel Density Plots}
-\synopsis{
-\method{histogram}{formula}(formula,
+\usage{
+histogram(x, \dots)
+densityplot(x, \dots)
+\method{histogram}{formula}(x,
              data = parent.frame(),
-             allow.multiple = is.null(groups) || outer,
-             outer = TRUE,
+             allow.multiple, outer = TRUE,
              auto.key = FALSE,
              aspect = "fill",
              panel = "panel.histogram",
-             prepanel = NULL,
-             scales = list(),
-             strip = TRUE,
-             groups = NULL,
-             xlab,
-             xlim,
-             ylab,
-             ylim,
+             prepanel, scales, strip, groups,
+             xlab, xlim, ylab, ylim,
              type = c("percent", "count", "density"),
              nint = if (is.factor(x)) length(levels(x))
              else round(log2(length(x)) + 1),
@@ -32,63 +27,33 @@
              else do.breaks(endpoints, nint),
              equal.widths = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
-             ...,
+             \dots,
              default.scales = list(),
-             subscripts = !is.null(groups),
-             subset = TRUE)
-\method{densityplot}{formula}(formula,
-             data = parent.frame(),
-             allow.multiple = is.null(groups) || outer,
-             outer = !is.null(groups),
-             auto.key = FALSE,
-             aspect = "fill",
-             panel = if (is.null(groups)) "panel.densityplot" else "panel.superpose",
-             prepanel = NULL,
-             scales = list(),
-             strip = TRUE,
-             groups = NULL,
-             xlab,
-             xlim,
-             ylab,
-             ylim,
-             bw = NULL,
-             adjust = NULL,
-             kernel = NULL,
-             window = NULL,
-             width = NULL,
-             give.Rkern = FALSE,
-             n = 50,
-             from = NULL,
-             to = NULL,
-             cut = NULL,
-             na.rm = TRUE,
-             drop.unused.levels = lattice.getOption("drop.unused.levels"),
-             ...,
-             default.scales = list(),
-             panel.groups = "panel.densityplot",
-             subscripts = !is.null(groups),
-             subset = TRUE)
-}
-\usage{
-histogram(formula, \dots)
-densityplot(formula, \dots)
+             subscripts,
+             subset)
 
-\method{histogram}{formula}(formula,
-          data, 
-          type = c("percent", "count", "density"),
-          nint = if(is.factor(x)) length(levels(x))
-                 else round(log2(length(x))+1),
-          endpoints = range(x[!na.x]),
-          breaks = if(is.factor(x)) seq(0.5, length = length(levels(x))
-          + 1) else do.breaks(endpoints, nint),
-          equal.widths = FALSE, 
-          \dots)
-\method{histogram}{numeric}(formula, \dots)
-\method{histogram}{factor}(formula, \dots)
+\method{histogram}{numeric}(x, data, xlab, \dots)
+\method{histogram}{factor}(x, data, xlab, \dots)
 
-\method{densityplot}{formula}(formula, data, n = 50, plot.points = TRUE, ref = FALSE,
-            \dots)
-\method{densityplot}{numeric}(formula, \dots)
+
+\method{densityplot}{formula}(x,
+            data = parent.frame(),
+            allow.multiple = is.null(groups) || outer,
+            outer = !is.null(groups),
+            auto.key = FALSE,
+            aspect = "fill",
+            panel = if (is.null(groups)) "panel.densityplot" else "panel.superpose",
+            prepanel, scales, strip, groups,
+            xlab, xlim, ylab, ylim,
+            bw, adjust, kernel, window, width, give.Rkern,
+            n = 50, from, to, cut, na.rm,
+            drop.unused.levels = lattice.getOption("drop.unused.levels"),
+            \dots,
+            default.scales = list(),
+            panel.groups = "panel.densityplot",
+            subscripts,
+            subset)
+\method{densityplot}{numeric}(x, data, xlab, \dots)
 
 do.breaks(endpoints, nint)
 }
@@ -97,7 +62,8 @@ do.breaks(endpoints, nint)
   other variables.
 }
 \arguments{
-  \item{formula}{
+  \item{x}{
+    The object on which method dispatch is carried out.
 
     For the \code{formula} method, a formula of the form \code{~ x | g1
       * g2 * \dots} indicates that histograms or Kernel Density
@@ -112,14 +78,15 @@ do.breaks(endpoints, nint)
     \code{\link{xyplot}}.  Note that in either form, all the variables
     involved in the formula have to have same length.
 
-    For the \code{numeric} and \code{factor} methods, \code{formula}
+    For the \code{numeric} and \code{factor} methods, \code{x}
     replaces the \code{x} vector described above.  Conditioning is not
     allowed in these cases.
 
   }
   \item{data}{
     For the \code{formula} method, an optional data frame in which
-    variables are to be evaluated.
+    variables are to be evaluated.  Ignored with a warning in other
+    cases.
   }
   \item{type}{
     Character string indicating type of histogram to be drawn.
@@ -139,7 +106,7 @@ do.breaks(endpoints, nint)
   }
   \item{endpoints}{
     vector of length 2 indicating the range of x-values that is to be
-    covered by the histogram. Again, applies only when \code{breaks} is
+    covered by the histogram.  Again, applies only when \code{breaks} is
     unspecified.  In \code{do.breaks}, this specifies the interval that
     is to be divided up.
   }
@@ -161,22 +128,33 @@ do.breaks(endpoints, nint)
     the breakpoints will \bold{not} be equally spaced).
   }
   \item{n}{ number of points at which density is to be evaluated }
-  \item{plot.points}{
-    logical or character string specifying whether (and how) the
-    \code{x} values should be plotted along the \code{y=0} line.  This
-    argument is passed unchanged to \code{\link{panel.densityplot}},
-    whose help page should be consulted for details.
+%   \item{plot.points}{
+%     logical or character string specifying whether (and how) the
+%     \code{x} values should be plotted along the \code{y=0} line.  This
+%     argument is passed unchanged to \code{\link{panel.densityplot}},
+%     whose help page should be consulted for details.
+%   }
+%   \item{ref}{
+%     logical specifying whether a reference x-axis should be drawn.
+%   }
+
+  \item{panel}{ The function that uses the packet (subset of display
+    variables) corresponding to a panel to create a display.  Default
+    panel functions are documented separately, and often have arguments
+    that can be used to customize its display in various ways.  Such
+    arguments can usually be directly supplied to the high level
+    function.  }
+  \item{panel.groups}{ function used as the \code{panel.groups} argument
+    when \code{panel.superpose} is used as the panel function, which
+    happens by default when \code{groups} is non-null.  }
+  \item{allow.multiple, outer, auto.key, aspect, prepanel, scales,
+    strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
+    default.scales, subscripts, subset}{ See \code{\link{xyplot}} }
+  \item{bw, adjust, kernel, window, width, give.Rkern, from, to, cut,
+    na.rm}{ arguments to \code{\link{density}}, passed on as appropriate
   }
-  \item{ref}{
-    logical specifying whether a reference x-axis should be drawn.
-  }
-  \item{\dots}{
-    other arguments, passed along to the panel function. In the case of
-    \code{densityplot}, if the default panel function is used, then
-    arguments appropriate to \code{density} can be included. This can
-    control the details of how the Kernel Density Estimates are
-    calculated. See documentation for \code{\link{density}} for details.
-  }
+  \item{\dots}{ Further arguments.  See corresponding entry in
+    \code{\link{xyplot}} for non-trivial details.  }
 }
 \value{
 

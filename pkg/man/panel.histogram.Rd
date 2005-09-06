@@ -11,7 +11,7 @@ panel.histogram(x,
                 type = "density",
                 nint = round(log2(length(x)) + 1), 
                 alpha, col, border, lty, lwd,
-                ...)
+                \dots)
 }
 \arguments{
   \item{x}{ The data points for which the histogram is to be drawn} 
