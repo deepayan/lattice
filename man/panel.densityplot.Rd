@@ -6,7 +6,7 @@
 }
 \usage{
 panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
-                  col, col.line, jitter.amount, ...)
+                  col, col.line, jitter.amount, \dots)
 }
 \arguments{
   \item{x}{ data points for which density is to be estimated}

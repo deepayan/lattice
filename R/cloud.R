@@ -368,10 +368,6 @@ panel.3dwire <-
 
 
 
-
-
-
-
     ## 2004-03-12 new experimental stuff: when x, y, z are all
     ## matrices of the same dimension, they represent a 3-D surface
     ## parametrized on a 2-D grid (the details of the parametrizing
@@ -1413,20 +1409,32 @@ panel.wireframe <- function(...)
 
 
 
-wireframe <- function(formula, ...) UseMethod("wireframe")
+wireframe <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("wireframe")
+}
 
 
 wireframe.matrix <-
-    function(formula, data = NULL,
-             zlab = deparse(substitute(formula)),
+    function(x, data = NULL,
+             zlab = deparse(substitute(x)),
              ...)
 {
     if (!is.null(data)) warning("explicit data specification ignored")
     form <- eval(z ~ row * column)
     data <-
-        expand.grid(row = seq(length = nrow(formula)),
-                    column = seq(length = ncol(formula)))
-    data$z <- as.vector(as.numeric(formula))
+        expand.grid(row = seq(length = nrow(x)),
+                    column = seq(length = ncol(x)))
+    data$z <- as.vector(as.numeric(x))
     ## What if rownames/colnames are non-null?
     wireframe(form, data, zlab = zlab, ...)
 }
@@ -1434,7 +1442,7 @@ wireframe.matrix <-
 
 
 wireframe.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              panel = "panel.wireframe",
              ...)
@@ -1454,27 +1462,39 @@ wireframe.formula <-
 ## points/cross lines (cloud.3d),
 
 
-cloud <- function(formula, ...) UseMethod("cloud")
+cloud <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("cloud")
+}
 
 
 cloud.matrix <-
-    function(formula, data = NULL, type = 'h',
-             zlab = deparse(substitute(formula)),
+    function(x, data = NULL, type = 'h',
+             zlab = deparse(substitute(x)),
              ...)
 {
     if (!is.null(data)) warning("explicit data specification ignored")
     form <- eval(z ~ row * column)
     data <-
-        expand.grid(row = seq(length = nrow(formula)),
-                    column = seq(length = ncol(formula)))
-    data$z <- as.vector(as.numeric(formula))
+        expand.grid(row = seq(length = nrow(x)),
+                    column = seq(length = ncol(x)))
+    data$z <- as.vector(as.numeric(x))
     ## What if rownames/colnames are non-null?
     cloud(form, data, type = type, zlab = zlab, ...)
 }
 
 
 cloud.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
@@ -1524,11 +1544,11 @@ cloud.formula <-
 
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
-    left.name <- deparse(substitute(formula))
+##     left.name <- deparse(substitute(x))
+##     x <- eval(substitute(x), data, parent.frame())
 
-    formula <- eval(substitute(formula), data, parent.frame())
     form <-
-        latticeParseFormula(formula, data, dim = 3,
+        latticeParseFormula(x, data, dim = 3,
                             subset = subset, groups = groups,
                             multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,

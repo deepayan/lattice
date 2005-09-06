@@ -18,18 +18,18 @@
   details may change in future.
 }
 
-\synopsis{
-trellis.panelArgs(x, panel.number)
-trellis.vpname(name =
-               c("position", "split", "split.location", "toplevel",
-                 "panel", "strip", "legend", "main", "sub",
-                 "xlab", "ylab", "page"),
-               column = lattice.getStatus("current.focus.column"),
-               row = lattice.getStatus("current.focus.row"),
-               side = c("left", "top", "right", "bottom", "inside"),
-               clip.off = FALSE,
-               prefix = lattice.getStatus("current.prefix"))
-}
+% \synopsis{
+% trellis.panelArgs(x, panel.number)
+% trellis.vpname(name =
+%                c("position", "split", "split.location", "toplevel",
+%                  "panel", "strip", "legend", "main", "sub",
+%                  "xlab", "ylab", "page"),
+%                column = lattice.getStatus("current.focus.column"),
+%                row = lattice.getStatus("current.focus.row"),
+%                side = c("left", "top", "right", "bottom", "inside"),
+%                clip.off = FALSE,
+%                prefix = lattice.getStatus("current.prefix"))
+% }
 
 \usage{
 panel.identify(x, y = NULL, labels = seq(along = x),
@@ -47,8 +47,8 @@ trellis.focus(name, column, row, side, clip.off,
               highlight = interactive(), \dots)
 trellis.switchFocus(name, side, clip.off, highlight, \dots)
 trellis.unfocus()
-trellis.panelArgs()
 trellis.panelArgs(x, panel.number)
+trellis.panelArgs()
 trellis.currentLayout()
 }
 

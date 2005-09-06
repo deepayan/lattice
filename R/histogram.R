@@ -153,19 +153,32 @@ panel.histogram <-
 
 
 
-histogram <- function(formula, ...)  UseMethod("histogram")
+histogram <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("histogram")
+}
+
 
 
 
 histogram.factor <- histogram.numeric <-
-    function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
+    function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit data specification ignored")
-    ccall$data <- list(x = formula)
+    ccall$data <- list(x = x)
     ccall$xlab <- xlab
-    ccall$formula <- ~x
+    ccall$x <- ~x
     ccall[[1]] <- as.name("histogram")
     ans <- eval(ccall, parent.frame())
     ans$call <- ocall
@@ -177,7 +190,7 @@ histogram.factor <- histogram.numeric <-
 
 
 histogram.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
@@ -215,7 +228,7 @@ histogram.formula <-
     subset <- eval(substitute(subset), data, parent.frame())
 
     form <-
-        latticeParseFormula(formula, data, subset = subset,
+        latticeParseFormula(x, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
                             drop = drop.unused.levels)

@@ -145,6 +145,8 @@ xyplot(y~x | a, aspect = "fill",
        sub=expression(frac(demonstrating, expressions)))
 
 
+
+
 ## grob's as xlab, ylab 
 
 qq(gl(2, 100) ~ c(runif(100, min = -2, max = 2), rnorm(100)),

@@ -10,32 +10,32 @@
   retrieve a panel's x and y limits.
 }
 
-\synopsis{
-panel.axis(side = c("bottom", "left", "top", "right"),
-             at = pretty(scale.range),
-             labels = TRUE,
-             draw.labels = TRUE,
-             check.overlap = FALSE,
-             outside = FALSE,
-             ticks = TRUE,
-             half = !outside,
-             which.half = switch(side, bottom = "lower", left = "upper", top = "upper", right = "lower"),
+% \synopsis{
+% panel.axis(side = c("bottom", "left", "top", "right"),
+%              at = pretty(scale.range),
+%              labels = TRUE,
+%              draw.labels = TRUE,
+%              check.overlap = FALSE,
+%              outside = FALSE,
+%              ticks = TRUE,
+%              half = !outside,
+%              which.half = switch(side, bottom = "lower", left = "upper", top = "upper", right = "lower"),
 
-             tck = as.numeric(ticks),
-             rot = if (is.logical(labels)) 0 else c(90, 0),
+%              tck = as.numeric(ticks),
+%              rot = if (is.logical(labels)) 0 else c(90, 0),
 
-             text.col = axis.text$col,
-             text.alpha = axis.text$alpha,
-             text.cex = axis.text$cex,
-             text.font = axis.text$font,
-             text.fontfamily = axis.text$fontfamily,
-             text.fontface = axis.text$fontface,
+%              text.col = axis.text$col,
+%              text.alpha = axis.text$alpha,
+%              text.cex = axis.text$cex,
+%              text.font = axis.text$font,
+%              text.fontfamily = axis.text$fontfamily,
+%              text.fontface = axis.text$fontface,
 
-             line.col = axis.line$col,
-             line.lty = axis.line$lty,
-             line.lwd = axis.line$lwd,
-             line.alpha = axis.line$alpha)
-}
+%              line.col = axis.line$col,
+%              line.lty = axis.line$lty,
+%              line.lwd = axis.line$lwd,
+%              line.alpha = axis.line$alpha)
+% }
 \usage{
 panel.axis(side = c("bottom", "left", "top", "right"),
            at,
@@ -46,8 +46,12 @@ panel.axis(side = c("bottom", "left", "top", "right"),
            ticks = TRUE,
            half = !outside,
            which.half,
-           tck = 1,
-           rot, \dots)
+           tck = as.numeric(ticks),
+           rot = if (is.logical(labels)) 0 else c(90, 0),
+           text.col, text.alpha, text.cex, text.font,
+           text.fontfamily, text.fontface,
+           line.col, line.lty, line.lwd, line.alpha)
+
 current.panel.limits()
 }
 \arguments{
@@ -92,10 +96,9 @@ current.panel.limits()
     rotation angles for labels in degrees. Can be a vector of length 2
     for x- and y-axes respectively
   }
-  \item{\dots}{
-    certain graphical parameters (fonts, color, etc) can be
-    supplied. See the formal argument list for valid names.
-  }
+  \item{text.col, text.alpha, text.cex, text.font, text.fontfamily,
+    text.fontface, line.col, line.lty, line.lwd, line.alpha}{ graphical
+    parameters }
 }
 
 \details{

@@ -38,8 +38,8 @@
 
 \method{t}{trellis}(x)
 \method{[}{trellis}(x, i, j, \dots, drop = FALSE)
-trellis.last.object(warn = TRUE)
-trellis.last.object(\dots)
+trellis.last.object(warn = TRUE, \dots)
+trellis.last.object()
 }
 \arguments{
 

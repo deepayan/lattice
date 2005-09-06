@@ -463,13 +463,19 @@ print.trellis <-
     ##   conditioning variables for the current panel.
 
     
-    panel.counter <- 0
+    panel.number <- 0
 
-    ## panel.counter used as an optional argument to the panel
-    ## function. Sequential counter keeping track of which panel is
-    ## being drawn
+    ## panel.number is supplied as an optional argument to the panel
+    ## function.  It's a strictly increasing sequential counter
+    ## keeping track of which panel is being drawn.  This is usually
+    ## the same as, but potentially different from the packet.number,
+    ## which is an index to which packet combination is being used.
 
-    for(page.number in 1:number.of.pages)
+    ## Here's the complication.  panel.number used to be called
+    ## panel.counter, and packet.number used to be called panel.number
+
+
+    for(page.number in seq(length = number.of.pages))
     {
         if (!any(cond.max.level - cond.current.level < 0)) {
             
@@ -484,49 +490,6 @@ print.trellis <-
                                   gp =
                                   gpar(fontsize = fontsize.text),
                                   name = trellis.vpname("toplevel")))
-
-
-
-#             if (!is.null(main))
-#                 grid.text(label = main$label, name= "main",
-#                           gp =
-#                           gpar(col = main$col,
-#                                fontfamily = main$fontfamily,
-#                                fontface = chooseFace(main$fontface, main$font),
-#                                cex = main$cex),
-#                           vp = viewport(layout.pos.row = pos.heights$main, name= "main.vp"))
-
-#             if (!is.null(sub))
-#                 grid.text(label = sub$label, name= "sub",
-#                           gp =
-#                           gpar(col = sub$col,
-#                                fontfamily = sub$fontfamily,
-#                                fontface = chooseFace(sub$fontface, sub$font),
-#                                cex = sub$cex),
-#                           vp = viewport(layout.pos.row = pos.heights$sub, name= "sub.vp"))
-
-#             if (!is.null(xlab))
-#                 grid.text(label = xlab$label, name= "xlab",
-#                           gp =
-#                           gpar(col = xlab$col,
-#                                fontfamily = xlab$fontfamily,
-#                                fontface = chooseFace(xlab$fontface, xlab$font),
-#                                cex = xlab$cex), 
-#                           vp = viewport(layout.pos.row = pos.heights$xlab,
-#                                         layout.pos.col = pos.widths$panel, name= "xlab.vp" ))
-
-#             if (!is.null(ylab))
-#                 grid.text(label = ylab$label, rot = 90, name= "ylab",
-#                           gp =
-#                           gpar(col = ylab$col,
-#                                fontfamily = ylab$fontfamily,
-#                                fontface = chooseFace(ylab$fontface, ylab$font),
-#                                cex = ylab$cex),
-#                           vp = viewport(layout.pos.col = pos.widths$ylab,
-#                                         layout.pos.row = pos.heights$panel, name= "ylab.vp"))
-
-
-
 
             if (!is.null(main))
             {
@@ -570,13 +533,13 @@ print.trellis <-
                         !skip[(page.number-1) * rows.per.page * cols.per.page +
                               (row-1) * cols.per.page + column] )
                     {
-                        ##panel.number should be same as order.cond[cond.current.level]
-                        ##                                          ^^^^^^^^^^^^^^^^^^
-                        ##                                          (length not fixed)
+                        ## packet.number should be same as order.cond[cond.current.level]
+                        ##                                            ^^^^^^^^^^^^^^^^^^
+                        ##                                            (length not fixed)
 
-                        panel.number <- 
+                        packet.number <- 
                             do.call("[", c(list(x = order.cond), as.list(cond.current.level)))
-                        current.panel.positions[row, column] <- panel.number
+                        current.panel.positions[row, column] <- packet.number
 
                         ## this index retrieves the appropriate entry
                         ## of panel.args and [xy].limits. It has to be
@@ -587,7 +550,7 @@ print.trellis <-
                         ## incremental counter that may be used as a
                         ## panel function argument
 
-                        panel.counter <- panel.counter + 1
+                        panel.number <- panel.number + 1
 
                         ## this gives the row position from the bottom
                         actual.row <- if (x$as.table)
@@ -599,21 +562,21 @@ print.trellis <-
                         xlabelinfo <-
                             calculateAxisComponents(x =
                                                     if (x.relation.same) x$x.limits
-                                                    else x$x.limits[[panel.number]],
+                                                    else x$x.limits[[packet.number]],
 
                                                     at = if (is.list(x$x.scales$at))
-                                                    x$x.scales$at[[panel.number]]
+                                                    x$x.scales$at[[packet.number]]
                                                     else x$x.scales$at,
 
                                                     used.at = if (!x.relation.same)
-                                                    x$x.used.at[[panel.number]] else x$x.used.at,
+                                                    x$x.used.at[[packet.number]] else x$x.used.at,
 
                                                     num.limit = if (!x.relation.same)
-                                                    x$x.num.limit[[panel.number]] else x$x.num.limit,
+                                                    x$x.num.limit[[packet.number]] else x$x.num.limit,
 
                                                     labels =
                                                     if (is.list(x$x.scales$lab))
-                                                    x$x.scales$lab[[panel.number]]
+                                                    x$x.scales$lab[[packet.number]]
                                                     else x$x.scales$lab,
 
                                                     logsc = x$x.scales$log,
@@ -625,21 +588,21 @@ print.trellis <-
                         ylabelinfo <-
                             calculateAxisComponents(x =
                                                     if (y.relation.same) x$y.limits
-                                                    else x$y.limits[[panel.number]],
+                                                    else x$y.limits[[packet.number]],
 
                                                     at = if (is.list(x$y.scales$at))
-                                                    x$y.scales$at[[panel.number]]
+                                                    x$y.scales$at[[packet.number]]
                                                     else x$y.scales$at,
 
                                                     used.at = if (!y.relation.same)
-                                                    x$y.used.at[[panel.number]] else x$y.used.at,
+                                                    x$y.used.at[[packet.number]] else x$y.used.at,
 
                                                     num.limit = if (!y.relation.same)
-                                                    x$y.num.limit[[panel.number]] else x$y.num.limit,
+                                                    x$y.num.limit[[packet.number]] else x$y.num.limit,
 
                                                     labels =
                                                     if (is.list(x$y.scales$lab))
-                                                    x$y.scales$lab[[panel.number]]
+                                                    x$y.scales$lab[[packet.number]]
                                                     else x$y.scales$lab,
 
                                                     logsc = x$y.scales$log,
@@ -785,7 +748,7 @@ print.trellis <-
                         ## last panel.
 
                         if (x$y.scales$draw && y.relation.same &&
-                            (column == cols.per.page || panel.counter == last.panel))
+                            (column == cols.per.page || panel.number == last.panel))
                         {
                             axstck <- x$y.scales$tck
                             panel.axis(side = "right",
@@ -830,10 +793,10 @@ print.trellis <-
                                                              clip.off = FALSE)))
 
 
-                        pargs <- c(x$panel.args[[panel.number]],
+                        pargs <- c(x$panel.args[[packet.number]],
                                    x$panel.args.common,
-                                   list(panel.number = panel.number,
-                                        panel.counter = panel.counter))
+                                   list(packet.number = packet.number,
+                                        panel.number = panel.number))
 
                         if (!("..." %in% names(formals(panel))))
                             pargs <- pargs[names(formals(panel))]
@@ -854,9 +817,6 @@ print.trellis <-
 ############################################
 ###       finished drawing panel          ##
 ############################################
-
-
-
 
 
 

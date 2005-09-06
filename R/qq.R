@@ -50,12 +50,25 @@ panel.qq <-
 
 
 
-qq <- function(formula, ...)  UseMethod("qq")
+qq <- function(x, ...)
+{
+    ocall <- match.call()
+    formula <- ocall$formula
+    if (!is.null(formula))
+    {
+        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
+        ocall$formula <- NULL
+        if (is.null(ocall$x)) ocall$x <- formula
+        eval(ocall, parent.frame())
+    }
+    else UseMethod("qq")
+}
+
 
 
 
 qq.formula <-
-    function(formula,
+    function(x,
              data = parent.frame(),
              aspect = "fill",
              panel = "panel.qq",
@@ -84,7 +97,7 @@ qq.formula <-
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
     form <-
-        latticeParseFormula(formula, data, subset = subset,
+        latticeParseFormula(x, data, subset = subset,
                             groups = groups, subscripts = TRUE,
                             drop = drop.unused.levels)
 
@@ -255,7 +268,10 @@ qq.formula <-
             }
             n <- max(length(x.val), length(y.val))
             ## changed from S-PLUS, where f.value = ppoints is default
-            p  <- if (is.null(f.value)) ppoints(n, a = 1) else f.value(n)
+            p  <-
+                if (is.null(f.value)) ppoints(n, a = 1)
+                else if (is.numeric(f.value)) f.value
+                else f.value(n)
             foo$panel.args[[panel.number]] <-
                 list(x = quantile(x = x.val, probs = p),
                      y = quantile(x = y.val, probs = p))

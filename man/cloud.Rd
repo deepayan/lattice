@@ -7,7 +7,7 @@
 \alias{wireframe.formula}
 \alias{wireframe.matrix}
 \synopsis{
-\method{cloud}{formula}(formula,
+\method{cloud}{formula}(x,
              data = parent.frame(),
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
@@ -28,7 +28,7 @@
              drape = FALSE,
              pretty = FALSE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
-             ...,
+             \dots,
              default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
              colorkey = any(drape),
              col.regions,
@@ -36,21 +36,21 @@
              cuts = 70,
              subset = TRUE,
              axs.default = "r")
-\method{wireframe}{formula}(formula,
+\method{wireframe}{formula}(x,
              data = parent.frame(),
              panel = "panel.wireframe",
-             ...)
-\method{cloud}{matrix}(formula, data = NULL, type = "h",
-      zlab = deparse(substitute(formula)),
+             \dots)
+\method{cloud}{matrix}(x, data = NULL, type = "h",
+      zlab = deparse(substitute(x)),
       \dots)
-\method{wireframe}{matrix}(formula, data = NULL, 
-      zlab = deparse(substitute(formula)),
+\method{wireframe}{matrix}(x, data = NULL, 
+      zlab = deparse(substitute(x)),
       \dots)
 }
 \usage{
-cloud(formula, \dots)
-wireframe(formula, \dots)
-\method{cloud}{formula}(formula, data,
+cloud(x, \dots)
+wireframe(x, \dots)
+\method{cloud}{formula}(x, data,
       aspect = c(1, 1),
       panel = "panel.cloud",
       scales = list(distance = rep(1, 3), arrows = TRUE),
@@ -58,7 +58,7 @@ wireframe(formula, \dots)
       zlim, 
       zoom = 0.8,
       \dots)
-\method{wireframe}{formula}(formula, data,
+\method{wireframe}{formula}(x, data,
           zoom,
           scales,
           at = pretty(z, cuts),
@@ -71,18 +71,19 @@ wireframe(formula, \dots)
           alpha.regions,
           \dots,
           col.regions)
-\method{cloud}{matrix}(formula, type = "h", \dots)
-\method{wireframe}{matrix}(formula, \dots)
+\method{cloud}{matrix}(x, type = "h", \dots)
+\method{wireframe}{matrix}(x, \dots)
 }
 \description{
   Generic functions to draw 3d scatter plots and surfaces.  The
-  \code{formula} methods do most of the actual work.
+  \code{"formula"} methods do most of the actual work.
 }
 \arguments{
-  \item{formula}{
+  \item{x}{
+    The object on which method dispatch is carried out.
 
-    For the \code{formula} methods, a formula of the form \code{z ~ x *
-      y | g1 * g2 * ...}, where \code{z} is a numeric response, and
+    For the \code{"formula"} methods, a formula of the form \code{z ~ x
+      * y | g1 * g2 * \dots}, where \code{z} is a numeric response, and
     \code{x}, \code{y} are numeric values. \code{g1, g2, \dots}, if
     present, are conditioning variables used for conditioning, and must
     be either factors or shingles. In the case of \code{wireframe},
@@ -103,13 +104,13 @@ wireframe(formula, \dots)
     are.
 
     Both \code{wireframe} and \code{cloud} have methods for
-    \code{matrix} objects, in which case \code{formula} provides the
+    \code{matrix} objects, in which case \code{x} provides the
     \code{z} vector described above, while its rows and columns are
     interpreted as the \code{x} and \code{y} vectors respectively.  This
     is similar to the form used in \code{persp}.
   }
   \item{data}{
-    for the \code{formula} methods, an optional data frame in which
+    for the \code{"formula"} methods, an optional data frame in which
     variables in the formula (as well as \code{groups} and
     \code{subset}, if any) are to be evaluated
   }
@@ -238,10 +239,10 @@ wireframe(formula, \dots)
   z(u,v)), where values of (u,v) lie on a rectangle. The simplest
   example of this sort of surface is a sphere parametrized by latitude
   and longitude. This can be achieved by calling \code{wireframe} with a
-  \code{formula} of the form \code{z~x*y}, where \code{x}, \code{y} and
-  \code{z} are all matrices of the same dimension, representing the
+  formula \code{x} of the form \code{z~x*y}, where \code{x}, \code{y}
+  and \code{z} are all matrices of the same dimension, representing the
   values of x(u,v), y(u,v) and z(u,v) evaluated on a discrete
-  rectangular grid (the actual values of (u,v) are irrelevant). 
+  rectangular grid (the actual values of (u,v) are irrelevant).
 
   When this feature is used, the heights used to calculate \code{drape}
   colors or shading colors are no longer the \code{z} values, but the
