@@ -21,13 +21,13 @@ export(
 ### construct.scales,
 
        contourplot, densityplot, dotplot, draw.colorkey, draw.key,
-       equal.count, histogram, is.shingle, larrows,
+       equal.count, histogram, is.shingle, 
 
        latticeParseFormula,
 
-       levelplot, llines, lplot.xy, lpoints, lsegments, lset, ltext,
+       llines, lplot.xy, lpoints, lsegments, ltext, lrect, larrows,
 
-       ltransform3dMatrix, ltransform3dto3d,
+       ltransform3dMatrix, ltransform3dto3d, levelplot,
 
        oneway, panel.3dscatter, panel.3dwire, panel.abline,
        panel.barchart, panel.bwplot, panel.violin, panel.cloud,
@@ -49,13 +49,13 @@ export(
        trellis.device, trellis.par.get, trellis.par.set, wireframe,
        xyplot,
 
-       do.breaks,
-       lattice.getOption, lattice.options, trellis.currentLayout,
-       trellis.focus, trellis.unfocus, trellis.switchFocus,
-       trellis.panelArgs, trellis.vpname, trellis.grobname,
+       do.breaks, lattice.getOption, lattice.options,
+       trellis.currentLayout, trellis.focus, trellis.unfocus,
+       trellis.switchFocus, trellis.panelArgs, trellis.vpname,
+       trellis.grobname,
 
        panel.arrows, panel.segments, panel.lines, panel.points,
-       panel.text, current.panel.limits,
+       panel.text, panel.rect, current.panel.limits,
 
        strip.custom, trellis.last.object,
 

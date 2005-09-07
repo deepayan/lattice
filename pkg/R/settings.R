@@ -473,7 +473,12 @@ show.settings <- function(x = NULL)
                           yscale = extend.limits(c(0,6)),
                           xscale = c(0,6)))
     panel.dotplot(x = 1:5, y = 1:5)
-    grid.rect() ## FIXME: gpar's for these?
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "dot.[symbol, line]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 2))
@@ -484,7 +489,12 @@ show.settings <- function(x = NULL)
                           yscale = c(-2, 2),
                           xscale = c(0,6)))
     panel.bwplot(x = 1:5, y = rep(0, 5))
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "box.[dot, rectangle, umbrella]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 4))
@@ -502,7 +512,12 @@ show.settings <- function(x = NULL)
            lty = add.line$lty, lwd = add.line$lwd)
     ltext(lab = c("Hello", "World"),
           x = c(.25, .75), y = c(-.5, .5))
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "add.[line, text]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 6))
@@ -513,7 +528,12 @@ show.settings <- function(x = NULL)
                           yscale = c(0,4),
                           xscale = c(0,4)))
     panel.grid()
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "reference.line",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 8))
@@ -529,7 +549,12 @@ show.settings <- function(x = NULL)
     y <- .9 * sin(.1+11*x)
     panel.xyplot(x = x+.05, y = y+.1, type = "l")
     panel.xyplot(x = x-.05, y = y-.1)
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "plot.[symbol, line]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 2))
@@ -549,7 +574,12 @@ show.settings <- function(x = NULL)
                    alpha = bar.fill$alpha,
                    lty = bar.fill$lty,
                    lwd = bar.fill$lwd))
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "plot.shingle[bar.fill]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 4))
@@ -560,7 +590,12 @@ show.settings <- function(x = NULL)
                           yscale = extend.limits(c(0,7)),
                           xscale = extend.limits(c(0.5,7.5))))
     panel.histogram(x = rep(1:7, 1:7), breaks = 0:7 + 0.5, type = "count")
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "histogram[bar.fill]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 6))
@@ -571,7 +606,12 @@ show.settings <- function(x = NULL)
                           yscale = extend.limits(c(0.5,6.5)),
                           xscale = c(-1,7)))
     panel.barchart(x = 6:1, y = 1:6)
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "barchart[bar.fill]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 8))
@@ -588,7 +628,12 @@ show.settings <- function(x = NULL)
                    groups = gl(len, 1),
                    subscripts = 1:len,
                    stack = FALSE)
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "superpose.fill",
               vp = viewport(layout.pos.row = 12, layout.pos.col = 2))
@@ -602,11 +647,15 @@ show.settings <- function(x = NULL)
     for (i in 1:len)
         grid.rect(x = i, w = 1, default.units = "native",
                   gp = gpar(col = NULL,  fill = regions$col[i]))
-    grid.rect()
+    grid.rect(gp =
+              gpar(col = theme$axis.line$col,
+                   lty = theme$axis.line$lty,
+                   lwd = theme$axis.line$lwd,
+                   alpha = theme$axis.line$alpha,
+                   fill = "transparent"))
     popViewport()
     grid.text(lab = "regions",
               vp = viewport(layout.pos.row = 12, layout.pos.col = 4))
-
     invisible()
 }
 

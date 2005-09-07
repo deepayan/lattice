@@ -172,7 +172,7 @@ panel.rug <-
 panel.fill <-
     function(col = trellis.par.get("background")$col, ...)
 {
-    grid.rect(gp = gpar(fill = col))
+    grid.rect(gp = gpar(fill = col, ...))
 }
 
 

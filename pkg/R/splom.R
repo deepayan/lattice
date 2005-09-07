@@ -144,6 +144,7 @@ diag.panel.splom <-
 
 
 
+## FIXME: add alpha pars
 
 panel.pairs <-
     function(z,
@@ -179,7 +180,8 @@ panel.pairs <-
              axis.line.col = axis.line$col,
              axis.line.lty = axis.line$lty,
              axis.line.lwd = axis.line$lwd,
-
+             ## axis.line.alpha = axis.line$alpha,
+             
              ...)
 {
     lower.panel <- 
@@ -298,7 +300,8 @@ panel.pairs <-
                     grid.rect(gp =
                               gpar(col = axis.line.col,
                                    lty = axis.line.lty,
-                                   lwd = axis.line.lwd))
+                                   lwd = axis.line.lwd,
+                                   fill = "transparent"))
 
                 }
                 else
@@ -332,7 +335,8 @@ panel.pairs <-
                     grid.rect(gp =
                               gpar(col = axis.line.col,
                                    lty = axis.line.lty,
-                                   lwd = axis.line.lwd))
+                                   lwd = axis.line.lwd,
+                                   fill = "transparent"))
                 }
                 upViewport()
             }
