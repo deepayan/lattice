@@ -61,7 +61,7 @@ getLabelList <- function(label, text.settings, default.label = NULL)
 
 grobFromLabelList <- function(lab, name = "label", rot = 0)
 {
-    if (is.null(lab)) return (NULL)
+    if (is.null(lab) || (is.character(lab) && lab == "")) return (NULL)
     if (inherits(lab, "grob")) return(lab)
 
     textGrob(label = lab$label, name= name, rot = rot,

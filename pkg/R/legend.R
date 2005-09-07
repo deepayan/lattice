@@ -811,7 +811,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
-                                          lwd = axis.line$lwd)),
+                                          lwd = axis.line$lwd,
+                                          alpha = axis.line$alpha,
+                                          fill = "transparent")),
                             row = 2, col = 1)
 
 
@@ -882,7 +884,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
-                                          lwd = axis.line$lwd)),
+                                          lwd = axis.line$lwd,
+                                          alpha = axis.line$alpha,
+                                          fill = "transparent")),
                             row = 2, col = 3)
 
 
@@ -948,7 +952,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
-                                          lwd = axis.line$lwd)),
+                                          lwd = axis.line$lwd,
+                                          alpha = axis.line$alpha,
+                                          fill = "transparent")),
                             row = 3, col = 2)
 
 
@@ -1015,7 +1021,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
-                                          lwd = axis.line$lwd)),
+                                          lwd = axis.line$lwd,
+                                          alpha = axis.line$alpha,
+                                          fill = "transparent")),
                             row = 1, col = 2)
 
         key.gf <- placeGrob(frame = key.gf, 
