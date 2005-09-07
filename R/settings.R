@@ -905,7 +905,7 @@ lattice.options <- function(...)
               key.right = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
               right.padding = list(x = 0.01, units = "snpc", data = NULL)),
          
-         highlight.gpar = list(col = "red", lwd = 2)
+         highlight.gpar = list(col = "red", lwd = 2, fill = "transparent")
 
          )
 

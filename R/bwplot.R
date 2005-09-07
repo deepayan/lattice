@@ -519,14 +519,14 @@ panel.bwplot <-
 
         ## box
 
-        panel.rect(xleft = blist.stats[, 2],
-                   xright = blist.stats[, 4],
-                   y = levels.fos, 
-                   height = blist.height,
-                   lwd = box.rectangle$lwd,
-                   lty = box.rectangle$lty,
-                   fill = fill,
-                   col = box.rectangle$col)
+        lrect(xleft = blist.stats[, 2],
+              xright = blist.stats[, 4],
+              y = levels.fos, 
+              height = blist.height,
+              lwd = box.rectangle$lwd,
+              lty = box.rectangle$lty,
+              col = fill,
+              border = box.rectangle$col)
 
         ## whiskers
 
@@ -598,14 +598,14 @@ panel.bwplot <-
 
         ## box
 
-        panel.rect(ybottom = blist.stats[, 2],
-                   ytop = blist.stats[, 4],
-                   x = levels.fos, 
-                   width = blist.height,
-                   lwd = box.rectangle$lwd,
-                   lty = box.rectangle$lty,
-                   fill = fill,
-                   col = box.rectangle$col)
+        lrect(ybottom = blist.stats[, 2],
+              ytop = blist.stats[, 4],
+              x = levels.fos, 
+              width = blist.height,
+              lwd = box.rectangle$lwd,
+              lty = box.rectangle$lty,
+              col = fill,
+              border = box.rectangle$col)
 
         ## whiskers
 
