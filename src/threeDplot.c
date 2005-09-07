@@ -273,8 +273,6 @@ SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg,
 	 heights[i] = (rot[2] * tx + rot[6] * ty + rot[10] * tz + rot[14]) 
 		 / (rot[3] * tx + rot[7] * ty + rot[11] * tz + rot[15]);
 
-
-
 	 /* (1,0) corner */
 	 tx = x[txi10];
 	 ty = y[tyi10];

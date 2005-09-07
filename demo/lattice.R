@@ -174,6 +174,7 @@ barchart(variety ~ yield | year * site, barley,
                   factor.levels,
                   bg = trellis.par.get("strip.background")$col[which.given],
                   ...) {
+             axis.line <- trellis.par.get("axis.line")
              if (which.given == 1)
              {
                  grid.rect(x = .26, just = "right",
@@ -188,7 +189,12 @@ barchart(variety ~ yield | year * site, barley,
                  ltext(factor.levels[which.panel[which.given]],
                        x = .28, y = .5, adj = 0)
              }
-             grid.rect()
+             grid.rect(gp =
+                       gpar(col = axis.line$col,
+                            lty = axis.line$lty,
+                            lwd = axis.line$lwd,
+                            alpha = axis.line$alpha,
+                            fill = "transparent"))
          }, par.strip.text = list(lines = 0.4))
 
 

@@ -5,11 +5,13 @@
 \alias{lpoints}
 \alias{lsegments}
 \alias{ltext}
+\alias{lrect}
 \alias{panel.arrows}
 \alias{panel.lines}
 \alias{panel.points}
 \alias{panel.segments}
 \alias{panel.text}
+\alias{panel.rect}
 \title{Lattice Replacements of base graphics functions}
 \description{
   These functions are intended to replace some commonly used base R
@@ -60,6 +62,17 @@ ltext(x, y = NULL, labels = seq(along = x),
       col, alpha, cex, srt = 0,
       font, fontfamily, fontface,
       adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots)  
+lrect(xleft, ybottom, xright, ytop,
+      x = (xleft + xright) / 2,
+      y = (ybottom + ytop) / 2,
+      width = xright - xleft,
+      height = ytop - ybottom,
+      col = "transparent",
+      border = "black",
+      lty = 1, lwd = 1, alpha = 1,
+      just = "center",
+      hjust = NULL, vjust = NULL,
+      \dots)
 panel.arrows(\dots)
 panel.lines(\dots)
 panel.points(\dots)
@@ -78,14 +91,18 @@ panel.text(\dots)
   \item{angle, code, type, labels, srt, adj, pos, offset}{ arguments
     controlling behaviour.  See respective base functions for details. }
   \item{col, alpha, lty, lwd, fill, pch, cex, font, fontfamily,
-    fontface, col.line}{graphical parameters.  For devices that support
-    alpha-transparency, a numeric argument \code{alpha} between 0 and 1
-    can controls transparency.  Be careful with this, since for devices
-    that do not support alpha-transparency, nothing will be drawn at all
-    if this is set to anything other than 0.  }
+    fontface, col.line, border}{graphical parameters.  For devices that
+    support alpha-transparency, a numeric argument \code{alpha} between
+    0 and 1 can controls transparency.  Be careful with this, since for
+    devices that do not support alpha-transparency, nothing will be
+    drawn at all if this is set to anything other than 0.  }
+  \item{xleft, ybottom, xright, ytop}{ see \code{\link{rect}}}
+  \item{width, height, just, hjust, vjust}{ finer control over
+    rectangles, see \code{\link[grid:grid.rect]{grid.rect}} }
   \item{\dots}{ extra arguments, passed on to lower level functions as
     appropriate.  }
 }
+
 
 \details{
   These functions are meant to be grid replacements of the corresponding
@@ -104,9 +121,11 @@ panel.text(\dots)
   There is a new \code{type="H"} option wherever appropriate, which is
   similar to \code{type="h"}, but with horizontal lines.
 }
-\seealso{\code{\link{points}}, \code{\link{lines}},
+
+\seealso{\code{\link{points}}, \code{\link{lines}}, \code{\link{rect}},
   \code{\link{text}}, \code{\link{segments}}, \code{\link{arrows}},
   \code{\link{Lattice}}
 }
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}

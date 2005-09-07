@@ -161,7 +161,8 @@
   list.  These functions have imaginative names like
   \code{\link{llines}} or \code{\link{panel.lines}} and are often useful
   when writing (or porting from S-PLUS code) nontrivial panel functions.
-
 }
+
+
 \author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}

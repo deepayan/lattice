@@ -15,6 +15,9 @@ improvements
 
  o (more) changes in NA-handling.
 
+ o panel.superpose handles type='g' itself so that the grid doesn't
+   get repeated for every group.
+
 new features
 ------------
 
@@ -22,9 +25,17 @@ new features
    mostly transparent, but there may be some unforeseen side-effects.
    S3 generics and methods are used (this may change at some point,
    but not in the near future).  In particular, usage where the first
-   argument 'formula' is not actually a formula has now been
-   formalized and is handled via method dispatch rather than the
-   clumsy hacks in place earlier.
+   argument is not actually a formula has now been formalized and is
+   handled via method dispatch rather than the clumsy hacks in place
+   earlier.
+
+ o The first argument of high level lattice functions has been renamed
+   from 'formula' to 'x'.  This is related to the fact that these
+   functions are now generic, and is intended to avoid long-term
+   confusion.  The first argument is usually not named, so this should
+   not cause many problems.  If the name 'formula' is explicitly
+   supplied, it will be used with a warning (as long as there is no
+   argument named 'x') for now, but not in future versions of lattice.
 
  o aspect='xy' is now allowed when relation='free'
 
@@ -59,6 +70,8 @@ bug fixes
 
  o identification of when 'type' should default to "density" was buggy
    (inapprpriate rounding)
+
+
 
 
 
@@ -683,5 +696,7 @@ Still Missing [OBSOLETE, except for the parts about piechart and scale]
 
 
 
-
+Local variables:
+mode: indented-text
+End:
 

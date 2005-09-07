@@ -188,7 +188,7 @@ panel.levelplot <-
                       width = lx[idx] * scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
                       height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
                       default.units = "native",
-                      gp = gpar(fill=col.regions[zcol], col = NULL, alpha = alpha.regions))
+                      gp = gpar(fill = col.regions[zcol], col = NULL, alpha = alpha.regions))
 
         if (contour)
         {
