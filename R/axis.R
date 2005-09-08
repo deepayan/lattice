@@ -337,7 +337,7 @@ formattedTicksAndLabels.times <-
         else FALSE
 
     if (!inherits(x, "times")) 
-        x <- chron(x)
+        x <- chron::chron(x)
     bad <- is.na(x) | abs(as.vector(x)) == Inf
     ## rng <- extend.limits(range(as.numeric(x[!bad])))
     rng <- range(as.numeric(x[!bad]))
