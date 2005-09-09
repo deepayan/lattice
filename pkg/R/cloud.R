@@ -1417,7 +1417,7 @@ wireframe <- function(x, ...)
     {
         warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
         ocall$formula <- NULL
-        if (is.null(ocall$x)) ocall$x <- formula
+        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
         eval(ocall, parent.frame())
     }
     else UseMethod("wireframe")
@@ -1470,7 +1470,7 @@ cloud <- function(x, ...)
     {
         warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
         ocall$formula <- NULL
-        if (is.null(ocall$x)) ocall$x <- formula
+        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
         eval(ocall, parent.frame())
     }
     else UseMethod("cloud")
