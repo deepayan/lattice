@@ -64,6 +64,11 @@ changes in behaviour
 
  o densityplot defaults to showing points with random jitter.
 
+ o arguments panel.number and panel.counter, passed to panel functions
+   that have those (or the ...) argument(s) have been renamed to
+   'packet.number' and 'panel.number', which are more in line with
+   standard Trellis jargon.
+
 
 bug fixes
 ---------
