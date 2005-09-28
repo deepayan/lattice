@@ -63,7 +63,6 @@ grobFromLabelList <- function(lab, name = "label", rot = 0)
 {
     if (is.null(lab) || (is.character(lab) && lab == "")) return (NULL)
     if (inherits(lab, "grob")) return(lab)
-
     textGrob(label = lab$label, name= name, rot = rot,
              gp =
              gpar(col = lab$col,
@@ -248,6 +247,10 @@ print.trellis <-
         if (is.function(x$strip)) x$strip 
         else if (is.character(x$strip)) get(x$strip)
         else eval(x$strip)
+    strip.left <- 
+        if (is.function(x$strip.left)) x$strip.left 
+        else if (is.character(x$strip.left)) get(x$strip.left)
+        else eval(x$strip.left)
 
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
@@ -665,6 +668,44 @@ print.trellis <-
                         }
                         upViewport()
 
+                        pushViewport(viewport(layout.pos.row = pos.row,
+                                              layout.pos.col = pos.col - 1,
+                                              yscale = yscale,
+                                              clip = "off",
+                                              name =
+                                              trellis.vpname("strip",
+                                                             column = column,
+                                                             row = row,
+                                                             clip.off = TRUE)))
+
+                        ## Y-axis to the left
+                        if (x$y.scales$draw && (!y.relation.same || column == 1))
+                        {
+                            axstck <- x$y.scales$tck
+                            panel.axis(side = "left",
+                                       at = ylabelinfo$at,
+                                       labels = ylabelinfo$lab,
+                                       draw.labels = (!y.relation.same ||
+                                                      y.alternating[actual.row]==1 ||
+                                                      y.alternating[actual.row]==3), 
+                                       check.overlap = ylabelinfo$check.overlap,
+                                       outside = TRUE,
+                                       tick = TRUE,
+                                       tck = axstck[1],
+                                       rot = yaxis.rot[1],
+                                       text.col = yaxis.col.text,
+                                       text.alpha = yaxis.alpha.text,
+                                       text.cex = yaxis.cex[1],
+                                       text.font = yaxis.font,
+                                       text.fontfamily = yaxis.fontfamily,
+                                       text.fontface = xaxis.fontface,
+                                       line.col = yaxis.col.line,
+                                       line.lty = yaxis.lty,
+                                       line.lwd = yaxis.lwd,
+                                       line.alpha = yaxis.alpha.line)
+                        }
+                        upViewport()
+
 
                         pushViewport(viewport(layout.pos.row = pos.row,
                                               layout.pos.col = pos.col,
@@ -710,32 +751,6 @@ print.trellis <-
 
                         ## Y-axis
                         
-                        ## Y-axis to the left
-                        if (x$y.scales$draw && (!y.relation.same || column == 1))
-                        {
-                            axstck <- x$y.scales$tck
-                            panel.axis(side = "left",
-                                       at = ylabelinfo$at,
-                                       labels = ylabelinfo$lab,
-                                       draw.labels = (!y.relation.same ||
-                                                      y.alternating[actual.row]==1 ||
-                                                      y.alternating[actual.row]==3), 
-                                       check.overlap = ylabelinfo$check.overlap,
-                                       outside = TRUE,
-                                       tick = TRUE,
-                                       tck = axstck[1],
-                                       rot = yaxis.rot[1],
-                                       text.col = yaxis.col.text,
-                                       text.alpha = yaxis.alpha.text,
-                                       text.cex = yaxis.cex[1],
-                                       text.font = yaxis.font,
-                                       text.fontfamily = yaxis.fontfamily,
-                                       text.fontface = xaxis.fontface,
-                                       line.col = yaxis.col.line,
-                                       line.lty = yaxis.lty,
-                                       line.lwd = yaxis.lwd,
-                                       line.alpha = yaxis.alpha.line)
-                        }
 
                         ## Y-axis to the right
 
@@ -843,7 +858,7 @@ print.trellis <-
                                                                  column = column,
                                                                  row = row,
                                                                  clip.off = FALSE)))
-
+                            
 
                             for(i in seq(length = number.of.cond))
                             {
@@ -870,20 +885,67 @@ print.trellis <-
                             }
                             upViewport()
                         }
+            
 
-                        
-                        cond.current.level <- cupdate(cond.current.level,
-                                                      cond.max.level)
+#########################################
+###        draw strip(s) on left      ###
+#########################################
 
+
+                        if (!is.logical(strip.left)) # logical <==> FALSE
+                        {
+                            ## which.panel in original cond variables order
+                            which.panel <- cond.current.level[x$perm.cond]
+
+                            ## need to pass each index in original terms
+                            for (i in seq(along = which.panel))
+                                which.panel[i] <- x$index.cond[[i]][which.panel[i]]
+
+                            pushViewport(viewport(layout.pos.row = pos.row,
+                                                  layout.pos.col = pos.col - 1,
+                                                  clip = trellis.par.get("clip")$strip,
+                                                  name =
+                                                  trellis.vpname("strip.left",
+                                                                 column = column,
+                                                                 row = row,
+                                                                 clip.off = FALSE)))
+
+
+                            for(i in seq(length = number.of.cond))
+                            {
+
+                                ## Here, by which.given, I mean which
+                                ## in the original packet order, not
+                                ## the permuted order
+
+                                strip.left(which.given = x$perm.cond[i],
+                                           which.panel = which.panel,
+
+                                           var.name = names(x$condlevels),
+
+                                           factor.levels = if (!is.list(x$condlevels[[x$perm.cond[i]]]))
+                                           x$condlevels[[x$perm.cond[i]]] else NULL,
+
+                                           shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
+                                           do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
+
+                                           bg = strip.col.default.bg[i],
+                                           fg = strip.col.default.fg[i],
+                                           par.strip.text = par.strip.text)
+                                
+                            }
+                            upViewport()
+                        }
+                    
+                        cond.current.level <-
+                            cupdate(cond.current.level,
+                                    cond.max.level)
                     }
                 }
 
 
 
-
-
-
-            ## legend / key plotting
+        ## legend / key plotting
 
             if (!is.null(legend))
             {
@@ -993,8 +1055,8 @@ print.trellis <-
             upViewport()
             upViewport()
         }
-    }
-    if (!missing(position)) {
+}
+if (!missing(position)) {
         if (!missing(split)) {
             upViewport()
             upViewport()

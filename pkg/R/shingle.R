@@ -130,3 +130,42 @@ print.shingle <- function(x, showValues = TRUE, ...) {
 }
 
 
+
+plot.shingle <-
+    function(x, 
+             panel = panel.shingle,
+             xlab = "Range",
+             ylab = "Panel",
+             ...)
+{
+    ocall <- match.call()
+    panel.shingle <-
+        function(x, y,
+                 col = bar.fill$col,
+                 lty = bar.fill$lty,
+                 lwd = bar.fill$lwd,
+                 alpha = bar.fill$alpha,
+                 border = bar.fill$border,
+                 ...)
+        {
+            bar.fill <- trellis.par.get("bar.fill")
+            n <- nlevels(y)
+            if (n > 0)
+                lrect(xleft = x[1 + 2 * (0:(n-1))],
+                      xright = x[2 + 2 * (0:(n-1))],
+                      y = 1:n,
+                      height = 0.5,
+                      col = col,
+                      lty = lty,
+                      alpha = alpha,
+                      border = border,
+                      ...)
+        }
+    x <- levels(x)
+    ans <-
+        bwplot(factor(rep(seq(length = length(x)), each = 2)) ~ unlist(x),
+               xlab = xlab, ylab = ylab,
+               panel = panel, ...)
+    ans$call <- ocall
+    ans
+}

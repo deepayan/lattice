@@ -120,40 +120,43 @@ calculateGridLayout <-
         between.seq <- rev(between.seq)
         panel.seq <- rev(panel.seq)
     }
-    pos.heights <- list(top.padding = 1,
-                        main = 2,
-                        main.key.padding = 3,
-                        key.top = 4,
-                        key.axis.padding = 5,
-                        axis.top = 6,
-                        strip = (panel.seq - 1) * 4 + 7,
-                        panel = (panel.seq - 1) * 4 + 8,
-                        axis.panel = (panel.seq - 1) * 4 + 9,
-                        between = (between.seq - 1) * 4 + 10,
-                        axis.bottom = last.panel + 1,
-                        axis.xlab.padding = last.panel + 2,
-                        xlab = last.panel + 3,
-                        xlab.key.padding = last.panel + 4,
-                        key.bottom = last.panel + 5,
-                        key.sub.padding = last.panel + 6,
-                        sub = last.panel + 7,
-                        bottom.padding = last.panel + 8)
+    pos.heights <-
+        list(top.padding       = 1,
+             main              = 2,
+             main.key.padding  = 3,
+             key.top           = 4,
+             key.axis.padding  = 5,
+             axis.top          = 6,
+             strip             = (panel.seq - 1) * 4 + 7,
+             panel             = (panel.seq - 1) * 4 + 8,
+             axis.panel        = (panel.seq - 1) * 4 + 9,
+             between           = (between.seq - 1) * 4 + 10,
+             axis.bottom       = last.panel + 1,
+             axis.xlab.padding = last.panel + 2,
+             xlab              = last.panel + 3,
+             xlab.key.padding  = last.panel + 4,
+             key.bottom        = last.panel + 5,
+             key.sub.padding   = last.panel + 6,
+             sub               = last.panel + 7,
+             bottom.padding    = last.panel + 8)
 
 
-    last.panel <- (cols.per.page - 1) * 3 + 8
-    pos.widths <- list(left.padding = 1,
-                       key.left = 2,
-                       key.ylab.padding = 3,
-                       ylab = 4,
-                       ylab.axis.padding = 5,
-                       axis.left = 6,
-                       axis.panel = (seq(length = cols.per.page) - 1) * 3 + 7,
-                       panel = (seq(length = cols.per.page) - 1) * 3 + 8,
-                       between = (seq(length = cols.per.page-1) - 1) * 3 + 9,
-                       axis.right = last.panel + 1,
-                       axis.key.padding = last.panel + 2,
-                       key.right = last.panel + 3,
-                       right.padding = last.panel + 4)
+    last.panel <- (cols.per.page - 1) * 4 + 9
+    pos.widths <-
+        list(left.padding      = 1,
+             key.left          = 2,
+             key.ylab.padding  = 3,
+             ylab              = 4,
+             ylab.axis.padding = 5,
+             axis.left         = 6,
+             axis.panel        = (seq(length = cols.per.page) - 1) * 4 + 7,
+             strip.left        = (seq(length = cols.per.page) - 1) * 4 + 8,
+             panel             = (seq(length = cols.per.page) - 1) * 4 + 9,
+             between           = (seq(length = cols.per.page-1) - 1) * 4 + 10,
+             axis.right        = last.panel + 1,
+             axis.key.padding  = last.panel + 2,
+             key.right         = last.panel + 3,
+             right.padding     = last.panel + 4)
 
     n.row <- sum(sapply(pos.heights, length))
     n.col <- sum(sapply(pos.widths, length))
@@ -306,6 +309,10 @@ calculateGridLayout <-
             if (is.logical(x$strip)) 0  # which means strip = F, strips not to be drawn
             else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
+    widths.x[pos.widths[["strip.left"]]] <-
+        widths.x[pos.widths[["strip.left"]]] * widths.settings[["strip.left"]] *
+            if (is.logical(x$strip.left)) 0  # which means strip = F, strips not to be drawn
+            else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
 
 

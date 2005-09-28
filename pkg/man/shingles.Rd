@@ -16,7 +16,7 @@ shingle(x, intervals=sort(unique(x)))
 equal.count(x, \dots)
 as.shingle(x)
 is.shingle(x)
-\method{plot}{shingle}(x, aspect, \dots)
+\method{plot}{shingle}(x, panel, xlab = "Range", ylab = "Panel", \dots)
 \method{print}{shingle}(x, showValues = TRUE, \dots)
 \method{print}{shingleLevel}(x, \dots)
 \method{summary}{shingle}(object, \dots)
@@ -43,7 +43,8 @@ as.factorOrShingle(x, subset, drop)
   \item{intervals}{ numeric vector or matrix with 2 columns}
   \item{subset}{logical vector}
   \item{drop}{whether redundant shingle levels are to be dropped}
-  \item{aspect}{aspect ratio}
+  \item{panel, xlab, ylab}{ standard Trellis arguments (see
+    \code{\link{xyplot}} ) }
   \item{\dots}{ other arguments, passed down as appropriate.  For
     example, extra arguments to \code{equal.count} are passed on to
     \code{co.intervals}.  graphical parameters can be passed as
@@ -52,17 +53,16 @@ as.factorOrShingle(x, subset, drop)
 }
 
 \details{
-  A shingle is a data structure used in Trellis, and is meant to be a
-  generalization of factors to \sQuote{continuous} variables.  It
-  consists of a numeric vector along with some possibly overlapping
-  intervals. These intervals are the \sQuote{levels} of the shingle.
-  The \code{levels} and \code{nlevels} functions, usually applicable to
-  factors, are also applicable to shingles.
+  A shingle is a data structure used in Trellis, and is a generalization
+  of factors to \sQuote{continuous} variables.  It consists of a numeric
+  vector along with some possibly overlapping intervals. These intervals
+  are the \sQuote{levels} of the shingle.  The \code{levels} and
+  \code{nlevels} functions, usually applicable to factors, also work on
+  shingles.  The implementation of shingles is slightly different from
+  S.
 
   There are print methods for shingles, as well as for printing the
   result of \code{levels()} applied to a shingle.
-
-  The implementation of shingles is slightly different from S.
 
   \code{equal.count} converts \code{x} to a shingle. Essentially a
   wrapper around \code{co.intervals}. All arguments are passed to

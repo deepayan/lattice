@@ -17,20 +17,6 @@
   help in this.  Note that these are still experimental and the exact
   details may change in future.
 }
-
-% \synopsis{
-% trellis.panelArgs(x, panel.number)
-% trellis.vpname(name =
-%                c("position", "split", "split.location", "toplevel",
-%                  "panel", "strip", "legend", "main", "sub",
-%                  "xlab", "ylab", "page"),
-%                column = lattice.getStatus("current.focus.column"),
-%                row = lattice.getStatus("current.focus.row"),
-%                side = c("left", "top", "right", "bottom", "inside"),
-%                clip.off = FALSE,
-%                prefix = lattice.getStatus("current.prefix"))
-% }
-
 \usage{
 panel.identify(x, y = NULL, labels = seq(along = x),
                n = length(x), offset = 0.5,
@@ -38,7 +24,8 @@ panel.identify(x, y = NULL, labels = seq(along = x),
                panel.args = trellis.panelArgs(),
                \dots)
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
-               "panel", "strip", "legend", "main", "sub", "xlab", "ylab", "page"),
+               "panel", "strip", "strip.left", "legend",
+               "main", "sub", "xlab", "ylab", "page"),
                column, row,
                side = c("left", "top", "right", "bottom", "inside"),
                clip.off = FALSE, prefix)
