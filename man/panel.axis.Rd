@@ -9,33 +9,6 @@
   part of the panel function. \code{current.panel.limits} can be used to
   retrieve a panel's x and y limits.
 }
-
-% \synopsis{
-% panel.axis(side = c("bottom", "left", "top", "right"),
-%              at = pretty(scale.range),
-%              labels = TRUE,
-%              draw.labels = TRUE,
-%              check.overlap = FALSE,
-%              outside = FALSE,
-%              ticks = TRUE,
-%              half = !outside,
-%              which.half = switch(side, bottom = "lower", left = "upper", top = "upper", right = "lower"),
-
-%              tck = as.numeric(ticks),
-%              rot = if (is.logical(labels)) 0 else c(90, 0),
-
-%              text.col = axis.text$col,
-%              text.alpha = axis.text$alpha,
-%              text.cex = axis.text$cex,
-%              text.font = axis.text$font,
-%              text.fontfamily = axis.text$fontfamily,
-%              text.fontface = axis.text$fontface,
-
-%              line.col = axis.line$col,
-%              line.lty = axis.line$lty,
-%              line.lwd = axis.line$lwd,
-%              line.alpha = axis.line$alpha)
-% }
 \usage{
 panel.axis(side = c("bottom", "left", "top", "right"),
            at,
@@ -52,7 +25,7 @@ panel.axis(side = c("bottom", "left", "top", "right"),
            text.fontfamily, text.fontface,
            line.col, line.lty, line.lwd, line.alpha)
 
-current.panel.limits()
+current.panel.limits(unit = "native")
 }
 \arguments{
   \item{side}{
@@ -99,6 +72,8 @@ current.panel.limits()
   \item{text.col, text.alpha, text.cex, text.font, text.fontfamily,
     text.fontface, line.col, line.lty, line.lwd, line.alpha}{ graphical
     parameters }
+  \item{unit}{ which grid \code{\link[grid:unit]{unit}} the values
+    should be in }
 }
 
 \details{
@@ -115,12 +90,14 @@ current.panel.limits()
 \value{
   \code{current.panel.limits} returns a list with components \code{xlim}
   and \code{ylim}, which are both numeric vectors of length 2, giving
-  the (native) scales of the current panel (viewport).
+  the scales of the current panel (viewport).  The values correspond to
+  the unit system specified by \code{\link[grid:unit]{unit}}, by default
+  \code{"native"}.
 }
 
 \seealso{
   \code{\link{Lattice}}, \code{\link{xyplot}},
-  \code{\link{trellis.focus}}
+  \code{\link{trellis.focus}}, \code{\link[grid:unit]{unit}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

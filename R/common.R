@@ -458,6 +458,7 @@ trellis.skeleton <-
              layout = default.args$layout,
              skip = default.args$skip,
              strip = default.args$strip.default,
+             strip.left = FALSE,
              xlab = NULL,
              ylab = NULL,
              xlab.default = NULL,
@@ -481,6 +482,8 @@ trellis.skeleton <-
                 skip = skip,
                 strip = if (is.logical(strip) && strip) "strip.default"
                 else strip,
+                strip.left = if (is.logical(strip.left) && strip.left) strip.custom(horizontal = FALSE)
+                else strip.left,
                 xlab = xlab,
                 ylab = ylab,
                 xlab.default = xlab.default,

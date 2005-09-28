@@ -93,6 +93,7 @@ bwplot(x, \dots)
        scales,
        skip,
        strip = "strip.default",
+       strip.left = FALSE,
        sub,
        xlab,
        xlim,
@@ -817,12 +818,14 @@ bwplot(x, \dots)
     accordingly.  This is often useful for arranging plots in an
     informative manner.
   }
-  \item{strip}{
+  \item{strip, strip.left}{
     logical flag or function.  If \code{FALSE}, strips are not drawn.
-    Otherwise, strips are drawn using the \code{strip} function, which
-    defaults to \code{strip.default}.  See documentation of
-    \code{strip.default} to see the arguments that are available to the
-    strip function.
+    Otherwise, strips are drawn using the \code{strip} (or
+    \code{strip.left}) function, which defaults to \code{strip.default}.
+    See documentation of \code{strip.default} to see the arguments that
+    are available to the strip function.  \code{strip.left} can be used
+    to draw strips on the left of each panel, which can be useful for
+    wide short panels, as in time series (or similar) plots.
   }
   \item{sub}{
     character string or expression (or a \code{"grob"}) for a subtitle

@@ -10,6 +10,7 @@ strip.default(which.given,
               shingle.intervals,
               strip.names = c(FALSE, TRUE),
               style = 1,
+              horizontal = TRUE,
               bg = trellis.par.get("strip.background")$col[which.given],
               fg = trellis.par.get("strip.shingle")$col[which.given],
               par.strip.text = trellis.par.get("add.text"))
@@ -78,6 +79,9 @@ strip.custom(\dots)
 
     Note that unlike S-PLUS, the default value of \code{style} is 1.
   }
+  \item{horizontal}{ logical, specifying whether the labels etc should
+    be horizontal.  \code{horizontal=FALSE} is useful for strips on the
+    left of panels using \code{strip.left=TRUE} }
   \item{par.strip.text}{ list with parameters controlling the text on
     each strip, with components \code{col}, \code{cex}, \code{font},
     etc.
@@ -102,8 +106,9 @@ strip.custom(\dots)
 \details{ default strip function for trellis functions. Useful 
   mostly because of the \code{style} argument --- non-default styles
   are often more informative, especially when the names of the levels
-  of the factor \code{x} are small. Typical use is as 
-  \code{strip = function(\dots) strip.default(style=2,\dots)}.
+  of the factor \code{x} are small. Traditional use is as
+  \code{strip = function(\dots) strip.default(style=2,\dots)}, though
+  this can be simplified by the use of \code{strip.custom}.
 }
 \seealso{
   \code{\link{xyplot}}, \code{\link{Lattice}} 
@@ -112,6 +117,9 @@ strip.custom(\dots)
 \examples{
 xyplot(Petal.Length ~ Petal.Width | Species, iris,
        strip = strip.custom(style = 4))
+xyplot(Petal.Length ~ Petal.Width | Species, iris,
+       strip = FALSE,
+       strip.left = strip.custom(style = 4, horizontal = FALSE))
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

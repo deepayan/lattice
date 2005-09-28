@@ -99,7 +99,7 @@ panel.identify <-
 trellis.vpname <-
     function(name =
              c("position", "split", "split.location", "toplevel",
-               "panel", "strip", "legend", "main", "sub",
+               "panel", "strip", "strip.left", "legend", "main", "sub",
                "xlab", "ylab", "page"),
              column = lattice.getStatus("current.focus.column"),
              row = lattice.getStatus("current.focus.row"),
@@ -131,6 +131,10 @@ trellis.vpname <-
                  if (clip.off) paste("strip", column, row, "off", "vp", sep = ".")
                  else paste("strip", column, row, "vp", sep = "."), 
 
+                 strip.left =
+                 if (clip.off) paste("strip.left", column, row, "off", "vp", sep = ".")
+                 else paste("strip.left", column, row, "vp", sep = "."), 
+
                  legend = paste("legend", side, "vp", sep = ".")),
           sep = ".")
 }
@@ -155,7 +159,7 @@ trellis.focus <-
 {
     trellis.unfocus()
 
-    if (name == "panel" || name == "strip")
+    if (name == "panel" || name == "strip" || "strip.left")
     {
         ll <- lattice.getStatus("current.panel.positions")
         if (column > 0 && row > 0 &&

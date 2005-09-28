@@ -148,6 +148,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
                                      ylab.axis.padding = 1,
                                      axis.left = 1,
                                      axis.panel = 1, ## can be useful
+                                     strip.left = 1,  
                                      panel = 1, ## shouldn't be changed
                                      between = 1,
                                      axis.right = 1,
@@ -209,6 +210,31 @@ canonical.theme <- function(name = "null device", color = TRUE)
     ans
 }   
 
+
+
+
+
+
+## trellis.par.grep <-
+##     function(pattern,
+##              theme = trellis.par.get(),
+##              ...)
+## {
+##     nms <- names(theme)
+##     id <- grep(pattern, nms)
+##     ## if match, leave in return value, o.w. apply recursively
+##     if (length(id)) id <- -id ## id now non-matches
+##     for (nm in nms[id])
+##     {
+##         print(nm)
+##         theme[[nm]] <- 
+##             if (is.list(theme[[nm]]))
+##                 trellis.par.grep(pattern, theme[[nm]], ...)
+##             else
+##                 NULL
+##     }
+##     if (all(sapply(theme, is.null))) NULL else theme
+## }
 
 
 
@@ -898,6 +924,7 @@ lattice.options <- function(...)
               ylab.axis.padding = list(x = 0.01, units = "snpc", data = NULL),
               axis.left = list(x = 0, units = "mm", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),
+              strip.left = list(x = 1, units = "lines", data = NULL),
               panel = list(x = 1, units = "null", data = NULL),
               between = list(x = 5, units = "mm", data = NULL),
               axis.right = list(x = 0, units = "mm", data = NULL),

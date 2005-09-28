@@ -22,10 +22,10 @@
 
 ## (By popular demand) function to get axis limits of current panel
 
-current.panel.limits <- function()
+current.panel.limits <- function(unit = "native")
 {
-    list(xlim = convertX(unit(c(0,1), "npc"), "native", valueOnly=TRUE),
-         ylim = convertY(unit(c(0,1), "npc"), "native", valueOnly=TRUE))
+    list(xlim = convertX(unit(c(0,1), "npc"), unit, valueOnly=TRUE),
+         ylim = convertY(unit(c(0,1), "npc"), unit, valueOnly=TRUE))
 }
 
 
