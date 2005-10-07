@@ -84,18 +84,26 @@ formattedTicksAndLabels <- function(x, ...)
     UseMethod("formattedTicksAndLabels")
 
 
+## quick and dirty fix: have methods for all sorts of objects, even
+## ones in other packages (like chron)
 
 
 formattedTicksAndLabels.default <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
-              labels = FALSE, logsc = FALSE,
-              abbreviate = NULL, minlength = 4, format.posixt, ...)
-
+    function (x, at = FALSE,
+              used.at = NULL,
+              num.limit = NULL,
+              labels = FALSE,
+              logsc = FALSE,
+              abbreviate = NULL,
+              minlength = 4,
+              format.posixt, ...)
     ## meant for when x is numeric
-
 {
-    ## handle log scale (most other methods ignore logsc)
+    range <-
+        if (length(x) == 2) as.numeric(x)
+        else range(as.numeric(x))
 
+    ## handle log scale (most other methods ignore logsc)
     if (is.logical(logsc) && logsc) logsc <- 10
     have.log <- !is.logical(logsc) || logsc
 
@@ -105,7 +113,6 @@ formattedTicksAndLabels.default <-
     logpaste <-
         if (have.log) paste(as.character(logsc), "^", sep = "")
         else ""
-
 
     ## will check for overlap only when neither at nor labels is specified
 
@@ -125,7 +132,7 @@ formattedTicksAndLabels.default <-
     list(at = at, labels = if (is.logical(labels))
          paste(logpaste, format(at, trim = TRUE), sep = "") else labels,
          check.overlap = check.overlap,
-         num.limit = if (length(x) == 2) as.numeric(x) else range(as.numeric(x)))
+         num.limit = range)
 }
 
 
@@ -138,9 +145,14 @@ formattedTicksAndLabels.default <-
 
 
 formattedTicksAndLabels.date <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
-              labels = FALSE, logsc = FALSE,
-              abbreviate = NULL, minlength = 4, format.posixt, ...)
+    function (x, at = FALSE,
+              used.at = NULL,
+              num.limit = NULL,
+              labels = FALSE,
+              logsc = FALSE,
+              abbreviate = NULL,
+              minlength = 4,
+              format.posixt, ...)
 {
     ## handle log scales (not very meaningful, though)
 
@@ -181,8 +193,14 @@ formattedTicksAndLabels.date <-
 
 
 formattedTicksAndLabels.character <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL, labels = FALSE, logsc = FALSE,
-              abbreviate = NULL, minlength = 4, format.posixt, ...)
+    function (x, at = FALSE,
+              used.at = NULL,
+              num.limit = NULL,
+              labels = FALSE,
+              logsc = FALSE,
+              abbreviate = NULL,
+              minlength = 4,
+              format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
     ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
@@ -200,9 +218,14 @@ formattedTicksAndLabels.character <-
 
 
 formattedTicksAndLabels.expression <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
-              labels = FALSE, logsc = FALSE,
-              abbreviate = NULL, minlength = 4, format.posixt, ...)
+    function (x, at = FALSE,
+              used.at = NULL,
+              num.limit = NULL,
+              labels = FALSE,
+              logsc = FALSE,
+              abbreviate = NULL,
+              minlength = 4,
+              format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
     ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
@@ -218,23 +241,90 @@ formattedTicksAndLabels.expression <-
 
 ## FIXME: add a method for "Date" here (regurgitate axis.Date)
 
-## formattedTicksAndLabels.Date <-
-    
-
-formattedTicksAndLabels.POSIXct <-
-    function (x, at = FALSE, used.at = NULL, num.limit = NULL,
-              labels = FALSE, logsc = FALSE, 
-              abbreviate = NULL, minlength = 4,
+formattedTicksAndLabels.Date <-
+    function (x, at = FALSE,
+              used.at = NULL,
+              num.limit = NULL,
+              labels = FALSE,
+              logsc = FALSE, 
+              abbreviate = NULL,
+              minlength = 4,
               format.posixt = NULL, ...) 
 {
+    num.lim <-
+        if (length(x) == 2) as.numeric(x)
+        else as.numeric(range(x))
+    mat <- is.logical(at)
+    if(!mat) x <- as.Date(at) else x <- as.Date(x)
+    range <- range(num.lim)
+    range[1] <- ceiling(range[1])
+    range[2] <- floor(range[2])
+    ## find out the scale involved
+    d <- range[2] - range[1]
+    z <- c(range, x[is.finite(x)])
+    class(z) <- "Date"
+    if (d < 7) # days of a week
+        if (is.null(format.posixt)) format.posixt <- "%a"
+    if (d < 100) { # month and day
+        z <- structure(pretty(z), class="Date")
+        if (is.null(format.posixt)) format.posixt <- "%b %d"
+    } else if (d < 1.1*365) { # months
+        zz <- as.POSIXlt(z)
+        zz$mday <- 1;
+        zz$mon <- pretty(zz$mon)
+        m <- length(zz$mon)
+        m <- rep.int(zz$year[1], m)
+        zz$year <- c(m, m+1)
+        z <- .Internal(POSIXlt2Date(zz))
+        if(is.null(format.posixt)) format.posixt <- "%b"
+    } else { # years
+        zz <- as.POSIXlt(z)
+        zz$mday <- 1; zz$mon <- 0
+        zz$year <- pretty(zz$year)
+        z <- .Internal(POSIXlt2Date(zz))
+        if(is.null(format.posixt)) format.posixt <- "%Y"
+    }
+    if(!mat)
+        z <- x[is.finite(x)] # override changes
+    z <- z[z >= range[1] & z <= range[2]]
+    z <- sort(unique(z))
+    if (is.logical(labels))
+        labels <- format.Date(z, format = format.posixt)
+##     if (identical(labels, TRUE))
+##         labels <- format.Date(z, format = format.posixt)
+##     else if (identical(labels, FALSE))
+##         ## suppress labelling of ticks
+##         labels <- rep("", length(z))
+    list(at = as.numeric(z),
+         labels = labels,
+         check.overlap = FALSE,
+         num.limit = num.lim)
+}
+
+
+
+
+
+
+formattedTicksAndLabels.POSIXct <-
+    function(x, at = FALSE,
+             used.at = NULL,
+             num.limit = NULL,
+             labels = FALSE,
+             logsc = FALSE, 
+             abbreviate = NULL,
+             minlength = 4,
+             format.posixt = NULL, ...) 
+{
     ## modified from axis.POSIXct. 
-    num.lim <- if (length(x) == 2) as.numeric(x) else as.numeric(range(x))
+    num.lim <- ## could be reversed
+        if (length(x) == 2) as.numeric(x)
+        else as.numeric(range(x))
     mat <- is.logical(at)
     mlab <- is.logical(labels)
-    if (!mat)
-        x <- as.POSIXct(at)
+    if (!mat) x <- as.POSIXct(at)
     else x <- as.POSIXct(x)
-    range <- as.numeric(range(x))
+    range <- range(num.lim)
     d <- range[2] - range[1]
     z <- c(range, x[is.finite(x)])
     if (d < 1.1 * 60) {
@@ -299,7 +389,8 @@ formattedTicksAndLabels.POSIXct <-
         z <- x[is.finite(x)]
     z <- z[z >= range[1] & z <= range[2]]
     if (mlab) labels <- format(z, format = format.posixt)
-    list(at = as.numeric(z), labels = labels,
+    list(at = as.numeric(z),
+         labels = labels,
          check.overlap = FALSE,
          num.limit = num.lim)
 }
@@ -308,20 +399,7 @@ formattedTicksAndLabels.POSIXct <-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 ## chron 'times' objects
-
-
 
 
 formattedTicksAndLabels.times <-
