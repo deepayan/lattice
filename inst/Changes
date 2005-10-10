@@ -6,8 +6,8 @@ Changes in lattice 0.12
 improvements
 ------------
 
- o panel.bwplot has been re-implemented.  Much faster, avoids direct
-   grid calls
+ o panel.bwplot has been re-implemented.  Faster, avoids direct grid
+   calls
 
  o panel.densityplot now allows more flexible specifications of
    'plot.points', specifically, points can be jittered (the new
@@ -46,6 +46,12 @@ new features
 
  o print.trellis has a 'draw.in' argument that can be used to specify
    a grid viewport to draw the plot in.
+
+ o strips can now be drawn on the left (as well as top) of a panel.
+   This is useful for short wide panels, e.g. time series.
+
+ o 'Date' objects are recognized and axis labels formatted accordingly
+   (not heavily tested)
 
 changes in behaviour
 ---------------------
