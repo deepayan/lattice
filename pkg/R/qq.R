@@ -269,7 +269,10 @@ qq.formula <-
             n <- max(length(x.val), length(y.val))
             ## changed from S-PLUS, where f.value = ppoints is default
             p  <-
-                if (is.null(f.value)) ppoints(n, a = 1)
+                if (is.null(f.value))
+                {
+                    if (n == 1) 0.5 else ppoints(n, a = 1)
+                }
                 else if (is.numeric(f.value)) f.value
                 else f.value(n)
             foo$panel.args[[panel.number]] <-
