@@ -1,4 +1,7 @@
 
+postscript("test.ps")
+library(lattice)
+
 ## POSIXt handling
 
 y <- Sys.time() + 10000 * 1:100
@@ -17,5 +20,5 @@ dat <-
 xyplot(a~b, dat)
 xyplot(a~b, dat, scales=list(x=list(at=dat$b)))
 
-
+dev.off()
 
