@@ -17,44 +17,14 @@
   These functions are intended to replace some commonly used base R
   graphics functions in panel functions.
 }
-% \synopsis{
-% larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
-%         angle = 30, code = 2, length = 0.25, unit = "inches",
-%         col = add.line$col, alpha = add.line$alpha, lty =
-%         add.line$lty, lwd = add.line$lwd, fill = NULL, \dots)
-% llines(x, y = NULL, type = "l", col = plot.line$col,
-%     alpha = plot.line$alpha, 
-%     lty = plot.line$lty, 
-%     lwd = plot.line$lwd, \dots)
-% lplot.xy(xy, type, pch = 1, lty = 1, col = 1, cex = 1, lwd = 1,
-%          font = 1, fontfamily = NULL, fontface = NULL,
-%          col.line = col, alpha = 0, \dots)  
-% lpoints(x, y = NULL, type = "p", col = plot.symbol$col,
-%         pch = plot.symbol$pch, 
-%         alpha = plot.symbol$alpha, 
-%         font = plot.symbol$font,
-%         fontfamily  = plot.symbol$fontfamily,
-%         fontface = plot.symbol$fontface,
-%         cex = plot.symbol$cex, \dots)  
-% lsegments(x0, y0, x1, y1, x2, y2, col = add.line$col,
-%     alpha = add.line$alpha, 
-%     lty = add.line$lty, 
-%     lwd = add.line$lwd, \dots)
-% ltext(x, y = NULL, labels = seq(along = x), col = add.text$col,
-%     alpha = add.text$alpha, 
-%     cex = add.text$cex, srt = 0,
-%     font, fontfamily = add.text$fontfamily,
-%     fontface = add.text$fontface, adj = c(0.5, 0.5), pos = NULL,
-%     offset = 0.5, \dots)  
-% }
 \usage{
 larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         angle = 30, code = 2, length = 0.25, unit = "inches",
         col, alpha, lty, lwd, fill = NULL, \dots)
 llines(x, y = NULL, type = "l", col, alpha, lty, lwd, \dots)
 lplot.xy(xy, type, pch, lty, col, cex, lwd,
-         font, fontfamily, fontface, col.line, alpha, \dots)
-lpoints(x, y = NULL, type = "p", col, pch, alpha,
+         font, fontfamily, fontface, col.line, alpha, fill, \dots)
+lpoints(x, y = NULL, type = "p", col, pch, alpha, fill,
         font, fontfamily, fontface, cex, \dots)  
 lsegments(x0, y0, x1, y1, x2, y2,
           col, alpha, lty, lwd, \dots)
@@ -91,11 +61,14 @@ panel.text(\dots)
   \item{angle, code, type, labels, srt, adj, pos, offset}{ arguments
     controlling behaviour.  See respective base functions for details. }
   \item{col, alpha, lty, lwd, fill, pch, cex, font, fontfamily,
-    fontface, col.line, border}{graphical parameters.  For devices that
-    support alpha-transparency, a numeric argument \code{alpha} between
-    0 and 1 can controls transparency.  Be careful with this, since for
-    devices that do not support alpha-transparency, nothing will be
-    drawn at all if this is set to anything other than 0.  }
+    fontface, col.line, border}{ graphical parameters.  \code{fill}
+    applies to points when \code{pch} is in \code{21:25} and specifies
+    the fill color, similar to the \code{bg} argument in the base
+    graphics function \code{\link{points}}. For devices that support
+    alpha-transparency, a numeric argument \code{alpha} between 0 and 1
+    can controls transparency.  Be careful with this, since for devices
+    that do not support alpha-transparency, nothing will be drawn at all
+    if this is set to anything other than 0.  }
   \item{xleft, ybottom, xright, ytop}{ see \code{\link{rect}}}
   \item{width, height, just, hjust, vjust}{ finer control over
     rectangles, see \code{\link[grid:grid.rect]{grid.rect}} }
