@@ -482,8 +482,10 @@ panel.bwplot <-
              fontface = box.dot$fontface, 
              fill = box.rectangle$fill,
              varwidth = FALSE,
+             ...,
              levels.fos = if (horizontal) sort(unique(y)) else sort(unique(x)),
-             coef = 1.5, do.out = TRUE, ...)
+             stats = boxplot.stats,
+             coef = 1.5, do.out = TRUE)
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
@@ -504,7 +506,7 @@ panel.bwplot <-
     {
         blist <-
             tapply(x, factor(y, levels = levels.fos),
-                   boxplot.stats,
+                   stats,
                    coef = coef,
                    do.out = do.out)
         blist.stats <- t(sapply(blist, "[[", "stats"))
@@ -583,7 +585,7 @@ panel.bwplot <-
     {
         blist <-
             tapply(y, factor(x, levels = levels.fos),
-                   boxplot.stats,
+                   stats,
                    coef = coef,
                    do.out = do.out)
         blist.stats <- t(sapply(blist, "[[", "stats"))
@@ -660,186 +662,6 @@ panel.bwplot <-
     }
 }
 
-
-
-## panel.bwplot.old <-
-##     function(x, y, box.ratio = 1,
-##              horizontal = TRUE,
-##              pch = box.dot$pch,
-##              col = box.dot$col,
-##              cex = box.dot$cex,
-##              font = box.dot$font,
-##              fontfamily = box.dot$fontfamily,
-##              fontface = box.dot$fontface, 
-##              fill = box.rectangle$fill,
-##              varwidth = FALSE,
-##              levels.fos = if (horizontal) unique(y) else unique(x),
-##              coef = 1.5, do.out = TRUE, ...)
-## {
-##     x <- as.numeric(x)
-##     y <- as.numeric(y)
-
-##     if (length(x) < 1) return()
-
-##     box.dot <- trellis.par.get("box.dot")
-##     box.rectangle <- trellis.par.get("box.rectangle")
-##     box.umbrella <- trellis.par.get("box.umbrella")
-##     plot.symbol <- trellis.par.get("plot.symbol")
-
-##     fontsize.points <- trellis.par.get("fontsize")$points
-##     xscale <- current.viewport()$xscale
-##     yscale <- current.viewport()$yscale
-
-##     if (horizontal)
-##     {
-
-##         maxn <- max(by(x, y, length)) ## used if varwidth = TRUE
-##         ##lower <- ceiling(yscale[1])
-##         height <- box.ratio/(1+box.ratio)
-
-##         for (yval in levels.fos)
-##         {
-
-##             ## yval  <- i
-##             stats <- boxplot.stats(x[y==yval], coef = coef, do.out = do.out)
-            
-##             if (stats$n>0)
-##             {
-##                 pushViewport(viewport(y=unit(yval, "native"),
-##                                       height = unit((if (varwidth)
-##                                       sqrt(stats$n/maxn)  else 1) * height, "native"),
-##                                       xscale = xscale))
-                
-##                 r.x <- (stats$stats[2]+stats$stats[4])/2
-##                 r.w <- stats$stats[4]-stats$stats[2]
-##                 grid.rect(x = unit(r.x, "native"), width = unit(r.w, "native"),
-##                           gp = gpar(lwd = box.rectangle$lwd,
-##                           lty = box.rectangle$lty,
-##                           fill = fill,
-##                           col = box.rectangle$col))
-                
-##                 grid.lines(x = unit(stats$stats[1:2],"native"),
-##                            y=unit(c(.5,.5), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.lines(x = unit(stats$stats[4:5],"native"),
-##                            y=unit(c(.5,.5), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.lines(x = unit(rep(stats$stats[1],2),"native"),
-##                            y=unit(c(0,1), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.lines(x = unit(rep(stats$stats[5],2),"native"),
-##                            y=unit(c(0,1), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.points(x = stats$stats[3], y = .5, pch = pch, 
-##                             gp =
-##                             gpar(col = col, cex = cex,
-##                                  fontfamily = fontfamily,
-##                                  fontface = chooseFace(fontface, font),
-##                                  fontsize = fontsize.points))
-                
-##                 if ((l<-length(stats$out))>0)
-##                     grid.points(x = stats$out, y = rep(.5,l),
-##                                 pch = plot.symbol$pch,
-##                                 gp =
-##                                 gpar(col = plot.symbol$col,
-##                                      cex = plot.symbol$cex,
-##                                      fontfamily = plot.symbol$fontfamily,
-##                                      fontface = chooseFace(plot.symbol$fontface, plot.symbol$font),
-##                                      fontsize = fontsize.points))
-                
-##                 popViewport()
-                
-##             }
-##         }
-        
-##     }
-##     else
-##     {
-
-##         maxn <- max(by(y, x, length)) ## used if varwidth = TRUE
-##         ##lower <- ceiling(xscale[1])
-##         width <- box.ratio/(1+box.ratio)
-
-##         for (xval in levels.fos)
-##         {
-##             ##xval  <- i
-##             stats <- boxplot.stats(y[x==xval], coef = coef, do.out = do.out)
-
-##             if (stats$n>0)
-##             {
-##                 pushViewport(viewport(x = unit(xval, "native"),
-##                                       width = unit((if (varwidth)
-##                                       sqrt(stats$n/maxn)  else 1) * width, "native"),
-##                                       yscale = yscale))
-                
-##                 r.x <- (stats$stats[2]+stats$stats[4])/2
-##                 r.w <- stats$stats[4]-stats$stats[2]
-##                 grid.rect(y = unit(r.x, "native"), height = unit(r.w, "native"),
-##                           gp = gpar(lwd = box.rectangle$lwd,
-##                           lty = box.rectangle$lty,
-##                           fill = fill,
-##                           col = box.rectangle$col))
-                
-##                 grid.lines(y = unit(stats$stats[1:2],"native"),
-##                            x = unit(c(.5,.5), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.lines(y = unit(stats$stats[4:5],"native"),
-##                            x = unit(c(.5,.5), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.lines(y = unit(rep(stats$stats[1],2),"native"),
-##                            x = unit(c(0,1), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.lines(y = unit(rep(stats$stats[5],2),"native"),
-##                            x = unit(c(0,1), "npc"),
-##                            gp = gpar(col = box.umbrella$col,
-##                            lwd = box.umbrella$lwd,
-##                            lty = box.umbrella$lty))
-                
-##                 grid.points(y = stats$stats[3], x = .5, pch = pch, 
-##                             gp =
-##                             gpar(col = col, cex = cex,
-##                                  fontfamily = fontfamily,
-##                                  fontface = chooseFace(fontface, font),
-##                                  fontsize = fontsize.points))
-                
-##                 if ((l<-length(stats$out))>0)
-##                     grid.points(y = stats$out, x = rep(.5,l),
-##                                 pch = plot.symbol$pch,
-##                                 gp =
-##                                 gpar(col = plot.symbol$col,
-##                                      cex = plot.symbol$cex,
-##                                      fontfamily = plot.symbol$fontfamily,
-##                                      fontface = chooseFace(plot.symbol$fontface, plot.symbol$font),
-##                                      fontsize = fontsize.points))
-                
-##                 popViewport()
-                
-##             }
-##         }
-        
-##     }
-## }
 
 
 

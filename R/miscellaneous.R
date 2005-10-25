@@ -364,6 +364,7 @@ lpoints <-
              col = plot.symbol$col,
              pch = plot.symbol$pch,
              alpha = plot.symbol$alpha,
+             fill = plot.symbol$fill,
              font = plot.symbol$font,
              fontfamily = plot.symbol$fontfamily,
              fontface = plot.symbol$fontface,
@@ -384,7 +385,7 @@ lpoints <-
 lplot.xy <-
     function(xy, type, pch = 1, lty = 1, col = 1, cex = 1, lwd = 1,
              font = 1, fontfamily = NULL, fontface = NULL,
-             col.line = col, alpha = 0,
+             col.line = col, alpha = 0, fill = NULL,
              ...)
 {
     x <- xy$x
@@ -399,7 +400,8 @@ lplot.xy <-
     else if (type %in% c("p", "o", "b", "c"))
         grid.points(x = x, y = y, 
                     gp =
-                    gpar(col = col, cex = cex, alpha = alpha,
+                    gpar(col = col, cex = cex,
+                         alpha = alpha, fill = fill,
                          fontsize = fontsize.points,
                          fontfamily = fontfamily,
                          fontface = chooseFace(fontface, font)),
@@ -419,19 +421,6 @@ lplot.xy <-
                    gp = gpar(lty=lty, col=col.line, lwd=lwd, alpha = alpha),
                    default.units="native")
     }
-#     else if (type == "h")
-#     {
-#         ylim <- current.viewport()$yscale
-#         zero <-
-#             if (ylim[1] > 0) ylim[1]
-#             else if (ylim[2] < 0) ylim[2]
-#             else 0
-#         for (i in seq(along=x))
-#             grid.lines(x = rep(x[i],2), y = c(y[i], zero),
-#                        gp = gpar(lty = lty, col = col.line,
-#                        lwd = lwd, alpha = alpha),
-#                        default.units = "native")
-#     }
     else if (type == "h")
     {
         ylim <- current.viewport()$yscale
