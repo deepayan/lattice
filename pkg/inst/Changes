@@ -6,6 +6,10 @@ Changes in lattice 0.12
 improvements
 ------------
 
+ o panel.bwplot has a new 'stats' argument, which is a function used to 
+   calculate the statistics in the box and whisker plot.  Defaults 
+   to boxplot.stats, which was the hard-coded value earlier.
+
  o panel.bwplot has been re-implemented.  Faster, avoids direct grid
    calls
 
