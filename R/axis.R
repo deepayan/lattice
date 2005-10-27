@@ -287,7 +287,7 @@ formattedTicksAndLabels.Date <-
     if(!mat)
         z <- x[is.finite(x)] # override changes
     z <- z[z >= range[1] & z <= range[2]]
-    z <- sort(unique(z))
+    z <- structure(sort(unique(z)), class = "Date")    
     if (is.logical(labels))
         labels <- format.Date(z, format = format.posixt)
 ##     if (identical(labels, TRUE))
