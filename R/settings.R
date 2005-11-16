@@ -88,11 +88,12 @@ canonical.theme <- function(name = "null device", color = TRUE)
 
     ## color settings, modified later if postscript or color = FALSE
     ans <-
-        list(fontsize         = list(text = 12, points = 8),
+        list(grid.pars        = list(), ## set globally at the beginning
+             fontsize         = list(text = 12, points = 8),
              background       = list(alpha = 1, col = can.col[17]),
              clip             = list(panel = "on", strip = "on"),
              add.line         = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
-             add.text         = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
+             add.text         = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1.2),
              bar.fill         = list(alpha = 1, col = can.col[2], border = "black", lty = 1, lwd = 1),
              box.dot          = list(alpha = 1, col = can.col[1], cex = 1, font = 1, pch = 16),
              box.rectangle    = list(alpha = 1, col = can.col[2], fill = "transparent", lty = 1, lwd = 1),
@@ -158,11 +159,11 @@ canonical.theme <- function(name = "null device", color = TRUE)
                                      right.padding = 1),
 
              box.3d           = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
-             par.xlab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
-             par.ylab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
-             par.zlab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1),
-             par.main.text    = list(alpha = 1, cex = 1.2, col = can.col[1], font = 2),
-             par.sub.text     = list(alpha = 1, cex = 1, col = can.col[1], font = 2))
+             par.xlab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1),
+             par.ylab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1),
+             par.zlab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1),
+             par.main.text    = list(alpha = 1, cex = 1.2, col = can.col[1], font = 2, lineheight = 1),
+             par.sub.text     = list(alpha = 1, cex = 1, col = can.col[1], font = 2, lineheight = 1))
 
     if (color)
     {
@@ -186,8 +187,8 @@ canonical.theme <- function(name = "null device", color = TRUE)
         ans$box.rectangle$col <- can.col[1]
         ans$box.umbrella$col <- can.col[1]
 ###        ans$box.umbrella$lty <- 2
-###        ans$dot.line$col <- can.col[4]
-###        ans$dot.symbol$col <- can.col[1]
+        ans$dot.line$col <- can.col[4]
+        ans$dot.symbol$col <- can.col[1]
 ###        ans$dot.symbol$cex <- 0.85
         ans$plot.line$col <- can.col[1]
         ans$plot.symbol$col <- can.col[1]
