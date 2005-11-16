@@ -14,7 +14,7 @@
 %     subscripts = !is.null(groups), subset = TRUE)
 % }
 \usage{
-qq(x, \dots)
+qq(x, data, \dots)
 
 \method{qq}{formula}(x, data = parent.frame(), aspect = "fill", 
     panel = panel.qq, prepanel, scales, strip, 

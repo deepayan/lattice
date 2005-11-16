@@ -1409,7 +1409,7 @@ panel.wireframe <- function(...)
 
 
 
-wireframe <- function(x, ...)
+wireframe <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula
@@ -1462,7 +1462,7 @@ wireframe.formula <-
 ## points/cross lines (cloud.3d),
 
 
-cloud <- function(x, ...)
+cloud <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

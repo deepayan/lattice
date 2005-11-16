@@ -176,7 +176,7 @@ panel.parallel <-
 
 
 
-parallel <- function(x, ...)
+parallel <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

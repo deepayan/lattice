@@ -50,7 +50,7 @@ panel.qq <-
 
 
 
-qq <- function(x, ...)
+qq <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

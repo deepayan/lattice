@@ -33,7 +33,7 @@
 % \method{qqmath}{numeric}(x, data = NULL, ylab = deparse(substitute(x)), \dots)
 % }
 \usage{
-qqmath(x, \dots)
+qqmath(x, data, \dots)
 
 
 \method{qqmath}{formula}(x,

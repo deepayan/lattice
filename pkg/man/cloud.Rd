@@ -48,8 +48,8 @@
       \dots)
 }
 \usage{
-cloud(x, \dots)
-wireframe(x, \dots)
+cloud(x, data, \dots)
+wireframe(x, data, \dots)
 \method{cloud}{formula}(x, data,
       aspect = c(1, 1),
       panel = "panel.cloud",

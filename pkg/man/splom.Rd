@@ -50,8 +50,8 @@
 % \method{parallel}{data.frame}(x, data = NULL, \dots)
 % }
 \usage{
-splom(x, \dots)
-parallel(x, \dots)
+splom(x, data, \dots)
+parallel(x, data, \dots)
 
 
 \method{splom}{formula}(x,

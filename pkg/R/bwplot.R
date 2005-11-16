@@ -921,7 +921,7 @@ panel.violin <-
 
 
 
-dotplot <- function(x, ...)
+dotplot <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula
@@ -1012,9 +1012,9 @@ dotplot.table <-
 }
 
 
-dotplot.default <- function(x, ...) dotplot(table(x), ...)
-dotplot.array <- function(x, ...) dotplot(as.table(x), ...)
-dotplot.matrix <- function(x, ...) dotplot(as.table(x), ...)
+dotplot.default <- function(x, data, ...) dotplot(table(x), ...)
+dotplot.array <- function(x, data, ...) dotplot(as.table(x), ...)
+dotplot.matrix <- function(x, data, ...) dotplot(as.table(x), ...)
 
 
 dotplot.formula <-
@@ -1033,7 +1033,7 @@ dotplot.formula <-
 }
 
 
-barchart <- function(x, ...)
+barchart <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula
@@ -1103,9 +1103,9 @@ barchart.table <-
     ans
 }
 
-barchart.default <- function(x, ...) barchart(table(x), ...)
-barchart.array <- function(x, ...) barchart(as.table(x), ...)
-barchart.matrix <- function(x, ...) barchart(as.table(x), ...)
+barchart.default <- function(x, data, ...) barchart(table(x), ...)
+barchart.array <- function(x, data, ...) barchart(as.table(x), ...)
+barchart.matrix <- function(x, data, ...) barchart(as.table(x), ...)
 
 
 barchart.formula <-
@@ -1126,7 +1126,7 @@ barchart.formula <-
 }
 
 
-stripplot <- function(x, ...)
+stripplot <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula
@@ -1178,7 +1178,7 @@ stripplot.formula <-
 
 ### bwplot (the workhorse)
 
-bwplot <- function(x, ...)
+bwplot <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula
