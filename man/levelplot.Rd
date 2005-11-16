@@ -47,8 +47,8 @@
 \method{contourplot}{matrix}(x, data = NULL, aspect = "iso", ...)
 }
 \usage{
-levelplot(x, \dots)
-contourplot(x, \dots)
+levelplot(x, data, \dots)
+contourplot(x, data, \dots)
 
 \method{levelplot}{formula}(x, data,
           panel = "panel.levelplot",

@@ -153,7 +153,7 @@ panel.histogram <-
 
 
 
-histogram <- function(x, ...)
+histogram <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

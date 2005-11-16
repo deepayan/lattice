@@ -56,6 +56,7 @@ diag.panel.splom <-
 
              varname.col = add.text$col,
              varname.cex = add.text$cex,
+             varname.lineheight = add.text$lineheight,
              varname.font = add.text$font,
              varname.fontfamily = add.text$fontfamily,
              varname.fontface = add.text$fontface,
@@ -73,8 +74,7 @@ diag.panel.splom <-
              axis.line.lwd = axis.line$lwd,
              ...)
 {
-
-    add.text <- trellis.par.get("axis.line")
+    add.text <- trellis.par.get("add.text")
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
 
@@ -83,12 +83,12 @@ diag.panel.splom <-
                   gp =
                   gpar(col = varname.col,
                        cex = varname.cex,
+                       lineheight = varname.lineheight,
                        fontface = chooseFace(varname.fontface, varname.font),
                        fontfamily = varname.fontfamily))
 
-    if (draw) {
-        ## plot axes
-
+    if (draw) ## plot axes
+    {
         rot <- c(90, 0)
         if (is.null(at))
         {
@@ -128,16 +128,6 @@ diag.panel.splom <-
                        line.lwd = axis.line.lwd)
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -199,7 +189,7 @@ panel.pairs <-
         else if (is.character(diag.panel)) get(diag.panel)
         else eval(diag.panel)
 
-    add.text <- trellis.par.get("axis.line")
+    add.text <- trellis.par.get("add.text")
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
 
@@ -215,8 +205,8 @@ panel.pairs <-
     
     ## maybe (ideally) this should be affected by scales
 
-    if (any(subscripts)) {
-
+    if (any(subscripts))
+    {
         draw <- is.list(pscales) || (is.numeric(pscales) && pscales!=0) # whether axes to be drawn
         splom.layout <- grid.layout(nrow = n.var, ncol = n.var)
         pushViewport(viewport(layout = splom.layout, name = "pairs"))
@@ -346,7 +336,7 @@ panel.pairs <-
 
 
 
-splom <- function(x, ...)
+splom <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

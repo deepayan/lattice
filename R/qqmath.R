@@ -138,7 +138,7 @@ panel.qqmath <-
 
 
 
-qqmath <- function(x, ...)
+qqmath <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

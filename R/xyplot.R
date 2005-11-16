@@ -151,7 +151,7 @@ panel.xyplot <-
 
 
 
-xyplot <- function(x, ...)
+xyplot <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

@@ -22,9 +22,6 @@
 
 
 
-
-
-
 prepanel.default.levelplot <-
     function(x, y, subscripts, ...)
 {
@@ -48,7 +45,8 @@ prepanel.default.levelplot <-
             }
         }
 
-        if (is.numeric(y)) {
+        if (is.numeric(y))
+        {
             uy <- sort(unique(y[is.finite(y)]))
 
             if ((ulen <- length(uy)) < 2) ylim <- uy + c(-1, 1)
@@ -318,7 +316,7 @@ panel.levelplot <-
 }
 
 
-contourplot <- function(x, ...)
+contourplot <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula
@@ -326,7 +324,8 @@ contourplot <- function(x, ...)
     {
         warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
         ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
+        if (!("x" %in% names(ocall))) ocall$x <- formula
+        else warning("'formula' overridden by 'x'")
         eval(ocall, parent.frame())
     }
     else UseMethod("contourplot")
@@ -426,7 +425,7 @@ contourplot.formula <-
 ##               dots))
 ## }
 
-levelplot <- function(x, ...)
+levelplot <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula
@@ -538,11 +537,11 @@ levelplot.formula <-
     if (missing(xlab)) xlab <- form$right.x.name
     if (missing(ylab)) ylab <- form$right.y.name
 
-    zrng <- extend.limits(range(z, finite = TRUE))
+    zrng <- extend.limits(range(as.numeric(z), finite = TRUE))
     if (missing(at))
         at <-
             if (pretty) pretty(zrng, cuts)
-            else seq(zrng[1], zrng[2], length = cuts+2)
+            else seq(zrng[1], zrng[2], length = cuts + 2)
     
     ## create a skeleton trellis object with the
     ## less complicated components:

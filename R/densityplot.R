@@ -147,7 +147,7 @@ panel.densityplot <-
 
 
 
-densityplot <- function(x, ...)
+densityplot <- function(x, data, ...)
 {
     ocall <- match.call()
     formula <- ocall$formula

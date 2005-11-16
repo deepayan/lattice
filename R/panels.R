@@ -77,15 +77,18 @@ panel.abline <-
                         ...)
         }
     }
-    
-    h <- as.numeric(h)
-    v <- as.numeric(v)
-    
-    for(i in seq(along = h))
-        grid.lines(y=rep(h[i],2), default.units="native", gp = gpar(col=col.line,lty=lty,lwd=lwd))
 
-    for(i in seq(along = v))
-        grid.lines(x=rep(v[i],2), default.units="native", gp = gpar(col=col.line,lty=lty,lwd=lwd))
+    if (length(h <- as.numeric(h)))
+        grid.segments(y0 = h, y1 = h, default.units="native",
+                      gp = gpar(col = col.line, lty = lty, lwd = lwd))
+    if (length(as.numeric(v)))
+        grid.segments(x0 = v, x1 = v, default.units="native",
+                      gp = gpar(col = col.line, lty = lty, lwd = lwd))
+
+##     for(i in seq(along = h))
+##         grid.lines(y=rep(h[i],2), default.units="native", gp = gpar(col=col.line,lty=lty,lwd=lwd))
+##     for(i in seq(along = v))
+##         grid.lines(x=rep(v[i],2), default.units="native", gp = gpar(col=col.line,lty=lty,lwd=lwd))
     
 }
 

@@ -9,8 +9,8 @@
 \alias{do.breaks}
 \title{Histograms and Kernel Density Plots}
 \usage{
-histogram(x, \dots)
-densityplot(x, \dots)
+histogram(x, data, \dots)
+densityplot(x, data, \dots)
 \method{histogram}{formula}(x,
              data = parent.frame(),
              allow.multiple, outer = TRUE,
