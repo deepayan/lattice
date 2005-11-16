@@ -66,7 +66,8 @@ strip.default <-
     level <- which.panel[which.given]
     strip.names <- rep(strip.names, length = 2)
     
-    if (is.null(factor.levels)) { # means this is a  shingle, as opposed to a factor
+    if (is.null(factor.levels)) # means this is a  shingle, as opposed to a factor
+    {
         if (is.null(shingle.intervals))
             stop("both factor.levels and shingle.intervals cannot be NULL")
         strip.names <- strip.names[2]
@@ -85,22 +86,27 @@ strip.default <-
                       gp = 
                       gpar(col = par.strip.text$col,
                            alpha = par.strip.text$alpha,
+                           lineheight = par.strip.text$lineheight,
                            fontfamily = par.strip.text$fontfamily,
                            fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                            cex = par.strip.text$cex))
     }
-    else if (is.null(shingle.intervals)) { # factor
+    else if (is.null(shingle.intervals)) # factor
+    {
         strip.names <- strip.names[1]
         x <- factor.levels
         num <- length(x)
-        if (style == 1) {
+        if (style == 1)
+        {
             grid.rect(gp = gpar(fill = bg, col = bg))
-            if (strip.names) {
+            if (strip.names)
+            {
                 grid.text(name,
                           x = unit(0.5, "npc") - unit(1, "mm"),
                           gp =
                           gpar(col = par.strip.text$col,
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex),
@@ -110,6 +116,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col,
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex))
@@ -118,6 +125,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col,
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex),
@@ -128,6 +136,7 @@ strip.default <-
                            gp =
                            gpar(col = par.strip.text$col,
                                 alpha = par.strip.text$alpha,
+                                lineheight = par.strip.text$lineheight,
                                 fontfamily = par.strip.text$fontfamily,
                                 fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                 cex = par.strip.text$cex))
@@ -144,6 +153,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col,
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex))
@@ -159,6 +169,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col,
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex))
@@ -183,6 +194,7 @@ strip.default <-
                       gp =
                       gpar(col = par.strip.text$col, 
                            alpha = par.strip.text$alpha,
+                           lineheight = par.strip.text$lineheight,
                            fontfamily = par.strip.text$fontfamily,
                            fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                            cex = par.strip.text$cex))
@@ -200,6 +212,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col, 
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex))
@@ -215,6 +228,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col, 
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex))
@@ -231,6 +245,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col, 
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex))
@@ -243,6 +258,7 @@ strip.default <-
                           gp =
                           gpar(col = par.strip.text$col, 
                                alpha = par.strip.text$alpha,
+                               lineheight = par.strip.text$lineheight,
                                fontfamily = par.strip.text$fontfamily,
                                fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                                cex = par.strip.text$cex))
