@@ -419,7 +419,7 @@ densityplot.formula <-
             list(list(fun = "drawSimpleKey",
                       args =
                       updateList(list(text = levels(as.factor(groups)),
-                                      points = TRUE,
+                                      points = FALSE,
                                       rectangles = FALSE,
                                       lines = TRUE),
                                  if (is.list(auto.key)) auto.key else list())))

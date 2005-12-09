@@ -659,7 +659,7 @@ panel.axis <-
                          just = just,
                          gp = gp.text))
     }
-    return()
+    invisible()
 }
 
 

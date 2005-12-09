@@ -1,5 +1,45 @@
 
 
+
+
+Changes in lattice 0.13
+=======================
+
+
+new features
+------------
+
+ o high level generics like 'xyplot' now have both 'x' and 'data' as
+   arguments.  The only implication for S3 methods is that they will
+   have to include the 'data' argument even if they are unused (as
+   they should be when 'x' is not a formula).  The reason for doing
+   this is to encourage S4 methods using multiple dispatch where 'x'
+   is a formula and 'data' is some other data source.
+
+
+changes in behaviour
+--------------------
+
+ o (Todo) evaluation scope: standard functions with a formula based
+   interface ('lm' etc) look for variables in the formula (that are
+   not found in 'data') in the environment of the formula.  This was
+   done inconsistently for lattice functions.
+
+
+
+
+
+
+
+
+Todo:
+----
+
+ o groups with all NA in a level doesn't work
+
+
+
+
 Changes in lattice 0.12
 =======================
 

@@ -367,7 +367,7 @@ prepanel.loess <-
 panel.superpose <-
     function(x, y = NULL, subscripts, groups,
              panel.groups = "panel.xyplot",
-             col,
+             col = NA,
              col.line = superpose.line$col,
              col.symbol = superpose.symbol$col,
              pch = superpose.symbol$pch,
@@ -416,6 +416,7 @@ panel.superpose <-
             if (is.factor(groups)) levels(groups)
             else sort(unique(groups))
         nvals <- length(vals)
+        col <- rep(col, length=nvals)
         col.line <- rep(col.line, length=nvals)
         col.symbol <- rep(col.symbol, length=nvals)
         pch <- rep(pch, length=nvals)
@@ -445,6 +446,7 @@ panel.superpose <-
                          font = font[i],
                          fontface = fontface[i],
                          fontfamily = fontfamily[i],
+                         col = col[i],
                          col.line = col.line[i],
                          col.symbol = col.symbol[i],
                          lty = lty[i],
