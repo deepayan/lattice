@@ -22,21 +22,25 @@ summary.trellis <- function(object, ...)
 {
     cat("\nCall:\n")
     print(object$call)
-    cat("\nY label:\n")
-    str(object$ylab)
-    cat("\nX label:\n")
-    str(object$xlab)
 
-    if (!is.null(names(object$condlevels)))
-    {
-        cat("\nLevels of Conditioning variables:")
-        for (i in seq(along = object$condlevels))
-        {
-            cat("\n<", i, "> ", names(object$condlevels)[i], "\n", sep = "")
-            print(object$condlevels[[i]])
-        }
-    }
-    cat("\n")
+    cat("\nNumber of observations:\n")
+    print(object$packet.sizes)
+    
+##     cat("\nY label:\n")
+##     str(object$ylab)
+##     cat("\nX label:\n")
+##     str(object$xlab)
+
+##     if (!is.null(names(object$condlevels)))
+##     {
+##         cat("\nLevels of Conditioning variables:")
+##         for (i in seq(along = object$condlevels))
+##         {
+##             cat("\n<", i, "> ", names(object$condlevels)[i], "\n", sep = "")
+##             print(object$condlevels[[i]])
+##         }
+##     }
+##     cat("\n")
     invisible()
 }
 
@@ -51,7 +55,7 @@ dim.trellis <- function(x)
 
 
 dimnames.trellis <- function(x)
-    names(x$condlevels)
+    x$condlevels
 
 
 

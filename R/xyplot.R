@@ -178,8 +178,7 @@ xyplot.formula <-
              auto.key = FALSE,
              aspect = "fill",
 ## FIXME            layout = NULL,
-             panel = if (is.null(groups)) "panel.xyplot"
-             else "panel.superpose",
+             panel = if (is.null(groups)) "panel.xyplot" else "panel.superpose",
              prepanel = NULL,
              scales = list(),
              strip = TRUE,
@@ -194,11 +193,13 @@ xyplot.formula <-
              subscripts = !is.null(groups),
              subset = TRUE)
 {
+    trellis.formula <- x 
+
     ##dots <- eval(substitute(list(...)), data, parent.frame())
     dots <- list(...)
 
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
+    groups <- eval(substitute(groups), data, environment(x))
+    subset <- eval(substitute(subset), data, environment(x))
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
 
@@ -227,10 +228,11 @@ xyplot.formula <-
     y <- form$left
     x <- form$right
 
-    if (number.of.cond == 0) {
+    if (number.of.cond == 0)
+    {
         strip <- FALSE
         cond <- list(as.factor(rep(1, length(x))))
-        ##layout <- c(1,1,1)                           FIXME : changed
+        ##layout <- c(1,1,1)    FIXME : changed
         number.of.cond <- 1
     }
 
@@ -247,15 +249,17 @@ xyplot.formula <-
     ## create a skeleton trellis object with the
     ## less complicated components:
 
-    foo <- do.call("trellis.skeleton",
-                   c(list(cond = cond,     # FIXME: changed
-                          aspect = aspect,
-                          strip = strip,
-                          panel = panel,
-                          xlab = xlab,
-                          ylab = ylab,
-                          xlab.default = form$right.name,
-                          ylab.default = form$left.name), dots))
+    foo <-
+        do.call("trellis.skeleton",
+                c(list(formula = trellis.formula,
+                       cond = cond,     # FIXME: changed
+                       aspect = aspect,
+                       strip = strip,
+                       panel = panel,
+                       xlab = xlab,
+                       ylab = ylab,
+                       xlab.default = form$right.name,
+                       ylab.default = form$left.name), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
@@ -266,19 +270,19 @@ xyplot.formula <-
     ##scales <- eval(substitute(scales), data, parent.frame())
     if (is.character(scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)
-    foo <- c(foo, 
-             do.call("construct.scales", scales))
-
+    foo <- c(foo, do.call("construct.scales", scales))
 
     ## Step 3: Decide if limits were specified in call:
 
     have.xlim <- !missing(xlim)
-    if (!is.null(foo$x.scales$limit)) { # override xlim
+    if (!is.null(foo$x.scales$limit)) # override xlim
+    {
         have.xlim <- TRUE
         xlim <- foo$x.scales$limit
     }
     have.ylim <- !missing(ylim)
-    if (!is.null(foo$y.scales$limit)) {
+    if (!is.null(foo$y.scales$limit))
+    {
         have.ylim <- TRUE
         ylim <- foo$y.scales$limit
     }
@@ -340,12 +344,19 @@ xyplot.formula <-
     if (subscripts) foo$panel.args.common$groups <- groups
 
     nplots <- prod(cond.max.level)
-    if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")
+    if (nplots != prod(sapply(foo$condlevels, length)))
+        stop("mismatch in number of packets")
     foo$panel.args <- vector(mode = "list", length = nplots)
 
+    ## FIXME: add to others
+    foo$packet.sizes <- numeric(nplots)
+    if (nplots > 1)
+    {
+        dim(foo$packet.sizes) <- sapply(foo$condlevels, length)
+        dimnames(foo$packet.sizes) <- foo$condlevels
+    }
 
     cond.current.level <- rep(1, number.of.cond)
-
 
     for (packet.number in seq(length = nplots))
     {
@@ -362,6 +373,8 @@ xyplot.formula <-
         }
         foo$panel.args[[packet.number]] <-
             list(x = x[id], y = y[id])
+        ## FIXME: add to others
+        foo$packet.sizes[packet.number] <- sum(id)
         if (subscripts)
             foo$panel.args[[packet.number]]$subscripts <-
                 subscr[id]
@@ -374,19 +387,20 @@ xyplot.formula <-
 
     ## FIXME: make this adjustment everywhere else
 
-    more.comp <- c(limits.and.aspect(prepanel.default.xyplot,
-                                     prepanel = prepanel, 
-                                     have.xlim = have.xlim, xlim = xlim, 
-                                     have.ylim = have.ylim, ylim = ylim, 
-                                     x.relation = foo$x.scales$relation,
-                                     y.relation = foo$y.scales$relation,
-                                     panel.args.common = foo$panel.args.common,
-                                     panel.args = foo$panel.args,
-                                     aspect = aspect,
-                                     nplots = nplots,
-                                     x.axs = foo$x.scales$axs,
-                                     y.axs = foo$y.scales$axs),
-                   cond.orders(foo))
+    more.comp <-
+        c(limits.and.aspect(prepanel.default.xyplot,
+                            prepanel = prepanel, 
+                            have.xlim = have.xlim, xlim = xlim, 
+                            have.ylim = have.ylim, ylim = ylim, 
+                            x.relation = foo$x.scales$relation,
+                            y.relation = foo$y.scales$relation,
+                            panel.args.common = foo$panel.args.common,
+                            panel.args = foo$panel.args,
+                            aspect = aspect,
+                            nplots = nplots,
+                            x.axs = foo$x.scales$axs,
+                            y.axs = foo$y.scales$axs),
+          cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
     if (is.null(foo$legend) && !is.null(groups) &&

@@ -23,6 +23,9 @@
   \code{xlab} and \code{ylab}.  Some other typical components are:
 
   \describe{
+    \item{\code{formula}}{
+      the Trellis formula used in the call
+    }
     \item{\code{index.cond}}{
       list with index for each of the conditioning variables
     }
@@ -65,6 +68,9 @@
       numeric vector of length 2 or list, giving x-axis limits
     }
     \item{\code{y.limits}}{ similar to \code{x.limits} }
+    \item{\code{packet.sizes}}{
+      array recording the number of observations in each packet
+    }
   }
 }
 
