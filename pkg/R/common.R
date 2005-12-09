@@ -22,19 +22,16 @@
 
 cupdate <- function(index, maxim)
 {
-    ##  This function is used to handle arbitrary number of
-    ## conditioning variables : every time it is called, it
-    ## increments the "current" level of the conditioning
-    ## variables suitably, i.e., it tries to increment the
-    ## level of the 1st conditining variable (the one which
-    ## varies fastest along panel order) and if it happens
-    ## to be at its maximum (last) value, it sets it to the
-    ## first value AND increments the "current" level of the
-    ## 2nd (next) conditioning variable recursively.
 
-    ## This is an internal function, not to be documented
-    ## for the high level user.
-    
+    ## This unexported function is used to handle arbitrary number of
+    ## conditioning variables : every time it is called, it increments
+    ## the "current" level of the conditioning variables suitably,
+    ## i.e., it tries to increment the level of the 1st conditining
+    ## variable (the one which varies fastest along panel order) and
+    ## if it happens to be at its maximum (last) value, it sets it to
+    ## the first value AND increments the "current" level of the 2nd
+    ## (next) conditioning variable recursively.
+
     if(length(index)!=length(maxim)||length(maxim)<=0)
         stop("Inappropriate arguments")
     index[1] <- index[1] + 1
@@ -66,12 +63,13 @@ latticeParseFormula <-
              subscripts = FALSE, drop = NULL)
     ## this function mostly written by Saikat
 {
-    ## local function to get length-1 names from expressions (deparse
-    ## can be longer). Could be either of the following
+
+    ## local function to get length 1 name from expressions (deparse
+    ## can split long expressions into several pieces), typically for
+    ## subsequent use as labels.  Could be either of the following:
 
     expr2char <- function(x) paste(deparse(x), collapse = "")
     ## expr2char <- function(x) deparse(x)[1]
-
 
     ## by this time, groups is usually already evaluated.  To make
     ## things slightly more convenient, we will now also allow groups
@@ -81,7 +79,7 @@ latticeParseFormula <-
     if (inherits(groups, "formula"))
     {
         groupVar <- as.character(groups)[2]
-        groups <- eval(parse(text = groupVar), data, parent.frame())
+        groups <- eval(parse(text = groupVar), data, environment(groups))
     }
 
     if (is.null(drop)) drop <- TRUE
@@ -445,7 +443,8 @@ extend.limits <-
 
 
 trellis.skeleton <-
-    function(cond,
+    function(formula = NULL,
+             cond,
              as.table = default.args$as.table,
              aspect = default.args$aspect,
              between = default.args$between,
@@ -472,30 +471,32 @@ trellis.skeleton <-
     default.args <- lattice.getOption("default.args")
 
     if (is.null(skip)) skip <- FALSE
-    foo <- list(as.table = as.table,
-                aspect.fill = aspect == "fill",
-                ## key = key,
-                legend = construct.legend(legend = legend, key = key),
-                panel = panel, 
-                page = page,
-                layout = layout,
-                skip = skip,
-                strip = if (is.logical(strip) && strip) "strip.default"
-                else strip,
-                strip.left = if (is.logical(strip.left) && strip.left) strip.custom(horizontal = FALSE)
-                else strip.left,
-                xlab = xlab,
-                ylab = ylab,
-                xlab.default = xlab.default,
-                ylab.default = ylab.default,
-                main = main,
-                sub = sub,
-                x.between = 0,
-                y.between = 0,
-                par.settings = par.settings,
-                par.strip.text = par.strip.text,
-                index.cond = index.cond,
-                perm.cond = perm.cond)
+    foo <-
+        list(formula = formula,
+             as.table = as.table,
+             aspect.fill = aspect == "fill",
+             ## key = key,
+             legend = construct.legend(legend = legend, key = key),
+             panel = panel, 
+             page = page,
+             layout = layout,
+             skip = skip,
+             strip = if (is.logical(strip) && strip) "strip.default"
+             else strip,
+             strip.left = if (is.logical(strip.left) && strip.left) strip.custom(horizontal = FALSE)
+             else strip.left,
+             xlab = xlab,
+             ylab = ylab,
+             xlab.default = xlab.default,
+             ylab.default = ylab.default,
+             main = main,
+             sub = sub,
+             x.between = 0,
+             y.between = 0,
+             par.settings = par.settings,
+             par.strip.text = par.strip.text,
+             index.cond = index.cond,
+             perm.cond = perm.cond)
 
     if (!is.null(between$x)) foo$x.between <- between$x
     if (!is.null(between$y)) foo$y.between <- between$y
