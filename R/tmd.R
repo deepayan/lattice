@@ -207,8 +207,8 @@ tmd.trellis <-
     ## modify this for others if there's demand.
 
     qqmath <- object$call[[1]] == quote(qqmath.formula) ## bad hack
-    object$xlab.default <- "mean"
-    object$ylab.default <- "difference"
+    object$xlab.default <- gettext("mean")
+    object$ylab.default <- gettext("difference")
 
     update(object,
            xlab = xlab, ylab = ylab,

@@ -22,8 +22,8 @@ rfs <-
     nr <- length(resids)
     
     data <- list(y = c( fitval, resids),
-                 f = c( rep("Fitted Values minus Mean", nf),
-                 rep("Residuals", nr)))
+                 f = c( rep(gettext("Fitted Values minus Mean"), nf),
+                 rep(gettext("Residuals"), nr)))
 
     qqmath(~y|f, data = data, layout = layout, xlab = xlab, ylab = ylab,
            distribution = distribution, panel = panel,

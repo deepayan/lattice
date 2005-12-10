@@ -269,8 +269,10 @@ update.trellis <-
     if (!missing(auto.key))
     {
         if (!is.null(object$legend))
-            cat(paste("\nNote: auto.key ignored since key already present. \n",
-                      "Use update(..., legend = NULL) to remove exisitng legend(s)\n"))
+
+            cat(gettext("\nNote: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove exisitng legend(s)"),
+                fill = TRUE)
+
         else 
         {
             groups <- object$panel.args.common$groups

@@ -269,7 +269,7 @@ densityplot.formula <-
     }
 
     if (missing(xlab)) xlab <- form$right.name
-    if (missing(ylab)) ylab <- "Density"
+    if (missing(ylab)) ylab <- gettext("Density")
 
     ##if (!is.numeric(x))
     ##    warning("x should be numeric")
@@ -286,7 +286,7 @@ densityplot.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = form$right.name,
-                       ylab.default = "Density"), dots))
+                       ylab.default = gettext("Density")), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

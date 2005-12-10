@@ -104,11 +104,11 @@ print.shingleLevel <-
     }
 
 print.shingle <- function(x, showValues = TRUE, ...) {
-    cat("\nData:\n")
+    cat(gettext("\nData:\n"))
     if (showValues) print(as.numeric(x))
     l <- levels(x)
     n <- nlevels(x)
-    if (n<1) cat("\nno intervals\n")
+    if (n < 1) cat(gettext("\nno intervals\n"))
     else {
         int <- data.frame(min = numeric(n), max = numeric(n), count = numeric(n))
         for (i in 1:n) {
@@ -116,14 +116,14 @@ print.shingle <- function(x, showValues = TRUE, ...) {
             int$max[i] <- l[[i]][2]
             int$count[i] <- length(x[x>=l[[i]][1] & x<=l[[i]][2]])
         }
-        cat("\nIntervals:\n")
+        cat(gettext("\nIntervals:\n"))
         print(int)
         olap <- numeric(n-1)
         if (n>2)
             for (i in 1:(n-1))
                 olap[i] <- length(x[ x>=l[[i]][1] & x<=l[[i]][2] &
                                     x>=l[[i+1]][1] & x<=l[[i+1]][2]])
-        cat("\nOverlap between adjacent intervals:\n")
+        cat(gettext("\nOverlap between adjacent intervals:\n"))
         print(olap)
     }
     invisible(x)
@@ -134,8 +134,8 @@ print.shingle <- function(x, showValues = TRUE, ...) {
 plot.shingle <-
     function(x, 
              panel = panel.shingle,
-             xlab = "Range",
-             ylab = "Panel",
+             xlab = gettext("Range"),
+             ylab = gettext("Panel"),
              ...)
 {
     ocall <- match.call()
