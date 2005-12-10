@@ -55,10 +55,10 @@ assign("last.object",     NULL,   env = .LatticeEnv)
 
 .First.lib <- function(lib, pkg) 
 {
-    cat("Note: you shouldn't be seeing this message unless\nyou are using a non-standard version of lattice",
+    cat(gettext("Note: you shouldn't be seeing this message unless\nyou are using a non-standard version of lattice"),
         fill = TRUE)
     library.dynam(pkg, pkg, lib )
-    if (!require(grid)) stop("The grid package couldn't be loaded. \nPlease check your installation of R")
+    if (!require(grid)) stop("The grid package couldn't be loaded.\nPlease check your installation of R")
     lattice.options(.defaultLatticeOptions())
     lattice.setStatus(.defaultLatticeStatus())
 }

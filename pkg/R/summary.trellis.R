@@ -20,10 +20,10 @@
 
 summary.trellis <- function(object, ...)
 {
-    cat("\nCall:\n")
+    cat(gettext("\nCall:\n"))
     print(object$call)
 
-    cat("\nNumber of observations:\n")
+    cat(gettext("\nNumber of observations:\n"))
     print(object$packet.sizes)
     
 ##     cat("\nY label:\n")

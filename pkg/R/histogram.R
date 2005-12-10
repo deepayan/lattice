@@ -344,9 +344,9 @@ histogram.formula <-
 
     foo$ylab.default <-
         switch(type,
-               count   = "Count",
-               percent = "Percent of Total",
-               density = "Density")
+               count   = gettext("Count"),
+               percent = gettext("Percent of Total"),
+               density = gettext("Density"))
 
     ## Step 5: Process cond
 

@@ -1,0 +1,330 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: R 2.1.0\n"
+"Report-Msgid-Bugs-To: bugs@r-project.org\n"
+"POT-Creation-Date: 2005-12-09 23:04\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+
+msgid "origin forced to 0 for stacked bars"
+msgstr ""
+
+msgid "The 'formula' argument has been renamed to 'x'. See ?xyplot"
+msgstr ""
+
+msgid "'formula' overridden by 'x'"
+msgstr ""
+
+msgid "explicit data specification ignored"
+msgstr ""
+
+msgid "x should be numeric"
+msgstr ""
+
+msgid "y should be numeric"
+msgstr ""
+
+msgid "nothing to draw"
+msgstr ""
+
+msgid "mismatch"
+msgstr ""
+
+msgid "type has unsupported values"
+msgstr ""
+
+msgid "Inappropriate arguments"
+msgstr ""
+
+msgid "shingles can not be concatenated"
+msgstr ""
+
+msgid "model must be a formula object"
+msgstr ""
+
+msgid "multiple = TRUE ignored (groups non-null with outer = FALSE)"
+msgstr ""
+
+msgid "invalid dimension :"
+msgstr ""
+
+msgid "invalid model"
+msgstr ""
+
+msgid "newFactor cannot be NULL; you have found a bug!"
+msgstr ""
+
+msgid "newFactor != NULL && groups == NULL does not hold; you have found a bug!"
+msgstr ""
+
+msgid "Length check mismatch; you have found a bug!"
+msgstr ""
+
+msgid "Non matching lengths"
+msgstr ""
+
+msgid "Improper value of limit"
+msgstr ""
+
+msgid "length and prop cannot both be specified"
+msgstr ""
+
+msgid "length must be positive"
+msgstr ""
+
+msgid "improper length of lim"
+msgstr ""
+
+msgid "Invalid value of perm.cond"
+msgstr ""
+
+msgid "Invalid value of index.cond"
+msgstr ""
+
+msgid "skip cannot be all TRUE"
+msgstr ""
+
+msgid "layout must have at least 2 elements"
+msgstr ""
+
+msgid "at least one element of layout must be positive"
+msgstr ""
+
+msgid "inadmissible value of layout"
+msgstr ""
+
+msgid "invalid value for layout"
+msgstr ""
+
+msgid "Density"
+msgstr ""
+
+msgid "Can't have log Y-scale"
+msgstr ""
+
+msgid "problem with hist computations"
+msgstr ""
+
+msgid "type='"
+msgstr ""
+
+msgid "' can be misleading in this context"
+msgstr ""
+
+msgid "Count"
+msgstr ""
+
+msgid "Percent of Total"
+msgstr ""
+
+msgid "no points within"
+msgstr ""
+
+msgid "points"
+msgstr ""
+
+msgid "nearest point already identified"
+msgstr ""
+
+msgid "column must be specified"
+msgstr ""
+
+msgid "row must be specified"
+msgstr ""
+
+msgid "panel position unspecified or invalid"
+msgstr ""
+
+msgid "plot spans multiple pages, only last page can be updated"
+msgstr ""
+
+msgid "current plot was not saved, can't retrieve panel data"
+msgstr ""
+
+msgid "you have to first select a panel using trellis.focus()"
+msgstr ""
+
+msgid "component"
+msgstr ""
+
+msgid "duplicated in key and legend"
+msgstr ""
+
+msgid "key must be a list"
+msgstr ""
+
+msgid "first component of text has to be vector of labels"
+msgstr ""
+
+msgid "Invalid key, need at least one component named lines, text, rect or points"
+msgstr ""
+
+msgid "not enough rows for columns"
+msgstr ""
+
+msgid "sorry, align=F not supported (yet ?)"
+msgstr ""
+
+msgid "malformed colorkey"
+msgstr ""
+
+msgid "Invalid shrink, ignored"
+msgstr ""
+
+msgid "Invalid label.style"
+msgstr ""
+
+msgid "x must be (coercible to be) a factor"
+msgstr ""
+
+msgid "x must be NULL or a list"
+msgstr ""
+
+msgid "val must be a list"
+msgstr ""
+
+msgid "error"
+msgstr ""
+
+msgid "Invalid value of pos"
+msgstr ""
+
+msgid "'expr' must be a function or an expression containing 'x'"
+msgstr ""
+
+msgid "cannot have log y-scale"
+msgstr ""
+
+msgid "Can't have log X-scale"
+msgstr ""
+
+msgid "y must have exactly 2 levels"
+msgstr ""
+
+msgid "Fitted Values minus Mean"
+msgstr ""
+
+msgid "Residuals"
+msgstr ""
+
+msgid "the at and labels components of scales may not be lists when relation = same"
+msgstr ""
+
+msgid "limits cannot be a list when relation = same"
+msgstr ""
+
+msgid "Explicitly specified limits ignored"
+msgstr ""
+
+msgid "need at least one panel"
+msgstr ""
+
+msgid "aspect=iso approximate since relation=free"
+msgstr ""
+
+msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
+msgstr ""
+
+msgid "Could not find device function"
+msgstr ""
+
+msgid "trellis.device has changed, 'bg' may not be doing what you think it is"
+msgstr ""
+
+msgid "Invalid theme specified"
+msgstr ""
+
+msgid "x must be a shingle"
+msgstr ""
+
+msgid "x must be matrix with 2 columns"
+msgstr ""
+
+msgid "x must be matrix with at least 1 row"
+msgstr ""
+
+msgid "bad value of 'intervals'"
+msgstr ""
+
+msgid "Data:"
+msgstr ""
+
+msgid "no intervals"
+msgstr ""
+
+msgid "Intervals:"
+msgstr ""
+
+msgid "Overlap between adjacent intervals:"
+msgstr ""
+
+msgid "Range"
+msgstr ""
+
+msgid "Panel"
+msgstr ""
+
+msgid "Scatter Plot Matrix"
+msgstr ""
+
+msgid "both factor.levels and shingle.intervals cannot be NULL"
+msgstr ""
+
+msgid "Call:"
+msgstr ""
+
+msgid "Number of observations:"
+msgstr ""
+
+msgid "mean"
+msgstr ""
+
+msgid "difference"
+msgstr ""
+
+msgid "No trellis object currently saved"
+msgstr ""
+
+msgid "currently saved object is not the last one plotted"
+msgstr ""
+
+msgid "Inappropriate value of as.table"
+msgstr ""
+
+msgid "par.strip.text must be a list"
+msgstr ""
+
+msgid "par.settings must be a list"
+msgstr ""
+
+msgid "Note: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove exisitng legend(s)"
+msgstr ""
+
+msgid "log scales cannot be changed via update"
+msgstr ""
+
+msgid "Unrecognized value of aspect:"
+msgstr ""
+
+msgid "Invalid value of aspect"
+msgstr ""
+
+msgid "drop=TRUE ignored"
+msgstr ""
+
+msgid "Invalid indices"
+msgstr ""
+
+msgid "mismatch in number of packets"
+msgstr ""
+
+msgid "Note: you shouldn't be seeing this message unless\nyou are using a non-standard version of lattice"
+msgstr ""
+
+msgid "The grid package couldn't be loaded.\nPlease check your installation of R"
+msgstr ""

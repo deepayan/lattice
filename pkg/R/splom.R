@@ -378,7 +378,7 @@ splom.formula <-
              scales = list(),
              strip = TRUE,
              groups = NULL,
-             xlab = "Scatter Plot Matrix",
+             xlab = gettext("Scatter Plot Matrix"),
              xlim,
              ylab = NULL,
              ylim,
@@ -443,15 +443,16 @@ splom.formula <-
     ## create a skeleton trellis object with the
     ## less complicated components:
 
-    foo <- do.call("trellis.skeleton",
-                   c(list(cond = cond,
-                          aspect = aspect,
-                          between = between,
-                          panel = superpanel,
-                          strip = strip,
-                          xlab = xlab,
-                          ylab = ylab,
-                          xlab.default = "Scatter Plot Matrix"), dots))
+    foo <-
+        do.call("trellis.skeleton",
+                c(list(cond = cond,
+                       aspect = aspect,
+                       between = between,
+                       panel = superpanel,
+                       strip = strip,
+                       xlab = xlab,
+                       ylab = ylab,
+                       xlab.default = gettext("Scatter Plot Matrix")), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
