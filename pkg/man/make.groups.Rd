@@ -12,11 +12,14 @@ make.groups(\dots)
 }
 \arguments{
   \item{\dots}{
-    one or more vectors of the same type (coercion is attempted if not)
+    one or more vectors of the same type (coercion is attempted if not),
+    or one or more data frames with similar columns, with possibly
+    differing number of rows.
   }
 }
 \value{
-  A data frame with two columns
+  When all the input arguments are vectors, a data frame with two
+  columns
   \item{\code{data}}{
     all the vectors supplied, concatenated
   }
@@ -24,6 +27,9 @@ make.groups(\dots)
     factor indicating which vector the corresponding \code{data} value
     came from
   }
+  When all the input arguments are data frames, the result of
+  \code{\link{cbind}} applied to them, along with an additional
+  \code{which} column as described above.
 }
 
 \author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

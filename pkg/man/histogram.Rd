@@ -12,25 +12,25 @@
 histogram(x, data, \dots)
 densityplot(x, data, \dots)
 \method{histogram}{formula}(x,
-             data = parent.frame(),
-             allow.multiple, outer = TRUE,
-             auto.key = FALSE,
-             aspect = "fill",
-             panel = "panel.histogram",
-             prepanel, scales, strip, groups,
-             xlab, xlim, ylab, ylim,
-             type = c("percent", "count", "density"),
-             nint = if (is.factor(x)) length(levels(x))
-             else round(log2(length(x)) + 1),
-             endpoints = extend.limits(range(x, finite = TRUE), prop = 0.04),
-             breaks = if (is.factor(x)) seq(0.5, length = length(levels(x))+1)
-             else do.breaks(endpoints, nint),
-             equal.widths = TRUE,
-             drop.unused.levels = lattice.getOption("drop.unused.levels"),
-             \dots,
-             default.scales = list(),
-             subscripts,
-             subset)
+          data = parent.frame(),
+          allow.multiple, outer = TRUE,
+          auto.key = FALSE,
+          aspect = "fill",
+          panel = "panel.histogram",
+          prepanel, scales, strip, groups,
+          xlab, xlim, ylab, ylim,
+          type = c("percent", "count", "density"),
+          nint = if (is.factor(x)) length(levels(x))
+          else round(log2(length(x)) + 1),
+          endpoints = extend.limits(range(x, finite = TRUE), prop = 0.04),
+          breaks = if (is.factor(x)) seq(0.5, length = length(levels(x))+1)
+          else do.breaks(endpoints, nint),
+          equal.widths = TRUE,
+          drop.unused.levels = lattice.getOption("drop.unused.levels"),
+          \dots,
+          default.scales = list(),
+          subscripts,
+          subset)
 
 \method{histogram}{numeric}(x, data, xlab, \dots)
 \method{histogram}{factor}(x, data, xlab, \dots)

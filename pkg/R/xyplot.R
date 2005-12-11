@@ -151,21 +151,7 @@ panel.xyplot <-
 
 
 
-xyplot <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("xyplot")
-}
-
-
+xyplot <- function(x, data, ...) UseMethod("xyplot")
 
 
 xyplot.formula <-
@@ -177,7 +163,6 @@ xyplot.formula <-
 ##              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
-## FIXME            layout = NULL,
              panel = if (is.null(groups)) "panel.xyplot" else "panel.superpose",
              prepanel = NULL,
              scales = list(),
@@ -193,23 +178,18 @@ xyplot.formula <-
              subscripts = !is.null(groups),
              subset = TRUE)
 {
-    trellis.formula <- x 
-
-    ##dots <- eval(substitute(list(...)), data, parent.frame())
+    formula <- x 
     dots <- list(...)
-
     groups <- eval(substitute(groups), data, environment(x))
     subset <- eval(substitute(subset), data, environment(x))
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
 
-    ## FIXME: make sure this is done everywhere else
     form <-
-        latticeParseFormula(x, data, subset = subset,
+        latticeParseFormula(formula, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
                             drop = drop.unused.levels)
-
     groups <- form$groups
 
     if (!is.function(panel)) panel <- eval(panel)
@@ -224,16 +204,13 @@ xyplot.formula <-
         else eval(prepanel)
 
     cond <- form$condition
-    number.of.cond <- length(cond)
     y <- form$left
     x <- form$right
 
-    if (number.of.cond == 0)
+    if (length(cond) == 0)
     {
         strip <- FALSE
-        cond <- list(as.factor(rep(1, length(x))))
-        ##layout <- c(1,1,1)    FIXME : changed
-        number.of.cond <- 1
+        cond <- list(gl(1, length(x)))
     }
 
     if (missing(xlab)) xlab <- form$right.name
@@ -245,14 +222,13 @@ xyplot.formula <-
     ##if (!(is.numeric(x) && is.numeric(y)))
     ##    warning("x and y are not both numeric")
 
-
     ## create a skeleton trellis object with the
     ## less complicated components:
 
     foo <-
         do.call("trellis.skeleton",
-                c(list(formula = trellis.formula,
-                       cond = cond,     # FIXME: changed
+                c(list(formula = formula,
+                       cond = cond,
                        aspect = aspect,
                        strip = strip,
                        panel = panel,
@@ -267,7 +243,6 @@ xyplot.formula <-
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
-    ##scales <- eval(substitute(scales), data, parent.frame())
     if (is.character(scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)
     foo <- c(foo, do.call("construct.scales", scales))
@@ -291,7 +266,8 @@ xyplot.formula <-
 
     have.xlog <- !is.logical(foo$x.scales$log) || foo$x.scales$log
     have.ylog <- !is.logical(foo$y.scales$log) || foo$y.scales$log
-    if (have.xlog) {
+    if (have.xlog)
+    {
         xlog <- foo$x.scales$log
         xbase <-
             if (is.logical(xlog)) 10
@@ -301,7 +277,8 @@ xyplot.formula <-
         x <- log(x, xbase)
         if (have.xlim) xlim <- log(xlim, xbase)
     }
-    if (have.ylog) {
+    if (have.ylog)
+    {
         ylog <- foo$y.scales$log
         ybase <-
             if (is.logical(ylog)) 10
@@ -316,65 +293,32 @@ xyplot.formula <-
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
-
-    ## old NA-handling
-
-#     id.na <- is.na(x)|is.na(y)
-#     for (var in cond)
-#         id.na <- id.na | is.na(var)
-#     if (!any(!id.na)) stop("nothing to draw")
-#     ## Nothing simpler ?
-
-
-    
-    ## new NA-handling: will retain NA's in x, y
-
-    id.na <- do.call("pmax", lapply(cond, is.na))
-    if (!any(!id.na)) stop("nothing to draw")
-
-
-
-
-    
-## FIXME:     foo$condlevels <- lapply(cond, levels)
-
-    ## Step 6: Evaluate layout, panel.args.common and panel.args
+    ## Step 6: Determine packets
 
     foo$panel.args.common <- dots
     if (subscripts) foo$panel.args.common$groups <- groups
 
-    nplots <- prod(cond.max.level)
-    if (nplots != prod(sapply(foo$condlevels, length)))
+    npackets <- prod(cond.max.level)
+    if (npackets != prod(sapply(foo$condlevels, length)))
         stop("mismatch in number of packets")
-    foo$panel.args <- vector(mode = "list", length = nplots)
+    foo$panel.args <- vector(mode = "list", length = npackets)
 
-    ## FIXME: add to others
-    foo$packet.sizes <- numeric(nplots)
-    if (nplots > 1)
+    foo$packet.sizes <- numeric(npackets)
+    if (npackets > 1)
     {
         dim(foo$packet.sizes) <- sapply(foo$condlevels, length)
-        dimnames(foo$packet.sizes) <- foo$condlevels
+        dimnames(foo$packet.sizes) <- lapply(foo$condlevels, as.character)
     }
 
-    cond.current.level <- rep(1, number.of.cond)
-
-    for (packet.number in seq(length = nplots))
+    ## 
+    cond.current.level <- rep(1, length(cond))
+    for (packet.number in seq(length = npackets))
     {
+        id <- compute.packet(cond, cond.current.level)
+        foo$packet.sizes[packet.number] <- sum(id)
 
-        id <- !id.na
-        for (i in 1:number.of.cond)
-        {
-            var <- cond[[i]]
-            id <- id &
-            if (is.shingle(var))
-                ((var >= levels(var)[[cond.current.level[i]]][1])
-                 & (var <= levels(var)[[cond.current.level[i]]][2]))
-            else (as.numeric(var) == cond.current.level[i])
-        }
         foo$panel.args[[packet.number]] <-
             list(x = x[id], y = y[id])
-        ## FIXME: add to others
-        foo$packet.sizes[packet.number] <- sum(id)
         if (subscripts)
             foo$panel.args[[packet.number]]$subscripts <-
                 subscr[id]
@@ -383,7 +327,6 @@ xyplot.formula <-
             cupdate(cond.current.level,
                     cond.max.level)
     }
-
 
     ## FIXME: make this adjustment everywhere else
 
@@ -397,7 +340,7 @@ xyplot.formula <-
                             panel.args.common = foo$panel.args.common,
                             panel.args = foo$panel.args,
                             aspect = aspect,
-                            nplots = nplots,
+                            npackets = npackets,
                             x.axs = foo$x.scales$axs,
                             y.axs = foo$y.scales$axs),
           cond.orders(foo))

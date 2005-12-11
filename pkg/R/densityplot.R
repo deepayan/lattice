@@ -147,21 +147,7 @@ panel.densityplot <-
 
 
 
-densityplot <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("densityplot")
-}
-
-
+densityplot <- function(x, data, ...) UseMethod("densityplot")
 
 
 densityplot.numeric <-
@@ -217,8 +203,7 @@ densityplot.formula <-
              subscripts = !is.null(groups),
              subset = TRUE)
 {
-
-    ## dots <- eval(substitute(list(...)), data, parent.frame())
+    formula <- x
     dots <- list(...)
 
     ## darg is a list that gives arguments to density()
@@ -237,11 +222,11 @@ densityplot.formula <-
     
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
+    groups <- eval(substitute(groups), data, environment(formula))
+    subset <- eval(substitute(subset), data, environment(formula))
 
     form <-
-        latticeParseFormula(x, data, subset = subset,
+        latticeParseFormula(formula, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
                             drop = drop.unused.levels)
@@ -260,26 +245,25 @@ densityplot.formula <-
         else eval(prepanel)
 
     cond <- form$condition
-    number.of.cond <- length(cond)
     x <- form$right
-    if (number.of.cond == 0) {
+    if (length(cond) == 0) {
         strip <- FALSE
-        cond <- list(as.factor(rep(1, length(x))))
-        number.of.cond <- 1
+        cond <- list(gl(1, length(x)))
     }
 
     if (missing(xlab)) xlab <- form$right.name
     if (missing(ylab)) ylab <- gettext("Density")
 
-    ##if (!is.numeric(x))
-    ##    warning("x should be numeric")
-    ##x <- as.numeric(x)
+    ## if (!is.numeric(x))
+    ##     warning("x should be numeric")
+    ## x <- as.numeric(x)
 
     ## create a skeleton trellis object with the
     ## less complicated components:
     foo <-
         do.call("trellis.skeleton",
-                c(list(cond = cond,
+                c(list(formula = formula, 
+                       cond = cond,
                        aspect = aspect,
                        strip = strip,
                        panel = panel,
@@ -294,12 +278,9 @@ densityplot.formula <-
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
-    ## scales <- eval(substitute(scales), data, parent.frame())
     if (is.character(scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)
-    foo <- c(foo,
-             do.call("construct.scales", scales))
-
+    foo <- c(foo, do.call("construct.scales", scales))
 
     ## Step 3: Decide if limits were specified in call:
     
@@ -340,19 +321,7 @@ densityplot.formula <-
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
-    ## old NA-handling
-    ##     id.na <- is.na(x)
-    ##     for (var in cond)
-    ##         id.na <- id.na | is.na(var)
-    ##     if (!any(!id.na)) stop("nothing to draw")
-
-    ## new NA-handling: will retain NA's in x
-
-    id.na <- do.call("pmax", lapply(cond, is.na))
-    if (!any(!id.na)) stop("nothing to draw")
-
-
-    ## Step 6: Evaluate layout, panel.args.common and panel.args
+    ## Step 6: Determine packets
 
     foo$panel.args.common <- c(dots, list(darg = darg))
     if (subscripts)
@@ -362,31 +331,28 @@ densityplot.formula <-
     }
 
 
-    nplots <- prod(cond.max.level)
-    if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")
-    foo$panel.args <- vector(mode = "list", length = nplots)
+    npackets <- prod(cond.max.level)
+    if (npackets != prod(sapply(foo$condlevels, length))) 
+        stop("mismatch in number of packets")
+    foo$panel.args <- vector(mode = "list", length = npackets)
 
-    cond.current.level <- rep(1, number.of.cond)
-
-    for (panel.number in seq(length = nplots))
+    foo$packet.sizes <- numeric(npackets)
+    if (npackets > 1)
     {
-        id <- !id.na
-        for(i in seq(length = number.of.cond))
-        {
-            var <- cond[[i]]
-            id <- id &
-            if (is.shingle(var))
-                ((var >=
-                  levels(var)[[cond.current.level[i]]][1])
-                 & (var <=
-                    levels(var)[[cond.current.level[i]]][2]))
-            else (as.numeric(var) == cond.current.level[i])
-        }
+        dim(foo$packet.sizes) <- sapply(foo$condlevels, length)
+        dimnames(foo$packet.sizes) <- lapply(foo$condlevels, as.character)
+    }
 
-        foo$panel.args[[panel.number]] <-
-            list(x = x[id])
+    cond.current.level <- rep(1, length(cond))
+
+    for (packet.number in seq(length = npackets))
+    {
+        id <- compute.packet(cond, cond.current.level)
+        foo$packet.sizes[packet.number] <- sum(id)
+
+        foo$panel.args[[packet.number]] <- list(x = x[id])
         if (subscripts)
-            foo$panel.args[[panel.number]]$subscripts <-
+            foo$panel.args[[packet.number]]$subscripts <-
                 subscr[id]
 
         cond.current.level <-
@@ -405,7 +371,7 @@ densityplot.formula <-
                             panel.args.common = foo$panel.args.common,
                             panel.args = foo$panel.args,
                             aspect = aspect,
-                            nplots = nplots,
+                            npackets = npackets,
                             x.axs = foo$x.scales$axs,
                             y.axs = foo$y.scales$axs),
           cond.orders(foo))
@@ -439,3 +405,5 @@ densityplot.formula <-
     class(foo) <- "trellis"
     foo
 }
+
+

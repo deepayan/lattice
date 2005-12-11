@@ -34,7 +34,7 @@ trellis.focus(name, column, row, side, clip.off,
               highlight = interactive(), \dots)
 trellis.switchFocus(name, side, clip.off, highlight, \dots)
 trellis.unfocus()
-trellis.panelArgs(x, panel.number)
+trellis.panelArgs(x, packet.number)
 trellis.panelArgs()
 trellis.currentLayout()
 }
@@ -112,7 +112,7 @@ trellis.currentLayout()
     in interactive mode, and \code{trellis.swich.focus} by default
     preserves the setting currently active.
   }
-  \item{panel.number}{
+  \item{packet.number}{
     integer, which panel to get data from.  See \code{\link{xyplot}} for
     details on how this is calculated
   }

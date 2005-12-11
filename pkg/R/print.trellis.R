@@ -354,12 +354,14 @@ print.trellis <-
 
 
     strip.col.default.bg <-
-        rep(trellis.par.get("strip.background")$col, length=number.of.cond)
+        rep(trellis.par.get("strip.background")$col,
+            length = number.of.cond)
     strip.col.default.fg <-
-        rep(trellis.par.get("strip.shingle")$col,length=number.of.cond)
+        rep(trellis.par.get("strip.shingle")$col,
+            length = number.of.cond)
     strip.border <-
         lapply(trellis.par.get("strip.border"),
-               function(x) rep(x, length=number.of.cond))
+               function(x) rep(x, length = number.of.cond))
 
 
     ## Start layout calculations when only number of panels per page
@@ -391,8 +393,9 @@ print.trellis <-
     rows.per.page <- panel.layout[2]
     number.of.pages <- panel.layout[3]
     lattice.setStatus(current.plot.multipage = number.of.pages > 1)
-    ## this will also eventually be a 'status' variable
+    ## these will also eventually be 'status' variables
     current.panel.positions <- matrix(0, rows.per.page, cols.per.page)
+    current.packet.positions <- matrix(0, rows.per.page, cols.per.page)
 
 
     skip <- rep(x$skip, length = number.of.pages * rows.per.page * cols.per.page)
@@ -544,7 +547,7 @@ print.trellis <-
 
                         packet.number <- 
                             do.call("[", c(list(x = order.cond), as.list(cond.current.level)))
-                        current.panel.positions[row, column] <- packet.number
+                        current.packet.positions[row, column] <- packet.number
 
                         ## this index retrieves the appropriate entry
                         ## of panel.args and [xy].limits. It has to be
@@ -556,6 +559,7 @@ print.trellis <-
                         ## panel function argument
 
                         panel.number <- panel.number + 1
+                        current.panel.positions[row, column] <- panel.number
 
                         ## this gives the row position from the bottom
                         actual.row <- if (x$as.table)
@@ -1088,6 +1092,7 @@ print.trellis <-
     else
         lattice.setStatus(current.plot.saved = FALSE)
     lattice.setStatus(current.panel.positions = current.panel.positions)
+    lattice.setStatus(current.packet.positions = current.packet.positions)
     lattice.setStatus(current.focus.row = 0,
                       current.focus.column = 0,
                       vp.highlighted = FALSE,

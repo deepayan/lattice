@@ -20,8 +20,90 @@
 
 
 
-## Reimplementation of qqmath
 
+
+fast.quantile <- 
+    function(x,
+             probs = seq(0, 1, 0.25),
+             na.rm = FALSE,
+             names = FALSE,
+             type = 7, ...) 
+{
+    if (na.rm) 
+        x <- x[!is.na(x)]
+    else if (any(is.na(x))) 
+        stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
+    if (any((p.ok <- !is.na(probs)) & (probs < 0 | probs > 1))) 
+        stop("'probs' outside [0,1]")
+    n <- length(x)
+    if (na.p <- any(!p.ok)) {
+        o.pr <- probs
+        probs <- probs[p.ok]
+    }
+    np <- length(probs)
+    if (n > 0 && np > 0) {
+        if (type == 7) {
+            index <- 1 + (n - 1) * probs
+            lo <- floor(index)
+            hi <- ceiling(index)
+            x <- sort(x)
+            i <- index > lo
+            qs <- x[lo]
+            i <- seq(along = i)[i & !is.na(i)]
+            h <- (index - lo)[i]
+            qs[i] <- ifelse(h == 0, qs[i], (1 - h) * qs[i] + 
+                h * x[hi[i]])
+        }
+        else {
+            if (type <= 3) {
+                nppm <- if (type == 3) 
+                  n * probs - 0.5
+                else n * probs
+                j <- floor(nppm)
+                switch(type, h <- ifelse(nppm > j, 1, 0), h <- ifelse(nppm > 
+                  j, 1, 0.5), h <- ifelse((nppm == j) & ((j%%2) == 
+                  0), 0, 1))
+            }
+            else {
+                switch(type - 3, {
+                  a <- 0
+                  b <- 1
+                }, a <- b <- 0.5, a <- b <- 0, a <- b <- 1, a <- b <- 1/3, 
+                  a <- b <- 3/8)
+                fuzz <- 4 * .Machine$double.eps
+                nppm <- a + probs * (n + 1 - a - b)
+                j <- floor(nppm + fuzz)
+                h <- nppm - j
+                h <- ifelse(abs(h) < fuzz, 0, h)
+            }
+            x <- sort(x)
+            x <- c(x[1], x[1], x, x[n], x[n])
+            qs <- ifelse(h == 0, x[j + 2], ifelse(h == 1, x[j + 
+                3], (1 - h) * x[j + 2] + h * x[j + 3]))
+        }
+    }
+    else {
+        qs <- rep(as.numeric(NA), np)
+    }
+    if (names && np > 0) {
+        dig <- max(2, getOption("digits"))
+        names(qs) <- paste(if (np < 100) 
+            formatC(100 * probs, format = "fg", wid = 1, digits = dig)
+        else format(100 * probs, trim = TRUE, digits = dig), 
+            "%", sep = "")
+    }
+    if (na.p) {
+        o.pr[p.ok] <- qs
+        names(o.pr) <- rep("", length(o.pr))
+        names(o.pr)[p.ok] <- names(qs)
+        o.pr
+    }
+    else qs
+}
+
+
+
+## Reimplementation of qqmath
 
 
 
@@ -55,12 +137,12 @@ prepanel.default.qqmath <-
         if (is.null(f.value))
             sort(x)
         else if (is.numeric(f.value))
-            quantile(x, f.value,
+            fast.quantile(x, f.value,
                      names = FALSE,
                      type = qtype,
                      na.rm = TRUE)
         else
-            quantile(x, f.value(nobs),
+            fast.quantile(x, f.value(nobs),
                      names = FALSE,
                      type = qtype,
                      na.rm = TRUE)
@@ -124,7 +206,7 @@ panel.qqmath <-
         else
             panel.xyplot(x = distribution(if (is.numeric(f.value)) f.value else f.value(nobs)), 
                          y =
-                         quantile(x, if (is.numeric(f.value)) f.value else f.value(nobs),
+                         fast.quantile(x, if (is.numeric(f.value)) f.value else f.value(nobs),
                                   names = FALSE,
                                   type = qtype,
                                   na.rm = TRUE),
@@ -135,22 +217,7 @@ panel.qqmath <-
 
 
 
-
-
-
-qqmath <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("qqmath")
-}
+qqmath <- function(x, data, ...) UseMethod("qqmath")
 
 
 
@@ -196,27 +263,18 @@ qqmath.formula <-
              subscripts = !is.null(groups),
              subset = TRUE)
 {
-    ## dots <- eval(substitute(list(...)), data, parent.frame())
+    formula <- x
     dots <- list(...)
     
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
-
-##     right.name <- deparse(substitute(x))
-##     try(x <- eval(x), silent = TRUE)
-##     foo <- substitute(x)
-
-##     if (!inherits(x, "formula"))
-##         x <- as.formula(paste("~", formname))
-    
+    groups <- eval(substitute(groups), data, environment(formula))
+    subset <- eval(substitute(subset), data, environment(formula))
     form <-
-        latticeParseFormula(x, data, subset = subset,
+        latticeParseFormula(formula, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
                             drop = drop.unused.levels)
-
     groups <- form$groups
 
     if (!is.function(panel)) panel <- eval(panel)
@@ -231,13 +289,13 @@ qqmath.formula <-
         else eval(prepanel)
 
     cond <- form$condition
-    number.of.cond <- length(cond)
+    ## number.of.cond <- length(cond)
     x <- form$right
-    if (number.of.cond == 0)
+    if (length(cond) == 0)
     {
         strip <- FALSE
         cond <- list(gl(1, length(x)))
-        number.of.cond <- 1
+        ## number.of.cond <- 1
     }
 
     dist.name <- paste(deparse(substitute(distribution)), collapse = "")
@@ -248,7 +306,8 @@ qqmath.formula <-
     ## less complicated components:
     foo <-
         do.call("trellis.skeleton",
-                c(list(cond = cond,
+                c(list(formula = formula, 
+                       cond = cond,
                        aspect = aspect,
                        strip = strip,
                        panel = panel,
@@ -264,21 +323,21 @@ qqmath.formula <-
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
-    ## scales <- eval(substitute(scales), data, parent.frame())
     if (is.character(scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)
     foo <- c(foo, do.call("construct.scales", scales))
 
-
     ## Step 3: Decide if limits were specified in call:
     
     have.xlim <- !missing(xlim)
-    if (!is.null(foo$x.scales$limit)) {
+    if (!is.null(foo$x.scales$limit))
+    {
         have.xlim <- TRUE
         xlim <- foo$x.scales$limit
     }
     have.ylim <- !missing(ylim)
-    if (!is.null(foo$y.scales$limit)) {
+    if (!is.null(foo$y.scales$limit))
+    {
         have.ylim <- TRUE
         ylim <- foo$y.scales$limit
     }
@@ -313,21 +372,7 @@ qqmath.formula <-
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
-
-    ## Old NA-handling:
-    ##     id.na <- is.na(x)
-    ##     for (var in cond)
-    ##         id.na <- id.na | is.na(var)
-    ##     if (!any(!id.na)) stop("nothing to draw")
-
-    ## new NA-handling: will retain NA's in x
-
-    id.na <- do.call("pmax", lapply(cond, is.na))
-    if (!any(!id.na)) stop("nothing to draw")
-
-
-
-    ## Step 6: Evaluate layout, panel.args.common and panel.args
+    ## Step 6: Determine packets
 
     foo$panel.args.common <-
         c(list(distribution = distribution,
@@ -339,33 +384,28 @@ qqmath.formula <-
         foo$panel.args.common$groups <- groups
     }
 
-    nplots <- prod(cond.max.level)
-    if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")
-    foo$panel.args <- vector(mode = "list", length = nplots)
+    npackets <- prod(cond.max.level)
+    if (npackets != prod(sapply(foo$condlevels, length))) 
+        stop("mismatch in number of packets")
+    foo$panel.args <- vector(mode = "list", length = npackets)
 
 
-    cond.current.level <- rep(1, number.of.cond)
-
-
-    for (panel.number in seq(length = nplots))
+    foo$packet.sizes <- numeric(npackets)
+    if (npackets > 1)
     {
-        id <- !id.na
-        for(i in seq(length = number.of.cond))
-        {
-            var <- cond[[i]]
-            id <- id &
-            if (is.shingle(var))
-                ((var >=
-                  levels(var)[[cond.current.level[i]]][1])
-                 & (var <=
-                    levels(var)[[cond.current.level[i]]][2]))
-            else (as.numeric(var) == cond.current.level[i])
-        }
+        dim(foo$packet.sizes) <- sapply(foo$condlevels, length)
+        dimnames(foo$packet.sizes) <- lapply(foo$condlevels, as.character)
+    }
+    cond.current.level <- rep(1, length(cond))
+    for (packet.number in seq(length = npackets))
+    {
+        id <- compute.packet(cond, cond.current.level)
+        foo$packet.sizes[packet.number] <- sum(id)
 
-        foo$panel.args[[panel.number]] <-
+        foo$panel.args[[packet.number]] <-
             list(x = x[id])
         if (subscripts)
-            foo$panel.args[[panel.number]]$subscripts <-
+            foo$panel.args[[packet.number]]$subscripts <-
                 subscr[id]
 
         cond.current.level <-
@@ -383,7 +423,7 @@ qqmath.formula <-
                             panel.args.common = foo$panel.args.common,
                             panel.args = foo$panel.args,
                             aspect = aspect,
-                            nplots = nplots,
+                            npackets = npackets,
                             x.axs = foo$x.scales$axs,
                             y.axs = foo$y.scales$axs),
           cond.orders(foo))
@@ -458,7 +498,7 @@ panel.qqmathline <-
     else if (nobs)
     {
         yy <-
-            quantile(y, p, names = FALSE,
+            fast.quantile(y, p, names = FALSE,
                      type = qtype, na.rm = TRUE)
         xx <- distribution(p)
         r <- diff(yy)/diff(xx)
@@ -492,7 +532,7 @@ prepanel.qqmathline <-
     nobs <- sum(!is.na(y))
     getdy <- function(x)
     {
-        diff(quantile(x, p, names = FALSE,
+        diff(fast.quantile(x, p, names = FALSE,
                       type = qtype,
                       na.rm = TRUE))
     }

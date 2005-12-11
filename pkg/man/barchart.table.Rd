@@ -6,24 +6,20 @@
 \alias{dotplot.table}
 \alias{dotplot.array}
 \alias{dotplot.matrix}
-% \synopsis{
-% \method{barchart}{table}(formula, data = NULL, groups = TRUE,
-%              origin = 0, stack = TRUE, \dots)
-% \method{dotplot}{table}(formula, data = NULL, groups = TRUE, \dots)
-% }
+
 \usage{
-\method{barchart}{table}(x, data = NULL, groups = TRUE,
+\method{barchart}{table}(x, data, groups = TRUE,
          origin = 0, stack = TRUE, \dots)
 
-\method{barchart}{array}(x, \dots)
+\method{barchart}{array}(x, data, \dots)
 
-\method{barchart}{matrix}(x, \dots)
+\method{barchart}{matrix}(x, data, \dots)
 
-\method{dotplot}{table}(x, data = NULL, groups = TRUE, \dots)
+\method{dotplot}{table}(x, data, groups = TRUE, \dots)
 
-\method{dotplot}{array}(x, \dots)
+\method{dotplot}{array}(x, data, \dots)
 
-\method{dotplot}{matrix}(x, \dots)
+\method{dotplot}{matrix}(x, data, \dots)
 }
 
 \description{
@@ -31,8 +27,6 @@
   These methods are provided for convenience and operate directly on
   tables.  Arrays and matrices are simply coerced to be a table.
 }
-
-
 
 \arguments{
   \item{x}{

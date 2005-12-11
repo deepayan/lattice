@@ -35,8 +35,8 @@ cupdate <- function(index, maxim)
     if(length(index)!=length(maxim)||length(maxim)<=0)
         stop("Inappropriate arguments")
     index[1] <- index[1] + 1
-    if(index[1]>maxim[1] && length(maxim)>1)
-        c(1,cupdate(index[-1],maxim[-1]))
+    if (index[1] > maxim[1] && length(maxim) > 1)
+        c(1, cupdate(index[-1], maxim[-1]))
     else index
 }
 
@@ -605,10 +605,12 @@ compute.layout <-
     number.of.cond <- length(cond.max.level)
     nplots <- prod(cond.max.level)
     
-    if (!is.numeric(layout)) {
+    if (!is.numeric(layout))
+    {
         layout <- c(0,1,1)
-        if (number.of.cond==1) layout[2] <- nplots
-        else {
+        if (number.of.cond == 1) layout[2] <- nplots
+        else
+        {
             layout[1] <- cond.max.level[1]
             layout[2] <- cond.max.level[2]
         }
@@ -616,24 +618,46 @@ compute.layout <-
         plots.per.page <- length(skip) - length(skip[skip])
         layout[3] <- ceiling(nplots/plots.per.page) # + 1
     }
-    else if (length(layout)==1)
+    else if (length(layout) == 1)
         stop("layout must have at least 2 elements")
-    else if (length(layout)==2)
+    else if (length(layout) == 2)
     {
-        if(all(layout<1))
+        if(all(layout < 1))
             stop("at least one element of layout must be positive")
         else if (layout[2]==0) stop("inadmissible value of layout")
         
         skip <- rep(skip, length = max(layout[1] * layout[2], layout[2]))
         plots.per.page <- length(skip) - length(skip[skip])
-        layout[3] <- ceiling(nplots/plots.per.page) # + 1 
+        layout[3] <- ceiling(nplots / plots.per.page) # + 1 
     }
-    else if (length(layout)==3) {
-        if(layout[1]<0||layout[2]<1||layout[3]<1)
+    else if (length(layout)==3)
+    {
+        if(layout[1] < 0 || layout[2] < 1 || layout[3] < 1)
             stop("invalid value for layout")
     }
     layout
 }
 
 
+
+
+compute.packet <-
+    function(cond, levels)
+{
+    id <- !(do.call("pmax", lapply(cond, is.na)))
+    stopifnot(any(id))
+    for (i in seq(along = cond))
+    {
+        var <- cond[[i]]
+        id <-
+            id & (
+                  if (is.shingle(var))
+                  ((var >= levels(var)[[levels[i]]][1]) &
+                   (var <= levels(var)[[levels[i]]][2]))
+                  else
+                  (as.numeric(var) == levels[i])
+                  )
+    }
+    id
+}
 

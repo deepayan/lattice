@@ -2,6 +2,7 @@
 \alias{equal.count}
 \alias{plot.shingle}
 \alias{print.shingle}
+\alias{as.character.shingleLevel}
 \alias{print.shingleLevel}
 \alias{summary.shingle}
 \alias{as.data.frame.shingle}
@@ -16,11 +17,19 @@ shingle(x, intervals=sort(unique(x)))
 equal.count(x, \dots)
 as.shingle(x)
 is.shingle(x)
-\method{plot}{shingle}(x, panel, xlab = "Range", ylab = "Panel", \dots)
+
+\method{plot}{shingle}(x, panel, xlab, ylab, \dots)
+
 \method{print}{shingle}(x, showValues = TRUE, \dots)
+
+\method{as.character}{shingleLevel}(x, \dots)
+
 \method{print}{shingleLevel}(x, \dots)
-\method{summary}{shingle}(object, \dots)
+
+\method{summary}{shingle}(object, showValues = FALSE, \dots)
+
 \method{as.data.frame}{shingle}(x, row.names = NULL, optional = FALSE)
+
 \method{[}{shingle}(x, subset, drop = FALSE)
 as.factorOrShingle(x, subset, drop)
 }
@@ -62,11 +71,13 @@ as.factorOrShingle(x, subset, drop)
   S.
 
   There are print methods for shingles, as well as for printing the
-  result of \code{levels()} applied to a shingle.
+  result of \code{levels()} applied to a shingle.  For use in labelling,
+  the \code{as.character} method can be used to convert levels of a
+  shingle to character strings.
 
-  \code{equal.count} converts \code{x} to a shingle. Essentially a
-  wrapper around \code{co.intervals}. All arguments are passed to
-  \code{co.intervals}
+  \code{equal.count} converts \code{x} to a shingle using the equal
+  count algorithm.  This is essentially a wrapper around
+  \code{co.intervals}.  All arguments are passed to \code{co.intervals}.
 
   \code{shingle} creates a shingle using the given \code{intervals}. If
   \code{intervals} is a vector, these are used to form 0 length

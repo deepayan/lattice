@@ -126,11 +126,8 @@ update.trellis <-
         }
         object$call[nm] <- upcall[nm]
     }
-
-
     have.xlim <- !missing(xlim)    ## needed later
     have.ylim <- !missing(xlim)
-
 
     ## deal with the non-problematic stuff first
 
@@ -139,29 +136,20 @@ update.trellis <-
         if (is.logical(as.table)) object$as.table <- as.table
         else warning("Inappropriate value of as.table")
     }
-    
     if (!missing(between))
     {
         if ("x" %in% names(between)) object$x.between <- between$x
         if ("y" %in% names(between)) object$y.between <- between$y
     }
-
     if (!missing(layout))
     {
         object$layout <- layout
     }
-
     if (!missing(main)) object$main <- main
     if (!missing(sub)) object$sub <- sub
     if (!missing(xlab)) object$xlab <- xlab
     if (!missing(ylab)) object$ylab <- ylab
-
-
-    if (!missing(page))
-    {
-        object$page <- page
-    }
-
+    if (!missing(page)) object$page <- page
     if (!missing(par.strip.text))
     {
         ## this only overwrites earlier things, leaves alone those
@@ -171,12 +159,7 @@ update.trellis <-
             object$par.strip.text <- updateList(object$par.strip.text, par.strip.text)
         else warning("par.strip.text must be a list")
     }
-
-    if (!missing(skip))
-    {
-        object$skip <- skip
-    }
-
+    if (!missing(skip)) object$skip <- skip
     if (!missing(strip))
     {
         if (is.logical(strip)) {
@@ -185,17 +168,14 @@ update.trellis <-
         }
         else object$strip <- strip
     }
-
     if (!missing(par.settings))
     {
         ## this only overwrites earlier things, leaves alone those
         ## that are not specified explicitly
-
         if (is.list(par.settings))
             object$par.settings <- updateList(object$par.settings, par.settings)
         else warning("par.settings must be a list")
     }
-
 
     ## during construction of trellis objects, perm.cond and
     ## index.cond are calculated by the cond.orders function. We could
@@ -212,71 +192,51 @@ update.trellis <-
             object$perm.cond <- perm.cond
         else stop("Invalid value of perm.cond")
     }
-
     if (!missing(index.cond))
     {
         object$index.cond <- index.cond
         cond.ord <- cond.orders(object)
         object[names(cond.ord)] <- cond.ord
     }
-
     dots <- list(...)
     if (length(dots) > 0)
     {
         ##print(dots) ## for debugging, remove later
         object$panel.args.common <- updateList(object$panel.args.common, dots)
     }
-
-
-
     if (!missing(panel))
     {
         panel <- 
             if (is.function(panel)) panel 
             else if (is.character(panel)) get(panel)
             else eval(panel)
-
         if (as.character(object$call[[1]]) == "splom")
             object$panel.args.common$panel <- panel
         else object$panel <- panel
     }
 
-
-
-
-
     ## the slightly complicated stuff
-
 
     if (!missing(legend))
     {
         if (is.null(legend)) object$legend <- NULL
         else object$legend <- updateList(object$legend, legend)
     }
-
-    
-
-    
     if (!missing(key))  ## FIXME: why?
     {
         ## should we allow partial update?
         ## object$key <- updateList(object$key, key)
         object$key <- key
     }
-
-
-
     if (!missing(auto.key))
     {
         if (!is.null(object$legend))
 
-            cat(gettext("\nNote: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove exisitng legend(s)"),
+            cat(gettext("\nNote: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"),
                 fill = TRUE)
-
         else 
         {
             groups <- object$panel.args.common$groups
-
             if (!is.null(groups) && (is.list(auto.key) || (is.logical(auto.key) && auto.key)))
             {
                 object$legend <-
@@ -287,7 +247,6 @@ update.trellis <-
                 object$legend[[1]]$x <- object$legend[[1]]$args$x
                 object$legend[[1]]$y <- object$legend[[1]]$args$y
                 object$legend[[1]]$corner <- object$legend[[1]]$args$corner
-
                 names(object$legend) <- 
                     if (any(c("x", "y", "corner") %in% names(object$legend[[1]]$args)))
                         "inside"
@@ -298,7 +257,6 @@ update.trellis <-
             }
         }
     }
-
 
     relationChanged <- FALSE
 

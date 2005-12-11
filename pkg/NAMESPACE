@@ -5,6 +5,10 @@
 import(grid)
 
 
+## ## can I do this?
+## export(grid.prompt)
+
+
 importFrom(grDevices, dev.list, cm.colors, gray, heat.colors)
 importFrom(graphics, plot, co.intervals)
 
@@ -14,7 +18,6 @@ importFrom(stats, as.formula, density, fitted.values, loess.smooth,
 
 
 export(
-       ## "[.shingle",
        as.factorOrShingle, as.shingle, banking, barchart,
        bwplot, canonical.theme, cloud, col.whitebg, Rows,
 
@@ -71,6 +74,7 @@ S3method(as.data.frame, shingle)
 S3method(plot, shingle)
 S3method(print, shingle)
 S3method(summary, shingle)
+S3method(as.character, shingleLevel)
 S3method(print, shingleLevel)
 
 ## trellis methods (see also tmd below)

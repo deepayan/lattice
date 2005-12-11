@@ -30,7 +30,7 @@ lsegments(x0, y0, x1, y1, x2, y2,
           col, alpha, lty, lwd, \dots)
 ltext(x, y = NULL, labels = seq(along = x),
       col, alpha, cex, srt = 0,
-      font, fontfamily, fontface,
+      lineheight, font, fontfamily, fontface,
       adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots)  
 lrect(xleft, ybottom, xright, ytop,
       x = (xleft + xright) / 2,
@@ -60,15 +60,16 @@ panel.text(\dots)
     function, \code{\link{arrows}}.  }
   \item{angle, code, type, labels, srt, adj, pos, offset}{ arguments
     controlling behaviour.  See respective base functions for details. }
-  \item{col, alpha, lty, lwd, fill, pch, cex, font, fontfamily,
-    fontface, col.line, border}{ graphical parameters.  \code{fill}
-    applies to points when \code{pch} is in \code{21:25} and specifies
-    the fill color, similar to the \code{bg} argument in the base
-    graphics function \code{\link{points}}. For devices that support
-    alpha-transparency, a numeric argument \code{alpha} between 0 and 1
-    can controls transparency.  Be careful with this, since for devices
-    that do not support alpha-transparency, nothing will be drawn at all
-    if this is set to anything other than 0.  }
+  \item{col, alpha, lty, lwd, fill, pch, cex, lineheight, font,
+    fontfamily, fontface, col.line, border}{ graphical parameters.
+    \code{fill} applies to points when \code{pch} is in \code{21:25} and
+    specifies the fill color, similar to the \code{bg} argument in the
+    base graphics function \code{\link{points}}. For devices that
+    support alpha-transparency, a numeric argument \code{alpha} between
+    0 and 1 can controls transparency.  Be careful with this, since for
+    devices that do not support alpha-transparency, nothing will be
+    drawn at all if this is set to anything other than 0.
+  }
   \item{xleft, ybottom, xright, ytop}{ see \code{\link{rect}}}
   \item{width, height, just, hjust, vjust}{ finer control over
     rectangles, see \code{\link[grid:grid.rect]{grid.rect}} }

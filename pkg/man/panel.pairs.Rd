@@ -30,7 +30,8 @@ panel.pairs(z,
 diag.panel.splom(x = NULL,
                  varname = NULL, limits, at = NULL, lab = NULL,
                  draw = TRUE,
-                 varname.col, varname.cex, varname.font,
+                 varname.col, varname.cex,
+                 varname.lineheight, varname.font,
                  varname.fontfamily, varname.fontface,
                  axis.text.col, axis.text.alpha,
                  axis.text.cex, axis.text.font, 
@@ -112,9 +113,9 @@ diag.panel.splom(x = NULL,
     packet number (see \code{\link{xyplot}}).  Passed on to
     \code{panel}, \code{lower.panel}, \code{upper.panel} and
     \code{diag.panel}. }
-  \item{varname.col, varname.cex, varname.font, varname.fontfamily,
-    varname.fontface}{ graphical parameters for the variable name in
-    each diagonal panel }
+  \item{varname.col, varname.cex, varname.lineheight, varname.font,
+    varname.fontfamily, varname.fontface}{ graphical parameters for the
+    variable name in each diagonal panel }
   \item{axis.text.col, axis.text.cex, axis.text.font,
     axis.text.fontfamily, axis.text.fontface, axis.line.col,
     axis.line.lty, axis.line.lwd, axis.text.alpha, axis.line.alpha}{
