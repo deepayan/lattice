@@ -316,20 +316,7 @@ panel.levelplot <-
 }
 
 
-contourplot <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula
-        else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("contourplot")
-}
+contourplot <- function(x, data, ...) UseMethod("contourplot")
 
 
 
@@ -379,51 +366,6 @@ contourplot.formula <-
 
 
 
-
-## contourplot.old <-
-##     function(formula,
-##              data = parent.frame(),
-##              panel = "panel.contourplot",
-##              prepanel = NULL,
-##              strip = TRUE,
-##              groups = NULL,
-##              cuts = 7,
-##              labels = TRUE,
-##              contour = TRUE,
-##              pretty = TRUE,
-##              region = FALSE,
-##              ...,
-##              subset = TRUE)
-
-## {
-##     ## m <- match.call(expand.dots = FALSE)
-##     dots <- list(...)
-##     groups <- eval(substitute(groups), data, parent.frame())
-##     subset <- eval(substitute(subset), data, parent.frame())
-
-##     if (!is.function(panel)) panel <- eval(panel)
-##     if (!is.function(strip)) strip <- eval(strip)
-
-##     prepanel <-
-##         if (is.function(prepanel)) prepanel 
-##         else if (is.character(prepanel)) get(prepanel)
-##         else eval(prepanel)
-
-##     do.call("levelplot",
-##             c(list(formula = substitute(formula),
-##                    data = data,
-##                    groups = groups,
-##                    subset = subset,
-##                    panel = panel,
-##                    prepanel = prepanel,
-##                    strip = strip,
-##                    labels = labels,
-##                    cuts = cuts,
-##                    contour = contour,
-##                    pretty = pretty,
-##                    region = region),
-##               dots))
-## }
 
 levelplot <- function(x, data, ...)
 {
@@ -485,15 +427,15 @@ levelplot.formula <-
              alpha.regions,
              subset = TRUE)
 {
-    ##dots <- eval(substitute(list(...)), data, parent.frame())
+    formula <- x
     dots <- list(...)
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
+    groups <- eval(substitute(groups), data, environment(formula))
+    subset <- eval(substitute(subset), data, environment(formula))
 
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
     form <-
-        latticeParseFormula(x, data, dim = 3,
+        latticeParseFormula(formula, data, dim = 3,
                             subset = subset, groups = groups,
                             multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
@@ -523,17 +465,14 @@ levelplot.formula <-
         else eval(prepanel)
 
     cond <- form$condition
-    number.of.cond <- length(cond)
     z <- form$left
     x <- form$right.x
     y <- form$right.y
-
-    if (number.of.cond == 0) {
+    if (length(cond) == 0)
+    {
         strip <- FALSE
-        cond <- list(as.factor(rep(1, length(x))))
-        number.of.cond <- 1
+        cond <- list(gl(1, length(x)))
     }
-
     if (missing(xlab)) xlab <- form$right.x.name
     if (missing(ylab)) ylab <- form$right.y.name
 
@@ -546,15 +485,17 @@ levelplot.formula <-
     ## create a skeleton trellis object with the
     ## less complicated components:
 
-    foo <- do.call("trellis.skeleton",
-                   c(list(cond = cond,
-                          aspect = aspect,
-                          strip = strip,
-                          panel = panel,
-                          xlab = xlab,
-                          ylab = ylab,
-                          xlab.default = form$right.x.name,
-                          ylab.default = form$right.y.name), dots))
+    foo <-
+        do.call("trellis.skeleton",
+                c(list(formula = formula, 
+                       cond = cond,
+                       aspect = aspect,
+                       strip = strip,
+                       panel = panel,
+                       xlab = xlab,
+                       ylab = ylab,
+                       xlab.default = form$right.x.name,
+                       ylab.default = form$right.y.name), dots))
 
     
     dots <- foo$dots # arguments not processed by trellis.skeleton
@@ -563,7 +504,6 @@ levelplot.formula <-
 
     ## Step 2: Compute scales.common (excluding limits)
 
-    ## scales <- eval(substitute(scales), data, parent.frame())
     if (is.character (scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)
     foo <- c(foo,
@@ -589,7 +529,8 @@ levelplot.formula <-
 
     have.xlog <- !is.logical(foo$x.scales$log) || foo$x.scales$log
     have.ylog <- !is.logical(foo$y.scales$log) || foo$y.scales$log
-    if (have.xlog) {
+    if (have.xlog)
+    {
         xlog <- foo$x.scales$log
         xbase <-
             if (is.logical(xlog)) 10
@@ -599,7 +540,8 @@ levelplot.formula <-
         x <- log(x, xbase)
         if (have.xlim) xlim <- log(xlim, xbase)
     }
-    if (have.ylog) {
+    if (have.ylog)
+    {
         ylog <- foo$y.scales$log
         ybase <-
             if (is.logical(ylog)) 10
@@ -614,18 +556,7 @@ levelplot.formula <-
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
-    id.na <- is.na(x) | is.na(y)  ##|is.na(z)
-    for (var in cond)
-        id.na <- id.na | is.na(var)
-    if (!any(!id.na)) stop("nothing to draw")
-    ## Nothing simpler ?
-
-    ## Step 6: Evaluate layout, panel.args.common and panel.args
-
     ## Most levelplot/contourplot specific code here
-
-
-
 
     if (is.logical(colorkey))
     {
@@ -651,17 +582,13 @@ levelplot.formula <-
                          colorkey,
                          fun = "draw.colorkey")
 
+    ## Step 6: Determine packets
+
     foo$panel.args.common <-
         c(list(x = x, y = y, z = z, at = at,
                region = region), dots)
     if (!missing(col.regions)) foo$panel.args.common$col.regions <- col.regions
     if (!missing(alpha.regions)) foo$panel.args.common$alpha.regions <- alpha.regions
-
-
-
-
-
-
 
 
 
@@ -709,34 +636,30 @@ levelplot.formula <-
 # ##############################
 
 
-
-
     if (!is.null(groups)) foo$panel.args.common$groups <- groups
 
-    nplots <- prod(cond.max.level)
-    if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")
-    foo$panel.args <- vector(mode = "list", length = nplots)
+    npackets <- prod(cond.max.level)
+    if (npackets != prod(sapply(foo$condlevels, length))) 
+        stop("mismatch in number of packets")
+    foo$panel.args <- vector(mode = "list", length = npackets)
 
 
-    cond.current.level <- rep(1, number.of.cond)
-
-
-    for (panel.number in seq(length = nplots))
+    foo$packet.sizes <- numeric(npackets)
+    if (npackets > 1)
     {
-        id <- !id.na
-        for(i in 1:number.of.cond)
-        {
-            var <- cond[[i]]
-            id <- id &
-            if (is.shingle(var))
-                ((var >=
-                  levels(var)[[cond.current.level[i]]][1])
-                 & (var <=
-                    levels(var)[[cond.current.level[i]]][2]))
-            else (as.numeric(var) == cond.current.level[i])
-        }
+        dim(foo$packet.sizes) <- sapply(foo$condlevels, length)
+        dimnames(foo$packet.sizes) <- lapply(foo$condlevels, as.character)
+    }
 
-        foo$panel.args[[panel.number]] <- 
+    cond.current.level <- rep(1, length(cond))
+
+
+    for (packet.number in seq(length = npackets))
+    {
+        id <- compute.packet(cond, cond.current.level)
+        foo$packet.sizes[packet.number] <- sum(id)
+
+        foo$panel.args[[packet.number]] <- 
             list(subscripts = subscr[id])
 
         cond.current.level <-
@@ -744,29 +667,23 @@ levelplot.formula <-
                     cond.max.level)
     }
 
-    more.comp <- c(limits.and.aspect(prepanel.default.levelplot,
-                                     prepanel = prepanel, 
-                                     have.xlim = have.xlim, xlim = xlim, 
-                                     have.ylim = have.ylim, ylim = ylim, 
-                                     x.relation = foo$x.scales$relation,
-                                     y.relation = foo$y.scales$relation,
-                                     panel.args.common = foo$panel.args.common,
-                                     panel.args = foo$panel.args,
-                                     aspect = aspect,
-                                     nplots = nplots,
-                                     x.axs = foo$x.scales$axs,
-                                     y.axs = foo$y.scales$axs),
-                   cond.orders(foo))
+    more.comp <-
+        c(limits.and.aspect(prepanel.default.levelplot,
+                            prepanel = prepanel, 
+                            have.xlim = have.xlim, xlim = xlim, 
+                            have.ylim = have.ylim, ylim = ylim, 
+                            x.relation = foo$x.scales$relation,
+                            y.relation = foo$y.scales$relation,
+                            panel.args.common = foo$panel.args.common,
+                            panel.args = foo$panel.args,
+                            aspect = aspect,
+                            npackets = npackets,
+                            x.axs = foo$x.scales$axs,
+                            y.axs = foo$y.scales$axs),
+          cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
     class(foo) <- "trellis"
     foo
 }
-
-
-
-
-
-
-
 

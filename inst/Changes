@@ -37,8 +37,9 @@ Todo:
 
  o groups with all NA in a level doesn't work
 
+ o change panel.qq so that most work gets done there
 
-
+ o print shingle levels in strip
 
 Changes in lattice 0.12
 =======================

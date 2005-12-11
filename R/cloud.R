@@ -224,7 +224,6 @@ panel.3dscatter <-
             }
         }
 
-
         ## 'lines' type
         if (any(c('l', 'b', 'o') %in% type))
         {
@@ -248,7 +247,6 @@ panel.3dscatter <-
             ## ordered. This is just a naive heuristic:
 
             ord <- sort.list(pmax(m0[3,], m1[3,]))
-
             lsegments(x0 = m0[1, ord], y0 = m0[2, ord],
                       x1 = m1[1, ord], y1 = m1[2, ord],
                       col = tmpcol0[ord])
@@ -262,7 +260,6 @@ panel.3dscatter <-
                 ((x >= xlim.scaled[1]) & (x <= xlim.scaled[2]) &
                  (y >= ylim.scaled[1]) & (y <= ylim.scaled[2]) &
                  !is.na(x) & !is.na(y) & !is.na(z))
-
             m <- ltransform3dto3d(rbind(x, y, z), rot.mat, distance)
             ord <- sort.list(m[3,])
             ord <- ord[id[ord]]
@@ -277,7 +274,6 @@ panel.3dscatter <-
                       lty = lty[ord],
                       lwd = lwd[ord])
         }
-
         if (any(!(type %in% c('p', 'h', 'l', 'b', 'o'))))
         {
             warning("type has unsupported values")
@@ -639,10 +635,7 @@ panel.cloud <-
 
              scpos,
              ...,
-#             drape,
-             at)   ## this is same as 'at' in wireframe
-#             col.regions = regions$col,
-#             alpha.regions = regions$alpha)
+             at)    ## this is same as 'at' in wireframe
 
 {
     ## x, y, z can be matrices
@@ -890,11 +883,6 @@ panel.cloud <-
         axes[,1:2] <- axes[,1:2] * (1 + scales.3d$x.scales$distance/10)
         axes[,3:4] <- axes[,3:4] * (1 + scales.3d$y.scales$distance/10)
         axes[,5:6] <- axes[,5:6] * (1 + scales.3d$z.scales$distance/10)
-
-
-
-
-
 
         ## box ranges and lengths
         cmin <- lapply(corners, min)
@@ -1356,72 +1344,13 @@ panel.cloud <-
 
 
 
-
-
-
-
-
 panel.wireframe <- function(...)
     panel.cloud(..., wireframe = TRUE)
 
 
 
 
-
-## wireframe.old <-
-##     function(formula,
-##              data = parent.frame(),
-##              panel = "panel.wireframe",
-##              prepanel = NULL,
-##              strip = TRUE,
-##              groups = NULL,
-##              cuts = 70,
-##              pretty = FALSE,
-##              drape = FALSE,
-##              ...,
-##              colorkey = any(drape),
-##              subset = TRUE)
-## {
-##     ## m <- match.call(expand.dots = FALSE)
-##     dots <- list(...)
-##     groups <- eval(substitute(groups), data, parent.frame())
-##     subset <- eval(substitute(subset), data, parent.frame())
-
-##     if (!is.function(panel)) panel <- eval(panel)
-##     if (!is.function(strip)) strip <- eval(strip)
-
-##     prepanel <-
-##         if (is.function(prepanel)) prepanel
-##         else if (is.character(prepanel)) get(prepanel)
-##         else eval(prepanel)
-
-##     do.call("cloud",
-##             c(list(formula = substitute(formula), data = data,
-##                    groups = groups, subset = subset,
-##                    panel = panel, prepanel = prepanel, strip = strip,
-##                    cuts = cuts,
-##                    pretty = pretty,
-##                    drape = drape,
-##                    colorkey = colorkey,
-##                    axs.default = "i"),
-##               dots))
-## }
-
-
-
-wireframe <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("wireframe")
-}
+wireframe <- function(x, data, ...) UseMethod("wireframe")
 
 
 wireframe.matrix <-
@@ -1462,19 +1391,7 @@ wireframe.formula <-
 ## points/cross lines (cloud.3d),
 
 
-cloud <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("cloud")
-}
+cloud <- function(x, data, ...) UseMethod("cloud")
 
 
 cloud.matrix <-
@@ -1511,13 +1428,6 @@ cloud.formula <-
              ylim = if (is.factor(y)) levels(y) else range(y, finite = TRUE),
              zlab,
              zlim = if (is.factor(z)) levels(z) else range(z, finite = TRUE),
-
-#             distance = .2,
-#             perspective = TRUE,
-#             R.mat = diag(4),
-#             screen = list(z = 40, x = -60),
-
-#             zoom = 0.8,
              at,
              drape = FALSE,
 
@@ -1536,19 +1446,15 @@ cloud.formula <-
     ## cloud, but not for wireframe. Needs work to be actually
     ## implemented.
 {
-    ##dots <- eval(substitute(list(...)), data, parent.frame())
+    formula <- x
     dots <- list(...)
-
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
+    groups <- eval(substitute(groups), data, environment(formula))
+    subset <- eval(substitute(subset), data, environment(formula))
 
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
-##     left.name <- deparse(substitute(x))
-##     x <- eval(substitute(x), data, parent.frame())
-
     form <-
-        latticeParseFormula(x, data, dim = 3,
+        latticeParseFormula(formula, data, dim = 3,
                             subset = subset, groups = groups,
                             multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
@@ -1580,7 +1486,6 @@ cloud.formula <-
 
 
     cond <- form$condition
-    number.of.cond <- length(cond)
     z <- form$left
     x <- form$right.x
     y <- form$right.y
@@ -1593,11 +1498,10 @@ cloud.formula <-
     isParametrizedSurface <-
         is.matrix(x) && is.matrix(y) && is.matrix(z)
 
-    if (number.of.cond == 0)
+    if (length(cond) == 0)
     {
         strip <- FALSE
-        cond <- list(as.factor(rep(1, length(x))))
-        number.of.cond <- 1
+        cond <- list(gl(1, length(x)))
     }
 
     if (missing(xlab)) xlab <- form$right.x.name
@@ -1623,13 +1527,15 @@ cloud.formula <-
     ## create a skeleton trellis object with the
     ## less complicated components:
 
-    foo <- do.call("trellis.skeleton",
-                   c(list(cond = cond,
-                          aspect = 1,
-                          strip = strip,
-                          panel = panel,
-                          xlab = NULL,
-                          ylab = NULL), dots))
+    foo <-
+        do.call("trellis.skeleton",
+                c(list(formula = formula, 
+                       cond = cond,
+                       aspect = 1,
+                       strip = strip,
+                       panel = panel,
+                       xlab = NULL,
+                       ylab = NULL), dots))
 
     ##----------------------------------------------------------------+
     ## xlab, ylab, zlab have special meaning in cloud / wireframe, and|
@@ -1652,12 +1558,7 @@ cloud.formula <-
     ## no reason not to allow that (will not allow limits, though)
 
     scales <- updateList(default.scales, scales)
-#    scales <- updateList(  list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default)
-#    if (!is.null(scales)) scales.default[names(scales)] <- scales
-#    scales.3d <- do.call("construct.3d.scales", scales.default)
     scales.3d <- do.call("construct.3d.scales", scales)
-
-
 
 
     ## Step 3: Decide if limits were specified in call
@@ -1708,25 +1609,6 @@ cloud.formula <-
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
-
-    ## don't really want to leave out NA's in z
-    id.na <- is.na(x) | is.na(y)  ##|is.na(z)
-
-    for (var in cond)
-        id.na <- id.na | is.na(var)
-    if (!any(!id.na)) stop("nothing to draw")
-
-    ## Nothing simpler ?
-
-
-    ## Step 6: Evaluate layout, panel.args.common and panel.args
-
-
-
-
-
-
-
     if (is.logical(colorkey))
     {
         if (colorkey)
@@ -1750,13 +1632,6 @@ cloud.formula <-
         construct.legend(foo$legend,
                          colorkey,
                          fun = "draw.colorkey")
-
-
-
-
-
-
-
 
 
 
@@ -1799,14 +1674,14 @@ cloud.formula <-
 
 
 
-
-
-
     ## maybe *lim = NULL with relation = "free" ?
 
 
     ## Process limits here ? Needs some thought
 
+
+
+    ## Step 6: Determine packets
 
     foo$panel.args.common <-
         c(list(x = x, y = y, z = z,
@@ -1832,38 +1707,30 @@ cloud.formula <-
     if (!missing(alpha.regions)) foo$panel.args.common$alpha.regions <- alpha.regions
 
 
-
-
-
-
     if (!is.null(groups)) foo$panel.args.common$groups <- groups
 
-
-    nplots <- prod(cond.max.level)
-    if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")
-    foo$panel.args <- vector(mode = "list", length = nplots)
-
-
-    cond.current.level <- rep(1, number.of.cond)
+    npackets <- prod(cond.max.level)
+    if (npackets != prod(sapply(foo$condlevels, length))) 
+        stop("mismatch in number of packets")
+    foo$panel.args <- vector(mode = "list", length = npackets)
 
 
-    for (panel.number in seq(length = nplots))
+    foo$packet.sizes <- numeric(npackets)
+    if (npackets > 1)
     {
+        dim(foo$packet.sizes) <- sapply(foo$condlevels, length)
+        dimnames(foo$packet.sizes) <- lapply(foo$condlevels, as.character)
+    }
 
-        id <- !id.na
-        for(i in 1:number.of.cond)
-        {
-            var <- cond[[i]]
-            id <- id &
-            if (is.shingle(var))
-                ((var >=
-                  levels(var)[[cond.current.level[i]]][1])
-                 & (var <=
-                    levels(var)[[cond.current.level[i]]][2]))
-            else (as.numeric(var) == cond.current.level[i])
-        }
+    cond.current.level <- rep(1, length(cond))
 
-        foo$panel.args[[panel.number]] <-
+
+    for (packet.number in seq(length = npackets))
+    {
+        id <- compute.packet(cond, cond.current.level)
+        foo$packet.sizes[packet.number] <- sum(id)
+
+        foo$panel.args[[packet.number]] <-
             list(subscripts = subscr[id])
 
         cond.current.level <-
@@ -1873,17 +1740,18 @@ cloud.formula <-
     }
 
 
-    more.comp <- c(limits.and.aspect(prepanel.default.cloud,
-                                     prepanel = prepanel,
-                                     have.xlim = have.xlim, xlim = xlim,
-                                     have.ylim = have.ylim, ylim = ylim,
-                                     x.relation = foo$x.scales$relation,
-                                     y.relation = foo$y.scales$relation,
-                                     panel.args.common = foo$panel.args.common,
-                                     panel.args = foo$panel.args,
-                                     aspect = 1,
-                                     nplots = nplots),
-                   cond.orders(foo))
+    more.comp <-
+        c(limits.and.aspect(prepanel.default.cloud,
+                            prepanel = prepanel,
+                            have.xlim = have.xlim, xlim = xlim,
+                            have.ylim = have.ylim, ylim = ylim,
+                            x.relation = foo$x.scales$relation,
+                            y.relation = foo$y.scales$relation,
+                            panel.args.common = foo$panel.args.common,
+                            panel.args = foo$panel.args,
+                            aspect = 1,
+                            npackets = npackets),
+          cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
 

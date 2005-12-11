@@ -50,21 +50,7 @@ panel.qq <-
 
 
 
-qq <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("qq")
-}
-
-
+qq <- function(x, data, ...)  UseMethod("qq")
 
 
 qq.formula <-
@@ -83,21 +69,20 @@ qq.formula <-
              f.value = NULL,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             qtype = 7,
              default.scales = list(),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
-
-    ## dots <- eval(substitute(list(...)), data, parent.frame())
+    formula <- x
     dots <- list(...)
-
-    groups <- eval(substitute(groups), data, parent.frame())
-    subset <- eval(substitute(subset), data, parent.frame())
+    groups <- eval(substitute(groups), data, environment(formula))
+    subset <- eval(substitute(subset), data, environment(formula))
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
     form <-
-        latticeParseFormula(x, data, subset = subset,
+        latticeParseFormula(formula, data, subset = subset,
                             groups = groups, subscripts = TRUE,
                             drop = drop.unused.levels)
 
@@ -115,13 +100,12 @@ qq.formula <-
         else eval(prepanel)
 
     cond <- form$condition
-    number.of.cond <- length(cond)
     y <- form$left
     x <- form$right
-    if (number.of.cond == 0) {
+    if (length(cond) == 0)
+    {
         strip <- FALSE
-        cond <- list(as.factor(rep(1, length(x))))
-        number.of.cond <- 1
+        cond <- list(gl(1, length(x)))
     }
 
     ##x <- as.numeric(x)
@@ -138,25 +122,26 @@ qq.formula <-
         if (is.f.y) unique(levels(y))[2]
         else paste("y:", as.character(unique(levels(y)[[2]])))
 
-
     ## create a skeleton trellis object with the
     ## less complicated components:
 
-    foo <- do.call("trellis.skeleton",
-                   c(list(cond = cond,
-                          aspect = aspect,
-                          strip = strip,
-                          panel = panel,
-                          xlab = xlab,
-                          ylab = ylab,
-                          xlab.default =
-                          if (is.f.y) unique(levels(y))[1]
-                          else paste("y:", as.character(unique(levels(y)[[1]]))),
+    foo <-
+        do.call("trellis.skeleton",
+                c(list(formula = formula, 
+                       cond = cond,
+                       aspect = aspect,
+                       strip = strip,
+                       panel = panel,
+                       xlab = xlab,
+                       ylab = ylab,
+                       xlab.default =
+                       if (is.f.y) unique(levels(y))[1]
+                       else paste("y:", as.character(unique(levels(y)[[1]]))),
 
-                          ylab.default =
-                          if (is.f.y) unique(levels(y))[y]
-                          else paste("y:", as.character(unique(levels(y)[[2]])))),
-                     dots))
+                       ylab.default =
+                       if (is.f.y) unique(levels(y))[y]
+                       else paste("y:", as.character(unique(levels(y)[[2]])))),
+                  dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
@@ -164,22 +149,21 @@ qq.formula <-
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
-    ## scales <- eval(substitute(scales), data, parent.frame())
     if (is.character(scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)
-    foo <- c(foo,
-             do.call("construct.scales", scales))
-
+    foo <- c(foo, do.call("construct.scales", scales))
 
     ## Step 3: Decide if limits were specified in call:
 
     have.xlim <- !missing(xlim)
-    if (!is.null(foo$x.scales$limit)) {
+    if (!is.null(foo$x.scales$limit))
+    {
         have.xlim <- TRUE
         xlim <- foo$x.scales$limit
     }
     have.ylim <- !missing(ylim)
-    if (!is.null(foo$y.scales$limit)) {
+    if (!is.null(foo$y.scales$limit))
+    {
         have.ylim <- TRUE
         ylim <- foo$y.scales$limit
     }
@@ -188,23 +172,23 @@ qq.formula <-
 
     have.xlog <- !is.logical(foo$x.scales$log) || foo$x.scales$log
     have.ylog <- !is.logical(foo$y.scales$log) || foo$y.scales$log
-    if (have.xlog) {
+    if (have.xlog)
+    {
         xlog <- foo$x.scales$log
         xbase <-
             if (is.logical(xlog)) 10
             else if (is.numeric(xlog)) xlog
             else if (xlog == "e") exp(1)
-
         ## x <- log(x, xbase)  later, in panel.args
         if (have.xlim) xlim <- log(xlim, xbase)
     }
-    if (have.ylog) {
+    if (have.ylog)
+    {
         ylog <- foo$y.scales$log
         ybase <-
             if (is.logical(ylog)) 10
             else if (is.numeric(ylog)) ylog
             else if (ylog == "e") exp(1)
-
         ## y <- log(y, ybase)
         if (have.ylim) ylim <- log(ylim, ybase)
     }
@@ -213,47 +197,32 @@ qq.formula <-
 
     cond.max.level <- unlist(lapply(cond, nlevels))
 
-
-    id.na <- is.na(x)|is.na(y)
-    for (var in cond)
-        id.na <- id.na | is.na(var)
-    if (!any(!id.na)) stop("nothing to draw")
-    ## Nothing simpler ?
-
-    ## Step 6: Evaluate layout, panel.args.common and panel.args
-
+    ## Step 6: Determine packets
 
     foo$panel.args.common <- dots
     if (subscripts) foo$panel.args.common$groups <- groups
 
+    npackets <- prod(cond.max.level)
+    if (npackets != prod(sapply(foo$condlevels, length))) 
+        stop("mismatch in number of packets")
+    foo$panel.args <- vector(mode = "list", length = npackets)
 
-    nplots <- prod(cond.max.level)
-    if (nplots != prod(sapply(foo$condlevels, length))) stop("mismatch")
-    foo$panel.args <- vector(mode = "list", length = nplots)
-
-
-    cond.current.level <- rep(1, number.of.cond)
-
-
-    for (panel.number in seq(length = nplots))
+    foo$packet.sizes <- numeric(npackets)
+    if (npackets > 1)
     {
+        dim(foo$packet.sizes) <- sapply(foo$condlevels, length)
+        dimnames(foo$packet.sizes) <- lapply(foo$condlevels, as.character)
+    }
+    cond.current.level <- rep(1, length(cond))
+    for (packet.number in seq(length = npackets))
+    {
+        id <- compute.packet(cond, cond.current.level)
+        foo$packet.sizes[packet.number] <- sum(id)
 
-        id <- !id.na
-        for(i in 1:number.of.cond)
+        if (any(id))
         {
-            var <- cond[[i]]
-            id <- id &
-            if (is.shingle(var))
-                ((var >=
-                  levels(var)[[cond.current.level[i]]][1])
-                 & (var <=
-                    levels(var)[[cond.current.level[i]]][2]))
-            else (as.numeric(var) == cond.current.level[i])
-        }
-
-        if (any(id)) {
-
-            if (is.f.y) {
+            if (is.f.y)
+            {
                 tx <- x[id]
                 ty <- as.numeric(y[id])
                 x.val <- tx[ty==1]
@@ -275,17 +244,20 @@ qq.formula <-
                 }
                 else if (is.numeric(f.value)) f.value
                 else f.value(n)
-            foo$panel.args[[panel.number]] <-
-                list(x = quantile(x = x.val, probs = p),
-                     y = quantile(x = y.val, probs = p))
-
+            foo$panel.args[[packet.number]] <-
+                list(x =
+                     fast.quantile(x = x.val, probs = p,
+                                   type = qtype, na.rm = TRUE),
+                     y =
+                     fast.quantile(x = y.val, probs = p,
+                                   type = qtype, na.rm = TRUE))
         }
         else
-            foo$panel.args[[panel.number]] <-
+            foo$panel.args[[packet.number]] <-
                 list(x = numeric(0), y = numeric(0))
 
         if (subscripts)
-            foo$panel.args[[panel.number]]$subscripts <-
+            foo$panel.args[[packet.number]]$subscripts <-
                 subscr[id]
 
         cond.current.level <-
@@ -293,21 +265,25 @@ qq.formula <-
                     cond.max.level)
     }
 
-    more.comp <- c(limits.and.aspect(prepanel.default.qq,
-                                     prepanel = prepanel, 
-                                     have.xlim = have.xlim, xlim = xlim, 
-                                     have.ylim = have.ylim, ylim = ylim, 
-                                     x.relation = foo$x.scales$relation,
-                                     y.relation = foo$y.scales$relation,
-                                     panel.args.common = foo$panel.args.common,
-                                     panel.args = foo$panel.args,
-                                     aspect = aspect,
-                                     nplots = nplots,
-                                     x.axs = foo$x.scales$axs,
-                                     y.axs = foo$y.scales$axs),
-                   cond.orders(foo))
+    more.comp <-
+        c(limits.and.aspect(prepanel.default.qq,
+                            prepanel = prepanel, 
+                            have.xlim = have.xlim, xlim = xlim, 
+                            have.ylim = have.ylim, ylim = ylim, 
+                            x.relation = foo$x.scales$relation,
+                            y.relation = foo$y.scales$relation,
+                            panel.args.common = foo$panel.args.common,
+                            panel.args = foo$panel.args,
+                            aspect = aspect,
+                            npackets = npackets,
+                            x.axs = foo$x.scales$axs,
+                            y.axs = foo$y.scales$axs),
+          cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
     class(foo) <- "trellis"
     foo
 }
+
+
+

@@ -32,10 +32,18 @@ make.groups <- function(...)
         unnamed <- names(tmp) == ""
         names(tmp)[unnamed] <- nms[unnamed]
     }
-    data.frame(data = unlist(tmp),
-               which =
-               rep(gl(length(tmp), 1, labels = names(tmp)),
-                   sapply(tmp, length)))
+    if (all(sapply(tmp, is.data.frame)))
+    {
+        cbind(do.call(rbind, tmp),
+              which =
+              rep(gl(length(tmp), 1, labels = names(tmp)),
+                  sapply(tmp, nrow)))
+    }
+    else 
+        data.frame(data = unlist(tmp),
+                   which =
+                   rep(gl(length(tmp), 1, labels = names(tmp)),
+                       sapply(tmp, length)))
 }
 
 

@@ -43,7 +43,7 @@ xyplot(y ~ x,
            ltext(x, y, lab = subscripts)
        })
 
-## S-PLUS gives subscripts = 20:40, we give 1:21
+## gives subscripts = 20:40
 xyplot(y ~ x, subset = subset,
        panel = function(x, y, subscripts) {
            print(subscripts)
@@ -96,7 +96,7 @@ bar
 x <- numeric(0)
 y <- numeric(0)
 
-#bwplot(y ~ x)  fails
+bwplot(y ~ x)  # fails? FIXME
 
 
 x <- c(rnorm(10), rep(NA, 10))
@@ -112,7 +112,7 @@ bwplot(x ~ y | a * a)
 
 
 
-## from Wolfram Fischer
+## example from Wolfram Fischer
 
 
 my.barley <- subset( barley, ! ( site == "Grand Rapids" & year == "1932" ) )
@@ -136,10 +136,6 @@ dotplot(variety ~ yield | year * site, data = my.barley,
 
 
 dev.off()
-
-
-
-
 
 
 

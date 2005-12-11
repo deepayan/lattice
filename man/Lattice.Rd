@@ -30,7 +30,10 @@
   respective details.  Apart from the documentation accompanying this
   package, several documents outlining the use of Trellis graphics is
   available from Bell Lab's website that might provide a holistic
-  introduction to the Trellis paradigm.
+  introduction to the Trellis paradigm.  The example section shows how
+  to bring up a brief history of changes to the lattice package, which
+  provides a summary of new features.
+
 }
 
 \note{
@@ -163,6 +166,12 @@
   when writing (or porting from S-PLUS code) nontrivial panel functions.
 }
 
+\examples{
+\dontrun{
+## brief history of changes
+file.show(system.file("Changes", package = "lattice"))
+}
+}
 
 \author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}

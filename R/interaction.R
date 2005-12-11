@@ -242,24 +242,26 @@ trellis.unfocus <-
 
 
 trellis.panelArgs <-
-    function(x, panel.number)
+    function(x, packet.number)
 {
     if (lattice.getStatus("current.plot.multipage"))
         warning("plot spans multiple pages, only last page can be updated")
     if (missing(x)) 
         if (lattice.getStatus("current.plot.saved")) x <- trellis.last.object()
         else stop("current plot was not saved, can't retrieve panel data")
-    if (missing(panel.number))
+    if (missing(packet.number))
     {
         row <- lattice.getStatus("current.focus.row")
         column <- lattice.getStatus("current.focus.column")
         if (row == 0 || column == 0)
             stop("you have to first select a panel using trellis.focus()")
+        packet.number <- lattice.getStatus("current.packet.positions")[row, column]
         panel.number <- lattice.getStatus("current.panel.positions")[row, column]
     }
-    c(x$panel.args[[panel.number]],
+    else panel.number <- NULL
+    c(x$panel.args[[packet.number]],
       x$panel.args.common,
-      list(panel.number = panel.number))
+      list(packet.number = packet.number, panel.number = panel.number))
 }
 
 

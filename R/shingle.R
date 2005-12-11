@@ -46,11 +46,9 @@
 
 make.list.from.intervals <- function(x)
 {
-    if (ncol(x)!=2) stop("x must be matrix with 2 columns")
-    if (nrow(x)<1) stop("x must be matrix with at least 1 row")
-    ans <- as.list(1:nrow(x))
-    for (i in 1:nrow(x))
-        ans[[i]] <- x[i,]
+    if (ncol(x) != 2) stop("x must be matrix with 2 columns")
+    ans <- vector(mode = "list", length = nrow(x))
+    for (i in seq(length = nrow(x))) ans[[i]] <- x[i,]
     ans
 }
 
@@ -71,7 +69,7 @@ shingle <-
     function(x, intervals=sort(unique(x)))
 {
     if (ncol(as.matrix(intervals))==1)
-        intervals <- cbind(intervals, intervals)
+        intervals <- cbind(intervals, intervals, deparse.level = 0)
     else if (ncol(as.matrix(intervals)) > 2)
         stop("bad value of 'intervals'")
     attr(x, "levels") <- make.list.from.intervals(intervals)
@@ -92,18 +90,33 @@ as.shingle <-
 
 
 
-summary.shingle <- function(object, ...) print.shingle(object, ...)
+summary.shingle <-
+    function(object, showValues = FALSE, ...)
+    print.shingle(object, showValues = showValues, ...)
 
 
 
-
-print.shingleLevel <-
-    function(x, ...) {
-        print(do.call("rbind", x))
-        invisible(x)
+as.character.shingleLevel <- function(x, ...)
+{
+    interval2string <- function(x)
+    {
+        stopifnot(length(x) == 2)
+        if (x[1] == x[2]) paste("{ ", x[1], " }", sep = "")
+        else paste("[ ", x[1], ", ", x[2], " ]", sep = "")
     }
+    sapply(x, interval2string)
+}
 
-print.shingle <- function(x, showValues = TRUE, ...) {
+
+print.shingleLevel <- function(x, ...)
+{
+    print(do.call("rbind", x))
+    invisible(x)
+}
+
+
+print.shingle <- function(x, showValues = TRUE, ...)
+{
     cat(gettext("\nData:\n"))
     if (showValues) print(as.numeric(x))
     l <- levels(x)
