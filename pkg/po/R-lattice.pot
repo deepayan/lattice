@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.1.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-12-09 23:04\n"
+"POT-Creation-Date: 2005-12-11 00:54\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,12 +14,6 @@ msgstr ""
 msgid "origin forced to 0 for stacked bars"
 msgstr ""
 
-msgid "The 'formula' argument has been renamed to 'x'. See ?xyplot"
-msgstr ""
-
-msgid "'formula' overridden by 'x'"
-msgstr ""
-
 msgid "explicit data specification ignored"
 msgstr ""
 
@@ -29,10 +23,7 @@ msgstr ""
 msgid "y should be numeric"
 msgstr ""
 
-msgid "nothing to draw"
-msgstr ""
-
-msgid "mismatch"
+msgid "mismatch in number of packets"
 msgstr ""
 
 msgid "type has unsupported values"
@@ -179,6 +170,12 @@ msgstr ""
 msgid "Invalid label.style"
 msgstr ""
 
+msgid "The 'formula' argument has been renamed to 'x'. See ?xyplot"
+msgstr ""
+
+msgid "'formula' overridden by 'x'"
+msgstr ""
+
 msgid "x must be (coercible to be) a factor"
 msgstr ""
 
@@ -198,6 +195,12 @@ msgid "'expr' must be a function or an expression containing 'x'"
 msgstr ""
 
 msgid "cannot have log y-scale"
+msgstr ""
+
+msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
+msgstr ""
+
+msgid "'probs' outside [0,1]"
 msgstr ""
 
 msgid "Can't have log X-scale"
@@ -243,9 +246,6 @@ msgid "x must be a shingle"
 msgstr ""
 
 msgid "x must be matrix with 2 columns"
-msgstr ""
-
-msgid "x must be matrix with at least 1 row"
 msgstr ""
 
 msgid "bad value of 'intervals'"
@@ -302,7 +302,7 @@ msgstr ""
 msgid "par.settings must be a list"
 msgstr ""
 
-msgid "Note: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove exisitng legend(s)"
+msgid "Note: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"
 msgstr ""
 
 msgid "log scales cannot be changed via update"
@@ -318,9 +318,6 @@ msgid "drop=TRUE ignored"
 msgstr ""
 
 msgid "Invalid indices"
-msgstr ""
-
-msgid "mismatch in number of packets"
 msgstr ""
 
 msgid "Note: you shouldn't be seeing this message unless\nyou are using a non-standard version of lattice"
