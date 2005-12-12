@@ -83,6 +83,7 @@ S3method(print, trellis)
 S3method(plot, trellis)
 S3method(update, trellis)
 S3method(summary, trellis)
+S3method(print, summary.trellis)
 S3method(dim, trellis)
 S3method(dimnames, trellis)
 S3method("[", trellis)
@@ -93,11 +94,11 @@ S3method(t, trellis)
 ## methods for high level functions
 
 S3method(barchart,    formula)
-S3method(barchart,    array)   #
+S3method(barchart,    array)
 S3method(barchart,    default) 
-S3method(barchart,    matrix)  #
+S3method(barchart,    matrix)
 S3method(barchart,    numeric)
-S3method(barchart,    table)   #
+S3method(barchart,    table)
 
 S3method(bwplot,      formula)
 S3method(bwplot,      numeric)

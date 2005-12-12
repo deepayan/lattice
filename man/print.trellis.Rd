@@ -1,24 +1,36 @@
 \name{print.trellis}
 \alias{print.trellis}
 \alias{plot.trellis}
-\title{Print Trellis Objects}
+\alias{summary.trellis}
+\alias{dim.trellis}
+\alias{dimnames.trellis}
+\title{Plot and Summarize Trellis Objects}
 \usage{
 \method{print}{trellis}(x, position, split,
-     more = FALSE, newpage = TRUE, draw.in = NULL,
-     panel.height = lattice.getOption("layout.heights")$panel,
-     panel.width = lattice.getOption("layout.widths")$panel,
-     save.object = lattice.getOption("save.object"),
-     prefix,
-     \dots)
+      more = FALSE, newpage = TRUE, draw.in = NULL,
+      panel.height = lattice.getOption("layout.heights")$panel,
+      panel.width = lattice.getOption("layout.widths")$panel,
+      save.object = lattice.getOption("save.object"),
+      prefix,
+      \dots)
 \method{plot}{trellis}(x, \dots)
+
+\method{summary}{trellis}(object, \dots)
+
+\method{dim}{trellis}(x)
+\method{dimnames}{trellis}(x)
 }
 \description{
-  Print (plot) a trellis object.  The \code{plot} method is essentially
-  an alias to the \code{print} method, provided for convenience.
+  The \code{print} and \code{plot} methods produce a graph from a
+  \code{"trellis"} object.  The \code{print} method is necessary for
+  automatic plotting.  \code{plot} method is essentially
+  an alias, provided for convenience.  The \code{summary}, \code{dim}
+  and \code{dimnames} methods 
+
 }
 
 \arguments{
-  \item{x}{ The object to be plotted, of class \code{"trellis"}}
+  \item{x, object}{ an object of class \code{"trellis"}}
   \item{position}{ a vector of 4 numbers, typically c(xmin, ymin, xmax,
     ymax) that give the lower-left and upper-right corners of a
     rectangle in which the Trellis plot of x is to be positioned. The
@@ -50,7 +62,8 @@
     needed).  The resulting \code{unit} object will be the width/height
     of each panel in the Lattice plot. These arguments can be used to
     explicitly control the dimensions of the panel, rather than letting
-    them expand to maximize available space.
+    them expand to maximize available space.  Vector widths are allowed,
+    and can specify unequal lengths across rows or columns.
 
     Note that this option should not be used in conjunction with
     non-default values of the \code{aspect} argument in the original
@@ -116,7 +129,7 @@
 
 \seealso{
   \code{\link{Lattice}}, \code{\link[grid:unit]{unit}},
-  \code{\link{trellis.focus}}
+  \code{\link{update.trellis}}, \code{\link{trellis.focus}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

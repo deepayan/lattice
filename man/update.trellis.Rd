@@ -37,7 +37,9 @@
        \dots)
 
 \method{t}{trellis}(x)
+
 \method{[}{trellis}(x, i, j, \dots, drop = FALSE)
+
 trellis.last.object(warn = TRUE, \dots)
 trellis.last.object()
 }

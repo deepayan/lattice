@@ -103,8 +103,6 @@ fast.quantile <-
 
 
 
-## Reimplementation of qqmath
-
 
 
 prepanel.default.qqmath <-

@@ -17,20 +17,48 @@
 ### MA 02111-1307, USA
 
 
+summary.trellis <-
+    function(object, ...)
+{
+    ans <- 
+        with(object,
+             list(call = call,
+                  packet.sizes = packet.sizes,
+                  index.cond = index.cond,
+                  perm.cond = perm.cond))
+    class(ans) <- "summary.trellis"
+    ans
+}
 
-summary.trellis <- function(object, ...)
+
+
+print.summary.trellis <- function(x, ...)
 {
     cat(gettext("\nCall:\n"))
-    print(object$call)
-
+    print(x$call)
     cat(gettext("\nNumber of observations:\n"))
-    print(object$packet.sizes)
-    
+    ps <-
+        do.call("[",
+                c(list(x$packet.sizes),
+                  x$index.cond,
+                  list(drop = FALSE)))
+    if (!is.null(dim(ps)))
+        ps <- aperm(ps, x$perm.cond)
+    print(ps)
+    invisible(x)
+}
+
+
+
+
+## summary.trellis.old <- function(object, ...)
+## {
+##     cat(gettext("\nCall:\n"))
+##     print(object$call)
 ##     cat("\nY label:\n")
 ##     str(object$ylab)
 ##     cat("\nX label:\n")
 ##     str(object$xlab)
-
 ##     if (!is.null(names(object$condlevels)))
 ##     {
 ##         cat("\nLevels of Conditioning variables:")
@@ -41,8 +69,10 @@ summary.trellis <- function(object, ...)
 ##         }
 ##     }
 ##     cat("\n")
-    invisible()
-}
+##     invisible()
+## }
+
+
 
 
 dim.trellis <- function(x)
