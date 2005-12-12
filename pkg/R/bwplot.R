@@ -139,7 +139,7 @@ panel.barchart <-
         {
             if (is.null(origin))
             {
-                origin <- current.viewport()$xscale[1]
+                origin <- current.panel.limits()$xlim[1]
                 reference <- FALSE
             }
             height <- box.ratio / (1 + box.ratio)
@@ -220,7 +220,7 @@ panel.barchart <-
         {
             if (is.null(origin))
             {
-                origin <- current.viewport()$xscale[1]
+                origin <- current.panel.limits()$xlim[1]
                 reference <- FALSE
             }
             groups <- as.numeric(groupSub(groups, ...))
@@ -263,7 +263,7 @@ panel.barchart <-
         {
             if (is.null(origin))
             {
-                origin <- current.viewport()$yscale[1]
+                origin <- current.panel.limits()$ylim[1]
                 reference <- FALSE
             }
             width <- box.ratio/(1+box.ratio)
@@ -339,7 +339,7 @@ panel.barchart <-
         {
             if (is.null(origin))
             {
-                origin <- current.viewport()$yscale[1]
+                origin <- current.panel.limits()$ylim[1]
                 reference = FALSE
             }
             groups <- as.numeric(groupSub(groups, ...))
@@ -397,34 +397,23 @@ panel.dotplot <-
 
     if (horizontal)
     {
-        yscale <- current.viewport()$yscale
         panel.abline(h = levels.fos,
-                     col = col.line,
-                     lty = lty, lwd = lwd)
-        if (is.null(groups)) 
-            panel.xyplot(x = x, y = y, col = col,
-                         pch = pch, lty = lty, lwd = lwd, 
-                         horizontal = horizontal, ...)
-        else
-            panel.superpose(x = x, y = y, groups = groups,
-                            col = col, pch = pch,
-                            lty = lty, lwd = lwd, 
-                            horizontal = horizontal, ...)
+                     col = col.line, lty = lty, lwd = lwd)
+        panel.xyplot(x = x, y = y,
+                     col = col, pch = pch,
+                     ## lty = lty, lwd = lwd,
+                     groups = groups,
+                     horizontal = horizontal, ...)
     }
     else
     {
-        xscale <- current.viewport()$xscale
-        panel.abline(v = levels.fos, col = col.line,
-                     lty = lty, lwd = lwd)
-        if (is.null(groups)) 
-            panel.xyplot(x = x, y = y, col = col, pch = pch,
-                         lty = lty, lwd = lwd, 
-                         horizontal = horizontal, ...)
-        else 
-            panel.superpose(x = x, y = y, groups = groups,
-                            col = col, pch = pch,
-                            lty = lty, lwd = lwd, 
-                            horizontal = horizontal, ...)
+        panel.abline(v = levels.fos,
+                     col = col.line, lty = lty, lwd = lwd)
+        panel.xyplot(x = x, y = y,
+                     col = col, pch = pch,
+                     ## lty = lty, lwd = lwd,
+                     groups = groups,
+                     horizontal = horizontal, ...)
     }
 }
 
@@ -445,10 +434,10 @@ panel.stripplot <-
     x.jitter  <-
         if (!horizontal && jitter.data) jitter(x, factor = factor)
         else x
-    if (is.null(groups)) panel.xyplot(x = x.jitter, y = y.jitter,
-                                      horizontal = horizontal, ...)
-    else panel.superpose(x = x.jitter, y = y.jitter, groups = groups,
-                         horizontal = horizontal, ...)
+    panel.xyplot(x = x.jitter,
+                 y = y.jitter,
+                 groups = groups,
+                 horizontal = horizontal, ...)
 }
 
 
@@ -723,8 +712,8 @@ panel.violin <-
 
     ##str(max.d)
     
-    xscale <- current.viewport()$xscale
-    yscale <- current.viewport()$yscale
+    xscale <- current.panel.limits()$xlim
+    yscale <- current.panel.limits()$ylim
     height <- box.ratio / (1 + box.ratio)
 
     if (horizontal)
