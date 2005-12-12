@@ -42,7 +42,7 @@ densityplot(x, data, \dots)
             outer = !is.null(groups),
             auto.key = FALSE,
             aspect = "fill",
-            panel = if (is.null(groups)) "panel.densityplot" else "panel.superpose",
+            panel = "panel.densityplot",
             prepanel, scales, strip, groups,
             xlab, xlim, ylab, ylim,
             bw, adjust, kernel, window, width, give.Rkern,
@@ -50,7 +50,6 @@ densityplot(x, data, \dots)
             drop.unused.levels = lattice.getOption("drop.unused.levels"),
             \dots,
             default.scales = list(),
-            panel.groups = "panel.densityplot",
             subscripts,
             subset)
 \method{densityplot}{numeric}(x, data, xlab, \dots)
@@ -128,25 +127,15 @@ do.breaks(endpoints, nint)
     the breakpoints will \bold{not} be equally spaced).
   }
   \item{n}{ number of points at which density is to be evaluated }
-%   \item{plot.points}{
-%     logical or character string specifying whether (and how) the
-%     \code{x} values should be plotted along the \code{y=0} line.  This
-%     argument is passed unchanged to \code{\link{panel.densityplot}},
-%     whose help page should be consulted for details.
-%   }
-%   \item{ref}{
-%     logical specifying whether a reference x-axis should be drawn.
-%   }
-
   \item{panel}{ The function that uses the packet (subset of display
     variables) corresponding to a panel to create a display.  Default
     panel functions are documented separately, and often have arguments
     that can be used to customize its display in various ways.  Such
     arguments can usually be directly supplied to the high level
     function.  }
-  \item{panel.groups}{ function used as the \code{panel.groups} argument
-    when \code{panel.superpose} is used as the panel function, which
-    happens by default when \code{groups} is non-null.  }
+%   \item{panel.groups}{ function used as the \code{panel.groups} argument
+%     when \code{panel.superpose} is used as the panel function, which
+%     happens by default when \code{groups} is non-null.  }
   \item{allow.multiple, outer, auto.key, aspect, prepanel, scales,
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
     default.scales, subscripts, subset}{ See \code{\link{xyplot}} }

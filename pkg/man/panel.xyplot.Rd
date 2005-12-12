@@ -9,17 +9,11 @@
   \code{splom} and \code{qq} are essentially the same function.
 }
 \usage{
-panel.xyplot(x, y, type="p",
-             pch = plot.symbol$pch,
-             col,
-             col.line = plot.line$col,
-             col.symbol = plot.symbol$col,
-             font = plot.symbol$font,
-             fontfamily = plot.symbol$fontfamily,
-             fontface = plot.symbol$fontface,
-             lty = plot.line$lty,
-             cex = plot.symbol$cex,
-             lwd = plot.line$lwd,
+panel.xyplot(x, y, type = "p",
+             groups = NULL,
+             pch, col, col.line, col.symbol,
+             font, fontfamily, fontface,
+             lty, cex, lwd,
              horizontal = FALSE, \dots)
 panel.splom(\dots)
 panel.qq(\dots)
@@ -45,6 +39,9 @@ panel.qq(\dots)
 
     See \code{example(xyplot)} and \code{demo(lattice)} for examples.
   }
+  \item{groups}{ an optional grouping variable.  If present,
+    \code{\link{panel.superpose}} will be used instead to display each
+    subgroup }
   \item{col, col.line, col.symbol}{
     default colours are obtained from \code{plot.symbol} and
     \code{plot.line} using \code{\link{trellis.par.get}}.

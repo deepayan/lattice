@@ -6,10 +6,11 @@
 }
 \usage{
 panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
-                  col, col.line, jitter.amount, \dots)
+                  groups = NULL, 
+                  jitter.amount, \dots)
 }
 \arguments{
-  \item{x}{ data points for which density is to be estimated}
+  \item{x}{ data points for which density is to be estimated }
   \item{darg}{
     list of arguments to be passed to the \code{density}
     function. Typically, this should be a list with zero or more of the
@@ -27,13 +28,14 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
     jittered vertically to better distinguish overlapping points.
   }
   \item{ref}{ logical, whether to draw x-axis }
-  \item{col}{ color for points and line}
-  \item{col.line}{ color for line, overrides col }
+  \item{groups}{ an optional grouping variable.  If present,
+    \code{\link{panel.superpose}} will be used instead to display each
+    subgroup }
   \item{jitter.amount}{
     when \code{plot.points="jitter"}, the value to use as the
     \code{amount} argument to \code{\link{jitter}}.
   }
-  \item{\dots}{ extra grahical parameters }
+  \item{\dots}{ extra graphical parameters }
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{

@@ -23,8 +23,7 @@
              outer = !is.null(groups),
              auto.key = FALSE,
              aspect = "fill",
-             panel = if (is.null(groups)) "panel.xyplot"
-             else "panel.superpose",
+             panel = "panel.xyplot",
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

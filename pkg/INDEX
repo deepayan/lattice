@@ -40,7 +40,7 @@ panel.superpose         Panel Function for Display Marked by groups
 panel.violin            Panel Function to create Violin Plots
 panel.xyplot            Default Panel Function for xyplot
 prepanel.lmline         Useful Prepanel Function for Lattice
-print.trellis           Print Trellis Objects
+print.trellis           Plot and Summarize Trellis Objects
 qq                      Quantile-Quantile Plots of Two Samples
 qqmath                  Q-Q Plot with Theoretical Distribution
 rfs                     Residual and Fit Spread Plots

@@ -34,37 +34,30 @@ prepanel.default.densityplot <-
              ...)
 {
     if (!is.numeric(x)) x <- as.numeric(x)
-    x <- x[!is.na(x)]
-    if (length(x) < 1)
+    if (sum(!is.na(x)) < 1)
         list(xlim = NA,
              ylim = NA,
              dx = NA,
              dy = NA)
-    else if (length(x) == 1)
+    else if (sum(!is.na(x)) == 1)
     {
         list(xlim = x,
-             ylim = NA,
-             dx = NA,
-             dy = NA)
+             ylim = 0,
+             dx = 1,
+             dy = 1)
     }
     else if (is.null(groups))
     {
-        if (length(x) > 1)
-        {
-            h <- do.call("density", c(list(x=x), darg))
-            ## for banking calculations, include only middle 70% values
-            quants <-
-                quantile(x, prob = c(0.15, 0.85),
-                         names = FALSE, na.rm = TRUE)
-            ok <- h$x > quants[1] & h$x < quants[2]
-            list(xlim = range(h$x),
-                 ylim = range(h$y),
-                 dx = diff(h$x[ok]), dy = diff(h$y[ok]))
-        }
-        else
-            list(xlim = range(x),
-                 ylim = 0,
-                 dx = 1, dy = 1)
+        h <- do.call(density, c(list(x = x), darg))
+        ## for banking calculations, include only middle 70% values
+        quants <-
+            quantile(x, prob = c(0.15, 0.85),
+                     names = FALSE, na.rm = TRUE)
+        ok <- h$x > quants[1] & h$x < quants[2]
+        list(xlim = range(h$x),
+             ylim = range(h$y),
+             dx = diff(h$x[ok]),
+             dy = diff(h$y[ok]))
     }
     else
     {
@@ -74,11 +67,12 @@ prepanel.default.densityplot <-
         yl <- 0
         dxl <- numeric(0) # bad names !!
         dyl <- numeric(0) 
-        for (i in seq(along=vals)) {
+        for (i in seq(along=vals))
+        {
             id <- (groups[subscripts] == vals[i])
             if (sum(id) > 1)
             {
-                h <- do.call("density", c(list(x=x[id]), darg))
+                h <- do.call(density, c(list(x = x[id]), darg))
                 xl <- c(xl, h$x)
                 yl <- c(yl, h$y)
                 ## for banking calculations, include only middle 70% values
@@ -104,45 +98,54 @@ panel.densityplot <-
              darg = list(n = 30),
              plot.points = "jitter",
              ref = FALSE,
-             col = plot.line$col,
-             col.line = col,
+             groups = NULL,
+##              col = if (is.null(groups)) plot.symbol$col else superpose.symbol$col,
+##              lty = if (is.null(groups)) plot.line$lty else superpose.line$lty,
+##              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
+##              alpha = if (is.null(groups)) plot.line$alpha else superpose.line$alpha,
+##              col.line = if (is.null(groups)) plot.line$col else superpose.line$col,
              jitter.amount = 0.01 * diff(current.panel.limits()$ylim),
              ...)
 {
-    x <- as.numeric(x)
-    x <- x[!is.na(x)]
     if (ref)
     {
         reference.line <- trellis.par.get("reference.line")
-        panel.abline(h=0,
+        panel.abline(h = 0,
                      col = reference.line$col,
                      lty = reference.line$lty,
                      lwd = reference.line$lwd)
     }
-
     plot.line <- trellis.par.get("plot.line")
-    if (length(x) > 1)
+    superpose.line <- trellis.par.get("superpose.line")
+    if (!is.null(groups))
+        panel.superpose(x, darg = darg,
+                        plot.points = plot.points, ref = FALSE,
+                        groups = groups,
+                        panel.groups = "panel.densityplot",
+                        jitter.amount = jitter.amount,
+                        ...)
+    else
     {
-        h <- do.call("density", c(list(x=x), darg))
-        lim <- current.viewport()$xscale
-        id <- (h$x>=lim[1] & h$x<=lim[2])
-        llines(x = h$x[id], y = h$y[id], col = col.line, ...)
+        if (sum(!is.na(x)) > 1)
+        {
+            h <- do.call("density", c(list(x = x), darg))
+            lim <- current.panel.limits()$xlim
+            id <- h$x > lim[1] & h$x < lim[2]
+            panel.lines(x = h$x[id], y = h$y[id], ...)
+        }
+        switch(as.character(plot.points),
+               "TRUE" =
+               panel.xyplot(x = x, y = rep(0, length(x)), ...),
+               "rug" =
+               panel.rug(x = x, 
+                         start = 0, end = 0,
+                         x.units = c("npc", "native"),
+                         ...),
+               "jitter" =
+               panel.xyplot(x = x,
+                            y = jitter(rep(0, length(x)), amount = jitter.amount),
+                            ...))
     }
-    switch(as.character(plot.points),
-           "TRUE" =
-           panel.xyplot(x = x, y = rep(0, length(x)),
-                        col = col, ...),
-           "rug" =
-           panel.rug(x = x, 
-                     start = 0, end = 0,
-                     x.units = c("npc", "native"),
-                     col = col.line, ...),
-           "jitter" =
-           panel.xyplot(x = x,
-                        y =
-                        jitter(rep(0, length(x)),
-                               amount = jitter.amount),
-                        col = col, ...))
 }
 
 
@@ -176,7 +179,7 @@ densityplot.formula <-
 ##              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
-             panel = if (is.null(groups)) "panel.densityplot" else "panel.superpose",
+             panel = "panel.densityplot",
              prepanel = NULL,
              scales = list(),
              strip = TRUE,
@@ -199,7 +202,6 @@ densityplot.formula <-
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              default.scales = list(),
-             panel.groups = "panel.densityplot",
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -327,9 +329,7 @@ densityplot.formula <-
     if (subscripts)
     {
         foo$panel.args.common$groups <- groups
-        foo$panel.args.common$panel.groups <- panel.groups
     }
-
 
     npackets <- prod(cond.max.level)
     if (npackets != prod(sapply(foo$condlevels, length))) 

@@ -54,99 +54,107 @@ prepanel.default.xyplot <-
 
 panel.xyplot <-
     function(x, y, type = "p",
-             pch = plot.symbol$pch,
+             groups = NULL,
+             pch = if (is.null(groups)) plot.symbol$pch else superpose.symbol$pch,
              col,
-             col.line = plot.line$col,
-             col.symbol = plot.symbol$col,
-             font = plot.symbol$font,
-             fontfamily = plot.symbol$fontfamily,
-             fontface = plot.symbol$fontface,
-             lty = plot.line$lty,
-             cex = plot.symbol$cex,
-             lwd = plot.line$lwd,
-             horizontal = FALSE, ...)
+             col.line = if (is.null(groups)) plot.line$col else superpose.line$col,
+             col.symbol = if (is.null(groups)) plot.symbol$col else superpose.symbol$col,
+             font = if (is.null(groups)) plot.symbol$font else superpose.symbol$font,
+             fontfamily = if (is.null(groups)) plot.symbol$fontfamily else superpose.symbol$fontfamily,
+             fontface = if (is.null(groups)) plot.symbol$fontface else superpose.symbol$fontface,
+             lty = if (is.null(groups)) plot.line$lty else superpose.line$lty,
+             cex = if (is.null(groups)) plot.symbol$cex else superpose.symbol$cex,
+             lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
+             horizontal = FALSE,
+             ...)
 {
+    if (all(is.na(x) | is.na(y))) return()
     x <- as.numeric(x)
     y <- as.numeric(y)
-
-    if (length(x) < 1) return()
-
-
-    if (!missing(col)) {
+    plot.symbol <- trellis.par.get("plot.symbol")
+    plot.line <- trellis.par.get("plot.line")
+    superpose.symbol <- trellis.par.get("superpose.symbol")
+    superpose.line <- trellis.par.get("superpose.line")
+    if (!missing(col))
+    {
         if (missing(col.line)) col.line <- col
         if (missing(col.symbol)) col.symbol <- col
     }
+    if (!is.null(groups))
+        panel.superpose(x, y,
+                        type = type,
+                        groups = groups,
+                        pch = pch,
+                        col.line = col.line,
+                        col.symbol = col.symbol,
+                        font = font,
+                        fontfamily = fontfamily,
+                        fontface = fontface,
+                        lty = lty,
+                        cex = cex,
+                        lwd = lwd,
+                        horizontal = horizontal,
+                        panel.groups = panel.xyplot,
+                        ...)
+    else
+    {
+        if ("o" %in% type || "b" %in% type) type <- c(type, "p", "l")
+        if ("g" %in% type) panel.grid(h = -1, v = -1)
+        if ("p" %in% type)
+            panel.points(x = x, y = y, cex = cex, font = font,
+                         fontfamily = fontfamily, fontface = fontface,
+                         col = col.symbol, pch=pch)
+        if ("l" %in% type)
+            panel.lines(x = x, y = y, lty = lty, col = col.line, lwd = lwd)
+        if ("h" %in% type)
+        {
+            if (horizontal)
+                panel.lines(x = x, y = y, type = "H",
+                            lty = lty, col = col.line, lwd = lwd)
+            else
+                panel.lines(x = x, y = y, type = "h",
+                            lty = lty, col = col.line, lwd = lwd)
+        }
 
-    plot.symbol <- trellis.par.get("plot.symbol")
-    plot.line <- trellis.par.get("plot.line")
+        ## FIXME: should this be delegated to llines with type='s'?
+        if ("s" %in% type)
+        {
+            ord <- if (horizontal) sort.list(y) else sort.list(x)
+            n <- length(x)
+            xx <- numeric(2*n-1)
+            yy <- numeric(2*n-1)
 
-    if ("o" %in% type || "b" %in% type)
-        type <- c(type, "p", "l")
+            xx[2*1:n-1] <- x[ord]
+            yy[2*1:n-1] <- y[ord]
+            xx[2*1:(n-1)] <- x[ord][-1]
+            yy[2*1:(n-1)] <- y[ord][-n]
+            panel.lines(x = xx, y = yy,
+                        lty = lty, col = col.line, lwd = lwd)
+        }
+        if ("S" %in% type)
+        {
+            ord <- if (horizontal) sort.list(y) else sort.list(x)
+            n <- length(x)
+            xx <- numeric(2*n-1)
+            yy <- numeric(2*n-1)
 
-
-    if ("g" %in% type)
-        panel.grid(h = -1, v = -1)
-
-    if ("p" %in% type)
-        lpoints(x = x, y = y, cex = cex, font = font,
-                fontfamily = fontfamily, fontface = fontface,
-                col = col.symbol, pch=pch)
-
-
-    if ("l" %in% type)
-        llines(x=x, y=y, lty=lty, col=col.line, lwd=lwd)
-
-
-    if ("h" %in% type)
-        if (horizontal)
-            llines(x=x, y=y, type = "H",
-                   lty=lty, col=col.line, lwd=lwd)
-        else
-            llines(x=x, y=y, type = "h",
-                   lty=lty, col=col.line, lwd=lwd)
-
-
-    ## should this be delegated to llines with type='s'?
-    if ("s" %in% type) {
-        ord <- if (horizontal) sort.list(y) else sort.list(x)
-        n <- length(x)
-        xx <- numeric(2*n-1)
-        yy <- numeric(2*n-1)
-
-        xx[2*1:n-1] <- x[ord]
-        yy[2*1:n-1] <- y[ord]
-        xx[2*1:(n-1)] <- x[ord][-1]
-        yy[2*1:(n-1)] <- y[ord][-n]
-        llines(x=xx, y=yy,
-               lty=lty, col=col.line, lwd=lwd)
+            xx[2*1:n-1] <- x[ord]
+            yy[2*1:n-1] <- y[ord]
+            xx[2*1:(n-1)] <- x[ord][-n]
+            yy[2*1:(n-1)] <- y[ord][-1]
+            panel.lines(x = xx, y = yy,
+                        lty = lty, col = col.line, lwd = lwd)
+        }
+        if ("r" %in% type) panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
+        if ("smooth" %in% type) panel.loess(x, y, col = col.line, lty = lty, lwd = lwd, ...)
+        if ("a" %in% type)
+            panel.linejoin(x, y, 
+                           horizontal = horizontal,
+                           lwd = lwd,
+                           lty = lty,
+                           col.line = col.line,
+                           ...)
     }
-    if ("S" %in% type) {
-        ord <- if (horizontal) sort.list(y) else sort.list(x)
-        n <- length(x)
-        xx <- numeric(2*n-1)
-        yy <- numeric(2*n-1)
-
-        xx[2*1:n-1] <- x[ord]
-        yy[2*1:n-1] <- y[ord]
-        xx[2*1:(n-1)] <- x[ord][-n]
-        yy[2*1:(n-1)] <- y[ord][-1]
-        llines(x=xx, y=yy,
-               lty=lty, col=col.line, lwd=lwd)
-    }
-    if ("r" %in% type) {
-        panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
-    }
-    if ("smooth" %in% type) {
-        panel.loess(x, y, col = col.line, lty = lty, lwd = lwd, ...)
-    }
-    if ("a" %in% type)
-        panel.linejoin(x, y, fun = mean,
-                       horizontal = horizontal,
-                       lwd = lwd,
-                       lty = lty,
-                       col = col,
-                       col.line = col.line,
-                       ...)
 }
 
 
@@ -163,7 +171,7 @@ xyplot.formula <-
 ##              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
-             panel = if (is.null(groups)) "panel.xyplot" else "panel.superpose",
+             panel = "panel.xyplot",
              prepanel = NULL,
              scales = list(),
              strip = TRUE,
