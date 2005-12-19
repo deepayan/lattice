@@ -348,7 +348,7 @@ splom.data.frame <-
     ccall$data <- list(x = x)
     ccall$x <- ~x
     ccall[[1]] <- as.name("splom")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }

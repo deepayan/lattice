@@ -786,7 +786,7 @@ dotplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- as.name("dotplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
@@ -843,7 +843,7 @@ dotplot.formula <-
     ccall$data <- data
     ccall$panel <- panel
     ccall[[1]] <- as.name("bwplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
@@ -862,7 +862,7 @@ barchart.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- as.name("barchart")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
@@ -924,7 +924,7 @@ barchart.formula <-
     ccall$panel <- panel
     ccall$box.ratio <- box.ratio
     ccall[[1]] <- as.name("bwplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
@@ -943,7 +943,7 @@ stripplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- as.name("stripplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
@@ -960,7 +960,7 @@ stripplot.formula <-
     ccall$data <- data
     ccall$panel <- panel
     ccall[[1]] <- as.name("bwplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
@@ -984,7 +984,7 @@ bwplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- as.name("bwplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }

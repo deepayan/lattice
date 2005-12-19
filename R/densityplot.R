@@ -163,7 +163,7 @@ densityplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- as.name("densityplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
