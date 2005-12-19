@@ -1380,7 +1380,7 @@ wireframe.formula <-
     ccall$data <- data
     ccall$panel <- panel
     ccall[[1]] <- as.name("cloud")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }

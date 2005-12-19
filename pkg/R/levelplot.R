@@ -359,7 +359,7 @@ contourplot.formula <-
     ccall$pretty <- pretty
     ccall$region <- region
     ccall[[1]] <- as.name("levelplot")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
@@ -367,19 +367,7 @@ contourplot.formula <-
 
 
 
-levelplot <- function(x, data, ...)
-{
-    ocall <- match.call()
-    formula <- ocall$formula
-    if (!is.null(formula))
-    {
-        warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-        ocall$formula <- NULL
-        if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-        eval(ocall, parent.frame())
-    }
-    else UseMethod("levelplot")
-}
+levelplot <- function(x, data, ...) UseMethod("levelplot")
 
 levelplot.matrix <-
     function(x, data = NULL, aspect = "iso", ...)

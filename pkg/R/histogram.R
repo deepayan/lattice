@@ -146,7 +146,7 @@ histogram.factor <- histogram.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- as.name("histogram")
-    ans <- eval(ccall, parent.frame())
+    ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
 }
