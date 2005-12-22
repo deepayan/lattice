@@ -300,8 +300,7 @@ histogram.formula <-
         type <- "density"
     type <- match.arg(type)
     if (prefer.density && type != "density")
-        warning(paste("type='", type, "' can be misleading in this context",
-                      sep = ""))
+        warning(gettextf("type='%s' can be misleading in this context", type))
 
     ## this is normally done earlier (in trellis.skeleton), but in
     ## this case we needed to wait till type is determined
