@@ -47,7 +47,7 @@ construct.legend <-
                     space <- "top"
             }
         if (space != "inside" && space %in% names(legend))
-            stop(paste("component", space, "duplicated in key and legend"))
+            stop(gettextf("component '%s' duplicated in key and legend", space))
 
         key.legend <- list(fun = fun, args = list(key = key, draw = FALSE))
         key.legend$x <- x

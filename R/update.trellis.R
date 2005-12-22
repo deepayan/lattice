@@ -368,7 +368,7 @@ update.trellis <-
                 object$aspect.ratio <- "iso" ## guaranteed to be modified below
                 recalculateLimits <- TRUE
             }
-            else warning(paste("Unrecognized value of aspect:", aspect))
+            else warning(gettextf("Unrecognized value of aspect: '%s'", as.character(aspect)))
         }
         else warning("Invalid value of aspect")
     }

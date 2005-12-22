@@ -330,7 +330,7 @@ trellis.device <-
                     try(utils::getFromNamespace(device, "grDevices"),
                         silent = TRUE)
             if (inherits(device.call, "try-error"))
-                stop(paste("Could not find device function", device))
+                stop(gettextf("Could not find device function '%s'", device))
         }
         dev.name <- device
     }

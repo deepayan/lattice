@@ -159,8 +159,7 @@ latticeParseFormula <-
              left.name = character(0), right.x.name = character(0),
              right.y.name = character(0))
     }
-    else stop(paste("invalid dimension : ", dimension))
-
+    else stop(gettextf("invalid dimension '%s'", as.character(dimension)))
     
     if (length(model) == 3) {  ## <something> ~ <something>
         if (multiple) {

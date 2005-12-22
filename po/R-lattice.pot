@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.1.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-12-11 00:54\n"
+"POT-Creation-Date: 2005-12-22 13:20\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "multiple = TRUE ignored (groups non-null with outer = FALSE)"
 msgstr ""
 
-msgid "invalid dimension :"
+msgid "invalid dimension '%s'"
 msgstr ""
 
 msgid "invalid model"
@@ -101,10 +101,7 @@ msgstr ""
 msgid "problem with hist computations"
 msgstr ""
 
-msgid "type='"
-msgstr ""
-
-msgid "' can be misleading in this context"
+msgid "type='%s' can be misleading in this context"
 msgstr ""
 
 msgid "Count"
@@ -140,10 +137,7 @@ msgstr ""
 msgid "you have to first select a panel using trellis.focus()"
 msgstr ""
 
-msgid "component"
-msgstr ""
-
-msgid "duplicated in key and legend"
+msgid "component '%s' duplicated in key and legend"
 msgstr ""
 
 msgid "key must be a list"
@@ -170,12 +164,6 @@ msgstr ""
 msgid "Invalid label.style"
 msgstr ""
 
-msgid "The 'formula' argument has been renamed to 'x'. See ?xyplot"
-msgstr ""
-
-msgid "'formula' overridden by 'x'"
-msgstr ""
-
 msgid "x must be (coercible to be) a factor"
 msgstr ""
 
@@ -197,6 +185,9 @@ msgstr ""
 msgid "cannot have log y-scale"
 msgstr ""
 
+msgid "y must have exactly 2 levels"
+msgstr ""
+
 msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
 msgstr ""
 
@@ -204,9 +195,6 @@ msgid "'probs' outside [0,1]"
 msgstr ""
 
 msgid "Can't have log X-scale"
-msgstr ""
-
-msgid "y must have exactly 2 levels"
 msgstr ""
 
 msgid "Fitted Values minus Mean"
@@ -233,7 +221,7 @@ msgstr ""
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
 msgstr ""
 
-msgid "Could not find device function"
+msgid "Could not find device function '%s'"
 msgstr ""
 
 msgid "trellis.device has changed, 'bg' may not be doing what you think it is"
@@ -308,7 +296,7 @@ msgstr ""
 msgid "log scales cannot be changed via update"
 msgstr ""
 
-msgid "Unrecognized value of aspect:"
+msgid "Unrecognized value of aspect: '%s'"
 msgstr ""
 
 msgid "Invalid value of aspect"
