@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-12-11 00:54\n"
+"POT-Creation-Date: 2005-12-22 17:03\n"
 "PO-Revision-Date: 2005-12-14 17:17+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -15,7 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
 
 msgid "origin forced to 0 for stacked bars"
 msgstr "origine replacée à 0 pour les diagrammes en barre empilées"
@@ -47,7 +46,8 @@ msgstr "l'argument 'model' doit être un object formula"
 msgid "multiple = TRUE ignored (groups non-null with outer = FALSE)"
 msgstr "'multiple = TRUE' est ignoré (groupes non nuls avec 'outer = FALSE')"
 
-msgid "invalid dimension :"
+#, fuzzy
+msgid "invalid dimension '%s'"
 msgstr "dimension incorrecte :"
 
 msgid "invalid model"
@@ -107,10 +107,8 @@ msgstr "L'axe Y ne peut avoir une échelle logarithmique"
 msgid "problem with hist computations"
 msgstr "calcul d'histogramme défectueux"
 
-msgid "type='"
-msgstr "type='"
-
-msgid "' can be misleading in this context"
+#, fuzzy
+msgid "type='%s' can be misleading in this context"
 msgstr "' peut être ambigüe dans ce contexte"
 
 msgid "Count"
@@ -146,10 +144,8 @@ msgstr "le graphe actuel n'a pas été souvegardé, impossible de restaurer les don
 msgid "you have to first select a panel using trellis.focus()"
 msgstr "vous devez d'abord sélectionner un panneau avec trellis.focus()"
 
-msgid "component"
-msgstr "la composante"
-
-msgid "duplicated in key and legend"
+#, fuzzy
+msgid "component '%s' duplicated in key and legend"
 msgstr "est redondante dans 'key' et 'legend'"
 
 msgid "key must be a list"
@@ -175,12 +171,6 @@ msgstr "'shrink' incorrect et ignoré"
 
 msgid "Invalid label.style"
 msgstr "'label.style' incorrect"
-
-msgid "The 'formula' argument has been renamed to 'x'. See ?xyplot"
-msgstr "L'argument 'formula' a été remplacé par 'x'. Voyez ?xyplot"
-
-msgid "'formula' overridden by 'x'"
-msgstr "'formula' remplacé par 'x'"
 
 msgid "x must be (coercible to be) a factor"
 msgstr "'x' doit être un facteur (ou doit être convertible automatiquement en facteur)"
@@ -239,7 +229,8 @@ msgstr "'aspect=iso' approximatif lorsque 'relation=free'"
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
 msgstr "Remarque : le périphérique par défaut a été ouvert afin de permettre la modification des paramètres d'un graphe trellis"
 
-msgid "Could not find device function"
+#, fuzzy
+msgid "Could not find device function '%s'"
 msgstr "Impossible de trouver la fonction du périphérique"
 
 msgid "trellis.device has changed, 'bg' may not be doing what you think it is"
@@ -308,13 +299,18 @@ msgstr "'par.strip.text' doit être une liste"
 msgid "par.settings must be a list"
 msgstr "'par.settings' doit être une liste"
 
-msgid "Note: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"
-msgstr "Remarque : 'auto.key' est ignoré puisque des clefs sont déjà présentes.\nUtilisez 'update(..., legend = NULL)' pour retirer le(s) légende(s) existante(s)"
+msgid ""
+"Note: auto.key ignored since key already present.\n"
+"Use 'update(..., legend = NULL)' to remove existing legend(s)"
+msgstr ""
+"Remarque : 'auto.key' est ignoré puisque des clefs sont déjà présentes.\n"
+"Utilisez 'update(..., legend = NULL)' pour retirer le(s) légende(s) existante(s)"
 
 msgid "log scales cannot be changed via update"
 msgstr "les échelles d'axes logarithmiques ne peuvent être modifiées à l'aide d''update'"
 
-msgid "Unrecognized value of aspect:"
+#, fuzzy
+msgid "Unrecognized value of aspect: '%s'"
 msgstr "Valeur inconnue pour 'aspect' :"
 
 msgid "Invalid value of aspect"
@@ -326,8 +322,28 @@ msgstr "'drop=TRUE' est ignoré"
 msgid "Invalid indices"
 msgstr "Indices incorrects"
 
-msgid "Note: you shouldn't be seeing this message unless\nyou are using a non-standard version of lattice"
-msgstr "Remarque : vous ne devriez pas lire ce message à moins que\nvous utilisiez une version non standard de lattice"
+msgid ""
+"Note: you shouldn't be seeing this message unless\n"
+"you are using a non-standard version of lattice"
+msgstr ""
+"Remarque : vous ne devriez pas lire ce message à moins que\n"
+"vous utilisiez une version non standard de lattice"
 
-msgid "The grid package couldn't be loaded.\nPlease check your installation of R"
-msgstr "Le package grid ne peut être chargé.\nVeuillez vérifier votre installation de R"
+msgid ""
+"The grid package couldn't be loaded.\n"
+"Please check your installation of R"
+msgstr ""
+"Le package grid ne peut être chargé.\n"
+"Veuillez vérifier votre installation de R"
+
+#~ msgid "type='"
+#~ msgstr "type='"
+
+#~ msgid "component"
+#~ msgstr "la composante"
+
+#~ msgid "The 'formula' argument has been renamed to 'x'. See ?xyplot"
+#~ msgstr "L'argument 'formula' a été remplacé par 'x'. Voyez ?xyplot"
+
+#~ msgid "'formula' overridden by 'x'"
+#~ msgstr "'formula' remplacé par 'x'"

@@ -1,5 +1,125 @@
 
+------------------------------------------------------------------------
+r2083 | deepayan | 2005-12-22 13:21:40 -0600 (Thu, 22 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/po/R-lattice.pot
 
+made some messages translation-friendly
+------------------------------------------------------------------------
+r2082 | deepayan | 2005-12-20 10:25:22 -0600 (Tue, 20 Dec 2005) | 1 line
+Changed paths:
+   A /trunk/lattice/po/R-fr.po
+
+added french translations, thanks to Philippe Grosjean
+------------------------------------------------------------------------
+r2081 | deepayan | 2005-12-19 11:29:42 -0600 (Mon, 19 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/splom.R
+
+replaced eval() calls by eval.parent where appropriate
+------------------------------------------------------------------------
+r2070 | deepayan | 2005-12-12 11:40:47 -0600 (Mon, 12 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+removed some now unnecessary calls to panel.superpose
+------------------------------------------------------------------------
+r2067 | deepayan | 2005-12-11 21:02:35 -0600 (Sun, 11 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/summary.trellis.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/panel.densityplot.Rd
+   M /trunk/lattice/man/panel.xyplot.Rd
+   M /trunk/lattice/man/print.trellis.Rd
+   M /trunk/lattice/man/update.trellis.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+panel.xyplot and panel.densityplot can now handle 'groups' themselves
+(by calling panel.superpose), which means that there's no need to
+change the default panel functions in the corresponding high level
+functions when 'groups' is non-null.  This doesn't really do anything
+new, it just avoids a long explanation. Also improved summary.trellis.
+------------------------------------------------------------------------
+r2065 | deepayan | 2005-12-11 01:03:00 -0600 (Sun, 11 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/po/R-lattice.pot
+
+updated translations
+------------------------------------------------------------------------
+r2064 | deepayan | 2005-12-11 00:43:07 -0600 (Sun, 11 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/make.groups.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/shingle.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/demo/00Index
+   A /trunk/lattice/demo/intervals.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/Lattice.Rd
+   M /trunk/lattice/man/barchart.table.Rd
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/llines.Rd
+   M /trunk/lattice/man/make.groups.Rd
+   M /trunk/lattice/man/panel.pairs.Rd
+   M /trunk/lattice/man/qq.Rd
+   M /trunk/lattice/man/shingles.Rd
+   M /trunk/lattice/man/simpleKey.Rd
+   M /trunk/lattice/man/splom.Rd
+   M /trunk/lattice/tests/temp.R
+
+extensive but mostly cosmetic changes and code cleanup, passes check
+------------------------------------------------------------------------
+r2062 | deepayan | 2005-12-09 23:21:55 -0600 (Fri, 09 Dec 2005) | 1 line
+Changed paths:
+   A /trunk/lattice/.Rbuildignore
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/rfs.R
+   M /trunk/lattice/R/shingle.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/summary.trellis.R
+   M /trunk/lattice/R/tmd.R
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/R/zzz.R
+   A /trunk/lattice/po
+   A /trunk/lattice/po/R-lattice.pot
+   A /trunk/lattice/update.sh
+
+made messages translatable, updated version
 ------------------------------------------------------------------------
 r2057 | deepayan | 2005-12-09 10:32:23 -0600 (Fri, 09 Dec 2005) | 1 line
 Changed paths:
