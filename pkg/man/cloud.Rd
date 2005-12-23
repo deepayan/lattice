@@ -276,9 +276,9 @@ wireframe(x, data, \dots)
 
 }
 \seealso{
+  \code{\link{Lattice}} for an overview of the package, as well as 
   \code{\link{xyplot}}, \code{\link{levelplot}},
-  \code{\link{panel.cloud}},
-  \code{\link{Lattice}}  
+  \code{\link{panel.cloud}}
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{

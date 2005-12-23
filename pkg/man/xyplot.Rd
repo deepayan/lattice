@@ -1029,6 +1029,7 @@ bwplot(x, data, \dots)
 
 }
 \seealso{
+  \code{\link{Lattice}} for an overview of the package, as well as 
   \code{\link{barchart.table}},
   \code{\link{Lattice}},
   \code{\link{print.trellis}},

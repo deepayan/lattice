@@ -8,39 +8,6 @@
   \code{y} where appropriate) variables are plotted with different
   graphical parameters for each distinct value of the grouping variable.
 }
-
-% \synopsis{
-% panel.superpose(x, y = NULL, subscripts, groups,
-%              panel.groups = "panel.xyplot",
-%              col,
-%              col.line = superpose.line$col,
-%              col.symbol = superpose.symbol$col,
-%              pch = superpose.symbol$pch,
-%              cex = superpose.symbol$cex, 
-%              font = superpose.symbol$font,
-%              fontface = superpose.symbol$fontface,
-%              fontfamily = superpose.symbol$fontfamily,
-%              lty = superpose.line$lty,
-%              lwd = superpose.line$lwd,
-%              alpha = superpose.symbol$alpha,
-%              type = "p",
-%              \dots)
-% panel.superpose.2(x, y = NULL, subscripts, groups,
-%                   panel.groups = "panel.xyplot",
-%                   col,
-%                   col.line = superpose.line$col,
-%                   col.symbol = superpose.symbol$col,
-%                   pch = superpose.symbol$pch,
-%                   cex = superpose.symbol$cex, 
-%                   font = superpose.symbol$font, 
-%                   fontface = superpose.symbol$fontface, 
-%                   fontfamily = superpose.symbol$fontfamily, 
-%                   lty = superpose.line$lty,
-%                   lwd = superpose.line$lwd,
-%                   alpha = superpose.symbol$alpha,
-%                   type = "p",
-%                   \dots)
-% }
 \usage{
 panel.superpose(x, y = NULL, subscripts, groups,
                 panel.groups = "panel.xyplot",
@@ -49,15 +16,9 @@ panel.superpose(x, y = NULL, subscripts, groups,
                 fontface, fontfamily,
                 lty, lwd, alpha,
                 type = "p",
-                \dots)
-panel.superpose.2(x, y = NULL, subscripts, groups,
-                  panel.groups = "panel.xyplot",
-                  col, col.line, col.symbol,
-                  pch, cex, font, 
-                  fontface, fontfamily, 
-                  lty, lwd, alpha,
-                  type = "p",
-                  \dots)
+                \dots,
+                distribute.type = FALSE)
+panel.superpose.2(\dots, distribute.type = TRUE)
 }
 \arguments{
   \item{x,y}{ coordinates of the points to be displayed}
@@ -79,30 +40,44 @@ panel.superpose.2(x, y = NULL, subscripts, groups,
     \code{\link{panel.xyplot}}, whose help page describes the admissible
     values.
 
-    The two functions \code{panel.superpose} and
-    \code{panel.superpose.2} differ only in the way the \code{type}
-    argument is interpreted.  For the former, the interpretation is the
-    same as for \code{panel.xyplot} for each of the unique groups.  In
-    other words, if \code{type} is a vector, all the individual
-    components are honoured concurrently.  For the latter, \code{type}
-    is replicated to be as long as the number of unique values in
-    \code{groups}, and one component used for the points corresponding
-    to the each different group.  Even in this case, it is possible to
-    request multiple types per group, specifying \code{type} as a list,
-    each component being the desired \code{type} vector for the
-    corresponding plot.
+    The functions \code{panel.superpose} and \code{panel.superpose.2}
+    differ only in the default value of \code{distribute.type}, which
+    controls the way the \code{type} argument is interpreted.  If
+    \code{distribute.type = FALSE}, then the interpretation is the same
+    as for \code{panel.xyplot} for each of the unique groups.  In other
+    words, if \code{type} is a vector, all the individual components are
+    honoured concurrently.  If \code{distribute.type = TRUE},
+    \code{type} is replicated to be as long as the number of unique
+    values in \code{groups}, and one component used for the points
+    corresponding to the each different group.  Even in this case, it is
+    possible to request multiple types per group, specifying \code{type}
+    as a list, each component being the desired \code{type} vector for
+    the corresponding group.
 
-    In \code{panel.superpose}, any occurrence of \code{"g"} in
+    If \code{distribute.type = FALSE}, any occurrence of \code{"g"} in
     \code{type} causes a grid to be drawn, and all such occurrences are
     removed before \code{type} is passed on to \code{panel.groups}.
   }
   \item{col, col.line, col.symbol, pch, cex, font, fontface, fontfamily,
     lty, lwd, alpha}{ graphical parameters, replicated to be as long as
     the number of groups, and eventually ultimately passed down to
-    \code{panel.groups}. }
-  
-  \item{\dots}{ other arguments, passed down to \code{panel.groups}.  }
+    \code{panel.groups}.
+  }
+  \item{\dots}{ Extra arguments.  Passed down to \code{panel.superpose}
+    from \code{panel.superpose.2}, and to \code{panel.groups} from
+    \code{panel.superpose}.
+  }
+  \item{distribute.type}{logical controlling interpretation of the
+    \code{type} argument.  
+  }
 
+}
+
+\details{
+  \code{panel.superpose} and \code{panel.superpose.2} differ essentially
+  in how \code{type} is interpreted by default.  The default behaviour
+  in \code{panel.superpose} is the opposite of that in S, which is the
+  same as that of \code{panel.superpose.2}.
 }
 
 \seealso{
@@ -110,6 +85,9 @@ panel.superpose.2(x, y = NULL, subscripts, groups,
   types of plots, for example \code{\link{panel.xyplot}},
   \code{\link{panel.dotplot}} and \code{\link{panel.linejoin}} (This can
   be used to produce interaction plots).
+
+  See \code{\link{Lattice}} for an overview of the package.
+
 }
 
 \author{

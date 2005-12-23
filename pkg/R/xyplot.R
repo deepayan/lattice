@@ -30,19 +30,27 @@ prepanel.default.xyplot <-
         ord <- order(as.numeric(x))
         if (!is.null(groups))
         {
-            gg <- groups[subscripts][ord]
-            dx <- unlist(lapply(split(as.numeric(x)[ord], gg), diff))
-            dy <- unlist(lapply(split(as.numeric(y)[ord], gg), diff))
+            gg <- groups[subscripts]
+            dx <- unlist(lapply(split(as.numeric(x)[ord], gg[ord]), diff))
+            dy <- unlist(lapply(split(as.numeric(y)[ord], gg[ord]), diff))
+            ## ok <- !is.na(gg)
+
+            ## One may argue that points with is.na(gg) should be
+            ## excluded from the data rectangle since they are not
+            ## plotted.  For now I'm going to take the other view,
+            ## namely that the points are there, they just happen to
+            ## be invisible because the value of the variable defining
+            ## their graphical parameters is unknown.
         }
         else
         {
             dx <- diff(as.numeric(x[ord]))
             dy <- diff(as.numeric(y[ord]))
+            ## ok <- TRUE
         }
         list(xlim = if (is.numeric(x)) range(x, finite = TRUE) else levels(x),
              ylim = if (is.numeric(y)) range(y, finite = TRUE) else levels(y),
              dx = dx, dy = dy)
-
     }
     else list(xlim = c(NA, NA),
               ylim = c(NA, NA),
