@@ -22,8 +22,8 @@ new features
 
  o instead of ignoring it as before, 'panel.xyplot' and
    'panel.densityplot' now deal with a 'groups' argument appropriately
-   by calling 'panel.superpose'.  Consequently, the default 'panel' in
-   xyplot etc does not need to be conditional on 'groups'.
+   by calling 'panel.superpose'.  Consequently, the default of 'panel'
+   in 'xyplot' etc does not need to be conditional on 'groups'.
 
  o added 'lineheight' as a grahical parameter where appropriate. 
 
@@ -45,18 +45,18 @@ changes in behaviour
  o 'summary.trellis' is now more informative
 
 
-Todo:
-----
-
- o change panel.qq so that most work gets done there
-
- o print shingle levels in strip
-
-
 bug fixes
 ---------
 
  o NA-handling
+
+
+Todo (planned)
+--------------
+
+ o change panel.qq so that most work gets done there
+
+ o print shingle levels in strip
 
 
 

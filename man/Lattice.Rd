@@ -1,6 +1,7 @@
 \name{Lattice}
 \alias{Lattice}
 \alias{lattice}
+\alias{lattice-package}
 \title{Lattice Graphics}
 \description{
   Implementation of Trellis Graphics in R
