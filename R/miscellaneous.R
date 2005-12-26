@@ -246,40 +246,7 @@ larrows <-
 }
 
 
-## larrows.old <-
-##     function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
-##              angle = 30, code = 2, length = NULL, proportion = .05, ...) 
-## {
 
-##     if (missing(x0)) {x0 <- x1; x1 <- x2}
-##     if (missing(y0)) {y0 <- y1; y1 <- y2}
-##     if (!is.null(length))
-##         warning("length not implemented in larrows, use proportion instead")
-
-##     angle <- angle / 180 * pi
-##     start <- rbind(x0, y0)
-##     end <- rbind(x1, y1)
-##     v.forward <- end - start
-##     v.backward <- start - end
-##     lsegments(x0, y0, x1, y1, ...)
-    
-##     if (code %in% c(1,3)) { # arrow at starting point
-##         edge.1 <- proportion * 
-##             matrix( c(cos(angle), -sin(angle), sin(angle), cos(angle)), 2, 2) %*% v.forward
-##         edge.2 <- proportion *
-##             matrix( c(cos(-angle), -sin(-angle), sin(-angle), cos(-angle)), 2, 2) %*% v.forward
-##         lsegments(x0, y0, x0 + edge.1[1,], y0 + edge.1[2,], ...)
-##         lsegments(x0, y0, x0 + edge.2[1,], y0 + edge.2[2,], ...)
-##     }
-##     if (code %in% c(2,3)) { # arrow at ending point
-##         edge.1 <- proportion * 
-##             matrix( c(cos(angle), -sin(angle), sin(angle), cos(angle)), 2, 2) %*% v.backward
-##         edge.2 <- proportion *
-##             matrix( c(cos(-angle), -sin(-angle), sin(-angle), cos(-angle)), 2, 2) %*% v.backward
-##         lsegments(x1, y1, x1 + edge.1[1,], y1 + edge.1[2,], ...)
-##         lsegments(x1, y1, x1 + edge.2[1,], y1 + edge.2[2,], ...)
-##     }
-## }
 
 
 
@@ -390,6 +357,7 @@ lplot.xy <-
              pch = 1, lty = 1, col = 1, cex = 1, lwd = 1,
              font = 1, fontfamily = NULL, fontface = NULL,
              col.line = col, alpha = 0, fill = NULL,
+             origin = 0,
              ...)
 {
     x <- xy$x
@@ -451,9 +419,9 @@ lplot.xy <-
            h = {
                ylim <- current.viewport()$yscale
                zero <-
-                   if (ylim[1] > 0) ylim[1]
-                   else if (ylim[2] < 0) ylim[2]
-                   else 0
+                   if (ylim[1] > origin) ylim[1]
+                   else if (ylim[2] < origin) ylim[2]
+                   else origin
                grid.segments(x0 = x, x1 = x,
                              y0 = y, y1 = zero,
                              gp =
@@ -464,9 +432,9 @@ lplot.xy <-
            H = {
                xlim <- current.viewport()$xscale
                zero <-
-                   if (xlim[1] > 0) xlim[1]
-                   else if (xlim[2] < 0) xlim[2]
-                   else 0
+                   if (xlim[1] > origin) xlim[1]
+                   else if (xlim[2] < origin) xlim[2]
+                   else origin
                grid.segments(x0 = x, x1 = zero,
                              y0 = y, y1 = y,
                              gp =

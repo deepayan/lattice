@@ -111,17 +111,19 @@ panel.xyplot <-
         if ("p" %in% type)
             panel.points(x = x, y = y, cex = cex, font = font,
                          fontfamily = fontfamily, fontface = fontface,
-                         col = col.symbol, pch=pch)
+                         col = col.symbol, pch = pch, ...)
         if ("l" %in% type)
-            panel.lines(x = x, y = y, lty = lty, col = col.line, lwd = lwd)
+            panel.lines(x = x, y = y, lty = lty, col = col.line, lwd = lwd, ...)
         if ("h" %in% type)
         {
             if (horizontal)
                 panel.lines(x = x, y = y, type = "H",
-                            lty = lty, col = col.line, lwd = lwd)
+                            lty = lty, col = col.line, lwd = lwd,
+                            ...)
             else
                 panel.lines(x = x, y = y, type = "h",
-                            lty = lty, col = col.line, lwd = lwd)
+                            lty = lty, col = col.line, lwd = lwd,
+                            ...)
         }
 
         ## FIXME: should this be delegated to llines with type='s'?
@@ -137,7 +139,7 @@ panel.xyplot <-
             xx[2*1:(n-1)] <- x[ord][-1]
             yy[2*1:(n-1)] <- y[ord][-n]
             panel.lines(x = xx, y = yy,
-                        lty = lty, col = col.line, lwd = lwd)
+                        lty = lty, col = col.line, lwd = lwd, ...)
         }
         if ("S" %in% type)
         {
@@ -151,7 +153,7 @@ panel.xyplot <-
             xx[2*1:(n-1)] <- x[ord][-n]
             yy[2*1:(n-1)] <- y[ord][-1]
             panel.lines(x = xx, y = yy,
-                        lty = lty, col = col.line, lwd = lwd)
+                        lty = lty, col = col.line, lwd = lwd, ...)
         }
         if ("r" %in% type) panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
         if ("smooth" %in% type) panel.loess(x, y, col = col.line, lty = lty, lwd = lwd, ...)
