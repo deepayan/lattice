@@ -21,9 +21,12 @@
 larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         angle = 30, code = 2, length = 0.25, unit = "inches",
         col, alpha, lty, lwd, fill = NULL, \dots)
-llines(x, y = NULL, type = "l", col, alpha, lty, lwd, \dots)
+llines(x, y = NULL, type = "l",
+       col, alpha, lty, lwd, \dots)
 lplot.xy(xy, type, pch, lty, col, cex, lwd,
-         font, fontfamily, fontface, col.line, alpha, fill, \dots)
+         font, fontfamily, fontface,
+         col.line, alpha, fill,
+         origin = 0, \dots)
 lpoints(x, y = NULL, type = "p", col, pch, alpha, fill,
         font, fontfamily, fontface, cex, \dots)  
 lsegments(x0, y0, x1, y1, x2, y2,
@@ -70,6 +73,8 @@ panel.text(\dots)
     devices that do not support alpha-transparency, nothing will be
     drawn at all if this is set to anything other than 0.
   }
+  \item{origin}{ for \code{type="h"} or \code{type="H"}, the value to
+    which lines drop down. }
   \item{xleft, ybottom, xright, ytop}{ see \code{\link{rect}}}
   \item{width, height, just, hjust, vjust}{ finer control over
     rectangles, see \code{\link[grid:grid.rect]{grid.rect}} }
