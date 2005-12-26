@@ -1,5 +1,35 @@
 
 ------------------------------------------------------------------------
+r2090 | deepayan | 2005-12-26 12:36:39 -0600 (Mon, 26 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/man/llines.Rd
+
+added option o change origin with type='h'
+------------------------------------------------------------------------
+r2089 | deepayan | 2005-12-24 16:01:05 -0600 (Sat, 24 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/Lattice.Rd
+
+updated Changes file
+------------------------------------------------------------------------
+r2085 | deepayan | 2005-12-23 02:25:36 -0600 (Fri, 23 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/panel.superpose.Rd
+   M /trunk/lattice/man/xyplot.Rd
+   M /trunk/lattice/po/R-lattice.pot
+
+fixed bug in panel.superpose when 'groups' contained NA's, rearranged
+things so that panel.superpose.2 is now a simple wrapper for
+panel.superpose (since they share most of the code)
+------------------------------------------------------------------------
 r2083 | deepayan | 2005-12-22 13:21:40 -0600 (Thu, 22 Dec 2005) | 1 line
 Changed paths:
    M /trunk/lattice/DESCRIPTION
