@@ -1,8 +1,9 @@
 
 
-### Copyright (C) 2001-2005 Deepayan Sarkar <Deepayan.Sarkar@R-project.org> and 
+### Copyright (C) 2001-2005 Deepayan Sarkar
+### <Deepayan.Sarkar@R-project.org>
 ###
-### This file is part of the lattice library for R.
+### This file is part of the lattice package for R.
 ### It is made available under the terms of the GNU General Public
 ### License, version 2, or at your option, any later version,
 ### incorporated herein by reference.
@@ -44,8 +45,8 @@ strip.default <-
     function(which.given,
              which.panel,
              var.name,
-             factor.levels,
-             shingle.intervals,
+             factor.levels = NULL,
+             shingle.intervals = NULL,
              strip.names = c(FALSE, TRUE),
              style = 1,
              horizontal = TRUE,
@@ -65,20 +66,20 @@ strip.default <-
     name <- var.name[which.given]
     level <- which.panel[which.given]
     strip.names <- rep(strip.names, length = 2)
-    
-    if (is.null(factor.levels)) # means this is a  shingle, as opposed to a factor
+    if (style != 2) grid.rect(gp = gpar(fill = bg, col = bg))
+    if (!is.null(shingle.intervals)) # usually for shingles, as opposed to factors
+        ## is.null(factor.levels)) 
     {
-        if (is.null(shingle.intervals))
-            stop("both factor.levels and shingle.intervals cannot be NULL")
         strip.names <- strip.names[2]
-        grid.rect(gp = gpar(fill = bg, col = bg))
         t <- range(shingle.intervals)
         r <- (range(shingle.intervals[level,]) - t[1]) / diff(t)
         if (horizontal)
-            grid.rect(x = unit(r %*% c(.5,.5),"npc"), width = max(unit( c(diff(r), 1), c("npc", "mm"))),
+            grid.rect(x = unit(r %*% c(.5,.5),"npc"),
+                      width = max(unit( c(diff(r), 1), c("npc", "mm"))),
                       gp = gpar(col=fg, fill=fg))
         else 
-            grid.rect(y = unit(r %*% c(.5,.5),"npc"), height = max(unit( c(diff(r), 1), c("npc", "mm"))),
+            grid.rect(y = unit(r %*% c(.5,.5),"npc"),
+                      height = max(unit( c(diff(r), 1), c("npc", "mm"))),
                       gp = gpar(col=fg, fill=fg))
         if (strip.names)
             grid.text(label = name,
@@ -91,14 +92,13 @@ strip.default <-
                            fontface = chooseFace(par.strip.text$fontface, par.strip.text$font),
                            cex = par.strip.text$cex))
     }
-    else if (is.null(shingle.intervals)) # factor
+    if (!is.null(factor.levels)) # factor
     {
         strip.names <- strip.names[1]
         x <- factor.levels
         num <- length(x)
         if (style == 1)
         {
-            grid.rect(gp = gpar(fill = bg, col = bg))
             if (strip.names)
             {
                 grid.text(name,
@@ -178,7 +178,6 @@ strip.default <-
         else if (style == 3)
         {
             ## FIXME: this is simpler, but presumably wouldn't work with expressions
-            grid.rect(gp = gpar(fill = bg, col = bg))
             if (horizontal)
                 grid.rect(x = unit((2*level-1)/(2*num), "npc"),
                           width = unit(1/num, "npc"),
@@ -201,7 +200,6 @@ strip.default <-
         }
         else if(style == 4)
         {
-            grid.rect(gp = gpar(fill = bg, col = bg))
             if (horizontal)
             {
                 grid.rect(x = unit((2*level-1)/(2*num), "npc"),
@@ -237,7 +235,6 @@ strip.default <-
         }
         else if(style >= 5)
         {
-            grid.rect(gp = gpar(fill = bg, col = bg))
             if (horizontal)
             {
                 grid.text(label = x[level],

@@ -61,6 +61,7 @@ trellis.last.object <- function(warn = TRUE, ...)
 
 ##             skip,
 ##             strip,
+##             strip.left,
 ##             sub,
 ##             xlab,
 ##             xlim,
@@ -99,6 +100,7 @@ update.trellis <-
              scales, #one of the problematic ones
              skip,
              strip,
+             strip.left,
              sub,
              xlab,
              xlim,
@@ -167,6 +169,14 @@ update.trellis <-
             else object$strip <- FALSE
         }
         else object$strip <- strip
+    }
+    if (!missing(strip.left))
+    {
+        if (is.logical(strip.left)) {
+            if (strip.left) object$strip.left <- strip.custom(horizontal = FALSE)
+            else object$strip.left <- FALSE
+        }
+        else object$strip.left <- strip.left
     }
     if (!missing(par.settings))
     {
