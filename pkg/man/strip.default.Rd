@@ -1,7 +1,7 @@
 \name{strip.default}
 \alias{strip.default}
 \alias{strip.custom}
-\title{In-built Trellis Strip Function}
+\title{Default Trellis Strip Function}
 \usage{
 strip.default(which.given,
               which.panel,
@@ -18,12 +18,11 @@ strip.custom(\dots)
 }
 \description{
   \code{strip.default} is the function that draws the strips by default
-  in conditioning Trellis plots.  Users can write their own strip
-  functions, but most commonly this involves calling
-  \code{strip.default} with a slightly different arguments.
-  \code{strip.custom} provides a convenient way to obtain new strip
-  functions that differ from \code{strip.default} only in the default
-  values of certain arguments. 
+  in Trellis plots.  Users can write their own strip functions, but most
+  commonly this involves calling \code{strip.default} with a slightly
+  different arguments.  \code{strip.custom} provides a convenient way to
+  obtain new strip functions that differ from \code{strip.default} only
+  in the default values of certain arguments.
 }
 
 \arguments{
@@ -31,11 +30,11 @@ strip.custom(\dots)
     variables this strip corresponds to. 
   }
   \item{which.panel}{ vector of integers as long as the number of
-    conditioning variables. The contents are indices specifing the
+    conditioning variables. The contents are indices specifying the
     current levels of each of the conditioning variables (thus, this
     would be unique for each distinct panel).
   }
-  \item{var.name}{ vector of character strings or ecpressions as long as
+  \item{var.name}{ vector of character strings or expressions as long as
     the number of conditioning variables. The contents are the names of
     the conditioning variables, to be used if the appropriate entry in
     \code{strip.names} (see below) is true.
@@ -64,7 +63,7 @@ strip.custom(\dots)
     The best way to find out what effect the value of \code{style} has
     is to try them out. Here is a short description: for a style value
     of 1, the strip is colored in the background color with the strip
-    text (as determined by other arguments) centred on it. A value of 3
+    text (as determined by other arguments) centered on it. A value of 3
     is the same, except that a part of the strip is colored in the
     foreground color, indicating the current level of the factor. For
     styles 2 and 4, the part corresponding to the current level remains
@@ -74,8 +73,8 @@ strip.custom(\dots)
     levels of the factor are placed on the strip from left to right.
     Styles 5 and 6 produce the same effect (they are subtly different in
     S, this implementation corresponds to 5), they are similar to style
-    1, except that the strip text is not centred, it is instead
-    postioned according to the current level.
+    1, except that the strip text is not centered, it is instead
+    positioned according to the current level.
 
     Note that unlike S-PLUS, the default value of \code{style} is 1.
   }
@@ -95,11 +94,11 @@ strip.custom(\dots)
 }
 
 \value{
-  \code{strip.default} is useful for its side-effect, which is to draw
-  a strip appropriate for conditioning Trellis plots.
-  \code{strip.default} returns a function similar to
-  \code{strip.default}
-
+  \code{strip.default} is called for its side-effect, which is to draw a
+  strip appropriate for multi-panel Trellis conditioning plots.
+  \code{strip.custom} returns a function that is similar to
+  \code{strip.default}, but with different defaults for the arguments
+  specified in the call.
 }
   
 
@@ -115,8 +114,14 @@ strip.custom(\dots)
 }
 
 \examples{
+## Traditional use
+xyplot(Petal.Length ~ Petal.Width | Species, iris,
+       strip = function(..., style) strip.default(..., style = 4))
+
+## equivalent call using strip.custom
 xyplot(Petal.Length ~ Petal.Width | Species, iris,
        strip = strip.custom(style = 4))
+
 xyplot(Petal.Length ~ Petal.Width | Species, iris,
        strip = FALSE,
        strip.left = strip.custom(style = 4, horizontal = FALSE))
