@@ -173,9 +173,13 @@ panel.rug <-
 
 
 panel.fill <-
-    function(col = trellis.par.get("background")$col, ...)
+    function(col = trellis.par.get("background")$col,
+             border = "transparent", ...)
 {
-    grid.rect(gp = gpar(fill = col, ...))
+    grid.rect(gp =
+              gpar(fill = col,
+                   col = border,
+                   ...))
 }
 
 
