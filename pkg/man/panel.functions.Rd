@@ -74,7 +74,7 @@ panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd,
 % panel.abline(coef, \dots)
 % panel.abline(reg, \dots)
 % panel.abline(h= ,v= , \dots)
-panel.fill(col, \dots)
+panel.fill(col, border, \dots)
 panel.grid(h=3, v=3, col, col.line, lty, lwd, \dots)
 panel.lmline(x, y, \dots)
 panel.loess(x, y, span = 2/3, degree = 1,
@@ -126,7 +126,7 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
   \item{curve.type}{ type of curve (\code{"p"} for points, etc), passed
     to \code{\link{llines}}
   }
-  \item{col, col.line, lty, lwd, type, alpha}{ graphical parameters }
+  \item{col, col.line, lty, lwd, type, alpha, border}{ graphical parameters }
   \item{span, degree, family, evaluation}{ arguments to 
     \code{loess.smooth}, around which \code{panel.loess} is essentially
     a wrapper
