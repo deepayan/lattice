@@ -14,46 +14,14 @@
   These are predefined panel functions available in lattice for use in
   constructing new panel functions (usually on-the-fly).
 }
-% \synopsis{
-% panel.abline(a, b = NULL, h = numeric(0), v = numeric(0),
-%     col,
-%     col.line = add.line$col,
-%     lty = add.line$lty,
-%     lwd = add.line$lwd, 
-%     \dots)
-% panel.curve(expr, from, to, n = 101,
-%             curve.type = "l",
-%             col = add.line$col,
-%             lty = add.line$lty,
-%             lwd = add.line$lwd,
-%             type = NULL,
-%             \dots)
-% panel.rug(x = NULL, y = NULL,
-%           regular = TRUE, 
-%           start = if (regular) 0 else 0.97,
-%           end = if (regular) 0.03 else 1,
-%           x.units = rep("npc", 2),
-%           y.units = rep("npc", 2),
-%           col = add.line$col,
-%           lty = add.line$lty,
-%           lwd = add.line$lwd,
-%           alpha = add.line$alpha,
-%           \dots)
-% panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd, 
-%     lty = reference.line$lty, col, col.line = reference.line$col, 
-%     \dots)
-% }
 \usage{
 
 panel.abline(a, b = NULL, h = numeric(0), v = numeric(0),
-             col, col.line, lty, lwd, \dots)
+             col, col.line, lty, lwd, type, \dots)
 
 panel.curve(expr, from, to, n = 101,
             curve.type = "l",
-            col = add.line$col,
-            lty = add.line$lty,
-            lwd = add.line$lwd,
-            type = NULL,
+            col, lty, lwd, type,
             \dots)
 panel.rug(x = NULL, y = NULL,
           regular = TRUE, 
@@ -61,14 +29,11 @@ panel.rug(x = NULL, y = NULL,
           end = if (regular) 0.03 else 1,
           x.units = rep("npc", 2),
           y.units = rep("npc", 2),
-          col = add.line$col,
-          lty = add.line$lty,
-          lwd = add.line$lwd,
-          alpha = add.line$alpha,
+          col, lty, lwd, alpha,
           \dots)
-panel.linejoin(x, y, fun = mean, horizontal = TRUE, lwd = reference.line$lwd, 
-    lty = reference.line$lty, col, col.line = reference.line$col, 
-    \dots)
+panel.linejoin(x, y, fun = mean, horizontal = TRUE,
+               lwd, lty, col, col.line, type,
+               \dots)
 
 % panel.abline(a, b, \dots)
 % panel.abline(coef, \dots)
@@ -80,18 +45,20 @@ panel.lmline(x, y, \dots)
 panel.loess(x, y, span = 2/3, degree = 1,
             family = c("symmetric", "gaussian"),
             evaluation = 50,
-            lwd, lty, col, col.line, \dots)
+            lwd, lty, col, col.line, type,
+            \dots)
 panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
-                  n = 50, col, col.line, lwd, lty, \dots)
+                  n = 50, col, col.line, lwd, lty, type,
+                  \dots)
 }
 \arguments{
   \item{x, y}{ variables defining the contents of the panel}
   \item{a, b}{ Coefficients of the line to be added.  \code{a} can be a
     vector of length 2, representing the coefficients of the line to be
     added, in which case \code{b} should be missing.  \code{a} can also
-    be a suitable \sQuote{regression} object, i.e., an object which has
-    a \code{\link{coef}} method that returns a length 2 numeric vector.
-    The corresponding line will be plotted.  }
+    be an appropriate \sQuote{regression} object, i.e., an object which
+    has a \code{\link{coef}} method that returns a length 2 numeric
+    vector.  The corresponding line will be plotted.  }
 
 %   \item{coef}{ Coefficients of the line to be added as a length 2 vector}
 %   \item{reg}{ A regression object. The corresponding fitted line will
@@ -126,9 +93,12 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
   \item{curve.type}{ type of curve (\code{"p"} for points, etc), passed
     to \code{\link{llines}}
   }
-  \item{col, col.line, lty, lwd, type, alpha, border}{ graphical parameters }
-  \item{span, degree, family, evaluation}{ arguments to 
-    \code{loess.smooth}, around which \code{panel.loess} is essentially
+  \item{col, col.line, lty, lwd, alpha, border}{ graphical parameters }
+  \item{type}{ usually ignored.  This is present only to make sure an
+    explicitly specified \code{type} argument (perhaps meant for another
+    function) doesn't affect the display. }
+  \item{span, degree, family, evaluation}{ arguments to
+    \code{loess.smooth}, for which \code{panel.loess} is essentially
     a wrapper
   }
   \item{fun}{ the function that will be applied to the subset of x(y)

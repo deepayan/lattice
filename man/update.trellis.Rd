@@ -26,6 +26,7 @@
        scales,
        skip,
        strip,
+       strip.left,
        sub,
        xlab,
        xlim,
@@ -57,8 +58,9 @@ trellis.last.object()
     logical, whether to warn when no plot is saved.
   }
   \item{panel, aspect, as.table, between, key, auto.key, legend, layout,
-    main, page, par.strip.text, prepanel, scales, skip, strip, sub, xlab,
-    xlim, ylab, ylim, par.settings, index.cond, perm.cond, \dots}{
+    main, page, par.strip.text, prepanel, scales, skip, strip,
+    strip.left, sub, xlab, xlim, ylab, ylim, par.settings, index.cond,
+    perm.cond, \dots}{
     arguments that will be used to update \code{object}. See details
     below. 
   }
@@ -67,11 +69,11 @@ trellis.last.object()
 
 \details{
 
-  All the high level lattice functions such as \code{xyplot} produce an
-  object of (S3) class \code{"trellis"}, which is usually printed by its
+  All high level lattice functions such as \code{xyplot} produce an
+  object of (S3) class \code{"trellis"}, which is usually displayed by its
   \code{print} method. However, the object itself can be manipulated and
   modified to a large extent using the \code{update} method, and then
-  re-plotted as needed.
+  re-displayed as needed.
 
   Most arguments to high level functions can also be supplied to the
   \code{update} method as well, with some exceptions. Generally
@@ -82,20 +84,12 @@ trellis.last.object()
   that you wish to have, feel free to make a request.
 
   Not all arguments accepted by a Lattice function are processed by
-  \code{update}, but the following should work (they are described in
-  the help page for \code{\link{xyplot}}):
-
-  \code{panel}, \code{aspect}, \code{as.table}, \code{between},
-  \code{key}, \code{auto.key}, \code{legend}, \code{layout},
-  \code{main}, \code{page}, \code{par.strip.text}, \code{prepanel},
-  \code{scales}, \code{skip}, \code{strip}, \code{sub}, \code{xlab},
-  \code{xlim}, \code{ylab}, \code{ylim}, \code{par.settings},
-  \code{index.cond}, \code{perm.cond}
-
-  Any other argument is added to the list of arguments to be passed to
-  the \code{panel} function. Because of their somewhat special nature,
-  updates to objects produced by \code{cloud} and \code{wireframe} do
-  not work very well yet.
+  \code{update}, but the ones listed above should work.  The purpose of
+  these arguments are described in the help page for
+  \code{\link{xyplot}}.  Any other argument is added to the list of
+  arguments to be passed to the \code{panel} function. Because of their
+  somewhat special nature, updates to objects produced by \code{cloud}
+  and \code{wireframe} do not work very well yet.
 
   The \code{"["} method is a convenient shortcut for updating
   \code{index.cond}.  The \code{t} method is a convenient shortcut for

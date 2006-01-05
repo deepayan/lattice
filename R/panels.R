@@ -23,9 +23,14 @@
 
 
 panel.abline <-
-    function(a, b = NULL, h = numeric(0), v = numeric(0),
-             col, col.line = add.line$col, lty = add.line$lty,
-             lwd = add.line$lwd, ...)
+    function(a, b = NULL,
+             h = numeric(0),
+             v = numeric(0),
+             col,
+             col.line = add.line$col,
+             lty = add.line$lty,
+             lwd = add.line$lwd,
+             type, ...)
 {
     add.line <- trellis.par.get("add.line")
     if (!missing(col) && missing(col.line)) col.line <- col
@@ -84,12 +89,6 @@ panel.abline <-
     if (length(as.numeric(v)))
         grid.segments(x0 = v, x1 = v, default.units="native",
                       gp = gpar(col = col.line, lty = lty, lwd = lwd))
-
-##     for(i in seq(along = h))
-##         grid.lines(y=rep(h[i],2), default.units="native", gp = gpar(col=col.line,lty=lty,lwd=lwd))
-##     for(i in seq(along = v))
-##         grid.lines(x=rep(v[i],2), default.units="native", gp = gpar(col=col.line,lty=lty,lwd=lwd))
-    
 }
 
 
@@ -101,7 +100,7 @@ panel.curve <-
               col = add.line$col,
               lty = add.line$lty,
               lwd = add.line$lwd,
-              type = NULL, ## avoid type meant for panel.xyplot etc
+              type, ## ignored, to avoid type meant for panel.xyplot etc
               ...)
     ## curve has a log option. Unfortunately there is no easy way to
     ## read in the lattice log options (specified via scales) into the
@@ -141,13 +140,13 @@ panel.rug <-
              end = if (regular) 0.03 else 1,
              x.units = rep("npc", 2),
              y.units = rep("npc", 2),
-             col = add.line$col,
-             lty = add.line$lty,
-             lwd = add.line$lwd,
-             alpha = add.line$alpha,
+             col = plot.line$col,
+             lty = plot.line$lty,
+             lwd = plot.line$lwd,
+             alpha = plot.line$alpha,
              ...)
 {
-    add.line <- trellis.par.get("add.line")
+    plot.line <- trellis.par.get("plot.line")
     x.units <- rep(x.units, length = 2)
     y.units <- rep(y.units, length = 2)
     if (!is.null(x))
@@ -300,22 +299,22 @@ panel.loess <-
     function(x, y, span = 2/3, degree = 1,
              family = c("symmetric", "gaussian"),
              evaluation = 50,
-             lwd = add.line$lwd, lty = add.line$lty,
+             lwd = plot.line$lwd,
+             lty = plot.line$lty,
              col,
-             col.line = add.line$col,
+             col.line = plot.line$col,
+             type, ## ignored
              ...)
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
-
-    if (length(x)>0) {
-
-        if (!missing(col)) {
+    if (length(x)>0)
+    {
+        if (!missing(col))
+        {
             if (missing(col.line)) col.line <- col
         }
-
-        add.line <- trellis.par.get("add.line")
-        
+        plot.line <- trellis.par.get("plot.line")
         smooth <-
             loess.smooth(x, y, span = span, family = family,
                          degree = degree, evaluation = evaluation)
@@ -323,7 +322,8 @@ panel.loess <-
                     y = smooth$y, 
                     col = col.line,
                     lty = lty,
-                    lwd = lwd)
+                    lwd = lwd,
+                    ...)
     }
 }
 
@@ -336,8 +336,8 @@ prepanel.loess <-
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
-
-    if (length(x)>0) {
+    if (length(x)>0)
+    {
         smooth <-
             loess.smooth(x, y, span = span, family = family,
                          degree = degree, evaluation = evaluation)
@@ -346,7 +346,9 @@ prepanel.loess <-
              dx = diff(smooth$x),
              dy = diff(smooth$y))
     }
-    else list(xlim=c(NA,NA), ylim=c(NA,NA), dx=NA, dy=NA)
+    else list(xlim = c(NA, NA),
+              ylim = c(NA, NA),
+              dx = NA, dy = NA)
 }
 
 
@@ -355,8 +357,8 @@ prepanel.loess <-
 #     function(x, y, span = 2/3, degree = 1, zero.line = FALSE,
 #              family = c("symmetric", "gaussian"),
 #              evaluation = 50,
-#              lwd = add.line$lwd, lty = add.line$lty,
-#              col = add.line$col, ...)
+#              lwd = plot.line$lwd, lty = plot.line$lty,
+#              col = plot.line$col, ...)
 # {
 #     if (zero.line) abline(h=0, ...)
 #     panel.loess(x, y, span = span, family = family,
@@ -388,11 +390,16 @@ panel.superpose <-
 {
     if (distribute.type)
     {
-        ## This is a slightly different version of panel.superpose.  It
-        ## has an explicit type argument which behaves like other
-        ## graphical parameters, i.e., it is repeated to be as long as the
-        ## number of groups, and one used for each group.  This is the
-        ## default behaviour of panel.superpose in S-PLUS.
+
+        ## This implies a slightly different behaviour: the 'type'
+        ## argument behaves like other graphical parameters, i.e., it
+        ## is repeated to be as long as the number of groups, and one
+        ## used for each group.  This is the default behaviour of
+        ## panel.superpose in S-PLUS.  The lattice default
+        ## (!distribute.type) is to use all type values concurrently
+        ## for each group.  We accomplish this by transforming 'type'
+        ## to a list in either case (but in different ways) and then
+        ## use common code.
 
         ## have.type <- FALSE
         type <- as.list(type)
@@ -416,7 +423,6 @@ panel.superpose <-
     }
     x <- as.numeric(x)
     if (!is.null(y)) y <- as.numeric(y)
-
     if (length(x) > 0)
     {
         if (!missing(col))
@@ -424,10 +430,8 @@ panel.superpose <-
             if (missing(col.line)) col.line <- col
             if (missing(col.symbol)) col.symbol <- col
         }
-
         superpose.symbol <- trellis.par.get("superpose.symbol")
         superpose.line <- trellis.par.get("superpose.line")
-
         vals <-
             if (is.factor(groups)) levels(groups)
             else sort(unique(groups))
@@ -654,6 +658,7 @@ panel.linejoin <-
              lty = reference.line$lty,
              col,
              col.line = reference.line$col,
+             type,
              ...)
 {
     ## FIXME: pretty sure this can be made more readable using tapply
@@ -695,6 +700,7 @@ panel.mathdensity <-
              col.line = reference.line$col,
              lwd = reference.line$lwd,
              lty = reference.line$lty,
+             type,
              ...)
 {
     reference.line <- trellis.par.get("reference.line")

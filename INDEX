@@ -48,7 +48,7 @@ Rows                    Extract rows from a list
 simpleKey               Function to generate a simple key
 singer                  Heights of New York Choral Society singers
 splom                   Scatter Plot Matrices
-strip.default           In-built Trellis Strip Function
+strip.default           Default Trellis Strip Function
 tmd                     Tukey Mean-Difference Plot
 trellis.device          Initializing Trellis Displays
 trellis.object          A Trellis Plot Object

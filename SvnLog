@@ -1,4 +1,29 @@
+------------------------------------------------------------------------
+r2125 | deepayan | 2006-01-03 16:21:32 -0600 (Tue, 03 Jan 2006) | 1 line
+Changed paths:
+   A /trunk/lattice/src/init.c
+   M /trunk/lattice/src/threeDplot.c
+   A /trunk/lattice/src/threeDplot.h
 
+registration of C function
+------------------------------------------------------------------------
+r2124 | deepayan | 2006-01-03 15:28:21 -0600 (Tue, 03 Jan 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/man/panel.functions.Rd
+
+added 'border' argument for panel.fill
+------------------------------------------------------------------------
+r2107 | deepayan | 2005-12-31 12:43:02 -0600 (Sat, 31 Dec 2005) | 1 line
+Changed paths:
+   M /trunk/lattice/R/strip.R
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/man/strip.default.Rd
+
+
+added support for strip.left in update.trellis, strip.default can now
+use factor.levels and shingle.intervals concurrently (which only makes
+sense with style=1)
 ------------------------------------------------------------------------
 r2090 | deepayan | 2005-12-26 12:36:39 -0600 (Mon, 26 Dec 2005) | 1 line
 Changed paths:
@@ -6,7 +31,7 @@ Changed paths:
    M /trunk/lattice/R/xyplot.R
    M /trunk/lattice/man/llines.Rd
 
-added option o change origin with type='h'
+added option to change origin with type='h'
 ------------------------------------------------------------------------
 r2089 | deepayan | 2005-12-24 16:01:05 -0600 (Sat, 24 Dec 2005) | 1 line
 Changed paths:

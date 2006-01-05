@@ -105,6 +105,7 @@ panel.densityplot <-
 ##              alpha = if (is.null(groups)) plot.line$alpha else superpose.line$alpha,
 ##              col.line = if (is.null(groups)) plot.line$col else superpose.line$col,
              jitter.amount = 0.01 * diff(current.panel.limits()$ylim),
+             type = "p",
              ...)
 {
     if (ref)
@@ -118,12 +119,15 @@ panel.densityplot <-
     plot.line <- trellis.par.get("plot.line")
     superpose.line <- trellis.par.get("superpose.line")
     if (!is.null(groups))
+    {
         panel.superpose(x, darg = darg,
                         plot.points = plot.points, ref = FALSE,
                         groups = groups,
-                        panel.groups = "panel.densityplot",
+                        panel.groups = panel.densityplot,
                         jitter.amount = jitter.amount,
+                        type = type,
                         ...)
+    }
     else
     {
         if (sum(!is.na(x)) > 1)
@@ -135,15 +139,17 @@ panel.densityplot <-
         }
         switch(as.character(plot.points),
                "TRUE" =
-               panel.xyplot(x = x, y = rep(0, length(x)), ...),
+               panel.xyplot(x = x, y = rep(0, length(x)), type = type, ...),
                "rug" =
                panel.rug(x = x, 
                          start = 0, end = 0,
                          x.units = c("npc", "native"),
+                         type = type,
                          ...),
                "jitter" =
                panel.xyplot(x = x,
                             y = jitter(rep(0, length(x)), amount = jitter.amount),
+                            type = type,
                             ...))
     }
 }
