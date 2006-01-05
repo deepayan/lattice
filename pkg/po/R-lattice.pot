@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.1.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2005-12-26 12:41\n"
+"POT-Creation-Date: 2006-01-05 15:32\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,9 +258,6 @@ msgid "Panel"
 msgstr ""
 
 msgid "Scatter Plot Matrix"
-msgstr ""
-
-msgid "both factor.levels and shingle.intervals cannot be NULL"
 msgstr ""
 
 msgid "Call:"

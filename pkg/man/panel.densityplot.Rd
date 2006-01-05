@@ -7,7 +7,7 @@
 \usage{
 panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
                   groups = NULL, 
-                  jitter.amount, \dots)
+                  jitter.amount, type, \dots)
 }
 \arguments{
   \item{x}{ data points for which density is to be estimated }
@@ -34,6 +34,11 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
   \item{jitter.amount}{
     when \code{plot.points="jitter"}, the value to use as the
     \code{amount} argument to \code{\link{jitter}}.
+  }
+  \item{type}{\code{type} argument used to plot points, if requested.
+    This is not expected to be useful, it is available mostly to protect
+    a \code{type} argument, if specified, from affecting the density
+    curve.
   }
   \item{\dots}{ extra graphical parameters }
 }
