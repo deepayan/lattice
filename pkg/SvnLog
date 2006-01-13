@@ -1,4 +1,20 @@
 ------------------------------------------------------------------------
+r2138 | deepayan | 2006-01-05 15:38:03 -0600 (Thu, 05 Jan 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/SvnLog
+   M /trunk/lattice/man/panel.densityplot.Rd
+   M /trunk/lattice/man/panel.functions.Rd
+   M /trunk/lattice/man/update.trellis.Rd
+   M /trunk/lattice/po/R-fr.po
+   M /trunk/lattice/po/R-lattice.pot
+
+added a 'type' argument to some panel functions (to avoid multiple
+matching). Misc doc updates.
+------------------------------------------------------------------------
 r2125 | deepayan | 2006-01-03 16:21:32 -0600 (Tue, 03 Jan 2006) | 1 line
 Changed paths:
    A /trunk/lattice/src/init.c
