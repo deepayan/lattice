@@ -223,10 +223,9 @@ bwplot(x, data, \dots)
 
     Note that this argument used to be called \code{formula} in earlier
     versions (when the high level functions were not generic and the
-    formula method was essentially the only method).  This is still
-    allowed, with a warning, but will no longer be allowed from the next
-    major release.  It is recommended that this argument not be named in
-    any case, but rather be the first (unnamed) argument.
+    formula method was essentially the only method).  This is no longer
+    allowed.  It is recommended that this argument not be named in any
+    case, but rather be the first (unnamed) argument.
   
 %     All points with at least one of its values missing (NA) in any
 %     of the variates involved are omitted from the plot.
@@ -1050,6 +1049,12 @@ bwplot(x, data, \dots)
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
+
+\dontrun{
+## wait for user input before each new page (like 'par(ask = TRUE)')
+old.prompt <- grid::grid.prompt(TRUE)
+}
+
 require(stats)
 ## Tonga Trench Earthquakes
 Depth <- equal.count(quakes$depth, number=8, overlap=.1)
@@ -1145,5 +1150,11 @@ bwplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
                   text = list(lab = as.character(unique(OrchardSprays$rowpos))),
                   columns = 4, title = "Row position"))
 }
+
+\dontrun{
+grid::grid.prompt(old.prompt)
+}
+
+
 }
 \keyword{hplot}
