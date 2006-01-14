@@ -113,7 +113,31 @@ show.settings(x = NULL)
   should be self-explanatory.
 
   \code{show.settings} provides a graphical display summarizing some of
-  the values in the current setting.
+  the values in the current settings.
+}
+
+
+\note{
+  In some ways, \code{trellis.par.get} and \code{trellis.par.set}
+  together are a replacement for the \code{\link{par}} function used in
+  traditional R graphics.  In particular, changing \code{par} settings
+  has little (if any) effect on lattice output.  Since lattice plots are
+  implemented using Grid graphics, its parameter system \emph{does} have
+  an effect unless overridden by a suitable lattice parameter setting.
+  Such parameters can be specified as part of a lattice theme by
+  including them in the \code{grid.pars} component (see
+  \code{\link[grid:gpar]{gpar}} for a list of valid parameter names).
+
+
+  One of the uses of \code{par} is to set \code{par(ask = TRUE)} making
+  R wait for user input before starting a new graphics page.  For Grid
+  graphics, this is done using
+  \code{\link[grid:grid.prompt]{grid.prompt}}.  Lattice has no separate
+  interface for this, and the user must call \code{grid.prompt}
+  directly.  If the grid package is not attached (lattice itself
+  only loads the grid namespace), this may be done using
+  \code{grid::grid.prompt(TRUE)}.
+  
 }
 
 \value{
@@ -122,7 +146,9 @@ show.settings(x = NULL)
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
-  \code{\link{trellis.device}}, \code{\link{Lattice}}
+  \code{\link{trellis.device}}, \code{\link{Lattice}},
+  \code{\link[grid:grid.prompt]{grid.prompt}},
+  \code{\link[grid:gpar]{gpar}}
 }
 
 \examples{
