@@ -28,7 +28,7 @@ export(
 
        latticeParseFormula,
 
-       llines, lplot.xy, lpoints, lsegments, ltext, lrect, larrows,
+       llines, lplot.xy, lpoints, lsegments, ltext, lrect, larrows, lpolygon,
 
        ltransform3dMatrix, ltransform3dto3d, levelplot,
 
@@ -58,7 +58,8 @@ export(
        trellis.grobname,
 
        panel.arrows, panel.segments, panel.lines, panel.points,
-       panel.text, panel.rect, current.panel.limits,
+       panel.text, panel.rect, panel.polygon,
+       current.panel.limits,
 
        strip.custom, trellis.last.object,
 

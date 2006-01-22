@@ -6,17 +6,27 @@
 \alias{lsegments}
 \alias{ltext}
 \alias{lrect}
+\alias{lpolygon}
 \alias{panel.arrows}
 \alias{panel.lines}
 \alias{panel.points}
 \alias{panel.segments}
 \alias{panel.text}
 \alias{panel.rect}
-\title{Lattice Replacements of base graphics functions}
+\alias{panel.polygon}
+\title{Replacements of traditional graphics functions}
+
 \description{
-  These functions are intended to replace some commonly used base R
-  graphics functions in panel functions.
+
+  These functions are intended to replace common low level traditional
+  graphics functions, primarily for use in panel functions.  The
+  originals can not be used (at least not easily) because lattice panel
+  functions need to use grid graphics.  Low level drawing functions in
+  grid can be used directly as well, and is often more flexible.  These
+  functions are provided for convenience and portability.
+
 }
+
 \usage{
 larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         angle = 30, code = 2, length = 0.25, unit = "inches",
@@ -46,13 +56,18 @@ lrect(xleft, ybottom, xright, ytop,
       just = "center",
       hjust = NULL, vjust = NULL,
       \dots)
+lpolygon(x, y = NULL,
+         border = "black", col = "transparent", \dots)
 panel.arrows(\dots)
 panel.lines(\dots)
 panel.points(\dots)
 panel.segments(\dots)
 panel.text(\dots)
+panel.rect(\dots)
+panel.polygon(\dots)
 }
 \arguments{
+
   \item{ x, y, x0, y0, x1, y1, x2, y2, xy}{ locations. \code{x2} and
     \code{y2} are available for for S compatibility.  }
   \item{length, unit}{
@@ -93,8 +108,9 @@ panel.text(\dots)
 
   See the documentation of the base functions for usage. Not all
   arguments are always supported. All these correspond to the default
-  methods only. For \code{ltext}, only values 0, .5 and 1 for \code{adj}
-  have any effect.
+  methods only.
+%   For \code{ltext}, only values 0, .5 and 1 for \code{adj}
+%   have any effect.
 }
 \note{
   There is a new \code{type="H"} option wherever appropriate, which is
