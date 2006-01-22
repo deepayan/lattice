@@ -13,90 +13,193 @@ importFrom(grDevices, dev.list, cm.colors, gray, heat.colors)
 importFrom(graphics, plot, co.intervals)
 
 
-importFrom(stats, as.formula, density, fitted.values, loess.smooth, 
+importFrom(stats, as.formula, density, fitted.values, loess.smooth,
            median, ppoints, qnorm, residuals, update)
 
 
 export(
-       as.factorOrShingle, as.shingle, banking, barchart,
-       bwplot, canonical.theme, cloud, col.whitebg, Rows,
+
+       ## high level generics:
+
+       histogram,
+       densityplot,
+       qqmath,
+       qq,
+       bwplot,
+       dotplot,
+       barchart,
+       stripplot,
+       xyplot,
+       contourplot,
+       levelplot,
+       cloud,
+       wireframe,
+       splom,
+       parallel,
+       tmd,
+
+       rfs,
+       oneway,
+
+       ## default panel functions
+
+       panel.histogram,
+       panel.densityplot,
+       panel.qqmath,
+       panel.qq,
+       panel.bwplot,
+       panel.dotplot,
+       panel.barchart,
+       panel.stripplot,
+       panel.xyplot,
+       panel.contourplot,
+       panel.levelplot,
+       panel.cloud,       panel.3dscatter, 
+       panel.wireframe,   panel.3dwire,
+       panel.pairs,
+       panel.splom,       diag.panel.splom,
+       panel.parallel,
+       panel.tmd.default, panel.tmd.qqmath,
+       
+       ## Components for use in custom panel functions:
+
+       ## superposition (usually unnecessary)
+
+       panel.superpose,
+       panel.superpose.2,
+       
+       ## data-driven (usually summary of some sort)
+
+       panel.violin,
+       panel.rug,
+       panel.linejoin,
+       panel.lmline,
+       panel.loess,
+       panel.qqmathline,
+
+       ## decorative / adds reference
+
+       panel.abline,
+       panel.curve,
+       panel.fill,
+       panel.grid,
+       panel.mathdensity,
+       panel.axis,
+
+
+       
+
+
+       ## replacements for low level standard graphics functions
+
+       lplot.xy,
+       llines,    panel.lines,
+       lpoints,   panel.points,
+       lsegments, panel.segments,
+       ltext,     panel.arrows,
+       lrect,     panel.text,
+       larrows,   panel.rect,
+       lpolygon,  panel.polygon,
+
+
+       ## useful prepanel functions
+
+       prepanel.tmd.default, prepanel.tmd.qqmath,
+       prepanel.lmline,
+       prepanel.loess,
+       prepanel.qqmathline,
+
+
+       ## shingles 
+
+       shingle,
+       is.shingle,
+       as.shingle, 
+       as.factorOrShingle,
+       equal.count,
 
 ### construct.scales,
 
-       contourplot, densityplot, dotplot, draw.colorkey, draw.key,
-       equal.count, histogram, is.shingle, 
 
+       draw.colorkey,
+       draw.key,
+       simpleKey, 
        latticeParseFormula,
 
-       llines, lplot.xy, lpoints, lsegments, ltext, lrect, larrows, lpolygon,
+       ## 3D utilities
 
-       ltransform3dMatrix, ltransform3dto3d, levelplot,
+       ltransform3dMatrix,
+       ltransform3dto3d,
 
-       oneway, panel.3dscatter, panel.3dwire, panel.abline,
-       panel.barchart, panel.bwplot, panel.violin, panel.cloud,
-       panel.curve, panel.densityplot, panel.dotplot, panel.fill,
-       panel.grid, panel.rug, panel.histogram, panel.levelplot,
-       panel.contourplot, panel.linejoin, panel.identify,
-       panel.lmline, panel.loess, panel.mathdensity, panel.pairs,
-       panel.parallel, panel.qq, panel.qqmath, panel.qqmathline,
-       panel.splom, diag.panel.splom, panel.stripplot,
-       panel.superpose, panel.axis, panel.superpose.2,
+       ## miscellaneous utilities
+
+       strip.default,
+       strip.custom,
+
+       do.breaks,
+       make.groups,
+       banking, 
+       Rows,
+
+       ## settings 
+
+       show.settings,
+       trellis.device,
+       trellis.par.get,
+       trellis.par.set,
+       lattice.getOption,
+       lattice.options,
+       canonical.theme,
+       col.whitebg,
+       
 
 
-       prepanel.tmd.default, prepanel.tmd.qqmath, panel.tmd.default,
-       panel.tmd.qqmath,
-
-       panel.wireframe, panel.xyplot, parallel, prepanel.lmline,
-       prepanel.loess, prepanel.qqmathline, qq, qqmath, rfs, shingle,
-       show.settings, simpleKey, splom, strip.default, stripplot, tmd,
-       trellis.device, trellis.par.get, trellis.par.set, wireframe,
-       xyplot,
-
-       do.breaks, lattice.getOption, lattice.options,
-       trellis.currentLayout, trellis.focus, trellis.unfocus,
-       trellis.switchFocus, trellis.panelArgs, trellis.vpname,
+       ## interaction etc
+       
+       panel.identify,
+       trellis.currentLayout,
+       trellis.focus,
+       trellis.unfocus,
+       trellis.switchFocus,
+       trellis.panelArgs,
+       trellis.vpname,
        trellis.grobname,
-
-       panel.arrows, panel.segments, panel.lines, panel.points,
-       panel.text, panel.rect, panel.polygon,
        current.panel.limits,
 
-       strip.custom, trellis.last.object,
+       trellis.last.object
 
-       make.groups
 
        )
 
 
-## Miscellaneous methods
+## methods related to shingles
 
-S3method("[", shingle)
+S3method("[",           shingle)
 S3method(as.data.frame, shingle)
-S3method(plot, shingle)
-S3method(print, shingle)
-S3method(summary, shingle)
-S3method(as.character, shingleLevel)
-S3method(print, shingleLevel)
+S3method(plot,          shingle)
+S3method(print,         shingle)
+S3method(summary,       shingle)
+S3method(as.character,  shingleLevel)
+S3method(print,         shingleLevel)
 
-## trellis methods (see also tmd below)
+## methods for ``trellis'' objects (see also tmd below)
 
-S3method(print, trellis)
-S3method(plot, trellis)
-S3method(update, trellis)
-S3method(summary, trellis)
-S3method(print, summary.trellis)
-S3method(dim, trellis)
+S3method(print,    trellis)
+S3method(plot,     trellis)
+S3method(update,   trellis)
+S3method(dim,      trellis)
 S3method(dimnames, trellis)
-S3method("[", trellis)
-S3method(t, trellis)
-
+S3method("[",      trellis)
+S3method(t,        trellis)
+S3method(summary,  trellis)
+S3method(print,    summary.trellis)
 
 
 ## methods for high level functions
 
 S3method(barchart,    formula)
 S3method(barchart,    array)
-S3method(barchart,    default) 
+S3method(barchart,    default)
 S3method(barchart,    matrix)
 S3method(barchart,    numeric)
 S3method(barchart,    table)
