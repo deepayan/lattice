@@ -457,7 +457,7 @@ panel.3dwire <-
             }
 
 
-        .Call("wireframePanelCalculations",
+        .Call(wireframePanelCalculations,
               as.double(x),
               as.double(y),
               as.double(z),
@@ -469,8 +469,7 @@ panel.3dwire <-
               as.double(light.source),
               environment(),
               as.integer(shade),
-              as.integer(isParametrizedSurface),
-              PACKAGE="lattice")
+              as.integer(isParametrizedSurface))
 
 
 
@@ -567,7 +566,7 @@ panel.3dwire <-
             }
 
 
-        .Call("wireframePanelCalculations",
+        .Call(wireframePanelCalculations,
               as.double(x),
               as.double(y),
               as.double(z),
@@ -579,8 +578,7 @@ panel.3dwire <-
               as.double(light.source),
               environment(),
               as.integer(shade),
-              as.integer(isParametrizedSurface),
-              PACKAGE="lattice")
+              as.integer(isParametrizedSurface))
 
 
         if (count > 0)

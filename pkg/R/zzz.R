@@ -19,9 +19,6 @@
 
 
 
-
-
-
 .LatticeEnv <- new.env()
 assign("lattice.status",  list(), env = .LatticeEnv)
 assign("lattice.theme",   list(), env = .LatticeEnv)
@@ -29,11 +26,9 @@ assign("lattice.options", list(), env = .LatticeEnv)
 assign("last.object",     NULL,   env = .LatticeEnv)
 
 
-
-
 .onLoad <- function(libname, pkgname) 
 {
-    library.dynam("lattice", pkgname, libname )
+    ## library.dynam("lattice", pkgname, libname )
     lattice.options(.defaultLatticeOptions())
     lattice.setStatus(.defaultLatticeStatus())
 }
@@ -46,11 +41,9 @@ assign("last.object",     NULL,   env = .LatticeEnv)
 
 
 
-
-
 ## .First.lib will be used if the NAMESPACE file is missing.  This is
 ## useful during development, thanks to C-c C-l in Emacs/ESS. It won't
-## be used if NAMESPACE is present.
+## be used if a NAMESPACE file is present.
 
 
 .First.lib <- function(lib, pkg) 
