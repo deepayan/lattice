@@ -144,6 +144,7 @@ panel.segments <- function(...) lsegments(...)
 panel.text <- function(...) ltext(...)
 panel.arrows <- function(...) larrows(...)
 panel.rect <- function(...) lrect(...)
+panel.polygon <- function(...) lpolygon(...)
 
 
 
@@ -155,6 +156,33 @@ panel.rect <- function(...) lrect(...)
 ## The rest are grid-ified versions of standard base 'incremental
 ## graphics' functions.  Maybe it's better to push wrappers like
 ## panel.points, panel.lines, etc.
+
+
+
+lpolygon <-
+    function(x, y = NULL,
+             ## density = NULL,
+             ## angle = 45,
+             border = "black",
+             col = "transparent",
+             ## lty = NULL,
+             ...) 
+{
+    if (is.logical(border))
+        border <-
+            if (border) "black"
+            else "transparent"
+    xy <- xy.coords(x, y)
+    if (with(xy, sum(!is.na(x) & !is.na(y))) > 0)
+        grid.polygon(x = xy$x,
+                     y = xy$y,
+                     default.units = "native",
+                     gp =
+                     gpar(fill = col,
+                          col = border,
+                          ...))
+}
+
 
 
 
@@ -300,12 +328,13 @@ ltext <-
                    fontfamily = fontfamily,
                    fontface = chooseFace(fontface, font),
                    cex = cex),
-              just = c(if (adj[1] == 0) "left"
-              else if (adj[1] == 1) c("right")
-              else "centre",
-              if (adj[2] == 0) "bottom"
-              else if (adj[2] == 1) c("top")
-              else "centre"),
+              just = adj,
+##               just = c(if (adj[1] == 0) "left"
+##               else if (adj[1] == 1) c("right")
+##               else "centre",
+##               if (adj[2] == 0) "bottom"
+##               else if (adj[2] == 1) c("top")
+##               else "centre"),
               rot = srt)
 }
 

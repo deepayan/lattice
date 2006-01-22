@@ -1,5 +1,3 @@
-Lattice                 Lattice Graphics
-Rows                    Extract rows from a list
 banking                 Banking
 barchart.table          table methods for barchart and dotplot
 barley                  Yield data from a Minnesota barley trial
@@ -11,11 +9,12 @@ environmental           Atmospheric environmental conditions in New
 equal.count             shingles
 ethanol                 Engine exhaust fumes from burning ethanol
 histogram               Histograms and Kernel Density Plots
+Lattice                 Lattice Graphics
 lattice.options         Low-level Options Controlling Behaviour of
                         Lattice
 latticeParseFormula     Parse Trellis formula
 levelplot               Level Plots
-llines                  Lattice Replacements of base graphics functions
+llines                  Replacements of traditional graphics functions
 lset                    Interface to modify Trellis Settings -
                         Deprecated
 make.groups             Grouped data from multiple vectors
@@ -45,6 +44,7 @@ print.trellis           Plot and Summarize Trellis Objects
 qq                      Quantile-Quantile Plots of Two Samples
 qqmath                  Q-Q Plot with Theoretical Distribution
 rfs                     Residual and Fit Spread Plots
+Rows                    Extract rows from a list
 simpleKey               Function to generate a simple key
 singer                  Heights of New York Choral Society singers
 splom                   Scatter Plot Matrices
