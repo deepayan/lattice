@@ -1,4 +1,45 @@
 ------------------------------------------------------------------------
+r2244 | deepayan | 2006-01-22 01:45:40 -0600 (Sun, 22 Jan 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/*.R
+
+changed wrong use of 'library' to 'package' in license statement,
+updated copyright
+------------------------------------------------------------------------
+r2243 | deepayan | 2006-01-22 01:38:06 -0600 (Sun, 22 Jan 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/zzz.R
+
+registration related changes suggested by Prof Ripley, makes lattice
+truly incompatible with R-2.2.x
+------------------------------------------------------------------------
+r2242 | deepayan | 2006-01-22 01:34:06 -0600 (Sun, 22 Jan 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+
+reorganized
+------------------------------------------------------------------------
+r2241 | deepayan | 2006-01-22 00:18:45 -0600 (Sun, 22 Jan 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/man/llines.Rd
+
+added lpolygon and panel.polygon (like graphics::polygon), added
+support for all values of 'adj' in ltext
+------------------------------------------------------------------------
+r2195 | deepayan | 2006-01-14 15:54:35 -0600 (Sat, 14 Jan 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/man/trellis.par.get.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+added note about grid.prompt and the fact that calls of the form
+'xyplot(formula=...)' no longer work
+------------------------------------------------------------------------
 r2138 | deepayan | 2006-01-05 15:38:03 -0600 (Thu, 05 Jan 2006) | 1 line
 Changed paths:
    M /trunk/lattice/DESCRIPTION
