@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.1.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2006-01-13 14:53\n"
+"POT-Creation-Date: 2006-02-03 23:31\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,9 +185,6 @@ msgstr ""
 msgid "cannot have log y-scale"
 msgstr ""
 
-msgid "y must have exactly 2 levels"
-msgstr ""
-
 msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
 msgstr ""
 
@@ -195,6 +192,9 @@ msgid "'probs' outside [0,1]"
 msgstr ""
 
 msgid "Can't have log X-scale"
+msgstr ""
+
+msgid "y must have exactly 2 levels"
 msgstr ""
 
 msgid "Fitted Values minus Mean"
