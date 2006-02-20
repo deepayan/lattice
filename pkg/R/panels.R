@@ -146,6 +146,8 @@ panel.rug <-
              alpha = plot.line$alpha,
              ...)
 {
+    if (!any(is.finite(x))) x <- NULL
+    if (!any(is.finite(y))) y <- NULL
     plot.line <- trellis.par.get("plot.line")
     x.units <- rep(x.units, length = 2)
     y.units <- rep(y.units, length = 2)
