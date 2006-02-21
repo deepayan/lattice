@@ -137,7 +137,12 @@ wireframe(x, data, \dots)
     The most common use for this argument is to set \code{arrows=FALSE},
     which causes tick marks and labels to be used instead of arrows
     being drawn (the default).  Both can be suppressed by
-    \code{draw=FALSE}.
+    \code{draw=FALSE}.  Another special component is \code{distance},
+    which specifies the relative distance of the axis label from the
+    bounding box.  If specified as a component of \code{scales} (as
+    opposed to one of \code{scales$z} etc), this can be (and is recycled
+    if not) a vector of length 3, specifying distances for the x, y and
+    z labels respectively.
 
     Other components that work in the \code{scales} argument of
     \code{xyplot} etc. should also work here (as long as they make
@@ -152,8 +157,12 @@ wireframe(x, data, \dots)
     \code{panel.cloud}.
   }
   \item{zlab}{
-    label describing the z variable. Similar to \code{xlab} and
-    \code{ylab} in other high level functions
+    Specifies a label describing the z variable in ways similar to
+    \code{xlab} and \code{ylab} (i.e. \dQuote{grob}, character string,
+    expression or list) in other high level functions.  Additionally, if
+    \code{zlab} (and \code{xlab} and \code{ylab}) is a list, it can
+    contain a component called \code{rot}, controlling the rotation for
+    the label
   }
   \item{zlim}{
     limits for the z-axis. Similar to \code{xlim} and \code{ylim} in
