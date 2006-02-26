@@ -52,7 +52,8 @@ panel.bwplot(x, y, box.ratio = 1,
   \code{y} (or the reverse if \code{horizontal=FALSE}).  By default, the
   actual boxplot statistics are calculated using \code{boxplot.stats}.
   Note that most arguments controlling the display can be supplied to
-  the high-level \code{bwplot} call directly.
+  the high-level \code{bwplot} call directly.  Unlike the traditional
+  analog \code{\link{boxplot}}, notches are not implemented.
 }
 
 \seealso{
