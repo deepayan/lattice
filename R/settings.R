@@ -20,7 +20,7 @@
 
 col.whitebg <- function()
     list(background = list(col="transparent"),
-         bar.fill = list(col="#c8ffc8"),
+         plot.polygon = list(col="#c8ffc8"),
          box.rectangle = list(col="darkgreen"),
          box.umbrella = list(col="darkgreen"),
          dot.line = list(col="#e8e8e8"),
@@ -94,7 +94,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
              clip             = list(panel = "on", strip = "on"),
              add.line         = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
              add.text         = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1.2),
-             bar.fill         = list(alpha = 1, col = can.col[2], border = "black", lty = 1, lwd = 1),
+             plot.polygon         = list(alpha = 1, col = can.col[2], border = "black", lty = 1, lwd = 1),
              box.dot          = list(alpha = 1, col = can.col[1], cex = 1, font = 1, pch = 16),
              box.rectangle    = list(alpha = 1, col = can.col[2], fill = "transparent", lty = 1, lwd = 1),
              box.umbrella     = list(alpha = 1, col = can.col[2], lty = 2, lwd = 1),
@@ -110,7 +110,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
              superpose.symbol = list(alpha = rep(1, 7), cex = rep(0.8, 7), col = can.col[2:8],
                                      font = rep(1, 7), pch = rep(1, 7),
                                      fill = rep("transparent", 7)),
-             superpose.fill   = list(alpha = rep(1, 7), col = can.col[2:8],
+             superpose.polygon   = list(alpha = rep(1, 7), col = can.col[2:8],
                                      border = rep("black", 7), lty = rep(1, 7), lwd = rep(1, 7)),
              regions          = list(alpha = 1, col = rev(cm.colors(100))),
              shade.colors     = list(alpha = 1, palette = function(irr, ref, height, saturation = .9) {
@@ -182,7 +182,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
     }
     else {
         ## black and white settings
-        ans$bar.fill$col <- can.col[5]
+        ans$plot.polygon$col <- can.col[5]
 ###        ans$box.dot$col <- can.col[1]
         ans$box.rectangle$col <- can.col[1]
         ans$box.umbrella$col <- can.col[1]
@@ -206,7 +206,7 @@ canonical.theme <- function(name = "null device", color = TRUE)
         ans$superpose.symbol$col <- can.col[rep(1, 7)]
         ans$superpose.symbol$cex <- rep(0.7, 7)
         ans$superpose.symbol$pch <- c(1,3,6,0,5,16,17)
-        ans$superpose.fill$col <- grey( (c(6, 12, 7, 11, 8, 10, 9)/15)^.8 )
+        ans$superpose.polygon$col <- grey( (c(6, 12, 7, 11, 8, 10, 9)/15)^.8 )
         ##ans$superpose.symbol$pch <- c("o","+",">","s","w","#","{")
     }
     ans
@@ -430,7 +430,12 @@ show.settings <- function(x = NULL)
               col = "transparent"))
     pushViewport(viewport(layout = page.layout,
                           gp = gpar(fontsize = theme$fontsize$text)))
-
+    gp.box <- 
+        gpar(col = theme$axis.line$col,
+             lty = theme$axis.line$lty,
+             lwd = theme$axis.line$lwd,
+             alpha = theme$axis.line$alpha,
+             fill = "transparent")
 
     ## superpose.symbol
     superpose.symbol <- theme$superpose.symbol
@@ -465,32 +470,40 @@ show.settings <- function(x = NULL)
               vp = viewport(layout.pos.row = 3, layout.pos.col = 4))
 
     ## strip.background
-    ## FIXME: strip.border <- theme$strip.border should be used
     strip.background <- theme$strip.background
-    len <- length(strip.background$col)
+    strip.border <- theme$strip.border
+    len <-
+        max(sapply(strip.background, length),
+            sapply(strip.border, length))
     pushViewport(viewport(layout.pos.row = 2,
                           layout.pos.col = 6,
-                          yscale = c(0,len+1),
-                          xscale = c(0,1)))
-    for (i in 1:len) {
-        grid.rect(y = unit(i, "native"), height = unit(.5, "native"),
-                  gp = gpar(fill = strip.background$col[i]))
-    }
+                          yscale = c(0, len+1),
+                          xscale = c(0, 1)))
+    grid.rect(y = unit(1:len, "native"),
+              height = unit(0.5, "native"),
+              gp =
+              gpar(fill = strip.background$col,
+                   alpha = strip.background$alpha,
+                   col = strip.border$col,
+                   lty = strip.border$lty,
+                   lwd = strip.border$lwd))
     popViewport()
     grid.text(lab = "strip.background",
               vp = viewport(layout.pos.row = 3, layout.pos.col = 6))
 
     ## strip.shingle
     strip.shingle <- theme$strip.shingle
-    len <- length(strip.shingle$col)
+    len <- max(sapply(strip.shingle, length))
     pushViewport(viewport(layout.pos.row = 2,
                           layout.pos.col = 8,
                           yscale = c(0,len+1),
                           xscale = c(0,1)))
-    for (i in 1:len) {
-        grid.rect(y = unit(i, "native"), height = unit(.5, "native"),
-                  gp = gpar(fill = strip.shingle$col[i]))
-    }
+    grid.rect(y = unit(1:len, "native"),
+              height = unit(0.5, "native"),
+              gp =
+              gpar(fill = strip.shingle$col,
+                   alpha = strip.shingle$alpha,
+                   col = "transparent", lwd = 0.0001))
     popViewport()
     grid.text(lab = "strip.shingle",
               vp = viewport(layout.pos.row = 3, layout.pos.col = 8))
@@ -501,12 +514,7 @@ show.settings <- function(x = NULL)
                           yscale = extend.limits(c(0,6)),
                           xscale = c(0,6)))
     panel.dotplot(x = 1:5, y = 1:5)
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
     grid.text(lab = "dot.[symbol, line]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 2))
@@ -517,12 +525,7 @@ show.settings <- function(x = NULL)
                           yscale = c(-2, 2),
                           xscale = c(0,6)))
     panel.bwplot(x = 1:5, y = rep(0, 5))
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
     grid.text(lab = "box.[dot, rectangle, umbrella]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 4))
@@ -540,12 +543,7 @@ show.settings <- function(x = NULL)
            lty = add.line$lty, lwd = add.line$lwd)
     ltext(lab = c("Hello", "World"),
           x = c(.25, .75), y = c(-.5, .5))
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
     grid.text(lab = "add.[line, text]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 6))
@@ -556,12 +554,7 @@ show.settings <- function(x = NULL)
                           yscale = c(0,4),
                           xscale = c(0,4)))
     panel.grid()
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
     grid.text(lab = "reference.line",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 8))
@@ -577,18 +570,13 @@ show.settings <- function(x = NULL)
     y <- .9 * sin(.1+11*x)
     panel.xyplot(x = x+.05, y = y+.1, type = "l")
     panel.xyplot(x = x-.05, y = y-.1)
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
     grid.text(lab = "plot.[symbol, line]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 2))
 
-    ## plot.shingle[bar.fill]
-    bar.fill <- theme$bar.fill
+    ## plot.shingle[plot.polygon]
+    plot.polygon <- theme$plot.polygon
     pushViewport(viewport(layout.pos.row = 8,
                           layout.pos.col = 4,
                           yscale = extend.limits(c(0,6)),
@@ -597,57 +585,42 @@ show.settings <- function(x = NULL)
               y = c(1,2,3,4,5), height = rep(.5, ,5),
               default.units = "native",
               gp =
-              gpar(fill = bar.fill$col,
-                   col = bar.fill$border,
-                   alpha = bar.fill$alpha,
-                   lty = bar.fill$lty,
-                   lwd = bar.fill$lwd))
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+              gpar(fill = plot.polygon$col,
+                   col = plot.polygon$border,
+                   alpha = plot.polygon$alpha,
+                   lty = plot.polygon$lty,
+                   lwd = plot.polygon$lwd))
+    grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "plot.shingle[bar.fill]",
+    grid.text(lab = "plot.shingle[plot.polygon]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 4))
 
-    ## histogram[bar.fill]
+    ## histogram[plot.polygon]
     pushViewport(viewport(layout.pos.row = 8,
                           layout.pos.col = 6,
                           yscale = extend.limits(c(0,7)),
                           xscale = extend.limits(c(0.5,7.5))))
     panel.histogram(x = rep(1:7, 1:7), breaks = 0:7 + 0.5, type = "count")
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "histogram[bar.fill]",
+    grid.text(lab = "histogram[plot.polygon]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 6))
 
-    ## barchart[bar.fill]
+    ## barchart[plot.polygon]
     pushViewport(viewport(layout.pos.row = 8,
                           layout.pos.col = 8,
                           yscale = extend.limits(c(0.5,6.5)),
                           xscale = c(-1,7)))
     panel.barchart(x = 6:1, y = 1:6)
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "barchart[bar.fill]",
+    grid.text(lab = "barchart[plot.polygon]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 8))
 
 
-    ## superpose.fill
-    superpose.fill <- trellis.par.get("superpose.fill")
-    len <- max(2, sapply(superpose.fill, length))
+    ## superpose.polygon
+    superpose.polygon <- trellis.par.get("superpose.polygon")
+    len <- max(2, sapply(superpose.polygon, length))
     pushViewport(viewport(layout.pos.row = 11,
                           layout.pos.col = 2,
                           yscale = extend.limits(c(-.45, .45)),
@@ -656,14 +629,9 @@ show.settings <- function(x = NULL)
                    groups = gl(len, 1),
                    subscripts = 1:len,
                    stack = FALSE)
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "superpose.fill",
+    grid.text(lab = "superpose.polygon",
               vp = viewport(layout.pos.row = 12, layout.pos.col = 2))
 
     ## regions
@@ -672,15 +640,13 @@ show.settings <- function(x = NULL)
     pushViewport(viewport(layout.pos.row = 11,
                           layout.pos.col = 4,
                           xscale = c(0,len+1)))
-    for (i in 1:len)
-        grid.rect(x = i, w = 1, default.units = "native",
-                  gp = gpar(col = NULL,  fill = regions$col[i]))
-    grid.rect(gp =
-              gpar(col = theme$axis.line$col,
-                   lty = theme$axis.line$lty,
-                   lwd = theme$axis.line$lwd,
-                   alpha = theme$axis.line$alpha,
-                   fill = "transparent"))
+    grid.rect(x = 1:len, w = 1,
+              default.units = "native",
+              gp =
+              gpar(col = "transparent",
+                   fill = regions$col,
+                   alpha = regions$alpha))
+    grid.rect(gp = gp.box)
     popViewport()
     grid.text(lab = "regions",
               vp = viewport(layout.pos.row = 12, layout.pos.col = 4))

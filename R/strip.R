@@ -67,8 +67,8 @@ strip.default <-
     level <- which.panel[which.given]
     strip.names <- rep(strip.names, length = 2)
     if (style != 2) grid.rect(gp = gpar(fill = bg, col = bg))
-    if (!is.null(shingle.intervals)) # usually for shingles, as opposed to factors
-        ## is.null(factor.levels)) 
+    if (!is.null(shingle.intervals)) # was: is.null(factor.levels)) 
+        ## usually for shingles, as opposed to factors
     {
         strip.names <- strip.names[2]
         t <- range(shingle.intervals)

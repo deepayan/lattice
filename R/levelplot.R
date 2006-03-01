@@ -183,10 +183,16 @@ panel.levelplot <-
         if (region) 
             grid.rect(x = cx[idx],
                       y = cy[idy],
-                      width = lx[idx] * scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
-                      height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
+                      width = lx[idx] *
+                      scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
+                      height = ly[idy] *
+                      scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
                       default.units = "native",
-                      gp = gpar(fill = col.regions[zcol], col = NULL, alpha = alpha.regions))
+                      gp =
+                      gpar(fill = col.regions[zcol],
+                           lwd = 0.00001,
+                           col = "transparent",
+                           alpha = alpha.regions))
 
         if (contour)
         {
@@ -203,7 +209,10 @@ panel.levelplot <-
                             fontface = text$fontface,
                             font = text$font)
 
-                labels <- updateList(tmp, if (is.list(labels)) labels else list()) # FIXME: risky
+                labels <-
+                    updateList(tmp,
+                               if (is.list(labels)) labels
+                               else list()) # FIXME: risky
 
                 if (!is.characterOrExpression(labels$label))
                     labels$label <- format(at)

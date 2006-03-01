@@ -8,11 +8,11 @@
 % \synopsis{
 % panel.violin(x, y, box.ratio = 1, horizontal = TRUE,
 
-%              alpha = bar.fill$alpha,
-%              border = bar.fill$border,
-%              lty = bar.fill$lty,
-%              lwd = bar.fill$lwd,
-%              col = bar.fill$col,
+%              alpha = plot.polygon$alpha,
+%              border = plot.polygon$border,
+%              lty = plot.polygon$lty,
+%              lwd = plot.polygon$lwd,
+%              col = plot.polygon$col,
 
 %              varwidth = FALSE,
 
@@ -55,7 +55,7 @@ panel.violin(x, y, box.ratio = 1, horizontal = TRUE,
   }
   \item{alpha, border, lty, lwd, col}{
     graphical parameters controlling the violin.  Defaults are taken
-    from the \code{"bar.fill"} settings.
+    from the \code{"plot.polygon"} settings.
   }
   \item{varwidth}{
     logical. If \code{FALSE}, the densities are scaled separately for

@@ -313,7 +313,7 @@ panel.3dwire <-
              col = if (shade) "transparent" else "black",
              lty = 1, lwd = 1,
              alpha,
-             col.groups = superpose.fill$col,
+             col.groups = superpose.polygon$col,
              polynum = 100,
              ...,
              drape = FALSE,
@@ -382,7 +382,7 @@ panel.3dwire <-
     else
     {
         ngroups <- if (is.matrix(z)) ncol(z) else 1
-        superpose.fill <- trellis.par.get("superpose.fill")
+        superpose.polygon <- trellis.par.get("superpose.polygon")
         col.groups <- rep(col.groups, length = ngroups)
         if (length(col) > 1) col <- rep(col, length = ngroups)
 
@@ -512,7 +512,7 @@ panel.3dwire <-
             pol.col <-
                 if (length(col) == 1) col[1]
                 else vector(mode(col), polynum)
-            pol.alpha <- superpose.fill$alpha
+            pol.alpha <- superpose.polygon$alpha
         }
         ## FIXME: should alpha override alpha.regions?
         if (!missing(alpha)) pol.alpha <- alpha
