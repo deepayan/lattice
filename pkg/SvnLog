@@ -1,4 +1,53 @@
 ------------------------------------------------------------------------
+r2333 | deepayan | 2006-03-01 14:15:54 -0600 (Wed, 01 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/R/levelplot.R
+   D /trunk/lattice/R/plot.shingle.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/shingle.R
+   M /trunk/lattice/R/strip.R
+   M /trunk/lattice/man/panel.barchart.Rd
+   M /trunk/lattice/man/panel.cloud.Rd
+   M /trunk/lattice/man/panel.histogram.Rd
+   M /trunk/lattice/man/panel.violin.Rd
+   M /trunk/lattice/update.sh
+
+improved some uses of grid.rect, changed [bar|superpose].fill settings
+to [plot.superpose].polygon
+------------------------------------------------------------------------
+r2330 | deepayan | 2006-02-28 21:47:19 -0600 (Tue, 28 Feb 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/man/llines.Rd
+   M /trunk/lattice/po/R-fr.po
+
+removed use of deprecated grid functions, French translations updated
+------------------------------------------------------------------------
+r2328 | deepayan | 2006-02-26 15:05:59 -0600 (Sun, 26 Feb 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.bwplot.Rd
+
+clarification about unavailaibility of notches
+------------------------------------------------------------------------
+r2305 | deepayan | 2006-02-21 09:45:27 -0600 (Tue, 21 Feb 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/man/cloud.Rd
+
+updated docs to explain [xyz]lab and scales
+------------------------------------------------------------------------
+r2302 | deepayan | 2006-02-20 10:06:52 -0600 (Mon, 20 Feb 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/panels.R
+
+bug fix in panel.rug (failed with zero-length or NA vectors)
+------------------------------------------------------------------------
 r2244 | deepayan | 2006-01-22 01:45:40 -0600 (Sun, 22 Jan 2006) | 1 line
 Changed paths:
    M /trunk/lattice/R/*.R

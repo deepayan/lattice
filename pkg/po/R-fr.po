@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2006-01-22 01:52\n"
+"POT-Creation-Date: 2006-03-01 14:22\n"
 "PO-Revision-Date: 2006-02-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -190,6 +190,9 @@ msgstr "'expr' doit être une fonction ou une expression contenant 'x'"
 msgid "cannot have log y-scale"
 msgstr "axe Y logarithmique impossible"
 
+msgid "y must have exactly 2 levels"
+msgstr "'y' doit avoir exactement 2 niveaux"
+
 msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
 msgstr "les valeurs manquantes et les NaN's ne sont pas permis lorsque 'na.rm = FALSE'"
 
@@ -198,9 +201,6 @@ msgstr "'probs' en dehors de [0,1]"
 
 msgid "Can't have log X-scale"
 msgstr "axe X logarithmique impossible"
-
-msgid "y must have exactly 2 levels"
-msgstr "'y' doit avoir exactement 2 niveaux"
 
 msgid "Fitted Values minus Mean"
 msgstr "Valeurs ajustées moins la moyenne"
@@ -327,4 +327,3 @@ msgid ""
 msgstr ""
 "Le package grid ne peut être chargé.\n"
 "Veuillez vérifier votre installation de R"
-

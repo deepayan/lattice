@@ -32,6 +32,11 @@ new features
  o For a shingle 'x', 'as.character(levels(x))' creates meaningful
    labels.
 
+ o 'panel.superpose' has new argument to make it bahave like in S-PLUS
+   (interpretation of 'type').  This makes 'panel.superpose.2'
+   unnecessary, although it's still available.
+
+ o added wrappers lrect, lpolygon (and panel.rect, panel.polygon)
 
 changes in behaviour
 --------------------
@@ -43,12 +48,20 @@ changes in behaviour
 
  o 'summary.trellis' is now more informative
 
+ o calls with explicit 'formula=' no longer work (used to give a
+   warning before)
+
+ o The 'bar.fill' and 'superpose.fill' settings have been replaced
+   with 'plot.polygon' and 'superpose.polygon' respectively, which are
+   more consistent with other names.
+
 
 bug fixes
 ---------
 
  o NA-handling
 
+ o ltext now supports more 'adj' values
 
 Todo (planned)
 --------------

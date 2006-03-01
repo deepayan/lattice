@@ -480,7 +480,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                 placeGrob(key.gf, 
                           textGrob(label = key$title,
                                    gp = gpar(cex = key$cex.title, lineheight = key$lineheight)),
-                          row=1, col = NULL)
+                          row = 1, col = NULL)
         
         for (i in 1:number.of.components)
         {
@@ -781,7 +781,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(yscale = atrange),
                                      height = recdim, 
-                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
+                                     gp =
+                                     gpar(fill = key$col,
+                                          col = "transparent",
+                                          alpha = key$alpha)),
                             row = 2, col = 1)
         
         key.gf <- placeGrob(frame = key.gf, 
@@ -854,7 +857,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(yscale = atrange),
                                      height = recdim, 
-                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
+                                     gp =
+                                     gpar(fill = key$col,
+                                          col = "transparent",
+                                          alpha = key$alpha)),
                             row = 2, col = 3)
         
         key.gf <- placeGrob(frame = key.gf, 
@@ -922,7 +928,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(xscale = atrange),
                                      width = recdim, 
-                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
+                                     gp =
+                                     gpar(fill = key$col,
+                                          col = "transparent",
+                                          alpha = key$alpha)),
                             row = 3, col = 2)
         
         key.gf <- placeGrob(frame = key.gf, 
@@ -991,7 +1000,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                      default.units = "native",
                                      vp = viewport(xscale = atrange),
                                      width = recdim, 
-                                     gp = gpar(fill = key$col, col = NULL, alpha = key$alpha)),
+                                     gp =
+                                     gpar(fill = key$col,
+                                          col = "transparent",
+                                          alpha = key$alpha)),
                             row = 1, col = 2)
 
         key.gf <- placeGrob(frame = key.gf, 
