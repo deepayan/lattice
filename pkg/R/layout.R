@@ -32,14 +32,15 @@
 
 rearrangeUnit <- function(x, pos, u)
 {
-    if (unit.length(x) == 1)
+    lx <- length(x)
+    if (lx == 1)
         u
     else if (pos == 1)
-        unit.c(u, x[(pos+1):unit.length(x)])
-    else if (pos == unit.length(x))
+        unit.c(u, x[(pos+1):lx])
+    else if (pos == lx)
         unit.c(x[1:(pos-1)], u)
     else
-        unit.c(x[1:(pos-1)], u, x[(pos+1):unit.length(x)])
+        unit.c(x[1:(pos-1)], u, x[(pos+1):lx])
 }
 
 

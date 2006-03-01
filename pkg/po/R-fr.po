@@ -1,14 +1,14 @@
 # Translation of R-lattice.pot to French
-# Copyright (C) 2005 The R Foundation
+# Copyright (C) 2006 The R Foundation
 # This file is distributed under the same license as the lattice R package.
-# Philippe Grosjean <phgrosjean@sciviews.org>, 2005.
+# Philippe Grosjean <phgrosjean@sciviews.org>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
 "POT-Creation-Date: 2006-01-22 01:52\n"
-"PO-Revision-Date: 2005-12-14 17:17+0100\n"
+"PO-Revision-Date: 2006-02-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,9 +46,8 @@ msgstr "l'argument 'model' doit être un object formula"
 msgid "multiple = TRUE ignored (groups non-null with outer = FALSE)"
 msgstr "'multiple = TRUE' est ignoré (groupes non nuls avec 'outer = FALSE')"
 
-#, fuzzy
 msgid "invalid dimension '%s'"
-msgstr "dimension incorrecte :"
+msgstr "dimension '%s' incorrecte"
 
 msgid "invalid model"
 msgstr "model incorrect"
@@ -107,9 +106,8 @@ msgstr "L'axe Y ne peut avoir une échelle logarithmique"
 msgid "problem with hist computations"
 msgstr "calcul d'histogramme défectueux"
 
-#, fuzzy
 msgid "type='%s' can be misleading in this context"
-msgstr "' peut être ambigüe dans ce contexte"
+msgstr "type='%s' peut être ambigü dans ce contexte"
 
 msgid "Count"
 msgstr "Dénombrements"
@@ -144,9 +142,8 @@ msgstr "le graphe actuel n'a pas été souvegardé, impossible de restaurer les don
 msgid "you have to first select a panel using trellis.focus()"
 msgstr "vous devez d'abord sélectionner un panneau avec trellis.focus()"
 
-#, fuzzy
 msgid "component '%s' duplicated in key and legend"
-msgstr "est redondante dans 'key' et 'legend'"
+msgstr "la composante '%s' est redondante dans 'key' et 'legend'"
 
 msgid "key must be a list"
 msgstr "'key' doit être une liste"
@@ -229,9 +226,8 @@ msgstr "'aspect=iso' approximatif lorsque 'relation=free'"
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
 msgstr "Remarque : le périphérique par défaut a été ouvert afin de permettre la modification des paramètres d'un graphe trellis"
 
-#, fuzzy
 msgid "Could not find device function '%s'"
-msgstr "Impossible de trouver la fonction du périphérique"
+msgstr "Impossible de trouver la fonction du périphérique '%s'"
 
 msgid "trellis.device has changed, 'bg' may not be doing what you think it is"
 msgstr "'trellis.device' a changé, 'bg' peut ne plus faire ce que vous pensez"
@@ -306,9 +302,8 @@ msgstr ""
 msgid "log scales cannot be changed via update"
 msgstr "les échelles d'axes logarithmiques ne peuvent être modifiées à l'aide d''update'"
 
-#, fuzzy
 msgid "Unrecognized value of aspect: '%s'"
-msgstr "Valeur inconnue pour 'aspect' :"
+msgstr "Valeur inconnue pour 'aspect' : '%s'"
 
 msgid "Invalid value of aspect"
 msgstr "Valeur incorrecte pour 'aspect'"
@@ -333,17 +328,3 @@ msgstr ""
 "Le package grid ne peut être chargé.\n"
 "Veuillez vérifier votre installation de R"
 
-#~ msgid "both factor.levels and shingle.intervals cannot be NULL"
-#~ msgstr "'factor.levels' et 'shingle.intervals' ne peuvent être NULL simultanément"
-
-#~ msgid "type='"
-#~ msgstr "type='"
-
-#~ msgid "component"
-#~ msgstr "la composante"
-
-#~ msgid "The 'formula' argument has been renamed to 'x'. See ?xyplot"
-#~ msgstr "L'argument 'formula' a été remplacé par 'x'. Voyez ?xyplot"
-
-#~ msgid "'formula' overridden by 'x'"
-#~ msgstr "'formula' remplacé par 'x'"
