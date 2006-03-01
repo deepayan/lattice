@@ -22,7 +22,7 @@ panel.histogram(x,
   \item{nint}{ Number of bins for the histogram }
   \item{alpha, col, border, lty, lwd}{
     graphical parameters for bars; defaults are obtained from the
-    \code{bar.fill} settings.
+    \code{plot.polygon} settings.
   }
   \item{\dots}{ other arguments.}
 }

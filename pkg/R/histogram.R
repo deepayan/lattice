@@ -83,15 +83,15 @@ panel.histogram <-
              equal.widths = TRUE,
              type = "density",
              nint = round(log2(length(x)) + 1),
-             alpha = bar.fill$alpha,
-             col = bar.fill$col,
-             border = bar.fill$border,
-             lty = bar.fill$lty,
-             lwd = bar.fill$lwd,
+             alpha = plot.polygon$alpha,
+             col = plot.polygon$col,
+             border = plot.polygon$border,
+             lty = plot.polygon$lty,
+             lwd = plot.polygon$lwd,
              ...)
 {
     x <- as.numeric(x)
-    bar.fill  <- trellis.par.get("bar.fill")
+    plot.polygon  <- trellis.par.get("plot.polygon")
 
     grid.lines(x = c(0.05, 0.95),
                y = unit(c(0,0), "native"),

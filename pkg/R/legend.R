@@ -101,7 +101,7 @@ simpleKey <-
     if (points) ans$points <-
         Rows(trellis.par.get("superpose.symbol"), foo)
     if (rectangles) ans$rectangles <- 
-        Rows(trellis.par.get("superpose.fill"), foo)
+        Rows(trellis.par.get("superpose.polygon"), foo)
     if (lines) ans$lines <-
         Rows(trellis.par.get("superpose.line"), foo)
     ans

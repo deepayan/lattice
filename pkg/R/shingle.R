@@ -154,14 +154,14 @@ plot.shingle <-
     ocall <- match.call()
     panel.shingle <-
         function(x, y,
-                 col = bar.fill$col,
-                 lty = bar.fill$lty,
-                 lwd = bar.fill$lwd,
-                 alpha = bar.fill$alpha,
-                 border = bar.fill$border,
+                 col = plot.polygon$col,
+                 lty = plot.polygon$lty,
+                 lwd = plot.polygon$lwd,
+                 alpha = plot.polygon$alpha,
+                 border = plot.polygon$border,
                  ...)
         {
-            bar.fill <- trellis.par.get("bar.fill")
+            plot.polygon <- trellis.par.get("plot.polygon")
             n <- nlevels(y)
             if (n > 0)
                 lrect(xleft = x[1 + 2 * (0:(n-1))],
