@@ -28,15 +28,13 @@
 }
 
 \usage{
-larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
-        angle = 30, code = 2, length = 0.25, unit = "inches",
-        col, alpha, lty, lwd, fill = NULL, \dots)
-llines(x, y = NULL, type = "l",
-       col, alpha, lty, lwd, \dots)
 lplot.xy(xy, type, pch, lty, col, cex, lwd,
          font, fontfamily, fontface,
          col.line, alpha, fill,
          origin = 0, \dots)
+
+llines(x, y = NULL, type = "l",
+       col, alpha, lty, lwd, \dots)
 lpoints(x, y = NULL, type = "p", col, pch, alpha, fill,
         font, fontfamily, fontface, cex, \dots)  
 lsegments(x0, y0, x1, y1, x2, y2,
@@ -56,14 +54,24 @@ lrect(xleft, ybottom, xright, ytop,
       just = "center",
       hjust = NULL, vjust = NULL,
       \dots)
+larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
+        angle = 30, code = 2, length = 0.25, unit = "inches",
+        ends = switch(code, "first", "last", "both"),
+        type = "open",
+        col = add.line$col,
+        alpha = add.line$alpha,
+        lty = add.line$lty,
+        lwd = add.line$lwd,
+        fill = NULL, \dots)
 lpolygon(x, y = NULL,
          border = "black", col = "transparent", \dots)
-panel.arrows(\dots)
+
 panel.lines(\dots)
 panel.points(\dots)
 panel.segments(\dots)
 panel.text(\dots)
 panel.rect(\dots)
+panel.arrows(\dots)
 panel.polygon(\dots)
 }
 \arguments{
@@ -77,7 +85,13 @@ panel.polygon(\dots)
     inches, which is the only option in the base version of the
     function, \code{\link{arrows}}.  }
   \item{angle, code, type, labels, srt, adj, pos, offset}{ arguments
-    controlling behaviour.  See respective base functions for details. }
+    controlling behaviour.  See respective base functions for details.
+    For \code{larrows} and \code{panel.larrows}, \code{type} is either
+    \code{"open"} or \code{"closed"}, indicating the type of
+    arrowhead. }
+  \item{ends}{ serves the same function as \code{code}, using
+    descriptive names rather than integer codes.  If specified, this
+    overrides \code{code}}
   \item{col, alpha, lty, lwd, fill, pch, cex, lineheight, font,
     fontfamily, fontface, col.line, border}{ graphical parameters.
     \code{fill} applies to points when \code{pch} is in \code{21:25} and
