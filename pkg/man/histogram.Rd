@@ -12,7 +12,7 @@
 histogram(x, data, \dots)
 densityplot(x, data, \dots)
 \method{histogram}{formula}(x,
-          data = parent.frame(),
+          data,
           allow.multiple, outer = TRUE,
           auto.key = FALSE,
           aspect = "fill",
@@ -37,7 +37,7 @@ densityplot(x, data, \dots)
 
 
 \method{densityplot}{formula}(x,
-            data = parent.frame(),
+            data,
             allow.multiple = is.null(groups) || outer,
             outer = !is.null(groups),
             auto.key = FALSE,

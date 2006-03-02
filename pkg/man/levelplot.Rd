@@ -8,7 +8,7 @@
 \alias{contourplot.matrix}
 \synopsis{
 \method{levelplot}{formula}(x,
-             data = parent.frame(),
+             data,
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
              aspect = "fill",
@@ -35,7 +35,7 @@
 
 
 \method{contourplot}{formula}(x,
-             data = parent.frame(),
+             data,
              panel = "panel.contourplot",
              cuts = 7,
              labels = TRUE,
@@ -61,7 +61,7 @@ contourplot(x, data, \dots)
           col.regions = trellis.par.get("regions")$col,
           colorkey = region)
 \method{contourplot}{formula}(x,
-             data = parent.frame(),
+             data,
              panel = "panel.contourplot",
              cuts = 7,
              labels = TRUE,
@@ -101,9 +101,8 @@ contourplot(x, data, \dots)
   \item{data}{
     For the \code{formula} methods, an optional data frame in which
     variables in the formula (as well as \code{groups} and
-    \code{subset}, if any) are to be evaluated.  By default, the
-    environment where the function was called from is used.  Ignored
-    with a warning in other cases.
+    \code{subset}, if any) are to be evaluated.  Usually ignored with a
+    warning in other cases.
   }
   \item{panel}{
     panel function used to create the display, as described in

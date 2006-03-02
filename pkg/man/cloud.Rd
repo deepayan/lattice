@@ -8,7 +8,7 @@
 \alias{wireframe.matrix}
 \synopsis{
 \method{cloud}{formula}(x,
-             data = parent.frame(),
+             data,
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
              auto.key = FALSE,
@@ -37,7 +37,7 @@
              subset = TRUE,
              axs.default = "r")
 \method{wireframe}{formula}(x,
-             data = parent.frame(),
+             data,
              panel = "panel.wireframe",
              \dots)
 \method{cloud}{matrix}(x, data = NULL, type = "h",

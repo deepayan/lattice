@@ -25,8 +25,7 @@ latticeParseFormula(model, data, dimension = 2,
     omitted in either case.
   }
   \item{data}{ the environment/dataset where the variables in the 
-    formula are evaluated. By default, the environment where the
-    function was called from.
+    formula are evaluated.
   }
   \item{dimension}{ dimension of the model, see above}
   \item{subset}{ index for choosing a subset of the data frame }

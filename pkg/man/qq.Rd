@@ -6,7 +6,7 @@
   Quantile-Quantile plots for comparing two Distributions
 }
 % \synopsis{
-% \method{qq}{formula}(formula, data = parent.frame(), aspect = "fill", 
+% \method{qq}{formula}(formula, data, aspect = "fill", 
 %     panel = panel.qq, prepanel = NULL, scales = list(), strip = TRUE, 
 %     groups = NULL, xlab, xlim, ylab, ylim, f.value = NULL, 
 %     drop.unused.levels,
@@ -16,7 +16,7 @@
 \usage{
 qq(x, data, \dots)
 
-\method{qq}{formula}(x, data = parent.frame(), aspect = "fill", 
+\method{qq}{formula}(x, data, aspect = "fill", 
     panel = panel.qq, prepanel, scales, strip, 
     groups, xlab, xlim, ylab, ylim, f.value = NULL, 
     drop.unused.levels = lattice.getOption("drop.unused.levels"),
@@ -40,8 +40,7 @@ qq(x, data, \dots)
   \item{data}{
     For the \code{formula} methods, an optional data frame in which
     variables in the formula (as well as \code{groups} and
-    \code{subset}, if any) are to be evaluated.  By default, the
-    environment where the function was called from is used.
+    \code{subset}, if any) are to be evaluated.
   }
   \item{f.value}{ optional numeric vector of probabilities, quantiles
     corresponding to which should be plotted.  Can also be a function of
