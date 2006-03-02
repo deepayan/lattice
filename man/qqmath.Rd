@@ -8,7 +8,7 @@
 }
 % \synopsis{
 % \method{qqmath}{formula}(x,
-%        data = parent.frame(),
+%        data,
 %        allow.multiple = is.null(groups) || outer,
 %        outer = !is.null(groups),
 %        distribution = qnorm,
@@ -37,7 +37,7 @@ qqmath(x, data, \dots)
 
 
 \method{qqmath}{formula}(x,
-       data = parent.frame(),
+       data,
        allow.multiple = is.null(groups) || outer,
        outer = !is.null(groups),
        distribution = qnorm,
@@ -66,9 +66,8 @@ qqmath(x, data, \dots)
   \item{data}{
     For the \code{formula} method, an optional data frame in which
     variables in the formula (as well as \code{groups} and
-    \code{subset}, if any) are to be evaluated.  By default, the
-    environment where the function was called from is used.  Ignored
-    with a warning in other methods.
+    \code{subset}, if any) are to be evaluated.  Usualll ignored with a
+    warning in other methods.
   }
   \item{distribution}{ a quantile function that takes a vector of
     probabilities as argument and produces the corresponding

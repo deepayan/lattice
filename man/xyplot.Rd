@@ -18,7 +18,7 @@
 \alias{stripplot.numeric}
 \synopsis{
 \method{xyplot}{formula}(x,
-             data = parent.frame(),
+             data,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
              auto.key = FALSE,
@@ -38,7 +38,7 @@
              subscripts = !is.null(groups),
              subset = TRUE)
 \method{bwplot}{formula}(x,
-             data = parent.frame(),
+             data,
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
              auto.key = FALSE,
@@ -72,7 +72,7 @@ stripplot(x, data, \dots)
 bwplot(x, data, \dots)
 
 \method{xyplot}{formula}(x,
-       data = parent.frame(),
+       data,
        panel = if (is.null(groups)) "panel.xyplot"
                else "panel.superpose",
        allow.multiple,
@@ -233,8 +233,11 @@ bwplot(x, data, \dots)
   \item{data}{
     For the \code{formula} method, a data frame containing values for
     any variables in the formula, as well as \code{groups} and
-    \code{subset} if applicable.  By default the environment where the
-    function was called from is used.  
+    \code{subset} if applicable.  If not found in \code{data}, or if
+    \code{data} is unspecified, the variables are looked for in the
+    environment of the formula.  For other methods (where \code{x} is
+    not a formula), \code{data} is usually ignored, often with a
+    warning.
   }
   \item{allow.multiple, outer}{
     logical flags to control what happens with formulas like \code{y1 +

@@ -12,7 +12,7 @@ parallel(x, data, \dots)
 
 
 \method{splom}{formula}(x,
-      data = parent.frame(),
+      data,
       auto.key = FALSE,
       aspect = 1,
       between = list(x = 0.5, y = 0.5),
@@ -33,7 +33,7 @@ parallel(x, data, \dots)
       default.scales,
       subset = TRUE)
 \method{parallel}{formula}(x,
-         data = parent.frame(),
+         data,
          aspect = "fill",
          between = list(x = 0.5, y = 0.5),
          panel = "panel.parallel",
@@ -73,8 +73,7 @@ parallel(x, data, \dots)
   \item{data}{
     For the \code{formula} methods, an optional data frame in which
     variables in the formula (as well as \code{groups} and
-    \code{subset}, if any) are to be evaluated.  By default, the
-    environment where the function was called from is used.
+    \code{subset}, if any) are to be evaluated.
   }
   \item{aspect}{ 
     aspect ratio of each panel (and subpanel), square by default for

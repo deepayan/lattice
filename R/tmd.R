@@ -189,7 +189,7 @@ panel.tmd.qqmath <-
 tmd <- function(object, ...)  UseMethod("tmd")
 
 tmd.formula <-
-    function(object, data = parent.frame(), ...)
+    function(object, data = NULL, ...)
     tmd(xyplot(object, data = data, ...))
 
 tmd.trellis <-

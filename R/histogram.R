@@ -157,7 +157,7 @@ histogram.factor <- histogram.numeric <-
 
 histogram.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
              auto.key = FALSE,

@@ -350,7 +350,7 @@ contourplot.matrix <-
 
 contourplot.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              panel = "panel.contourplot",
              cuts = 7,
              labels = TRUE,
@@ -397,7 +397,7 @@ levelplot.matrix <-
 
 levelplot.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
              aspect = "fill",

@@ -174,7 +174,7 @@ xyplot <- function(x, data, ...) UseMethod("xyplot")
 
 xyplot.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
 ##              allow.multiple = is.null(groups) || outer,

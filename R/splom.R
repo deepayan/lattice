@@ -357,7 +357,7 @@ splom.data.frame <-
 
 splom.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              auto.key = FALSE,
              aspect = 1,
              between = list(x = 0.5, y = 0.5),

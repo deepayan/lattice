@@ -70,6 +70,10 @@ Todo (planned)
 
  o print shingle levels in strip
 
+ o change default of data to NULL
+
+ o change default `theme' for windows
+
 
 
 

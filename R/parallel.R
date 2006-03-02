@@ -209,7 +209,7 @@ parallel.data.frame <-
 
 parallel.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              aspect = "fill",
              between = list(x = 0.5, y = 0.5),
              panel = "panel.parallel",

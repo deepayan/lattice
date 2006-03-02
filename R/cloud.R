@@ -1370,7 +1370,7 @@ wireframe.matrix <-
 
 wireframe.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              panel = "panel.wireframe",
              ...)
 {
@@ -1410,7 +1410,7 @@ cloud.matrix <-
 
 cloud.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
              auto.key = FALSE,

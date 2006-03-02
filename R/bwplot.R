@@ -835,7 +835,7 @@ dotplot.matrix <- function(x, data = NULL, ...) dotplot(as.table(x), data, ...)
 
 dotplot.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              panel = "panel.dotplot",
              ...)
 {
@@ -914,7 +914,7 @@ barchart.matrix <- function(x, data = NULL, ...) barchart(as.table(x), data, ...
 
 barchart.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              panel = "panel.barchart",
              box.ratio = 2, 
              ...)
@@ -952,7 +952,7 @@ stripplot.numeric <-
 
 stripplot.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              panel = "panel.stripplot",
              ...)
 {
@@ -994,7 +994,7 @@ bwplot.numeric <-
 
 bwplot.formula <-
     function(x,
-             data = parent.frame(),
+             data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
              auto.key = FALSE,
