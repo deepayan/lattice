@@ -692,8 +692,8 @@ print.trellis <-
                                        at = ylabelinfo$at,
                                        labels = ylabelinfo$lab,
                                        draw.labels = (!y.relation.same ||
-                                                      y.alternating[actual.row]==1 ||
-                                                      y.alternating[actual.row]==3), 
+                                                      y.alternating[row]==1 ||
+                                                      y.alternating[row]==3), 
                                        check.overlap = ylabelinfo$check.overlap,
                                        outside = TRUE,
                                        tick = TRUE,
@@ -775,8 +775,8 @@ print.trellis <-
                             panel.axis(side = "right",
                                        at = ylabelinfo$at,
                                        labels = ylabelinfo$lab,
-                                       draw.labels = (y.alternating[actual.row]==2 ||
-                                                      y.alternating[actual.row]==3), 
+                                       draw.labels = (y.alternating[row]==2 ||
+                                                      y.alternating[row]==3), 
                                        check.overlap = ylabelinfo$check.overlap,
                                        outside = TRUE,
                                        tick = TRUE,
@@ -875,11 +875,11 @@ print.trellis <-
 
                                 strip(which.given = x$perm.cond[i],
                                       which.panel = which.panel,
+                                      panel.number = panel.number,
+                                      packet.number = packet.number,
 
                                       var.name = names(x$condlevels),
-
-                                      factor.levels = if (!is.list(x$condlevels[[x$perm.cond[i]]]))
-                                      x$condlevels[[x$perm.cond[i]]] else NULL,
+                                      factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
 
                                       shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
                                       do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
@@ -919,18 +919,17 @@ print.trellis <-
 
                             for(i in seq(length = number.of.cond))
                             {
-
                                 ## Here, by which.given, I mean which
                                 ## in the original packet order, not
                                 ## the permuted order
 
                                 strip.left(which.given = x$perm.cond[i],
                                            which.panel = which.panel,
+                                           panel.number = panel.number,
+                                           packet.number = packet.number,
 
                                            var.name = names(x$condlevels),
-
-                                           factor.levels = if (!is.list(x$condlevels[[x$perm.cond[i]]]))
-                                           x$condlevels[[x$perm.cond[i]]] else NULL,
+                                           factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
 
                                            shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
                                            do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
@@ -938,7 +937,6 @@ print.trellis <-
                                            bg = strip.col.default.bg[i],
                                            fg = strip.col.default.fg[i],
                                            par.strip.text = par.strip.text)
-                                
                             }
                             upViewport()
                         }

@@ -5,10 +5,14 @@
 \usage{
 strip.default(which.given,
               which.panel,
+              packet.number,
+              panel.number,
               var.name,
               factor.levels,
               shingle.intervals,
               strip.names = c(FALSE, TRUE),
+              strip.levels = c(TRUE, FALSE),
+              sep = " : ",
               style = 1,
               horizontal = TRUE,
               bg = trellis.par.get("strip.background")$col[which.given],
@@ -34,14 +38,27 @@ strip.custom(\dots)
     current levels of each of the conditioning variables (thus, this
     would be unique for each distinct panel).
   }
-  \item{var.name}{ vector of character strings or expressions as long as
-    the number of conditioning variables. The contents are the names of
-    the conditioning variables, to be used if the appropriate entry in
-    \code{strip.names} (see below) is true.
+  \item{panel.number, packet.number}{ integer indices specifying which
+    panel and packet is being drawn (see the entry for \code{panel} in
+    \code{\link{xyplot}} for details).  These arguments are ignored by
+    the \code{strip.default}, but may be used by user supplied
+    replacements.
   }
-  \item{factor.levels}{ if the current strip corresponds to a factor,
-    this should be a character or expression vector giving the levels of
-    the factor.  Otherwise, it should be \code{NULL}
+  \item{var.name}{ vector of character strings or expressions as long as
+    the number of conditioning variables.  The contents are interpreted
+    as names for the conditioning variables.  Whether they are shown on
+    the strip depends on the values of \code{strip.names} and
+    \code{style} (see below).  By default, the names are shown for
+    shingles, but not for factors.
+  }
+  \item{factor.levels}{ vector of character strings or expressions
+    giving the levels of the conditioning variable currently being
+    drawn.  For more than one conditioning variable, this will vary with
+    \code{which.given}.  Whether these levels are shown on the strip
+    depends on the values of \code{strip.levels} and \code{style} (see
+    below).  \code{factor.levels} may be specified for both factors and
+    shingles (despite the name), but by default they are shown only for
+    factors.
   }
   \item{shingle.intervals}{if the current strip corresponds to a shingle,
     this should be a 2-column matrix giving the levels of the shingle.
@@ -56,9 +73,18 @@ strip.custom(\dots)
     This argument is ignored for a factor when \code{style} is not one
     of 1 and 3.
   }
-  \item{style}{ integer, with values 1,2,3,4,5 and 6 currently supported.
-    Applicable only when \code{x} is a factor. Determines how the current
-    level of \code{x} is indicated on the strip.
+  \item{strip.levels}{ a logical vector of length 2, indicating whether
+    or not the level of the conditioning variable that corresponds to
+    the strip being drawn is to be written on the strip.  The two
+    components give the values for factors and shingles respectively.
+  }
+  \item{sep}{ character or expression, serving as a separator if the
+    name and level are both to be shown.
+  }
+  \item{style}{ integer, with values 1, 2, 3, 4 and 5 currently
+    supported, controlling how the current level of a factor is encoded.
+    Ignored for shingles (actually, when \code{shingle.intervals} is
+    non-null.  
 
     The best way to find out what effect the value of \code{style} has
     is to try them out. Here is a short description: for a style value
@@ -77,6 +103,8 @@ strip.custom(\dots)
     positioned according to the current level.
 
     Note that unlike S-PLUS, the default value of \code{style} is 1.
+    \code{strip.names} and \code{strip.levels} have no effect if
+    \code{style} is not 1 or 3.
   }
   \item{horizontal}{ logical, specifying whether the labels etc should
     be horizontal.  \code{horizontal=FALSE} is useful for strips on the

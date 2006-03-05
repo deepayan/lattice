@@ -24,7 +24,7 @@ new features
    by calling 'panel.superpose'.  Consequently, the default of 'panel'
    in 'xyplot' etc does not need to be conditional on 'groups'.
 
- o added 'lineheight' as a grahical parameter where appropriate. 
+ o added 'lineheight' as a graphical parameter where appropriate. 
 
  o added a 'global.gpar' setting for arbitrary grid parameters to be
    set initially via gpar().
@@ -32,11 +32,19 @@ new features
  o For a shingle 'x', 'as.character(levels(x))' creates meaningful
    labels.
 
+ o Shingle levels can now be printed by strip.default.
+
+ o The strip function, like the panel function, is now passed
+   arguments 'packet.number' and 'panel.number' (although the default
+   strip function makes no use of it).
+
  o 'panel.superpose' has new argument to make it bahave like in S-PLUS
    (interpretation of 'type').  This makes 'panel.superpose.2'
    unnecessary, although it's still available.
 
- o added wrappers lrect, lpolygon (and panel.rect, panel.polygon)
+ o Added wrappers lrect, lpolygon (and panel.rect, panel.polygon)
+
+
 
 changes in behaviour
 --------------------
@@ -55,6 +63,13 @@ changes in behaviour
    with 'plot.polygon' and 'superpose.polygon' respectively, which are
    more consistent with other names.
 
+ o Default of 'data' changed from 'parent.frame()' to NULL.  This has
+   to do with reasonable non-standard evaluation rules, and probably
+   needs some more thought.
+
+
+
+
 
 bug fixes
 ---------
@@ -63,16 +78,21 @@ bug fixes
 
  o ltext now supports more 'adj' values
 
+ o scales$y$alternating now counts row numbers from top if as.table = TRUE
+
+ o miscellaneous improvements in strip.default
+
+
+
+
 Todo (planned)
 --------------
 
  o change panel.qq so that most work gets done there
 
- o print shingle levels in strip
-
- o change default of data to NULL
-
  o change default `theme' for windows
+
+
 
 
 
