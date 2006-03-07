@@ -1,4 +1,40 @@
 ------------------------------------------------------------------------
+r2343 | deepayan | 2006-03-05 03:09:03 -0600 (Sun, 05 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/strip.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/strip.default.Rd
+
+several changes in strip.default, including support for displaying
+shingle levels, and possible use of panel.number and packet.number in
+strip.  Bugfix: scales now counts rows from top if as.table = TRUE
+------------------------------------------------------------------------
+r2335 | deepayan | 2006-03-02 00:12:18 -0600 (Thu, 02 Mar 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/tmd.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/latticeParseFormula.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/qq.Rd
+   M /trunk/lattice/man/qqmath.Rd
+   M /trunk/lattice/man/splom.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+changed defaults of data=parent.frame() to data=NULL
+------------------------------------------------------------------------
 r2333 | deepayan | 2006-03-01 14:15:54 -0600 (Wed, 01 Mar 2006) | 1 line
 Changed paths:
    M /trunk/lattice/R/bwplot.R
