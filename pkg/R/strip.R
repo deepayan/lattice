@@ -64,8 +64,8 @@ paste.and.draw <-
         if (center)
             offset <-
                 offset +
-                    unit(0.5 * showl, "strwidth", list(left)) -
-                        unit(0.5 * showr, "strwidth", list(right))
+                    (if (showl) unit(0.5, "strwidth", list(left)) else unit(0, "mm")) -
+                        (if (showr) unit(0.5 * showr, "strwidth", list(right)) else unit(0, "mm"))
         if (horizontal)
         {
             if (shows) grid.text(sep, x = offset, gp = gp)
