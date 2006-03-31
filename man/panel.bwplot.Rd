@@ -54,6 +54,24 @@ panel.bwplot(x, y, box.ratio = 1,
   Note that most arguments controlling the display can be supplied to
   the high-level \code{bwplot} call directly.  Unlike the traditional
   analog \code{\link{boxplot}}, notches are not implemented.
+
+  Although the graphical parameters for the dot representing the median
+  can be controlled by optional arguments, many others can not.  These
+  parameters are obtained from the relevant settings parameters
+  (\code{"box.rectangle"} for the box, \code{"box.umbrella"} for the
+  whiskers and \code{"plot.symbol"} for the outliers).
+}
+
+\examples{
+
+bwplot(voice.part ~ height, data = singer,
+       xlab = "Height (inches)",
+       panel = function(...) {
+           panel.grid(v = -1, h = 0)
+           panel.bwplot(...)
+       },
+       par.settings = list(plot.symbol = list(pch = 4)))
+
 }
 
 \seealso{
