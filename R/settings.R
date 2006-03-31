@@ -43,7 +43,7 @@ col.whitebg <- function()
          "brown","orange","turquoise", "orchid")))
 
 
-canonical.theme <- function(name = "null device", color = TRUE)
+canonical.theme <- function(name = .Device, color = name != "postscript")
 {
     ## For the purpose of this function, the only differences in the
     ## settings/themes arise from the difference in the default
@@ -56,15 +56,15 @@ canonical.theme <- function(name = "null device", color = TRUE)
     {
         ## color colors
         can.col <-
-            if (name == "windows" || name == "X11")
+            if (name %in% c("windows", "X11"))
                 c("#000000", "#00ffff", "#ff00ff", "#00ff00",
                   "#ff7f00", "#007eff", "#ffff00", "#ff0000",
                   "#c6ffff", "#ffc3ff", "#c8ffc8", "#ffd18f",
                   "#a9e2ff", "#ffffc3", "#ff8c8a", "#aaaaaa",
                   "#909090")
             else if (name %in% c("postscript", "pdf", "xfig"))
-                c("#000000", "#00ffff", "#ff00ff", "#00ff00",
-                  "#ff7f00", "#0080ff", "#ffff00", "#ff0000",
+                c("#000000", "#00ffff", "#0080ff", "#00ff00",
+                  "#ff7f00", "#ff00ff", "#ffff00", "#ff0000",
                   "#ccffff", "#ffccff", "#ccffcc", "#ffe5cc",
                   "#cce6ff", "#ffffcc", "#ffcccc", "#e6e6e6",
                   "transparent")
@@ -314,7 +314,6 @@ trellis.device <-
     function(device = getOption("device"),
              color = !(dev.name == "postscript"),
              theme = lattice.getOption("default.theme"),
-##             bg = NULL,
              new = TRUE,
              retain = FALSE,
              ...)
@@ -322,8 +321,9 @@ trellis.device <-
     ## Get device function
     if (is.character(device))
     {
+        ## to make sure this works even if package grDevices is not attached
         if (new || is.null(dev.list()))
-        {   # to make sure this works even if package grDevices is not loaded
+        {
             device.call <- try(get(device), silent = TRUE)
             if (inherits(device.call, "try-error"))
                 device.call <-
@@ -354,16 +354,26 @@ trellis.device <-
         lattice.setStatus(print.more = FALSE)
     }
 
+    ## In the olden days, the defaults were device specific, and given
+    ## by 'canonical.theme(name = .Device, color = color)'.  From R
+    ## 2.3.0, this was changed so that all (color) devices now have
+    ## the same defaults, namely 'canonical.theme(name = "pdf", color
+    ## = color)'.  The old default can be reinstated by putting
+    ## 'options(lattice.theme = "canonical.theme")' during startup, or
+    ## 'lattice.options(default.theme = "canonical.theme")' after
+    ## loading lattice.
+
+    
     ## Make sure there's an entry for this device in the theme list
     lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     if (!(.Device %in% names(lattice.theme)))
     {
-        lattice.theme[[.Device]] <- canonical.theme(name = .Device, color = color)
+        lattice.theme[[.Device]] <- canonical.theme(name = "pdf", color = color)
         assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
     }
 
     ## If retain = FALSE, overwrite with default settings for device
-    if (!retain) trellis.par.set(canonical.theme(name=.Device, color=color))
+    if (!retain) trellis.par.set(canonical.theme(name = "pdf", color=color))
 
     ## get theme as list
     if (!is.null(theme) && !is.list(theme))
@@ -379,7 +389,6 @@ trellis.device <-
 
     ## apply theme 
     if (!is.null(theme)) trellis.par.set(theme)
-##    if (!is.null(bg)) trellis.par.set(list(background = list(col = bg)))
     return(invisible())
 }
 
