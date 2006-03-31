@@ -4,8 +4,8 @@
 \alias{col.whitebg}
 \title{ Initializing Trellis Displays }
 \description{
-  \code{trellis.device} initializes a Trellis display device with
-  appropriate settings of the graphics control parameters.
+  Initialization of a display device with appropriate graphical
+  parameters.
 }
 
 \usage{
@@ -19,17 +19,22 @@ canonical.theme(name, color)
 col.whitebg()
 }
 \arguments{
-  \item{device}{ name of a function (possibly as a character string)
-    that initializes a device. Admissible values include "x11",
-    "windows", "mac", "postscript", "pdf", "png", etc.
+  \item{device}{ function (or the name of one as a character string)
+    that starts a device.  Admissible values depend on the platform and
+    how \R was compiled (see \code{\link{Devices}}), but usually
+    \code{"pdf"}, \code{"postscript"}, \code{"png"}, \code{"jpeg"} and
+    at least one of \code{"X11"}, \code{"windows"} and \code{"quartz"}
+    will be available.
   }
   \item{color}{ logical, whether the display should be color or black
-    and white. \code{FALSE} for postscript devices, \code{TRUE}
-    otherwise.
+    and white.  Defaults to \code{FALSE} for postscript devices,
+    \code{TRUE} otherwise.
   }
-  \item{theme}{ list of components that change the settings of the
+  \item{theme}{ list of components that changes the settings of the
     device opened, or, a function that when called produces such a
-    list. The function name can be supplied as a quoted string.
+    list.  The function name can be supplied as a quoted string.  These
+    settings are only used to modify the default settings (determined by
+    other arguments), and need not contain all possible parameters.
 
     A possible use of this argument is to change the default settings by 
     specifying \code{lattice.options(default.theme = "col.whitebg")}. 
@@ -42,7 +47,7 @@ col.whitebg()
     function to ascertain what device has been opened.
   }
   \item{new}{ logical flag indicating whether a new device should be
-    started. If \code{FALSE},  the options for the current device are
+    started.  If \code{FALSE}, the options for the current device are
     changed to the defaults determined by the other arguments.
   }
   \item{retain}{
@@ -55,65 +60,42 @@ col.whitebg()
     returned by \code{.Device}
   }
   \item{\dots}{ additional parameters to be passed to the \code{device}
-    function, most commonly \code{file} for non-screen devices.
+    function, most commonly \code{file} for non-screen devices, as well
+    as \code{height}, \code{width}, etc.  See the help file for
+    individual devices for admissible arguments.
   }
 }
 \details{
-  \code{trellis.device} calls the \code{device} function to start a
-  display, and sets an appropriate component of the variable
-  \code{lattice.theme} (in an unexported environment named
-  \code{.LatticeEnv}) to appropriate (device-specific) values.  The
-  device specific settings are determined by \code{canonical.theme}
-  which returns a list (see below).  The settings can subsequently be
-  handled by the interface functions \code{trellis.par.get} and 
-  \code{trellis.par.set}.
 
+  Trellis Graphics functions obtain the default values of various
+  graphical parameters (colors, line types, fonts, etc.) from a
+  customizable \dQuote{settings} list.  This functionality is analogous
+  to \code{\link{par}} for standard \R graphics and, together with
+  \code{\link{lattice.options}}, mostly supplants it (\code{\link{par}}
+  settings are mostly ignored by Lattice).  Unlike \code{\link{par}},
+  Trellis settings can be controlled separately for each different
+  device.  \code{canonical.theme} and \code{col.whitebg} produce
+  predefined settings (a.k.a. themes), while \code{trellis.device}
+  provides a high level interface to control which \dQuote{theme} will
+  be in effect when a new device is opened.  \code{trellis.device} is
+  called automatically when a \code{"trellis"} object is plotted, and
+  the defaults can be used to provide sufficient control, so in a
+  properly configured system it is rarely necessary for the user to call
+  \code{trellis.device} explicitly.
 
-  \code{col.whitebg} returns a similar (but smaller) list that is
-  suitable as the \code{theme} argument to \code{trellis.device} and
-  \code{\link{trellis.par.set}}.  It contains settings values which
-  provide colors suitable for plotting on a white background.  Note that
-  the name \code{col.whitebg} is somewhat a misnomer, since it actually
-  sets the background to transparent rather than white.
-
+  The \code{canonical.theme} function is intended to provide device
+  specific settings (e.g. light colors on a grey background for screen
+  devices, dark colors or black and white for print devices) which were
+  used as defaults prior to \R 2.3.0.  However, these defaults are not
+  always appropriate, due to the variety of platforms and hardware
+  settings on which \R is used, as well as the fact that a plot created
+  on a particular device may be subsequently used in many different
+  ways.  For this reason, a \dQuote{safe} default is used for all
+  devices from \R 2.3.0 onwards.  The old behaviour can be reinstated by
+  setting \code{canonical.theme} as the default \code{theme} argument,
+  e.g. by putting \code{options(lattice.theme = "canonical.theme")} in a
+  startup script (see the entry for \code{theme} above for details).
 }
-
-
-\note{
-
-  Trellis Graphics is designed to have a different look and feel on
-  different devices.  In particular, the default settings for
-  \sQuote{screen} devices are not at all suitable for printing.
-
-  One technique often used to create printable graphs is through use of
-  \code{\link{dev.print}} and related functions (typically via a GUI
-  menu).  Unfortunately, this only copies the display already created,
-  and hence retains the settings used therein, instead of settings
-  suitable for the target device.
-
-  The recommended workaround for this is to re-print the trellis object
-  after explicitly starting the new device.  The last printed trellis
-  object is typically stored in memory, and it is possible to retrieve
-  it using \code{\link{trellis.last.object}}.
-
-  The other option (relevant especially if the trellis plot is enhanced
-  interactively after plotting) is to start the initial (screen) device
-  with the settings suitable for the eventual target (print)
-  device. For instance, a \code{windows} device can be opened with
-  \code{pdf} settings with
-
-  \code{trellis.device(windows, theme = canonical.theme("pdf"))}
-
-  Note that earlier versions of \code{trellis.device} had a \code{bg}
-  argument to set the background color, but this is no longer supported.
-  If supplied, the \code{bg} argument will be passed on to the device
-  function; however, this will have no effect on the Trellis settings.
-  It is rarely meaningful to change the background alone, and if you
-  feel the need to change the background, consider using the
-  \code{theme} argument.
-
-}
-
 
 \value{
   \code{canonical.theme} returns a list of components defining graphical
@@ -122,13 +104,37 @@ col.whitebg()
   argument to \code{trellis.par.set}, or even as \code{theme} in
   \code{trellis.device} to use the defaults for another device.
 
-  \code{col.whitebg} returns a similar but smaller list.
+  \code{col.whitebg} returns a similar (but smaller) list that is
+  suitable as the \code{theme} argument to \code{trellis.device} and
+  \code{\link{trellis.par.set}}.  It contains settings values which
+  provide colors suitable for plotting on a white background.  Note that
+  the name \code{col.whitebg} is somewhat a misnomer, since it actually
+  sets the background to transparent rather than white.
+}
+
+\note{
+  Earlier versions of \code{trellis.device} had a \code{bg} argument to
+  set the background color, but this is no longer supported.  If
+  supplied, the \code{bg} argument will be passed on to the device
+  function; however, this will have no effect on the Trellis settings.
+  It is rarely meaningful to change the background alone; if you feel
+  the need to change the background, consider using the \code{theme}
+  argument instead.
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
-  \code{\link{trellis.par.set}}, \code{\link{postscript}},
-  \code{\link{pdf}}, \code{\link{x11}}, \code{\link{Lattice}}
+
+  \code{\link{Lattice}} for an overview of the \code{lattice} package.
+  
+  \code{\link{Devices}} for valid choices of \code{device} on your
+  platform.
+
+  \code{\link{trellis.par.get}} and \code{\link{trellis.par.set}} can be
+  used to query and modify the settings \emph{after} a device has been
+  initialized.  The \code{par.settings} argument to high level
+  functions, described in \code{\link{xyplot}}, can be used to attach
+  transient settings to a \code{"trellis"} object.
 }
 \keyword{dplot}
 
