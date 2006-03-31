@@ -109,7 +109,7 @@ trellis.currentLayout()
   \item{highlight}{
     logical, whether the viewport being assigned focus should be
     highlighted.  For \code{trellis.focus}, the default is \code{TRUE}
-    in interactive mode, and \code{trellis.swich.focus} by default
+    in interactive mode, and \code{trellis.switchFocus} by default
     preserves the setting currently active.
   }
   \item{packet.number}{
@@ -201,7 +201,7 @@ trellis.currentLayout()
   occupies that position, with 0 indicating the absence of a panel.
 
   \code{trellis.panelArgs} returns a named list of arguments that were
-  avaliable to the panel function for the chosen panel.
+  available to the panel function for the chosen panel.
 
   \code{trellis.vpname} and \code{trellis.grobname} return character
   strings.
@@ -209,7 +209,7 @@ trellis.currentLayout()
   
 \note{
 
-  The viewports created by lattice is accessible to the user only upto a
+  The viewports created by lattice is accessible to the user only up to a
   certain extent, as described above.  In particular,
   \code{trellis.focus} can only be used to manipulate the last plot
   drawn.  For full flexibility, use appropriate functions from the grid

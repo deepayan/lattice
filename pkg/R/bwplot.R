@@ -109,6 +109,14 @@ panel.barchart <-
              lwd = if (is.null(groups)) plot.polygon$lwd else superpose.polygon$lwd,
              ...)
 {
+
+    ## This is to make sure `levels' are calculated based on the whole
+    ## groups vector and not just the values represented in this
+    ## particular panel (which might make the key inconsistent and/or
+    ## cause other problems)
+
+    if (!is.null(groups) && !is.factor(groups)) groups <- factor(groups)
+
     ## this function doesn't have a subscripts argument (which would
     ## make barchart always pass the subscripts to the trellis object,
     ## which is unnecessary when groups = NULL).  To work around this,
@@ -175,7 +183,7 @@ panel.barchart <-
             lty <- rep(lty, length = nvals)
             lwd <- rep(lwd, length = nvals)
 
-            height <- box.ratio/(1 + box.ratio)
+            height <- box.ratio / (1 + box.ratio)
 
             if (reference)
                 panel.abline(v = origin,
@@ -422,20 +430,22 @@ panel.dotplot <-
 
 
 panel.stripplot <-
-    function(x, y, jitter.data = FALSE, factor = 0.5,
+    function(x, y, jitter.data = FALSE,
+             factor = 0.5, amount = NULL,
              horizontal = TRUE, groups = NULL, ...)
 {
     if (all(is.na(x) | is.na(y))) return()
     x <- as.numeric(x)
     y <- as.numeric(y)
-    y.jitter  <-
-        if (horizontal && jitter.data) jitter(y, factor = factor)
-        else y
-    x.jitter  <-
-        if (!horizontal && jitter.data) jitter(x, factor = factor)
-        else x
-    panel.xyplot(x = x.jitter,
-                 y = y.jitter,
+    if (jitter.data)
+    {
+        if (horizontal)
+            y[] <- jitter(y, factor = factor, amount = amount)
+        else
+            x[] <- jitter(x, factor = factor, amount = amount)
+    }
+    panel.xyplot(x = x,
+                 y = y,
                  groups = groups,
                  horizontal = horizontal, ...)
 }
@@ -1066,7 +1076,7 @@ bwplot.formula <-
     if (is.null(horizontal))
     {
         horizontal <-
-            if ((is.factor(x) || is.shingle(x)) && is.numeric(y)) FALSE
+            if ((is.factor(x) || is.shingle(x) || is.character(x)) && is.numeric(y)) FALSE
             else TRUE
     }
     if (horizontal)

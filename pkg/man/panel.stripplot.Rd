@@ -6,7 +6,8 @@
   \code{panel.superpose}
 }
 \usage{
-panel.stripplot(x, y, jitter.data = FALSE, factor = 0.5,
+panel.stripplot(x, y, jitter.data = FALSE,
+                factor = 0.5, amount = NULL,
                 horizontal = TRUE, groups = NULL,
                 \dots)
 }
@@ -14,7 +15,7 @@ panel.stripplot(x, y, jitter.data = FALSE, factor = 0.5,
   \item{x,y}{ coordinates of points to be plotted}
   \item{jitter.data}{ whether points should be jittered to avoid
     overplotting.} 
-  \item{factor}{factor by which to jitter}
+  \item{factor, amount}{amount of jittering, see \code{\link{jitter}}}
   \item{horizontal}{ logical. If FALSE, the plot is \sQuote{transposed}
     in the sense that the behaviours of x and y are switched. x is now
     the \sQuote{factor}.  Interpretation of other arguments change
@@ -30,7 +31,7 @@ panel.stripplot(x, y, jitter.data = FALSE, factor = 0.5,
   for each level of \code{y}
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
-\seealso{\code{\link{stripplot}}}
+\seealso{\code{\link{stripplot}}, \code{\link{jitter}}}
 \keyword{dplot}
 
 
