@@ -140,7 +140,8 @@ print.trellis <-
 
     if (!is.null(x$par.settings))
     {
-        opars <- trellis.par.get()
+        ## save current state, restore later
+        opar <- get("lattice.theme", envir = .LatticeEnv)
         trellis.par.set(theme = x$par.settings)
     }
 
@@ -1077,7 +1078,7 @@ print.trellis <-
 
     if (!is.null(x$par.settings))
     {
-        trellis.par.set(theme = opars)
+        assign("lattice.theme", opar, envir = .LatticeEnv)
     }
 
     if (!is.null(draw.in)) upViewport(depth)

@@ -26,7 +26,7 @@ new features
 
  o added 'lineheight' as a graphical parameter where appropriate. 
 
- o added a 'global.gpar' setting for arbitrary grid parameters to be
+ o added a 'grid.pars' setting for arbitrary grid parameters to be
    set initially via gpar().
 
  o For a shingle 'x', 'as.character(levels(x))' creates meaningful
