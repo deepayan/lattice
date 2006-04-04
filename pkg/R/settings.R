@@ -63,8 +63,8 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
                   "#a9e2ff", "#ffffc3", "#ff8c8a", "#aaaaaa",
                   "#909090")
             else if (name %in% c("postscript", "pdf", "xfig"))
-                c("#000000", "#00ffff", "#0080ff", "#00ff00",
-                  "#ff7f00", "#ff00ff", "#ffff00", "#ff0000",
+                c("#000000", "#00ffff", "#ff00ff", "#00ff00",
+                  "#ff7f00", "#0080ff", "#ffff00", "#ff0000",
                   "#ccffff", "#ffccff", "#ccffcc", "#ffe5cc",
                   "#cce6ff", "#ffffcc", "#ffcccc", "#e6e6e6",
                   "transparent")
@@ -176,8 +176,8 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
             ans$box.umbrella$col <- can.col[6]
             ans$superpose.symbol$col <- c(can.col[c(6, 3, 4, 8)],
                                           "orange", "darkgreen", "brown")
-            ans$superpose.line$col <- c(can.col[c(6, 3, 4, 8)],
-                                          "orange", "darkgreen", "brown")
+            ans$superpose.symbol$col[c(3, 6)] <- ans$superpose.symbol$col[c(6, 3)]
+            ans$superpose.line$col <- ans$superpose.symbol$col
         }
     }
     else {
@@ -304,7 +304,7 @@ trellis.par.set <-
         else theme <- list(...)
 
     lattice.theme[[.Device]] <- updateList(lattice.theme[[.Device]], theme)
-    assign("lattice.theme", lattice.theme, envir=.LatticeEnv)
+    assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
     invisible()
 }
 

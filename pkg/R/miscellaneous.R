@@ -204,8 +204,9 @@ lsegments <-
     y1 <- rep(y1, length = ml)
     grid.segments(x0 = x0, x1 = x1,
                   y0 = y0, y1 = y1,
-                  gp = gpar(lty=lty,
-                  col = col, lwd = lwd, alpha = alpha),
+                  gp =
+                  gpar(lty=lty, col = col, lwd = lwd,
+                       alpha = alpha, ...),
                   default.units = "native")
 }
 
@@ -237,7 +238,7 @@ lrect <-
               gp =
               gpar(fill = col, col = border,
                    lty = lty, lwd = lwd,
-                   alpha = alpha))
+                   alpha = alpha, ...))
 }
 
 
@@ -328,7 +329,7 @@ ltext <-
                    lineheight = lineheight,
                    fontfamily = fontfamily,
                    fontface = chooseFace(fontface, font),
-                   cex = cex),
+                   cex = cex, ...),
               just = adj,
 ##               just = c(if (adj[1] == 0) "left"
 ##               else if (adj[1] == 1) c("right")
@@ -407,14 +408,14 @@ lplot.xy <-
                                 alpha = alpha, fill = fill,
                                 fontsize = fontsize.points,
                                 fontfamily = fontfamily,
-                                fontface = chooseFace(fontface, font)),
+                                fontface = chooseFace(fontface, font), ...),
                            pch = pch, 
                            default.units = "native")
            },
            c = ,
            l = {
                grid.lines(x = x, y = y,
-                          gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
+                          gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
                           default.units = "native")
            },
            o = ,
@@ -425,11 +426,11 @@ lplot.xy <-
                                 alpha = alpha, fill = fill,
                                 fontsize = fontsize.points,
                                 fontfamily = fontfamily,
-                                fontface = chooseFace(fontface, font)),
+                                fontface = chooseFace(fontface, font), ...),
                            pch = pch, 
                            default.units = "native")
                grid.lines(x = x, y = y,
-                          gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha),
+                          gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
                           default.units = "native")
            },
            s = ,
@@ -442,8 +443,8 @@ lplot.xy <-
                yy[2*1:n-1] <- y[ord]
                xx[2*1:(n-1)] <- x[ord][if (type=="s") -1 else -n]
                yy[2*1:(n-1)] <- y[ord][if (type=="s") -n else -1]
-               grid.lines(x=xx, y=yy,
-                          gp = gpar(lty=lty, col=col.line, lwd=lwd, alpha = alpha),
+               grid.lines(x = xx, y = yy,
+                          gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
                           default.units="native")
            },
            h = {
@@ -456,7 +457,7 @@ lplot.xy <-
                              y0 = y, y1 = zero,
                              gp =
                              gpar(lty = lty, col = col.line,
-                                  lwd = lwd, alpha = alpha),
+                                  lwd = lwd, alpha = alpha, ...),
                              default.units="native")
            },
            H = {
@@ -469,7 +470,7 @@ lplot.xy <-
                              y0 = y, y1 = y,
                              gp =
                              gpar(lty = lty, col = col.line,
-                                  lwd = lwd, alpha = alpha),
+                                  lwd = lwd, alpha = alpha, ...),
                              default.units="native")
            })
 ##     if (type %in% c("l", "o", "b", "c"))
