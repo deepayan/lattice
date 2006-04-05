@@ -67,7 +67,8 @@ changes in behaviour
    to do with reasonable non-standard evaluation rules, and probably
    needs some more thought.
 
-
+ o Default Trellis settings (a.k.a. theme) changed.  See
+   ?trellis.device for details
 
 
 
@@ -90,7 +91,6 @@ Todo (planned)
 
  o change panel.qq so that most work gets done there
 
- o change default `theme' for windows
 
 
 
