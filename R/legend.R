@@ -153,6 +153,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                  cex = 1,
                  cex.title = 1.5 * max(cex),
                  lines.title = 2,
+                 padding.text = 1,
                  lineheight = 1,
                  fontface = NULL, 
                  fontfamily = NULL)
@@ -170,6 +171,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                  cex = cex,
                  cex.title = cex.title,
                  lines.title = lines.title,
+                 padding.text = padding.text,
                  col = col,
                  lty = lty,
                  lwd = lwd,
@@ -419,7 +421,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                 heights.insertlist.position <- c(heights.insertlist.position, i)
                 heights.insertlist.unit <-
                     unit.c(heights.insertlist.unit,
-                           unit(.2, "lines") + max(unit(textCex[textLocations], "strheight", strbar)))
+                           unit(.2 * key$padding.text, "lines") + max(unit(textCex[textLocations], "strheight", strbar)))
             }
         }
 
