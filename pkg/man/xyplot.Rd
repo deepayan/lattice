@@ -544,6 +544,13 @@ bwplot(x, data, \dots)
 	how many lines the title should occupy (in multiples of
 	itself).  Defaults to 2.
       }
+      \item{\code{padding.text}}{
+	how much space (padding) should be used above and below each
+	row containing text, in multiples of the default, which is
+	currently \code{0.2 * "lines"}.  This padding is in addition to
+	the normal height of any row that contains text, which is the
+	minimum amount necessary to contain all the text entries.
+      }
       \item{\code{background}}{
 	background color, defaults to default background
       }
