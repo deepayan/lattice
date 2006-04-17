@@ -380,6 +380,7 @@ panel.superpose <-
              col.symbol = superpose.symbol$col,
              pch = superpose.symbol$pch,
              cex = superpose.symbol$cex, 
+             fill = superpose.symbol$fill, 
              font = superpose.symbol$font, 
              fontface = superpose.symbol$fontface, 
              fontfamily = superpose.symbol$fontfamily, 
@@ -442,6 +443,7 @@ panel.superpose <-
         col.line <- rep(col.line, length = nvals)
         col.symbol <- rep(col.symbol, length = nvals)
         pch <- rep(pch, length = nvals)
+        fill <- rep(fill, length = nvals)
         lty <- rep(lty, length = nvals)
         lwd <- rep(lwd, length = nvals)
         alpha <- rep(alpha, length = nvals)
@@ -474,6 +476,7 @@ panel.superpose <-
                          col = col[i],
                          col.line = col.line[i],
                          col.symbol = col.symbol[i],
+                         fill = fill[i],
                          lty = lty[i],
                          lwd = lwd[i],
                          alpha = alpha[i],
