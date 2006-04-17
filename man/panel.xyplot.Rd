@@ -13,7 +13,7 @@ panel.xyplot(x, y, type = "p",
              groups = NULL,
              pch, col, col.line, col.symbol,
              font, fontfamily, fontface,
-             lty, cex, lwd,
+             lty, cex, fill, lwd,
              horizontal = FALSE, \dots)
 panel.splom(\dots)
 panel.qq(\dots)
@@ -49,8 +49,9 @@ panel.qq(\dots)
   \item{font, fontface, fontfamily}{
     font used when \code{pch} is a character
   }
-  \item{pch, lty, cex, lwd}{
-    other graphical parameters.
+  \item{pch, lty, cex, lwd, fill}{
+    other graphical parameters.  \code{fill} serves the purpose of
+    \code{bg} in \code{\link{points}} for certain values of \code{pch}
   }
   \item{\dots}{ extra arguments, if any, for \code{panel.xyplot}. In
     most cases \code{panel.xyplot} ignores these. For types "r" and
