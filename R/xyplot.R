@@ -72,6 +72,7 @@ panel.xyplot <-
              fontface = if (is.null(groups)) plot.symbol$fontface else superpose.symbol$fontface,
              lty = if (is.null(groups)) plot.line$lty else superpose.line$lty,
              cex = if (is.null(groups)) plot.symbol$cex else superpose.symbol$cex,
+             fill = if (is.null(groups)) plot.symbol$fill else superpose.symbol$fill,
              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
              horizontal = FALSE,
              ...)
@@ -100,6 +101,7 @@ panel.xyplot <-
                         fontface = fontface,
                         lty = lty,
                         cex = cex,
+                        fill = fill,
                         lwd = lwd,
                         horizontal = horizontal,
                         panel.groups = panel.xyplot,
@@ -109,9 +111,14 @@ panel.xyplot <-
         if ("o" %in% type || "b" %in% type) type <- c(type, "p", "l")
         if ("g" %in% type) panel.grid(h = -1, v = -1)
         if ("p" %in% type)
-            panel.points(x = x, y = y, cex = cex, font = font,
-                         fontfamily = fontfamily, fontface = fontface,
-                         col = col.symbol, pch = pch, ...)
+            panel.points(x = x, y = y,
+                         cex = cex,
+                         fill = fill,
+                         font = font,
+                         fontfamily = fontfamily,
+                         fontface = fontface,
+                         col = col.symbol,
+                         pch = pch, ...)
         if ("l" %in% type)
             panel.lines(x = x, y = y, lty = lty, col = col.line, lwd = lwd, ...)
         if ("h" %in% type)

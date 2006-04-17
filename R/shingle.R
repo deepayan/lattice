@@ -132,10 +132,10 @@ print.shingle <- function(x, showValues = TRUE, ...)
         cat(gettext("\nIntervals:\n"))
         print(int)
         olap <- numeric(n-1)
-        if (n>2)
-            for (i in 1:(n-1))
-                olap[i] <- length(x[ x>=l[[i]][1] & x<=l[[i]][2] &
-                                    x>=l[[i+1]][1] & x<=l[[i+1]][2]])
+        for (i in seq(length = n - 1))
+            olap[i] <-
+                length(x[x >= l[[i]][1] & x <= l[[i]][2] &
+                         x >= l[[i+1]][1] & x <= l[[i+1]][2]])
         cat(gettext("\nOverlap between adjacent intervals:\n"))
         print(olap)
     }

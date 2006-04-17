@@ -371,10 +371,17 @@ lpoints <-
              cex = plot.symbol$cex, ...)
 {
     plot.symbol <- trellis.par.get("plot.symbol")
-    lplot.xy(xy.coords(x, y), type = type,
-             col = col, pch = pch, font = font,
-             fontfamily = fontfamily, fontface = fontface,
-             cex = cex, alpha = alpha, ...)
+    lplot.xy(xy.coords(x, y),
+             type = type,
+             col = col,
+             pch = pch,
+             alpha = alpha,
+             fill = fill,
+             font = font,
+             fontfamily = fontfamily,
+             fontface = fontface,
+             cex = cex,
+             ...)
 }
 
 
