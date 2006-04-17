@@ -12,7 +12,7 @@
 panel.superpose(x, y = NULL, subscripts, groups,
                 panel.groups = "panel.xyplot",
                 col, col.line, col.symbol,
-                pch, cex, font,
+                pch, cex, fill, font,
                 fontface, fontfamily,
                 lty, lwd, alpha,
                 type = "p",
@@ -58,9 +58,9 @@ panel.superpose.2(\dots, distribute.type = TRUE)
     \code{type} causes a grid to be drawn, and all such occurrences are
     removed before \code{type} is passed on to \code{panel.groups}.
   }
-  \item{col, col.line, col.symbol, pch, cex, font, fontface, fontfamily,
-    lty, lwd, alpha}{ graphical parameters, replicated to be as long as
-    the number of groups, and eventually ultimately passed down to
+  \item{col, col.line, col.symbol, pch, cex, fill, font, fontface,
+    fontfamily, lty, lwd, alpha}{ graphical parameters, replicated to be
+    as long as the number of groups, and eventually passed down to
     \code{panel.groups}.
   }
   \item{\dots}{ Extra arguments.  Passed down to \code{panel.superpose}
