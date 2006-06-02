@@ -67,10 +67,10 @@ prepanel.default.densityplot <-
         yl <- 0
         dxl <- numeric(0) # bad names !!
         dyl <- numeric(0) 
-        for (i in seq(along=vals))
+        for (i in seq(along = vals))
         {
             id <- (groups[subscripts] == vals[i])
-            if (sum(id) > 1)
+            if (sum(id, na.rm = TRUE) > 1) ## need at least 2
             {
                 h <- do.call(density, c(list(x = x[id]), darg))
                 xl <- c(xl, h$x)
