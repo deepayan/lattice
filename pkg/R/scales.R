@@ -13,8 +13,8 @@
 ###
 ### You should have received a copy of the GNU General Public
 ### License along with this program; if not, write to the Free
-### Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-### MA 02111-1307, USA
+### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+### MA 02110-1301, USA
 
 
 
@@ -173,7 +173,7 @@ limitsFromLimitlist <-
              used.at,
              numlimitlist,
              axs,
-             nplots)
+             npackets)
     ## have.lim: logical, whether xlim/ylim was explicitly specified
     ## lim: the specified limit if have.lim = TRUE
     ## relation: same/free/sliced
@@ -271,7 +271,7 @@ limitsFromLimitlist <-
         {
             if (is.list(lim))
             {
-                limits <- rep(lim, length = nplots)
+                limits <- rep(lim, length = npackets)
             }
             else warning("Explicitly specified limits ignored")
         }
@@ -374,20 +374,20 @@ limits.and.aspect <-
              panel.args = list(),
              aspect,
              banking = lattice.getOption("banking"),
-             nplots = length(panel.args),
+             npackets = length(panel.args),
              x.axs = "r", y.axs = "r",
              ...)  ## extra arguments for prepanel (for qqmathline)
 {
-    if (nplots<1) stop("need at least one panel")
-    x.limits <- vector("list", nplots)
-    y.limits <- vector("list", nplots)
-    x.used.at <- vector("list", nplots)
-    y.used.at <- vector("list", nplots)
-    x.num.limit <- vector("list", nplots)
-    y.num.limit <- vector("list", nplots)
-    dxdy <- vector("list", nplots)
+    if (npackets<1) stop("need at least one panel")
+    x.limits <- vector("list", npackets)
+    y.limits <- vector("list", npackets)
+    x.used.at <- vector("list", npackets)
+    y.used.at <- vector("list", npackets)
+    x.num.limit <- vector("list", npackets)
+    y.num.limit <- vector("list", npackets)
+    dxdy <- vector("list", npackets)
 
-    for (count in seq(length = nplots))
+    for (count in seq(length = npackets))
     {
         if (is.list(panel.args[[count]]))
         {
@@ -439,7 +439,7 @@ limits.and.aspect <-
                             used.at = x.used.at,
                             numlimitlist = x.num.limit,
                             axs = x.axs,
-                            nplots = nplots)
+                            npackets = npackets)
     y.limits <-
         limitsFromLimitlist(have.lim = have.ylim,
                             lim = ylim,
@@ -448,7 +448,7 @@ limits.and.aspect <-
                             used.at = y.used.at,
                             numlimitlist = y.num.limit,
                             axs = y.axs,
-                            nplots = nplots)
+                            npackets = npackets)
 
     if (is.character(aspect))
     {
