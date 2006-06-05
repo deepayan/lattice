@@ -15,8 +15,8 @@
 ###
 ### You should have received a copy of the GNU General Public
 ### License along with this program; if not, write to the Free
-### Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
-### MA 02111-1307, USA
+### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+### MA 02110-1301, USA
 
 col.whitebg <- function()
     list(background = list(col="transparent"),
@@ -292,6 +292,7 @@ trellis.par.set <-
     ## WAS: lattice.theme[[.Device]][[name]] <- value
 
     if (missing(theme))
+    {
         if (!missing(value))
         {
             theme <- list(value)
@@ -302,6 +303,17 @@ trellis.par.set <-
             theme <- name
         }
         else theme <- list(...)
+    }
+    else
+    {
+        if (is.character(theme)) theme <- get(theme)
+        if (is.function(theme)) theme <- theme()
+        if (!is.list(theme))
+        {
+            warning("Invalid theme specified")
+            theme <- NULL
+        }
+    }
 
     lattice.theme[[.Device]] <- updateList(lattice.theme[[.Device]], theme)
     assign("lattice.theme", lattice.theme, envir = .LatticeEnv)

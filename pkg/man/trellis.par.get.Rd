@@ -34,6 +34,10 @@ show.settings(x = NULL)
     condensed into one.  The name of each component must be a valid
     \code{name} as described above, with the corresponding value a valid
     \code{value} as described above.
+
+    As in \code{\link{trellis.device}}, \code{theme} can also be a
+    function that produces such a list when called.  The function name
+    can be supplied as a quoted string.
   }
   \item{\dots}{
     Multiple settings can be specified in \code{name = value} form.
