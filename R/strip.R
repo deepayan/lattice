@@ -125,6 +125,20 @@ strip.default <-
     strip.levels <- rep(strip.levels, length = 2)
     ## str(shingle.intervals)
 
+    formatLabel <-
+        function(s,
+                 abbreviate = par.strip.text$abbr,
+                 minlength = par.strip.text$minl,
+                 dot = par.strip.text$dot)
+    {
+        if (is.null(abbreviate)) abbreviate <- FALSE
+        if (is.null(minlength)) minlength <- 4
+        if (is.null(dot)) dot <- FALSE
+        if (abbreviate) abbreviate(s, minlength = minlength, dot = dot)
+        else s
+    }
+    factor.levels <- formatLabel(factor.levels)
+
     if (!is.null(shingle.intervals))
     {
 

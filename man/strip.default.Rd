@@ -58,7 +58,9 @@ strip.custom(\dots)
     depends on the values of \code{strip.levels} and \code{style} (see
     below).  \code{factor.levels} may be specified for both factors and
     shingles (despite the name), but by default they are shown only for
-    factors.
+    factors.  If shown, the labels may optionally be abbreviated by
+    specicifying suitable components in \code{par.strip.text} (see
+    \code{\link{xyplot}})
   }
   \item{shingle.intervals}{if the current strip corresponds to a shingle,
     this should be a 2-column matrix giving the levels of the shingle.
