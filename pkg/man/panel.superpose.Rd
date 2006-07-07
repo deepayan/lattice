@@ -60,8 +60,11 @@ panel.superpose.2(\dots, distribute.type = TRUE)
   }
   \item{col, col.line, col.symbol, pch, cex, fill, font, fontface,
     fontfamily, lty, lwd, alpha}{ graphical parameters, replicated to be
-    as long as the number of groups, and eventually passed down to
-    \code{panel.groups}.
+    as long as the number of groups.  These are eventually passed down
+    to \code{panel.groups}, but as scalars rather than vectors.  When
+    \code{panel.groups} is called for the i-th level of \code{groups},
+    the corresponding element of each graphical parameter is passed to
+    it.
   }
   \item{\dots}{ Extra arguments.  Passed down to \code{panel.superpose}
     from \code{panel.superpose.2}, and to \code{panel.groups} from
