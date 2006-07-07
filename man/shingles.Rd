@@ -28,7 +28,7 @@ is.shingle(x)
 
 \method{summary}{shingle}(object, showValues = FALSE, \dots)
 
-\method{as.data.frame}{shingle}(x, row.names = NULL, optional = FALSE)
+% \method{as.data.frame}{shingle}(x, row.names = NULL, optional = FALSE)
 
 \method{[}{shingle}(x, subset, drop = FALSE)
 as.factorOrShingle(x, subset, drop)
@@ -45,10 +45,10 @@ as.factorOrShingle(x, subset, drop)
   \item{object}{ shingle object to be summarized}
   \item{showValues}{ logical, whether to print the numeric part. If
     FALSE, only the intervals are printed}
-  \item{row.names}{ a character vector giving the row names for the data frame}
-  \item{optional}{
-    logical.  If \code{TRUE}, setting row names is optional
-  }
+%   \item{row.names}{ a character vector giving the row names for the data frame}
+%   \item{optional}{
+%     logical.  If \code{TRUE}, setting row names is optional
+%   }
   \item{intervals}{ numeric vector or matrix with 2 columns}
   \item{subset}{logical vector}
   \item{drop}{whether redundant shingle levels are to be dropped}
