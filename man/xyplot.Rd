@@ -17,26 +17,95 @@
 \alias{stripplot.formula}
 \alias{stripplot.numeric}
 \synopsis{
+}
+\usage{
+xyplot(x, data, \dots)
+dotplot(x, data, \dots)
+barchart(x, data, \dots)
+stripplot(x, data, \dots)
+bwplot(x, data, \dots)
+
 \method{xyplot}{formula}(x,
-             data,
-             allow.multiple = is.null(groups) || outer,
-             outer = !is.null(groups),
-             auto.key = FALSE,
-             aspect = "fill",
-             panel = "panel.xyplot",
-             prepanel = NULL,
-             scales = list(),
-             strip = TRUE,
-             groups = NULL,
-             xlab,
-             xlim,
-             ylab,
-             ylim,
-             drop.unused.levels = lattice.getOption("drop.unused.levels"),
-             \dots,
-             default.scales,
-             subscripts = !is.null(groups),
-             subset = TRUE)
+       data,
+       allow.multiple = is.null(groups) || outer,
+       outer = !is.null(groups),
+       auto.key = FALSE,
+       aspect = "fill",
+       panel = "panel.xyplot",
+       prepanel = NULL,
+       scales = list(),
+       strip = TRUE,
+       groups = NULL,
+       xlab,
+       xlim,
+       ylab,
+       ylim,
+       drop.unused.levels = lattice.getOption("drop.unused.levels"),
+       \dots,
+       default.scales,
+       subscripts = !is.null(groups),
+       subset = TRUE)
+
+
+% \method{xyplot}{formula}(x,
+%        data,
+%        panel = "panel.xyplot",
+%        allow.multiple,
+%        outer,
+%        aspect = "fill", 
+%        as.table = FALSE,
+%        between,
+%        groups,
+%        key,
+%        auto.key = FALSE,
+%        legend,
+%        layout,
+%        main,
+%        page,
+%        par.strip.text,
+%        prepanel,
+%        scales,
+%        skip,
+%        strip = "strip.default",
+%        strip.left = FALSE,
+%        sub,
+%        xlab,
+%        xlim,
+%        ylab,
+%        ylim,
+%        drop.unused.levels,
+%        par.settings,
+%        perm.cond,
+%        index.cond,
+%        \dots,
+%        default.scales,
+% %        panel.groups = "panel.xyplot",
+%        subscripts,
+%        subset)
+
+\method{dotplot}{formula}(x,
+        data,
+        panel = "panel.dotplot",
+        \dots)
+
+\method{barchart}{formula}(x,
+         data,
+         panel = "panel.barchart",
+         box.ratio = 2,
+         \dots)
+
+\method{stripplot}{formula}(x,
+          data,
+          panel = "panel.stripplot",
+          \dots)
+
+% \method{stripplot}{formula}(x,
+%           data,
+%           panel = "panel.stripplot",
+%           jitter.data = FALSE,
+%           factor = .5,
+%           \dots)
+
 \method{bwplot}{formula}(x,
              data,
              allow.multiple = is.null(groups) || outer,
@@ -59,80 +128,16 @@
              default.scales,
              subscripts = !is.null(groups),
              subset = TRUE)
-\method{stripplot}{formula}(x,
-          data,
-          panel = "panel.stripplot",
-          \dots)
-}
-\usage{
-xyplot(x, data, \dots)
-dotplot(x, data, \dots)
-barchart(x, data, \dots)
-stripplot(x, data, \dots)
-bwplot(x, data, \dots)
 
-\method{xyplot}{formula}(x,
-       data,
-       panel = if (is.null(groups)) "panel.xyplot"
-               else "panel.superpose",
-       allow.multiple,
-       outer,
-       aspect = "fill", 
-       as.table = FALSE,
-       between,
-       groups,
-       key,
-       auto.key = FALSE,
-       legend,
-       layout,
-       main,
-       page,
-       par.strip.text,
-       prepanel,
-       scales,
-       skip,
-       strip = "strip.default",
-       strip.left = FALSE,
-       sub,
-       xlab,
-       xlim,
-       ylab,
-       ylim,
-       drop.unused.levels,
-       par.settings,
-       perm.cond,
-       index.cond,
-       \dots,
-       default.scales,
-       panel.groups = "panel.xyplot",
-       subscripts,
-       subset)
 
-\method{dotplot}{formula}(x,
-        data,
-        panel = "panel.dotplot",
-        \dots)
 
-\method{barchart}{formula}(x,
-         data,
-         panel = "panel.barchart",
-         box.ratio = 2,
-         \dots)
-
-\method{stripplot}{formula}(x,
-          data,
-          panel = "panel.stripplot",
-          jitter.data = FALSE,
-          factor = .5,
-          \dots)
-
-\method{bwplot}{formula}(x,
-       data,
-       panel = "panel.bwplot",
-       box.ratio = 1,
-       \dots,
-       horizontal,
-       subset = TRUE)
+% \method{bwplot}{formula}(x,
+%        data,
+%        panel = "panel.bwplot",
+%        box.ratio = 1,
+%        \dots,
+%        horizontal,
+%        subset = TRUE)
 }
 
 \description{
@@ -241,7 +246,7 @@ bwplot(x, data, \dots)
   }
   \item{allow.multiple, outer}{
     logical flags to control what happens with formulas like \code{y1 +
-      y2 ~ x}. See the entry for \code{formula} for details.
+      y2 ~ x}. See the entry for \code{x} for details.
     \code{allow.multiple} defaults to \code{TRUE} whenever it makes
     sense, and \code{outer} defaults to \code{FALSE} except when
     \code{groups} is explicitly specified or grouping doesn't make sense
@@ -266,14 +271,14 @@ bwplot(x, data, \dots)
     contain a \code{minlength} argument in this case, which would be
     passed to the \code{abbreviate} function.
   }
-  \item{jitter.data}{
-    logical specifying whether the values should be jittered by adding a
-    random noise in stripplot.  This is actually an argument of
-    \code{panel.stripplot}.
-  }
-  \item{factor}{
-    numeric controlling amount of jitter as in \code{\link{jitter}}.
-  }
+%   \item{jitter.data}{
+%     logical specifying whether the values should be jittered by adding a
+%     random noise in stripplot.  This is actually an argument of
+%     \code{panel.stripplot}.
+%   }
+%   \item{factor}{
+%     numeric controlling amount of jitter as in \code{\link{jitter}}.
+%   }
 
   The following arguments are common to all the functions documented
   here, as well as most other high level Trellis functions. These are
@@ -371,11 +376,13 @@ bwplot(x, data, \dots)
     called \code{horizontal} to account for the cases when \code{x} is
     the factor or shingle.
   }
-  \item{panel.groups}{
-    useful mostly for \code{xyplot} and \code{densityplot}. Applies when
-    \code{panel} is \code{panel.superpose} (which happens by default in
-    these cases if \code{groups} is non-null)
-  }
+
+%   \item{panel.groups}{
+%     useful mostly for \code{xyplot} and \code{densityplot}. Applies when
+%     \code{panel} is \code{panel.superpose} (which happens by default in
+%     these cases if \code{groups} is non-null)
+%   }
+
   \item{aspect}{ controls physical aspect ratio of the panels (same for
     all the panels). It can be specified as a ratio (vertical
     size/horizontal size) or as a character string. Legitimate 
@@ -394,19 +401,9 @@ bwplot(x, data, \dots)
     be expected to produce sensible banking calculations.  See
     \code{\link{banking}} for details on the implementation of banking .
   }
-  \item{as.table}{ logical that controls the order in which panels
-    should be plotted: if \code{FALSE} (the default), panels are drawn
-    left to right, bottom to top (as in a graph); if \code{TRUE}, left
-    to right, top to bottom.
-  }
-  \item{between}{ a list with components \code{x} and \code{y} (both
-    usually 0 by default), numeric vectors specifying the space between
-    the panels (units are character heights). \code{x} and \code{y} are
-    repeated to account for all panels in a page and any extra
-    components are ignored. The result is used for all pages in a
-    multi page display. (In other words, it is not possible to use
-    different \code{between} values for different pages).
-  }
+
+
+
   \item{groups}{ a variable or expression to be evaluated in the data
     frame specified by \code{data}, expected to act as a grouping
     variable within each panel, typically used to distinguish different
@@ -446,6 +443,295 @@ bwplot(x, data, \dots)
     actually created at printing time, so the key settings will match
     the device settings.
   }
+  \item{prepanel}{
+    function that takes the same arguments as the \code{panel} function
+    and returns a list, possibly containing components named
+    \code{xlim}, \code{ylim}, \code{dx} and \code{dy} (and less
+    frequently, \code{xat} and \code{yat}).
+
+    The \code{xlim} and \code{ylim} components are similar to the high
+    level \code{xlim} and \code{ylim} arguments (i.e., they are usually
+    a numeric vector of length 2 defining a range of values, or a
+    character vector representing levels of a factor).  If the
+    \code{xlim} and \code{ylim} arguments are not explicitly specified
+    (possibly as components in \code{scales}), then the actual limits of
+    the panels are guaranteed to include the limits returned by the
+    prepanel function. This happens globally if the \code{relation}
+    component of \code{scales} is \code{"same"}, and on a panel by panel
+    basis otherwise. See \code{xlim} to see what forms of the components
+    \code{xlim} and \code{ylim} are allowed.
+
+    The \code{dx} and \code{dy} components are used for banking
+    computations in case \code{aspect} is specified as \code{"xy"}.  See
+    documentation for the function \code{banking} for details regarding
+    how this is done.
+
+    The return value of the prepanel function need not have all the
+    components named above; in case some are missing, they are replaced
+    by the usual component-wise defaults.
+
+    If \code{xlim} or \code{ylim} is a character vector (which is
+    appropriate when the corresponding variable is a factor), this
+    implicitly indicates that the scale should include the first
+    \code{n} integers, where \code{n} is the length of \code{xlim} or
+    \code{ylim}, as the case may be.  The elements of the character
+    vector are used as the default labels for these \code{n} integers.
+    Thus, to make this information consistent between panels, the
+    \code{xlim} or \code{ylim} values should represent all the levels of
+    the corresponding factor, even if some are not used within that
+    particular panel.
+
+    In such cases, an additional component \code{xat} or \code{yat} may
+    be returned by the \code{prepanel} function, which should be a
+    subset of \code{1:n}, indicating which of the \code{n} values
+    (levels) are actually represented in the panel.  This is useful when
+    calculating the limits with \code{relation="free"} or
+    \code{relation="sliced"} in \code{scales}.
+
+    The prepanel function is responsible for providing a meaningful
+    return value when the \code{x}, \code{y} (etc.) variables are
+    zero-length vectors.  When nothing is appropriate, values of NA
+    should be returned for the \code{xlim} and \code{ylim} components.
+  }
+
+  \item{strip, strip.left}{
+    logical flag or function.  If \code{FALSE}, strips are not drawn.
+    Otherwise, strips are drawn using the \code{strip} (or
+    \code{strip.left}) function, which defaults to \code{strip.default}.
+    See documentation of \code{strip.default} to see the arguments that
+    are available to the strip function.  \code{strip.left} can be used
+    to draw strips on the left of each panel, which can be useful for
+    wide short panels, as in time series (or similar) plots.
+  }
+
+  \item{xlab}{ character string or expression (or a \code{"grob"}) giving
+    label for the x-axis.  Defaults to the expression for \code{x} in
+    \code{formula}.  Can be specified as \code{NULL} to omit the label
+    altogether.  Finer control is possible, as described in the entry
+    for \code{main}, with the additional feature that if the
+    \code{label} component is omitted from the list, it is replaced by
+    the default \code{xlab}.
+  }
+  \item{ylab}{ character string or expression (or \code{"grob"}) giving
+    label for the y-axis.  Defaults to the expression for \code{y} in
+    \code{formula}.  Fine control is possible, see entries for
+    \code{main} and \code{xlab}.
+  }
+
+  \item{scales}{ list determining how the x- and y-axes (tick marks and
+    labels) are drawn.  The list contains parameters in
+    \code{name=value} form, and may also contain two other lists called
+    \code{x} and \code{y} of the same form (described below).
+    Components of \code{x} and \code{y} affect the respective axes only,
+    while those in \code{scales} affect both.  When parameters are
+    specified in both lists, the values in \code{x} or \code{y} are
+    used.  Note that certain high-level functions have defaults that are
+    specific to a particular axis (e.g., \code{bwplot} has
+    \code{alternating=FALSE} for the y-axis only); these can be
+    overridden only by an entry in the corresponding component of
+    \code{scales}.
+
+    The possible components are :
+
+    \describe{
+      \item{\code{relation}}{
+	character string that determines how axis limits are calculated
+	for each panel.  Possible values are \code{"same"} (default),
+	\code{"free"} and \code{"sliced"}.  For \code{relation="same"},
+	the same limits, usually large enough to encompass all the data,
+	are used for all the panels.  For \code{relation="free"}, limits
+	for each panel is determined by just the points in that panel.
+	Behavior for \code{relation="sliced"} is similar, except that
+	the length (max - min) of the scales are constrained to remain
+	the same across panels.
+
+	The determination of what axis limits are suitable for each
+	panel can be controlled by the \code{prepanel} function, which
+	can be overridden by \code{xlim}, \code{ylim} or
+	\code{scales$limits}.  If relation is not \code{"same"}, the
+	value of \code{xlim} etc is normally ignored, except when it is
+	a list, in which case it is treated as if its components were
+	the limit values obtained from the prepanel calculations for
+	each panel.
+      }
+      \item{\code{tick.number}}{
+	Suggested number of ticks (ignored for a factor, shingle or
+	character vector, in which case there is no natural rule for
+	leaving out some of the labels. But see \code{xlim}).
+      }
+      \item{\code{draw}}{
+	logical, defaults to \code{TRUE}, whether to draw the axis at
+	all.
+      }
+      \item{\code{alternating}}{
+	logical specifying whether axis labels should alternate from one
+	side of the group of panels to the other.  For finer control,
+	alternating can be a vector (replicated to be as long as the
+	number of rows or columns per page) consisting of the following
+	numbers
+	\itemize{
+	  \item 0: do not draw tick labels
+	  \item 1: bottom/left
+	  \item 2: top/right
+	  \item 3: both.
+	}
+	\code{alternating} applies only when \code{relation="same"}.
+	The default is \code{TRUE}, or equivalently, \code{c(1, 2)}
+      }
+      \item{\code{limits}}{
+	same as xlim and ylim.
+      }
+      \item{\code{at}}{ location of tick marks along the axis (in native
+	coordinates), or a list as long as the number of panels
+	describing tick locations for each panel.
+      }
+      \item{\code{labels}}{
+	Labels (strings or expressions) to go along with \code{at}. Can
+	be a list like \code{at} as well.
+      }
+      \item{\code{cex}}{
+	numeric multiplier to control character sizes for axis labels.
+	Can be a vector of length 2, to control left/bottom and
+	right/top separately.
+      }
+      \item{\code{font}, \code{fontface}, \code{fontfamily}}{
+	specifies font for axis labels.
+      }
+      \item{\code{tck}}{
+	numeric to control length of tick marks. Can be a vector of
+	length 2, to control left/bottom and right/top separately.
+      }
+      \item{\code{col}}{
+	color of ticks and labels.
+      }
+      \item{\code{rot}}{
+	Angle by which the axis labels are to be rotated. Can be a
+	vector of length 2, to control left/bottom and right/top
+	separately.
+      }
+      \item{\code{abbreviate}}{
+	logical, whether to abbreviate the labels using
+	\code{abbreviate}.  Can be useful for long labels (e.g., in
+	factors), especially on the x-axis.
+      }
+      \item{\code{minlength}}{
+	argument passed to \code{abbreviate} if \code{abbreviate=TRUE}.
+      }
+      \item{\code{log}}{
+	whether to use a log scale. Defaults to \code{FALSE}, other
+	possible values are any number that works as a base for taking
+	logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
+	natural logarithm).  Note that in this case the values passed to
+	the panel function are already transformed, so all computations
+	done inside the panel function will be affected accordingly. For
+	example, \code{panel.lmline} will fit a line to the transformed
+	values.
+      }
+      \item{\code{format}}{
+	the \code{format} to use for POSIXct variables. See
+	\code{\link{strptime}} for description of valid values.
+      }
+      \item{\code{axs}}{
+	character, \code{"r"} or \code{"i"}.  In the latter case, the
+	axis limits are calculated as the exact data range, instead of
+	being padded on either side. (May not always work as expected.)
+      }
+    }
+
+    Note that much of the function of \code{scales} is accomplished by
+    \code{pscales} in \code{splom}.
+  }
+  \item{subscripts}{
+    logical specifying whether or not a vector named \code{subscripts}
+    should be passed to the panel function.  Defaults to \code{FALSE},
+    unless \code{groups} is specified, or if the panel function accepts
+    an argument named \code{subscripts}. (One should be careful when
+    defining the panel function on-the-fly.)
+  }
+  \item{subset}{
+    logical or integer indexing vector (can be specified in terms of
+    variables in \code{data}).  Only these rows of \code{data} will be
+    used for the plot.  If \code{subscripts} is \code{TRUE}, the
+    subscripts will provide indices to the rows of data before the
+    subsetting is done.  Whether levels of factors in the data frame
+    that are unused after the subsetting will be dropped depends on the
+    \code{drop.unused.levels} argument.
+  }
+  \item{xlim}{ Normally a numeric vector of length 2 (possibly a
+    DateTime object) giving minimum and maximum for the x-axis, or, a
+    character vector, expected to denote the levels of \code{x}.  The
+    latter form is interpreted as a range containing c(1, length(xlim)),
+    with the character vector determining labels at tick positions
+    \code{1:length(xlim)}
+
+    \code{xlim} could also be a list, with as many components as the
+    number of panels (recycled if necessary), with each component as
+    described above.  This is meaningful only when
+    \code{scales$x$relation} is \code{"free"} or \code{"sliced"}, in
+    which case these are treated as if they were the corresponding limit
+    components returned by prepanel calculations.
+
+  }
+  \item{ylim}{ similar to \code{xlim}, applied to the y-axis. }
+  \item{drop.unused.levels}{ 
+    logical indicating whether the unused levels of factors will be
+    dropped.  Unused levels are usually dropped, but it is sometimes
+    appropriate to suppress dropping to preserve a useful layout.  For
+    finer control, this argument could also be list containing
+    components \code{cond} and \code{data}, both logical, indicating
+    desired behavior for conditioning variables and data variables
+    respectively.  The default is given by
+    \code{lattice.getOption("drop.unused.levels")} , which is initially
+    set to \code{TRUE} for both components.
+  }
+  \item{ default.scales }{
+    list giving the default values of \code{scales} for a particular
+    high level function.  This should not be of any interest to the
+    normal user, but may be helpful when defining other functions that
+    act as a wrapper to one of the high level lattice functions.
+  }
+  \item{\dots}{ further arguments, usually not directly processed by the
+    high level functions documented here, but rather passed on to other
+    functions. Such arguments can be broadly categorized into two types:
+    those that affect all high level Trellis functions in a similar
+    manner, and those that are meant for the specific panel function
+    used, which may differ across high level functions.
+
+    The first group of arguments are processed by a common, unexported
+    function called \code{trellis.skeleton}.  These arguments affect all
+    high level functions, but are only documented here, except to
+    override the behaviour described here.  All other arguments
+    specified in a high level call, specifically those neither described
+    here nor in the help page of the relevant high level function, are
+    passed unchanged to the panel function used.  By convention, the
+    default panel function used for any high level function is named as
+    \code{"panel."} followed by the name of the high level function; 
+    for example, the default panel function for \code{bwplot} is
+    \code{panel.bwplot}.  In practical terms, this means that in
+    addition to the help page of the high level function being used, the
+    user should also consult the help page of the corresponding panel
+    function for arguments that may be specified in the high level call.
+
+    The effect of the first group of common arguments are as follows:
+
+    \describe{
+
+
+  \item{as.table}{ logical that controls the order in which panels
+    should be plotted: if \code{FALSE} (the default), panels are drawn
+    left to right, bottom to top (as in a graph); if \code{TRUE}, left
+    to right, top to bottom.
+  }
+
+  \item{between}{ a list with components \code{x} and \code{y} (both
+    usually 0 by default), numeric vectors specifying the space between
+    the panels (units are character heights). \code{x} and \code{y} are
+    repeated to account for all panels in a page and any extra
+    components are ignored. The result is used for all pages in a
+    multi page display. (In other words, it is not possible to use
+    different \code{between} values for different pages).
+  }
+
   \item{key}{
     A list of arguments that define a legend to be drawn on the plot.
     This list is used as an argument to the \code{\link{draw.key}}
@@ -599,6 +885,42 @@ bwplot(x, data, \dots)
     there can be additional components called \code{x}, \code{y} and
     \code{corner}, which work in the same way as it does for \code{key}.
   }
+
+  \item{page}{ a function of one argument (page number) to be called
+    after drawing each page. The function must be
+    \sQuote{grid-compliant}, and is called with the whole display area
+    as the default viewport.
+  }
+  \item{main}{ typically a character string or expression or list
+    describing the main title to be placed on top of each page. Defaults
+    to \code{NULL}.  Can be a character string or expression, or a list
+    with components \code{label}, \code{cex}, \code{col} and
+    \code{font}.  The \code{label} tag can be omitted if it is the first
+    element of the list.  Expressions are treated as specification of
+    LaTeX-like markup as in \code{\link{plotmath}}.
+
+    \code{main} can also be an arbitrary \code{"grob"} (grid graphical
+    object).
+  }
+  \item{sub}{
+    character string or expression (or a \code{"grob"}) for a subtitle
+    to be placed at the bottom of each page.  See entry for \code{main}
+    for finer control options.
+  }
+  \item{par.strip.text}{ list of  parameters to control the appearance
+    of strip text.  Notable components are \code{col}, \code{cex},
+    \code{font} and \code{lines}.  The first three control graphical
+    parameters while the last is a means of altering the height of the
+    strips.  This can be useful, for example, if the strip labels
+    (derived from factor levels, say) are double height (i.e., contains
+    \code{"\\n"}-s) or if the default height seems too small or too
+    large.  The \code{lineheight} component can control the space
+    between multiple lines.  Also, the labels can be abbreviated when
+    shown by specifying \code{abbreviate = TRUE}, in which case the
+    components \code{minlength} and \code{dot} (passed along to the
+    \code{\link{abbreviate}} function) can be specified to control the
+    details of how this is done.
+  }
   \item{layout}{
     In general, a Trellis conditioning plot consists of several panels
     arranged in a rectangular array, possibly spanning multiple
@@ -619,203 +941,6 @@ bwplot(x, data, \dots)
     general, giving a high value of \code{layout[3]} is not wasteful
     because blank pages are never created.
   }
-  \item{main}{ typically a character string or expression or list
-    describing the main title to be placed on top of each page. Defaults
-    to \code{NULL}.  Can be a character string or expression, or a list
-    with components \code{label}, \code{cex}, \code{col} and
-    \code{font}.  The \code{label} tag can be omitted if it is the first
-    element of the list.  Expressions are treated as specification of
-    LaTeX-like markup as in \code{\link{plotmath}}.
-
-    \code{main} can also be an arbitrary \code{"grob"} (grid graphical
-    object).
-  }
-  \item{page}{ a function of one argument (page number) to be called
-    after drawing each page. The function must be
-    \sQuote{grid-compliant}, and is called with the whole display area
-    as the default viewport.
-  }
-  \item{par.strip.text}{ list of graphical parameters to control the
-    strip text, possible components are \code{col}, \code{cex},
-    \code{font} and \code{lines}.  The first three control graphical
-    parameters while the last is a means of altering the height of the
-    strips. This can be useful, for example, if the strip labels
-    (derived from factor levels, say) are double height (i.e., contains
-    \code{"\\n"}-s) or if the default height seems too small or too large.
-  }
-  \item{prepanel}{
-    function that takes the same arguments as the \code{panel} function
-    and returns a list, possibly containing components named
-    \code{xlim}, \code{ylim}, \code{dx} and \code{dy} (and less
-    frequently, \code{xat} and \code{yat}).
-
-    The \code{xlim} and \code{ylim} components are similar to the high
-    level \code{xlim} and \code{ylim} arguments (i.e., they are usually
-    a numeric vector of length 2 defining a range of values, or a
-    character vector representing levels of a factor).  If the
-    \code{xlim} and \code{ylim} arguments are not explicitly specified
-    (possibly as components in \code{scales}), then the actual limits of
-    the panels are guaranteed to include the limits returned by the
-    prepanel function. This happens globally if the \code{relation}
-    component of \code{scales} is \code{"same"}, and on a panel by panel
-    basis otherwise. See \code{xlim} to see what forms of the components
-    \code{xlim} and \code{ylim} are allowed.
-
-    The \code{dx} and \code{dy} components are used for banking
-    computations in case \code{aspect} is specified as \code{"xy"}.  See
-    documentation for the function \code{banking} for details regarding
-    how this is done.
-
-    The return value of the prepanel function need not have all the
-    components named above; in case some are missing, they are replaced
-    by the usual component-wise defaults.
-
-    If \code{xlim} or \code{ylim} is a character vector (which is
-    appropriate when the corresponding variable is a factor), this
-    implicitly indicates that the scale should include the first
-    \code{n} integers, where \code{n} is the length of \code{xlim} or
-    \code{ylim}, as the case may be.  The elements of the character
-    vector are used as the default labels for these \code{n} integers.
-    Thus, to make this information consistent between panels, the
-    \code{xlim} or \code{ylim} values should represent all the levels of
-    the corresponding factor, even if some are not used within that
-    particular panel.
-
-    In such cases, an additional component \code{xat} or \code{yat} may
-    be returned by the \code{prepanel} function, which should be a
-    subset of \code{1:n}, indicating which of the \code{n} values
-    (levels) are actually represented in the panel.  This is useful when
-    calculating the limits with \code{relation="free"} or
-    \code{relation="sliced"} in \code{scales}.
-
-    The prepanel function is responsible for providing a meaningful
-    return value when the \code{x}, \code{y} (etc.) variables are
-    zero-length vectors.  When nothing is appropriate, values of NA
-    should be returned for the \code{xlim} and \code{ylim} components.
-  }
-  \item{scales}{ list determining how the x- and y-axes (tick marks and
-    labels) are drawn.  The list contains parameters in
-    \code{name=value} form, and may also contain two other lists called
-    \code{x} and \code{y} of the same form (described below).
-    Components of \code{x} and \code{y} affect the respective axes only,
-    while those in \code{scales} affect both.  When parameters are
-    specified in both lists, the values in \code{x} or \code{y} are
-    used.  Note that certain high-level functions have defaults that are
-    specific to a particular axis (e.g., \code{bwplot} has
-    \code{alternating=FALSE} for the y-axis only); these can be
-    overridden only by an entry in the corresponding component of
-    \code{scales}.
-
-    The possible components are :
-
-    \describe{
-      \item{\code{relation}}{
-	character string that determines how axis limits are calculated
-	for each panel.  Possible values are \code{"same"} (default),
-	\code{"free"} and \code{"sliced"}.  For \code{relation="same"},
-	the same limits, usually large enough to encompass all the data,
-	are used for all the panels.  For \code{relation="free"}, limits
-	for each panel is determined by just the points in that panel.
-	Behavior for \code{relation="sliced"} is similar, except that
-	the length (max - min) of the scales are constrained to remain
-	the same across panels.
-
-	The determination of what axis limits are suitable for each
-	panel can be controlled by the \code{prepanel} function, which
-	can be overridden by \code{xlim}, \code{ylim} or
-	\code{scales$limits}.  If relation is not \code{"same"}, the
-	value of \code{xlim} etc is normally ignored, except when it is
-	a list, in which case it is treated as if its components were
-	the limit values obtained from the prepanel calculations for
-	each panel.
-      }
-      \item{\code{tick.number}}{
-	Suggested number of ticks (ignored for a factor, shingle or
-	character vector, in which case there is no natural rule for
-	leaving out some of the labels. But see \code{xlim}).
-      }
-      \item{\code{draw}}{
-	logical, defaults to \code{TRUE}, whether to draw the axis at
-	all.
-      }
-      \item{\code{alternating}}{
-	logical specifying whether axis labels should alternate from one
-	side of the group of panels to the other.  For finer control,
-	alternating can be a vector (replicated to be as long as the
-	number of rows or columns per page) consisting of the following
-	numbers
-	\itemize{
-	  \item 0: do not draw tick labels
-	  \item 1: bottom/left
-	  \item 2: top/right
-	  \item 3: both.
-	}
-	\code{alternating} applies only when \code{relation="same"}.
-	The default is \code{TRUE}, or equivalently, \code{c(1, 2)}
-      }
-      \item{\code{limits}}{
-	same as xlim and ylim.
-      }
-      \item{\code{at}}{ location of tick marks along the axis (in native
-	coordinates), or a list as long as the number of panels
-	describing tick locations for each panel.
-      }
-      \item{\code{labels}}{
-	Labels (strings or expressions) to go along with \code{at}. Can
-	be a list like \code{at} as well.
-      }
-      \item{\code{cex}}{
-	numeric multiplier to control character sizes for axis labels.
-	Can be a vector of length 2, to control left/bottom and
-	right/top separately.
-      }
-      \item{\code{font}, \code{fontface}, \code{fontfamily}}{
-	specifies font for axis labels.
-      }
-      \item{\code{tck}}{
-	numeric to control length of tick marks. Can be a vector of
-	length 2, to control left/bottom and right/top separately.
-      }
-      \item{\code{col}}{
-	color of ticks and labels.
-      }
-      \item{\code{rot}}{
-	Angle by which the axis labels are to be rotated. Can be a
-	vector of length 2, to control left/bottom and right/top
-	separately.
-      }
-      \item{\code{abbreviate}}{
-	logical, whether to abbreviate the labels using
-	\code{abbreviate}.  Can be useful for long labels (e.g., in
-	factors), especially on the x-axis.
-      }
-      \item{\code{minlength}}{
-	argument passed to \code{abbreviate} if \code{abbreviate=TRUE}.
-      }
-      \item{\code{log}}{
-	whether to use a log scale. Defaults to \code{FALSE}, other
-	possible values are any number that works as a base for taking
-	logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
-	natural logarithm).  Note that in this case the values passed to
-	the panel function are already transformed, so all computations
-	done inside the panel function will be affected accordingly. For
-	example, \code{panel.lmline} will fit a line to the transformed
-	values.
-      }
-      \item{\code{format}}{
-	the \code{format} to use for POSIXct variables. See
-	\code{\link{strptime}} for description of valid values.
-      }
-      \item{\code{axs}}{
-	character, \code{"r"} or \code{"i"}.  In the latter case, the
-	axis limits are calculated as the exact data range, instead of
-	being padded on either side. (May not always work as expected.)
-      }
-    }
-
-    Note that much of the function of \code{scales} is accomplished by
-    \code{pscales} in \code{splom}.
-  }
   \item{skip}{
     logical vector (default \code{FALSE}), replicated to be as long as
     the number of panels (spanning all pages).  For elements that are
@@ -826,77 +951,21 @@ bwplot(x, data, \dots)
     accordingly.  This is often useful for arranging plots in an
     informative manner.
   }
-  \item{strip, strip.left}{
-    logical flag or function.  If \code{FALSE}, strips are not drawn.
-    Otherwise, strips are drawn using the \code{strip} (or
-    \code{strip.left}) function, which defaults to \code{strip.default}.
-    See documentation of \code{strip.default} to see the arguments that
-    are available to the strip function.  \code{strip.left} can be used
+
+  \item{strip.left}{
+    \code{strip.left} FIXME can be used
     to draw strips on the left of each panel, which can be useful for
     wide short panels, as in time series (or similar) plots.
   }
-  \item{sub}{
-    character string or expression (or a \code{"grob"}) for a subtitle
-    to be placed at the bottom of each page.  See entry for \code{main}
-    for finer control options.
-  }
-  \item{subscripts}{
-    logical specifying whether or not a vector named \code{subscripts}
-    should be passed to the panel function.  Defaults to \code{FALSE},
-    unless \code{groups} is specified, or if the panel function accepts
-    an argument named \code{subscripts}. (One should be careful when
-    defining the panel function on-the-fly.)
-  }
-  \item{subset}{
-    logical or integer indexing vector (can be specified in terms of
-    variables in \code{data}).  Only these rows of \code{data} will be
-    used for the plot.  If \code{subscripts} is \code{TRUE}, the
-    subscripts will provide indices to the rows of data before the
-    subsetting is done.  Whether levels of factors in the data frame
-    that are unused after the subsetting will be dropped depends on the
-    \code{drop.unused.levels} argument.
-  }
-  \item{xlab}{ character string or expression (or a \code{"grob"}) giving
-    label for the x-axis.  Defaults to the expression for \code{x} in
-    \code{formula}.  Can be specified as \code{NULL} to omit the label
-    altogether.  Finer control is possible, as described in the entry
-    for \code{main}, with the additional feature that if the
-    \code{label} component is omitted from the list, it is replaced by
-    the default \code{xlab}.
-  }
-  \item{xlim}{ Normally a numeric vector of length 2 (possibly a
-    DateTime object) giving minimum and maximum for the x-axis, or, a
-    character vector, expected to denote the levels of \code{x}.  The
-    latter form is interpreted as a range containing c(1, length(xlim)),
-    with the character vector determining labels at tick positions
-    \code{1:length(xlim)}
 
-    \code{xlim} could also be a list, with as many components as the
-    number of panels (recycled if necessary), with each component as
-    described above.  This is meaningful only when
-    \code{scales$x$relation} is \code{"free"} or \code{"sliced"}, in
-    which case these are treated as if they were the corresponding limit
-    components returned by prepanel calculations.
 
-  }
-  \item{ylab}{ character string or expression (or \code{"grob"}) giving
-    label for the y-axis.  Defaults to the expression for \code{y} in
-    \code{formula}.  Fine control is possible, see entry for
-    \code{xlab}.
-  }
-  \item{ylim}{ similar to \code{xlim}, applied to the y-axis. }
-  \item{drop.unused.levels}{ 
-    logical indicating whether the unused levels of factors will be
-    dropped.  Unused levels are usually dropped, but it is sometimes
-    appropriate to suppress dropping to preserve a useful layout.  For
-    finer control, this argument could also be list containing
-    components \code{cond} and \code{data}, both logical, indicating
-    desired behavior for conditioning variables and data variables
-    respectively.  The default is given by
-    \code{lattice.getOption("drop.unused.levels")} , which is initially
-    set to \code{TRUE} for both components.
-  }
-   \item{par.settings}{
+  \item{xlab.default, ylab.default}{ fallback default for \code{xlab}
+    and \code{ylab} when they are not specified.  If \code{NULL}, the
+    defaults are parsed from the Trellis formula.  This is rarely useful
+    for the end-user, but can be helpful when developing new Trellis
+    functions.}
+
+  \item{par.settings}{
     a list that could be supplied to \code{\link{trellis.par.set}}.
     This enables the user to attach some display settings to the trellis
     object itself rather than change the settings globally.  When the
@@ -957,13 +1026,9 @@ bwplot(x, data, \dots)
     can be set to \code{NULL}, which reverts these back to their
     defaults.
   }
-  \item{ default.scales }{
-    list giving the default values of \code{scales} for a particular
-    high level function.  This should not be of any interest to the
-    normal user, but may be helpful when defining other functions that
-    act as a wrapper to one of the high level lattice functions.
-  }
-  \item{\dots}{ other arguments, passed to the panel function.
+
+  
+    }
 
     The arguments \code{horizontal} and \code{panel.groups} are
     documented here to avoid confusion, but they are actually not
