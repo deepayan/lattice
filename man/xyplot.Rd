@@ -494,14 +494,15 @@ bwplot(x, data, \dots)
     should be returned for the \code{xlim} and \code{ylim} components.
   }
 
-  \item{strip, strip.left}{
+  \item{strip}{
     logical flag or function.  If \code{FALSE}, strips are not drawn.
-    Otherwise, strips are drawn using the \code{strip} (or
-    \code{strip.left}) function, which defaults to \code{strip.default}.
-    See documentation of \code{strip.default} to see the arguments that
-    are available to the strip function.  \code{strip.left} can be used
-    to draw strips on the left of each panel, which can be useful for
-    wide short panels, as in time series (or similar) plots.
+    Otherwise, strips are drawn using the \code{strip} function, which
+    defaults to \code{strip.default}.  See documentation of
+    \code{strip.default} to see the arguments that are available to the
+    strip function.  This description also applies to the
+    \code{strip.left} argument (see \code{\dots} below), which can be
+    used to draw strips on the left of each panel, which can be useful
+    for wide short panels, e.g. in time series plots.
   }
 
   \item{xlab}{ character string or expression (or a \code{"grob"}) giving
@@ -953,11 +954,9 @@ bwplot(x, data, \dots)
   }
 
   \item{strip.left}{
-    \code{strip.left} FIXME can be used
-    to draw strips on the left of each panel, which can be useful for
-    wide short panels, as in time series (or similar) plots.
+    \code{strip.left} can be used to draw strips on the left of each
+    panel.  See entry for \code{strip} above.
   }
-
 
   \item{xlab.default, ylab.default}{ fallback default for \code{xlab}
     and \code{ylab} when they are not specified.  If \code{NULL}, the
