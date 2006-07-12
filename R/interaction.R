@@ -57,7 +57,7 @@ panel.identify <-
         if (missing(labels) && !is.null(panel.args$subscripts))
             labels <- panel.args$subscripts
     }
-    xy <- xy.coords(x, y)
+    xy <- xy.coords(x, y, recycle = TRUE)
     x <- xy$x
     y <- xy$y
     px <- convertX(unit(x, "native"), "points", TRUE)
