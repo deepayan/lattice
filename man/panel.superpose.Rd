@@ -24,7 +24,14 @@ panel.superpose.2(\dots, distribute.type = TRUE)
   \item{x,y}{ coordinates of the points to be displayed}
   \item{panel.groups}{
     the panel function to be used for each group of points. Defaults to
-    \code{panel.xyplot} (behaviour in S)
+    \code{panel.xyplot} (behaviour in S).
+
+    To be able to distinguish between different levels of the
+    originating group inside \code{panel.groups}, it will be supplied a
+    special argument called \code{group.number} which will hold the
+    numeric code corresponding to the current level of \code{groups}.
+    No special care needs to be taken when writing a \code{panel.groups}
+    function if this feature is not used.
   }
   \item{subscripts}{ subscripts giving indices in original data frame }
   \item{groups}{ a grouping variable. Different graphical parameters
