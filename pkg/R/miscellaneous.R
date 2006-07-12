@@ -172,7 +172,7 @@ lpolygon <-
         border <-
             if (border) "black"
             else "transparent"
-    xy <- xy.coords(x, y)
+    xy <- xy.coords(x, y, recycle = TRUE)
     if (with(xy, sum(!is.na(x) & !is.na(y))) > 0)
         grid.polygon(x = xy$x,
                      y = xy$y,
@@ -297,7 +297,7 @@ ltext <-
              ...)
 {
     add.text <- trellis.par.get("add.text")
-    xy <- xy.coords(x, y)
+    xy <- xy.coords(x, y, recycle = TRUE)
     if (length(xy$x) == 0) return()
     ux <- unit(xy$x, "native")
     uy <- unit(xy$y, "native")
@@ -352,7 +352,7 @@ llines <-
              lwd = plot.line$lwd, ...)
 {
     plot.line <- trellis.par.get("plot.line")
-    lplot.xy(xy.coords(x, y), type = type,
+    lplot.xy(xy.coords(x, y, recycle = TRUE), type = type,
              col = col, lty = lty, lwd = lwd, alpha = alpha, ...)
 }
 
@@ -371,7 +371,7 @@ lpoints <-
              cex = plot.symbol$cex, ...)
 {
     plot.symbol <- trellis.par.get("plot.symbol")
-    lplot.xy(xy.coords(x, y),
+    lplot.xy(xy.coords(x, y, recycle = TRUE),
              type = type,
              col = col,
              pch = pch,
