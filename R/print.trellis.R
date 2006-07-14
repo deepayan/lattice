@@ -1012,40 +1012,40 @@ print.trellis <-
                             pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
                                                   widths = unit(c(key.x, 1, 1),
                                                   c("npc", "grobwidth", "null"),
-                                                  list(1, key.gf, 1)),
+                                                  list(NULL, key.gf, NULL)),
                                                   heights = unit(c(1 - key.y, 1, 1),
                                                   c("npc", "grobheight", "null"),
-                                                  list(1, key.gf, 1)))))
+                                                  list(NULL, key.gf, NULL)))))
                         }
                         else if (all(key.corner == c(1,1)))
                         {
                             pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
                                                   heights = unit(c(1 - key.y, 1, 1),
                                                   c("npc", "grobheight", "null"),
-                                                  list(1, key.gf, 1)),
+                                                  list(NULL, key.gf, NULL)),
                                                   widths = unit(c(1, 1, 1 - key.x),
                                                   c("null", "grobwidth", "npc"),
-                                                  list(1, key.gf, 1)))))
+                                                  list(NULL, key.gf, NULL)))))
                         }
                         else if (all(key.corner == c(0,0)))
                         {
                             pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
                                                   widths = unit(c(key.x, 1, 1),
                                                   c("npc", "grobwidth", "null"),
-                                                  list(1, key.gf, 1)),
+                                                  list(NULL, key.gf, NULL)),
                                                   heights = unit(c(1, 1, key.y),
                                                   c("null", "grobheight", "npc"),
-                                                  list(1, key.gf, 1)))))
+                                                  list(NULL, key.gf, NULL)))))
                         }
                         else if (all(key.corner == c(1,0)))
                         {
                             pushViewport(viewport(layout=grid.layout(nrow = 3, ncol = 3,
                                                   widths = unit(c(1, 1, 1 - key.x),
                                                   c("null", "grobwidth", "npc"),
-                                                  list(1, key.gf, 1)),
+                                                  list(NULL, key.gf, NULL)),
                                                   heights = unit(c(1, 1, key.y),
                                                   c("null", "grobheight", "npc"),
-                                                  list(1, key.gf, 1)))))
+                                                  list(NULL, key.gf, NULL)))))
                         }
                         pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
                         grid.draw(key.gf)
