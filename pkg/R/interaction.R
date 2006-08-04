@@ -159,7 +159,7 @@ trellis.focus <-
 {
     trellis.unfocus()
 
-    if (name == "panel" || name == "strip" || "strip.left")
+    if (name %in% c("panel", "strip", "strip.left"))
     {
         ll <- lattice.getStatus("current.panel.positions")
         if (column > 0 && row > 0 &&
