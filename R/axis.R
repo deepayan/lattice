@@ -239,7 +239,7 @@ formattedTicksAndLabels.expression <-
 
 
 
-## FIXME: add a method for "Date" here (regurgitate axis.Date)
+## method for "Date" (regurgitating axis.Date)
 
 formattedTicksAndLabels.Date <-
     function (x, at = FALSE,
@@ -251,9 +251,9 @@ formattedTicksAndLabels.Date <-
               minlength = 4,
               format.posixt = NULL, ...) 
 {
-    num.lim <-
+    num.lim <- 
         if (length(x) == 2) as.numeric(x)
-        else as.numeric(range(x))
+        else range(as.numeric(x))
     mat <- is.logical(at)
     if(!mat) x <- as.Date(at) else x <- as.Date(x)
     range <- range(num.lim)
@@ -261,26 +261,27 @@ formattedTicksAndLabels.Date <-
     range[2] <- floor(range[2])
     ## find out the scale involved
     d <- range[2] - range[1]
-    z <- c(range, x[is.finite(x)])
+    ## z <- c(range, x[is.finite(x)])
+    z <- range
     class(z) <- "Date"
     if (d < 7) # days of a week
         if (is.null(format.posixt)) format.posixt <- "%a"
     if (d < 100) { # month and day
-        z <- structure(pretty(z), class="Date")
+        z <- structure(pretty(z, ...), class="Date")
         if (is.null(format.posixt)) format.posixt <- "%b %d"
     } else if (d < 1.1*365) { # months
         zz <- as.POSIXlt(z)
-        zz$mday <- 1;
-        zz$mon <- pretty(zz$mon)
+        zz$mday <- 1
+        zz$mon <- pretty(zz$mon, ...)
         m <- length(zz$mon)
         m <- rep.int(zz$year[1], m)
-        zz$year <- c(m, m+1)
+        zz$year <- c(m, m + 1)
         z <- .Internal(POSIXlt2Date(zz))
         if(is.null(format.posixt)) format.posixt <- "%b"
     } else { # years
         zz <- as.POSIXlt(z)
         zz$mday <- 1; zz$mon <- 0
-        zz$year <- pretty(zz$year)
+        zz$year <- pretty(zz$year, ...)
         z <- .Internal(POSIXlt2Date(zz))
         if(is.null(format.posixt)) format.posixt <- "%Y"
     }
@@ -419,7 +420,7 @@ formattedTicksAndLabels.times <-
     bad <- is.na(x) | abs(as.vector(x)) == Inf
     ## rng <- extend.limits(range(as.numeric(x[!bad])))
     rng <- range(as.numeric(x[!bad]))
-    tmp <- pretty(rng)
+    tmp <- pretty(rng, ...)
     att <- attributes(x)
     at <-
         structure(tmp, # [tmp >= rng[1] & tmp <= rng[2]],
