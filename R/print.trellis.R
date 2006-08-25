@@ -124,7 +124,9 @@ plot.trellis <-
 
 print.trellis <-
     function(x, position, split, more = FALSE,
-             newpage = TRUE, draw.in = NULL,
+             newpage = TRUE,
+             packet.panel = packet.panel.default,
+             draw.in = NULL,
              panel.height = lattice.getOption("layout.heights")$panel,
              panel.width = lattice.getOption("layout.widths")$panel,
              save.object = lattice.getOption("save.object"),
@@ -224,12 +226,49 @@ print.trellis <-
     ## and indexing is in the components index.cond and perm.cond of
     ## the trellis object
 
+
+### FIXME: need some thinking here.
+
+    ## ## Original version (up to 0.13 series):
+    
+    ## order.cond <- seq(length = prod(sapply(x$condlevels, length)))
+    ## dim(order.cond) <- sapply(x$condlevels, length)
+
+    ## ## first subset, then permute
+    ## order.cond <- do.call("[", c(list(order.cond), x$index.cond, list(drop = FALSE)))
+    ## order.cond <- aperm(order.cond, perm = x$perm.cond)
+
+
+    ## ## New version:
+
+### str(x$condlevels)
+
+    ## condlevels corresponding to the indexed and/or permted object.
+    ## These also have to be integer indices rather than character
+    ## labels (necessary for 'packet.panel' computations).
+
+    used.condlevels <- lapply(x$condlevels, function(x) seq(along = x))
+    used.condlevels <- 
+        mapply("[", used.condlevels, x$index.cond,
+               MoreArgs = list(drop = FALSE),
+               SIMPLIFY = FALSE)
+    used.condlevels <- used.condlevels[x$perm.cond]
+
+### str(used.condlevels)    
+
+    ## FIXME: trying to find a way to make order.cond unnecessary may
+    ## make things simpler, but that's not a very immediate concern
+    ## (and not clear how difficult either).
+
     order.cond <- seq(length = prod(sapply(x$condlevels, length)))
     dim(order.cond) <- sapply(x$condlevels, length)
 
     ## first subset, then permute
     order.cond <- do.call("[", c(list(order.cond), x$index.cond, list(drop = FALSE)))
     order.cond <- aperm(order.cond, perm = x$perm.cond)
+
+
+
 
     ## order.cond will be used as indices for (exactly) the following
 
@@ -384,12 +423,10 @@ print.trellis <-
         panel.layout[2] <- m
 
     }
-    ## WAS: else, but then things may become inconsistent with skip
-    plots.per.page <- panel.layout[1] * panel.layout[2] 
 
     ## End layout calculations
 
-
+    plots.per.page <- panel.layout[1] * panel.layout[2] 
     cols.per.page <- panel.layout[1]
     rows.per.page <- panel.layout[2]
     number.of.pages <- panel.layout[3]
@@ -398,8 +435,8 @@ print.trellis <-
     current.panel.positions <- matrix(0, rows.per.page, cols.per.page)
     current.packet.positions <- matrix(0, rows.per.page, cols.per.page)
 
-
-    skip <- rep(x$skip, length = number.of.pages * rows.per.page * cols.per.page)
+    ## ## following now relegated to packet.panel 
+    ## skip <- rep(x$skip, length = number.of.pages * rows.per.page * cols.per.page)
 
     x.alternating <- rep(x$x.scales$alternating, length = cols.per.page)
     y.alternating <- rep(x$y.scales$alternating, length = rows.per.page)
@@ -469,8 +506,14 @@ print.trellis <-
     
     cond.current.level <- rep(1, number.of.cond)
 
-    ##   this vector represents the combination of levels of the
-    ##   conditioning variables for the current panel.
+    ## this vector represents the combination of levels of the
+    ## conditioning variables for the current panel.  We're changing
+    ## to a new scheme which should make this unnecessary, but we need
+    ## to keep it for now to ensure the first page is drawn (kinda
+    ## stupid, but that part of the code was there to ensure that an
+    ## `empty' trellis object doesn't waste a page.  Actually, it
+    ## might be redundant, since in that case number.of.pages should
+    ## be 0.  FIXME: Check it out)
 
     
     panel.number <- 0
@@ -478,7 +521,7 @@ print.trellis <-
     ## panel.number is supplied as an optional argument to the panel
     ## function.  It's a strictly increasing sequential counter
     ## keeping track of which panel is being drawn.  This is usually
-    ## the same as, but potentially different from the packet.number,
+    ## the same as, but sometimes different from the packet.number,
     ## which is an index to which packet combination is being used.
 
     ## Here's the complication.  panel.number used to be called
@@ -537,10 +580,23 @@ print.trellis <-
             for (row in seq(length = rows.per.page))
                 for (column in seq(length = cols.per.page))
                 {
-                    if (!any(cond.max.level-cond.current.level<0) &&
-                        (row-1) * cols.per.page + column <= plots.per.page &&
-                        !skip[(page.number-1) * rows.per.page * cols.per.page +
-                              (row-1) * cols.per.page + column] )
+
+                    cond.current.level <- 
+                        packet.panel(layout = panel.layout,
+                                     condlevels = used.condlevels,
+                                     page = page.number,
+                                     row = row,
+                                     column = column,
+                                     skip = x$skip)
+
+##                     ## too defensive, don't really need it. So, commenting out...
+
+##                     if (!any(cond.max.level-cond.current.level<0) &&
+##                         (row-1) * cols.per.page + column <= plots.per.page &&
+##                         !skip[(page.number-1) * rows.per.page * cols.per.page +
+##                               (row-1) * cols.per.page + column] )
+
+                    if (!is.null(cond.current.level))
                     {
                         ## packet.number should be same as order.cond[cond.current.level]
                         ##                                            ^^^^^^^^^^^^^^^^^^
