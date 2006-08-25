@@ -135,6 +135,7 @@ export(
 
        strip.default,
        strip.custom,
+       packet.panel.default,
 
        do.breaks,
        make.groups,
