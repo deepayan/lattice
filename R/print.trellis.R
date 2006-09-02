@@ -408,9 +408,10 @@ print.trellis <-
     ## is pecified (this refers to the layout argument, not grid
     ## layouts)
 
-    if (panel.layout[1] == 0) # using device dimensions to
+    ## using device dimensions to calculate default layout:
+    if (panel.layout[1] == 0) 
     {
-        ddim <- par("din") # calculate default layout
+        ddim <- par("din") 
         device.aspect <- ddim[2] / ddim[1]
         panel.aspect <- panel.height[[1]] / panel.width[[1]]
 

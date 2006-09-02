@@ -29,6 +29,65 @@ current.panel.limits <- function(unit = "native")
 }
 
 
+
+
+## Functions to compute axis tick mark positions and labels.  From
+## lattice 0.14 onwards, there will be user specifiable functions (one
+## each for the x and y axes) that does this.  The function defined
+## here is intended to serve as the default choice for that function.
+## The goal is to make anything reasonable possible, so suggested
+## changes to the API will be considered.
+
+## NOTE: A LOT OF CODE WILL NEED TO BE CHANGED ELSEWHERE TO SUPPORT
+## THIS
+
+## This function is intended to work with one packet at a time.  It
+## will be called only once when relation=same, and once for each
+## packet otherwise.  The major difference is that there can be
+## different things on opposite sides (left/right or top/bottom),
+## e.g. both transformed and original axes on log transformed data.
+## To make things sufficiently general, the output could either be (1)
+## a list with tick locations, labels, etc. or (2) a ``grob''.  (I
+## don't necessarily endorse the idea of having a grid dependency
+## built into the Trellis object, as opposed to just the plotting
+## procedure, but that ship has sailed a long time back: xlab, main,
+## etc can already be grobs.)
+
+
+## Output formats: The output is a list of the form
+
+## list(left=..., right=...) or list(bottom=..., top=...)
+
+## right and top can be logical: TRUE means same as left/bottom, FALSE
+## means to be omitted.  Prior default behaviour corresponds to TRUE
+## for relation=same, FALSE otherwise.  They can also be like
+## left/bottom, whose possible values are described next.
+
+## One thing to remember is that tick marks and labels are treated
+## separately.  This strategy has worked successfully in the past, and
+## I'm not willing to give it up (mostly because I'm not really sure
+## how to create a single grob that combines both, and then can be
+## used to determine widths/heights (even if I could, I'm sure the
+## calculations will be slower)).  So, the output will be like
+
+## left =
+## list(ticks = list(at = ..., tck = ...),
+##      labels = list(at = ..., cex = ..., check.overlap = TRUE))
+
+## or
+
+## left =
+## list(ticks = list(at = ..., tck = ...),
+##      labels = textGrob("foo"))
+
+
+
+
+
+
+
+
+
 calculateAxisComponents <- function(x, ..., abbreviate = NULL, minlength = 4)
 
     ## This aims to be a general function which given a general
