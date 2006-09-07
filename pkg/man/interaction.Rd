@@ -175,10 +175,11 @@ trellis.currentLayout()
   used to retrieve the arguments that were available to the panel
   function at that position.  \code{trellis.panelArgs} can also, more
   generally, retrieve the panel arguments from any \code{"trellis"} object.
-  Note that for this usage, one needs to specify the \code{panel.number}
-  (as described under the \code{panel} entry in \code{\link{xyplot}})
-  and not the position in the layout, because a layout determines the
-  panel only \bold{after} the object has been printed.
+  Note that for this usage, one needs to specify the
+  \code{packet.number} (as described under the \code{panel} entry in
+  \code{\link{xyplot}}) and not the position in the layout, because a
+  layout determines the panel only \bold{after} the object has been
+  printed.
 
   It is usually not necessary to call \code{trellis.vpname} and
   \code{trellis.grobname} directly.  However, they can be useful in

@@ -728,8 +728,8 @@ packet.panel.default <-
     packet.order <- do.call(expand.grid, condlevels)
 
     ## Don't try to force the default behaviour of skip elsewhere,
-    ## since this gives the user the freedom to make it behave as she
-    ## wants.
+    ## since this gives users the freedom to make it behave as they
+    ## want.
 
     if (all.pages.skip)
     {

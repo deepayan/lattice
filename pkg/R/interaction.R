@@ -266,6 +266,11 @@ trellis.panelArgs <-
 
 
 
-trellis.currentLayout <- function()
-    lattice.getStatus("current.panel.positions")
+trellis.currentLayout <- function(which = c("packet", "panel"))
+{
+    which <- match.arg(which)
+    switch(which,
+           packet = lattice.getStatus("current.packet.positions"),
+           panel = lattice.getStatus("current.panel.positions"))
+}
 
