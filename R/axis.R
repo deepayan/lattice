@@ -36,10 +36,15 @@ current.panel.limits <- function(unit = "native")
 ## each for the x and y axes) that does this.  The function defined
 ## here is intended to serve as the default choice for that function.
 ## The goal is to make anything reasonable possible, so suggested
-## changes to the API will be considered.
+## changes to the API will be considered.  The tentative plan is to
+## specify them as optional arguments, e.g.  xyplot(...,
+## xscale.components = function(lim, ...) list(...))
+
+
 
 ## NOTE: A LOT OF CODE WILL NEED TO BE CHANGED ELSEWHERE TO SUPPORT
-## THIS
+## THIS.  ONE APPROACH MIGHT BE TO EXPOSE THE API AND DEAL WITH THE
+## DETAILS AFTER R 2.4.0 IS RELEASED.
 
 ## This function is intended to work with one packet at a time.  It
 ## will be called only once when relation=same, and once for each
@@ -56,7 +61,10 @@ current.panel.limits <- function(unit = "native")
 
 ## Output formats: The output is a list of the form
 
-## list(left=..., right=...) or list(bottom=..., top=...)
+## list(num.limit = ..., left=..., right=...) or
+## list(num.limit = ..., bottom=..., top=...)
+
+## num.limit is the numeric range suggested
 
 ## right and top can be logical: TRUE means same as left/bottom, FALSE
 ## means to be omitted.  Prior default behaviour corresponds to TRUE
@@ -72,7 +80,8 @@ current.panel.limits <- function(unit = "native")
 
 ## left =
 ## list(ticks = list(at = ..., tck = ...),
-##      labels = list(at = ..., cex = ..., check.overlap = TRUE))
+##      labels =
+##      list(at = ..., labels = ..., cex = ..., check.overlap = TRUE))
 
 ## or
 
@@ -81,6 +90,52 @@ current.panel.limits <- function(unit = "native")
 ##      labels = textGrob("foo"))
 
 
+xscale.components.default <-
+    function(lim,
+             packet.number = 0,
+             packet.list = NULL,
+             top = TRUE,
+             ...)
+{
+    comps <-
+        calculateAxisComponents(lim, packet.list = packet.list,
+                                packet.number = packet.number, ...)
+    ans <-
+        list(num.limit = comps$num.limit,
+             bottom =
+             list(ticks = list(at = comps$at, tck = 1, lwd = 1),
+                  labels =
+                  list(at = comps$at,
+                       labels = comps$labels,
+                       cex = 1,
+                       check.overlap = comps$check.overlap)),
+             top = top)
+}
+
+
+## should be same as above with s/bottom/left/g and s/top/right/g
+
+yscale.components.default <-
+    function(lim,
+             packet.number = 0,
+             packet.list = NULL,
+             right = TRUE,
+             ...)
+{
+    comps <-
+        calculateAxisComponents(lim, packet.list = packet.list,
+                                packet.number = packet.number, ...)
+    ans <-
+        list(num.limit = comps$num.limit,
+             left =
+             list(ticks = list(at = comps$at, tck = 1, lwd = 1),
+                  labels =
+                  list(at = comps$at,
+                       labels = comps$labels,
+                       cex = 1,
+                       check.overlap = comps$check.overlap)),
+             right = right)
+}
 
 
 
@@ -88,7 +143,17 @@ current.panel.limits <- function(unit = "native")
 
 
 
-calculateAxisComponents <- function(x, ..., abbreviate = NULL, minlength = 4)
+## FIXME: Long term goal: some of the following code is possibly too
+## cautious.  A review might make the code simpler without substantial
+## drawbacks (the point being that we know exactly how the code is
+## being called).
+
+
+calculateAxisComponents <-
+    function(x, ...,
+             ## ignored, but needs to be caught:
+             packet.number, packet.list, 
+             abbreviate = NULL, minlength = 4)
 
     ## This aims to be a general function which given a general
     ## 'range' x and optional at, generates the locations of tick
@@ -550,13 +615,13 @@ panel.axis <-
 {
     side <- match.arg(side)
     orientation <- if (outside) "outer" else "inner"
-    cvp <- current.viewport() ## FIXME: grid should have accessors for xscale and yscale
+    cpl <- current.panel.limits() ## FIXME: grid should have accessors for xscale and yscale
     scale.range <-
         range(switch(side,
-                     left = cvp$yscale,
-                     top = cvp$xscale,
-                     right = cvp$yscale,
-                     bottom = cvp$xscale))
+                     left = cpl$ylim,
+                     top = cpl$xlim,
+                     right = cpl$ylim,
+                     bottom = cpl$xlim))
 
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")

@@ -751,7 +751,9 @@ lattice.options <- function(...)
               ##par.strip.text = NULL,
               ##layout = NULL,
               skip = FALSE,
-              strip = strip.default),
+              strip = strip.default,
+              xscale.components = xscale.components.default,
+              yscale.components = yscale.components.default),
 
          axis.padding = list(numeric = 0.07, factor = 0.6),
 
@@ -759,7 +761,6 @@ lattice.options <- function(...)
          ## numeric and factor scales respectively. Note that the
          ## value for numeric is multiplicative, while factor is
          ## additive
-
 
          skip.boundary.labels = 0.02,
 
