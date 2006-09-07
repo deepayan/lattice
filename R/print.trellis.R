@@ -27,7 +27,16 @@ layoutNRow <- function(x) x$nrow
 layoutNCol <- function(x) x$ncol
 
 
+panel.number <- function()
+    lattice.getStatus("current.panel.positions")[lattice.getStatus("current.focus.row"),
+                                                 lattice.getStatus("current.focus.column")]
 
+packet.number <- function()
+    lattice.getStatus("current.packet.positions")[lattice.getStatus("current.focus.row"),
+                                                  lattice.getStatus("current.focus.column")]
+cond.levels <- function()
+    lattice.getStatus("current.cond.levels")[[lattice.getStatus("current.focus.row"),
+                                              lattice.getStatus("current.focus.column")]]
 
 
 ## utility to create a full-fledged list describing a label from parts
@@ -56,6 +65,14 @@ getLabelList <- function(label, text.settings, default.label = NULL)
     ans
 }
 
+
+drawInViewport <-
+    function(obj, vp)
+{
+    pushViewport(vp)
+    grid.draw(obj)
+    upViewport()
+}
 
 
 
@@ -243,29 +260,48 @@ print.trellis <-
 
 ### str(x$condlevels)
 
-    ## condlevels corresponding to the indexed and/or permted object.
+    ## used.condlevels corresponds to the indexed and permuted object.
     ## These also have to be integer indices rather than character
     ## labels (necessary for 'packet.panel' computations).
+    ## original.condlevels is required to interpret the results of
+    ## packet.panel and associate them with packets in the original
+    ## object (which are defined in terms of the original levels)
 
-    used.condlevels <- lapply(x$condlevels, function(x) seq(along = x))
+    original.condlevels <- 
+        used.condlevels <-
+            lapply(x$condlevels, function(x) seq(along = x))
     used.condlevels <- 
         mapply("[", used.condlevels, x$index.cond,
                MoreArgs = list(drop = FALSE),
                SIMPLIFY = FALSE)
     used.condlevels <- used.condlevels[x$perm.cond]
+    inverse.permutation <- order(x$perm.cond) # used later
 
-### str(used.condlevels)    
+### str(used.condlevels)
+
+    ## an array giving packet numbers corresponding to
+    ## original.condlevels.  The idea is to be able to figure out the
+    ## packet given levels of the conditioning variables.  The packets
+    ## are naturally thought of as an array.  The packet number simply
+    ## counts positions of this array in the standard order
+    ## (i.e. lower dimensions vary faster).
+
+    adim <- sapply(original.condlevels, length)
+    packet.array <- seq(length = prod(adim))
+    dim(packet.array) <- adim
+
+
 
     ## FIXME: trying to find a way to make order.cond unnecessary may
     ## make things simpler, but that's not a very immediate concern
     ## (and not clear how difficult either).
 
-    order.cond <- seq(length = prod(sapply(x$condlevels, length)))
-    dim(order.cond) <- sapply(x$condlevels, length)
+##     order.cond <- seq(length = prod(sapply(x$condlevels, length)))
+##     dim(order.cond) <- sapply(x$condlevels, length)
 
     ## first subset, then permute
-    order.cond <- do.call("[", c(list(order.cond), x$index.cond, list(drop = FALSE)))
-    order.cond <- aperm(order.cond, perm = x$perm.cond)
+##     order.cond <- do.call("[", c(list(order.cond), x$index.cond, list(drop = FALSE)))
+##     order.cond <- aperm(order.cond, perm = x$perm.cond)
 
 
 
@@ -276,13 +312,14 @@ print.trellis <-
     ## 2. x.limits
     ## 3. y.limits
 
-    ## may need x$(subset|perm).cond later for strip drawing
+    ## may need x$(index|perm).cond later for strip drawing
 
-    cond.max.level <- dim(order.cond)
-    number.of.cond <- length(cond.max.level)
+    ## cond.max.levels <- dim(order.cond)
+    cond.max.levels <- sapply(used.condlevels, length)
+    number.of.cond <- length(cond.max.levels)
 
     panel.layout <-
-        compute.layout(x$layout, cond.max.level, skip = x$skip)
+        compute.layout(x$layout, cond.max.levels, skip = x$skip)
 
     panel <- # shall use "panel" in do.call
         if (is.function(x$panel)) x$panel 
@@ -432,9 +469,12 @@ print.trellis <-
     rows.per.page <- panel.layout[2]
     number.of.pages <- panel.layout[3]
     lattice.setStatus(current.plot.multipage = number.of.pages > 1)
+
     ## these will also eventually be 'status' variables
     current.panel.positions <- matrix(0, rows.per.page, cols.per.page)
     current.packet.positions <- matrix(0, rows.per.page, cols.per.page)
+    current.cond.levels <- vector(mode = "list", length = rows.per.page * cols.per.page)
+    dim(current.cond.levels) <- c(rows.per.page, cols.per.page)
 
     ## ## following now relegated to packet.panel 
     ## skip <- rep(x$skip, length = number.of.pages * rows.per.page * cols.per.page)
@@ -517,21 +557,21 @@ print.trellis <-
     ## be 0.  FIXME: Check it out)
 
     
-    panel.number <- 0
+    panel.counter <- 0
 
-    ## panel.number is supplied as an optional argument to the panel
-    ## function.  It's a strictly increasing sequential counter
-    ## keeping track of which panel is being drawn.  This is usually
-    ## the same as, but sometimes different from the packet.number,
-    ## which is an index to which packet combination is being used.
+    ## panel.number is available as an optional argument to the panel
+    ## function (FIXME: to be deprecated).  It's a strictly increasing
+    ## sequential counter keeping track of which panel is being drawn.
+    ## This is usually the same as, but can be different from
+    ## packet.number, which is an index to which packet combination is
+    ## being used.
 
-    ## Here's the complication.  panel.number used to be called
-    ## panel.counter, and packet.number used to be called panel.number
-
+    message("no of pages: ", number.of.pages)
 
     for(page.number in seq(length = number.of.pages))
     {
-        if (!any(cond.max.level - cond.current.level < 0))
+        ##if (!any(cond.max.levels - cond.levels < 0))
+        if (TRUE)
         {
             if (usual)
             {
@@ -544,80 +584,98 @@ print.trellis <-
                                   gp = global.gpar,
                                   name = trellis.vpname("toplevel")))
 
+
             if (!is.null(main))
             {
-                pushViewport(viewport(layout.pos.row = pos.heights$main,
-                                      name= trellis.vpname("main")))
-                grid.draw(main)
-                upViewport()
+                drawInViewport(main,
+                               viewport(layout.pos.row = pos.heights$main,
+                                        name= trellis.vpname("main")))
             }
             if (!is.null(sub))
             {
-                pushViewport(viewport(layout.pos.row = pos.heights$sub,
-                                      name= trellis.vpname("sub")))
-                grid.draw(sub)
-                upViewport()
+                drawInViewport(sub,
+                               viewport(layout.pos.row = pos.heights$sub,
+                                        name= trellis.vpname("sub")))
             }
             if (!is.null(xlab))
             {
-                pushViewport(viewport(layout.pos.row = pos.heights$xlab,
-                                      layout.pos.col = pos.widths$panel,
-                                      name= trellis.vpname("xlab")))
-                grid.draw(xlab)
-                upViewport()
+                drawInViewport(xlab,
+                               viewport(layout.pos.row = pos.heights$xlab,
+                                        layout.pos.col = pos.widths$panel,
+                                        name= trellis.vpname("xlab")))
             }
             if (!is.null(ylab))
             {
-                pushViewport(viewport(layout.pos.col = pos.widths$ylab,
-                                      layout.pos.row = pos.heights$panel,
-                                      name= trellis.vpname("ylab")))
-                grid.draw(ylab)
-                upViewport()
+                drawInViewport(ylab,
+                               viewport(layout.pos.col = pos.widths$ylab,
+                                        layout.pos.row = pos.heights$panel,
+                                        name= trellis.vpname("ylab")))
             }
 
-
             last.panel <- prod(sapply(x$index.cond, length))
+
+
+            ## preliminary loop through possible positions, doing some
+            ## calculations that allow some helpful status variables
+            ## to be set
 
             for (row in seq(length = rows.per.page))
                 for (column in seq(length = cols.per.page))
                 {
-
-                    cond.current.level <- 
+                    ## levels being used in this panel
+                    cond.levels <- 
                         packet.panel(layout = panel.layout,
                                      condlevels = used.condlevels,
                                      page = page.number,
                                      row = row,
                                      column = column,
                                      skip = x$skip)
+                    ## permute to restore original order
+                    cond.levels <- cond.levels[inverse.permutation]
 
-##                     ## too defensive, don't really need it. So, commenting out...
-
-##                     if (!any(cond.max.level-cond.current.level<0) &&
-##                         (row-1) * cols.per.page + column <= plots.per.page &&
-##                         !skip[(page.number-1) * rows.per.page * cols.per.page +
-##                               (row-1) * cols.per.page + column] )
-
-                    if (!is.null(cond.current.level))
+                    if (!is.null(cond.levels))
                     {
-                        ## packet.number should be same as order.cond[cond.current.level]
-                        ##                                            ^^^^^^^^^^^^^^^^^^
-                        ##                                            (length not fixed)
+                        current.cond.levels[[row, column]] <- cond.levels
+
+                        ## packet.number should be same as packet.array[cond.levels]
+                        ##                                              ^^^^^^^^^^^
+                        ##                                          (length not fixed)
 
                         packet.number <- 
-                            do.call("[", c(list(x = order.cond), as.list(cond.current.level)))
+                            do.call("[", c(list(x = packet.array), as.list(cond.levels)))
                         current.packet.positions[row, column] <- packet.number
 
-                        ## this index retrieves the appropriate entry
-                        ## of panel.args and [xy].limits. It has to be
-                        ## this way because otherwise non-trivial
-                        ## orderings will not work.
+                        ## packet.number retrieves the appropriate
+                        ## entry of panel.args and [xy].limits. It has
+                        ## to be this way because otherwise
+                        ## non-trivial orderings will not work.
 
-                        ## But we should also have a simple
-                        ## incremental counter that may be used as a
-                        ## panel function argument
+                        ## But we also provide a simple incremental
+                        ## counter that may be used as a panel
+                        ## function argument
 
-                        panel.number <- panel.number + 1
-                        current.panel.positions[row, column] <- panel.number
+                        panel.counter <- panel.counter + 1
+                        current.panel.positions[row, column] <- panel.counter
+                    }
+                }
+
+            lattice.setStatus(current.cond.levels = current.cond.levels)
+            lattice.setStatus(current.panel.positions = current.panel.positions)
+            lattice.setStatus(current.packet.positions = current.packet.positions)
+
+            ## loop through positions again, doing the actual drawing
+            ## this time
+
+            for (row in seq(length = rows.per.page))
+                for (column in seq(length = cols.per.page))
+                {
+                    lattice.setStatus(current.focus.row = row,
+                                      current.focus.column = column)
+                    cond.levels <- cond.levels()
+                    if (!is.null(cond.levels))
+                    {
+                        packet.number <- packet.number()
+                        panel.number <- panel.number() ## needed? FIXME
 
                         ## this gives the row position from the bottom
                         actual.row <- if (x$as.table)
@@ -626,12 +684,10 @@ print.trellis <-
                         pos.row <- pos.heights$panel[row]
                         pos.col <- pos.widths$panel[column]
 
-
-
                         xscale.comps <-
                             if (x.relation.same)
                                 x$xscale.components(lim = x$x.limits, 
-                                                    ## FIXME: needs work packet.list = ...
+                                                    ## (FIXME: needs work) packet.list = ...
                                                     top = TRUE,
 
                                                     ## rest passed on to
@@ -718,8 +774,6 @@ print.trellis <-
                                                     format.posixt = x$y.scales$format)
 
 
-                                                    
-
 
 
                         xlabelinfo <-
@@ -804,7 +858,11 @@ print.trellis <-
                                                              row = row,
                                                              clip.off = TRUE)))
                         ## X-axis above
-                        if (x$x.scales$draw && x.relation.same && actual.row == rows.per.page)
+
+
+
+                        ## old version
+                        if (FALSE && x$x.scales$draw && x.relation.same && actual.row == rows.per.page)
                         {
                             axstck <- x$x.scales$tck
                             panel.axis(side = "top",
@@ -998,7 +1056,6 @@ print.trellis <-
 
 
 
-
 #########################################
 ###        draw strip(s)              ###
 #########################################
@@ -1006,11 +1063,11 @@ print.trellis <-
                         if (!is.logical(strip)) # logical <==> FALSE
                         {
                             ## which.panel in original cond variables order
-                            which.panel = cond.current.level[x$perm.cond]
+                            which.panel <- cond.levels #[x$perm.cond]
 
-                            ## need to pass each index in original terms
-                            for (i in seq(along = which.panel))
-                                which.panel[i] <- x$index.cond[[i]][which.panel[i]]
+##                             ## need to pass each index in original terms
+##                             for (i in seq(along = which.panel))
+##                                 which.panel[i] <- x$index.cond[[i]][which.panel[i]]
 
                             pushViewport(viewport(layout.pos.row = pos.row - 1,
                                                   layout.pos.col = pos.col,
@@ -1047,7 +1104,9 @@ print.trellis <-
                             }
                             upViewport()
                         }
-            
+
+
+
 
 #########################################
 ###        draw strip(s) on left      ###
@@ -1057,11 +1116,11 @@ print.trellis <-
                         if (!is.logical(strip.left)) # logical <==> FALSE
                         {
                             ## which.panel in original cond variables order
-                            which.panel <- cond.current.level[x$perm.cond]
+                            which.panel <- cond.levels # [x$perm.cond]
 
-                            ## need to pass each index in original terms
-                            for (i in seq(along = which.panel))
-                                which.panel[i] <- x$index.cond[[i]][which.panel[i]]
+##                             ## need to pass each index in original terms
+##                             for (i in seq(along = which.panel))
+##                                 which.panel[i] <- x$index.cond[[i]][which.panel[i]]
 
                             pushViewport(viewport(layout.pos.row = pos.row,
                                                   layout.pos.col = pos.col - 1,
@@ -1097,9 +1156,9 @@ print.trellis <-
                             upViewport()
                         }
                     
-                        cond.current.level <-
-                            cupdate(cond.current.level,
-                                    cond.max.level)
+##                         cond.levels <-
+##                             cupdate(cond.levels,
+##                                     cond.max.levels)
                     }
                 }
 
@@ -1117,42 +1176,38 @@ print.trellis <-
 
                     if (key.space == "left")
                     {
-                        pushViewport(viewport(layout.pos.col = pos.widths$key.left,
-                                              layout.pos.row = range(pos.heights$panel, pos.heights$strip),
-                                              name = trellis.vpname("legend", side = "left")))
-                        grid.draw(key.gf)
-                        upViewport()
+                        drawInViewport(key.gf,
+                                       viewport(layout.pos.col = pos.widths$key.left,
+                                                layout.pos.row = range(pos.heights$panel, pos.heights$strip),
+                                                name = trellis.vpname("legend", side = "left")))
                     }
                     else if (key.space == "right")
                     {
-                        pushViewport(viewport(layout.pos.col = pos.widths$key.right,
-                                              layout.pos.row = range(pos.heights$panel, pos.heights$strip),
-                                              name = trellis.vpname("legend", side = "right")))
-                        grid.draw(key.gf)
-                        upViewport()
+                        drawInViewport(key.gf,
+                                       viewport(layout.pos.col = pos.widths$key.right,
+                                                layout.pos.row = range(pos.heights$panel, pos.heights$strip),
+                                                name = trellis.vpname("legend", side = "right")))
                     }
                     else if (key.space == "top")
                     {
-                        pushViewport(viewport(layout.pos.row = pos.heights$key.top,
-                                              layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
-                                              name = trellis.vpname("legend", side = "top")))
-                        grid.draw(key.gf)
-                        upViewport()
+                        drawInViewport(key.gf,
+                                       viewport(layout.pos.row = pos.heights$key.top,
+                                                layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                                name = trellis.vpname("legend", side = "top")))
                     }
                     else if (key.space == "bottom")
                     {
-                        pushViewport(viewport(layout.pos.row = pos.heights$key.bottom,
-                                              layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
-                                              name = trellis.vpname("legend", side = "bottom")))
-                        grid.draw(key.gf)
-                        upViewport()
+
+                        drawInViewport(key.gf,
+                                       viewport(layout.pos.row = pos.heights$key.bottom,
+                                                layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                                name = trellis.vpname("legend", side = "bottom")))
                     }
                     else if (key.space == "inside")
                     {
                         pushViewport(viewport(layout.pos.row = c(1, n.row),
                                               layout.pos.col = c(1, n.col),
                                               name = trellis.vpname("legend", side = "inside")))
-
                         key.corner <-
                             if (is.null(legend[[i]]$corner)) c(0,1)
                             else legend[[i]]$corner
@@ -1202,9 +1257,9 @@ print.trellis <-
                                                   c("null", "grobheight", "npc"),
                                                   list(NULL, key.gf, NULL)))))
                         }
-                        pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
-                        grid.draw(key.gf)
-                        upViewport(3)
+                        drawInViewport(key.gf,
+                                       viewport(layout.pos.row = 2, layout.pos.col = 2))
+                        upViewport(2)
                     }
                 }
             }
@@ -1231,6 +1286,7 @@ print.trellis <-
         upViewport()
     }
 
+    ## restore earlier settings
     if (!is.null(x$par.settings))
     {
         assign("lattice.theme", opar, envir = .LatticeEnv)
@@ -1245,8 +1301,6 @@ print.trellis <-
     }
     else
         lattice.setStatus(current.plot.saved = FALSE)
-    lattice.setStatus(current.panel.positions = current.panel.positions)
-    lattice.setStatus(current.packet.positions = current.packet.positions)
     lattice.setStatus(current.focus.row = 0,
                       current.focus.column = 0,
                       vp.highlighted = FALSE,

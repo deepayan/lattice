@@ -141,6 +141,65 @@ yscale.components.default <-
 
 
 
+axis.default <-
+    function(side = c("top", "bottom", "left", "right"),
+             scales, components,
+             labels = c("default", "yes", "no"),
+             ticks = c("default", "yes", "no"))
+{
+    side <- match.arg(side)
+    labels <- match.arg(labels)
+    ticks <- match.arg(ticks)
+
+    ## FIXME: not yet available
+    row <- lattice.getStatus("current.focus.row")
+    column <- lattice.getStatus("current.focus.column")
+    layout.dim <- dim(trellis.currentLayout())
+
+    determineStatus <- function(x)
+    {
+        if (is.null(x) || (is.logical(x) && !x)) FALSE
+        else TRUE
+    }
+
+    do.ticks <-
+        switch(ticks,
+               yes = TRUE,
+               no = FALSE,
+               default = determineStatus(components[[side]]))
+    do.labels <-
+        switch(labels,
+               yes = TRUE,
+               no = FALSE,
+               default = "FIXME")
+
+    
+    axstck <- scales$tck
+    panel.axis(side = side,
+               at = xlabelinfo$at,
+               labels = xlabelinfo$lab,
+               draw.labels = (x.alternating[column] == 2 ||
+                              x.alternating[column] == 3), 
+               check.overlap = xlabelinfo$check.overlap,
+               outside = TRUE,
+               tick = TRUE,
+               tck = axstck[2],
+               rot = xaxis.rot[2],
+               text.col = xaxis.col.text,
+               text.alpha = xaxis.alpha.text,
+               text.cex = xaxis.cex[2],
+               text.font = xaxis.font,
+               text.fontfamily = xaxis.fontfamily,
+               text.fontface = xaxis.fontface,
+               line.col = xaxis.col.line,
+               line.lty = xaxis.lty,
+               line.lwd = xaxis.lwd,
+               line.alpha = xaxis.alpha.line)
+
+
+}
+
+
 
 
 ## FIXME: Long term goal: some of the following code is possibly too
@@ -786,9 +845,4 @@ panel.axis <-
     }
     invisible()
 }
-
-
-
-
-
 
