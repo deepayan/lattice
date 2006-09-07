@@ -626,6 +626,102 @@ print.trellis <-
                         pos.row <- pos.heights$panel[row]
                         pos.col <- pos.widths$panel[column]
 
+
+
+                        xscale.comps <-
+                            if (x.relation.same)
+                                x$xscale.components(lim = x$x.limits, 
+                                                    ## FIXME: needs work packet.list = ...
+                                                    top = TRUE,
+
+                                                    ## rest passed on to
+                                                    ## calculateAxisComponents
+                                                    ## in the default
+                                                    ## case:
+                                                    at = x$x.scales$at,
+                                                    used.at = x$x.used.at,
+                                                    num.limit = x$x.num.limit,
+                                                    labels = x$x.scales$lab,
+                                                    logsc = x$x.scales$log,
+                                                    abbreviate = x$x.scales$abbr,
+                                                    minlength = x$x.scales$minl,
+                                                    n = x$x.scales$tick.number,
+                                                    format.posixt = x$x.scales$format)
+                            else 
+                                x$xscale.components(lim = x$x.limits[[packet.number]], 
+                                                    ## FIXME: needs work packet.list = ...
+                                                    top = FALSE,
+
+                                                    ## rest passed on to
+                                                    ## calculateAxisComponents
+                                                    ## in the default
+                                                    ## case:
+
+                                                    at = if (is.list(x$x.scales$at))
+                                                    x$x.scales$at[[packet.number]]
+                                                    else x$x.scales$at,
+                                                    used.at = x$x.used.at[[packet.number]],
+                                                    num.limit = x$x.num.limit[[packet.number]],
+                                                    labels =
+                                                    if (is.list(x$x.scales$lab))
+                                                    x$x.scales$lab[[packet.number]]
+                                                    else x$x.scales$lab,
+                                                    logsc = x$x.scales$log,
+                                                    abbreviate = x$x.scales$abbr,
+                                                    minlength = x$x.scales$minl,
+                                                    n = x$x.scales$tick.number,
+                                                    format.posixt = x$x.scales$format)
+
+
+                        yscale.comps <-
+                            if (y.relation.same)
+                                x$yscale.components(lim = x$y.limits, 
+                                                    ## FIXME: needs work packet.list = ...
+                                                    right = TRUE,
+
+                                                    ## rest passed on to
+                                                    ## calculateAxisComponents
+                                                    ## in the default
+                                                    ## case:
+                                                    at = x$y.scales$at,
+                                                    used.at = x$y.used.at,
+                                                    num.limit = x$y.num.limit,
+                                                    labels = x$y.scales$lab,
+                                                    logsc = x$y.scales$log,
+                                                    abbreviate = x$y.scales$abbr,
+                                                    minlength = x$y.scales$minl,
+                                                    n = x$y.scales$tick.number,
+                                                    format.posixt = x$y.scales$format)
+                            else 
+                                x$yscale.components(lim = x$y.limits[[packet.number]], 
+                                                    ## FIXME: needs work packet.list = ...
+                                                    right = FALSE,
+
+                                                    ## rest passed on to
+                                                    ## calculateAxisComponents
+                                                    ## in the default
+                                                    ## case:
+
+                                                    at = if (is.list(x$y.scales$at))
+                                                    x$y.scales$at[[packet.number]]
+                                                    else x$y.scales$at,
+                                                    used.at = x$y.used.at[[packet.number]],
+                                                    num.limit = x$y.num.limit[[packet.number]],
+                                                    labels =
+                                                    if (is.list(x$y.scales$lab))
+                                                    x$y.scales$lab[[packet.number]]
+                                                    else x$y.scales$lab,
+                                                    logsc = x$y.scales$log,
+                                                    abbreviate = x$y.scales$abbr,
+                                                    minlength = x$y.scales$minl,
+                                                    n = x$y.scales$tick.number,
+                                                    format.posixt = x$y.scales$format)
+
+
+                                                    
+
+
+
                         xlabelinfo <-
                             calculateAxisComponents(x =
                                                     if (x.relation.same) x$x.limits
@@ -678,9 +774,11 @@ print.trellis <-
                                                     n = x$y.scales$tick.number,
                                                     format.posixt = x$y.scales$format)
 
-                        xscale <- xlabelinfo$num.limit
-                        yscale <- ylabelinfo$num.limit
+##                         xscale <- xlabelinfo$num.limit
+##                         yscale <- ylabelinfo$num.limit
 
+                        xscale <- xscale.comps$num.limit
+                        yscale <- yscale.comps$num.limit
 
 ############################################
 ###        drawing the axes               ##

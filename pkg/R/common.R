@@ -458,6 +458,8 @@ trellis.skeleton <-
              skip = default.args$skip,
              strip = default.args$strip.default,
              strip.left = FALSE,
+             xscale.components = default.args$xscale.components,
+             yscale.components = default.args$yscale.components,
              xlab = NULL,
              ylab = NULL,
              xlab.default = NULL,
@@ -474,7 +476,7 @@ trellis.skeleton <-
     foo <-
         list(formula = formula,
              as.table = as.table,
-             aspect.fill = aspect == "fill",
+             aspect.fill = (aspect == "fill"),
              ## key = key,
              legend = construct.legend(legend = legend, key = key),
              panel = panel, 
@@ -485,6 +487,8 @@ trellis.skeleton <-
              else strip,
              strip.left = if (is.logical(strip.left) && strip.left) strip.custom(horizontal = FALSE)
              else strip.left,
+             xscale.components = xscale.components,
+             yscale.components = yscale.components,
              xlab = xlab,
              ylab = ylab,
              xlab.default = xlab.default,
