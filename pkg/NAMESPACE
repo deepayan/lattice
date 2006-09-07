@@ -9,7 +9,7 @@ import(grid)
 ## export(grid.prompt)
 
 
-importFrom(grDevices, dev.list, cm.colors, gray, heat.colors)
+importFrom(grDevices, dev.list, cm.colors, gray, heat.colors, grey, hsv)
 importFrom(graphics, plot, co.intervals)
 
 
