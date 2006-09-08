@@ -139,11 +139,15 @@ yscale.components.default <-
 
 
 
+## default function to draw axes.  This (or its user-specified
+## replacement) will be called once for each side of each panel,
+## regardless of whether relation == "same".
+
 
 
 axis.default <-
     function(side = c("top", "bottom", "left", "right"),
-             scales, components,
+             scales, components, as.table,
              labels = c("default", "yes", "no"),
              ticks = c("default", "yes", "no"))
 {
@@ -151,51 +155,78 @@ axis.default <-
     labels <- match.arg(labels)
     ticks <- match.arg(ticks)
 
-    ## FIXME: not yet available
     row <- lattice.getStatus("current.focus.row")
     column <- lattice.getStatus("current.focus.column")
-    layout.dim <- dim(trellis.currentLayout())
+    panel.layout <- trellis.currentLayout("panel")
+    layout.dim <- dim(panel.layout)
 
     determineStatus <- function(x)
     {
         if (is.null(x) || (is.logical(x) && !x)) FALSE
         else TRUE
     }
+    lastPanel <- function()
+    {
+        ## is this the last panel? In that case, it is considered to
+        ## be ``on the boundary'' on the right side.
+        ((pn <- panel.number()) > 0 && pn == max(panel.layout))
+    }
+    atBoundary <- function()
+    {
+        switch(side,
+               top = if (as.table) row == 1 else row == layout.dim[1],
+               bottom = if (!as.table) row == 1 else row == layout.dim[1],
+               left = column == 1,
+               right = column == layout.dim[2] || lastPanel())
+    }
 
+    ## what about scales$relation ?
     do.ticks <-
         switch(ticks,
                yes = TRUE,
                no = FALSE,
-               default = determineStatus(components[[side]]))
+               default = atBoundary() && determineStatus(components[[side]]))
     do.labels <-
         switch(labels,
                yes = TRUE,
                no = FALSE,
-               default = "FIXME")
 
-    
-    axstck <- scales$tck
-    panel.axis(side = side,
-               at = xlabelinfo$at,
-               labels = xlabelinfo$lab,
-               draw.labels = (x.alternating[column] == 2 ||
-                              x.alternating[column] == 3), 
-               check.overlap = xlabelinfo$check.overlap,
-               outside = TRUE,
-               tick = TRUE,
-               tck = axstck[2],
-               rot = xaxis.rot[2],
-               text.col = xaxis.col.text,
-               text.alpha = xaxis.alpha.text,
-               text.cex = xaxis.cex[2],
-               text.font = xaxis.font,
-               text.fontfamily = xaxis.fontfamily,
-               text.fontface = xaxis.fontface,
-               line.col = xaxis.col.line,
-               line.lty = xaxis.lty,
-               line.lwd = xaxis.lwd,
-               line.alpha = xaxis.alpha.line)
+               default =
+               atBoundary() &&
 
+               ## rule: if (alternating[row/column] %in% c(2, 3)) for
+               ## a ``boundary'' panel, then draw, otherwise don't.
+               switch(side,
+                      top    = rep(scales$alternating, length = column)[column] %in% c(2, 3),
+                      bottom = rep(scales$alternating, length = column)[column] %in% c(1, 3),
+                      left   = rep(scales$alternating, length = row)[row] %in% c(1, 3),
+                      right  = rep(scales$alternating, length = row)[row] %in% c(2, 3))
+               )
+
+    if (do.ticks || do.labels)
+    {
+        axstck <- scales$tck
+        panel.axis(side = side,
+                   at = xlabelinfo$at,
+                   labels = xlabelinfo$lab,
+                   draw.labels = (x.alternating[column] == 2 ||
+                                  x.alternating[column] == 3), 
+                   check.overlap = xlabelinfo$check.overlap,
+                   outside = TRUE,
+                   tick = TRUE,
+                   tck = axstck[2],
+                   rot = xaxis.rot[2],
+                   text.col = xaxis.col.text,
+                   text.alpha = xaxis.alpha.text,
+                   text.cex = xaxis.cex[2],
+                   text.font = xaxis.font,
+                   text.fontfamily = xaxis.fontfamily,
+                   text.fontface = xaxis.fontface,
+                   line.col = xaxis.col.line,
+                   line.lty = xaxis.lty,
+                   line.lwd = xaxis.lwd,
+                   line.alpha = xaxis.alpha.line)
+    }
 
 }
 
