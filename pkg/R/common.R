@@ -460,6 +460,7 @@ trellis.skeleton <-
              strip.left = FALSE,
              xscale.components = default.args$xscale.components,
              yscale.components = default.args$yscale.components,
+             axis = default.args$axis,
              xlab = NULL,
              ylab = NULL,
              xlab.default = NULL,
@@ -471,7 +472,6 @@ trellis.skeleton <-
              ...)
 {
     default.args <- lattice.getOption("default.args")
-
     if (is.null(skip)) skip <- FALSE
     foo <-
         list(formula = formula,
@@ -489,6 +489,7 @@ trellis.skeleton <-
              else strip.left,
              xscale.components = xscale.components,
              yscale.components = yscale.components,
+             axis = axis,
              xlab = xlab,
              ylab = ylab,
              xlab.default = xlab.default,
