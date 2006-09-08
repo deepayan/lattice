@@ -753,7 +753,8 @@ lattice.options <- function(...)
               skip = FALSE,
               strip = strip.default,
               xscale.components = xscale.components.default,
-              yscale.components = yscale.components.default),
+              yscale.components = yscale.components.default,
+              axis = axis.default),
 
          axis.padding = list(numeric = 0.07, factor = 0.6),
 

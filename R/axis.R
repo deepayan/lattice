@@ -51,12 +51,16 @@ current.panel.limits <- function(unit = "native")
 ## packet otherwise.  The major difference is that there can be
 ## different things on opposite sides (left/right or top/bottom),
 ## e.g. both transformed and original axes on log transformed data.
-## To make things sufficiently general, the output could either be (1)
-## a list with tick locations, labels, etc. or (2) a ``grob''.  (I
-## don't necessarily endorse the idea of having a grid dependency
-## built into the Trellis object, as opposed to just the plotting
-## procedure, but that ship has sailed a long time back: xlab, main,
-## etc can already be grobs.)
+
+## The output can be a list with tick locations, labels, etc.  I also
+## considered allowing it to be a ``grob''.  (I don't necessarily
+## endorse the idea of having a grid dependency built into the Trellis
+## object, as opposed to just the plotting procedure, but that ship
+## has sailed a long time back: xlab, main, etc can already be grobs.)
+## However, this is difficult to implement, and I don't even know how
+## to design a grob that will be properly coordinated with the axes.
+## Anyone who can figure that out will also be capable of writing a
+## custom axis function.
 
 
 ## Output formats: The output is a list of the form
@@ -81,7 +85,7 @@ current.panel.limits <- function(unit = "native")
 ## left =
 ## list(ticks = list(at = ..., tck = ...),
 ##      labels =
-##      list(at = ..., labels = ..., cex = ..., check.overlap = TRUE))
+##      list(at = ..., labels = ..., check.overlap = TRUE))
 
 ## or
 
@@ -103,11 +107,10 @@ xscale.components.default <-
     ans <-
         list(num.limit = comps$num.limit,
              bottom =
-             list(ticks = list(at = comps$at, tck = 1, lwd = 1),
+             list(ticks = list(at = comps$at, tck = 1),
                   labels =
                   list(at = comps$at,
                        labels = comps$labels,
-                       cex = 1,
                        check.overlap = comps$check.overlap)),
              top = top)
 }
@@ -149,7 +152,8 @@ axis.default <-
     function(side = c("top", "bottom", "left", "right"),
              scales, components, as.table,
              labels = c("default", "yes", "no"),
-             ticks = c("default", "yes", "no"))
+             ticks = c("default", "yes", "no"),
+             ...)
 {
     side <- match.arg(side)
     labels <- match.arg(labels)
@@ -205,27 +209,24 @@ axis.default <-
 
     if (do.ticks || do.labels)
     {
-        axstck <- scales$tck
+        comp.list <-
+            switch(side,
+                   top = if (is.logical(components[["top"]]) && components[["top"]]) components[["bottom"]] else components[["top"]],
+                   bottom = components[["bottom"]],
+                   left = components[["left"]],
+                   right = if (is.logical(components[["right"]]) && components[["right"]]) components[["left"]] else components[["right"]])
+
+            
         panel.axis(side = side,
-                   at = xlabelinfo$at,
-                   labels = xlabelinfo$lab,
-                   draw.labels = (x.alternating[column] == 2 ||
-                                  x.alternating[column] == 3), 
-                   check.overlap = xlabelinfo$check.overlap,
+                   at = comp.list$ticks$at,
+                   labels = comp.list$labels$labels,
+                   draw.labels = do.labels, 
+                   check.overlap = comp.list$labels$check.overlap,
                    outside = TRUE,
-                   tick = TRUE,
-                   tck = axstck[2],
-                   rot = xaxis.rot[2],
-                   text.col = xaxis.col.text,
-                   text.alpha = xaxis.alpha.text,
-                   text.cex = xaxis.cex[2],
-                   text.font = xaxis.font,
-                   text.fontfamily = xaxis.fontfamily,
-                   text.fontface = xaxis.fontface,
-                   line.col = xaxis.col.line,
-                   line.lty = xaxis.lty,
-                   line.lwd = xaxis.lwd,
-                   line.alpha = xaxis.alpha.line)
+                   tick = do.ticks,
+                   tck = scales$tck * comp.list$ticks$tck,
+                   ...)
+
     }
 
 }
@@ -791,11 +792,11 @@ panel.axis <-
     tck.unit.x <- tck * axis.settings$tck * axis.units$tick$x
     tck.unit <- unit(x = tck.unit.x, units = axis.units$tick$units)
     lab.unit <-
-        if (tck.unit.x > 0) tck.unit + unit(x = axis.settings$pad1 * axis.units$pad1$x, units = axis.units$pad1$units)
+        if (any(tck.unit.x > 0)) tck.unit + unit(x = axis.settings$pad1 * axis.units$pad1$x, units = axis.units$pad1$units)
         else unit(x = axis.settings$pad1 * axis.units$pad1$x, units = axis.units$pad1$units)
     orient.factor <- if (outside) -1 else 1
 
-    if (tck.unit.x != 0)
+    if (any(tck.unit.x != 0))
         switch(side, 
                bottom = 
                grid.segments(x0 = unit(at[axid], "native"),

@@ -150,6 +150,8 @@ print.trellis <-
              prefix,
              ...)
 {
+    ## make sure we have a device open
+
     if (is.null(dev.list())) trellis.device()
     else if (is.null(trellis.par.get()))
         trellis.device(device = .Device, new = FALSE)
@@ -163,6 +165,9 @@ print.trellis <-
         opar <- get("lattice.theme", envir = .LatticeEnv)
         trellis.par.set(theme = x$par.settings)
     }
+
+
+
 
     bg <- trellis.par.get("background")$col
     new <-  newpage && !lattice.getStatus("print.more") && is.null(draw.in)
@@ -566,7 +571,9 @@ print.trellis <-
     ## packet.number, which is an index to which packet combination is
     ## being used.
 
-    message("no of pages: ", number.of.pages)
+
+    ## FIXME: what happens when number of pages is 0?
+    ## message("no of pages: ", number.of.pages)
 
     for(page.number in seq(length = number.of.pages))
     {
@@ -774,63 +781,6 @@ print.trellis <-
                                                     format.posixt = x$y.scales$format)
 
 
-
-
-                        xlabelinfo <-
-                            calculateAxisComponents(x =
-                                                    if (x.relation.same) x$x.limits
-                                                    else x$x.limits[[packet.number]],
-
-                                                    at = if (is.list(x$x.scales$at))
-                                                    x$x.scales$at[[packet.number]]
-                                                    else x$x.scales$at,
-
-                                                    used.at = if (!x.relation.same)
-                                                    x$x.used.at[[packet.number]] else x$x.used.at,
-
-                                                    num.limit = if (!x.relation.same)
-                                                    x$x.num.limit[[packet.number]] else x$x.num.limit,
-
-                                                    labels =
-                                                    if (is.list(x$x.scales$lab))
-                                                    x$x.scales$lab[[packet.number]]
-                                                    else x$x.scales$lab,
-
-                                                    logsc = x$x.scales$log,
-                                                    abbreviate = x$x.scales$abbr,
-                                                    minlength = x$x.scales$minl,
-                                                    n = x$x.scales$tick.number,
-                                                    format.posixt = x$x.scales$format)
-
-                        ylabelinfo <-
-                            calculateAxisComponents(x =
-                                                    if (y.relation.same) x$y.limits
-                                                    else x$y.limits[[packet.number]],
-
-                                                    at = if (is.list(x$y.scales$at))
-                                                    x$y.scales$at[[packet.number]]
-                                                    else x$y.scales$at,
-
-                                                    used.at = if (!y.relation.same)
-                                                    x$y.used.at[[packet.number]] else x$y.used.at,
-
-                                                    num.limit = if (!y.relation.same)
-                                                    x$y.num.limit[[packet.number]] else x$y.num.limit,
-
-                                                    labels =
-                                                    if (is.list(x$y.scales$lab))
-                                                    x$y.scales$lab[[packet.number]]
-                                                    else x$y.scales$lab,
-
-                                                    logsc = x$y.scales$log,
-                                                    abbreviate = x$y.scales$abbr,
-                                                    minlength = x$y.scales$minl,
-                                                    n = x$y.scales$tick.number,
-                                                    format.posixt = x$y.scales$format)
-
-##                         xscale <- xlabelinfo$num.limit
-##                         yscale <- ylabelinfo$num.limit
-
                         xscale <- xscale.comps$num.limit
                         yscale <- yscale.comps$num.limit
 
@@ -842,10 +792,11 @@ print.trellis <-
 ### whether or not axes are drawn, we'll create viewports for them
 ### anyway, so that users can later interactively add axes/other stuff
 ### if they wish.  First up, we'll have a 'strip.column.row.off'
-### viewport for the top axes, and then a 'panel.column.row.off'
-### viewport for the other 3.  The names may seem a bit unintuitive,
-### and perhaps they are, but some justification is provided in
-### help(trellis.focus)
+### viewport for the top axes, then another one for those on the left
+### (there can be strips on the left too), and then a
+### 'panel.column.row.off' viewport for the other 2 (no strips allowed
+### there).  The names may seem a bit unintuitive, and perhaps they
+### are, but some justification is provided in help(trellis.focus)
 
 
                         pushViewport(viewport(layout.pos.row = pos.row - 1,
@@ -858,36 +809,24 @@ print.trellis <-
                                                              row = row,
                                                              clip.off = TRUE)))
                         ## X-axis above
-
-
-
-                        ## old version
-                        if (FALSE && x$x.scales$draw && x.relation.same && actual.row == rows.per.page)
-                        {
-                            axstck <- x$x.scales$tck
-                            panel.axis(side = "top",
-                                       at = xlabelinfo$at,
-                                       labels = xlabelinfo$lab,
-                                       draw.labels = (x.alternating[column]==2 ||
-                                                      x.alternating[column]==3), 
-                                       check.overlap = xlabelinfo$check.overlap,
-                                       outside = TRUE,
-                                       tick = TRUE,
-                                       tck = axstck[2],
-                                       rot = xaxis.rot[2],
-                                       text.col = xaxis.col.text,
-                                       text.alpha = xaxis.alpha.text,
-                                       text.cex = xaxis.cex[2],
-                                       text.font = xaxis.font,
-                                       text.fontfamily = xaxis.fontfamily,
-                                       text.fontface = xaxis.fontface,
-                                       line.col = xaxis.col.line,
-                                       line.lty = xaxis.lty,
-                                       line.lwd = xaxis.lwd,
-                                       line.alpha = xaxis.alpha.line)
-                        }
+                        x$axis(side = "top",
+                               scales = x$x.scales,
+                               components = xscale.comps,
+                               as.table = x$as.table,
+                               rot = xaxis.rot[2],
+                               text.col = xaxis.col.text,
+                               text.alpha = xaxis.alpha.text,
+                               text.cex = xaxis.cex[2],
+                               text.font = xaxis.font,
+                               text.fontfamily = xaxis.fontfamily,
+                               text.fontface = xaxis.fontface,
+                               line.col = xaxis.col.line,
+                               line.lty = xaxis.lty,
+                               line.lwd = xaxis.lwd,
+                               line.alpha = xaxis.alpha.line)
                         upViewport()
 
+                        ## Y-axis to the left
                         pushViewport(viewport(layout.pos.row = pos.row,
                                               layout.pos.col = pos.col - 1,
                                               yscale = yscale,
@@ -897,36 +836,24 @@ print.trellis <-
                                                              column = column,
                                                              row = row,
                                                              clip.off = TRUE)))
-
-                        ## Y-axis to the left
-                        if (x$y.scales$draw && (!y.relation.same || column == 1))
-                        {
-                            axstck <- x$y.scales$tck
-                            panel.axis(side = "left",
-                                       at = ylabelinfo$at,
-                                       labels = ylabelinfo$lab,
-                                       draw.labels = (!y.relation.same ||
-                                                      y.alternating[row]==1 ||
-                                                      y.alternating[row]==3), 
-                                       check.overlap = ylabelinfo$check.overlap,
-                                       outside = TRUE,
-                                       tick = TRUE,
-                                       tck = axstck[1],
-                                       rot = yaxis.rot[1],
-                                       text.col = yaxis.col.text,
-                                       text.alpha = yaxis.alpha.text,
-                                       text.cex = yaxis.cex[1],
-                                       text.font = yaxis.font,
-                                       text.fontfamily = yaxis.fontfamily,
-                                       text.fontface = xaxis.fontface,
-                                       line.col = yaxis.col.line,
-                                       line.lty = yaxis.lty,
-                                       line.lwd = yaxis.lwd,
-                                       line.alpha = yaxis.alpha.line)
-                        }
+                        x$axis(side = "left",
+                               scales = x$y.scales,
+                               components = yscale.comps,
+                               as.table = x$as.table,
+                               rot = yaxis.rot[1],
+                               text.col = yaxis.col.text,
+                               text.alpha = yaxis.alpha.text,
+                               text.cex = yaxis.cex[1],
+                               text.font = yaxis.font,
+                               text.fontfamily = yaxis.fontfamily,
+                               text.fontface = yaxis.fontface,
+                               line.col = yaxis.col.line,
+                               line.lty = yaxis.lty,
+                               line.lwd = yaxis.lwd,
+                               line.alpha = yaxis.alpha.line)
                         upViewport()
 
-
+                        ## X-axis bottom and Y-axis right
                         pushViewport(viewport(layout.pos.row = pos.row,
                                               layout.pos.col = pos.col,
                                               xscale = xscale,
@@ -937,77 +864,43 @@ print.trellis <-
                                                              column = column,
                                                              row = row,
                                                              clip.off = TRUE)))
-
-
                         ## X-axis below
-                        if (x$x.scales$draw && (!x.relation.same || actual.row == 1))
-                        {
-                            axstck <- x$x.scales$tck
-                            panel.axis(side = "bottom",
-                                       at = xlabelinfo$at,
-                                       labels = xlabelinfo$lab,
-                                       draw.labels = (!x.relation.same ||
-                                                      x.alternating[column]==1 ||
-                                                      x.alternating[column]==3), 
-                                       check.overlap = xlabelinfo$check.overlap,
-                                       outside = TRUE,
-                                       tick = TRUE,
-                                       tck = axstck[1],
-                                       rot = xaxis.rot[1],
-                                       text.col = xaxis.col.text,
-                                       text.alpha = xaxis.alpha.text,
-                                       text.cex = xaxis.cex[1],
-                                       text.font = xaxis.font,
-                                       text.fontfamily = xaxis.fontfamily,
-                                       text.fontface = xaxis.fontface,
-                                       line.col = xaxis.col.line,
-                                       line.lty = xaxis.lty,
-                                       line.lwd = xaxis.lwd,
-                                       line.alpha = xaxis.alpha.line)
-                        }
-
-
-
-
-                        ## Y-axis
-                        
-
+                        x$axis(side = "bottom",
+                               scales = x$x.scales,
+                               components = xscale.comps,
+                               as.table = x$as.table,
+                               rot = xaxis.rot[1],
+                               text.col = xaxis.col.text,
+                               text.alpha = xaxis.alpha.text,
+                               text.cex = xaxis.cex[1],
+                               text.font = xaxis.font,
+                               text.fontfamily = xaxis.fontfamily,
+                               text.fontface = xaxis.fontface,
+                               line.col = xaxis.col.line,
+                               line.lty = xaxis.lty,
+                               line.lwd = xaxis.lwd,
+                               line.alpha = xaxis.alpha.line)
                         ## Y-axis to the right
-
-                        ## A special case where we need to do this is
-                        ## when the panel is the last one on the page.
-                        ## Unfortunately, I can't think of an easy way
-                        ## to determine this.  One thing I could do,
-                        ## and one that should cover most reasonable
-                        ## cases, is to do this for the absolutely
-                        ## last panel.
-
-                        if (x$y.scales$draw && y.relation.same &&
-                            (column == cols.per.page || panel.number == last.panel))
-                        {
-                            axstck <- x$y.scales$tck
-                            panel.axis(side = "right",
-                                       at = ylabelinfo$at,
-                                       labels = ylabelinfo$lab,
-                                       draw.labels = (y.alternating[row]==2 ||
-                                                      y.alternating[row]==3), 
-                                       check.overlap = ylabelinfo$check.overlap,
-                                       outside = TRUE,
-                                       tick = TRUE,
-                                       tck = axstck[2],
-                                       rot = yaxis.rot[2],
-                                       text.col = yaxis.col.text,
-                                       text.alpha = yaxis.alpha.text,
-                                       text.cex = yaxis.cex[2],
-                                       text.font = yaxis.font,
-                                       text.fontfamily = yaxis.fontfamily,
-                                       text.fontface = xaxis.fontface,
-                                       line.col = yaxis.col.line,
-                                       line.lty = yaxis.lty,
-                                       line.lwd = yaxis.lwd,
-                                       line.alpha = yaxis.alpha.line)
-                        }
+                        x$axis(side = "right",
+                               scales = x$y.scales,
+                               components = yscale.comps,
+                               as.table = x$as.table,
+                               rot = yaxis.rot[2],
+                               text.col = yaxis.col.text,
+                               text.alpha = yaxis.alpha.text,
+                               text.cex = yaxis.cex[2],
+                               text.font = yaxis.font,
+                               text.fontfamily = yaxis.fontfamily,
+                               text.fontface = yaxis.fontface,
+                               line.col = yaxis.col.line,
+                               line.lty = yaxis.lty,
+                               line.lwd = yaxis.lwd,
+                               line.alpha = yaxis.alpha.line)
                         upViewport()
+
+############################################
+###        done drawing axes              ##
+############################################
 
 
 
@@ -1057,18 +950,11 @@ print.trellis <-
 
 
 #########################################
-###        draw strip(s)              ###
+###      draw strip(s) on top         ###
 #########################################
 
                         if (!is.logical(strip)) # logical <==> FALSE
                         {
-                            ## which.panel in original cond variables order
-                            which.panel <- cond.levels #[x$perm.cond]
-
-##                             ## need to pass each index in original terms
-##                             for (i in seq(along = which.panel))
-##                                 which.panel[i] <- x$index.cond[[i]][which.panel[i]]
-
                             pushViewport(viewport(layout.pos.row = pos.row - 1,
                                                   layout.pos.col = pos.col,
                                                   clip = trellis.par.get("clip")$strip,
@@ -1077,17 +963,14 @@ print.trellis <-
                                                                  column = column,
                                                                  row = row,
                                                                  clip.off = FALSE)))
-                            
-
                             for(i in seq(length = number.of.cond))
                             {
-
                                 ## Here, by which.given, I mean which
                                 ## in the original order, not the
                                 ## permuted order
 
                                 strip(which.given = x$perm.cond[i],
-                                      which.panel = which.panel,
+                                      which.panel = cond.levels,
                                       panel.number = panel.number,
                                       packet.number = packet.number,
 
@@ -1115,13 +998,6 @@ print.trellis <-
 
                         if (!is.logical(strip.left)) # logical <==> FALSE
                         {
-                            ## which.panel in original cond variables order
-                            which.panel <- cond.levels # [x$perm.cond]
-
-##                             ## need to pass each index in original terms
-##                             for (i in seq(along = which.panel))
-##                                 which.panel[i] <- x$index.cond[[i]][which.panel[i]]
-
                             pushViewport(viewport(layout.pos.row = pos.row,
                                                   layout.pos.col = pos.col - 1,
                                                   clip = trellis.par.get("clip")$strip,
@@ -1139,7 +1015,7 @@ print.trellis <-
                                 ## the permuted order
 
                                 strip.left(which.given = x$perm.cond[i],
-                                           which.panel = which.panel,
+                                           which.panel = cond.levels,
                                            panel.number = panel.number,
                                            packet.number = packet.number,
 
@@ -1155,13 +1031,8 @@ print.trellis <-
                             }
                             upViewport()
                         }
-                    
-##                         cond.levels <-
-##                             cupdate(cond.levels,
-##                                     cond.max.levels)
                     }
                 }
-
 
 
             ## legend / key plotting
@@ -1174,117 +1045,121 @@ print.trellis <-
                     key.space <- locs[i]
                     key.gf <- legend[[i]]$obj
 
-                    if (key.space == "left")
-                    {
-                        drawInViewport(key.gf,
-                                       viewport(layout.pos.col = pos.widths$key.left,
-                                                layout.pos.row = range(pos.heights$panel, pos.heights$strip),
-                                                name = trellis.vpname("legend", side = "left")))
-                    }
-                    else if (key.space == "right")
-                    {
-                        drawInViewport(key.gf,
-                                       viewport(layout.pos.col = pos.widths$key.right,
-                                                layout.pos.row = range(pos.heights$panel, pos.heights$strip),
-                                                name = trellis.vpname("legend", side = "right")))
-                    }
-                    else if (key.space == "top")
-                    {
-                        drawInViewport(key.gf,
-                                       viewport(layout.pos.row = pos.heights$key.top,
-                                                layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
-                                                name = trellis.vpname("legend", side = "top")))
-                    }
-                    else if (key.space == "bottom")
-                    {
+                    switch(key.space,
+                           left = 
+                           drawInViewport(key.gf,
+                                          viewport(layout.pos.col = pos.widths$key.left,
+                                                   layout.pos.row = range(pos.heights$panel, pos.heights$strip),
+                                                   name = trellis.vpname("legend", side = "left"))),
+                           right = 
+                           drawInViewport(key.gf,
+                                          viewport(layout.pos.col = pos.widths$key.right,
+                                                   layout.pos.row = range(pos.heights$panel, pos.heights$strip),
+                                                   name = trellis.vpname("legend", side = "right"))),
+                           top = 
+                           drawInViewport(key.gf,
+                                          viewport(layout.pos.row = pos.heights$key.top,
+                                                   layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                                   name = trellis.vpname("legend", side = "top"))),
+                           bottom = 
+                           drawInViewport(key.gf,
+                                          viewport(layout.pos.row = pos.heights$key.bottom,
+                                                   layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                                   name = trellis.vpname("legend", side = "bottom"))),
+                           inside = {
 
-                        drawInViewport(key.gf,
-                                       viewport(layout.pos.row = pos.heights$key.bottom,
-                                                layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
-                                                name = trellis.vpname("legend", side = "bottom")))
-                    }
-                    else if (key.space == "inside")
-                    {
-                        pushViewport(viewport(layout.pos.row = c(1, n.row),
-                                              layout.pos.col = c(1, n.col),
-                                              name = trellis.vpname("legend", side = "inside")))
-                        key.corner <-
-                            if (is.null(legend[[i]]$corner)) c(0,1)
-                            else legend[[i]]$corner
-                        key.x <- 
-                            if (is.null(legend[[i]]$x)) key.corner[1]
-                            else legend[[i]]$x
-                        key.y <- 
-                            if (is.null(legend[[i]]$y)) key.corner[2]
-                            else legend[[i]]$y
-                        if (all(key.corner == c(0,1)))
-                        {
-                            pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
-                                                  widths = unit(c(key.x, 1, 1),
-                                                  c("npc", "grobwidth", "null"),
-                                                  list(NULL, key.gf, NULL)),
-                                                  heights = unit(c(1 - key.y, 1, 1),
-                                                  c("npc", "grobheight", "null"),
-                                                  list(NULL, key.gf, NULL)))))
-                        }
-                        else if (all(key.corner == c(1,1)))
-                        {
-                            pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
-                                                  heights = unit(c(1 - key.y, 1, 1),
-                                                  c("npc", "grobheight", "null"),
-                                                  list(NULL, key.gf, NULL)),
-                                                  widths = unit(c(1, 1, 1 - key.x),
-                                                  c("null", "grobwidth", "npc"),
-                                                  list(NULL, key.gf, NULL)))))
-                        }
-                        else if (all(key.corner == c(0,0)))
-                        {
-                            pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
-                                                  widths = unit(c(key.x, 1, 1),
-                                                  c("npc", "grobwidth", "null"),
-                                                  list(NULL, key.gf, NULL)),
-                                                  heights = unit(c(1, 1, key.y),
-                                                  c("null", "grobheight", "npc"),
-                                                  list(NULL, key.gf, NULL)))))
-                        }
-                        else if (all(key.corner == c(1,0)))
-                        {
-                            pushViewport(viewport(layout=grid.layout(nrow = 3, ncol = 3,
-                                                  widths = unit(c(1, 1, 1 - key.x),
-                                                  c("null", "grobwidth", "npc"),
-                                                  list(NULL, key.gf, NULL)),
-                                                  heights = unit(c(1, 1, key.y),
-                                                  c("null", "grobheight", "npc"),
-                                                  list(NULL, key.gf, NULL)))))
-                        }
-                        drawInViewport(key.gf,
-                                       viewport(layout.pos.row = 2, layout.pos.col = 2))
-                        upViewport(2)
-                    }
+                               ## FIXME: there are two choices here
+                               ## --- either treat the whole figure
+                               ## region as the rectangle, or use just
+                               ## the region covered by the panels.
+                               ## Currently, the first is done.
+                               ## Ideally, it should be
+                               ## user-controllable, presumably
+                               ## through lattice.options().  Easy to
+                               ## do, just need to figure out the
+                               ## limits.  Just not feeling
+                               ## enthusiastic enough right now.
+
+                               pushViewport(viewport(layout.pos.row = c(1, n.row),
+                                                     layout.pos.col = c(1, n.col),
+                                                     name = trellis.vpname("legend", side = "inside")))
+                               key.corner <-
+                                   if (is.null(legend[[i]]$corner)) c(0,1)
+                                   else legend[[i]]$corner
+                               key.x <- 
+                                   if (is.null(legend[[i]]$x)) key.corner[1]
+                                   else legend[[i]]$x
+                               key.y <- 
+                                   if (is.null(legend[[i]]$y)) key.corner[2]
+                                   else legend[[i]]$y
+                               if (all(key.corner == c(0,1)))
+                               {
+                                   pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
+                                                         widths = unit(c(key.x, 1, 1),
+                                                         c("npc", "grobwidth", "null"),
+                                                         list(NULL, key.gf, NULL)),
+                                                         heights = unit(c(1 - key.y, 1, 1),
+                                                         c("npc", "grobheight", "null"),
+                                                         list(NULL, key.gf, NULL)))))
+                               }
+                               else if (all(key.corner == c(1,1)))
+                               {
+                                   pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
+                                                         heights = unit(c(1 - key.y, 1, 1),
+                                                         c("npc", "grobheight", "null"),
+                                                         list(NULL, key.gf, NULL)),
+                                                         widths = unit(c(1, 1, 1 - key.x),
+                                                         c("null", "grobwidth", "npc"),
+                                                         list(NULL, key.gf, NULL)))))
+                               }
+                               else if (all(key.corner == c(0,0)))
+                               {
+                                   pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
+                                                         widths = unit(c(key.x, 1, 1),
+                                                         c("npc", "grobwidth", "null"),
+                                                         list(NULL, key.gf, NULL)),
+                                                         heights = unit(c(1, 1, key.y),
+                                                         c("null", "grobheight", "npc"),
+                                                         list(NULL, key.gf, NULL)))))
+                               }
+                               else if (all(key.corner == c(1,0)))
+                               {
+                                   pushViewport(viewport(layout=grid.layout(nrow = 3, ncol = 3,
+                                                         widths = unit(c(1, 1, 1 - key.x),
+                                                         c("null", "grobwidth", "npc"),
+                                                         list(NULL, key.gf, NULL)),
+                                                         heights = unit(c(1, 1, key.y),
+                                                         c("null", "grobheight", "npc"),
+                                                         list(NULL, key.gf, NULL)))))
+                               }
+                               drawInViewport(key.gf,
+                                              viewport(layout.pos.row = 2, layout.pos.col = 2))
+                               upViewport(2)
+                           })
+                       }
                 }
+                pushViewport(viewport(layout.pos.row = c(1, n.row),
+                                      layout.pos.col = c(1, n.col),
+                                      name = trellis.vpname("page")))
+                if (!is.null(x$page)) x$page(page.number)                
+                upViewport()
+                upViewport()
             }
-            pushViewport(viewport(layout.pos.row = c(1, n.row),
-                                  layout.pos.col = c(1, n.col),
-                                  name = trellis.vpname("page")))
-            if (!is.null(x$page)) x$page(page.number)                
-            upViewport()
+        }
+        if (!missing(position))
+        {
+            if (!missing(split))
+            {
+                upViewport()
+                upViewport()
+            }
             upViewport()
         }
-    }
-    if (!missing(position))
-    {
-        if (!missing(split))
+        else if (!missing(split))
         {
             upViewport()
             upViewport()
         }
-        upViewport()
-    }
-    else if (!missing(split))
-    {
-        upViewport()
-        upViewport()
-    }
 
     ## restore earlier settings
     if (!is.null(x$par.settings))
