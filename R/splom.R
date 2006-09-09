@@ -149,8 +149,8 @@ panel.pairs <-
              subscripts,
              pscales = 5,
 
-             packet.number = 0,  ## should always be supplied
-             panel.number = 0,  ## should always be supplied
+##              packet.number = 0,  ## should always be supplied
+##              panel.number = 0,  ## should always be supplied
 
              prepanel.limits = function(x) if (is.factor(x)) levels(x) else
              extend.limits(range(as.numeric(x), finite = TRUE)),
@@ -266,8 +266,8 @@ panel.pairs <-
                                limits = lim[[i]],
                                at = axls, lab = labels,
                                draw = draw,
-                               panel.number = panel.number,
-                               packet.number = packet.number,
+##                                panel.number = panel.number,
+##                                packet.number = packet.number,
 
                                varname.col = varname.col,
                                varname.cex = varname.cex,
@@ -299,17 +299,17 @@ panel.pairs <-
                     pargs <-
                         if (!panel.subscripts)
                             c(list(x = z[subscripts, j],
-                                   y = z[subscripts, i],
-                                   panel.number = panel.number,
-                                   packet.number = packet.number),
+                                   y = z[subscripts, i]),
+##                                    panel.number = panel.number,
+##                                    packet.number = packet.number),
                               list(...))
                         else
                             c(list(x = z[subscripts, j],
                                    y = z[subscripts, i],
                                    groups = groups,
-                                   subscripts = subscripts,
-                                   panel.number = panel.number,
-                                   packet.number = packet.number),
+                                   subscripts = subscripts),
+##                                    panel.number = panel.number,
+##                                    packet.number = packet.number),
                               list(...))
 
                     if (!("..." %in% names(formals(panel))))

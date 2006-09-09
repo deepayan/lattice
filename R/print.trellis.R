@@ -30,11 +30,10 @@ layoutNCol <- function(x) x$ncol
 panel.number <- function()
     lattice.getStatus("current.panel.positions")[lattice.getStatus("current.focus.row"),
                                                  lattice.getStatus("current.focus.column")]
-
 packet.number <- function()
     lattice.getStatus("current.packet.positions")[lattice.getStatus("current.focus.row"),
                                                   lattice.getStatus("current.focus.column")]
-cond.levels <- function()
+which.packet <- function()
     lattice.getStatus("current.cond.levels")[[lattice.getStatus("current.focus.row"),
                                               lattice.getStatus("current.focus.column")]]
 
@@ -162,10 +161,34 @@ print.trellis <-
     if (!is.null(x$par.settings))
     {
         ## save current state, restore later
-        opar <- get("lattice.theme", envir = .LatticeEnv)
+        opar <- trellis.par.get() ## get("lattice.theme", envir = .LatticeEnv)
         trellis.par.set(theme = x$par.settings)
     }
 
+    ## do the same for lattice.options
+
+    if (!is.null(x$lattice.options))
+    {
+        ## save current state, restore later
+        oopt <- lattice.options(x$lattice.options)
+    }
+
+
+    ## We'll also allow arguments to print.trellis (or plot.trellis)
+    ## to be included within a trellis object.
+
+    if (!is.null(x$plot.args))
+    {
+        ## can't think of a clean way, so...
+        renewArg <- function(name) if (is.null(x$plot.args[[name]])) get(name) else x$plot.args[[name]]
+        for (nm in c("position", "split", "more", "newpage",
+                     "packet.panel", "draw.in", "panel.height",
+                     "panel.width", "save.object", "prefix"))
+        {
+            assign(nm, renewArg(nm))
+        }
+
+    }
 
 
 
@@ -263,8 +286,6 @@ print.trellis <-
 
     ## ## New version:
 
-### str(x$condlevels)
-
     ## used.condlevels corresponds to the indexed and permuted object.
     ## These also have to be integer indices rather than character
     ## labels (necessary for 'packet.panel' computations).
@@ -281,8 +302,6 @@ print.trellis <-
                SIMPLIFY = FALSE)
     used.condlevels <- used.condlevels[x$perm.cond]
     inverse.permutation <- order(x$perm.cond) # used later
-
-### str(used.condlevels)
 
     ## an array giving packet numbers corresponding to
     ## original.condlevels.  The idea is to be able to figure out the
@@ -577,7 +596,7 @@ print.trellis <-
 
     for(page.number in seq(length = number.of.pages))
     {
-        ##if (!any(cond.max.levels - cond.levels < 0))
+        ##if (!any(cond.max.levels - which.packet < 0))
         if (TRUE)
         {
             if (usual)
@@ -630,7 +649,7 @@ print.trellis <-
                 for (column in seq(length = cols.per.page))
                 {
                     ## levels being used in this panel
-                    cond.levels <- 
+                    which.packet <- 
                         packet.panel(layout = panel.layout,
                                      condlevels = used.condlevels,
                                      page = page.number,
@@ -638,18 +657,18 @@ print.trellis <-
                                      column = column,
                                      skip = x$skip)
                     ## permute to restore original order
-                    cond.levels <- cond.levels[inverse.permutation]
+                    which.packet <- which.packet[inverse.permutation]
 
-                    if (!is.null(cond.levels))
+                    if (!is.null(which.packet))
                     {
-                        current.cond.levels[[row, column]] <- cond.levels
+                        current.cond.levels[[row, column]] <- which.packet
 
-                        ## packet.number should be same as packet.array[cond.levels]
+                        ## packet.number should be same as packet.array[which.packet]
                         ##                                              ^^^^^^^^^^^
                         ##                                          (length not fixed)
 
                         packet.number <- 
-                            do.call("[", c(list(x = packet.array), as.list(cond.levels)))
+                            do.call("[", c(list(x = packet.array), as.list(which.packet)))
                         current.packet.positions[row, column] <- packet.number
 
                         ## packet.number retrieves the appropriate
@@ -678,8 +697,8 @@ print.trellis <-
                 {
                     lattice.setStatus(current.focus.row = row,
                                       current.focus.column = column)
-                    cond.levels <- cond.levels()
-                    if (!is.null(cond.levels))
+                    which.packet <- which.packet()
+                    if (!is.null(which.packet))
                     {
                         packet.number <- packet.number()
                         panel.number <- panel.number() ## needed? FIXME
@@ -922,9 +941,20 @@ print.trellis <-
 
 
                         pargs <- c(x$panel.args[[packet.number]],
-                                   x$panel.args.common,
-                                   list(packet.number = packet.number,
-                                        panel.number = panel.number))
+                                   x$panel.args.common) #,
+##                                    list(packet.number = packet.number,
+##                                         panel.number = panel.number))
+
+##########################################
+### FIXME: remove this at some point   ###
+###                                    ###
+                        if (any(c("packet.number", "panel.number") %in% names(formals(panel))))
+                        {
+                            warning("'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number")
+                        }
+###                                    ###
+##########################################
+
 
                         if (!("..." %in% names(formals(panel))))
                             pargs <- pargs[names(formals(panel))]
@@ -970,9 +1000,9 @@ print.trellis <-
                                 ## permuted order
 
                                 strip(which.given = x$perm.cond[i],
-                                      which.panel = cond.levels,
-                                      panel.number = panel.number,
-                                      packet.number = packet.number,
+                                      which.panel = which.packet,
+##                                       panel.number = panel.number,
+##                                       packet.number = packet.number,
 
                                       var.name = names(x$condlevels),
                                       factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
@@ -1015,9 +1045,9 @@ print.trellis <-
                                 ## the permuted order
 
                                 strip.left(which.given = x$perm.cond[i],
-                                           which.panel = cond.levels,
-                                           panel.number = panel.number,
-                                           packet.number = packet.number,
+                                           which.panel = which.packet,
+##                                            panel.number = panel.number,
+##                                            packet.number = packet.number,
 
                                            var.name = names(x$condlevels),
                                            factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
@@ -1162,9 +1192,13 @@ print.trellis <-
         }
 
     ## restore earlier settings
+    if (!is.null(x$lattice.options))
+    {
+        lattice.options(oopt)
+    }
     if (!is.null(x$par.settings))
     {
-        assign("lattice.theme", opar, envir = .LatticeEnv)
+        trellis.par.set(opar)
     }
 
     if (!is.null(draw.in)) upViewport(depth)
