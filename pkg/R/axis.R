@@ -304,14 +304,14 @@ formattedTicksAndLabels <- function(x, ...)
 
 
 formattedTicksAndLabels.default <-
-    function (x, at = FALSE,
-              used.at = NULL,
-              num.limit = NULL,
-              labels = FALSE,
-              logsc = FALSE,
-              abbreviate = NULL,
-              minlength = 4,
-              format.posixt, ...)
+    function(x, at = FALSE,
+             used.at = NULL,
+             num.limit = NULL,
+             labels = FALSE,
+             logsc = FALSE,
+             abbreviate = NULL,
+             minlength = 4,
+             format.posixt, ...)
     ## meant for when x is numeric
 {
     range <-
@@ -360,14 +360,14 @@ formattedTicksAndLabels.default <-
 
 
 formattedTicksAndLabels.date <-
-    function (x, at = FALSE,
-              used.at = NULL,
-              num.limit = NULL,
-              labels = FALSE,
-              logsc = FALSE,
-              abbreviate = NULL,
-              minlength = 4,
-              format.posixt, ...)
+    function(x, at = FALSE,
+             used.at = NULL,
+             num.limit = NULL,
+             labels = FALSE,
+             logsc = FALSE,
+             abbreviate = NULL,
+             minlength = 4,
+             format.posixt, ...)
 {
     ## handle log scales (not very meaningful, though)
 
@@ -433,14 +433,14 @@ formattedTicksAndLabels.character <-
 
 
 formattedTicksAndLabels.expression <-
-    function (x, at = FALSE,
-              used.at = NULL,
-              num.limit = NULL,
-              labels = FALSE,
-              logsc = FALSE,
-              abbreviate = NULL,
-              minlength = 4,
-              format.posixt, ...)
+    function(x, at = FALSE,
+             used.at = NULL,
+             num.limit = NULL,
+             labels = FALSE,
+             logsc = FALSE,
+             abbreviate = NULL,
+             minlength = 4,
+             format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
     ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
@@ -457,14 +457,14 @@ formattedTicksAndLabels.expression <-
 ## method for "Date" (regurgitating axis.Date)
 
 formattedTicksAndLabels.Date <-
-    function (x, at = FALSE,
-              used.at = NULL,
-              num.limit = NULL,
-              labels = FALSE,
-              logsc = FALSE, 
-              abbreviate = NULL,
-              minlength = 4,
-              format.posixt = NULL, ...) 
+    function(x, at = FALSE,
+             used.at = NULL,
+             num.limit = NULL,
+             labels = FALSE,
+             logsc = FALSE, 
+             abbreviate = NULL,
+             minlength = 4,
+             format.posixt = NULL, ...) 
 {
     num.lim <- 
         if (length(x) == 2) as.numeric(x)
@@ -619,10 +619,10 @@ formattedTicksAndLabels.POSIXct <-
 
 
 formattedTicksAndLabels.times <-
-    function (x, at = FALSE, used.at = NULL,
-              num.limit = NULL, labels = FALSE, logsc = FALSE, 
-              abbreviate = NULL, minlength = 4, simplify = TRUE, 
-              ...) 
+    function(x, at = FALSE, used.at = NULL,
+             num.limit = NULL, labels = FALSE, logsc = FALSE, 
+             abbreviate = NULL, minlength = 4, simplify = TRUE, 
+             ...) 
 {
     ## most arguments ignored for now
 

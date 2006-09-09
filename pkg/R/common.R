@@ -467,6 +467,8 @@ trellis.skeleton <-
              ylab.default = NULL,
              panel,
              par.settings = NULL,
+             plot.args = NULL,
+             lattice.options = NULL,
              index.cond = NULL,
              perm.cond = NULL,
              ...)
@@ -499,6 +501,8 @@ trellis.skeleton <-
              x.between = 0,
              y.between = 0,
              par.settings = par.settings,
+             plot.args = plot.args,
+             lattice.options = lattice.options,
              par.strip.text = par.strip.text,
              index.cond = index.cond,
              perm.cond = perm.cond)

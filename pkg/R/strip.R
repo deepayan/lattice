@@ -87,8 +87,8 @@ paste.and.draw <-
 strip.default <-
     function(which.given,
              which.panel,
-             packet.number,
-             panel.number,
+##              packet.number,
+##              panel.number,
              var.name,
              factor.levels,
              shingle.intervals = NULL,
