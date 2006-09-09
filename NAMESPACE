@@ -86,9 +86,11 @@ export(
        panel.mathdensity,
        panel.axis,
 
+       ## access relevant informations (works in strip/axis as well)
 
-       
-
+       panel.number,
+       packet.number,
+       which.packet,
 
        ## replacements for low level standard graphics functions
 
@@ -136,6 +138,9 @@ export(
        strip.default,
        strip.custom,
        packet.panel.default,
+       axis.default,
+       xscale.components.default,
+       yscale.components.default,
 
        do.breaks,
        make.groups,
