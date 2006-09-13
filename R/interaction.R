@@ -239,18 +239,44 @@ trellis.unfocus <-
 }
 
 
+### This version didn't work
+
+## trellis.panelArgs <-
+##     function(x, packet.number)
+## {
+##     if (lattice.getStatus("current.plot.multipage"))
+##         warning("plot spans multiple pages, only last page can be updated")
+##     if (missing(x)) 
+##         if (lattice.getStatus("current.plot.saved")) x <- trellis.last.object()
+##         else stop("current plot was not saved, can't retrieve panel data")
+##     if (missing(packet.number))
+##         packet.number <- packet.number()
+##     if (!length(packet.number)) ## should be 0x0 matrix otherwise
+##         stop("you have to first select a panel using trellis.focus()")
+##     c(x$panel.args[[packet.number]], x$panel.args.common)
+## }
+
+
+
 trellis.panelArgs <-
-    function(x, packet.number = packet.number())
+    function(x, packet.number)
 {
     if (lattice.getStatus("current.plot.multipage"))
         warning("plot spans multiple pages, only last page can be updated")
     if (missing(x)) 
         if (lattice.getStatus("current.plot.saved")) x <- trellis.last.object()
         else stop("current plot was not saved, can't retrieve panel data")
+    if (missing(packet.number))
+    {
+        ## FIXME: workaround for unfortunate choice of names.  May
+        ## require more extensive changes
+
+        pn <- get("packet.number", mode = "function")
+        packet.number <- pn()
+    }
     if (!length(packet.number)) ## should be 0x0 matrix otherwise
         stop("you have to first select a panel using trellis.focus()")
     c(x$panel.args[[packet.number]], x$panel.args.common)
-
 }
 
 
