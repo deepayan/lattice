@@ -7,7 +7,9 @@
 \title{Plot and Summarize Trellis Objects}
 \usage{
 \method{print}{trellis}(x, position, split,
-      more = FALSE, newpage = TRUE, draw.in = NULL,
+      more = FALSE, newpage = TRUE,
+      packet.panel = packet.panel.default, 
+      draw.in = NULL,
       panel.height = lattice.getOption("layout.heights")$panel,
       panel.width = lattice.getOption("layout.widths")$panel,
       save.object = lattice.getOption("save.object"),
@@ -48,6 +50,19 @@
     new page. This option is specific to lattice, and is useful for
     including lattice plots in an arbitrary grid viewport (see the
     details section).
+  }
+  \item{packet.panel}{ a function that determines which packet (data
+    subset) is plotted in which panel.  Panels are always drawn in an
+    order such that columns vary the fastest, then rows and then pages.
+    This function determines, given the column, row and page and other
+    relevant information, the packet (if any) which should be used in
+    that panel.  By default, the association is determnined by matching
+    panel order with packet order, which is determined by varying the
+    first conditioning variable the fastest, then the second, and so
+    on.  This association rule is encoded in the default, namely the
+    function \code{\link{packet.panel.default}}, whose help page details
+    the arguments supplied to whichever function is specified as the
+    \code{packet.panel} argument.
   }
   \item{draw.in}{
     An optional (grid) viewport (used as the \code{name} argument in
@@ -129,7 +144,8 @@
 
 \seealso{
   \code{\link{Lattice}}, \code{\link[grid:unit]{unit}},
-  \code{\link{update.trellis}}, \code{\link{trellis.focus}}
+  \code{\link{update.trellis}}, \code{\link{trellis.focus}},
+  \code{\link{packet.panel.default}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
@@ -155,10 +171,10 @@ print(p2, position = c(.5,.75,1,1), more=FALSE)
 ## repeat same plot, with different polynomial fits in each panel
 xyplot(Armed.Forces ~ Year, longley, index.cond = list(rep(1, 6)),
        layout = c(3, 2),
-       panel = function(x, y, panel.number, ...)
+       panel = function(x, y, ...)
        {
            panel.xyplot(x, y, ...)
-           fm <- lm(y ~ poly(x, panel.number))
+           fm <- lm(y ~ poly(x, panel.number()))
            llines(x, predict(fm))
        })
 

@@ -17,7 +17,7 @@ panel.pairs(z,
             panel.subscripts,
             subscripts,
             pscales = 5,
-            packet.number, panel.number,
+%             packet.number, panel.number,
             prepanel.limits = function(x) if (is.factor(x)) levels(x) else
             extend.limits(range(as.numeric(x), finite = TRUE)),
 
@@ -109,10 +109,10 @@ diag.panel.splom(x = NULL,
     logical, specifying whether to draw the tick marks and labels. If
     \code{FALSE}, only variable names are written
   }
-  \item{panel.number, packet.number}{ integer indices for panel and
-    packet number (see \code{\link{xyplot}}).  Passed on to
-    \code{panel}, \code{lower.panel}, \code{upper.panel} and
-    \code{diag.panel}. }
+%   \item{panel.number, packet.number}{ integer indices for panel and
+%     packet number (see \code{\link{xyplot}}).  Passed on to
+%     \code{panel}, \code{lower.panel}, \code{upper.panel} and
+%     \code{diag.panel}. }
   \item{varname.col, varname.cex, varname.lineheight, varname.font,
     varname.fontfamily, varname.fontface}{ graphical parameters for the
     variable name in each diagonal panel }
