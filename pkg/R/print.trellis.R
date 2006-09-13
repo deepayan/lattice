@@ -851,7 +851,7 @@ print.trellis <-
                                               yscale = yscale,
                                               clip = "off",
                                               name =
-                                              trellis.vpname("strip",
+                                              trellis.vpname("strip.left",
                                                              column = column,
                                                              row = row,
                                                              clip.off = TRUE)))
