@@ -36,7 +36,9 @@ strip.custom(\dots)
   \item{which.panel}{ vector of integers as long as the number of
     conditioning variables. The contents are indices specifying the
     current levels of each of the conditioning variables (thus, this
-    would be unique for each distinct panel).
+    would be unique for each distinct packet).  This is identical to the
+    return value of \code{\link{which.packet}}, which is a more accurate
+    name.
   }
 %   \item{panel.number, packet.number}{ integer indices specifying which
 %     panel and packet is being drawn (see the entry for \code{panel} in

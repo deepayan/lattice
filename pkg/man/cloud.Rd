@@ -110,8 +110,9 @@ wireframe(x, data, \dots)
 %           alpha.regions,
 %           \dots,
 %           col.regions)
-\method{cloud}{matrix}(x, type = "h", \dots)
-\method{wireframe}{matrix}(x, \dots)
+\method{cloud}{matrix}(x, data = NULL, type = "h", 
+      zlab = deparse(substitute(x)), \dots)
+\method{wireframe}{matrix}(x, data = NULL, zlab = deparse(substitute(x)), \dots)
 }
 \description{
   Generic functions to draw 3d scatter plots and surfaces.  The
@@ -151,7 +152,14 @@ wireframe(x, data, \dots)
   \item{data}{
     for the \code{"formula"} methods, an optional data frame in which
     variables in the formula (as well as \code{groups} and
-    \code{subset}, if any) are to be evaluated
+    \code{subset}, if any) are to be evaluated.  \code{data} should not
+    be specified except when using the \code{"formula"} method.
+  }
+
+  \item{allow.multiple, outer, auto.key, prepanel, strip, groups, xlab,
+    xlim, ylab, ylim, drop.unused.levels, default.scales, subset}{
+    These arguments are documented in the help page for
+    \code{\link{xyplot}}.
   }
   \item{type}{
     type of display in \code{cloud} (see \code{\link{panel.3dscatter}}
@@ -195,6 +203,14 @@ wireframe(x, data, \dots)
     need that, consider using the \code{scales.3d} argument of
     \code{panel.cloud}.
   }
+  \item{axs.default}{
+    Unlike 2-D display functions, \code{cloud} does not expand the
+    bounding box to slightly beyound the range of the data, even though
+    it should.  This is primarily because this is the natural behaviour
+    in \code{wireframe}, which uses the same code.  \code{axs.default}
+    is intended to provide a different default for \code{cloud}.
+    However, this feature has not yet been implemented.
+  }
   \item{zlab}{
     Specifies a label describing the z variable in ways similar to
     \code{xlab} and \code{ylab} (i.e. \dQuote{grob}, character string,
@@ -207,22 +223,13 @@ wireframe(x, data, \dots)
     limits for the z-axis. Similar to \code{xlim} and \code{ylim} in
     other high level functions
   }
-  \item{zoom}{
-    factor by which to scale the picture. Useful to get the variable
-    names into the plot.  This is actually only used in the default
-    prepanel function. 
-  }
   \item{drape}{
     logical, whether the wireframe is to be draped in color. If
     \code{TRUE}, the height of a facet is used to determine its color in
     a manner similar to the coloring scheme used in
     \code{\link{levelplot}}.  Otherwise, the background color is used to
-    color the facets.  This argument is ignored if \code{shade=TRUE}.
-  }
-  \item{shade}{
-    logical, whether the wireframe is to be rendered as being
-    illuminated from a light source. See \code{\link{panel.3dwire}} for
-    details
+    color the facets.  This argument is ignored if \code{shade = TRUE}
+    (see \code{\link{panel.3dwire}}).
   }
   \item{at, col.regions, alpha.regions}{
     these arguments are analogous to those in
@@ -248,11 +255,19 @@ wireframe(x, data, \dots)
     \code{\link{levelplot}} for details.
   }
   \item{\dots}{
-    other arguments, passed to the panel function. In particular, the
-    arguments \code{distance}, \code{perspective}, \code{screen} and
-    \code{R.mat} are very important in determining the 3-D
-    display. These arguments are described in detail in the help page
-    for \code{\link{panel.cloud}}
+    Any number of other arguments can be specified, and are passed to
+    the panel function.  In particular, the arguments \code{distance},
+    \code{perspective}, \code{screen} and \code{R.mat} are very
+    important in determining the 3-D display.  The argument \code{shade}
+    can be useful for \code{wireframe} calls, and controls shading of
+    the rendered surface.  These arguments are described in detail in
+    the help page for \code{\link{panel.cloud}}.
+
+    Additionally, an argument called \code{zoom} may be specified, which
+    should be a numeric scalar to be interpreted as a scale factor by
+    which the projection is magnified.  This can be useful to get the
+    variable names into the plot.  This argument is actually only used
+    by the default prepanel function.
   }
 }
 \details{
