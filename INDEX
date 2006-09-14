@@ -1,5 +1,6 @@
 Lattice                 Lattice Graphics
 Rows                    Extract rows from a list
+axis.default            Default axis annotation utilities
 banking                 Banking
 barchart.table          table methods for barchart and dotplot
 barley                  Yield data from a Minnesota barley trial
@@ -21,6 +22,7 @@ lset                    Interface to modify Trellis Settings -
 make.groups             Grouped data from multiple vectors
 melanoma                Melanoma skin cancer incidence
 oneway                  Fit One-way Model
+packet.panel.default    Associating Packets with Panels
 panel.axis              Panel Function for Drawing Axis Ticks and
                         Labels
 panel.barchart          Default Panel Function for barchart
@@ -32,6 +34,7 @@ panel.functions         Useful Panel Functions
 panel.histogram         Default Panel Function for histogram
 panel.identify          Functions to Interact with Lattice Plots
 panel.levelplot         Default Panel Function for levelplot
+panel.number            Accessing Auxiliary Information During Plotting
 panel.pairs             Default Superpanel Function for splom
 panel.parallel          Default Panel Function for parallel
 panel.qqmath            Default Panel and Prepanel Function for qqmath

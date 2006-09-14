@@ -104,15 +104,14 @@ xscale.components.default <-
     comps <-
         calculateAxisComponents(lim, packet.list = packet.list,
                                 packet.number = packet.number, ...)
-    ans <-
-        list(num.limit = comps$num.limit,
-             bottom =
-             list(ticks = list(at = comps$at, tck = 1),
-                  labels =
-                  list(at = comps$at,
-                       labels = comps$labels,
-                       check.overlap = comps$check.overlap)),
-             top = top)
+    list(num.limit = comps$num.limit,
+         bottom =
+         list(ticks = list(at = comps$at, tck = 1),
+              labels =
+              list(at = comps$at,
+                   labels = comps$labels,
+                   check.overlap = comps$check.overlap)),
+         top = top)
 }
 
 
@@ -128,16 +127,15 @@ yscale.components.default <-
     comps <-
         calculateAxisComponents(lim, packet.list = packet.list,
                                 packet.number = packet.number, ...)
-    ans <-
-        list(num.limit = comps$num.limit,
-             left =
-             list(ticks = list(at = comps$at, tck = 1, lwd = 1),
-                  labels =
-                  list(at = comps$at,
-                       labels = comps$labels,
-                       cex = 1,
-                       check.overlap = comps$check.overlap)),
-             right = right)
+    list(num.limit = comps$num.limit,
+         left =
+         list(ticks = list(at = comps$at, tck = 1, lwd = 1),
+              labels =
+              list(at = comps$at,
+                   labels = comps$labels,
+                   cex = 1,
+                   check.overlap = comps$check.overlap)),
+         right = right)
 }
 
 
