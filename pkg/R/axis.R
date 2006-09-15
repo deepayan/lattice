@@ -164,6 +164,8 @@ axis.default <-
 
     determineStatus <- function(x)
     {
+        ## whether the relevant component of 'components' wants us to
+        ## draw something here
         if (is.null(x) || (is.logical(x) && !x)) FALSE
         else TRUE
     }
@@ -182,28 +184,33 @@ axis.default <-
                right = column == layout.dim[2] || lastPanel())
     }
 
-    ## what about scales$relation ?
+    ## FIXME: what about scales$relation ?
     do.ticks <-
         switch(ticks,
                yes = TRUE,
                no = FALSE,
-               default = atBoundary() && determineStatus(components[[side]]))
+               default = scales$draw && determineStatus(components[[side]]) &&
+               (if (scales$relation == "same") atBoundary() else TRUE))
     do.labels <-
         switch(labels,
                yes = TRUE,
                no = FALSE,
 
                default =
-               atBoundary() &&
+               scales$draw &&
+               (if (scales$relation == "same") {
 
-               ## rule: if (alternating[row/column] %in% c(2, 3)) for
-               ## a ``boundary'' panel, then draw, otherwise don't.
-               switch(side,
-                      top    = rep(scales$alternating, length = column)[column] %in% c(2, 3),
-                      bottom = rep(scales$alternating, length = column)[column] %in% c(1, 3),
-                      left   = rep(scales$alternating, length = row)[row] %in% c(1, 3),
-                      right  = rep(scales$alternating, length = row)[row] %in% c(2, 3))
-               )
+                   atBoundary() &&
+
+                   ## rule: if (alternating[row/column] %in% c(2, 3)) for
+                   ## a ``boundary'' panel, then draw, otherwise don't.
+                   switch(side,
+                          top    = rep(scales$alternating, length = column)[column] %in% c(2, 3),
+                          bottom = rep(scales$alternating, length = column)[column] %in% c(1, 3),
+                          left   = rep(scales$alternating, length = row)[row] %in% c(1, 3),
+                          right  = rep(scales$alternating, length = row)[row] %in% c(2, 3))
+
+               } else TRUE)) 
 
     if (do.ticks || do.labels)
     {
@@ -214,7 +221,6 @@ axis.default <-
                    left = components[["left"]],
                    right = if (is.logical(components[["right"]]) && components[["right"]]) components[["left"]] else components[["right"]])
 
-            
         panel.axis(side = side,
                    at = comp.list$ticks$at,
                    labels = comp.list$labels$labels,
@@ -224,7 +230,6 @@ axis.default <-
                    tick = do.ticks,
                    tck = scales$tck * comp.list$ticks$tck,
                    ...)
-
     }
 
 }
