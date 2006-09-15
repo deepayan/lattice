@@ -9,12 +9,22 @@ import(grid)
 ## export(grid.prompt)
 
 
-importFrom(grDevices, dev.list, cm.colors, gray, heat.colors, grey, hsv)
-importFrom(graphics, plot, co.intervals)
+importFrom(grDevices,
+
+           dev.list, cm.colors, gray,
+           heat.colors, grey, hsv, xy.coords,
+           boxplot.stats, contourLines)
+
+importFrom(graphics, par, plot, co.intervals, hist)
+
+importFrom(utils, head)
 
 
-importFrom(stats, as.formula, density, fitted.values, loess.smooth,
-           median, ppoints, qnorm, residuals, update)
+importFrom(stats,
+
+           as.formula, density, fitted.values, loess.smooth, median,
+           ppoints, qnorm, residuals, update, var, coef, quantile, lm,
+           dnorm, qunif)
 
 
 export(
