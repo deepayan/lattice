@@ -13,11 +13,15 @@ levelplot(z ~ x * y, subset(foo, z > 150), contour = T)
 levelplot(z ~ x * y, foo, subset = z > 150, contour = T)
 contourplot(z ~ x * y, foo, subset = z > 150, cuts = 10)
 
-## subset group interaction has problems:
+## subset group interaction has problems (does it any longer):
 
 cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
       data = iris, cex = 0.8, groups = Species, subpanel = panel.superpose, 
       main = "Stereo", screen = list(z = 20, x = -70, y = 0), subset = 30:60)
+
+cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
+      data = iris[30:60, ], cex = 0.8, groups = Species, subpanel = panel.superpose, 
+      main = "Stereo", screen = list(z = 20, x = -70, y = 0))
 
 
 levelplot(Sepal.Length ~ Petal.Length * Petal.Width, 
@@ -25,38 +29,29 @@ levelplot(Sepal.Length ~ Petal.Length * Petal.Width,
           subset = 30:60)
 
 
-## error
-## wireframe(z ~ x * y, foo, subset = z > 150)
-
-## what's this supposed to do ?
-## weird thing is, result is random
-wireframe(z + I(z + 100) ~ x * y, foo, subset = z > 150)
 
 
 cloud(z ~ x * y, foo)
 cloud(z ~ x * y, foo, subset = z > 150)
 
 
-wireframe(z ~ x * y, foo)
-
-## error
-## wireframe(z ~ x * y, foo, subset = z > 150)
-
-volna <- volcano
-volna[20:40, 20:40] <- NA
-levelplot(volna)
-cloud(volna)
-
-wireframe(volna)
 
 ## long format: NA's clipped at the beginning (??)
-
-
 
 splom(~iris[,1:4], iris, groups = Species)
 splom(~iris[,1:4], iris, groups = Species, subset = 70:130, auto.key = T)
 
 parallel(~iris[,1:4] | Species, iris, subset = 30:130)
+
+## NA-s in matrix
+
+volna <- volcano
+volna[20:40, 20:40] <- NA
+levelplot(volna)
+cloud(volna)
+wireframe(volna)
+
+
 
 dev.off()
 

@@ -329,6 +329,17 @@ wireframe(x, data, \dots)
   more detailed usage.
 
 }
+
+\note{ There is a known problem with grouped \code{wireframe} displays
+  when the (x, y) coordinates represented in the data do not represent
+  the full evaluation grid.  The problem occurs whether the grouping is
+  specified through the \code{groups} argument or through the formula
+  interface, and currently causes memory access violations.  Depending
+  on the circumstances, this is manifested either as a meaningless plot
+  or a crash.  To work around the problem, it should be enough to have
+  a row in the data frame for each grid point, with an \code{NA}
+  response (\code{z}) in rows that were previously missing.  }
+
 \value{
 
   An object of class \code{"trellis"}. The
