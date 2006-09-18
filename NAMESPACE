@@ -29,6 +29,8 @@ importFrom(stats,
 
 export(
 
+       modifyList,
+
        ## high level generics:
 
        histogram,
