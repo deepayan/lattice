@@ -25,5 +25,15 @@ modifyList(x, val)
   \code{val}.  For common elements that are both lists, \code{x[[name]]}
   is replaced by \code{modifyList(x[[name]], val[[name]])}.
 }
+
+\examples{
+  
+foo <- list(a = 1, b = list(c = "a", d = FALSE))
+bar <- modifyList(foo, list(e = 2, b = list(d = TRUE)))
+str(foo)
+str(bar)
+
+}
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{utilities}
