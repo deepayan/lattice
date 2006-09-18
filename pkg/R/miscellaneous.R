@@ -93,23 +93,29 @@ as.factorOrShingle <- function(x, subset = TRUE, drop = FALSE)
 ## lattice settings using trellis.par.set and lattice.options
 ## respectively
 
-updateList <-
-    function(x, val)
+updateList <- function(x, val)
 {
     if (is.null(x)) x <- list()
-    if (!is.list(x)) stop("x must be NULL or a list")
-    if (!is.list(val)) stop("val must be a list")
-    xnames <- names(x)
-    for (v in names(val))
-    {
-        existing <- v %in% xnames
-        if (existing && is.list(x[[v]]) && is.list(val[[v]]))
-            x[[v]] <- updateList(x[[v]], val[[v]])
-        else 
-            x[[v]] <- val[[v]]
-    }
-    x
+    modifyList(x, val)
 }
+
+
+##     function(x, val)
+## {
+##     if (is.null(x)) x <- list()
+##     if (!is.list(x)) stop("x must be NULL or a list")
+##     if (!is.list(val)) stop("val must be a list")
+##     xnames <- names(x)
+##     for (v in names(val))
+##     {
+##         existing <- v %in% xnames
+##         if (existing && is.list(x[[v]]) && is.list(val[[v]]))
+##             x[[v]] <- updateList(x[[v]], val[[v]])
+##         else 
+##             x[[v]] <- val[[v]]
+##     }
+##     x
+## }
 
 
 
