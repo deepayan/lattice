@@ -954,11 +954,12 @@ bwplot(x, data, \dots)
       }
 
       \item{\code{strip.left}:}{
-	\code{strip.left} FIXME can be used
-	to draw strips on the left of each panel, which can be useful for
-	wide short panels, as in time series (or similar) plots.
+	% FIXME: (update: fix what?)
+	\code{strip.left} can be used to draw strips on the left of each
+	panel, which can be useful for wide short panels, as in time
+	series (or similar) plots.  It is a function similar to
+	\code{strip}.
       }
-
 
       \item{\code{xlab.default}, \code{ylab.default}:}{ fallback default
 	for \code{xlab} and \code{ylab} when they are not specified.  If
@@ -966,14 +967,16 @@ bwplot(x, data, \dots)
 	This is rarely useful for the end-user, but can be helpful when
 	developing new Trellis functions.}
 
-      \item{\code{par.settings}:}{
-	a list that could be supplied to \code{\link{trellis.par.set}}.
-	This enables the user to attach some display settings to the trellis
-	object itself rather than change the settings globally.  When the
-	object is printed, these settings are temporarily in effect for the
-	duration of the plot, after which the settings revert back to
-	whatever it was before.
-      }
+      \item{\code{xscale.components, yscale.components}:}{ 
+	functions that determine axis annotation for the x and y axes
+	respectively.  See documentation for
+	\code{\link{xscale.components.default}}, the default values of
+	these arguments, to learn more. }
+      
+      \item{\code{axis}:}{ function that draws axis annotation.  See
+	documentation for \code{\link{axis.default}}, the default value
+	of this argument, to learn more. }
+
       \item{\code{perm.cond}:}{
 	numeric vector, a permutation of \code{1:n}, where \code{n} is the
 	number of conditioning variables.  By default, the order in which
@@ -1027,11 +1030,30 @@ bwplot(x, data, \dots)
 	can be set to \code{NULL}, which reverts these back to their
 	defaults.
       }
-
-      
+      \item{\code{par.settings}:}{
+	a list that could be supplied to \code{\link{trellis.par.set}}.
+	This enables the user to attach some display settings to the trellis
+	object itself rather than change the settings globally.  When the
+	object is plotted, these settings are temporarily in effect for
+	the duration of the plot, after which the settings revert back
+	to whatever they were before.
+      }
+      \item{\code{plot.args}:}{
+	a list of possible arguments to \code{\link{plot.trellis}},
+	which will be used by the \code{plot} or \code{print} methods
+	when drawing the object, unless overridden explicitly.  This
+	enables the user to attach such arguments to the trellis object
+	itself.
+      }
+      \item{\code{lattice.options}:}{
+	a list that could be supplied to \code{\link{lattice.options}}.
+	This enables the user to attach options settings to the trellis
+	object itself rather than change the settings globally.  When
+	the object is plotted, these settings are temporarily in effect
+	for the duration of the plot, after which the settings revert
+	back to whatever they were before.
+      }
     }
-
-
   }
 }
   

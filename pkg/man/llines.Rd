@@ -1,10 +1,13 @@
 \name{llines}
-\alias{larrows}
 \alias{llines}
-\alias{lplot.xy}
 \alias{lpoints}
-\alias{lsegments}
 \alias{ltext}
+\alias{llines.default}
+\alias{lpoints.default}
+\alias{ltext.default}
+\alias{lplot.xy}
+\alias{larrows}
+\alias{lsegments}
 \alias{lrect}
 \alias{lpolygon}
 \alias{panel.arrows}
@@ -33,16 +36,21 @@ lplot.xy(xy, type, pch, lty, col, cex, lwd,
          col.line, alpha, fill,
          origin = 0, \dots)
 
-llines(x, y = NULL, type = "l",
+llines(x, ...)
+lpoints(x, ...)
+ltext(x, ...)
+
+\method{llines}{default}(x, y = NULL, type = "l",
        col, alpha, lty, lwd, \dots)
-lpoints(x, y = NULL, type = "p", col, pch, alpha, fill,
+\method{lpoints}{default}(x, y = NULL, type = "p", col, pch, alpha, fill,
         font, fontfamily, fontface, cex, \dots)  
-lsegments(x0, y0, x1, y1, x2, y2,
-          col, alpha, lty, lwd, \dots)
-ltext(x, y = NULL, labels = seq(along = x),
+\method{ltext}{default}(x, y = NULL, labels = seq(along = x),
       col, alpha, cex, srt = 0,
       lineheight, font, fontfamily, fontface,
       adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots)  
+
+lsegments(x0, y0, x1, y1, x2, y2,
+          col, alpha, lty, lwd, \dots)
 lrect(xleft, ybottom, xright, ytop,
       x = (xleft + xright) / 2,
       y = (ybottom + ytop) / 2,

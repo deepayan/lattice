@@ -439,14 +439,21 @@ extend.limits <-
 
 
 
-
+### this is a catch-common-arguments function that intercepts several
+### common arguments.  These are currently documented in ?xyplot,
+### under \dots (...).  Some arguments of trellis.skeleton are also
+### formal arguments to xyplot, and are documented as such.  These are
+### indicated below with a comment.  This is useful to keep track of
+### documented arguments, because the formal codoc system doesn't work
+### here (trellis.skeleton is not exported and hence not formally
+### documented).
 
 
 trellis.skeleton <-
     function(formula = NULL,
              cond,
+             aspect = default.args$aspect, # argument in xyplot
              as.table = default.args$as.table,
-             aspect = default.args$aspect,
              between = default.args$between,
              key = NULL,
              legend = NULL,
@@ -456,22 +463,24 @@ trellis.skeleton <-
              par.strip.text = default.args$par.strip.text,
              layout = default.args$layout,
              skip = default.args$skip,
-             strip = default.args$strip.default,
+             strip = default.args$strip.default, # argument in xyplot
              strip.left = FALSE,
+             xlab.default = NULL,
+             ylab.default = NULL,
+             xlab = NULL, # argument in xyplot
+             ylab = NULL, # argument in xyplot
+             panel,       # argument in xyplot
+
              xscale.components = default.args$xscale.components,
              yscale.components = default.args$yscale.components,
              axis = default.args$axis,
-             xlab = NULL,
-             ylab = NULL,
-             xlab.default = NULL,
-             ylab.default = NULL,
-             panel,
-             par.settings = NULL,
-             plot.args = NULL,
-             lattice.options = NULL,
+
              index.cond = NULL,
              perm.cond = NULL,
-             ...)
+             ...,
+             par.settings = NULL,
+             plot.args = NULL,
+             lattice.options = NULL)
 {
     default.args <- lattice.getOption("default.args")
     if (is.null(skip)) skip <- FALSE

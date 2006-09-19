@@ -284,9 +284,9 @@ larrows <-
 
 
 
+ltext <- function(x, ...) UseMethod("ltext")
 
-
-ltext <-
+ltext.default <-
     function(x, y = NULL, labels = seq(along = x),
              col = add.text$col,
              alpha = add.text$alpha,
@@ -299,7 +299,6 @@ ltext <-
              adj = c(.5, .5),
              pos = NULL,
              offset = 0.5,
-             ## FIXME: need an offset argument
              ...)
 {
     add.text <- trellis.par.get("add.text")
@@ -348,9 +347,10 @@ ltext <-
 
 
 
+llines <- function (x, ...) UseMethod("llines")
 
 
-llines <-
+llines.default <-
     function(x, y = NULL, type = "l",
              col = plot.line$col,
              alpha = plot.line$alpha,
@@ -363,9 +363,9 @@ llines <-
 }
 
 
+lpoints <- function (x, ...) UseMethod("lpoints")
 
-
-lpoints <-
+lpoints.default <-
     function(x, y = NULL, type = "p",
              col = plot.symbol$col,
              pch = plot.symbol$pch,
