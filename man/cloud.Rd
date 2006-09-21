@@ -6,58 +6,9 @@
 \alias{cloud.matrix}
 \alias{wireframe.formula}
 \alias{wireframe.matrix}
-% \synopsis{
-% \method{cloud}{formula}(x,
-%              data,
-%              allow.multiple = is.null(groups) || outer,
-%              outer = FALSE,
-%              auto.key = FALSE,
-%              aspect = c(1,1),
-%              panel = "panel.cloud",
-%              prepanel = NULL,
-%              scales = list(),
-%              strip = TRUE,
-%              groups = NULL,
-%              xlab,
-%              xlim = if (is.factor(x)) levels(x) else range(x, finite = TRUE),
-%              ylab,
-%              ylim = if (is.factor(y)) levels(y) else range(y, finite = TRUE),
-%              zlab,
-%              zlim = if (is.factor(z)) levels(z) else range(z, finite = TRUE),
-%              at,
-%              drape = FALSE,
-%              pretty = FALSE,
-%              drop.unused.levels = lattice.getOption("drop.unused.levels"),
-%              \dots,
-%              default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
-%              colorkey = any(drape),
-%              col.regions,
-%              alpha.regions,
-%              cuts = 70,
-%              subset = TRUE,
-%              axs.default = "r")
-% \method{wireframe}{formula}(x,
-%              data,
-%              panel = "panel.wireframe",
-%              \dots)
-% \method{cloud}{matrix}(x, data = NULL, type = "h",
-%       zlab = deparse(substitute(x)),
-%       \dots)
-% \method{wireframe}{matrix}(x, data = NULL, 
-%       zlab = deparse(substitute(x)),
-%       \dots)
-% }
 \usage{
 cloud(x, data, \dots)
 wireframe(x, data, \dots)
-% \method{cloud}{formula}(x, data,
-%       aspect = c(1, 1),
-%       panel = "panel.cloud",
-%       scales = list(distance = rep(1, 3), arrows = TRUE),
-%       zlab,
-%       zlim, 
-%       zoom = 0.8,
-%       \dots)
 
 \method{cloud}{formula}(x,
       data,

@@ -5,14 +5,6 @@
 \description{
   Quantile-Quantile plots for comparing two Distributions
 }
-% \synopsis{
-% \method{qq}{formula}(formula, data, aspect = "fill", 
-%     panel = panel.qq, prepanel = NULL, scales = list(), strip = TRUE, 
-%     groups = NULL, xlab, xlim, ylab, ylim, f.value = NULL, 
-%     drop.unused.levels,
-%     \dots, default.scales,
-%     subscripts = !is.null(groups), subset = TRUE)
-% }
 \usage{
 qq(x, data, \dots)
 

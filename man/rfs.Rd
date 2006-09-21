@@ -5,11 +5,6 @@
   Plots fitted values and residuals (via qqmath) on a common scale for
   any object that has methods for fitted values and residuals. 
 }
-% \synopsis{
-% rfs(model, layout=c(2, 1), xlab="f-value", ylab=NULL,
-%     distribution = qunif,
-%     panel, prepanel, strip, \dots)
-% }
 \usage{
 rfs(model, layout=c(2, 1), xlab="f-value", ylab=NULL,
     distribution = qunif,

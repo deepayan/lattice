@@ -6,7 +6,6 @@
 \alias{trellis.panelArgs}
 \alias{trellis.vpname}
 \alias{trellis.grobname}
-\alias{trellis.currentLayout}
 \title{Functions to Interact with Lattice Plots}
 \description{
   The classic Trellis paradigm is to plot the whole object at once,
@@ -36,7 +35,6 @@ trellis.switchFocus(name, side, clip.off, highlight, \dots)
 trellis.unfocus()
 trellis.panelArgs(x, packet.number)
 trellis.panelArgs()
-trellis.currentLayout()
 }
 
 \arguments{
@@ -196,11 +194,6 @@ trellis.currentLayout()
   \code{pos=TRUE} is not yet implemented, but can be considered for 
   addition if requested.
 
-  \code{trellis.currentLayout} returns a matrix with as many rows and
-  columns as in the layout of panels in the last plot.  Entries in the
-  matrix are integer indices indicating which packet (panel data)
-  occupies that position, with 0 indicating the absence of a panel.
-
   \code{trellis.panelArgs} returns a named list of arguments that were
   available to the panel function for the chosen panel.
 
@@ -300,17 +293,14 @@ for (row in 1:nrow(panel.locs))
 
 }
 
-
 \seealso{
   \code{\link{identify}}, \code{\link{Lattice}},
-  \code{\link{print.trellis}}, 
+  \code{\link{print.trellis}}, \code{\link{trellis.currentLayout}},
   \code{\link[grid:current.viewport]{current.vpTree}},
   \code{\link[grid:viewports]{viewports}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
-
-
 
 
