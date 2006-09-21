@@ -1,5 +1,6 @@
 
 
+
 useDynLib(lattice, .registration = TRUE)
 
 import(grid)
@@ -17,7 +18,7 @@ importFrom(grDevices,
 
 importFrom(graphics, par, plot, co.intervals, hist)
 
-importFrom(utils, head)
+importFrom(utils, head, modifyList)
 
 
 importFrom(stats,
@@ -28,8 +29,6 @@ importFrom(stats,
 
 
 export(
-
-       modifyList,
 
        ## high level generics:
 
@@ -100,9 +99,12 @@ export(
 
        ## access relevant informations (works in strip/axis as well)
 
+       current.row,
+       current.column,
        panel.number,
        packet.number,
        which.packet,
+       trellis.currentLayout,
 
        ## replacements for low level standard graphics functions
 
@@ -175,7 +177,6 @@ export(
        ## interaction etc
        
        panel.identify,
-       trellis.currentLayout,
        trellis.focus,
        trellis.unfocus,
        trellis.switchFocus,

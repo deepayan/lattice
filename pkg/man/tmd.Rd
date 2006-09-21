@@ -15,21 +15,6 @@
   \code{tmd} on the object created by calling \code{xyplot} on that
   formula.
 }
-% \synopsis{
-% prepanel.tmd.qqmath(x,
-%              f.value = NULL,
-%              distribution = qnorm,
-%              qtype = 7,
-%              groups = NULL,
-%              subscripts, \dots)
-% panel.tmd.qqmath(x,
-%              f.value = NULL,
-%              distribution = qnorm,
-%              qtype = 7,
-%              groups = NULL, 
-%              subscripts, \dots)
-% panel.tmd.default(x, y, groups = NULL, \dots)
-% }
 \usage{
 tmd(object, \dots)
 

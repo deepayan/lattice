@@ -16,8 +16,6 @@
 \alias{stripplot}
 \alias{stripplot.formula}
 \alias{stripplot.numeric}
-\synopsis{
-}
 \usage{
 xyplot(x, data, \dots)
 dotplot(x, data, \dots)

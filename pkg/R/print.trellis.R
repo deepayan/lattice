@@ -26,16 +26,20 @@
 layoutNRow <- function(x) x$nrow
 layoutNCol <- function(x) x$ncol
 
+## other accessors, for during (and sometimes after) plotting
 
-panel.number <- function()
-    lattice.getStatus("current.panel.positions")[lattice.getStatus("current.focus.row"),
-                                                 lattice.getStatus("current.focus.column")]
-packet.number <- function()
-    lattice.getStatus("current.packet.positions")[lattice.getStatus("current.focus.row"),
-                                                  lattice.getStatus("current.focus.column")]
-which.packet <- function()
-    lattice.getStatus("current.cond.levels")[[lattice.getStatus("current.focus.row"),
-                                              lattice.getStatus("current.focus.column")]]
+current.row <- function() lattice.getStatus("current.focus.row")
+current.column <- function() lattice.getStatus("current.focus.column")
+trellis.currentLayout <- function(which = c("packet", "panel"))
+{
+    which <- match.arg(which)
+    switch(which,
+           packet = lattice.getStatus("current.packet.positions"),
+           panel = lattice.getStatus("current.panel.positions"))
+}
+panel.number <- function() trellis.currentLayout("panel")[current.row(), current.column()]
+packet.number <- function() trellis.currentLayout("packet")[current.row(), current.column()]
+which.packet <- function() lattice.getStatus("current.cond.levels")[[current.row(), current.column()]]
 
 
 ## utility to create a full-fledged list describing a label from parts

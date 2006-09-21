@@ -6,32 +6,6 @@
 \description{
   Quantile-Quantile plot of a sample and a theoretical distribution
 }
-% \synopsis{
-% \method{qqmath}{formula}(x,
-%        data,
-%        allow.multiple = is.null(groups) || outer,
-%        outer = !is.null(groups),
-%        distribution = qnorm,
-%        f.value = NULL,
-%        auto.key = FALSE,
-%        aspect = "fill",
-%        panel = "panel.qqmath",
-%        ## panel = if (is.null(groups)) "panel.densityplot" else "panel.superpose",
-%        prepanel = NULL,
-%        scales = list(),
-%        strip = TRUE,
-%        groups = NULL,
-%        xlab,
-%        xlim,
-%        ylab,
-%        ylim,
-%        drop.unused.levels = lattice.getOption("drop.unused.levels"),
-%        \dots,
-%        default.scales = list(),
-%        subscripts = !is.null(groups),
-%        subset = TRUE)
-% \method{qqmath}{numeric}(x, data = NULL, ylab = deparse(substitute(x)), \dots)
-% }
 \usage{
 qqmath(x, data, \dots)
 

@@ -5,30 +5,6 @@
   This is a panel function that can create a violin plot.  It is
   typically used in a high-level call to \code{bwplot}.
 }
-% \synopsis{
-% panel.violin(x, y, box.ratio = 1, horizontal = TRUE,
-
-%              alpha = plot.polygon$alpha,
-%              border = plot.polygon$border,
-%              lty = plot.polygon$lty,
-%              lwd = plot.polygon$lwd,
-%              col = plot.polygon$col,
-
-%              varwidth = FALSE,
-
-%              bw = NULL,
-%              adjust = NULL,
-%              kernel = NULL,
-%              window = NULL,
-%              width = NULL,
-%              n = 50,
-%              from = NULL,
-%              to = NULL,
-%              cut = NULL,
-%              na.rm = TRUE,
-             
-%              \dots)
-% }
 \usage{
 
 panel.violin(x, y, box.ratio = 1, horizontal = TRUE,

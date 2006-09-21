@@ -1,7 +1,10 @@
 \name{panel.number}
+\alias{current.row}
+\alias{current.column}
 \alias{packet.number}
 \alias{panel.number}
 \alias{which.packet}
+\alias{trellis.currentLayout}
 
 \title{Accessing Auxiliary Information During Plotting}
 
@@ -18,9 +21,13 @@
 }
 \usage{
 
+current.row()
+current.column()
 panel.number()
 packet.number()
 which.packet()
+
+trellis.currentLayout()
 
 }
 
@@ -30,15 +37,21 @@ which.packet()
 
 \value{
 
-  \code{panel.number} returns an integer counting which panel is being
-  drawn (starting from 1 for the first panel, a.k.a. the panel order).
-  \code{packet.number} gives the packet number according to the packet
-  order, which is determined by varying the first conditioning variable
-  the fastest, then the second, and so on.  \code{which.packet} returns
-  the combination of levels of the conditioning variables in the form of
-  a numeric vector as long as the number of conditioning variables, with
-  each element an integer indexing the levels of the corresponding
-  variable.
+  \code{trellis.currentLayout} returns a matrix with as many rows and
+  columns as in the layout of panels in the current plot.  Entries in
+  the matrix are integer indices indicating which packet (or panel; see
+  below) occupies that position, with 0 indicating the absence of a
+  panel.  \code{current.row} and \code{current.column} return integer
+  indices specifying which row and column in the layout are currently
+  active.  \code{panel.number} returns an integer counting which panel
+  is being drawn (starting from 1 for the first panel, a.k.a. the panel
+  order).  \code{packet.number} gives the packet number according to the
+  packet order, which is determined by varying the first conditioning
+  variable the fastest, then the second, and so on.  \code{which.packet}
+  returns the combination of levels of the conditioning variables in the
+  form of a numeric vector as long as the number of conditioning
+  variables, with each element an integer indexing the levels of the
+  corresponding variable.
 
 }
 
@@ -60,8 +73,7 @@ which.packet()
 }
 
 \seealso{
-  \code{\link{Lattice}},
-  \code{\link{xyplot}}
+  \code{\link{Lattice}}, \code{\link{xyplot}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

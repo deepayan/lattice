@@ -6,7 +6,10 @@
 \alias{contourplot.formula}
 \alias{levelplot.matrix}
 \alias{contourplot.matrix}
-\synopsis{
+\usage{
+levelplot(x, data, \dots)
+contourplot(x, data, \dots)
+
 \method{levelplot}{formula}(x,
              data,
              allow.multiple = is.null(groups) || outer,
@@ -43,35 +46,31 @@
              pretty = TRUE,
              region = FALSE,
              ...)
-\method{levelplot}{matrix}(x, data = NULL, aspect = "iso", ...)
-\method{contourplot}{matrix}(x, data = NULL, aspect = "iso", ...)
-}
-\usage{
-levelplot(x, data, \dots)
-contourplot(x, data, \dots)
+\method{levelplot}{matrix}(x, data, aspect = "iso", ...)
+\method{contourplot}{matrix}(x, data, aspect = "iso", ...)
 
-\method{levelplot}{formula}(x, data,
-          panel = "panel.levelplot",
-          at,
-          contour = FALSE,
-          cuts = 15,
-          pretty = FALSE,
-          region = TRUE,
-          \dots,
-          col.regions = trellis.par.get("regions")$col,
-          colorkey = region)
-\method{contourplot}{formula}(x,
-             data,
-             panel = "panel.contourplot",
-             cuts = 7,
-             labels = TRUE,
-             contour = TRUE,
-             pretty = TRUE,
-             region = FALSE,
-            \dots)
+% \method{levelplot}{formula}(x, data,
+%           panel = "panel.levelplot",
+%           at,
+%           contour = FALSE,
+%           cuts = 15,
+%           pretty = FALSE,
+%           region = TRUE,
+%           \dots,
+%           col.regions = trellis.par.get("regions")$col,
+%           colorkey = region)
+% \method{contourplot}{formula}(x,
+%              data,
+%              panel = "panel.contourplot",
+%              cuts = 7,
+%              labels = TRUE,
+%              contour = TRUE,
+%              pretty = TRUE,
+%              region = FALSE,
+%             \dots)
 
-\method{levelplot}{matrix}(x, data, aspect = "iso", \dots)
-\method{contourplot}{matrix}(x, data, aspect = "iso", \dots)
+% \method{levelplot}{matrix}(x, data, aspect = "iso", \dots)
+% \method{contourplot}{matrix}(x, data, aspect = "iso", \dots)
 
 }
 \description{
@@ -127,6 +126,9 @@ contourplot(x, data, \dots)
     vector. When there are more regions than col.regions, the colors are
     recycled.
   }
+  \item{alpha.regions}{
+    numeric, specifying alpha transparency (works only on some devices)
+  }
   \item{colorkey}{logical specifying whether a color key is to be drawn
     alongside the plot, or a list describing the color key. The list may
     contain the following components:
@@ -180,6 +182,11 @@ contourplot(x, data, \dots)
   }
   \item{region}{
     logical, whether regions between contour lines should be filled
+  }
+  \item{allow.multiple, outer, prepanel, scales, strip, groups, xlab,
+    xlim, ylab, ylim, drop.unused.levels, default.scales, subset}{
+    these arguments are described in the help page for
+    \code{\link{xyplot}}.
   }
   \item{\dots}{other arguments}
 }
