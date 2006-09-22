@@ -34,11 +34,11 @@ trellis.focus(name, column, row, side, clip.off,
 trellis.switchFocus(name, side, clip.off, highlight, \dots)
 trellis.unfocus()
 trellis.panelArgs(x, packet.number)
-trellis.panelArgs()
 }
 
 \arguments{
-  \item{x, y}{ variables defining the contents of the panel }
+  \item{x, y}{ variables defining the contents of the panel.  In the
+    case of \code{trellis.panelArgs}, a \code{"trellis"} object. }
   \item{n}{
     the number of points to identify by default (overridden by a right
     click)
@@ -111,8 +111,8 @@ trellis.panelArgs()
     preserves the setting currently active.
   }
   \item{packet.number}{
-    integer, which panel to get data from.  See \code{\link{xyplot}} for
-    details on how this is calculated
+    integer, which panel to get data from.  See
+    \code{\link{packet.number}} for details on how this is calculated
   }
   \item{\dots}{
     graphical parameters. For \code{panel.identify} these are used for
@@ -171,13 +171,19 @@ trellis.panelArgs()
   
   Once a panel or strip is in focus, \code{trellis.panelArgs} can be
   used to retrieve the arguments that were available to the panel
-  function at that position.  \code{trellis.panelArgs} can also, more
-  generally, retrieve the panel arguments from any \code{"trellis"} object.
-  Note that for this usage, one needs to specify the
-  \code{packet.number} (as described under the \code{panel} entry in
-  \code{\link{xyplot}}) and not the position in the layout, because a
-  layout determines the panel only \bold{after} the object has been
-  printed.
+  function at that position.  In this case, it can be called without
+  arguments as
+
+  \preformatted{
+    trellis.panelArgs()
+  }
+
+  \code{trellis.panelArgs} can also, more generally, retrieve the panel
+  arguments from any \code{"trellis"} object.  Note that for this usage,
+  one needs to specify the \code{packet.number} (as described under the
+  \code{panel} entry in \code{\link{xyplot}}) and not the position in
+  the layout, because a layout determines the panel only \bold{after}
+  the object has been printed.
 
   It is usually not necessary to call \code{trellis.vpname} and
   \code{trellis.grobname} directly.  However, they can be useful in
