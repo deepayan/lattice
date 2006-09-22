@@ -27,13 +27,17 @@ panel.number()
 packet.number()
 which.packet()
 
-trellis.currentLayout()
+trellis.currentLayout(which = c("packet", "panel"))
 
 }
 
-% \arguments{
-%   \item{}{}
-% }
+\arguments{
+  \item{which}{
+    whether return value (a matrix) should contain panel numbers or
+    packet numbers, which are usually, but not necessarily, the same
+    (see below for details).
+  }
+}
 
 \value{
 

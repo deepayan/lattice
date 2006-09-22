@@ -42,7 +42,7 @@
 \method{[}{trellis}(x, i, j, \dots, drop = FALSE)
 
 trellis.last.object(warn = TRUE, \dots)
-trellis.last.object()
+
 }
 \arguments{
 
@@ -98,7 +98,7 @@ trellis.last.object()
   of switching (\sQuote{transposing}) their order.
 
   The print method for \code{"trellis"} objects optionally saves the
-  object after printing it.  If this feature is on,
+  object after printing it.  If this feature is enabled,
   \code{trellis.last.object} can retrieve it.  Note that at most one
   object can be saved at a time.  If \code{\link{trellis.last.object}}
   is called with arguments, these are used to update the retrieved
