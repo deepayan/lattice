@@ -647,7 +647,13 @@ print.trellis <-
 
             ## preliminary loop through possible positions, doing some
             ## calculations that allow some helpful status variables
-            ## to be set
+            ## to be set.
+
+            ## first, initialize status variables
+
+            current.panel.positions[, ] <- 0
+            current.packet.positions[, ] <- 0
+            current.cond.levels[, ] <- list(NULL)
 
             for (row in seq(length = rows.per.page))
                 for (column in seq(length = cols.per.page))
@@ -660,11 +666,12 @@ print.trellis <-
                                      row = row,
                                      column = column,
                                      skip = x$skip)
-                    ## permute to restore original order
-                    which.packet <- which.packet[inverse.permutation]
 
                     if (!is.null(which.packet))
                     {
+                        ## permute to restore original order
+                        which.packet <- which.packet[inverse.permutation]
+
                         current.cond.levels[[row, column]] <- which.packet
 
                         ## packet.number should be same as packet.array[which.packet]
