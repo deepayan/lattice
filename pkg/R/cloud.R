@@ -1,8 +1,3 @@
-
-
-
-
-
 ### Copyright (C) 2001-2006  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
 ###
 ### This file is part of the lattice package for R.
@@ -1547,11 +1542,10 @@ cloud.formula <-
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
-    foo <- c(foo,
-             do.call("construct.scales", list(draw=FALSE)))
+    foo <- c(foo, do.call("construct.scales", list(draw=FALSE)))
 
     ## scales has to be interpreted differently. Nothing needs to be
-    ## done for the ususal scales, but need a scales for panel.cloud
+    ## done for the usual scales, but need a scales for panel.cloud
     ## S-PLUS probably doesn't allow x-y-z-specific scales, but I see
     ## no reason not to allow that (will not allow limits, though)
 
@@ -1780,11 +1774,4 @@ cloud.formula <-
     class(foo) <- "trellis"
     foo
 }
-
-
-
-
-
-
-
 

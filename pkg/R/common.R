@@ -412,11 +412,18 @@ banking <- function(dx, dy = 1)
 
 extend.limits <-
     function(lim, length=1, axs = "r",
-             prop = if (axs == "i") 0 else lattice.getOption("axis.padding")$numeric)
+             prop =
+             if (axs == "i") 0
+             else lattice.getOption("axis.padding")$numeric)
 {
     if (!is.numeric(lim)) NA
-    else if(length(lim)==2) {
-        if (lim[1]>lim[2]) stop("Improper value of limit")
+    else if(length(lim)==2)
+    {
+        if (lim[1] > lim[2]) 
+            return (rev(extend.limits(rev(lim), 
+                                      length = length,
+                                      axs = axs,
+                                      prop = prop)))
         if (!missing(length) && !missing(prop))
             stop("length and prop cannot both be specified")
         if (length <= 0) stop("length must be positive")
@@ -425,12 +432,14 @@ extend.limits <-
             prop <- (as.numeric(length) - as.numeric(diff(lim))) / (2 * as.numeric(diff(lim)))
         }
         if (lim[1]==lim[2]) lim + 0.5 * c(-length,length)
-        else {
+        else
+        {
             d <- diff(as.numeric(lim))
             lim + prop * d * c(-1,1)
         }
     }
-    else {
+    else
+    {
         print(lim)
         stop("improper length of lim")
     }

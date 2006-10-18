@@ -121,8 +121,8 @@ panel.curve <-
         expr <- sexpr
     }
     lims <- current.panel.limits()$xlim
-    if (missing(from)) from <- lims[1]
-    if (missing(to)) to <- lims[2]
+    if (missing(from)) from <- min(lims)
+    if (missing(to)) to <- max(lims)
     x <- seq(from, to, length = n)
     y <- eval(expr, envir = list(x = x), enclos = parent.frame())
     panel.lines(x, y, type = curve.type, col = col, lty = lty, lwd = lwd, ...)
@@ -240,7 +240,7 @@ panel.grid <-
     {
         scale <- limits$ylim
         at <- pretty(scale)
-        at <- at[at > scale[1] & at < scale[2]]
+        at <- at[at > min(scale) & at < max(scale)]
         grid.segments(y0 = at,
                       y1 = at,
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
@@ -251,7 +251,7 @@ panel.grid <-
     {
         scale <- limits$xlim
         at <- pretty(scale)
-        at <- at[at > scale[1] & at < scale[2]]
+        at <- at[at > min(scale) & at < max(scale)]
         grid.segments(x0 = at,
                       x1 = at,
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
