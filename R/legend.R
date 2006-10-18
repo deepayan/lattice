@@ -103,7 +103,8 @@ simpleKey <-
     if (rectangles) ans$rectangles <- 
         Rows(trellis.par.get("superpose.polygon"), foo)
     if (lines) ans$lines <-
-        Rows(trellis.par.get("superpose.line"), foo)
+        updateList(Rows(trellis.par.get("superpose.symbol"), foo), ## for pch
+                   Rows(trellis.par.get("superpose.line"), foo))
     ans
 }
              
@@ -499,11 +500,15 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                     key.gf <-
                         placeGrob(key.gf, 
                                   textGrob(x = cur$pars$adj[j],
-                                           just = c(
-                                           if (cur$pars$adj[j] == 1) "right"
-                                           else if (cur$pars$adj[j] == 0) "left"
-                                           else "center",
-                                           "center"),
+
+                                           hjust = cur$pars$adj[j],
+
+##                                            just = c(
+##                                            if (cur$pars$adj[j] == 1) "right"
+##                                            else if (cur$pars$adj[j] == 0) "left"
+##                                            else "center",
+##                                            "center"),
+
                                            label = cur$pars$labels[j],
                                            gp =
                                            gpar(col = cur$pars$col[j],
