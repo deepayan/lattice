@@ -284,7 +284,7 @@ calculateAxisComponents <-
 
     ## remove labels outside limits
     rng <- range(ans$num.limit)
-    ok <- ans$at >= rng[1] & ans$at <= rng[2]
+    ok <- ans$at >= min(rng) & ans$at <= max(rng)
     ans$at <- ans$at[ok]
     ans$labels <- ans$labels[ok]
 
@@ -474,7 +474,7 @@ formattedTicksAndLabels.Date <-
         else range(as.numeric(x))
     mat <- is.logical(at)
     if(!mat) x <- as.Date(at) else x <- as.Date(x)
-    range <- range(num.lim)
+    range <- range(num.lim) # thus, range[1] <= range[2]
     range[1] <- ceiling(range[1])
     range[2] <- floor(range[2])
     ## find out the scale involved
@@ -709,7 +709,7 @@ panel.axis <-
 {
     side <- match.arg(side)
     orientation <- if (outside) "outer" else "inner"
-    cpl <- current.panel.limits() ## FIXME: grid should have accessors for xscale and yscale
+    cpl <- current.panel.limits()
     scale.range <-
         range(switch(side,
                      left = cpl$ylim,

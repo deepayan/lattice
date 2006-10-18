@@ -463,8 +463,8 @@ lplot.xy <-
            h = {
                ylim <- current.viewport()$yscale
                zero <-
-                   if (ylim[1] > origin) ylim[1]
-                   else if (ylim[2] < origin) ylim[2]
+                   if (min(ylim) > origin) min(ylim)
+                   else if (max(ylim) < origin) max(ylim)
                    else origin
                grid.segments(x0 = x, x1 = x,
                              y0 = y, y1 = zero,
@@ -476,8 +476,8 @@ lplot.xy <-
            H = {
                xlim <- current.viewport()$xscale
                zero <-
-                   if (xlim[1] > origin) xlim[1]
-                   else if (xlim[2] < origin) xlim[2]
+                   if (min(xlim) > origin) min(xlim)
+                   else if (max(xlim) < origin) max(xlim)
                    else origin
                grid.segments(x0 = x, x1 = zero,
                              y0 = y, y1 = y,

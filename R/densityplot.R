@@ -134,7 +134,7 @@ panel.densityplot <-
         {
             h <- do.call("density", c(list(x = x), darg))
             lim <- current.panel.limits()$xlim
-            id <- h$x > lim[1] & h$x < lim[2]
+            id <- h$x > min(lim) & h$x < max(lim)
             panel.lines(x = h$x[id], y = h$y[id], ...)
         }
         switch(as.character(plot.points),
