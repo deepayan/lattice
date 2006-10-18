@@ -21,48 +21,46 @@
 
 
 
-
-
-
-
-
 prepanel.default.histogram <-
     function(x,
              breaks = NULL,
              equal.widths = TRUE,
              type = "density",
              nint = round(log2(length(x)) + 1),
-             ...)
+             ...,
+
+             ## from R 2.4.0 onwards, hist.default produces a warning
+             ## when any 'unused' arguments are supplied.  Before
+             ## then, all ... arguments used to be supplied to hist(),
+             ## so arguments to hist() could be supplied that way.
+             ## This is no longer possible, so the following arguments
+             ## are being added here and in panel.histogram:
+
+             include.lowest = TRUE, right = TRUE)
 {
-    if (length(x)<1)
-        list(xlim = NA,
-             ylim = NA,
-             dx = NA,
-             dy = NA)
-    else {
-        if (is.factor(x)) {
-            isFactor <- TRUE
-            xlimits <- levels(x)
-        }
-        else isFactor <- FALSE
+    if (length(x) < 1)
+        list(xlim = NA, ylim = NA, dx = NA, dy = NA)
+    else
+    {
         if (!is.numeric(x)) x <- as.numeric(x)
-        if (is.null(breaks)) {
-##             nint <- round(log2(length(x)) + 1)
+        if (is.null(breaks)) ## shouldn't happen
+        {
+            ## nint <- round(log2(length(x)) + 1)
             breaks <-
                 if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
                 else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
-        h <- hist(x, breaks = breaks, plot = FALSE, ...)
+        h <-
+            hist(x, breaks = breaks, plot = FALSE,
+                 include.lowest = include.lowest,
+                 right = right)
         y <-
             if (type == "count") h$counts
             else if (type == "percent") 100 * h$counts/length(x)
             else h$intensities
-        xlim <- range(x, finite = TRUE)
-        ##lbreak <- max(xlim[1], breaks[breaks<=xlim[1]])
-        ##ubreak <- min(xlim[2], breaks[breaks>=xlim[2]])
-        ## why ?
-        ##list(xlim = range(x, lbreak, ubreak, finite = TRUE),
-        list(xlim = if (isFactor) xlimits else range(x, breaks, finite = TRUE),
+        list(xlim =
+             if (is.factor(x)) levels(x)
+             else range(x, breaks, finite = TRUE),
              ylim = range(0, y, finite = TRUE),
              dx = 1,
              dy = 1)
@@ -88,7 +86,11 @@ panel.histogram <-
              border = plot.polygon$border,
              lty = plot.polygon$lty,
              lwd = plot.polygon$lwd,
-             ...)
+             ...,
+
+             ## see comments above for prepanel.default.histogram
+
+             include.lowest = TRUE, right = TRUE)
 {
     x <- as.numeric(x)
     plot.polygon  <- trellis.par.get("plot.polygon")
@@ -100,14 +102,17 @@ panel.histogram <-
         
     if (length(x)>0)
     {
-        if (is.null(breaks))
+        if (is.null(breaks)) ## doesn't happen when called from histogram()
         {
-##             nint <- round(log2(length(x)) + 1)
+            ## nint <- round(log2(length(x)) + 1)
             breaks <-
                 if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
                 else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
-        h <- hist(x, breaks = breaks, plot = FALSE, ...)
+        h <-
+            hist(x, breaks = breaks,
+                 include.lowest = include.lowest,
+                 right = right)
         y <-
             if (type == "count") h$counts
             else if (type == "percent") 100 * h$counts/length(x)
@@ -287,8 +292,8 @@ histogram.formula <-
         foo$y.scales$log <- FALSE
     }
 
-    ## should type default to density?  Yes when a relative frequency
-    ## histogram is going to be misleading
+    ## should type default to density?  "Yes" when a relative
+    ## frequency histogram is going to be misleading.
 
     prefer.density <- 
         ((is.null(breaks) && !equal.widths) ||
