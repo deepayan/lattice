@@ -411,7 +411,7 @@ banking <- function(dx, dy = 1)
 
 
 extend.limits <-
-    function(lim, length=1, axs = "r",
+    function(lim, length = 1, axs = "r",
              prop =
              if (axs == "i") 0
              else lattice.getOption("axis.padding")$numeric)
@@ -419,11 +419,13 @@ extend.limits <-
     if (!is.numeric(lim)) NA
     else if(length(lim)==2)
     {
-        if (lim[1] > lim[2]) 
-            return (rev(extend.limits(rev(lim), 
-                                      length = length,
-                                      axs = axs,
-                                      prop = prop)))
+        if (lim[1] > lim[2])
+        {
+            ccall <- match.call()
+            ccall$lim <- rev(lim)
+            ans <- eval.parent(ccall)
+            return (rev(ans))
+        }
         if (!missing(length) && !missing(prop))
             stop("length and prop cannot both be specified")
         if (length <= 0) stop("length must be positive")
