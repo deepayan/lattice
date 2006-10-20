@@ -174,10 +174,14 @@ lpolygon <-
              ## lty = NULL,
              ...) 
 {
-    if (is.logical(border))
-        border <-
+    border <- 
+        if (all(is.na(border)))
+            "transparent"
+        else if (is.logical(border))
+        {
             if (border) "black"
             else "transparent"
+        }
     xy <- xy.coords(x, y, recycle = TRUE)
     if (with(xy, sum(!is.na(x) & !is.na(y))) > 0)
         grid.polygon(x = xy$x,
@@ -233,10 +237,14 @@ lrect <-
              hjust = NULL, vjust = NULL,
              ...)
 {
-    if (is.logical(border))
-    {
-        border <- if (border) col else "transparent"
-    }
+    border <- 
+        if (all(is.na(border)))
+            "transparent"
+        else if (is.logical(border))
+        {
+            if (border) "black"
+            else "transparent"
+        }
     grid.rect(x = x, y = y,
               width = width, height = height,
               default.units = "native",
