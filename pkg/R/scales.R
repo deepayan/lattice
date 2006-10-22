@@ -276,7 +276,7 @@ limitsFromLimitlist <-
             else warning("Explicitly specified limits ignored")
         }
         slicelen <- limitlist
-        for (i in seq(along = limitlist))
+        for (i in seq_along(limitlist))
             slicelen[[i]] <-
                 if (is.numeric(limitlist[[i]]))
                     diff(range(limitlist[[i]])) # range unnecessary, but...
@@ -286,13 +286,13 @@ limitsFromLimitlist <-
         slicelen <-
             (if (axs == "i") 1 else 1.14) *
                 max(unlist(slicelen), na.rm = TRUE)
-        for (i in seq(along = limitlist))
+        for (i in seq_along(limitlist))
         {
             if (is.numeric(limitlist[[i]]))
                 limitlist[[i]] <-
                     extend.limits(limitlist[[i]], length = slicelen)
         }
-        for (i in seq(along = numlimitlist))
+        for (i in seq_along(numlimitlist))
         {
             if (!all(is.na(numlimitlist[[i]])))
                 numlimitlist[[i]] <-
@@ -337,7 +337,7 @@ limitsFromLimitlist <-
             which.null <- sapply(limitlist, is.null)
             limitlist[which.null] <- old.limitlist[which.null]
         }
-        for (i in seq(along = limitlist))
+        for (i in seq_along(limitlist))
         {
             if (is.numeric(limitlist[[i]])) 
                 limitlist[[i]] <- ## preserves class
@@ -345,7 +345,7 @@ limitsFromLimitlist <-
             ## o.w., keep it as it is
         }
         slicelen <- numeric(length(limitlist))
-        for (i in seq(along = limitlist))
+        for (i in seq_along(limitlist))
             slicelen[i] <-
                 if (is.numeric(limitlist[[i]]))
                     diff(range(limitlist[[i]]))
@@ -387,7 +387,7 @@ limits.and.aspect <-
     y.num.limit <- vector("list", npackets)
     dxdy <- vector("list", npackets)
 
-    for (count in seq(length = npackets))
+    for (count in seq_len(npackets))
     {
         if (is.list(panel.args[[count]]))
         {

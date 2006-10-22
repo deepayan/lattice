@@ -43,7 +43,7 @@ getTextPosition <- function(x, y)
 
 
 panel.identify <-
-    function(x, y = NULL, labels = seq(along = x), 
+    function(x, y = NULL, labels = seq_along(x), 
              n = length(x), offset = 0.5,
              threshold = 18, ## in points, roughly 0.25 inches
              panel.args = trellis.panelArgs(),

@@ -55,7 +55,7 @@ oneway <-
             else rep(spread, num.l.x)
         foo$fitted.values <- numeric(length(y))
         sc <- numeric(length(y))
-        for (i in seq(along = y)){
+        for (i in seq_along(y)){
             foo$fitted.values[i] <- foo$location[as.numeric(x)[i]]
             sc[i] <- foo$spread[as.numeric(x)[i]]
         }
@@ -133,7 +133,7 @@ do.breaks  <- function(endpoints, nint)
 
 Rows <- function(x, which)
 {
-    for (i in seq(along = x)) x[[i]] <-
+    for (i in seq_along(x)) x[[i]] <-
         rep(x[[i]], length = max(which, length(which)))[which]
     x
 }
@@ -295,7 +295,7 @@ larrows <-
 ltext <- function(x, ...) UseMethod("ltext")
 
 ltext.default <-
-    function(x, y = NULL, labels = seq(along = x),
+    function(x, y = NULL, labels = seq_along(x),
              col = add.text$col,
              alpha = add.text$alpha,
              cex = add.text$cex,

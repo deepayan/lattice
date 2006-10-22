@@ -34,7 +34,7 @@ ltransform3dMatrix <- function(screen, R.mat = diag(4))
     screen.names <- names(screen)
     screen <- lapply(screen, "*", pi/180)
 
-    for(i in seq(along=screen.names)) {
+    for(i in seq_along(screen.names)) {
         th <- screen[[i]]
         cth <- cos(th)
         sth <- sin(th)
@@ -536,7 +536,7 @@ panel.3dwire <-
 
                     if (length(col.regions) > 1)
                     {
-                        pol.fill[count] <<- col.regions[(seq(along = at)[at > misc[3]])[1] - 1 ]
+                        pol.fill[count] <<- col.regions[(seq_along(at)[at > misc[3]])[1] - 1 ]
                         if (ngroups > 1 && length(col) > 1) pol.col[count] <<- col[as.integer(misc[4])]
                     }
                     ## nothing to do if ngroups == 1
@@ -1051,7 +1051,7 @@ panel.cloud <-
                 nvals <- length(vals)
                 tmp <- numeric(0)
 
-                for (i in seq(along=vals)) {
+                for (i in seq_along(vals)) {
                     id <- (groups[subscripts] == vals[i])
                     if (any(id)) {
                         ord <- order(x[id], y[id])
@@ -1354,8 +1354,8 @@ wireframe.matrix <-
     if (!is.null(data)) warning("explicit data specification ignored")
     form <- eval(z ~ row * column)
     data <-
-        expand.grid(row = seq(length = nrow(x)),
-                    column = seq(length = ncol(x)))
+        expand.grid(row = seq_len(nrow(x)),
+                    column = seq_len(ncol(x)))
     data$z <- as.vector(as.numeric(x))
     ## What if rownames/colnames are non-null?
     wireframe(form, data, zlab = zlab, ...)
@@ -1395,8 +1395,8 @@ cloud.matrix <-
     if (!is.null(data)) warning("explicit data specification ignored")
     form <- eval(z ~ row * column)
     data <-
-        expand.grid(row = seq(length = nrow(x)),
-                    column = seq(length = ncol(x)))
+        expand.grid(row = seq_len(nrow(x)),
+                    column = seq_len(ncol(x)))
     data$z <- as.vector(as.numeric(x))
     ## What if rownames/colnames are non-null?
     cloud(form, data, type = type, zlab = zlab, ...)
@@ -1467,7 +1467,7 @@ cloud.formula <-
                 as.vector(as.matrix(form$groups))[form$subscr]
             else form$groups[form$subscr]
 
-    subscr <- seq(length = length(form$left))
+    subscr <- seq_len(length(form$left))
 
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
@@ -1717,7 +1717,7 @@ cloud.formula <-
     cond.current.level <- rep(1, length(cond))
 
 
-    for (packet.number in seq(length = npackets))
+    for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
         foo$packet.sizes[packet.number] <- sum(id)

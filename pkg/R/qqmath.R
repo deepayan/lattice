@@ -49,7 +49,7 @@ fast.quantile <-
             x <- sort(x)
             i <- index > lo
             qs <- x[lo]
-            i <- seq(along = i)[i & !is.na(i)]
+            i <- seq_along(i)[i & !is.na(i)]
             h <- (index - lo)[i]
             qs[i] <- ifelse(h == 0, qs[i], (1 - h) * qs[i] + 
                 h * x[hi[i]])
@@ -395,7 +395,7 @@ qqmath.formula <-
         dimnames(foo$packet.sizes) <- lapply(foo$condlevels, as.character)
     }
     cond.current.level <- rep(1, length(cond))
-    for (packet.number in seq(length = npackets))
+    for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
         foo$packet.sizes[packet.number] <- sum(id)

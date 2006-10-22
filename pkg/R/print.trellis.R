@@ -102,7 +102,7 @@ grobFromLabelList <- function(lab, name = "label", rot = 0)
 evaluate.legend <- function(legend)
 {
     if (is.null(legend)) return(NULL)
-    for (i in seq(along = legend))
+    for (i in seq_along(legend))
     {
         fun <- legend[[i]]$fun
         fun <- 
@@ -280,7 +280,7 @@ print.trellis <-
 
     ## ## Original version (up to 0.13 series):
     
-    ## order.cond <- seq(length = prod(sapply(x$condlevels, length)))
+    ## order.cond <- seq_len(prod(sapply(x$condlevels, length)))
     ## dim(order.cond) <- sapply(x$condlevels, length)
 
     ## ## first subset, then permute
@@ -299,7 +299,7 @@ print.trellis <-
 
     original.condlevels <- 
         used.condlevels <-
-            lapply(x$condlevels, function(x) seq(along = x))
+            lapply(x$condlevels, function(x) seq_along(x))
     used.condlevels <- 
         mapply("[", used.condlevels, x$index.cond,
                MoreArgs = list(drop = FALSE),
@@ -315,7 +315,7 @@ print.trellis <-
     ## (i.e. lower dimensions vary faster).
 
     adim <- sapply(original.condlevels, length)
-    packet.array <- seq(length = prod(adim))
+    packet.array <- seq_len(prod(adim))
     dim(packet.array) <- adim
 
 
@@ -324,7 +324,7 @@ print.trellis <-
     ## make things simpler, but that's not a very immediate concern
     ## (and not clear how difficult either).
 
-##     order.cond <- seq(length = prod(sapply(x$condlevels, length)))
+##     order.cond <- seq_len(prod(sapply(x$condlevels, length)))
 ##     dim(order.cond) <- sapply(x$condlevels, length)
 
     ## first subset, then permute
@@ -598,7 +598,7 @@ print.trellis <-
     ## FIXME: what happens when number of pages is 0?
     ## message("no of pages: ", number.of.pages)
 
-    for(page.number in seq(length = number.of.pages))
+    for(page.number in seq_len(number.of.pages))
     {
         ##if (!any(cond.max.levels - which.packet < 0))
         if (TRUE)
@@ -655,8 +655,8 @@ print.trellis <-
             current.packet.positions[, ] <- 0
             current.cond.levels[, ] <- list(NULL)
 
-            for (row in seq(length = rows.per.page))
-                for (column in seq(length = cols.per.page))
+            for (row in seq_len(rows.per.page))
+                for (column in seq_len(cols.per.page))
                 {
                     ## levels being used in this panel
                     which.packet <- 
@@ -703,8 +703,8 @@ print.trellis <-
             ## loop through positions again, doing the actual drawing
             ## this time
 
-            for (row in seq(length = rows.per.page))
-                for (column in seq(length = cols.per.page))
+            for (row in seq_len(rows.per.page))
+                for (column in seq_len(cols.per.page))
                 {
                     lattice.setStatus(current.focus.row = row,
                                       current.focus.column = column)
@@ -1004,7 +1004,7 @@ print.trellis <-
                                                                  column = column,
                                                                  row = row,
                                                                  clip.off = FALSE)))
-                            for(i in seq(length = number.of.cond))
+                            for(i in seq_len(number.of.cond))
                             {
                                 ## Here, by which.given, I mean which
                                 ## in the original order, not the
@@ -1049,7 +1049,7 @@ print.trellis <-
                                                                  clip.off = FALSE)))
 
 
-                            for(i in seq(length = number.of.cond))
+                            for(i in seq_len(number.of.cond))
                             {
                                 ## Here, by which.given, I mean which
                                 ## in the original packet order, not
@@ -1081,7 +1081,7 @@ print.trellis <-
             if (!is.null(legend))
             {
                 locs <- names(legend)
-                for (i in seq(along = legend))
+                for (i in seq_along(legend))
                 {
                     key.space <- locs[i]
                     key.gf <- legend[[i]]$obj

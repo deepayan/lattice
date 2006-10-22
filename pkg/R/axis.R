@@ -421,7 +421,7 @@ formattedTicksAndLabels.character <-
               format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
-    ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
+    ans <- list(at = if (is.logical(at)) seq_along(x)[retain] else at,
                 labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
     ans$num.limit <- c(-1, 1) * lattice.getOption("axis.padding")$factor + 
@@ -446,7 +446,7 @@ formattedTicksAndLabels.expression <-
              format.posixt, ...)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
-    ans <- list(at = if (is.logical(at)) seq(along = x)[retain] else at,
+    ans <- list(at = if (is.logical(at)) seq_along(x)[retain] else at,
                 labels = if (is.logical(labels)) x[retain] else labels,
                 check.overlap = FALSE)
     ans$num.limit <- c(-1, 1) * lattice.getOption("axis.padding")$factor + 
@@ -760,7 +760,7 @@ panel.axis <-
     ## }
 
     nal <- length(at) / 2 + 0.5
-    all.id <- seq(along = at)
+    all.id <- seq_along(at)
     lower.id <- all.id <= nal
     upper.id <- all.id >= nal
     axid <-

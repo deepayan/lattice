@@ -44,7 +44,7 @@ ltext(x, ...)
        col, alpha, lty, lwd, \dots)
 \method{lpoints}{default}(x, y = NULL, type = "p", col, pch, alpha, fill,
         font, fontfamily, fontface, cex, \dots)  
-\method{ltext}{default}(x, y = NULL, labels = seq(along = x),
+\method{ltext}{default}(x, y = NULL, labels = seq_along(x),
       col, alpha, cex, srt = 0,
       lineheight, font, fontfamily, fontface,
       adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots)  

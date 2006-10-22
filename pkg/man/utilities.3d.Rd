@@ -18,7 +18,7 @@ ltransform3dto3d(x, R.mat, dist)
     \code{x} can be a numeric matrix with 3 rows for
     \code{ltransform3dto3d}
   }
-  \item{screen}{list, as described in \code{\link{cloud}}}
+  \item{screen}{list, as described in \code{\link{panel.cloud}}}
   \item{R.mat}{4x4 transformation matrix in homogeneous
     coordinates}
   \item{dist}{controls transformation to account for

@@ -113,8 +113,8 @@ calculateGridLayout <-
     ## list giving positions (for indexing) of various components
 
     last.panel <- (rows.per.page - 1) * 4 + 9
-    between.seq <- seq(length = rows.per.page-1)
-    panel.seq <- seq(length = rows.per.page)
+    between.seq <- seq_len(rows.per.page-1)
+    panel.seq <- seq_len(rows.per.page)
 
     if (!x$as.table)
     {
@@ -150,10 +150,10 @@ calculateGridLayout <-
              ylab              = 4,
              ylab.axis.padding = 5,
              axis.left         = 6,
-             axis.panel        = (seq(length = cols.per.page) - 1) * 4 + 7,
-             strip.left        = (seq(length = cols.per.page) - 1) * 4 + 8,
-             panel             = (seq(length = cols.per.page) - 1) * 4 + 9,
-             between           = (seq(length = cols.per.page-1) - 1) * 4 + 10,
+             axis.panel        = (seq_len(cols.per.page) - 1) * 4 + 7,
+             strip.left        = (seq_len(cols.per.page) - 1) * 4 + 8,
+             panel             = (seq_len(cols.per.page) - 1) * 4 + 9,
+             between           = (seq_len(cols.per.page-1) - 1) * 4 + 10,
              axis.right        = last.panel + 1,
              axis.key.padding  = last.panel + 2,
              key.right         = last.panel + 3,
@@ -439,7 +439,7 @@ calculateGridLayout <-
 
             lab.groblist <-
                 vector(mode = "list", length = length(x$x.limits))
-            for (i in seq(along = x$x.limits))
+            for (i in seq_along(x$x.limits))
             {
                 lab <-
                     calculateAxisComponents(x = x$x.limits[[i]],
@@ -581,7 +581,7 @@ calculateGridLayout <-
 
             lab.groblist <-
                 vector(mode = "list", length = length(x$y.limits))
-            for (i in seq(along = x$y.limits))
+            for (i in seq_along(x$y.limits))
             {
                 lab <-
                     calculateAxisComponents(x = x$y.limits[[i]],
@@ -649,7 +649,7 @@ calculateGridLayout <-
             axis.panel.mult <-
                 rep(trellis.par.get("layout.heights")[["axis.panel"]],
                     length = pcol)
-            for (i in seq(length = pcol))
+            for (i in seq_len(pcol))
                 layout.heights <-
                     rearrangeUnit(layout.heights,
                                   pos.heights[["axis.panel"]][i],
@@ -675,7 +675,7 @@ calculateGridLayout <-
             axis.panel.mult <-
                 rep(trellis.par.get("layout.widths")[["axis.panel"]],
                     length = prow)
-            for (i in seq(length = prow))
+            for (i in seq_len(prow))
                 layout.widths <-
                     rearrangeUnit(layout.widths,
                                   pos.widths[["axis.panel"]][i],

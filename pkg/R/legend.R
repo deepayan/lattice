@@ -91,7 +91,7 @@ simpleKey <-
              ...)
 {
     add.text <- trellis.par.get("add.text")
-    foo <- seq(along = text)
+    foo <- seq_along(text)
     ans <-
         list(text = list(lab = text),
              col = col, cex = cex, font = font,

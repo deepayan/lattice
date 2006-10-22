@@ -728,7 +728,7 @@ panel.violin <-
 
     if (horizontal)
     {
-        for (i in seq(along = levels.fos))
+        for (i in seq_along(levels.fos))
         {
             pushViewport(viewport(y = unit(levels.fos[i], "native"),
                                   height = unit(height, "native"),
@@ -743,7 +743,7 @@ panel.violin <-
     }
     else
     {
-        for (i in seq(along = levels.fos))
+        for (i in seq_along(levels.fos))
         {
             pushViewport(viewport(x = unit(levels.fos[i], "native"),
                                   width = unit(height, "native"),
@@ -1209,7 +1209,7 @@ bwplot.formula <-
     cond.current.level <- rep(1, length(cond))
 
 
-    for (packet.number in seq(length = npackets))
+    for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
         foo$packet.sizes[packet.number] <- sum(id)
@@ -1230,7 +1230,7 @@ bwplot.formula <-
                 panel.x <- numeric(0)
                 panel.y <- numeric(0)
                 if (subscripts) panel.subscr <- numeric(0)
-                for (k in seq(length = num.l.y))
+                for (k in seq_len(num.l.y))
                 {
                     tid <- id & (y >= levels(y)[[k]][1]) & (y <= levels(y)[[k]][2])
                     panel.x <- c(panel.x, x[tid])
@@ -1261,7 +1261,7 @@ bwplot.formula <-
                 panel.x <- numeric(0)
                 panel.y <- numeric(0)
                 if (subscripts) panel.subscr <- numeric(0)
-                for (k in seq(length = num.l.x))
+                for (k in seq_len(num.l.x))
                 {
                     tid <- id & (x >= levels(x)[[k]][1]) & (x <= levels(x)[[k]][2])
                     panel.y <- c(panel.y, y[tid])

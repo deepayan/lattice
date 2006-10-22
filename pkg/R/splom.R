@@ -93,7 +93,7 @@ diag.panel.splom <-
         if (is.null(at))
         {
             at <- 
-                if (is.character(limits)) seq(along = limits)
+                if (is.character(limits)) seq_along(limits)
                 else pretty(limits)
         }
         if (is.null(lab))
@@ -198,7 +198,7 @@ panel.pairs <-
     if (n.var == 0) return()
 
     lim <- vector("list", length = n.var)
-    for(i in seq(length = n.var)) lim[[i]] <-
+    for(i in seq_len(n.var)) lim[[i]] <-
         if (is.list(pscales) && !is.null(pscales[[i]]$lim))
             pscales[[i]]$lim
         else prepanel.limits(z[,i])
@@ -238,7 +238,7 @@ panel.pairs <-
                         if (is.list(pscales) && !is.null(pscales[[i]]$at))
                             pscales[[i]]$at
                         else if (is.character(lim[[i]]))
-                            seq(along = lim[[i]])
+                            seq_along(lim[[i]])
                         else
                             pretty(lim[[i]],
                                    n = if (is.numeric(pscales))
@@ -407,7 +407,7 @@ splom.formula <-
     ## as a straight sequence indexing the variables
 
     if (!is.null(form$groups)) groups <-  form$groups[form$subscr]
-    subscr <- seq(length = nrow(form$right))
+    subscr <- seq_len(nrow(form$right))
 
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
@@ -510,7 +510,7 @@ splom.formula <-
     cond.current.level <- rep(1, length(cond))
 
 
-    for (packet.number in seq(length = npackets))
+    for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
         foo$packet.sizes[packet.number] <- sum(id)
