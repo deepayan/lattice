@@ -110,7 +110,7 @@ panel.histogram <-
                 else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
         h <-
-            hist(x, breaks = breaks,
+            hist(x, breaks = breaks, plot = FALSE,
                  include.lowest = include.lowest,
                  right = right)
         y <-

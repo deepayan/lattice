@@ -1,5 +1,38 @@
 
 
+Changes in lattice 0.14
+=======================
+
+new features
+------------
+
+ o support for custom function that determines packet-panel
+   correspondence.  This could be used to fill panels vertically
+   rather than horizontally, or to split layout over two or more
+   pages, etc. (see ?packet.panel.default)
+
+ o support for customizable functions for axis drawing and tick/label
+   determination
+
+ o various accessor functions available to panel, strip, axis (etc)
+   functions, e.g. panel.number() and packet.number()
+
+ o arguments to lattice.options and print.trellis arguments can now be
+   attached to trellis objects (as parameter settings already could)
+   through high level arguments 'lattice.options' and 'plot.args'
+
+ o llines, lpoints and ltext are now generic functions
+
+
+changes in behaviour
+--------------------
+
+ o panel function is no longer given arguments panel.number and
+   packet.number (see above for alternatives)
+
+
+
+
 
 Changes in lattice 0.13
 =======================
