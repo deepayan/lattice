@@ -110,7 +110,7 @@ panel.levelplot <-
             rep(col.regions, length = numcol)
         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
     zcol <- rep(NA, length(z)) #numeric(length(z))
-    for (i in seq(along = col.regions))
+    for (i in seq_along(col.regions))
         zcol[!is.na(x) & !is.na(y) & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
 
     label.style <- match.arg(label.style)
@@ -335,8 +335,8 @@ contourplot.matrix <-
     if (!missing(data)) warning("explicit data specification ignored")
     form <- z ~ row * column
     data <-
-        expand.grid(row = seq(length = nrow(x)),
-                    column = seq(length = ncol(x)))
+        expand.grid(row = seq_len(nrow(x)),
+                    column = seq_len(ncol(x)))
     data$z <- as.vector(as.numeric(x))
     ## if rownames/colnames are non-null, make them factors
     if (!is.null(rownames(x)))
@@ -384,8 +384,8 @@ levelplot.matrix <-
     if (!missing(data)) warning("explicit data specification ignored")
     form <- z ~ row * column
     data <-
-        expand.grid(row = seq(length = nrow(x)),
-                    column = seq(length = ncol(x)))
+        expand.grid(row = seq_len(nrow(x)),
+                    column = seq_len(ncol(x)))
     data$z <- as.vector(as.numeric(x))
     ## if rownames/colnames are non-null, make them factors
     if (!is.null(rownames(x)))
@@ -451,7 +451,7 @@ levelplot.formula <-
             else if (is.data.frame(form$groups)) as.vector(as.matrix(form$groups))[form$subscr]
             else form$groups[form$subscr]
 
-    subscr <- seq(length = length(form$left))
+    subscr <- seq_len(length(form$left))
 
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
@@ -620,7 +620,7 @@ levelplot.formula <-
 #                          fun = "draw.colorkey")
 
 #     zcol <- rep(NA, length(z)) #numeric(length(z))
-#     for (i in seq(along=col.regions))
+#     for (i in seq_along(col.regions))
 #         zcol[!id.na & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
 
 #     foo$panel.args.common <-
@@ -651,7 +651,7 @@ levelplot.formula <-
     cond.current.level <- rep(1, length(cond))
 
 
-    for (packet.number in seq(length = npackets))
+    for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
         foo$packet.sizes[packet.number] <- sum(id)

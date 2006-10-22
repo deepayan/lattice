@@ -17,7 +17,7 @@
   details may change in future.
 }
 \usage{
-panel.identify(x, y = NULL, labels = seq(along = x),
+panel.identify(x, y = NULL, labels = seq_along(x),
                n = length(x), offset = 0.5,
                threshold = 18,
                panel.args = trellis.panelArgs(),

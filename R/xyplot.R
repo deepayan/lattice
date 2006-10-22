@@ -337,7 +337,7 @@ xyplot.formula <-
 
     ## 
     cond.current.level <- rep(1, length(cond))
-    for (packet.number in seq(length = npackets))
+    for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
         foo$packet.sizes[packet.number] <- sum(id)

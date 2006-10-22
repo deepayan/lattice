@@ -76,7 +76,7 @@ prepanel.tmd.qqmath <-
         yylist <- lapply(sx, getyy, f.value = f.value)
         meanlist <- difflist <-
             vector(mode = "list", length = length(sx))
-        for (i in seq(along = sx))
+        for (i in seq_along(sx))
         {
             meanlist[[i]] <- (xxlist[[i]] + yylist[[1]]) / 2
             difflist[[i]] <- (yylist[[i]] - xxlist[[1]])
@@ -167,7 +167,7 @@ panel.tmd.qqmath <-
             gl(length(xxlist),
                sapply(xxlist, length),
                labels = names(xxlist))
-        tmd.subscripts <- seq(along = xx)
+        tmd.subscripts <- seq_along(xx)
         panel.superpose(x = tmd.mean, y = tmd.diff,
                         groups = tmd.groups,
                         subscripts = tmd.subscripts,

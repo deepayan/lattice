@@ -77,8 +77,8 @@ panel.parallel <-
 
     if (n.r > 1)
         panel.segments(x0 = 0, x1 = 1,
-                       y0 = seq(length = n.r),
-                       y1 = seq(length = n.r),
+                       y0 = seq_len(n.r),
+                       y1 = seq_len(n.r),
                        col = reference.line$col,
                        lwd = reference.line$lwd,
                        lty = reference.line$lty)
@@ -86,7 +86,7 @@ panel.parallel <-
 
     if (is.null(groups))
     {
-        for (i in seq(length = n.r-1))
+        for (i in seq_len(n.r-1))
         {
             x0 <- (as.numeric(z[subscripts, i, ]) - lower[i])/dif[i]
             x1 <- (as.numeric(z[subscripts, i+1, ]) - lower[i+1])/dif[i+1]
@@ -97,21 +97,9 @@ panel.parallel <-
                            alpha = alpha,
                            ...)
         }        
-##         for (i in seq(along=subscripts))
-##         {
-##             x <- (as.numeric(z[subscripts[i],,])-lower)/dif
-##             grid.lines(x = x,
-##                        y = 1:n.r, 
-##                        gp =
-##                        gpar(col = col[i],
-##                             lty = lty[i],
-##                             lwd = lwd[i],
-##                             alpha = alpha[i]),
-##                        default.units = "native")
-##         }
     }
     else 
-        for (i in seq(along = subscripts))
+        for (i in seq_along(subscripts))
         {
             x <- (as.numeric(z[subscripts[i],,])-lower)/dif
             grid.lines(x = x,
@@ -259,7 +247,7 @@ parallel.formula <-
     ## as a straight sequence indexing the variables
 
     if (!is.null(form$groups)) groups <-  form$groups[form$subscr]
-    subscr <- seq(length = nrow(form$right))
+    subscr <- seq_len(nrow(form$right))
 
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
@@ -373,7 +361,7 @@ parallel.formula <-
     cond.current.level <- rep(1, length(cond))
 
 
-    for (packet.number in seq(length = npackets))
+    for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
         foo$packet.sizes[packet.number] <- sum(id)

@@ -50,7 +50,7 @@ cupdate <- function(index, maxim)
 #     names.current <- as.character(names.current)
 #     new.prefix <- as.character(new.prefix)
 #     newnames <- c(new.prefix,
-#                   paste(gvar, seq(along=names.current), sep=""))
+#                   paste(gvar, seq_along(names.current), sep=""))
 #     newnames[!(newnames %in% names.current)][1]
 # }
 
@@ -194,7 +194,7 @@ latticeParseFormula <-
         }
         ans$condition <- vector("list", length(modelRHS.vars))
         names(ans$condition) <- sapply(modelRHS.vars, expr2char)
-        for (i in seq(along = modelRHS.vars)) {
+        for (i in seq_along(modelRHS.vars)) {
             ans$condition[[i]] <-
                 lrep(as.factorOrShingle(eval(modelRHS.vars[[i]], data, env),
                                         subset, drop = drop.unused.cond), nLHS * nRHS)
@@ -337,7 +337,7 @@ latticeParseFormula <-
         ## in panel functions.
 
         if (!is.null(groups)) ans$groups <- groups
-        if (subscripts) ans$subscr <- seq(length = nobs)[subset]
+        if (subscripts) ans$subscr <- seq_len(nobs)[subset]
     }
     else if (outer) {
         if (!is.null(groups)) ans$groups <- rep(groups, nLHS * nRHS)
@@ -356,7 +356,7 @@ latticeParseFormula <-
 
         if (subscripts)
             ans$subscr <-
-                as.vector(matrix(seq(length = nobs * nLHS * nRHS), nrow = nobs)[subset, ])
+                as.vector(matrix(seq_len(nobs * nLHS * nRHS), nrow = nobs)[subset, ])
     }
     else {  ## that is, nLHS * nRHS > 1, outer = FALSE
         if (is.null(groups) && !is.null(newFactor))
@@ -368,7 +368,7 @@ latticeParseFormula <-
         ## variables. So subscr has to be a simple seq, as long as the
         ## new groups.
 
-        if (subscripts) ans$subscr <- seq(length = length(newFactor))
+        if (subscripts) ans$subscr <- seq_len(length(newFactor))
 
         ## check
         if (length(newFactor) != nRows * nLHS * nRHS)
@@ -571,9 +571,9 @@ cond.orders <- function(foo, ...)
         vector(mode = "list",
                length = length(foo$condlevels))
 
-    for (i in seq(along = foo$condlevels))
-        index.cond[[i]] <- seq(along = foo$condlevels[[i]])
-    perm.cond <- seq(length = length(foo$condlevels))
+    for (i in seq_along(foo$condlevels))
+        index.cond[[i]] <- seq_along(foo$condlevels[[i]])
+    perm.cond <- seq_len(length(foo$condlevels))
 
     if (!is.null(foo$perm.cond))
     {
@@ -585,7 +585,7 @@ cond.orders <- function(foo, ...)
     {
         if (is.list(foo$index.cond) && length(foo$index.cond) == length(index.cond))
         {
-            for (i in seq(along = foo$condlevels))
+            for (i in seq_along(foo$condlevels))
                 index.cond[[i]] <- index.cond[[i]][foo$index.cond[[i]]]
         }
         else if (is.function(foo$index.cond))
@@ -593,7 +593,7 @@ cond.orders <- function(foo, ...)
             FUN <- foo$index.cond
             nplots <- length(foo$panel.args)
             panel.order <- numeric(nplots)
-            for (count in seq(length = nplots))
+            for (count in seq_len(nplots))
             {
                 if (is.list(foo$panel.args[[count]]))
                 {
@@ -608,7 +608,7 @@ cond.orders <- function(foo, ...)
                 }
             }
             dim(panel.order) <- sapply(foo$condlevels, length)
-            for (i in seq(along = foo$condlevels))
+            for (i in seq_along(foo$condlevels))
                 index.cond[[i]] <-
                     order(apply(panel.order, i, mean, na.rm = TRUE))
         }
@@ -675,7 +675,7 @@ compute.packet <-
 {
     id <- !(do.call("pmax", lapply(cond, is.na)))
     stopifnot(any(id))
-    for (i in seq(along = cond))
+    for (i in seq_along(cond))
     {
         var <- cond[[i]]
         id <-

@@ -31,7 +31,7 @@
     if (drop) {
         xlvs <- levels(ans)
         dl <- logical(nlevels(ans))
-        for (i in seq(along=dl))
+        for (i in seq_along(dl))
             dl[i] <- any( ans >= xlvs[[i]][1] & ans <= xlvs[[i]][2] )
         attr(ans, "levels") <- xlvs[dl]
         class(attr(ans, "levels")) <- "shingleLevel"
@@ -48,7 +48,7 @@ make.list.from.intervals <- function(x)
 {
     if (ncol(x) != 2) stop("x must be matrix with 2 columns")
     ans <- vector(mode = "list", length = nrow(x))
-    for (i in seq(length = nrow(x))) ans[[i]] <- x[i,]
+    for (i in seq_len(nrow(x))) ans[[i]] <- x[i,]
     ans
 }
 
@@ -132,7 +132,7 @@ print.shingle <- function(x, showValues = TRUE, ...)
         cat(gettext("\nIntervals:\n"))
         print(int)
         olap <- numeric(n-1)
-        for (i in seq(length = n - 1))
+        for (i in seq_len(n - 1))
             olap[i] <-
                 length(x[x >= l[[i]][1] & x <= l[[i]][2] &
                          x >= l[[i+1]][1] & x <= l[[i+1]][2]])
@@ -176,7 +176,7 @@ plot.shingle <-
         }
     x <- levels(x)
     ans <-
-        bwplot(factor(rep(seq(length = length(x)), each = 2)) ~ unlist(x),
+        bwplot(factor(rep(seq_len(length(x)), each = 2)) ~ unlist(x),
                xlab = xlab, ylab = ylab,
                panel = panel, ...)
     ans$call <- ocall

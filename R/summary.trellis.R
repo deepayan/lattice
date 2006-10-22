@@ -62,7 +62,7 @@ print.summary.trellis <- function(x, ...)
 ##     if (!is.null(names(object$condlevels)))
 ##     {
 ##         cat("\nLevels of Conditioning variables:")
-##         for (i in seq(along = object$condlevels))
+##         for (i in seq_along(object$condlevels))
 ##         {
 ##             cat("\n<", i, "> ", names(object$condlevels)[i], "\n", sep = "")
 ##             print(object$condlevels[[i]])

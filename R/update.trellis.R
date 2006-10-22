@@ -197,7 +197,7 @@ update.trellis <-
     if (!missing(perm.cond))
     {
         if (is.null(perm.cond))
-            object$perm.cond <- seq(length = length(object$condlevels))
+            object$perm.cond <- seq_len(length(object$condlevels))
         else if (all(sort(perm.cond) == object$perm.cond))
             object$perm.cond <- perm.cond
         else stop("Invalid value of perm.cond")
