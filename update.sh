@@ -9,7 +9,7 @@
 ##   (2) run msgmerge on existing translation catalogs
 ##   (2) update SvnLog [actually create a file with latest entries]
 
-R_PROG=R-2.3
+R_PROG=R-2.4
 export LC_ALL=C
 echo "library(tools); xgettext2pot('.', 'po/R-lattice.pot')" | ${R_PROG} --vanilla --silent
 for f in po/R-*.po; do msgmerge --no-wrap --update $f po/R-lattice.pot; done
