@@ -770,7 +770,6 @@ bwplot(x, data, \dots)
 	list itself can contain graphical parameters, these would be used if
 	relevant graphical components are omitted from the other components.
 
-
 	The length (number of rows) of each such column (except \code{"text"}s)
 	is taken to be the largest of the lengths of the graphical
 	components, including the ones specified outside (see the entry for
@@ -807,9 +806,23 @@ bwplot(x, data, \dots)
 	Other possible components of \code{key} are:
 
 	\describe{
+	  \item{\code{reverse.rows}}{
+	    logical, defaulting to \code{FALSE}.  If \code{TRUE}, all
+	    components are reversed \emph{after} being replicated
+	    (the details of which may depend on the value of
+	    \code{rep}).  This is useful in certain situations,
+	    e.g. with a grouped \code{barchart} with \code{stack =
+	      FALSE} with the categorical variable on the vertical axis,
+	    where the bars in the plot will usually be ordered from
+	    bottom to top, but the corresponding legend will have the
+	    levels from top to bottom (unless, of course,
+	    \code{reverse.rows = TRUE}).  Note that in this case, unless
+	    all columns have the same number or rows, they will no
+	    longer be aligned.
+	  }
 	  \item{\code{between}}{
 	    numeric vector giving the amount of space (character widths)
-	    surrounding each column (split equally on both sides),
+	    surrounding each column (split equally on both sides)
 	  }
 	  \item{\code{title}}{
 	    string or expression giving a title for the key
