@@ -148,6 +148,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                  angle = 0, 
                  density = -1,
                  ...,
+                 reverse.rows = FALSE, ## invert rows (e.g. for barchart, stack = FALSE)
                  between = 2,
                  between.columns = 3,
                  columns = 1,
@@ -159,7 +160,8 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
                  fontface = NULL, 
                  fontfamily = NULL)
         {
-            list(between = between,
+            list(reverse.rows = reverse.rows,
+                 between = between,
                  align = align,
                  title = title,
                  rep = rep,
@@ -298,24 +300,28 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
     ## will be repeated as necessary to have the same length.
 
     
-    for (i in 1:number.of.components)
+    for (i in seq_len(number.of.components))
     {
-        if (components[[i]]$type != "text")
-        {
-            components[[i]]$pars <-
-                lapply(components[[i]]$pars, rep,
-                       length = if (key$rep) max.length
-                       else components[[i]]$length)
-            if (key$rep) components[[i]]$length <- max.length
-        }
-        else
-        {
-            ## NB: rep doesn't work with expressions of length > 1
-            components[[i]]$pars <-
-                c(components[[i]]$pars[1],
-                  lapply(components[[i]]$pars[-1], rep,
-                         length = components[[i]]$length))
-        }
+        if (key$rep && (components[[i]]$type != "text"))
+            components[[i]]$length <- max.length
+        components[[i]]$pars <-
+            lapply(components[[i]]$pars, rep, length = components[[i]]$length)
+        if (key$reverse.rows) 
+            components[[i]]$pars <- 
+                lapply(components[[i]]$pars, rev)
+##         {
+##             if (key$rep) components[[i]]$length <- max.length
+##             components[[i]]$pars <-
+##                 lapply(components[[i]]$pars, rep, components[[i]]$length)
+##         }
+##         else
+##         {
+##             components[[i]]$pars <-
+##                 c(components[[i]]$pars[1],
+##                   lapply(components[[i]]$pars[-1], rep,
+##                          length = components[[i]]$length))
+##         }
+
     }
     column.blocks <- key$columns
     rows.per.block <- ceiling(max.length/column.blocks)
