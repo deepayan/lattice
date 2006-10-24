@@ -129,7 +129,7 @@ yscale.components.default <-
                                 packet.number = packet.number, ...)
     list(num.limit = comps$num.limit,
          left =
-         list(ticks = list(at = comps$at, tck = 1, lwd = 1),
+         list(ticks = list(at = comps$at, tck = 1),
               labels =
               list(at = comps$at,
                    labels = comps$labels,
@@ -216,11 +216,18 @@ axis.default <-
     {
         comp.list <-
             switch(side,
-                   top = if (is.logical(components[["top"]]) && components[["top"]]) components[["bottom"]] else components[["top"]],
+                   top = if (is.logical(components[["top"]]) && components[["top"]])
+                   components[["bottom"]] else components[["top"]],
                    bottom = components[["bottom"]],
                    left = components[["left"]],
-                   right = if (is.logical(components[["right"]]) && components[["right"]]) components[["left"]] else components[["right"]])
-
+                   right = if (is.logical(components[["right"]]) && components[["right"]])
+                   components[["left"]] else components[["right"]])
+        scales.tck <-
+            switch(side,
+                   left = ,
+                   bottom = scales$tck[1],
+                   right = ,
+                   top = scales$tck[2])
         panel.axis(side = side,
                    at = comp.list$ticks$at,
                    labels = comp.list$labels$labels,
@@ -228,7 +235,7 @@ axis.default <-
                    check.overlap = comp.list$labels$check.overlap,
                    outside = TRUE,
                    tick = do.ticks,
-                   tck = scales$tck * comp.list$ticks$tck,
+                   tck = scales.tck * comp.list$ticks$tck,
                    ...)
     }
 
