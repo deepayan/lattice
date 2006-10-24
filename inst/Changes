@@ -23,6 +23,9 @@ new features
 
  o llines, lpoints and ltext are now generic functions
 
+ o The high level 'key' argument can now have an argument called
+   'reverse.rows' to reverse the order of rows.  This applies to
+   'draw.key', 'auto.key' and 'simpleKey' as well.
 
 changes in behaviour
 --------------------
