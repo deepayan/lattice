@@ -1,4 +1,25 @@
 ------------------------------------------------------------------------
+r3936 | deepayan | 2006-10-31 12:48:30 -0800 (Tue, 31 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+
+moved code for saving object up in print.trellis, so that
+trellis.panelArgs() works during printing (untested)
+------------------------------------------------------------------------
+r3935 | deepayan | 2006-10-31 12:47:23 -0800 (Tue, 31 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/man/interaction.Rd
+
+changed panel.identify to return selected subscripts rather than
+indices within panel
+------------------------------------------------------------------------
+r3927 | deepayan | 2006-10-24 09:02:35 -0700 (Tue, 24 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+
+fixed tck vectorization bug in scales
+------------------------------------------------------------------------
 r3925 | deepayan | 2006-10-23 16:55:19 -0700 (Mon, 23 Oct 2006) | 1 line
 Changed paths:
    M /trunk/lattice/R/legend.R
