@@ -1,6 +1,4 @@
 
-
-
 useDynLib(lattice, .registration = TRUE)
 
 import(grid)
