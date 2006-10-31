@@ -17,9 +17,11 @@
   details may change in future.
 }
 \usage{
-panel.identify(x, y = NULL, labels = seq_along(x),
+panel.identify(x, y = NULL,
+               subscripts = seq_along(x),
+               labels = subscripts, 
                n = length(x), offset = 0.5,
-               threshold = 18,
+               threshold = 18, ## in points, roughly 0.25 inches
                panel.args = trellis.panelArgs(),
                \dots)
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
@@ -43,8 +45,13 @@ trellis.panelArgs(x, packet.number)
     the number of points to identify by default (overridden by a right
     click)
   }
+  \item{subscripts}{
+    an optional vector of integer indices associated with each point.
+    See details below.
+  }
   \item{labels}{
-    an optional vector of labels associated with each point.
+    an optional vector of labels associated with each point.  Defaults
+    to \code{subscripts}
   }
   \item{offset}{
     the labels are printed either below, above, to the left or to the
@@ -131,6 +138,20 @@ trellis.panelArgs(x, packet.number)
   plotting the whole object, in which case a call to
   \code{trellis.focus} first is necessary.
 
+  One way in which \code{panel.identify} is different from
+  \code{\link{identify}} is in how it uses the \code{subscripts}
+  argument.  In general, when one identifies points in a panel, one
+  wants to identify the origin in the data frame used to produce the
+  plot, and not within that particular panel.  This information is
+  available to the panel function, but only in certain situations.  One
+  way to ensure that \code{subscripts} is available is to specify
+  \code{subscripts = TRUE} in the high level call such as \code{xyplot}.
+  If \code{subscripts} is not explicitly specified in the call to
+  \code{panel.identify}, but is available in \code{panel.args}, then
+  those values will be used.  Otherwise, they default to
+  \code{seq_along(x)}.  In either case, the final return value will be
+  the subscripts that were marked.
+
   The process of printing (plotting) a Trellis object builds up a grid
   layout with named viewports which can then be accessed to modify the
   plot further.  While full flexibility can only be obtained by using
@@ -178,12 +199,14 @@ trellis.panelArgs(x, packet.number)
     trellis.panelArgs()
   }
 
-  \code{trellis.panelArgs} can also, more generally, retrieve the panel
-  arguments from any \code{"trellis"} object.  Note that for this usage,
-  one needs to specify the \code{packet.number} (as described under the
-  \code{panel} entry in \code{\link{xyplot}}) and not the position in
-  the layout, because a layout determines the panel only \bold{after}
-  the object has been printed.
+  This usage is also allowed when a \code{"trellis"} object is being
+  printed, e.g. inside the panel functions or the axis function (but not
+  inside the prepanel function).  \code{trellis.panelArgs} can also
+  retrieve the panel arguments from any \code{"trellis"} object.  Note
+  that for this usage, one needs to specify the \code{packet.number} (as
+  described under the \code{panel} entry in \code{\link{xyplot}}) and
+  not the position in the layout, because a layout determines the panel
+  only \bold{after} the object has been printed.
 
   It is usually not necessary to call \code{trellis.vpname} and
   \code{trellis.grobname} directly.  However, they can be useful in
@@ -195,10 +218,10 @@ trellis.panelArgs(x, packet.number)
 
 
 \value{
-  \code{panel.identify} returns an integer vector containing the indexes
-  of the identified points.  The equivalent of \code{identify} with
-  \code{pos=TRUE} is not yet implemented, but can be considered for 
-  addition if requested.
+  \code{panel.identify} returns an integer vector containing the
+  subscripts of the identified points (see details above).  The
+  equivalent of \code{identify} with \code{pos=TRUE} is not yet
+  implemented, but can be considered for addition if requested.
 
   \code{trellis.panelArgs} returns a named list of arguments that were
   available to the panel function for the chosen panel.

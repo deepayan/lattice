@@ -43,7 +43,9 @@ getTextPosition <- function(x, y)
 
 
 panel.identify <-
-    function(x, y = NULL, labels = seq_along(x), 
+    function(x, y = NULL,
+             subscripts = seq_along(x),
+             labels = subscripts, 
              n = length(x), offset = 0.5,
              threshold = 18, ## in points, roughly 0.25 inches
              panel.args = trellis.panelArgs(),
@@ -54,8 +56,8 @@ panel.identify <-
     {
         x <- panel.args$x
         y <- panel.args$y
-        if (missing(labels) && !is.null(panel.args$subscripts))
-            labels <- panel.args$subscripts
+        if (missing(subscripts) && !is.null(panel.args$subscripts))
+            subscripts <- panel.args$subscripts
     }
     xy <- xy.coords(x, y, recycle = TRUE)
     x <- xy$x
@@ -90,7 +92,7 @@ panel.identify <-
                 warning("nearest point already identified")
         }
     }
-    which(!unmarked)
+    subscripts[!unmarked]
 }
 
 
