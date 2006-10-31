@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2006-03-01 14:22\n"
+"POT-Creation-Date: 2006-10-25 10:43\n"
 "PO-Revision-Date: 2006-02-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -63,9 +63,6 @@ msgstr "Incohérence lors de la verification de la longueur ; Vous avez trouvé un
 
 msgid "Non matching lengths"
 msgstr "Longueurs incohérentes"
-
-msgid "Improper value of limit"
-msgstr "Valeur de limite incorrecte"
 
 msgid "length and prop cannot both be specified"
 msgstr "'length' et 'prop' ne peuvent être spécifiés simultanément"
@@ -172,12 +169,6 @@ msgstr "'label.style' incorrect"
 msgid "x must be (coercible to be) a factor"
 msgstr "'x' doit être un facteur (ou doit être convertible automatiquement en facteur)"
 
-msgid "x must be NULL or a list"
-msgstr "'x' doit être soit NULL, soit une liste"
-
-msgid "val must be a list"
-msgstr "'val' doit être une liste"
-
 msgid "error"
 msgstr "erreur"
 
@@ -189,6 +180,9 @@ msgstr "'expr' doit être une fonction ou une expression contenant 'x'"
 
 msgid "cannot have log y-scale"
 msgstr "axe Y logarithmique impossible"
+
+msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
+msgstr "msgstr "'packet.number' et 'panel.number' ne sont plus passés à la fonction panel. Voir ?packet.number"
 
 msgid "y must have exactly 2 levels"
 msgstr "'y' doit avoir exactement 2 niveaux"
@@ -226,14 +220,14 @@ msgstr "'aspect=iso' approximatif lorsque 'relation=free'"
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
 msgstr "Remarque : le périphérique par défaut a été ouvert afin de permettre la modification des paramètres d'un graphe trellis"
 
+msgid "Invalid theme specified"
+msgstr "Thème spécifié incorrect"
+
 msgid "Could not find device function '%s'"
 msgstr "Impossible de trouver la fonction du périphérique '%s'"
 
 msgid "trellis.device has changed, 'bg' may not be doing what you think it is"
 msgstr "'trellis.device' a changé, 'bg' peut ne plus faire ce que vous pensez"
-
-msgid "Invalid theme specified"
-msgstr "Thème spécifié incorrect"
 
 msgid "x must be a shingle"
 msgstr "'x' soit être une latte ('shingle')"
@@ -327,3 +321,14 @@ msgid ""
 msgstr ""
 "Le package grid ne peut être chargé.\n"
 "Veuillez vérifier votre installation de R"
+
+#~ msgid "Improper value of limit"
+#~ msgstr "Valeur de limite incorrecte"
+
+#~ msgid "x must be NULL or a list"
+#~ msgstr "'x' doit être soit NULL, soit une liste"
+
+#~ msgid "val must be a list"
+#~ msgstr "'val' doit être une liste"
+
+

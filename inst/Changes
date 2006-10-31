@@ -33,7 +33,12 @@ changes in behaviour
  o panel function is no longer given arguments panel.number and
    packet.number (see above for alternatives)
 
+ o panel.identify() now has a more useful return value (selected
+   subscripts)
 
+ o trellis.panelArgs() without any arguments should return meaningful
+   results while a "trellis" object is being printed, and thus should
+   be usable inside panel or axis functions.
 
 
 
