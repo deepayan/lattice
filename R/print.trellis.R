@@ -153,11 +153,28 @@ print.trellis <-
              prefix,
              ...)
 {
+
+    ## save the current object, if so requested.  This used to be done
+    ## at the end, so that it wouldn't happen if there were errors
+    ## during printing.  However, doing this now will allow things
+    ## like trellis.panelArgs() to work in panel/axis functions, which
+    ## I think is a better trade-off.
+
+    if (save.object)
+    {
+        assign("last.object", x, env = .LatticeEnv)
+        lattice.setStatus(current.plot.saved = TRUE)
+    }
+    else
+        lattice.setStatus(current.plot.saved = FALSE)
+
+
     ## make sure we have a device open
 
     if (is.null(dev.list())) trellis.device()
     else if (is.null(trellis.par.get()))
         trellis.device(device = .Device, new = FALSE)
+
 
     ## if necessary, save current settings and apply temporary
     ## settings in x$par.settings
@@ -1214,13 +1231,6 @@ print.trellis <-
 
     if (!is.null(draw.in)) upViewport(depth)
 
-    if (save.object)
-    {
-        assign("last.object", x, env = .LatticeEnv)
-        lattice.setStatus(current.plot.saved = TRUE)
-    }
-    else
-        lattice.setStatus(current.plot.saved = FALSE)
     lattice.setStatus(current.focus.row = 0,
                       current.focus.column = 0,
                       vp.highlighted = FALSE,
