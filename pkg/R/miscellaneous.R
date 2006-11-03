@@ -245,6 +245,7 @@ lrect <-
             if (border) "black"
             else "transparent"
         }
+        else border
     grid.rect(x = x, y = y,
               width = width, height = height,
               default.units = "native",
