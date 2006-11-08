@@ -8,7 +8,7 @@
 panel.parallel(x, y, z, subscripts,
                groups = NULL,
                col, lwd, lty, alpha,
-               common.scale = TRUE,
+               common.scale = FALSE,
                lower,
                upper,
                \dots)
