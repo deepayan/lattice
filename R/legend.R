@@ -35,17 +35,23 @@ construct.legend <-
         x <- y <- corner <- NULL
 
         if (is.null(space))
+        {
+            if (any(c("x", "y", "corner") %in% names(key)))
             {
-                if (any(c("x", "y", "corner") %in% names(key)))
-                {
-                    space <- "inside"
-                    x <- key$x
-                    y <- key$y
-                    corner <- key$corner
-                }
-                else
-                    space <- "top"
+                stopifnot(is.null(x) || (length(x) == 1 && x >= 0 && x <= 1))
+                stopifnot(is.null(y) || (length(y) == 1 && y >= 0 && y <= 1))
+                stopifnot(is.null(corner) ||
+                          (length(corner) == 2 &&
+                           all(corner %in% c(0, 1))))
+                space <- "inside"
+                x <- key$x
+                y <- key$y
+                corner <- key$corner
+                ## check for valid values
             }
+            else
+                space <- "top"
+        }
         if (space != "inside" && space %in% names(legend))
             stop(gettextf("component '%s' duplicated in key and legend", space))
 

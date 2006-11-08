@@ -707,7 +707,7 @@ lattice.options <- function(...)
     if (length(new) == 0) return(old) 
 
     nm <- names(new)
-    if (is.null(nm)) return(old[unlist(new)]) ## typically getting opions, not setting
+    if (is.null(nm)) return(old[unlist(new)]) ## typically getting options, not setting
     isNamed <- nm != "" ## typically all named when setting, but could have mix
     if (any(!isNamed)) nm[!isNamed] <- unlist(new[!isNamed])
 
