@@ -20,11 +20,10 @@ densityplot(x, data, \dots)
           prepanel, scales, strip, groups,
           xlab, xlim, ylab, ylim,
           type = c("percent", "count", "density"),
-          nint = if (is.factor(x)) length(levels(x))
+          nint = if (is.factor(x)) nlevels(x)
           else round(log2(length(x)) + 1),
           endpoints = extend.limits(range(x, finite = TRUE), prop = 0.04),
-          breaks = if (is.factor(x)) seq(0.5, length = length(levels(x))+1)
-          else do.breaks(endpoints, nint),
+          breaks,
           equal.widths = TRUE,
           drop.unused.levels = lattice.getOption("drop.unused.levels"),
           \dots,
@@ -100,26 +99,40 @@ do.breaks(endpoints, nint)
 
   }
   \item{nint}{
-    Number of bins.  Applies only when \code{breaks} is unspecified in
-    the call.
+    Number of bins.  Applies only when \code{breaks} is unspecified or
+    \code{NULL} in the call.  Not applicable when the variable being
+    plotted is a factor.
   }
   \item{endpoints}{
     vector of length 2 indicating the range of x-values that is to be
-    covered by the histogram.  Again, applies only when \code{breaks} is
-    unspecified.  In \code{do.breaks}, this specifies the interval that
-    is to be divided up.
+    covered by the histogram.  This applies only when \code{breaks} is
+    unspecified and the variable being plotted is not a factor.  In
+    \code{do.breaks}, this specifies the interval that is to be divided
+    up.
   }
-  \item{breaks}{ numeric vector of length = (number of bins + 1)
-    defining the breakpoints of the bins. Note that when breakpoints are
-    not equally spaced, the only value of \code{type} that makes sense
-    is density.
+  \item{breaks}{ usually a numeric vector of length (number of bins +
+    1) defining the breakpoints of the bins.  Note that when breakpoints
+    are not equally spaced, the only value of \code{type} that makes
+    sense is density.  When unspecified, the default is to use
+    \preformatted{
+      breaks = seq_len(1 + nlevels(x)) - 0.5
+    }
+    when \code{x} is a factor, and 
+    \preformatted{
+      breaks = do.breaks(endpoints, nint)
+    }
+    otherwise.  Breakpoints calculated in such a manner are used in all
+    panels.
 
-    Usually all panels use the same breakpoints. This can be changed by
-    specifying \code{breaks = NULL}. This has the effect of letting each
-    panel choose its own breakpoints. The choice of these breakpoints
-    are made as follows: The number of bins is calculated by the formula
-    for \code{nint} above, and then breakpoints are chosen according to
-    the value of \code{equal.widths}.
+    Other values of \code{breaks} are possible, in which case they
+    affect the display in each panel differently.  A special value of
+    \code{breaks} is \code{NULL}, in which case the number of bins is
+    determined by \code{nint} and then breakpoints are chosen according to
+    the value of \code{equal.widths}.  Other valid values of
+    \code{breaks} are those of the \code{breaks} argument in
+    \code{\link{hist}}.  This allows specification of \code{breaks} as
+    an integer giving the number of bins (similar to \code{nint}), as a
+    character string denoting a method, and as a function.
   }
   \item{equal.widths}{ logical, relevant only when \code{breaks=NULL}.
     If \code{TRUE}, equally spaced bins will be selected, otherwise, 

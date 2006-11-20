@@ -20,58 +20,61 @@
 
 
 
+## from R 2.4.0 onwards, hist.default produces a warning when any
+## 'unused' arguments are supplied.  Before then, all ... arguments
+## used to be supplied to hist(), so arguments to hist() could be
+## supplied that way.  This is no longer possible, so the following
+## wrapper is being added to capture undesirable arguments.
+
+
+hist.constructor <- 
+    function(x, breaks, 
+             include.lowest = TRUE,
+             right = TRUE, ...)
+{
+    if (is.numeric(breaks) && length(breaks) > 1)
+        hist(as.numeric(x), breaks = breaks, plot = FALSE,
+             include.lowest = include.lowest,
+             right = right)
+    else
+        hist(as.numeric(x), breaks = breaks, plot = FALSE)
+}
+
+
 
 prepanel.default.histogram <-
     function(x,
-             breaks = NULL,
+             breaks,
              equal.widths = TRUE,
              type = "density",
              nint = round(log2(length(x)) + 1),
-             ...,
-
-             ## from R 2.4.0 onwards, hist.default produces a warning
-             ## when any 'unused' arguments are supplied.  Before
-             ## then, all ... arguments used to be supplied to hist(),
-             ## so arguments to hist() could be supplied that way.
-             ## This is no longer possible, so the following arguments
-             ## are being added here and in panel.histogram:
-
-             include.lowest = TRUE, right = TRUE)
+             ...)
 {
     if (length(x) < 1)
         list(xlim = NA, ylim = NA, dx = NA, dy = NA)
     else
     {
-        if (!is.numeric(x)) x <- as.numeric(x)
-        if (is.null(breaks)) ## shouldn't happen
+        if (is.null(breaks))
         {
-            ## nint <- round(log2(length(x)) + 1)
             breaks <-
-                if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
+                if (is.factor(x)) seq_len(1 + nlevels(x)) - 0.5
+                else if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
                 else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
         h <-
-            hist(x, breaks = breaks, plot = FALSE,
-                 include.lowest = include.lowest,
-                 right = right)
+            hist.constructor(x, breaks = breaks, ...)
         y <-
             if (type == "count") h$counts
-            else if (type == "percent") 100 * h$counts/length(x)
+            else if (type == "percent") 100 * h$counts / length(x)
             else h$intensities
         list(xlim =
              if (is.factor(x)) levels(x)
-             else range(x, breaks, finite = TRUE),
+             else range(x, h$breaks, finite = TRUE),
              ylim = range(0, y, finite = TRUE),
              dx = 1,
              dy = 1)
     }
 }
-
-
-
-
-
-
 
 
 
@@ -86,42 +89,39 @@ panel.histogram <-
              border = plot.polygon$border,
              lty = plot.polygon$lty,
              lwd = plot.polygon$lwd,
-             ...,
-
-             ## see comments above for prepanel.default.histogram
-
-             include.lowest = TRUE, right = TRUE)
+             ...)
 {
-    x <- as.numeric(x)
     plot.polygon  <- trellis.par.get("plot.polygon")
 
-    grid.lines(x = c(0.05, 0.95),
-               y = unit(c(0,0), "native"),
-               gp = gpar(col = border, lty = lty, lwd = lwd, alpha = alpha),
-               default.units = "npc")
+    xscale <- current.panel.limits()$xlim
+    panel.lines(x = xscale[1] + diff(xscale) * c(0.05, 0.95),
+                y = c(0,0),
+                col = border, lty = lty, lwd = lwd, alpha = alpha)
+##     grid.lines(x = c(0.05, 0.95),
+##                y = unit(c(0,0), "native"),
+##                gp = gpar(col = border, lty = lty, lwd = lwd, alpha = alpha),
+##                default.units = "npc")
         
-    if (length(x)>0)
+    if (length(x) > 0)
     {
-        if (is.null(breaks)) ## doesn't happen when called from histogram()
+        if (is.null(breaks))
         {
-            ## nint <- round(log2(length(x)) + 1)
             breaks <-
-                if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
+                if (is.factor(x)) seq_len(1 + nlevels(x)) - 0.5
+                else if (equal.widths) do.breaks(range(x, finite = TRUE), nint)
                 else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
-        h <-
-            hist(x, breaks = breaks, plot = FALSE,
-                 include.lowest = include.lowest,
-                 right = right)
+        h <- hist.constructor(x, breaks = breaks, ...)
         y <-
             if (type == "count") h$counts
             else if (type == "percent") 100 * h$counts/length(x)
             else h$intensities
+        breaks <- h$breaks
 
         nb <- length(breaks)
         if (length(y) != nb-1) warning("problem with hist computations")
 
-        if (nb>1)
+        if (nb > 1)
         {
             panel.rect(x = breaks[-nb],
                        y = 0,
@@ -177,11 +177,10 @@ histogram.formula <-
              ylab,
              ylim,
              type = c("percent", "count", "density"),
-             nint = if (is.factor(x)) length(levels(x))
+             nint = if (is.factor(x)) nlevels(x)
              else round(log2(length(x)) + 1),
              endpoints = extend.limits(range(x, finite = TRUE), prop = 0.04),
-             breaks = if (is.factor(x)) seq(0.5, length = length(levels(x))+1)
-             else do.breaks(endpoints, nint),
+             breaks,
              equal.widths = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
@@ -295,9 +294,15 @@ histogram.formula <-
     ## should type default to density?  "Yes" when a relative
     ## frequency histogram is going to be misleading.
 
+    if (missing(breaks)) # explicit NULL, or function, or character is fine
+        breaks <- # use nint and endpoints
+            if (is.factor(x)) seq_len(1 + nlevels(x)) - 0.5
+            else do.breaks(endpoints, nint)
+
     prefer.density <- 
-        ((is.null(breaks) && !equal.widths) ||
-         (!is.null(breaks) && {
+        (is.function(breaks) || 
+         (is.null(breaks) && !equal.widths) ||
+         (is.numeric(breaks) && {
              ddb <- diff(diff(breaks))
              identical(FALSE, all.equal(ddb, numeric(length(ddb))))
          }))

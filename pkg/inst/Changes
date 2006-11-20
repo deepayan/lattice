@@ -27,6 +27,9 @@ new features
    'reverse.rows' to reverse the order of rows.  This applies to
    'draw.key', 'auto.key' and 'simpleKey' as well.
 
+ o extended interpretation of 'breaks' in histogram()
+
+
 changes in behaviour
 --------------------
 

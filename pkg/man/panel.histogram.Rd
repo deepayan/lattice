@@ -11,8 +11,7 @@ panel.histogram(x,
                 type = "density",
                 nint = round(log2(length(x)) + 1), 
                 alpha, col, border, lty, lwd,
-                \dots,
-                include.lowest = TRUE, right = TRUE)
+                \dots)
 }
 \arguments{
   \item{x}{ The data points for which the histogram is to be drawn} 
@@ -25,26 +24,11 @@ panel.histogram(x,
     graphical parameters for bars; defaults are obtained from the
     \code{plot.polygon} settings.
   }
-  \item{\dots}{ other arguments, currently ignored. }
-  \item{include.lowest, right}{ passed to \code{\link{hist}}}
+  \item{\dots}{ other arguments, passed to \code{\link{hist}} when
+    deemed appropriate }
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{histogram}}}
 \keyword{dplot}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
