@@ -458,16 +458,18 @@ lplot.xy <-
            s = ,
            S = {
                ord <- sort.list(x)
-               n <- length(x)
-               xx <- numeric(2*n-1)
-               yy <- numeric(2*n-1)
-               xx[2*1:n-1] <- x[ord]
-               yy[2*1:n-1] <- y[ord]
-               xx[2*1:(n-1)] <- x[ord][if (type=="s") -1 else -n]
-               yy[2*1:(n-1)] <- y[ord][if (type=="s") -n else -1]
-               grid.lines(x = xx, y = yy,
-                          gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
-                          default.units="native")
+               if ((n <- length(x)) > 1)
+               {
+                   xx <- numeric(2*n-1)
+                   yy <- numeric(2*n-1)
+                   xx[2*1:n-1] <- x[ord]
+                   yy[2*1:n-1] <- y[ord]
+                   xx[2*1:(n-1)] <- x[ord][if (type=="s") -1 else -n]
+                   yy[2*1:(n-1)] <- y[ord][if (type=="s") -n else -1]
+                   grid.lines(x = xx, y = yy,
+                              gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
+                              default.units="native")
+               }
            },
            h = {
                ylim <- current.viewport()$yscale
