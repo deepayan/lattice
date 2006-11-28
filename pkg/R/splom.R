@@ -339,6 +339,8 @@ panel.pairs <-
 splom <- function(x, data, ...) UseMethod("splom")
 
 
+
+splom.matrix <-
 splom.data.frame <-
     function(x, data = NULL, ...)
 {

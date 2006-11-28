@@ -179,7 +179,7 @@ parallel <- function(x, data, ...) UseMethod("parallel")
 ##     else UseMethod("parallel")
 ## }
 
-
+parallel.matrix <-
 parallel.data.frame <-
     function(x, data = NULL, ...)
 {

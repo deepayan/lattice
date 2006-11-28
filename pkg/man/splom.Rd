@@ -2,7 +2,9 @@
 \title{Scatter Plot Matrices}
 \alias{splom}
 \alias{parallel}
+\alias{splom.matrix}
 \alias{splom.data.frame}
+\alias{parallel.matrix}
 \alias{parallel.data.frame}
 \alias{splom.formula}
 \alias{parallel.formula}
@@ -52,7 +54,9 @@ parallel(x, data, \dots)
          subset = TRUE)
 
 \method{splom}{data.frame}(x, data = NULL, \dots)
+\method{splom}{matrix}(x, data = NULL, \dots)
 
+\method{parallel}{matrix}(x, data = NULL, \dots)
 \method{parallel}{data.frame}(x, data = NULL, \dots)
 }
 \description{
