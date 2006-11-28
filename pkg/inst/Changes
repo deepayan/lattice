@@ -29,6 +29,10 @@ new features
 
  o extended interpretation of 'breaks' in histogram()
 
+ o matrix methods for 'splom' and 'parallel' (whose absence was an
+   oversight)
+
+
 
 changes in behaviour
 --------------------
