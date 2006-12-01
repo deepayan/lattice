@@ -55,6 +55,20 @@ cupdate <- function(index, maxim)
 # }
 
 
+## a function similar to (but with much less bells and whistles than)
+## interaction, with exactly 2 factors, and levels ordered like that
+## in f:g (the point is to have a 'sep' argument).  Solely intended
+## for use below in latticeParseFormula
+
+interaction2 <- 
+    function (f, g, sep = ":")
+{
+    ans <- f:g
+    levels(ans) <-
+        as.vector(t(outer(levels(f), levels(g),
+                          paste, sep = sep)))
+    ans
+}
 
 
 
@@ -318,7 +332,8 @@ latticeParseFormula <-
             gl(nRHS, nRows*nLHS, labels = sapply(varsRHS, expr2char))
     newFactor <- 
         if (nLHS > 1 && nRHS > 1) {
-            factor(paste(LHSgroups, RHSgroups, sep=" * "))
+            interaction2(LHSgroups, RHSgroups, sep = lattice.getOption("interaction.sep"))
+            ## WAS: factor(paste(LHSgroups, RHSgroups, sep=" * "))
         } else if (nLHS > 1)
             LHSgroups
         else if (nRHS > 1)

@@ -756,19 +756,23 @@ lattice.options <- function(...)
               yscale.components = yscale.components.default,
               axis = axis.default),
 
-         axis.padding = list(numeric = 0.07, factor = 0.6),
-
          ## extends limits by this amount, to provide padding for
          ## numeric and factor scales respectively. Note that the
          ## value for numeric is multiplicative, while factor is
          ## additive
 
-         skip.boundary.labels = 0.02,
+         axis.padding = list(numeric = 0.07, factor = 0.6),
 
          ## ticks too close to the limits will not be drawn unless
-         ## explicitly requested.  Limits will be imploded by this
+         ## explicitly requested.  Limits will be contracted by this
          ## proportion, and anything outside will be skipped.
 
+         skip.boundary.labels = 0.02,
+
+         ## separator for interaction when generating artificial
+         ## factor (see 'allow.multiple' argument in ?xyplot)
+
+         interaction.sep = " * ",
 
          axis.units =
          list(outer =

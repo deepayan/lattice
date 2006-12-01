@@ -1062,7 +1062,12 @@ bwplot(x, data, \dots)
 	object itself rather than change the settings globally.  When
 	the object is plotted, these settings are temporarily in effect
 	for the duration of the plot, after which the settings revert
-	back to whatever they were before.
+	back to whatever they were before.  Note that most (but not all)
+	\dQuote{options} controlled by \code{\link{lattice.options}}
+	affects the object itself and not the plotting of it.  This
+	argument affects the plotting stage only, and has no effect on
+	the object being created.  This behaviour might be considered a
+	misfeature, and is liable to change in future versions.
       }
     }
   }
