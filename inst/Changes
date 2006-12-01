@@ -47,6 +47,10 @@ changes in behaviour
    results while a "trellis" object is being printed, and thus should
    be usable inside panel or axis functions.
 
+ o For formulae of the form y1 + y2 ~ x1 + x2 + x3, the order of
+   levels of the artificially created grouping variable is now more
+   'intuitive'
+
 
 
 Changes in lattice 0.13
