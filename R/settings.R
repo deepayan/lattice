@@ -91,7 +91,7 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
         list(grid.pars        = list(), ## set globally at the beginning
              fontsize         = list(text = 12, points = 8),
              background       = list(alpha = 1, col = can.col[17]),
-             clip             = list(panel = "on", strip = "on"),
+             clip             = list(panel = "on", strip = "off"),
              add.line         = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
              add.text         = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1.2),
              plot.polygon         = list(alpha = 1, col = can.col[2], border = "black", lty = 1, lwd = 1),

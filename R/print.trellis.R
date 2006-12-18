@@ -91,6 +91,7 @@ grobFromLabelList <- function(lab, name = "label", rot = 0)
                   fontfamily = lab$fontfamily,
                   fontface = chooseFace(lab$fontface, lab$font),
                   lineheight = lab$lineheight,
+                  alpha = lab$alpha,
                   cex = lab$cex))
 }
 
@@ -178,6 +179,8 @@ print.trellis <-
 
     ## if necessary, save current settings and apply temporary
     ## settings in x$par.settings
+
+    ## FIXME: do these using on.exit rather than the current scheme
 
     if (!is.null(x$par.settings))
     {
@@ -900,6 +903,8 @@ print.trellis <-
                                line.alpha = yaxis.alpha.line)
                         upViewport()
 
+
+
                         ## X-axis bottom and Y-axis right
                         pushViewport(viewport(layout.pos.row = pos.row,
                                               layout.pos.col = pos.col,
@@ -945,6 +950,21 @@ print.trellis <-
                                line.alpha = yaxis.alpha.line)
                         upViewport()
 
+
+### While we're at it, we'll also draw the box around panels.  This
+### used to be done with clipping on, which had lots of subtle and
+### puzzling side effects.
+
+
+                        grid.rect(gp =
+                                  gpar(col = axis.line$col,
+                                       lty = axis.line$lty,
+                                       lwd = axis.line$lwd,
+                                       alpha = axis.line$alpha,
+                                       fill = "transparent"))
+
+
+                        
 ############################################
 ###        done drawing axes              ##
 ############################################
@@ -987,15 +1007,6 @@ print.trellis <-
                         if (!("..." %in% names(formals(panel))))
                             pargs <- pargs[names(formals(panel))]
                         do.call("panel", pargs)
-
-
-                                
-                        grid.rect(gp =
-                                  gpar(col = axis.line$col,
-                                       lty = axis.line$lty,
-                                       lwd = axis.line$lwd,
-                                       alpha = axis.line$alpha,
-                                       fill = "transparent"))
 
                         upViewport()
 
@@ -1226,7 +1237,7 @@ print.trellis <-
     }
     if (!is.null(x$par.settings))
     {
-        trellis.par.set(opar)
+        trellis.par.set(opar, strict = TRUE)
     }
 
     if (!is.null(draw.in)) upViewport(depth)
