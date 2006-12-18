@@ -26,10 +26,11 @@
   The \code{print} and \code{plot} methods produce a graph from a
   \code{"trellis"} object.  The \code{print} method is necessary for
   automatic plotting.  \code{plot} method is essentially
-  an alias, provided for convenience.  The \code{summary}, \code{dim}
-  and \code{dimnames} methods 
-
+  an alias, provided for convenience.  The \code{summary} method
+  gives a textual summary of the object.  \code{dim} and \code{dimnames}
+  describe the cross-tabulation induced by conditioning.
 }
+
 
 \arguments{
   \item{x, object}{ an object of class \code{"trellis"}}
