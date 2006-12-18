@@ -109,13 +109,9 @@ panel.barchart <-
              lwd = if (is.null(groups)) plot.polygon$lwd else superpose.polygon$lwd,
              ...)
 {
-
-    ## This is to make sure `levels' are calculated based on the whole
-    ## groups vector and not just the values represented in this
-    ## particular panel (which might make the key inconsistent and/or
-    ## cause other problems)
-
-    if (!is.null(groups) && !is.factor(groups)) groups <- factor(groups)
+    plot.polygon <- trellis.par.get("plot.polygon")
+    superpose.polygon <- trellis.par.get("superpose.polygon")
+    reference.line <- trellis.par.get("reference.line")
 
     ## this function doesn't have a subscripts argument (which would
     ## make barchart always pass the subscripts to the trellis object,
@@ -133,12 +129,21 @@ panel.barchart <-
     x <- as.numeric(x[keep])
     y <- as.numeric(y[keep])
 
-    plot.polygon <- trellis.par.get("plot.polygon")
-    superpose.polygon <- trellis.par.get("superpose.polygon")
-    reference.line <- trellis.par.get("reference.line")
+    if (!is.null(groups))
+    {
+        groupSub <- function(groups, subscripts, ...)
+            groups[subscripts[keep]]
 
-    groupSub <- function(groups, subscripts, ...)
-        groups[subscripts[keep]]
+        ## This is to make sure `levels' are calculated based on the
+        ## whole groups vector and not just the values represented in
+        ## this particular panel (which might make the key
+        ## inconsistent and/or cause other problems)
+
+        if (!is.factor(groups)) groups <- factor(groups)
+        nvals <- nlevels(groups)
+        groups <- as.numeric(groupSub(groups, ...))
+    }
+
 
     if (horizontal)
     {
@@ -173,10 +178,11 @@ panel.barchart <-
         {
             if (!is.null(origin) && origin != 0)
                 warning("origin forced to 0 for stacked bars")
-
-            groups <- as.numeric(groupSub(groups, ...))
-            vals <- sort(unique(groups))
-            nvals <- length(vals)
+ 
+##             vals <- seq_len(nlevels(groups))
+##             groups <- as.numeric(groupSub(groups, ...))
+##             ## vals <- sort(unique(groups))
+##             nvals <- length(vals)
 
             col <- rep(col, length = nvals)
             border <- rep(border, length = nvals)
@@ -231,9 +237,10 @@ panel.barchart <-
                 origin <- current.panel.limits()$xlim[1]
                 reference <- FALSE
             }
-            groups <- as.numeric(groupSub(groups, ...))
-            vals <- sort(unique(groups))
-            nvals <- length(vals)
+##             vals <- seq_len(nlevels(groups))
+##             groups <- as.numeric(groupSub(groups, ...))
+##             ## vals <- sort(unique(groups))
+##             nvals <- length(vals)
 
             col <- rep(col, length = nvals)
             border <- rep(border, length = nvals)
@@ -296,9 +303,10 @@ panel.barchart <-
             if (!is.null(origin) && origin != 0)
                 warning("origin forced to 0 for stacked bars")
 
-            groups <- as.numeric(groupSub(groups, ...))
-            vals <- sort(unique(groups))
-            nvals <- length(vals)
+##             vals <- seq_len(nlevels(groups))
+##             groups <- as.numeric(groupSub(groups, ...))
+##             ## vals <- sort(unique(groups))
+##             nvals <- length(vals)
 
             col <- rep(col, length = nvals)
             border <- rep(border, length = nvals)
@@ -350,9 +358,10 @@ panel.barchart <-
                 origin <- current.panel.limits()$ylim[1]
                 reference = FALSE
             }
-            groups <- as.numeric(groupSub(groups, ...))
-            vals <- sort(unique(groups))
-            nvals <- length(vals)
+##             vals <- seq_len(nlevels(groups))
+##             groups <- as.numeric(groupSub(groups, ...))
+##             ## vals <- sort(unique(groups))
+##             nvals <- length(vals)
 
             col <- rep(col, length = nvals)
             border <- rep(border, length = nvals)
