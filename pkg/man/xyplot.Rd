@@ -234,13 +234,14 @@ bwplot(x, data, \dots)
     %     of the variates involved are omitted from the plot.
   }
   \item{data}{
-    For the \code{formula} method, a data frame containing values for
-    any variables in the formula, as well as \code{groups} and
-    \code{subset} if applicable.  If not found in \code{data}, or if
-    \code{data} is unspecified, the variables are looked for in the
-    environment of the formula.  For other methods (where \code{x} is
-    not a formula), \code{data} is usually ignored, often with a
-    warning.
+    For the \code{formula} method, a data frame containing values (or
+    more precisely, anything that is a valid \code{envir} argument in
+    \code{\link{eval}}, e.g. a list or an environment) for any variables in
+    the formula, as well as \code{groups} and \code{subset} if
+    applicable.  If not found in \code{data}, or if \code{data} is
+    unspecified, the variables are looked for in the environment of the
+    formula.  For other methods (where \code{x} is not a formula),
+    \code{data} is usually ignored, often with a warning.
   }
   \item{allow.multiple, outer}{
     logical flags to control what happens with formulas like \code{y1 +
@@ -784,6 +785,7 @@ bwplot(x, data, \dots)
 	\itemize{
 	  \item \code{cex=1}
 	  \item \code{col="black"}
+	  \item \code{alpha=1}
 	  \item \code{lty=1}
 	  \item \code{lwd=1}
 	  \item \code{font=1}
@@ -852,6 +854,9 @@ bwplot(x, data, \dots)
 	  \item{\code{background}}{
 	    background color, defaults to default background
 	  }
+	  \item{\code{alpha.background}}{
+	    An alpha transparency value between 0 and 1
+	  }
 	  \item{\code{border}}{
 	    either a color for the border, or a logical.  In the latter
 	    case, the border color is black if \code{border} is
@@ -906,10 +911,11 @@ bwplot(x, data, \dots)
       \item{\code{main}:}{ typically a character string or expression or list
 	describing the main title to be placed on top of each page. Defaults
 	to \code{NULL}.  Can be a character string or expression, or a list
-	with components \code{label}, \code{cex}, \code{col} and
-	\code{font}.  The \code{label} tag can be omitted if it is the first
-	element of the list.  Expressions are treated as specification of
-	LaTeX-like markup as in \code{\link{plotmath}}.
+	with components \code{label}, \code{cex}, \code{col},
+	\code{alpha} and \code{font}.  The \code{label} tag can be
+	omitted if it is the first element of the list.  Expressions are
+	treated as specification of LaTeX-like markup as in
+	\code{\link{plotmath}}.
 
 	\code{main} can also be an arbitrary \code{"grob"} (grid graphical
 	object).
