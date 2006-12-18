@@ -9,7 +9,7 @@
   settings for the currently active device only.
 }
 \usage{
-trellis.par.set(name, value, \dots, theme, warn = TRUE)
+trellis.par.set(name, value, \dots, theme, warn = TRUE, strict = FALSE)
 trellis.par.get(name = NULL)
 % trellis.par.set(name, value, warn)
 % trellis.par.set(theme)
@@ -46,6 +46,13 @@ show.settings(x = NULL)
   \item{warn}{
     logical, indicating whether a warning should be issued when
     \code{trellis.par.get} is called when no graphics device is open
+  }
+  \item{strict}{
+    logical, indicating whether the \code{value} should be interpreted
+    strictly.  Usually, assignment of value to the corresponding named
+    component is fuzzy in the sense that sub-components that are absent
+    from \code{value} but not currently \code{NULL} are retained.  By
+    specifying \code{strict = TRUE}, the assignment will be exact.
   }
   \item{x}{
     optional list of components that change the settings (any valid
