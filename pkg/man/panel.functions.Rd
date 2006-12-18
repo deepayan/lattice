@@ -60,16 +60,24 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
     has a \code{\link{coef}} method that returns a length 2 numeric
     vector.  The corresponding line will be plotted.  }
 
-%   \item{coef}{ Coefficients of the line to be added as a length 2 vector}
-%   \item{reg}{ A regression object. The corresponding fitted line will
-%     be drawn }
+  %   \item{coef}{ Coefficients of the line to be added as a length 2 vector}
+  %   \item{reg}{ A regression object. The corresponding fitted line will
+  %     be drawn }
 
-  \item{h, v}{ For \code{panel.abline}, numerical vectors giving
+  \item{h, v}{ For \code{panel.abline}, these are numeric vectors giving
     locations respectively of horizontal and vertical lines to be added
-    to the plot, in native coordinates.  For \code{panel.grid}, number
-    of horizontal and vertical reference lines to be added to the plot;
-    \code{h=-1} and \code{v=-1} make the grids aligned with the axis
-    labels (but this does not always work).  }
+    to the plot, in native coordinates.  For \code{panel.grid}, these
+    usually specify the number of horizontal and vertical reference
+    lines to be added to the plot.  Alternatively, they can be negative
+    numbers.  \code{h=-1} and \code{v=-1} are intended to make the grids
+    aligned with the axis labels.  This doesn't always work; all that
+    actually happens is that the locations are chosen using
+    \code{pretty}, which is also how the label positions are chosen in
+    the most common cases (but not for factor or date-time variables,
+    for instance).  \code{h} and \code{v} can be negative numbers other
+    than \code{-1}, in which case \code{-h} and \code{-v} (as
+    appropriate) is supplied as the \code{n} argument to
+    \code{\link{pretty}}. }
   \item{expr}{ expression as a function of x or a function to plot as a
     curve }
   \item{n}{ the number of points to use for drawing the curve }
