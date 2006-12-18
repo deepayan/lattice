@@ -267,7 +267,7 @@ trellis.par.get <-
 
 
 trellis.par.set <-
-    function(name, value, ..., theme, warn = TRUE)
+    function(name, value, ..., theme, warn = TRUE, strict = FALSE)
 {
     ## the default device is opened if none already open
     if (is.null(dev.list()))
@@ -315,7 +315,10 @@ trellis.par.set <-
         }
     }
 
-    lattice.theme[[.Device]] <- updateList(lattice.theme[[.Device]], theme)
+    if (strict)
+        lattice.theme[[.Device]][names(theme)] <- theme
+    else 
+        lattice.theme[[.Device]] <- updateList(lattice.theme[[.Device]], theme)
     assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
     invisible()
 }
