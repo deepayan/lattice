@@ -188,12 +188,6 @@ panel.fill <-
 
 
 
-
-
-
-
-
-
 panel.grid <-
     function(h = 3, v = 3,
              col,
@@ -213,33 +207,23 @@ panel.grid <-
                       default.units = "npc",
                       name = trellis.grobname("panel.grid.h"))
 
-##         for(i in 1:h)
-##             grid.lines(y=rep(i/(h+1),2),
-##                        gp = gpar(col = col.line, lty = lty, lwd = lwd),
-##                        default.units="npc")
-
     if (v > 0)
         grid.segments(x0 = 1:v / (v+1),
                       x1 = 1:v / (v+1),
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
                       default.units = "npc",
                       name = trellis.grobname("panel.grid.v"))
-        
-##         for(i in 1:v)
-##             grid.lines(x=rep(i/(v+1),2),
-##                        gp = gpar(col = col.line, lty = lty, lwd = lwd),
-##                        default.units="npc")
-
 
     ## Cheating here a bit for h=-1, v=-1. Can't think of any neat way to
-    ## get the actual `at' values of the panel (Can pass it in though)
+    ## get the actual `at' values of the panel
 
     limits <- current.panel.limits()
 
     if (h < 0)
     {
+        if (h == -1) n <- 5 else n <- -h
         scale <- limits$ylim
-        at <- pretty(scale)
+        at <- pretty(scale, n = n)
         at <- at[at > min(scale) & at < max(scale)]
         grid.segments(y0 = at,
                       y1 = at,
@@ -249,8 +233,9 @@ panel.grid <-
     }
     if (v < 0)
     {
+        if (v == -1) n <- 5 else n <- -v
         scale <- limits$xlim
-        at <- pretty(scale)
+        at <- pretty(scale, n = n)
         at <- at[at > min(scale) & at < max(scale)]
         grid.segments(x0 = at,
                       x1 = at,
@@ -287,12 +272,6 @@ prepanel.lmline <-
     }
     else list(xlim=c(NA,NA), ylim=c(NA,NA), dx=NA, dy=NA)
 }
-
-
-
-
-
-
 
 
 
