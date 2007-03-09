@@ -29,10 +29,15 @@ panel.barchart(x, y, box.ratio = 1,
     accordingly. See documentation of \code{\link{bwplot}} for a fuller
     explanation.
   }
-  \item{origin}{ origin of the bars. For grouped displays with
+  \item{origin}{ the origin for the bars.  For grouped displays with
     \code{stack = TRUE}, this argument is ignored and the origin set to
-    0. Otherwise, defaults to \code{NULL}, in which case bars start at
-    leftmost end of panel.
+    0.  Otherwise, defaults to \code{NULL}, in which case bars start at
+    the left (or bottom) end of a panel.  This choice is somewhat
+    unfortuntate, as it can be misleading, but is the default for
+    historical reasons.  For tabular (or similar) data, \code{origin =
+      0} is usually more appropriate; if not, one should reconsider the
+    use of a bar chart in the first place (dot plots are often a good
+    alternative).
   }
   \item{reference}{ logical, whether a reference line is to be drawn at
     the origin

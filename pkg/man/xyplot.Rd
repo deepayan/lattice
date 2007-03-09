@@ -421,10 +421,11 @@ bwplot(x, data, \dots)
   \item{auto.key}{
     A logical (indicating whether a key is to be drawn automatically when
     a grouping variable is present in the plot), or a list of parameters
-    that would be valid arguments to \code{\link{simpleKey}}. If
-    \code{auto.key} is not \code{FALSE}, \code{groups} is non-null and
-    there is no \code{key} or \code{legend} argument specified in the
-    call, a key is created with \code{simpleKey} with
+    that would be valid arguments to \code{\link{simpleKey}} (in effect,
+    most valid components of \code{key} can be specified in this
+    manner).  If \code{auto.key} is not \code{FALSE}, \code{groups} is
+    non-null and there is no \code{key} or \code{legend} argument
+    specified in the call, a key is created with \code{simpleKey} with
     \code{levels(groups)} as the first argument. (Note: this may not
     work in all high level functions, but it does work for the ones
     where grouping makes sense with the default panel function)
