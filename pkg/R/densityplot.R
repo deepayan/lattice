@@ -185,7 +185,7 @@ densityplot.formula <-
 ##              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
-             panel = "panel.densityplot",
+             panel = lattice.getOption("panel.densityplot"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

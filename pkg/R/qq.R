@@ -57,7 +57,7 @@ qq.formula <-
     function(x,
              data = NULL,
              aspect = "fill",
-             panel = "panel.qq",
+             panel = lattice.getOption("panel.qq"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

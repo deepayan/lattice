@@ -138,7 +138,7 @@ diag.panel.splom <-
 
 panel.pairs <-
     function(z,
-             panel = "panel.splom",
+             panel = lattice.getOption("panel.splom"),
              lower.panel = panel,
              upper.panel = panel,
              diag.panel = "diag.panel.splom",
@@ -363,7 +363,8 @@ splom.formula <-
              auto.key = FALSE,
              aspect = 1,
              between = list(x = 0.5, y = 0.5),
-             panel = if (is.null(groups)) "panel.splom" else "panel.superpose",
+             panel = lattice.getOption("panel.splom"),
+             ## panel = if (is.null(groups)) "panel.splom" else "panel.superpose",
              prepanel = NULL,
              scales = list(),
              strip = TRUE,
@@ -372,7 +373,7 @@ splom.formula <-
              xlim,
              ylab = NULL,
              ylim,
-             superpanel = "panel.pairs",
+             superpanel = lattice.getOption("panel.pairs"),
              pscales = 5,
              varnames,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
