@@ -200,7 +200,7 @@ parallel.formula <-
              data = NULL,
              aspect = "fill",
              between = list(x = 0.5, y = 0.5),
-             panel = "panel.parallel",
+             panel = lattice.getOption("panel.parallel"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

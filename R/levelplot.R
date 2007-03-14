@@ -351,7 +351,7 @@ contourplot.matrix <-
 contourplot.formula <-
     function(x,
              data = NULL,
-             panel = "panel.contourplot",
+             panel = lattice.getOption("panel.contourplot"),
              cuts = 7,
              labels = TRUE,
              contour = TRUE,
@@ -401,7 +401,7 @@ levelplot.formula <-
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
              aspect = "fill",
-             panel = "panel.levelplot",
+             panel = lattice.getOption("panel.levelplot"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

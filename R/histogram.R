@@ -167,7 +167,7 @@ histogram.formula <-
              outer = TRUE,
              auto.key = FALSE,
              aspect = "fill",
-             panel = "panel.histogram",
+             panel = lattice.getOption("panel.histogram"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

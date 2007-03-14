@@ -188,7 +188,7 @@ xyplot.formula <-
 ##              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
-             panel = "panel.xyplot",
+             panel = lattice.getOption("panel.xyplot"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

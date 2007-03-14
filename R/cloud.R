@@ -1366,7 +1366,7 @@ wireframe.matrix <-
 wireframe.formula <-
     function(x,
              data = NULL,
-             panel = "panel.wireframe",
+             panel = lattice.getOption("panel.wireframe"),
              ...)
 {
     ocall <- ccall <- match.call()
@@ -1410,7 +1410,7 @@ cloud.formula <-
              outer = FALSE,
              auto.key = FALSE,
              aspect = c(1,1),
-             panel = "panel.cloud",
+             panel = lattice.getOption("panel.cloud"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,

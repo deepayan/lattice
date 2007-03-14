@@ -855,7 +855,7 @@ dotplot.matrix <- function(x, data = NULL, ...) dotplot(as.table(x), data, ...)
 dotplot.formula <-
     function(x,
              data = NULL,
-             panel = "panel.dotplot",
+             panel = lattice.getOption("panel.dotplot"),
              ...)
 {
     ocall <- ccall <- match.call()
@@ -934,7 +934,7 @@ barchart.matrix <- function(x, data = NULL, ...) barchart(as.table(x), data, ...
 barchart.formula <-
     function(x,
              data = NULL,
-             panel = "panel.barchart",
+             panel = lattice.getOption("panel.barchart"),
              box.ratio = 2, 
              ...)
 {
@@ -972,7 +972,7 @@ stripplot.numeric <-
 stripplot.formula <-
     function(x,
              data = NULL,
-             panel = "panel.stripplot",
+             panel = lattice.getOption("panel.stripplot"),
              ...)
 {
     ocall <- ccall <- match.call()
@@ -1018,7 +1018,7 @@ bwplot.formula <-
              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
-             panel = "panel.bwplot",
+             panel = lattice.getOption("panel.bwplot"),
              prepanel = NULL,
              scales = list(),
              strip = TRUE,
