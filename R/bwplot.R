@@ -1090,10 +1090,10 @@ bwplot.formula <-
     }
     if (horizontal)
     {
-        if (!(is.numeric(x)))
-        {
-            warning("x should be numeric")
-        }
+##         if (!(is.numeric(x)))
+##         {
+##             warning("x should be numeric")
+##         }
         y <- as.factorOrShingle(y)
         is.f.y <- is.factor(y)  # used throughout the rest of the code
         num.l.y <- nlevels(y)
@@ -1102,10 +1102,10 @@ bwplot.formula <-
     }
     else
     {
-        if (!(is.numeric(y)))
-        {
-            warning("y should be numeric")
-        }
+##         if (!(is.numeric(y)))
+##         {
+##             warning("y should be numeric")
+##         }
         x <- as.factorOrShingle(x)
         is.f.x <- is.factor(x)  # used throughout the rest of the code
         num.l.x <- nlevels(x)
