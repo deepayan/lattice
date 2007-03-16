@@ -948,8 +948,6 @@ print.trellis <-
                                line.lty = yaxis.lty,
                                line.lwd = yaxis.lwd,
                                line.alpha = yaxis.alpha.line)
-                        upViewport()
-
 
 ### While we're at it, we'll also draw the box around panels.  This
 ### used to be done with clipping on, which had lots of subtle and
@@ -962,6 +960,10 @@ print.trellis <-
                                        lwd = axis.line$lwd,
                                        alpha = axis.line$alpha,
                                        fill = "transparent"))
+
+
+
+                        upViewport()
 
 
                         
