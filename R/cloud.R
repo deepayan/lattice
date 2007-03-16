@@ -271,7 +271,7 @@ panel.3dscatter <-
         }
         if (any(!(type %in% c('p', 'h', 'l', 'b', 'o'))))
         {
-            warning("type has unsupported values")
+            warning("'type' has unsupported values")
         }
     }
 }
@@ -1351,7 +1351,7 @@ wireframe.matrix <-
              zlab = deparse(substitute(x)),
              ...)
 {
-    if (!is.null(data)) warning("explicit data specification ignored")
+    if (!is.null(data)) warning("explicit 'data' specification ignored")
     form <- eval(z ~ row * column)
     data <-
         expand.grid(row = seq_len(nrow(x)),
@@ -1392,7 +1392,7 @@ cloud.matrix <-
              zlab = deparse(substitute(x)),
              ...)
 {
-    if (!is.null(data)) warning("explicit data specification ignored")
+    if (!is.null(data)) warning("explicit 'data' specification ignored")
     form <- eval(z ~ row * column)
     data <-
         expand.grid(row = seq_len(nrow(x)),

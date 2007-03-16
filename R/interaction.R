@@ -77,7 +77,7 @@ panel.identify <-
         ly <- convertY(ll$y, "points", TRUE)
         pdists <- sqrt((px - lx)^2 + (py - ly)^2)
         if (min(pdists, na.rm = TRUE) > threshold)
-            warning("no points within ", threshold, " points")
+            warning("no observations within ", threshold, " points")
         else
         {
             w <- which.min(pdists)
@@ -89,7 +89,7 @@ panel.identify <-
                 count <- count + 1
             }
             else
-                warning("nearest point already identified")
+                warning("nearest observation already identified")
         }
     }
     subscripts[!unmarked]

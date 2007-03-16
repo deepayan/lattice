@@ -136,7 +136,7 @@ update.trellis <-
     if (!missing(as.table))
     {
         if (is.logical(as.table)) object$as.table <- as.table
-        else warning("Inappropriate value of as.table")
+        else warning("Inappropriate value of 'as.table'")
     }
     if (!missing(between))
     {
@@ -159,7 +159,7 @@ update.trellis <-
 
         if (is.list(par.strip.text))
             object$par.strip.text <- updateList(object$par.strip.text, par.strip.text)
-        else warning("par.strip.text must be a list")
+        else warning("'par.strip.text' must be a list")
     }
     if (!missing(skip)) object$skip <- skip
     if (!missing(strip))
@@ -184,7 +184,7 @@ update.trellis <-
         ## that are not specified explicitly
         if (is.list(par.settings))
             object$par.settings <- updateList(object$par.settings, par.settings)
-        else warning("par.settings must be a list")
+        else warning("'par.settings' must be a list")
     }
 
     ## during construction of trellis objects, perm.cond and
@@ -286,7 +286,7 @@ update.trellis <-
 
         if (!is.null(scales$log) || !is.null(xscales$log) || !is.null(yscales$log) || !is.null(zscales$log))
         {
-            warning("log scales cannot be changed via update")
+            warning("log scales cannot be changed via 'update'")
             scales$log <- NULL
             xscales$log <- NULL
             yscales$log <- NULL
@@ -378,9 +378,9 @@ update.trellis <-
                 object$aspect.ratio <- "iso" ## guaranteed to be modified below
                 recalculateLimits <- TRUE
             }
-            else warning(gettextf("Unrecognized value of aspect: '%s'", as.character(aspect)))
+            else warning(gettextf("Unrecognized value of 'aspect': '%s'", as.character(aspect)))
         }
-        else warning("Invalid value of aspect")
+        else warning("Invalid value of 'aspect'")
     }
 
     if (!missing(prepanel))
@@ -425,7 +425,7 @@ update.trellis <-
     isi <- "i" %in% names(tmp)
     if (drop)
     {
-        warning("drop=TRUE ignored")
+        warning("'drop=TRUE' ignored")
         tmp$drop <- NULL
     }
     len <-

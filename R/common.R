@@ -162,7 +162,7 @@ latticeParseFormula <-
     {
         ## ignore multiple = TRUE
         multiple <- FALSE
-        warning("multiple = TRUE ignored (groups non-null with outer = FALSE)")
+        warning("'multiple=TRUE' ignored ('groups' non-null with 'outer=FALSE')")
     }
 
     ans <- if (dimension == 2) {

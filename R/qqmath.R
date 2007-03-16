@@ -224,7 +224,7 @@ qqmath.numeric <-
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
-        warning("explicit data specification ignored")
+        warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$ylab <- ylab
     ccall$x <- ~x
