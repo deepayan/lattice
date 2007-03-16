@@ -464,7 +464,7 @@ limits.and.aspect <-
 ##                              na.rm = TRUE) * y.limits$slicelen /
 ##                                  x.limits$slicelen
 ##             if (y.relation == "free" || x.relation == "free")
-##                 warning("aspect=xy when relation=free is not sensible")
+##                 warning("'aspect=xy' when 'relation=free' is not sensible")
         }
         else if (aspect == "iso")
         {
@@ -472,7 +472,7 @@ limits.and.aspect <-
                 median(y.limits$slicelen / x.limits$slicelen,
                        na.rm = TRUE)
             if (y.relation == "free" || x.relation == "free")
-                warning("aspect=iso approximate since relation=free")
+                warning("'aspect=\"iso\"' approximate since 'relation=\"free\"'")
         }
         else aspect <- 1
     }

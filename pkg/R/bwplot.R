@@ -177,7 +177,7 @@ panel.barchart <-
         else if (stack)
         {
             if (!is.null(origin) && origin != 0)
-                warning("origin forced to 0 for stacked bars")
+                warning("'origin' forced to 0 for stacked bars")
  
 ##             vals <- seq_len(nlevels(groups))
 ##             groups <- as.numeric(groupSub(groups, ...))
@@ -301,7 +301,7 @@ panel.barchart <-
         {
 
             if (!is.null(origin) && origin != 0)
-                warning("origin forced to 0 for stacked bars")
+                warning("'origin' forced to 0 for stacked bars")
 
 ##             vals <- seq_len(nlevels(groups))
 ##             groups <- as.numeric(groupSub(groups, ...))
@@ -789,7 +789,7 @@ dotplot <- function(x, data, ...) UseMethod("dotplot")
 ## (e.g. dotplot(x, groups = a):
 
 ##     if (!missing(data))
-##         warning("explicit data specification ignored")
+##         warning("explicit 'data' specification ignored")
 ##     dotplot(~x, data = list(x = formula),
 ##             xlab = xlab,
 ##             ...)
@@ -800,7 +800,7 @@ dotplot.numeric <-
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
-        warning("explicit data specification ignored")
+        warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
@@ -876,7 +876,7 @@ barchart.numeric <-
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
-        warning("explicit data specification ignored")
+        warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
@@ -895,7 +895,7 @@ barchart.table <-
 {
     formula <- x
     ocall <- match.call()
-    if (!is.null(data)) warning("explicit data specification ignored")
+    if (!is.null(data)) warning("explicit 'data' specification ignored")
     ## formula <- eval(substitute(~foo, list(foo = substitute(formula))))
     data <- as.data.frame(formula)
     nms <- names(data)
@@ -957,7 +957,7 @@ stripplot.numeric <-
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
-        warning("explicit data specification ignored")
+        warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
@@ -998,7 +998,7 @@ bwplot.numeric <-
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
-        warning("explicit data specification ignored")
+        warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x

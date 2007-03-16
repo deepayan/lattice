@@ -310,7 +310,7 @@ trellis.par.set <-
         if (is.function(theme)) theme <- theme()
         if (!is.list(theme))
         {
-            warning("Invalid theme specified")
+            warning("Invalid 'theme' specified")
             theme <- NULL
         }
     }
@@ -361,7 +361,7 @@ trellis.device <-
 
     ## FIXME: remove this warning in some future version
     if ("bg" %in% names(list(...)))
-        warning("trellis.device has changed, 'bg' may not be doing what you think it is")
+        warning("'trellis.device' has changed, 'bg' may not be doing what you think it is")
 
     if (new || is.null(dev.list()))
     {
@@ -397,7 +397,7 @@ trellis.device <-
         if (is.function(theme)) theme <- theme()
         if (!is.list(theme))
         {
-            warning("Invalid theme specified")
+            warning("Invalid 'theme' specified")
             theme <- NULL
         }
     }

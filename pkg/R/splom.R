@@ -346,7 +346,7 @@ splom.data.frame <-
 {
     ocall <- ccall <- match.call()
     if (!is.null(ccall$data)) 
-        warning("explicit data specification ignored")
+        warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$x <- ~x
     ccall[[1]] <- as.name("splom")
