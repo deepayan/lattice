@@ -46,10 +46,12 @@ panel.parallel(x, y, z, subscripts,
     \code{z}.  Determines the lower and upper bounds to be used for
     scaling the corresponding columns of \code{z} after coercing them to
     numeric.  Defaults to the minimum and maximum of each column.
+    Alternatively, these could be functions (to be applied on each
+    column) that return a scalar.
   }
   \item{\dots}{ other arguments (ignored) }
 }
-\details{difficult to describe. See example for \code{parallel}}
+\details{ Difficult to describe. See example for \code{parallel}}
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{parallel}}}
 \keyword{dplot}
