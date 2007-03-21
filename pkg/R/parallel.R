@@ -66,6 +66,8 @@ panel.parallel <-
         alpha <- rep(alpha, length = n.g)
     }
 
+    if (is.function(lower)) lower <- sapply(z, lower)
+    if (is.function(upper)) upper <- sapply(z, upper)
     if (common.scale)
     {
         lower <- min(lower)
