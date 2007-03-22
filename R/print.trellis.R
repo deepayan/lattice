@@ -949,20 +949,12 @@ print.trellis <-
                                line.lwd = yaxis.lwd,
                                line.alpha = yaxis.alpha.line)
 
-### While we're at it, we'll also draw the box around panels.  This
-### used to be done with clipping on, which had lots of subtle and
-### puzzling side effects.
-
-
-                        grid.rect(gp =
-                                  gpar(col = axis.line$col,
-                                       lty = axis.line$lty,
-                                       lwd = axis.line$lwd,
-                                       alpha = axis.line$alpha,
-                                       fill = "transparent"))
-
-
-
+                        ## N.B.: We'll need this viewport again later
+                        ## to draw a border around it.  However, this
+                        ## must be postponed till after the panel is
+                        ## drawn, since otherwise the border is liable
+                        ## to be obscured.
+                        
                         upViewport()
 
 
@@ -1018,6 +1010,27 @@ print.trellis <-
 ############################################
 
 
+
+######################################################################
+### Draw the box around panels.  This used to be done with clipping ##
+### on, which caused some subtle and puzzling side effects.         ##
+######################################################################
+
+
+                        downViewport(trellis.vpname("panel",
+                                                    column = column,
+                                                    row = row,
+                                                    clip.off = TRUE))
+                        grid.rect(gp =
+                                  gpar(col = axis.line$col,
+                                       lty = axis.line$lty,
+                                       lwd = axis.line$lwd,
+                                       alpha = axis.line$alpha,
+                                       fill = "transparent"))
+                        upViewport()
+
+
+                        
 
 
 #########################################
@@ -1077,7 +1090,6 @@ print.trellis <-
                                                                  column = column,
                                                                  row = row,
                                                                  clip.off = FALSE)))
-
 
                             for(i in seq_len(number.of.cond))
                             {

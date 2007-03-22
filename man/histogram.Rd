@@ -16,7 +16,7 @@ densityplot(x, data, \dots)
           allow.multiple, outer = TRUE,
           auto.key = FALSE,
           aspect = "fill",
-          panel = "panel.histogram",
+          panel = lattice.getOption("panel.histogram"),
           prepanel, scales, strip, groups,
           xlab, xlim, ylab, ylim,
           type = c("percent", "count", "density"),
@@ -31,8 +31,8 @@ densityplot(x, data, \dots)
           subscripts,
           subset)
 
-\method{histogram}{numeric}(x, data, xlab, \dots)
-\method{histogram}{factor}(x, data, xlab, \dots)
+\method{histogram}{numeric}(x, data = NULL, xlab, \dots)
+\method{histogram}{factor}(x, data = NULL, xlab, \dots)
 
 
 \method{densityplot}{formula}(x,
@@ -41,7 +41,7 @@ densityplot(x, data, \dots)
             outer = !is.null(groups),
             auto.key = FALSE,
             aspect = "fill",
-            panel = "panel.densityplot",
+            panel = lattice.getOption("panel.densityplot"),
             prepanel, scales, strip, groups,
             xlab, xlim, ylab, ylim,
             bw, adjust, kernel, window, width, give.Rkern,
@@ -51,7 +51,7 @@ densityplot(x, data, \dots)
             default.scales = list(),
             subscripts,
             subset)
-\method{densityplot}{numeric}(x, data, xlab, \dots)
+\method{densityplot}{numeric}(x, data = NULL, xlab, \dots)
 
 do.breaks(endpoints, nint)
 }

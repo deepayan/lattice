@@ -8,7 +8,7 @@
 \usage{
 
 panel.pairs(z,
-            panel = "panel.splom",
+            panel = lattice.getOption("panel.splom"),
             lower.panel = panel,
             upper.panel = panel,
             diag.panel = "diag.panel.splom",
