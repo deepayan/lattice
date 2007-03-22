@@ -9,7 +9,8 @@
 qq(x, data, \dots)
 
 \method{qq}{formula}(x, data, aspect = "fill", 
-    panel = panel.qq, prepanel, scales, strip, 
+    panel = lattice.getOption("panel.qq"),
+    prepanel, scales, strip, 
     groups, xlab, xlim, ylab, ylim, f.value = NULL, 
     drop.unused.levels = lattice.getOption("drop.unused.levels"),
     \dots,

@@ -11,66 +11,44 @@ levelplot(x, data, \dots)
 contourplot(x, data, \dots)
 
 \method{levelplot}{formula}(x,
-             data,
-             allow.multiple = is.null(groups) || outer,
-             outer = TRUE,
-             aspect = "fill",
-             panel = "panel.levelplot",
-             prepanel = NULL,
-             scales = list(),
-             strip = TRUE,
-             groups = NULL,
-             xlab,
-             xlim,
-             ylab,
-             ylim,
-             at,
-             cuts = 15,
-             pretty = FALSE,
-             region = TRUE,
-             drop.unused.levels = lattice.getOption("drop.unused.levels"),
-             ...,
-             default.scales = list(),
-             colorkey = region,
-             col.regions,
-             alpha.regions,
-             subset = TRUE)
+          data,
+          allow.multiple = is.null(groups) || outer,
+          outer = TRUE,
+          aspect = "fill",
+          panel = lattice.getOption("panel.levelplot"),
+          prepanel = NULL,
+          scales = list(),
+          strip = TRUE,
+          groups = NULL,
+          xlab,
+          xlim,
+          ylab,
+          ylim,
+          at,
+          cuts = 15,
+          pretty = FALSE,
+          region = TRUE,
+          drop.unused.levels = lattice.getOption("drop.unused.levels"),
+          ...,
+          default.scales = list(),
+          colorkey = region,
+          col.regions,
+          alpha.regions,
+          subset = TRUE)
 
 
 \method{contourplot}{formula}(x,
-             data,
-             panel = "panel.contourplot",
-             cuts = 7,
-             labels = TRUE,
-             contour = TRUE,
-             pretty = TRUE,
-             region = FALSE,
-             ...)
-\method{levelplot}{matrix}(x, data, aspect = "iso", ...)
-\method{contourplot}{matrix}(x, data, aspect = "iso", ...)
+            data,
+            panel = lattice.getOption("panel.contourplot"),
+            cuts = 7,
+            labels = TRUE,
+            contour = TRUE,
+            pretty = TRUE,
+            region = FALSE,
+            ...)
+\method{levelplot}{matrix}(x, data = NULL, aspect = "iso", ...)
+\method{contourplot}{matrix}(x, data = NULL, aspect = "iso", ...)
 
-% \method{levelplot}{formula}(x, data,
-%           panel = "panel.levelplot",
-%           at,
-%           contour = FALSE,
-%           cuts = 15,
-%           pretty = FALSE,
-%           region = TRUE,
-%           \dots,
-%           col.regions = trellis.par.get("regions")$col,
-%           colorkey = region)
-% \method{contourplot}{formula}(x,
-%              data,
-%              panel = "panel.contourplot",
-%              cuts = 7,
-%              labels = TRUE,
-%              contour = TRUE,
-%              pretty = TRUE,
-%              region = FALSE,
-%             \dots)
-
-% \method{levelplot}{matrix}(x, data, aspect = "iso", \dots)
-% \method{contourplot}{matrix}(x, data, aspect = "iso", \dots)
 
 }
 \description{

@@ -8,7 +8,7 @@
 simpleKey(text, points = TRUE,
           rectangles = FALSE,
           lines = FALSE,
-          col, cex, font,
+          col, cex, alpha, font,
           fontface, fontfamily, 
           lineheight, \dots)
 }
@@ -20,7 +20,7 @@ simpleKey(text, points = TRUE,
   \item{points}{ logical }
   \item{rectangles}{ logical }
   \item{lines}{ logical }
-  \item{col, cex, font, fontface, fontfamily, lineheight}{
+  \item{col, cex, alpha, font, fontface, fontfamily, lineheight}{
     Used as top-level components of the list produced, to be used for
     the text labels. Defaults to the values in
     \code{trellis.par.get("add.text")}

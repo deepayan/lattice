@@ -18,7 +18,7 @@ qqmath(x, data, \dots)
        f.value = NULL,
        auto.key = FALSE,
        aspect = "fill",
-       panel = "panel.qqmath",
+       panel = lattice.getOption("panel.qqmath"),
        prepanel = NULL,
        scales, strip, groups,
        xlab, xlim, ylab, ylim,
@@ -27,7 +27,7 @@ qqmath(x, data, \dots)
        default.scales = list(),
        subscripts,
        subset)
-\method{qqmath}{numeric}(x, data, ylab, \dots)
+\method{qqmath}{numeric}(x, data = NULL, ylab, \dots)
 }
 \arguments{
   \item{x}{
