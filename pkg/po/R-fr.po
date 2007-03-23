@@ -1,5 +1,5 @@
 # Translation of R-lattice.pot to French
-# Copyright (C) 2006 The R Foundation
+# Copyright (C) 2007 The R Foundation
 # This file is distributed under the same license as the lattice R package.
 # Philippe Grosjean <phgrosjean@sciviews.org>, 2006.
 #
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
 "POT-Creation-Date: 2006-10-25 10:43\n"
-"PO-Revision-Date: 2006-02-23 10:18+0100\n"
+"PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-msgid "origin forced to 0 for stacked bars"
-msgstr "origine replacée à 0 pour les diagrammes en barre empilées"
+msgid "'origin' forced to 0 for stacked bars"
+msgstr "'origin' replacée à 0 pour les diagrammes en barre empilées"
 
-msgid "explicit data specification ignored"
-msgstr "spécification explicite de données ignorée"
-
-msgid "x should be numeric"
-msgstr "x doit être numérique"
-
-msgid "y should be numeric"
-msgstr "y doit être numérique"
+msgid "explicit 'data' specification ignored"
+msgstr "spécification explicite de 'data' ignorée"
 
 msgid "mismatch in number of packets"
 msgstr "incohérence dans le nombre de paquets"
 
-msgid "type has unsupported values"
-msgstr "l'argument 'type' contient des valeurs non autorisées"
+msgid "'type' has unsupported values"
+msgstr "argument 'type' contient des valeurs non autorisées"
 
 msgid "Inappropriate arguments"
 msgstr "Arguments inadaptés"
@@ -43,8 +37,8 @@ msgstr "les lattes ('shingles') ne peuvent être concaténées"
 msgid "model must be a formula object"
 msgstr "l'argument 'model' doit être un object formula"
 
-msgid "multiple = TRUE ignored (groups non-null with outer = FALSE)"
-msgstr "'multiple = TRUE' est ignoré (groupes non nuls avec 'outer = FALSE')"
+msgid "'multiple=TRUE' ignored ('groups' non-null with 'outer=FALSE')"
+msgstr "'multiple = TRUE' est ignoré ('groups' non nuls avec 'outer = FALSE')"
 
 msgid "invalid dimension '%s'"
 msgstr "dimension '%s' incorrecte"
@@ -100,7 +94,7 @@ msgstr "Densité"
 msgid "Can't have log Y-scale"
 msgstr "L'axe Y ne peut avoir une échelle logarithmique"
 
-msgid "problem with hist computations"
+msgid "problem with 'hist' computations"
 msgstr "calcul d'histogramme défectueux"
 
 msgid "type='%s' can be misleading in this context"
@@ -112,13 +106,15 @@ msgstr "Dénombrements"
 msgid "Percent of Total"
 msgstr "Pourcentage du total"
 
-msgid "no points within"
+#, fuzzy
+msgid "no observations within"
 msgstr "aucun point dans"
 
 msgid "points"
 msgstr "points"
 
-msgid "nearest point already identified"
+#, fuzzy
+msgid "nearest observation already identified"
 msgstr "le point le plus proche est déjà identifié"
 
 msgid "column must be specified"
@@ -160,7 +156,7 @@ msgstr "désolé, 'align=FALSE' n'est pas (encore ?) disponible"
 msgid "malformed colorkey"
 msgstr "'colorkey' inadéquat"
 
-msgid "Invalid shrink, ignored"
+msgid "Invalid 'shrink' parameter ignored"
 msgstr "'shrink' incorrect et ignoré"
 
 msgid "Invalid label.style"
@@ -182,7 +178,7 @@ msgid "cannot have log y-scale"
 msgstr "axe Y logarithmique impossible"
 
 msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
-msgstr "msgstr "'packet.number' et 'panel.number' ne sont plus passés à la fonction panel. Voir ?packet.number"
+msgstr "'packet.number' et 'panel.number' ne sont plus passés à la fonction panel. Voir ?packet.number"
 
 msgid "y must have exactly 2 levels"
 msgstr "'y' doit avoir exactement 2 niveaux"
@@ -214,19 +210,19 @@ msgstr "Les limites explicitement spécifiées ont été ignorées"
 msgid "need at least one panel"
 msgstr "besoin d'au moins un panneau"
 
-msgid "aspect=iso approximate since relation=free"
-msgstr "'aspect=iso' approximatif lorsque 'relation=free'"
+msgid "'aspect=\"iso\"' approximate since 'relation=\"free\"'"
+msgstr "'aspect=\"iso\"' approximatif lorsque 'relation=\"free\"'"
 
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
 msgstr "Remarque : le périphérique par défaut a été ouvert afin de permettre la modification des paramètres d'un graphe trellis"
 
-msgid "Invalid theme specified"
+msgid "Invalid 'theme' specified"
 msgstr "Thème spécifié incorrect"
 
 msgid "Could not find device function '%s'"
 msgstr "Impossible de trouver la fonction du périphérique '%s'"
 
-msgid "trellis.device has changed, 'bg' may not be doing what you think it is"
+msgid "'trellis.device' has changed, 'bg' may not be doing what you think it is"
 msgstr "'trellis.device' a changé, 'bg' peut ne plus faire ce que vous pensez"
 
 msgid "x must be a shingle"
@@ -277,13 +273,13 @@ msgstr "Aucun objet trellis n'est actuellement sauvegardé"
 msgid "currently saved object is not the last one plotted"
 msgstr "l'objet actuellement sauvegardé n'est pas le dernier qui a été tracé"
 
-msgid "Inappropriate value of as.table"
+msgid "Inappropriate value of 'as.table'"
 msgstr "Valeur de 'as.table' incorrecte"
 
-msgid "par.strip.text must be a list"
+msgid "'par.strip.text' must be a list"
 msgstr "'par.strip.text' doit être une liste"
 
-msgid "par.settings must be a list"
+msgid "'par.settings' must be a list"
 msgstr "'par.settings' doit être une liste"
 
 msgid ""
@@ -293,16 +289,16 @@ msgstr ""
 "Remarque : 'auto.key' est ignoré puisque des clefs sont déjà présentes.\n"
 "Utilisez 'update(..., legend = NULL)' pour retirer le(s) légende(s) existante(s)"
 
-msgid "log scales cannot be changed via update"
+msgid "log scales cannot be changed via 'update'"
 msgstr "les échelles d'axes logarithmiques ne peuvent être modifiées à l'aide d''update'"
 
-msgid "Unrecognized value of aspect: '%s'"
+msgid "Unrecognized value of 'aspect': '%s'"
 msgstr "Valeur inconnue pour 'aspect' : '%s'"
 
-msgid "Invalid value of aspect"
+msgid "Invalid value of 'aspect'"
 msgstr "Valeur incorrecte pour 'aspect'"
 
-msgid "drop=TRUE ignored"
+msgid "'drop=TRUE' ignored"
 msgstr "'drop=TRUE' est ignoré"
 
 msgid "Invalid indices"
@@ -321,14 +317,4 @@ msgid ""
 msgstr ""
 "Le package grid ne peut être chargé.\n"
 "Veuillez vérifier votre installation de R"
-
-#~ msgid "Improper value of limit"
-#~ msgstr "Valeur de limite incorrecte"
-
-#~ msgid "x must be NULL or a list"
-#~ msgstr "'x' doit être soit NULL, soit une liste"
-
-#~ msgid "val must be a list"
-#~ msgstr "'val' doit être une liste"
-
 

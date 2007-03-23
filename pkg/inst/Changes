@@ -1,4 +1,25 @@
 
+Changes in lattice 0.15
+=======================
+
+(Some of these are also available in updated 0.14 versions)
+
+new features
+------------
+
+ o Default panel functions are now settable options
+
+ o limits of a parallel coordinates plot can now be controlled via
+   functions
+
+changes in behaviour
+--------------------
+
+ o non-numeric data do not cause warning in bwplot
+
+
+
+
 
 Changes in lattice 0.14
 =======================
@@ -32,6 +53,12 @@ new features
  o matrix methods for 'splom' and 'parallel' (whose absence was an
    oversight)
 
+ o support of 'alpha' argument in labels and legends, which were
+   previously missing for no good reason
+
+ o panel.grid() now allows 'h' and 'v' to have negative values other
+   than -1, in which case '-h' and '-v' will be used as the 'n'
+   argument to pretty() when determining line locations
 
 
 changes in behaviour

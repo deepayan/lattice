@@ -1,4 +1,199 @@
 ------------------------------------------------------------------------
+r4194 | deepayan | 2007-03-22 08:47:15 -0700 (Thu, 22 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/panel.pairs.Rd
+   M /trunk/lattice/man/qq.Rd
+   M /trunk/lattice/man/qqmath.Rd
+   M /trunk/lattice/man/simpleKey.Rd
+   M /trunk/lattice/man/splom.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+doc updates related to making default panel functions user-settable;
+should pass check now
+------------------------------------------------------------------------
+r4191 | deepayan | 2007-03-21 16:11:10 -0700 (Wed, 21 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/man/panel.parallel.Rd
+
+added option to control limits of a parallel coordinates plot
+------------------------------------------------------------------------
+r4184 | deepayan | 2007-03-15 17:31:21 -0700 (Thu, 15 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/scales.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/update.trellis.R
+
+improved warning messages (mostly put single quotes around object names)
+------------------------------------------------------------------------
+r4183 | deepayan | 2007-03-15 17:24:03 -0700 (Thu, 15 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+
+bugfix: was drawing rectangle outside panels while in wrong viewport
+------------------------------------------------------------------------
+r4182 | deepayan | 2007-03-15 16:10:09 -0700 (Thu, 15 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+removed warning for non-numeric data (as that might be perfectly
+acceptable in more general situations)
+------------------------------------------------------------------------
+r4181 | deepayan | 2007-03-14 10:17:11 -0700 (Wed, 14 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/xyplot.R
+
+made panel function defaults settable options
+------------------------------------------------------------------------
+r4176 | deepayan | 2007-03-09 05:18:41 -0800 (Fri, 09 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/banking.Rd
+   M /trunk/lattice/man/panel.barchart.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+minor documentation updates
+------------------------------------------------------------------------
+r4037 | deepayan | 2006-12-18 12:03:25 -0800 (Mon, 18 Dec 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/man/print.trellis.Rd
+
+clipping related changes: the box around panels is now drawn with
+clipping off, and clipping for strip is now off by default.  Also
+completed an incomplete sentence in print.trellis.Rd
+------------------------------------------------------------------------
+r4036 | deepayan | 2006-12-18 11:20:23 -0800 (Mon, 18 Dec 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+panel.barchart bugfix with empty groups
+------------------------------------------------------------------------
+r4035 | deepayan | 2006-12-18 11:19:43 -0800 (Mon, 18 Dec 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/man/trellis.par.get.Rd
+
+added a strict mode to trellis.par.set (needed to fix a bug with
+'par.settings')
+------------------------------------------------------------------------
+r4034 | deepayan | 2006-12-18 11:18:24 -0800 (Mon, 18 Dec 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/man/xyplot.Rd
+
+added more graphical arguments, improved docs
+------------------------------------------------------------------------
+r4033 | deepayan | 2006-12-18 11:14:51 -0800 (Mon, 18 Dec 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/man/panel.functions.Rd
+
+extended panel.grid to allow 'n' in pretty to be specified as -ve 'h'
+and 'v'
+------------------------------------------------------------------------
+r3998 | deepayan | 2006-12-01 12:54:00 -0800 (Fri, 01 Dec 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/xyplot.Rd
+
+slightly changed how levels are ordered for formulae of the form 
+y1 + y2 ~ x1 + x2 + x3
+------------------------------------------------------------------------
+r3978 | deepayan | 2006-11-28 11:44:25 -0800 (Tue, 28 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/inst/Changes
+
+bumped version
+------------------------------------------------------------------------
+r3977 | deepayan | 2006-11-28 11:41:06 -0800 (Tue, 28 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/man/splom.Rd
+
+added splom.matrix and parallel.matrix methods (same as corresponding
+data.frame methods)
+------------------------------------------------------------------------
+r3972 | deepayan | 2006-11-19 18:18:20 -0800 (Sun, 19 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/demo/00Index
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/panel.histogram.Rd
+
+some changes to histogram, plus misc fixes
+------------------------------------------------------------------------
+r3965 | deepayan | 2006-11-09 16:26:30 -0800 (Thu, 09 Nov 2006) | 1 line
+Changed paths:
+   A /trunk/lattice/demo/panel.R
+
+demo of custom panel functions, first version has stacked densityplots
+------------------------------------------------------------------------
+r3963 | deepayan | 2006-11-07 21:27:18 -0800 (Tue, 07 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/R/settings.R
+
+added checks for valid values of x, y, and corner in legends
+------------------------------------------------------------------------
+r3962 | deepayan | 2006-11-07 21:26:26 -0800 (Tue, 07 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/man/panel.parallel.Rd
+
+fixed misleading behaviour of 'common.scale' argument in parallel
+------------------------------------------------------------------------
+r3947 | deepayan | 2006-11-02 21:23:40 -0800 (Thu, 02 Nov 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/miscellaneous.R
+
+fixed bad bug, where lrect border was (almost) always black
+------------------------------------------------------------------------
+r3937 | deepayan | 2006-10-31 12:53:14 -0800 (Tue, 31 Oct 2006) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/SvnLog
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/po/R-fr.po
+   M /trunk/lattice/po/R-lattice.pot
+
+final changes in preparation for new upload
+------------------------------------------------------------------------
 r3936 | deepayan | 2006-10-31 12:48:30 -0800 (Tue, 31 Oct 2006) | 1 line
 Changed paths:
    M /trunk/lattice/R/print.trellis.R
