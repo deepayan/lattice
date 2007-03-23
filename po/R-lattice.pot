@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.3.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2006-10-25 10:43\n"
+"POT-Creation-Date: 2007-03-23 12:13\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,22 +11,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 
-msgid "origin forced to 0 for stacked bars"
+msgid "'origin' forced to 0 for stacked bars"
 msgstr ""
 
-msgid "explicit data specification ignored"
-msgstr ""
-
-msgid "x should be numeric"
-msgstr ""
-
-msgid "y should be numeric"
+msgid "explicit 'data' specification ignored"
 msgstr ""
 
 msgid "mismatch in number of packets"
 msgstr ""
 
-msgid "type has unsupported values"
+msgid "'type' has unsupported values"
 msgstr ""
 
 msgid "Inappropriate arguments"
@@ -38,7 +32,7 @@ msgstr ""
 msgid "model must be a formula object"
 msgstr ""
 
-msgid "multiple = TRUE ignored (groups non-null with outer = FALSE)"
+msgid "'multiple=TRUE' ignored ('groups' non-null with 'outer=FALSE')"
 msgstr ""
 
 msgid "invalid dimension '%s'"
@@ -95,7 +89,7 @@ msgstr ""
 msgid "Can't have log Y-scale"
 msgstr ""
 
-msgid "problem with hist computations"
+msgid "problem with 'hist' computations"
 msgstr ""
 
 msgid "type='%s' can be misleading in this context"
@@ -107,13 +101,13 @@ msgstr ""
 msgid "Percent of Total"
 msgstr ""
 
-msgid "no points within"
+msgid "no observations within"
 msgstr ""
 
 msgid "points"
 msgstr ""
 
-msgid "nearest point already identified"
+msgid "nearest observation already identified"
 msgstr ""
 
 msgid "column must be specified"
@@ -155,7 +149,7 @@ msgstr ""
 msgid "malformed colorkey"
 msgstr ""
 
-msgid "Invalid shrink, ignored"
+msgid "Invalid 'shrink' parameter ignored"
 msgstr ""
 
 msgid "Invalid label.style"
@@ -209,19 +203,19 @@ msgstr ""
 msgid "need at least one panel"
 msgstr ""
 
-msgid "aspect=iso approximate since relation=free"
+msgid "'aspect=\"iso\"' approximate since 'relation=\"free\"'"
 msgstr ""
 
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
 msgstr ""
 
-msgid "Invalid theme specified"
+msgid "Invalid 'theme' specified"
 msgstr ""
 
 msgid "Could not find device function '%s'"
 msgstr ""
 
-msgid "trellis.device has changed, 'bg' may not be doing what you think it is"
+msgid "'trellis.device' has changed, 'bg' may not be doing what you think it is"
 msgstr ""
 
 msgid "x must be a shingle"
@@ -272,28 +266,28 @@ msgstr ""
 msgid "currently saved object is not the last one plotted"
 msgstr ""
 
-msgid "Inappropriate value of as.table"
+msgid "Inappropriate value of 'as.table'"
 msgstr ""
 
-msgid "par.strip.text must be a list"
+msgid "'par.strip.text' must be a list"
 msgstr ""
 
-msgid "par.settings must be a list"
+msgid "'par.settings' must be a list"
 msgstr ""
 
 msgid "Note: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"
 msgstr ""
 
-msgid "log scales cannot be changed via update"
+msgid "log scales cannot be changed via 'update'"
 msgstr ""
 
-msgid "Unrecognized value of aspect: '%s'"
+msgid "Unrecognized value of 'aspect': '%s'"
 msgstr ""
 
-msgid "Invalid value of aspect"
+msgid "Invalid value of 'aspect'"
 msgstr ""
 
-msgid "drop=TRUE ignored"
+msgid "'drop=TRUE' ignored"
 msgstr ""
 
 msgid "Invalid indices"
