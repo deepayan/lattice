@@ -19,8 +19,9 @@
   the arguments to the high level function that produced the object.
   Among them are: \code{as.table}, \code{layout}, \code{page},
   \code{panel}, \code{prepanel}, \code{main}, \code{sub},
-  \code{par.settings}, \code{par.strip.text}, \code{strip}, \code{skip},
-  \code{xlab} and \code{ylab}.  Some other typical components are:
+  \code{par.strip.text}, \code{strip}, \code{skip}, \code{xlab}
+  \code{ylab}, \code{par.settings}, \code{lattice.options} and
+  \code{plot.args}.  Some other typical components are:
 
   \describe{
     \item{\code{formula}}{
