@@ -184,17 +184,22 @@ histogram.formula <-
              equal.widths = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales = list(),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
     formula <- x
     dots <- list(...)
-
-    ## Step 1: Evaluate x, y, etc. and do some preprocessing
-
     groups <- eval(substitute(groups), data, environment(formula))
     subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
+
+    ## Step 1: Evaluate x, y, etc. and do some preprocessing
 
     form <-
         latticeParseFormula(formula, data, subset = subset,
@@ -242,7 +247,8 @@ histogram.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = form$right.name,
-                       ylab.default = "dummy"), dots))
+                       ylab.default = "dummy",
+                       lattice.options = lattice.options), dots))
                           
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

@@ -14,6 +14,7 @@ qq(x, data, \dots)
     groups, xlab, xlim, ylab, ylim, f.value = NULL, 
     drop.unused.levels = lattice.getOption("drop.unused.levels"),
     \dots,
+    lattice.options = NULL,
     qtype = 7,
     default.scales = list(),
     subscripts,
@@ -61,7 +62,8 @@ qq(x, data, \dots)
   \item{qtype}{ \code{type} argument for the \code{\link{quantile}} }
   \item{aspect, prepanel, scales,
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
-    default.scales, subscripts, subset}{ See \code{\link{xyplot}} }
+    lattice.options, default.scales, subscripts, subset}{ See
+    \code{\link{xyplot}} }
   \item{\dots}{
     Further arguments.  See corresponding entry in \code{\link{xyplot}}
     for non-trivial details.

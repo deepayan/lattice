@@ -27,6 +27,7 @@ densityplot(x, data, \dots)
           equal.widths = TRUE,
           drop.unused.levels = lattice.getOption("drop.unused.levels"),
           \dots,
+          lattice.options = NULL,
           default.scales = list(),
           subscripts,
           subset)
@@ -48,6 +49,7 @@ densityplot(x, data, \dots)
             n = 50, from, to, cut, na.rm,
             drop.unused.levels = lattice.getOption("drop.unused.levels"),
             \dots,
+            lattice.options = NULL,
             default.scales = list(),
             subscripts,
             subset)
@@ -151,7 +153,8 @@ do.breaks(endpoints, nint)
 %     happens by default when \code{groups} is non-null.  }
   \item{allow.multiple, outer, auto.key, aspect, prepanel, scales,
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
-    default.scales, subscripts, subset}{ See \code{\link{xyplot}} }
+    lattice.options, default.scales, subscripts, subset}{ See
+    \code{\link{xyplot}} }
   \item{bw, adjust, kernel, window, width, give.Rkern, from, to, cut,
     na.rm}{ arguments to \code{\link{density}}, passed on as appropriate
   }

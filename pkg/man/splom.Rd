@@ -32,6 +32,7 @@ parallel(x, data, \dots)
       varnames,
       drop.unused.levels,
       \dots,
+      lattice.options = NULL,
       default.scales,
       subset = TRUE)
 \method{parallel}{formula}(x,
@@ -50,6 +51,7 @@ parallel(x, data, \dots)
          varnames,
          drop.unused.levels,
          \dots,
+         lattice.options = NULL,
          default.scales,
          subset = TRUE)
 
@@ -118,7 +120,7 @@ parallel(x, data, \dots)
   }
   \item{auto.key, prepanel, scales,
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
-    default.scales, subset}{ See \code{\link{xyplot}} }
+    lattice.options, default.scales, subset}{ See \code{\link{xyplot}} }
   \item{\dots}{ Further arguments.  See corresponding entry in
     \code{\link{xyplot}} for non-trivial details.  }
 }

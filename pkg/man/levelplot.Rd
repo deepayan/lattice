@@ -29,13 +29,13 @@ contourplot(x, data, \dots)
           pretty = FALSE,
           region = TRUE,
           drop.unused.levels = lattice.getOption("drop.unused.levels"),
-          ...,
+          \dots,
+          lattice.options = NULL,
           default.scales = list(),
           colorkey = region,
           col.regions,
           alpha.regions,
           subset = TRUE)
-
 
 \method{contourplot}{formula}(x,
             data,
@@ -45,7 +45,7 @@ contourplot(x, data, \dots)
             contour = TRUE,
             pretty = TRUE,
             region = FALSE,
-            ...)
+            \dots)
 \method{levelplot}{matrix}(x, data = NULL, aspect = "iso", ...)
 \method{contourplot}{matrix}(x, data = NULL, aspect = "iso", ...)
 
@@ -162,7 +162,8 @@ contourplot(x, data, \dots)
     logical, whether regions between contour lines should be filled
   }
   \item{allow.multiple, outer, prepanel, scales, strip, groups, xlab,
-    xlim, ylab, ylim, drop.unused.levels, default.scales, subset}{
+    xlim, ylab, ylim, drop.unused.levels, lattice.options,
+    default.scales, subset}{
     these arguments are described in the help page for
     \code{\link{xyplot}}.
   }

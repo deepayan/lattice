@@ -181,8 +181,6 @@ densityplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
-##              allow.multiple = is.null(groups) || outer,
-##              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
              panel = lattice.getOption("panel.densityplot"),
@@ -207,12 +205,20 @@ densityplot.formula <-
              na.rm = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales = list(),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
     formula <- x
     dots <- list(...)
+    groups <- eval(substitute(groups), data, environment(formula))
+    subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
 
     ## darg is a list that gives arguments to density()
     darg <- list()
@@ -230,9 +236,6 @@ densityplot.formula <-
     
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
-    groups <- eval(substitute(groups), data, environment(formula))
-    subset <- eval(substitute(subset), data, environment(formula))
-
     form <-
         latticeParseFormula(formula, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
@@ -278,7 +281,8 @@ densityplot.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = form$right.name,
-                       ylab.default = gettext("Density")), dots))
+                       ylab.default = gettext("Density"),
+                       lattice.options = lattice.options), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

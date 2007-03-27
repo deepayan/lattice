@@ -40,6 +40,7 @@ bwplot(x, data, \dots)
        ylim,
        drop.unused.levels = lattice.getOption("drop.unused.levels"),
        \dots,
+       lattice.options = NULL,
        default.scales,
        subscripts = !is.null(groups),
        subset = TRUE)
@@ -80,6 +81,7 @@ bwplot(x, data, \dots)
        horizontal = NULL,
        drop.unused.levels = lattice.getOption("drop.unused.levels"),
        \dots,
+       lattice.options = NULL,
        default.scales,
        subscripts = !is.null(groups),
        subset = TRUE)
@@ -625,20 +627,33 @@ bwplot(x, data, \dots)
   \item{ylim}{ similar to \code{xlim}, applied to the y-axis. }
   \item{drop.unused.levels}{ 
     logical indicating whether the unused levels of factors will be
-    dropped.  Unused levels are usually dropped, but it is sometimes
-    appropriate to suppress dropping to preserve a useful layout.  For
-    finer control, this argument could also be list containing
-    components \code{cond} and \code{data}, both logical, indicating
-    desired behavior for conditioning variables and data variables
-    respectively.  The default is given by
-    \code{lattice.getOption("drop.unused.levels")} , which is initially
-    set to \code{TRUE} for both components.
+    dropped, usually relevant with a subsetting operation is performed
+    or an \code{\link{interaction}} is created.  Unused levels are
+    usually dropped, but it is sometimes appropriate to suppress
+    dropping to preserve a useful layout.  For finer control, this
+    argument could also be list containing components \code{cond} and
+    \code{data}, both logical, indicating desired behavior for
+    conditioning variables and data variables respectively.  The default
+    is given by \code{lattice.getOption("drop.unused.levels")}, which
+    is initially set to \code{TRUE} for both components.  Note that this
+    argument does not control dropping of levels of the \code{groups}
+    argument.
   }
   \item{ default.scales }{
     list giving the default values of \code{scales} for a particular
     high level function.  This should not be of any interest to the
     normal user, but may be helpful when defining other functions that
     act as a wrapper to one of the high level lattice functions.
+  }
+  \item{lattice.options}{
+    a list that could be supplied to \code{\link{lattice.options}}.
+    These options are temporarily in effect for the duration of the
+    call, after which the settings revert back to whatever they were
+    before.  The settings are also retained along with the object and
+    reused during plotting.  This enables the user to attach options
+    settings to the trellis object itself rather than change the
+    settings globally.  See also the  \code{par.settings} argument
+    described below for a similar treatment of graphical settings.
   }
   \item{\dots}{ further arguments, usually not directly processed by the
     high level functions documented here, but rather passed on to other
@@ -1011,19 +1026,6 @@ bwplot(x, data, \dots)
 	when drawing the object, unless overridden explicitly.  This
 	enables the user to attach such arguments to the trellis object
 	itself.  Partial matching is not performed.
-      }
-      \item{\code{lattice.options}:}{
-	a list that could be supplied to \code{\link{lattice.options}}.
-	This enables the user to attach options settings to the trellis
-	object itself rather than change the settings globally.  When
-	the object is plotted, these settings are temporarily in effect
-	for the duration of the plot, after which the settings revert
-	back to whatever they were before.  Note that most (but not all)
-	\dQuote{options} controlled by \code{\link{lattice.options}}
-	affects the object itself and not the plotting of it.  This
-	argument affects the plotting stage only, and has no effect on
-	the object being created.  This behaviour might be considered a
-	misfeature, and is liable to change in future versions.
       }
     }
   }

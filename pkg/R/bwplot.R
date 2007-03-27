@@ -1031,6 +1031,7 @@ bwplot.formula <-
              horizontal = NULL,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales =
              if (horizontal) list(y = list(tck = 0, alternating = FALSE, rot = 0))
              else list(x = list(tck = 0, alternating = FALSE)),
@@ -1041,6 +1042,11 @@ bwplot.formula <-
     dots <- list(...)
     groups <- eval(substitute(groups), data, environment(formula))
     subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
 
     ## step 0: hack to get appropriate legend with auto.key = TRUE in
     ## barchart (default panel only).  The usual default in bwplot is
@@ -1126,7 +1132,8 @@ bwplot.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = form$right.name,
-                       ylab.default = form$left.name), dots))
+                       ylab.default = form$left.name,
+                       lattice.options = lattice.options), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
