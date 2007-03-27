@@ -1010,7 +1010,7 @@ bwplot(x, data, \dots)
 	which will be used by the \code{plot} or \code{print} methods
 	when drawing the object, unless overridden explicitly.  This
 	enables the user to attach such arguments to the trellis object
-	itself.
+	itself.  Partial matching is not performed.
       }
       \item{\code{lattice.options}:}{
 	a list that could be supplied to \code{\link{lattice.options}}.

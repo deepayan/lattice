@@ -144,14 +144,15 @@ plot.trellis <-
 ## S3 print method for "trellis" objects
 
 print.trellis <-
-    function(x, position, split, more = FALSE,
-             newpage = TRUE,
+    function(x,
+             position = NULL, split = NULL,
+             more = FALSE, newpage = TRUE,
              packet.panel = packet.panel.default,
              draw.in = NULL,
              panel.height = lattice.getOption("layout.heights")$panel,
              panel.width = lattice.getOption("layout.widths")$panel,
              save.object = lattice.getOption("save.object"),
-             prefix,
+             prefix = NULL,
              ...)
 {
 
@@ -180,13 +181,12 @@ print.trellis <-
     ## if necessary, save current settings and apply temporary
     ## settings in x$par.settings
 
-    ## FIXME: do these using on.exit rather than the current scheme
-
     if (!is.null(x$par.settings))
     {
         ## save current state, restore later
         opar <- trellis.par.get() ## get("lattice.theme", envir = .LatticeEnv)
         trellis.par.set(theme = x$par.settings)
+        on.exit(trellis.par.set(opar, strict = TRUE), add = TRUE)
     }
 
     ## do the same for lattice.options
@@ -195,42 +195,46 @@ print.trellis <-
     {
         ## save current state, restore later
         oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
     }
 
 
     ## We'll also allow arguments to print.trellis (or plot.trellis)
-    ## to be included within a trellis object.
+    ## to be included within a trellis object.  Partial matching is
+    ## not done.
 
     if (!is.null(x$plot.args))
     {
+        supplied <- names(x$plot.args)
         ## can't think of a clean way, so...
-        renewArg <- function(name) if (is.null(x$plot.args[[name]])) get(name) else x$plot.args[[name]]
-        for (nm in c("position", "split", "more", "newpage",
-                     "packet.panel", "draw.in", "panel.height",
-                     "panel.width", "save.object", "prefix"))
-        {
-            assign(nm, renewArg(nm))
-        }
-
+        if ("position"     %in% supplied && missing(position))     position     <- x$plot.args$position
+        if ("split"        %in% supplied && missing(split))        split        <- x$plot.args$split
+        if ("more"         %in% supplied && missing(more))         more         <- x$plot.args$more
+        if ("newpage"      %in% supplied && missing(newpage))      newpage      <- x$plot.args$newpage
+        if ("packet.panel" %in% supplied && missing(packet.panel)) packet.panel <- x$plot.args$packet.panel
+        if ("draw.in"      %in% supplied && missing(draw.in))      draw.in      <- x$plot.args$draw.in
+        if ("panel.height" %in% supplied && missing(panel.height)) panel.height <- x$plot.args$panel.height
+        if ("panel.width"  %in% supplied && missing(panel.width))  panel.width  <- x$plot.args$panel.width
+        if ("save.object"  %in% supplied && missing(save.object))  save.object  <- x$plot.args$save.object
+        if ("prefix"       %in% supplied && missing(prefix))       prefix       <- x$plot.args$prefix
     }
-
-
 
     bg <- trellis.par.get("background")$col
     new <-  newpage && !lattice.getStatus("print.more") && is.null(draw.in)
-    if (!is.null(draw.in)) depth <- downViewport(draw.in)
+    if (!is.null(draw.in))
+    {
+        depth <- downViewport(draw.in)
+        on.exit(upViewport(depth), add = TRUE)
+    }
 
     lattice.setStatus(print.more = more)
-    usual  <- (missing(position) & missing(split))
-    ##if (!new && usual)
-    ##    warning("more is relevant only when split/position is specified")
-
+    usual  <- (is.null(position) && is.null(split))
 
     ## this means this plot will be the first one on a new page
     if (new) lattice.setStatus(plot.index = 1)
 
     ## get default prefix for grid viewport/object names
-    if (missing(prefix))
+    if (is.null(prefix))
         prefix <- paste("plot", lattice.getStatus("plot.index"), sep = "")
     lattice.setStatus(current.prefix = prefix)
     lattice.setStatus(plot.index = 1 + lattice.getStatus("plot.index"))
@@ -240,7 +244,7 @@ print.trellis <-
                 updateList(trellis.par.get("grid.pars"),
                            list(fontsize = trellis.par.get("fontsize")$text)))
 
-    if (!missing(position))
+    if (!is.null(position))
     {
         stopifnot (length(position) == 4)
         if (new)
@@ -254,7 +258,7 @@ print.trellis <-
                               just = c("left","bottom"),
                               name = trellis.vpname("position")))
 
-        if (!missing(split))
+        if (!is.null(split))
         {
             stopifnot (length(split) == 4)
             pushViewport(viewport(layout = grid.layout(nrow = split[4], ncol = split[3]),
@@ -265,7 +269,7 @@ print.trellis <-
     }
 
 
-    else if (!missing(split))
+    else if (!is.null(split))
     {
         stopifnot(length(split) == 4)
         if (new)
@@ -621,7 +625,7 @@ print.trellis <-
     for(page.number in seq_len(number.of.pages))
     {
         ##if (!any(cond.max.levels - which.packet < 0))
-        if (TRUE)
+        if (TRUE) ## FIXME: remove this after a few versions and reformat
         {
             if (usual)
             {
@@ -1229,32 +1233,20 @@ print.trellis <-
                 upViewport()
             }
         }
-        if (!missing(position))
+        if (!is.null(position))
         {
-            if (!missing(split))
+            if (!is.null(split))
             {
                 upViewport()
                 upViewport()
             }
             upViewport()
         }
-        else if (!missing(split))
+        else if (!is.null(split))
         {
             upViewport()
             upViewport()
         }
-
-    ## restore earlier settings
-    if (!is.null(x$lattice.options))
-    {
-        lattice.options(oopt)
-    }
-    if (!is.null(x$par.settings))
-    {
-        trellis.par.set(opar, strict = TRUE)
-    }
-
-    if (!is.null(draw.in)) upViewport(depth)
 
     lattice.setStatus(current.focus.row = 0,
                       current.focus.column = 0,
