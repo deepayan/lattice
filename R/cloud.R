@@ -1427,6 +1427,7 @@ cloud.formula <-
              pretty = FALSE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
              colorkey = any(drape),
              col.regions,
@@ -1443,6 +1444,11 @@ cloud.formula <-
     dots <- list(...)
     groups <- eval(substitute(groups), data, environment(formula))
     subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
 
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
@@ -1528,7 +1534,8 @@ cloud.formula <-
                        strip = strip,
                        panel = panel,
                        xlab = NULL,
-                       ylab = NULL), dots))
+                       ylab = NULL,
+                       lattice.options = lattice.options), dots))
 
     ##----------------------------------------------------------------+
     ## xlab, ylab, zlab have special meaning in cloud / wireframe, and|

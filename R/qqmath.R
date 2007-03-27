@@ -256,17 +256,23 @@ qqmath.formula <-
              ylim,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales = list(),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
     formula <- x
     dots <- list(...)
+    groups <- eval(substitute(groups), data, environment(formula))
+    subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
     
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
-    groups <- eval(substitute(groups), data, environment(formula))
-    subset <- eval(substitute(subset), data, environment(formula))
     form <-
         latticeParseFormula(formula, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
@@ -311,7 +317,8 @@ qqmath.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = dist.name,
-                       ylab.default = form$right.name),
+                       ylab.default = form$right.name,
+                       lattice.options = lattice.options),
                   dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton

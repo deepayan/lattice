@@ -214,6 +214,7 @@ parallel.formula <-
              varnames,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales =
              list(x = list(at = c(0, 1), labels = c("Min", "Max")),
                   y =
@@ -222,12 +223,14 @@ parallel.formula <-
              subset = TRUE)
 {
     formula <- x
-
-    ## dots <- eval(substitute(list(...)), data, environment(formula))
     dots <- list(...)
-
     groups <- eval(substitute(groups), data, environment(formula))
     subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
@@ -286,7 +289,8 @@ parallel.formula <-
                        panel = panel,
                        xlab = xlab,
                        ylab = ylab,
-                       xlab.default = "Parallel Coordinate Plot"), dots))
+                       xlab.default = gettext("Parallel Coordinate Plot"),
+                       lattice.options = lattice.options), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

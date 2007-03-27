@@ -24,6 +24,7 @@ qqmath(x, data, \dots)
        xlab, xlim, ylab, ylim,
        drop.unused.levels = lattice.getOption("drop.unused.levels"),
        \dots,
+       lattice.options = NULL,
        default.scales = list(),
        subscripts,
        subset)
@@ -76,7 +77,8 @@ qqmath(x, data, \dots)
   }
   \item{allow.multiple, outer, auto.key, aspect, prepanel, scales,
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
-    default.scales, subscripts, subset}{ See \code{\link{xyplot}} }
+    lattice.options, default.scales, subscripts, subset}{ See
+    \code{\link{xyplot}} }
   \item{\dots}{
     Further arguments.  See corresponding entry in \code{\link{xyplot}}
     for non-trivial details.

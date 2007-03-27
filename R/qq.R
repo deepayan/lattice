@@ -69,6 +69,7 @@ qq.formula <-
              f.value = NULL,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              qtype = 7,
              default.scales = list(),
              subscripts = !is.null(groups),
@@ -78,6 +79,11 @@ qq.formula <-
     dots <- list(...)
     groups <- eval(substitute(groups), data, environment(formula))
     subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
     
@@ -140,7 +146,8 @@ qq.formula <-
 
                        ylab.default =
                        if (is.f.y) unique(levels(y))[y]
-                       else paste("y:", as.character(unique(levels(y)[[2]])))),
+                       else paste("y:", as.character(unique(levels(y)[[2]]))),
+                       lattice.options = lattice.options),
                   dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton

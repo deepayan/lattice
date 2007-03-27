@@ -418,6 +418,7 @@ levelplot.formula <-
              region = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales = list(),
              colorkey = region,
              col.regions,
@@ -428,6 +429,11 @@ levelplot.formula <-
     dots <- list(...)
     groups <- eval(substitute(groups), data, environment(formula))
     subset <- eval(substitute(subset), data, environment(formula))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
 
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
@@ -492,7 +498,8 @@ levelplot.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = form$right.x.name,
-                       ylab.default = form$right.y.name), dots))
+                       ylab.default = form$right.y.name,
+                       lattice.options = lattice.options), dots))
 
     
     dots <- foo$dots # arguments not processed by trellis.skeleton

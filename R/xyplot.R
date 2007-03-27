@@ -184,8 +184,6 @@ xyplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
-##              allow.multiple = is.null(groups) || outer,
-##              outer = FALSE,
              auto.key = FALSE,
              aspect = "fill",
              panel = lattice.getOption("panel.xyplot"),
@@ -199,6 +197,7 @@ xyplot.formula <-
              ylim,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
+             lattice.options = NULL,
              default.scales = list(),
              subscripts = !is.null(groups),
              subset = TRUE)
@@ -207,6 +206,11 @@ xyplot.formula <-
     dots <- list(...)
     groups <- eval(substitute(groups), data, environment(x))
     subset <- eval(substitute(subset), data, environment(x))
+    if (!is.null(lattice.options))
+    {
+        oopt <- lattice.options(x$lattice.options)
+        on.exit(lattice.options(oopt), add = TRUE)
+    }
 
     ## Step 1: Evaluate x, y, etc. and do some preprocessing
 
@@ -260,7 +264,8 @@ xyplot.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = form$right.name,
-                       ylab.default = form$left.name), dots))
+                       ylab.default = form$left.name,
+                       lattice.options = lattice.options), dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

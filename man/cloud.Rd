@@ -32,6 +32,7 @@ wireframe(x, data, \dots)
       pretty = FALSE,
       drop.unused.levels,
       \dots,
+      lattice.options = NULL,
       default.scales =
       list(distance = c(1, 1, 1),
            arrows = TRUE,
@@ -108,7 +109,8 @@ wireframe(x, data, \dots)
   }
 
   \item{allow.multiple, outer, auto.key, prepanel, strip, groups, xlab,
-    xlim, ylab, ylim, drop.unused.levels, default.scales, subset}{
+    xlim, ylab, ylim, drop.unused.levels, lattice.options,
+    default.scales, subset}{
     These arguments are documented in the help page for
     \code{\link{xyplot}}.
   }
