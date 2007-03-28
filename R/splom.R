@@ -72,6 +72,7 @@ diag.panel.splom <-
              axis.line.alpha = axis.line$alpha,
              axis.line.lty = axis.line$lty,
              axis.line.lwd = axis.line$lwd,
+             axis.line.tck = 1,
              ...)
 {
     add.text <- trellis.par.get("add.text")
@@ -112,7 +113,7 @@ diag.panel.splom <-
                        tick = TRUE,
                        half = TRUE,
 
-                       tck = 1, ## from scales ?
+                       tck = axis.line.tck,
                        rot = rot, 
 
                        text.col = axis.text.col,
@@ -170,8 +171,8 @@ panel.pairs <-
              axis.line.col = axis.line$col,
              axis.line.lty = axis.line$lty,
              axis.line.lwd = axis.line$lwd,
-             ## axis.line.alpha = axis.line$alpha,
-             
+             axis.line.alpha = axis.line$alpha,
+             axis.line.tck = 1,
              ...)
 {
     lower.panel <- 
@@ -284,6 +285,8 @@ panel.pairs <-
                                axis.line.col = axis.line.col,
                                axis.line.lty = axis.line.lty,
                                axis.line.lwd = axis.line.lwd,
+                               axis.line.alpha = axis.line.alpha,
+                               axis.line.tck = axis.line.tck,
 
                                ...)
 

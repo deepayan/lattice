@@ -124,6 +124,19 @@ export(
        prepanel.qqmathline,
 
 
+       ## default prepanel functions
+
+       prepanel.default.bwplot,
+       prepanel.default.histogram,
+       prepanel.default.qq,
+       prepanel.default.xyplot,
+       prepanel.default.cloud,
+       prepanel.default.levelplot,
+       prepanel.default.qqmath,
+       prepanel.default.densityplot,
+       prepanel.default.parallel,
+       prepanel.default.splom,
+
        ## shingles 
 
        shingle,

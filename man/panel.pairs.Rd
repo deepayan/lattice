@@ -26,6 +26,7 @@ panel.pairs(z,
             axis.text.col, axis.text.cex, axis.text.font,
             axis.text.fontfamily, axis.text.fontface,
             axis.line.col, axis.line.lty, axis.line.lwd,
+            axis.line.alpha, axis.line.tck,
             \dots)
 diag.panel.splom(x = NULL,
                  varname = NULL, limits, at = NULL, lab = NULL,
@@ -38,6 +39,7 @@ diag.panel.splom(x = NULL,
                  axis.text.fontfamily, axis.text.fontface,
                  axis.line.col, axis.line.alpha,
                  axis.line.lty, axis.line.lwd,
+                 axis.line.tck,
                  \dots)
 }
 \arguments{
@@ -120,6 +122,7 @@ diag.panel.splom(x = NULL,
     axis.text.fontfamily, axis.text.fontface, axis.line.col,
     axis.line.lty, axis.line.lwd, axis.text.alpha, axis.line.alpha}{
     graphical parameters for axis tick marks and labels }
+  \item{axis.line.tck}{ length of tick marks in diagonal panels }
   \item{\dots}{ extra arguments passed on to \code{panel},
     \code{lower.panel}, \code{upper.panel} and \code{diag.panel} from
     \code{panel.pairs}.  Currently ignored by \code{diag.panel.splom}. }
