@@ -6,6 +6,8 @@
 \alias{trellis.panelArgs}
 \alias{trellis.vpname}
 \alias{trellis.grobname}
+\concept{interaction}
+\concept{augment}
 \title{Functions to Interact with Lattice Plots}
 \description{
   The classic Trellis paradigm is to plot the whole object at once,

@@ -40,8 +40,8 @@ prepanel.qqmathline(x, y = x, distribution = qnorm,
   \code{dy}, the first two being used to calculate panel axes limits,
   the last two for banking computations.  The form of these components
   are described under \code{\link{xyplot}}.  There are also several
-  undocumented prepanel functions that serve as the default for high
-  level functions, e.g., \code{prepanel.default.xyplot}
+  prepanel functions that serve as the default for high level functions,
+  see \code{\link{prepanel.default.xyplot}}
 }
 
 \seealso{
