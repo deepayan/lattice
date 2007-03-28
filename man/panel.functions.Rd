@@ -16,8 +16,11 @@
 }
 \usage{
 
-panel.abline(a, b = NULL, h = numeric(0), v = numeric(0),
-             col, col.line, lty, lwd, type, \dots)
+panel.abline(a = NULL, b = NULL,
+             h = NULL, v = NULL,
+             reg = NULL, coef = NULL,
+             col, col.line, lty, lwd, type,
+             \dots)
 
 panel.curve(expr, from, to, n = 101,
             curve.type = "l",
@@ -60,9 +63,9 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
     has a \code{\link{coef}} method that returns a length 2 numeric
     vector.  The corresponding line will be plotted.  }
 
-  %   \item{coef}{ Coefficients of the line to be added as a length 2 vector}
-  %   \item{reg}{ A regression object. The corresponding fitted line will
-  %     be drawn }
+  \item{coef}{ Coefficients of the line to be added as a length 2 vector}
+  \item{reg}{ A regression object. The corresponding fitted line will
+    be drawn }
 
   \item{h, v}{ For \code{panel.abline}, these are numeric vectors giving
     locations respectively of horizontal and vertical lines to be added
