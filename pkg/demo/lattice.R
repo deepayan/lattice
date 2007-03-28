@@ -165,9 +165,10 @@ qq(gl(2, 100) ~ c(runif(100, min = -2, max = 2), rnorm(100)),
 
 ## non-trivial strip function
 
-barchart(variety ~ yield | year * site, barley,
+barchart(variety ~ yield | year * site, barley, origin = 0,
          layout = c(4, 3),
          between = list(x = c(0, 0.5, 0)),
+         par.settings = list(clip = list(strip = "on")),
          strip =
          function(which.given,
                   which.panel,

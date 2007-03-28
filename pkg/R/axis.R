@@ -228,17 +228,17 @@ axis.default <-
                    bottom = scales$tck[1],
                    right = ,
                    top = scales$tck[2])
-        panel.axis(side = side,
-                   at = comp.list$ticks$at,
-                   labels = comp.list$labels$labels,
-                   draw.labels = do.labels, 
-                   check.overlap = comp.list$labels$check.overlap,
-                   outside = TRUE,
-                   tick = do.ticks,
-                   tck = scales.tck * comp.list$ticks$tck,
-                   ...)
+        if (!is.logical(comp.list)) ## must be FALSE if it is
+            panel.axis(side = side,
+                       at = comp.list$ticks$at,
+                       labels = comp.list$labels$labels,
+                       draw.labels = do.labels, 
+                       check.overlap = comp.list$labels$check.overlap,
+                       outside = TRUE,
+                       tick = do.ticks,
+                       tck = scales.tck * comp.list$ticks$tck,
+                       ...)
     }
-
 }
 
 
