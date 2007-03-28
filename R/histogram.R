@@ -195,7 +195,7 @@ histogram.formula <-
     subset <- eval(substitute(subset), data, environment(formula))
     if (!is.null(lattice.options))
     {
-        oopt <- lattice.options(x$lattice.options)
+        oopt <- lattice.options(lattice.options)
         on.exit(lattice.options(oopt), add = TRUE)
     }
 

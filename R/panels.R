@@ -23,9 +23,11 @@
 
 
 panel.abline <-
-    function(a, b = NULL,
-             h = numeric(0),
-             v = numeric(0),
+    function(a = NULL, b = NULL,
+             h = NULL,
+             v = NULL,
+             reg = NULL,
+             coef = NULL,
              col,
              col.line = add.line$col,
              lty = add.line$lty,
@@ -34,65 +36,151 @@ panel.abline <-
 {
     add.line <- trellis.par.get("add.line")
     if (!missing(col) && missing(col.line)) col.line <- col
-    if (!missing(a))
+
+    ## mostly copied from abline
+    if (!is.null(reg))
     {
-        coeff <- 
-            if (inherits(a,"lm")) coef(a)
-            else if (!is.null(coef(a))) coef(a)  # ????
-            else c(a,b)
-
-        if (length(coeff) == 1) coeff <- c(0, coeff)
-
-        if (coeff[2] == 0) h <- c(h, coeff[1])
-        else if (!any(is.null(coeff)))
-        {
-            xx <- current.viewport()$xscale
-            yy <- current.viewport()$yscale
-            
-            x <- numeric(0)
-            y <- numeric(0)
-            ll <- function(i, j, k, l)
-                (yy[j]-coeff[1]-coeff[2]*xx[i]) *
-                    (yy[l]-coeff[1]-coeff[2]*xx[k])
-            
-            if (ll(1,1,2,1)<=0) {
-                y <- c(y, yy[1])
-                x <- c(x, (yy[1]-coeff[1])/coeff[2])
-            }
-            
-            if (ll(2,1,2,2)<=0) {
-                x <- c(x, xx[2])
-                y <- c(y, coeff[1] + coeff[2] * xx[2])
-            }
-            
-            if (ll(2,2,1,2)<=0) {
-                y <- c(y, yy[2])
-                x <- c(x, (yy[2]-coeff[1])/coeff[2])
-            }
-            
-            if (ll(1,2,1,1)<=0) {
-                x <- c(x, xx[1])
-                y <- c(y, coeff[1] + coeff[2] * xx[1])
-            }
-
-            panel.lines(x = x, y = y, 
-                        col = col.line,
-                        lty = lty,
-                        lwd = lwd,
-                        ...)
+        if (!is.null(a))
+            warning("'a' is overridden by 'reg'")
+        a <- reg
+    }
+    if (is.object(a) || is.list(a))
+    {
+        p <- length(coefa <- as.vector(coef(a)))
+        if (p > 2)
+            warning("only using the first two of ", p, "regression coefficients")
+        islm <- inherits(a, "lm")
+        noInt <- if (islm)
+            !as.logical(attr(stats::terms(a), "intercept"))
+        else p == 1
+        if (noInt) {
+            a <- 0
+            b <- coefa[1]
+        }
+        else {
+            a <- coefa[1]
+            b <- if (p >= 2)
+                coefa[2]
+            else 0
         }
     }
-
-    if (length(h <- as.numeric(h)))
+    if (!is.null(coef))
+    {
+        if (!is.null(a))
+            warning("'a' and 'b' are overridden by 'coef'")
+        a <- coef[1]
+        b <- coef[2]
+    }
+    ## draw y = a + bx if appropriate
+    if (!is.null(a))
+    {
+        coeff <- c(a, b)
+        cpl <- current.panel.limits()
+        xx <- cpl$xlim
+        yy <- cpl$ylim
+            
+        x <- numeric(0)
+        y <- numeric(0)
+        ll <- function(i, j, k, l)
+            (yy[j]-coeff[1]-coeff[2]*xx[i]) *
+                (yy[l]-coeff[1]-coeff[2]*xx[k])
+            
+        if (ll(1,1,2,1)<=0) {
+            y <- c(y, yy[1])
+            x <- c(x, (yy[1]-coeff[1])/coeff[2])
+        }
+        if (ll(2,1,2,2)<=0) {
+            x <- c(x, xx[2])
+            y <- c(y, coeff[1] + coeff[2] * xx[2])
+        }
+        if (ll(2,2,1,2)<=0) {
+            y <- c(y, yy[2])
+            x <- c(x, (yy[2]-coeff[1])/coeff[2])
+        }
+        if (ll(1,2,1,1)<=0) {
+            x <- c(x, xx[1])
+            y <- c(y, coeff[1] + coeff[2] * xx[1])
+        }
+        panel.lines(x = x, y = y, 
+                    col = col.line,
+                    lty = lty,
+                    lwd = lwd,
+                    ...)
+    }
+    if (length(h <- as.numeric(h)) > 0)
         grid.segments(y0 = h, y1 = h, default.units="native",
                       gp = gpar(col = col.line, lty = lty, lwd = lwd))
-    if (length(as.numeric(v)))
+    if (length(as.numeric(v)) > 0)
         grid.segments(x0 = v, x1 = v, default.units="native",
                       gp = gpar(col = col.line, lty = lty, lwd = lwd))
+    invisible()
 }
 
 
 
+
+
+### old version of panel.abline
+
+## panel.abline <- 
+## function (a, b = NULL, h = numeric(0), v = numeric(0), col, col.line = add.line$col,
+##     lty = add.line$lty, lwd = add.line$lwd, type, ...)
+## {
+##     add.line <- trellis.par.get("add.line")
+##     if (!missing(col) && missing(col.line))
+##         col.line <- col
+##     if (!missing(a)) {
+##         coeff <- if (inherits(a, "lm"))
+##             coef(a)
+##         else if (!is.null(coef(a)))
+##             coef(a)
+##         else c(a, b)
+##         if (length(coeff) == 1)
+##             coeff <- c(0, coeff)
+##         if (coeff[2] == 0)
+##             h <- c(h, coeff[1])
+##         else if (!any(is.null(coeff))) {
+##             xx <- current.viewport()$xscale
+##             yy <- current.viewport()$yscale
+##             x <- numeric(0)
+##             y <- numeric(0)
+##             ll <- function(i, j, k, l) (yy[j] - coeff[1] - coeff[2] *
+##                 xx[i]) * (yy[l] - coeff[1] - coeff[2] * xx[k])
+##             if (ll(1, 1, 2, 1) <= 0) {
+##                 y <- c(y, yy[1])
+##                 x <- c(x, (yy[1] - coeff[1])/coeff[2])
+##             }
+##             if (ll(2, 1, 2, 2) <= 0) {
+##                 x <- c(x, xx[2])
+##                 y <- c(y, coeff[1] + coeff[2] * xx[2])
+##             }
+##             if (ll(2, 2, 1, 2) <= 0) {
+##                 y <- c(y, yy[2])
+##                 x <- c(x, (yy[2] - coeff[1])/coeff[2])
+##             }
+##             if (ll(1, 2, 1, 1) <= 0) {
+##                 x <- c(x, xx[1])
+##                 y <- c(y, coeff[1] + coeff[2] * xx[1])
+##             }
+##             panel.lines(x = x, y = y, col = col.line, lty = lty,
+##                 lwd = lwd, ...)
+##         }
+##     }
+##     if (length(h <- as.numeric(h)))
+##         grid.segments(y0 = h, y1 = h, default.units = "native",
+##             gp = gpar(col = col.line, lty = lty, lwd = lwd))
+##     if (length(as.numeric(v)))
+##         grid.segments(x0 = v, x1 = v, default.units = "native",
+##             gp = gpar(col = col.line, lty = lty, lwd = lwd))
+## }
+
+
+
+
+
+
+
+    
 
 panel.curve <-
     function (expr, from, to, n = 101,

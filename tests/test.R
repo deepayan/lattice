@@ -1,4 +1,4 @@
-postscript("misctests.ps")
+postscript("test.ps")
 library(lattice)
 
 densityplot(~ 5)
@@ -15,6 +15,14 @@ xyplot(y ~ x | z * a, strip = function(...) strip.default(..., style = 4),
        par.strip.text = list(cex = 2, col = "blue", font = 2),
        ##scales = list(x = list(draw = FALSE),  y = "sliced"))
        scales = list(x = list(rot = 0), y = list(rot = 0)))
+
+xyplot(a ~ x | z,
+       main = "xyplot call with modified options",
+       lattice.options =
+       list(panel.xyplot = "panel.bwplot",
+            default.args = list(between = list(x = 1, y = 1))))
+
+
 
 
 bwplot(zz ~ xx | aa, df.test)
