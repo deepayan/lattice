@@ -18,12 +18,12 @@
 ### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 ### MA 02110-1301, USA
 
-## the foll functions don't do much error checking yet
+## the following functions don't do much error checking yet
 
 
 
 panel.abline <-
-    function(a = NULL, b = NULL,
+    function(a = NULL, b = 0,
              h = NULL,
              v = NULL,
              reg = NULL,
@@ -78,13 +78,13 @@ panel.abline <-
         cpl <- current.panel.limits()
         xx <- cpl$xlim
         yy <- cpl$ylim
-            
+
         x <- numeric(0)
         y <- numeric(0)
         ll <- function(i, j, k, l)
             (yy[j]-coeff[1]-coeff[2]*xx[i]) *
                 (yy[l]-coeff[1]-coeff[2]*xx[k])
-            
+
         if (ll(1,1,2,1)<=0) {
             y <- c(y, yy[1])
             x <- c(x, (yy[1]-coeff[1])/coeff[2])
@@ -204,7 +204,7 @@ panel.curve <-
     }
     else
     {
-        if (!(is.call(sexpr) && match("x", all.vars(sexpr), nomatch = 0))) 
+        if (!(is.call(sexpr) && match("x", all.vars(sexpr), nomatch = 0)))
             stop("'expr' must be a function or an expression containing 'x'")
         expr <- sexpr
     }
@@ -223,7 +223,7 @@ panel.curve <-
 
 panel.rug <-
     function(x = NULL, y = NULL,
-             regular = TRUE, 
+             regular = TRUE,
              start = if (regular) 0 else 0.97,
              end = if (regular) 0.03 else 1,
              x.units = rep("npc", 2),
@@ -340,7 +340,7 @@ panel.grid <-
 panel.lmline <-
     function(x, y, ...)
 {
-    if (length(x) > 0) panel.abline(lm(as.numeric(y) ~ as.numeric(x)), ...) 
+    if (length(x) > 0) panel.abline(lm(as.numeric(y) ~ as.numeric(x)), ...)
 }
 
 
@@ -354,7 +354,7 @@ prepanel.lmline <-
         coeff <- coef(lm(y~x))
         tem <- coeff[1] + coeff[2] * range(x, finite = TRUE)
         list(xlim = range(x, finite = TRUE),
-             ylim = range(y, tem, finite = TRUE), 
+             ylim = range(y, tem, finite = TRUE),
              dx = diff(range(x, finite = TRUE)),
              dy = diff(tem, finite = TRUE))
     }
@@ -388,7 +388,7 @@ panel.loess <-
             loess.smooth(x, y, span = span, family = family,
                          degree = degree, evaluation = evaluation)
         panel.lines(x = smooth$x,
-                    y = smooth$y, 
+                    y = smooth$y,
                     col = col.line,
                     lty = lty,
                     lwd = lwd,
@@ -446,11 +446,11 @@ panel.superpose <-
              col.line = superpose.line$col,
              col.symbol = superpose.symbol$col,
              pch = superpose.symbol$pch,
-             cex = superpose.symbol$cex, 
-             fill = superpose.symbol$fill, 
-             font = superpose.symbol$font, 
-             fontface = superpose.symbol$fontface, 
-             fontfamily = superpose.symbol$fontfamily, 
+             cex = superpose.symbol$cex,
+             fill = superpose.symbol$fill,
+             font = superpose.symbol$font,
+             fontface = superpose.symbol$fontface,
+             fontfamily = superpose.symbol$fontfamily,
              lty = superpose.line$lty,
              lwd = superpose.line$lwd,
              alpha = superpose.symbol$alpha,
@@ -474,7 +474,7 @@ panel.superpose <-
         ## have.type <- FALSE
         type <- as.list(type)
     }
-    else 
+    else
     {
         ## this is something of a hack, needed because without this,
         ## grouped displays with 'g' %in% type may draw a grid
@@ -520,7 +520,7 @@ panel.superpose <-
         fontfamily <- rep(fontfamily, length = nvals)
         type <- rep(type, length = nvals)
 
-        panel.groups <- 
+        panel.groups <-
             if (is.function(panel.groups)) panel.groups
             else if (is.character(panel.groups)) get(panel.groups)
             else eval(panel.groups)

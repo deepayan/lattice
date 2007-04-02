@@ -42,6 +42,8 @@ panel.stripplot         Default Panel Function for stripplot
 panel.superpose         Panel Function for Display Marked by groups
 panel.violin            Panel Function to create Violin Plots
 panel.xyplot            Default Panel Function for xyplot
+prepanel.default.bwplot
+                        Default Prepanel Functions
 prepanel.lmline         Useful Prepanel Function for Lattice
 print.trellis           Plot and Summarize Trellis Objects
 qq                      Quantile-Quantile Plots of Two Samples

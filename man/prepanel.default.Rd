@@ -39,10 +39,6 @@ prepanel.default.splom(z, \dots)
 }
 \arguments{
   \item{x, y}{x and y values, numeric or factor}
-  \item{distribution}{ quantile function for theoretical
-    distribution. This is automatically passed in when this is used as a
-    prepanel function in \code{qqmath}.
-  }
   \item{horizontal}{ logical, applicable when one of the variables is to
     be treated as categorical (factor or shingle) }
   \item{nlevels}{ number of levels of such a categorical variable. }
