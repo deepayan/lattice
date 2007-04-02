@@ -333,7 +333,7 @@ ltext.default <-
             ux <- ux + unit(offset, "char")
             adj <- c(0, .5)
         }
-        else stop("Invalid value of pos")
+        else stop("Invalid value of 'pos'")
         
     }
     if (length(adj) == 1) adj <- c(adj, .5)

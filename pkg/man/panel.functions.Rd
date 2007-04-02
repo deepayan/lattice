@@ -16,7 +16,7 @@
 }
 \usage{
 
-panel.abline(a = NULL, b = NULL,
+panel.abline(a = NULL, b = 0,
              h = NULL, v = NULL,
              reg = NULL, coef = NULL,
              col, col.line, lty, lwd, type,
@@ -56,13 +56,15 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
 }
 \arguments{
   \item{x, y}{ variables defining the contents of the panel}
-  \item{a, b}{ Coefficients of the line to be added.  \code{a} can be a
-    vector of length 2, representing the coefficients of the line to be
-    added, in which case \code{b} should be missing.  \code{a} can also
-    be an appropriate \sQuote{regression} object, i.e., an object which
-    has a \code{\link{coef}} method that returns a length 2 numeric
-    vector.  The corresponding line will be plotted.  }
-
+  \item{a, b}{ Coefficients of the line to be added by
+    \code{panel.abline}.  \code{a} can be a vector of length 2,
+    representing the coefficients of the line to be added, in which case
+    \code{b} should be missing.  \code{a} can also be an appropriate
+    \sQuote{regression} object, i.e., an object which has a
+    \code{\link{coef}} method that returns a length 2 numeric vector.
+    The corresponding line will be plotted.  The \code{reg} argument
+    will override \code{a} if specified.
+  }
   \item{coef}{ Coefficients of the line to be added as a length 2 vector}
   \item{reg}{ A regression object. The corresponding fitted line will
     be drawn }
