@@ -26,9 +26,12 @@ col.whitebg()
     at least one of \code{"X11"}, \code{"windows"} and \code{"quartz"}
     will be available.
   }
-  \item{color}{ logical, whether the display should be color or black
-    and white.  Defaults to \code{FALSE} for postscript devices,
-    \code{TRUE} otherwise.
+  \item{color}{ logical, whether the initial settings should be color or
+    black and white.  Defaults to \code{FALSE} for postscript devices,
+    \code{TRUE} otherwise.  Note that this only applies to the initial
+    choice of colors, which can be overridden using \code{theme} or
+    subsequent calls to \code{\link{trellis.par.set}} (and by arguments
+    supplied directly in high level calls for some settings).
   }
   \item{theme}{ list of components that changes the settings of the
     device opened, or, a function that when called produces such a
@@ -74,7 +77,8 @@ col.whitebg()
   \code{\link{lattice.options}}, mostly supplants it (\code{\link{par}}
   settings are mostly ignored by Lattice).  Unlike \code{\link{par}},
   Trellis settings can be controlled separately for each different
-  device.  \code{canonical.theme} and \code{col.whitebg} produce
+  device type (but not concurrently for different instances of the same
+  device).  \code{canonical.theme} and \code{col.whitebg} produce
   predefined settings (a.k.a. themes), while \code{trellis.device}
   provides a high level interface to control which \dQuote{theme} will
   be in effect when a new device is opened.  \code{trellis.device} is
