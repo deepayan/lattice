@@ -117,8 +117,11 @@ print.shingleLevel <- function(x, ...)
 
 print.shingle <- function(x, showValues = TRUE, ...)
 {
-    cat(gettext("\nData:\n"))
-    if (showValues) print(as.numeric(x))
+    if (showValues)
+    {
+        cat(gettext("\nData:\n"))
+        print(as.numeric(x))
+    }
     l <- levels(x)
     n <- nlevels(x)
     if (n < 1) cat(gettext("\nno intervals\n"))
