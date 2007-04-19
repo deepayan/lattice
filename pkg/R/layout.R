@@ -233,10 +233,10 @@ calculateGridLayout <-
 
     if (rows.per.page > 1)
         heights.x[pos.heights[["between"]]] <-
-            x$y.between * heights.x[pos.heights[["between"]]]
+            rep(x$y.between, length = rows.per.page - 1) * heights.x[pos.heights[["between"]]]
     if (cols.per.page > 1)
         widths.x[pos.widths[["between"]]] <-
-            x$x.between * widths.x[pos.widths[["between"]]]
+            rep(x$x.between, length = cols.per.page - 1) * widths.x[pos.widths[["between"]]]
 
 
     if (!is.null(panel.height))
