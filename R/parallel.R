@@ -60,10 +60,10 @@ panel.parallel <-
     {
         gnum <- as.integer(as.factor(groups))
         n.g <- length(unique(gnum))
-        col <- rep(col, length = n.g)
-        lty <- rep(lty, length = n.g)
-        lwd <- rep(lwd, length = n.g)
-        alpha <- rep(alpha, length = n.g)
+        col <- rep(col, length = n.g)[gnum]
+        lty <- rep(lty, length = n.g)[gnum]
+        lwd <- rep(lwd, length = n.g)[gnum]
+        alpha <- rep(alpha, length = n.g)[gnum]
     }
 
     if (is.function(lower)) lower <- sapply(z, lower)
@@ -86,33 +86,48 @@ panel.parallel <-
                        lty = reference.line$lty)
     else return(invisible())
 
-    if (is.null(groups))
+    for (i in seq_len(n.r-1))
     {
-        for (i in seq_len(n.r-1))
-        {
-            x0 <- (as.numeric(z[subscripts, i]) - lower[i])/dif[i]
-            x1 <- (as.numeric(z[subscripts, i+1]) - lower[i+1])/dif[i+1]
-            panel.segments(x0 = x0, y0 = i, x1 = x1, y1 = i + 1,
-                           col = col,
-                           lty = lty,
-                           lwd = lwd,
-                           alpha = alpha,
-                           ...)
-        }        
-    }
-    else 
-        for (i in seq_along(subscripts))
-        {
-            x <- (as.numeric(z[subscripts[i],])-lower)/dif
-            grid.lines(x = x,
-                       y = 1:n.r, 
-                       gp =
-                       gpar(col = col[gnum[subscripts[i]]],
-                            lty = lty[gnum[subscripts[i]]],
-                            lwd = lwd[gnum[subscripts[i]]],
-                            alpha = alpha[gnum[subscripts[i]]]),
-                       default.units="native")
-        }
+        x0 <- (as.numeric(z[subscripts, i]) - lower[i])/dif[i]
+        x1 <- (as.numeric(z[subscripts, i+1]) - lower[i+1])/dif[i+1]
+        panel.segments(x0 = x0, y0 = i, x1 = x1, y1 = i + 1,
+                       col = col,
+                       lty = lty,
+                       lwd = lwd,
+                       alpha = alpha,
+                       ...)
+    }        
+
+##     if (is.null(groups))
+##     {
+##         for (i in seq_len(n.r-1))
+##         {
+##             x0 <- (as.numeric(z[subscripts, i]) - lower[i])/dif[i]
+##             x1 <- (as.numeric(z[subscripts, i+1]) - lower[i+1])/dif[i+1]
+##             panel.segments(x0 = x0, y0 = i, x1 = x1, y1 = i + 1,
+##                            col = col,
+##                            lty = lty,
+##                            lwd = lwd,
+##                            alpha = alpha,
+##                            ...)
+##         }        
+##     }
+##     else
+##     {
+##         for (i in seq_along(subscripts))
+##         {
+##             x <- (as.numeric(z[subscripts[i],])-lower)/dif
+##             grid.lines(x = x,
+##                        y = 1:n.r, 
+##                        gp =
+##                        gpar(col = col[gnum[subscripts[i]]],
+##                             lty = lty[gnum[subscripts[i]]],
+##                             lwd = lwd[gnum[subscripts[i]]],
+##                             alpha = alpha[gnum[subscripts[i]]]),
+##                        default.units="native")
+##         }
+##     }
+
     invisible()
 }
 
