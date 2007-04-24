@@ -182,6 +182,7 @@ lpolygon <-
             if (border) "black"
             else "transparent"
         }
+        else border
     xy <- xy.coords(x, y, recycle = TRUE)
     if (with(xy, sum(!is.na(x) & !is.na(y))) > 0)
         grid.polygon(x = xy$x,
