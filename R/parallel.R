@@ -90,8 +90,8 @@ panel.parallel <-
     {
         for (i in seq_len(n.r-1))
         {
-            x0 <- (as.numeric(z[subscripts, i, ]) - lower[i])/dif[i]
-            x1 <- (as.numeric(z[subscripts, i+1, ]) - lower[i+1])/dif[i+1]
+            x0 <- (as.numeric(z[subscripts, i]) - lower[i])/dif[i]
+            x1 <- (as.numeric(z[subscripts, i+1]) - lower[i+1])/dif[i+1]
             panel.segments(x0 = x0, y0 = i, x1 = x1, y1 = i + 1,
                            col = col,
                            lty = lty,
@@ -103,7 +103,7 @@ panel.parallel <-
     else 
         for (i in seq_along(subscripts))
         {
-            x <- (as.numeric(z[subscripts[i],,])-lower)/dif
+            x <- (as.numeric(z[subscripts[i],])-lower)/dif
             grid.lines(x = x,
                        y = 1:n.r, 
                        gp =
@@ -219,7 +219,7 @@ parallel.formula <-
              list(x = list(at = c(0, 1), labels = c("Min", "Max")),
                   y =
                   list(alternating = FALSE, axs = "i", tck = 0,
-                       at = 1:ncol(x), labels = colnames(x))),
+                       at = seq_len(ncol(x)), labels = colnames(x))),
              subset = TRUE)
 {
     formula <- x
