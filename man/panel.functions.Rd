@@ -7,6 +7,7 @@
 \alias{panel.grid}
 \alias{panel.lmline}
 \alias{panel.loess}
+\alias{panel.average}
 \alias{panel.linejoin}
 \alias{panel.mathdensity}
 \title{Useful Panel Functions}
@@ -34,6 +35,9 @@ panel.rug(x = NULL, y = NULL,
           y.units = rep("npc", 2),
           col, lty, lwd, alpha,
           \dots)
+panel.average(x, y, fun = mean, horizontal = TRUE,
+              lwd, lty, col, col.line, type,
+              \dots)
 panel.linejoin(x, y, fun = mean, horizontal = TRUE,
                lwd, lty, col, col.line, type,
                \dots)
@@ -49,6 +53,7 @@ panel.loess(x, y, span = 2/3, degree = 1,
             family = c("symmetric", "gaussian"),
             evaluation = 50,
             lwd, lty, col, col.line, type,
+            horizontal = FALSE,
             \dots)
 panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
                   n = 50, col, col.line, lwd, lty, type,
@@ -141,13 +146,14 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
   with \code{add = TRUE}. Graphical parameters for the line are obtained
   from the \code{add.line} setting.
 
-  \code{panel.linejoin} treats one of x and y as a factor (according to
+  \code{panel.average} treats one of x and y as a factor (according to
   the value of \code{horizontal}), calculates \code{fun} applied to the
   subsets of the other variable determined by each unique value of the
   factor, and joins them by a line. Can be used in conjunction with
   \code{panel.xyplot} and more commonly with panel.superpose to produce
   interaction plots.  See \code{\link{xyplot}} documentation for an
-  example.
+  example.  \code{panel.linejoin} is an alias for \code{panel.average}
+  retained for back-compatibility and may go away in future.
 
   \code{panel.mathdensity} plots a (usually theoretical) probability
   density function.  This can be useful in conjunction with
