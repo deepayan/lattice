@@ -172,8 +172,11 @@ lpolygon <-
              border = "black",
              col = "transparent",
              ## lty = NULL,
+
+             font, fontface, ## gpar() doesn't like these
              ...) 
 {
+    if (sum(!is.na(x)) < 1) return()
     border <- 
         if (all(is.na(border)))
             "transparent"
@@ -184,14 +187,36 @@ lpolygon <-
         }
         else border
     xy <- xy.coords(x, y, recycle = TRUE)
-    if (with(xy, sum(!is.na(x) & !is.na(y))) > 0)
-        grid.polygon(x = xy$x,
-                     y = xy$y,
-                     default.units = "native",
-                     gp =
-                     gpar(fill = col,
-                          col = border,
-                          ...))
+
+    ## Old version (doesn't honor color recycling)
+    
+    ##     if (with(xy, sum(!is.na(x) & !is.na(y))) > 0)
+    ##     {
+    ##         grid.polygon(x = xy$x,
+    ##                      y = xy$y,
+    ##                      default.units = "native",
+    ##                      gp =
+    ##                      gpar(fill = col,
+    ##                           col = border,
+    ##                           ...))
+    ##     }
+
+    ## new version (uses grid.polygon concept of id)
+
+    with(xy,
+     {
+         n <- length(x)
+         w <- which(is.na(x) | is.na(y))
+         id.lengths <- diff(c(0, w, n))
+         grid.polygon(x = x,
+                      y = y,
+                      id.lengths = id.lengths,
+                      default.units = "native",
+                      gp =
+                      gpar(fill = col,
+                           col = border,
+                           ...))
+     })
 }
 
 
@@ -410,7 +435,7 @@ lplot.xy <-
              type = c("p", "l", "o", "b", "c", "s", "S", "h", "H"),
              pch = 1, lty = 1, col = 1, cex = 1, lwd = 1,
              font = 1, fontfamily = NULL, fontface = NULL,
-             col.line = col, alpha = 0, fill = NULL,
+             col.line = col, alpha = 1, fill = NULL,
              origin = 0,
              ...)
 {
