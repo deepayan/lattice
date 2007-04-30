@@ -804,7 +804,7 @@ dotplot.numeric <-
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
-    ccall[[1]] <- as.name("dotplot")
+    ccall[[1]] <- quote(lattice::dotplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
@@ -861,7 +861,7 @@ dotplot.formula <-
     ocall <- ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
-    ccall[[1]] <- as.name("bwplot")
+    ccall[[1]] <- quote(lattice::bwplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
@@ -880,7 +880,7 @@ barchart.numeric <-
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
-    ccall[[1]] <- as.name("barchart")
+    ccall[[1]] <- quote(lattice::barchart)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
@@ -942,7 +942,7 @@ barchart.formula <-
     ccall$data <- data
     ccall$panel <- panel
     ccall$box.ratio <- box.ratio
-    ccall[[1]] <- as.name("bwplot")
+    ccall[[1]] <- quote(lattice::bwplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
@@ -961,7 +961,7 @@ stripplot.numeric <-
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
-    ccall[[1]] <- as.name("stripplot")
+    ccall[[1]] <- quote(lattice::stripplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
@@ -978,7 +978,7 @@ stripplot.formula <-
     ocall <- ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
-    ccall[[1]] <- as.name("bwplot")
+    ccall[[1]] <- quote(lattice::bwplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
@@ -1002,7 +1002,7 @@ bwplot.numeric <-
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
-    ccall[[1]] <- as.name("bwplot")
+    ccall[[1]] <- quote(lattice::bwplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans

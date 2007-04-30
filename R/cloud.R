@@ -1372,7 +1372,7 @@ wireframe.formula <-
     ocall <- ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
-    ccall[[1]] <- as.name("cloud")
+    ccall[[1]] <- quote(lattice::cloud)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans

@@ -228,7 +228,7 @@ qqmath.numeric <-
     ccall$data <- list(x = x)
     ccall$ylab <- ylab
     ccall$x <- ~x
-    ccall[[1]] <- as.name("qqmath")
+    ccall[[1]] <- quote(lattice::qqmath)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
