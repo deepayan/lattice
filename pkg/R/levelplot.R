@@ -367,7 +367,7 @@ contourplot.formula <-
     ccall$contour <- contour
     ccall$pretty <- pretty
     ccall$region <- region
-    ccall[[1]] <- as.name("levelplot")
+    ccall[[1]] <- quote(lattice::levelplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans

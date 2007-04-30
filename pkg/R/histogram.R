@@ -157,7 +157,7 @@ histogram.factor <- histogram.numeric <-
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
-    ccall[[1]] <- as.name("histogram")
+    ccall[[1]] <- quote(lattice::histogram)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans

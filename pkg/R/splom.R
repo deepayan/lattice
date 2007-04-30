@@ -352,7 +352,7 @@ splom.data.frame <-
         warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$x <- ~x
-    ccall[[1]] <- as.name("splom")
+    ccall[[1]] <- quote(lattice::splom)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans

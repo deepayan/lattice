@@ -168,7 +168,7 @@ densityplot.numeric <-
     ccall$data <- list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
-    ccall[[1]] <- as.name("densityplot")
+    ccall[[1]] <- quote(lattice::densityplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans

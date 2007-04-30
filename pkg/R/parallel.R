@@ -205,7 +205,7 @@ parallel.data.frame <-
         warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
     ccall$x <- ~x
-    ccall[[1]] <- as.name("parallel")
+    ccall[[1]] <- quote(lattice::parallel)
     ans <- eval.parent(ccall)
     ans$call <- ocall
     ans
