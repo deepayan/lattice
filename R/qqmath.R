@@ -20,7 +20,7 @@
 
 
 
-
+## FIXME: should be retired (quantile is good enough now, but check first)
 
 fast.quantile <- 
     function(x,
@@ -163,8 +163,8 @@ prepanel.default.qqmath <-
     {
         xx <- getxx(x, f.value, nobs)
         yy <- getyy(x, f.value, nobs)
-        list(xlim = range(xx),
-             ylim = range(yy),
+        list(xlim = range(xx, finite = TRUE),
+             ylim = range(yy, finite = TRUE),
              dx = diff(xx),
              dy = diff(yy))
     }
