@@ -378,7 +378,8 @@ panel.loess <-
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
-    if (length(x) < 1 || length(y) < 1) return()
+    ok <- is.finite(x) & is.finite(y)
+    if (sum(ok) < 1) return()
 
     if (!missing(col))
     {
@@ -388,7 +389,7 @@ panel.loess <-
     if (horizontal)
     {
         smooth <-
-            loess.smooth(y, x, span = span, family = family,
+            loess.smooth(y[ok], x[ok], span = span, family = family,
                          degree = degree, evaluation = evaluation)
         panel.lines(x = smooth$y, y = smooth$x,
                     col = col.line, lty = lty, lwd = lwd, ...)
@@ -396,7 +397,7 @@ panel.loess <-
     else
     {
         smooth <-
-            loess.smooth(x, y, span = span, family = family,
+            loess.smooth(x[ok], y[ok], span = span, family = family,
                          degree = degree, evaluation = evaluation)
         panel.lines(x = smooth$x, y = smooth$y,
                     col = col.line, lty = lty, lwd = lwd, ...)
@@ -413,10 +414,11 @@ prepanel.loess <-
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
-    if (length(x)>0)
+    ok <- is.finite(x) & is.finite(y)
+    if (sum(ok) > 0)
     {
         smooth <-
-            loess.smooth(x, y, span = span, family = family,
+            loess.smooth(x[ok], y[ok], span = span, family = family,
                          degree = degree, evaluation = evaluation)
         list(xlim = range(x, smooth$x, finite = TRUE),
              ylim = range(y, smooth$y, finite = TRUE),
