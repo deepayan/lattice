@@ -325,20 +325,23 @@ cloud(Sepal.Length ~ Petal.Length * Petal.Width | Species, data = iris,
       screen = list(x = -90, y = 70), distance = .4, zoom = .6)
 
 par.set <-
-    list(axis.line = list(col = "transparent"), clip = list(panel = FALSE))
+    list(axis.line = list(col = "transparent"),
+         clip = list(panel = "off"))
 print(cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
             data = iris, cex = .8, 
             groups = Species, 
             main = "Stereo",
             screen = list(z = 20, x = -70, y = 3),
-            par.settings = par.set),
+            par.settings = par.set,
+            scales = list(col = "black")),
       split = c(1,1,2,1), more = TRUE)
 print(cloud(Sepal.Length ~ Petal.Length * Petal.Width,
             data = iris, cex = .8, 
             groups = Species,
             main = "Stereo",
             screen = list(z = 20, x = -70, y = 0),
-            par.settings = par.set),
+            par.settings = par.set,
+            scales = list(col = "black")),
       split = c(2,1,2,1))
 
 }
