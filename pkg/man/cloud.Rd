@@ -16,6 +16,7 @@ wireframe(x, data, \dots)
       outer = FALSE,
       auto.key = FALSE,
       aspect = c(1,1),
+      panel.aspect = 1,
       panel = lattice.getOption("panel.cloud"),
       prepanel = NULL,
       scales = list(),
@@ -118,9 +119,13 @@ wireframe(x, data, \dots)
     type of display in \code{cloud} (see \code{\link{panel.3dscatter}}
     for details).  Defaults to \code{"h"} for the \code{matrix} method.
   }
-  \item{aspect}{
-    vector of length 2, giving the relative aspects of the y-size/x-size
-    and z-size/x-size of the enclosing cube.
+  \item{aspect, panel.aspect}{
+    unlike other high level functions, \code{aspect} is taken to be a
+    numeric vector of length 2, giving the relative aspects of the
+    y-size/x-size and z-size/x-size of the enclosing cube.  The usual
+    role of the \code{aspect} argument in determining the aspect ratio
+    of the panel (see \code{\link{xyplot}} for details) is played by
+    \code{panel.aspect}, except that it can only be a numeric value.
   }
   \item{panel}{
     panel function used to create the display.  See
