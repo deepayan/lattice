@@ -93,6 +93,7 @@ prepanel.default.cloud <-
              screen = list(z = 40, x = -60),
              R.mat = diag(4),
              aspect = c(1, 1),
+             panel.aspect = 1,
              ...,
              zoom = 0.8)
 {
@@ -107,10 +108,10 @@ prepanel.default.cloud <-
 
     xrng <- range(corners[1,])
     yrng <- range(corners[2,])
-    slicelen <- max(diff(xrng), diff(yrng))
+    slicelen <- max(diff(xrng), diff(yrng)/ panel.aspect)
 
     list(xlim = extend.limits(xrng, length = slicelen) / zoom,
-         ylim = extend.limits(yrng, length = slicelen) / zoom,
+         ylim = extend.limits(yrng, length = panel.aspect * slicelen) / zoom,
          dx = 1, dy = 1)
 }
 
@@ -126,7 +127,7 @@ panel.3dscatter <-
              zlim.scaled,
              zero.scaled,
              col,
-             ## eventually make all these cloud.3d$col etc
+             ## eventually make all these cloud.3d$col etc (or not)
              col.point = if (is.null(groups)) plot.symbol$col else superpose.symbol$col,
              col.line = if (is.null(groups)) plot.line$col else superpose.line$col,
              lty = if (is.null(groups)) plot.line$lty else superpose.line$lty,
@@ -345,8 +346,12 @@ panel.3dwire <-
     regions <-
         if (drape)
             trellis.par.get("regions")
-        else 
-            trellis.par.get("background")
+        else {
+            bg <- trellis.par.get("background")
+            if (bg[["col"]] == "transparent")
+                bg[["col"]] <- "white"
+            bg
+        }
     numcol <- length(at) - 1
     numcol.r <- length(col.regions)
 
@@ -631,10 +636,15 @@ panel.cloud <-
              at)    ## this is same as 'at' in wireframe
 
 {
-    ## x, y, z can be matrices
-    mode(x) <- "numeric"
-    mode(y) <- "numeric"
-    mode(z) <- "numeric"
+
+    ## x, y, z can be matrices and we want to retain them as matrices.
+    ## The only reasonable things (other than already numeric) are
+    ## factors.  Other things will hopefully cause an error down the
+    ## road, and we may want to catch them here some day.
+
+    if (is.factor(x)) x <- as.numeric(x)
+    if (is.factor(y)) y <- as.numeric(y)
+    if (is.factor(z)) z <- as.numeric(z)
 
     ## calculate rotation matrix:
     rot.mat <- ltransform3dMatrix(screen = screen, R.mat = R.mat)
@@ -1417,6 +1427,7 @@ cloud.formula <-
              outer = FALSE,
              auto.key = FALSE,
              aspect = c(1,1),
+             panel.aspect = 1,
              panel = lattice.getOption("panel.cloud"),
              prepanel = NULL,
              scales = list(),
@@ -1447,6 +1458,7 @@ cloud.formula <-
     ## cloud, but not for wireframe. Needs work to be actually
     ## implemented.
 {
+    stopifnot(is.numeric(panel.aspect))
     formula <- x
     dots <- list(...)
     groups <- eval(substitute(groups), data, environment(formula))
@@ -1537,7 +1549,7 @@ cloud.formula <-
         do.call("trellis.skeleton",
                 c(list(formula = formula, 
                        cond = cond,
-                       aspect = 1,
+                       aspect = panel.aspect,
                        strip = strip,
                        panel = panel,
                        xlab = NULL,
@@ -1704,6 +1716,7 @@ cloud.formula <-
                ##distance = if (perspective) distance else 0,
 
                aspect = aspect,
+               panel.aspect = panel.aspect,
                drape = drape,
                scales.3d = scales.3d,
                at = at),
@@ -1755,7 +1768,7 @@ cloud.formula <-
                             y.relation = foo$y.scales$relation,
                             panel.args.common = foo$panel.args.common,
                             panel.args = foo$panel.args,
-                            aspect = 1,
+                            aspect = panel.aspect,
                             npackets = npackets),
           cond.orders(foo))
     foo[names(more.comp)] <- more.comp
