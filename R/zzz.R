@@ -52,7 +52,7 @@ assign("last.object",     NULL,   env = .LatticeEnv)
 {
     cat(gettext("Note: you shouldn't be seeing this message unless\nyou are using a non-standard version of lattice"),
         fill = TRUE)
-    library.dynam(pkg, pkg, lib )
+    library.dynam("lattice", pkg, lib )
     if (!require("grid")) stop("The grid package couldn't be loaded.\nPlease check your installation of R")
     lattice.options(.defaultLatticeOptions())
     lattice.setStatus(.defaultLatticeStatus())
