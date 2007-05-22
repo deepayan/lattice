@@ -363,6 +363,8 @@ ltext.default <-
         
     }
     if (length(adj) == 1) adj <- c(adj, .5)
+    ## replace non-finite srt by 0
+    srt[!is.finite(srt)] <- 0
     grid.text(label = labels, x = ux, y = uy,
               gp =
               gpar(col = col, alpha = alpha,
