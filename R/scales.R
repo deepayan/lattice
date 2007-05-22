@@ -160,8 +160,9 @@ construct.3d.scales <-
 
 
 
-
-
+## FIXME: the following function uses a very unstructured patchwork of
+## logic.  Need to change it to use some sort of method dispatch to
+## work with different types of limits (dates, factors, etc)
 
 
 
@@ -214,8 +215,11 @@ limitsFromLimitlist <-
                 stop("limits cannot be a list when relation = same")
             limits <- lim
             slicelen <-
-                if (is.numeric(lim)) diff(range(lim))
-                else length(lim) + 2
+                ## this no longer works for dates (R 2.6)
+##                 if (is.numeric(lim)) diff(range(lim))
+##                 else length(lim) + 2
+                if (is.character(lim)) length(lim) + 2
+                else diff(range(lim))
         }
         else
         {
@@ -230,22 +234,24 @@ limitsFromLimitlist <-
             ## class.lim is a list now, may be length 0
             limits <- unlist(limitlist) ## loses the class attribute
 
-            if (length(limits) > 0)
+            ## if (length(limits) > 0)
+            if (sum(!is.na(limits)) > 0)
             {
-                if (is.numeric(limits))
-                {
-                    limits <-
-                        extend.limits(range(limits, finite = TRUE),
-                                      axs = axs)
-                    slicelen <- diff(range(limits, finite = TRUE))
-                }
-                else
+                if (is.character(limits))
                 {
                     limits <- unique(limits[!is.na(limits)])
                     slicelen <- length(limits) + 2
                 }
+                else ## if (is.numeric(limits)) # or dates etc
+                {
+                    limits <-
+                        extend.limits(range(as.numeric(limits), finite = TRUE),
+                                      axs = axs)
+                    slicelen <- diff(range(limits, finite = TRUE))
+                }
 
                 ## hopefully put back appropriate class of limits:
+                ## FIXME: date changes may have messed this up
 
                 if (length(class.lim) > 0)
                     class(limits) <-
@@ -277,12 +283,20 @@ limitsFromLimitlist <-
         }
         slicelen <- limitlist
         for (i in seq_along(limitlist))
+        {
             slicelen[[i]] <-
-                if (is.numeric(limitlist[[i]]))
-                    diff(range(limitlist[[i]])) # range unnecessary, but...
+                ## if (is.numeric(limitlist[[i]]))
+                if (!is.character(limitlist[[i]]))
+                {
+                    if (any(is.finite(limitlist[[i]])))
+                        ## range unnecessary, but...
+                        diff(range(limitlist[[i]], finite = TRUE))
+                    else NA
+                }
                 else if (!any(is.na(numlimitlist[[i]])))
                     diff(range(numlimitlist[[i]]))
                 else NA
+        }
         slicelen <-
             (if (axs == "i") 1 else 1.14) *
                 max(unlist(slicelen), na.rm = TRUE)

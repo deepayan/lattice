@@ -431,8 +431,9 @@ extend.limits <-
              if (axs == "i") 0
              else lattice.getOption("axis.padding")$numeric)
 {
-    if (!is.numeric(lim)) NA
-    else if(length(lim)==2)
+    ## if (!is.numeric(lim)) NA
+    if (is.character(lim)) NA # or lim?
+    else if (length(lim) == 2)
     {
         if (lim[1] > lim[2])
         {
@@ -442,8 +443,8 @@ extend.limits <-
             return (rev(ans))
         }
         if (!missing(length) && !missing(prop))
-            stop("length and prop cannot both be specified")
-        if (length <= 0) stop("length must be positive")
+            stop("'length' and 'prop' cannot both be specified")
+        if (length <= 0) stop("'length' must be positive")
         if (!missing(length))
         {
             prop <- (as.numeric(length) - as.numeric(diff(lim))) / (2 * as.numeric(diff(lim)))
@@ -458,7 +459,7 @@ extend.limits <-
     else
     {
         print(lim)
-        stop("improper length of lim")
+        stop("improper length of 'lim'")
     }
 }
 
