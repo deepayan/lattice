@@ -1,5 +1,5 @@
 
-postscript("test.ps")
+postscript("date.ps")
 library(lattice)
 
 ## POSIXt handling
