@@ -28,7 +28,8 @@ prepanel.default.cloud(perspective, distance,
                        xlim, ylim, zlim,
                        screen = list(z = 40, x = -60),
                        R.mat = diag(4),
-                       aspect = c(1, 1), \dots, zoom = 0.8)
+                       aspect = c(1, 1), panel.aspect = 1,
+                       \dots, zoom = 0.8)
 prepanel.default.levelplot(x, y, subscripts, \dots)
 prepanel.default.qqmath(x, f.value, distribution, qtype,
                         groups, subscripts, \dots)
@@ -51,7 +52,7 @@ prepanel.default.splom(z, \dots)
     appropriate, calculations are done separately for each group and
     then combined.  }
   \item{perspective, distance, xlim, ylim, zlim, screen, R.mat, aspect,
-    zoom}{ see \code{\link{panel.cloud}}}
+    panel.aspect, zoom}{ see \code{\link{panel.cloud}}}
   \item{f.value, distribution}{ see \code{panel.qqmath} }
   \item{darg}{ list of arguments passed to \code{\link{density}}}
   \item{z}{ see \code{\link{panel.parallel}} and \code{\link{panel.pairs}} }
