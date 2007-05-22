@@ -77,11 +77,12 @@ levelplot(pred ~ x * y, topo.plt, aspect = 1,
      panel.xyplot(topo$x,topo$y, cex = 0.5, col = 1)
   }
 )
-if (F) {
+
+## if (F) {
 wireframe(pred ~ x * y, topo.plt, aspect = c(1, 0.5),
   drape = T, screen = list(z = -150, x = -60),
   colorkey = list(space="right", height=0.6))
-}
+## }
 
 lcrabs.pc <- predict(princomp(log(crabs[,4:8])))
 crabs.grp <- c("B", "b", "O", "o")[rep(1:4, each = 50)]
