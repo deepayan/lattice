@@ -57,13 +57,14 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
 \arguments{
   \item{x, y, z}{
     numeric (or possibly factors) vectors representing the data to be
-    displayed. The interpretation depends on the context. For
+    displayed. The interpretation depends on the context.  For
     \code{panel.cloud} these are essentially the same as the data passed
     to the high level plot (except if \code{formula} was a matrix, the
-    appropriate \code{x} and \code{ y} vectors are generated). By the
+    appropriate \code{x} and \code{y} vectors are generated).  By the
     time they are passed to \code{panel.3dscatter} and
-    \code{panel.3dwire}, they have been scaled (to lie inside a bounding
-    box, usually the [-0.5, 0.5] cube).
+    \code{panel.3dwire}, they have been appropriately subsetted (using
+    \code{subscripts}) and scaled (to lie inside a bounding box, usually
+    the [-0.5, 0.5] cube).
 
     Further, for \code{panel.3dwire}, \code{x} and \code{y} are shorter
     than \code{z} and represent the sorted locations defining a
