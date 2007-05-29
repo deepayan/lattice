@@ -196,6 +196,10 @@ panel.levelplot <-
 
         if (contour)
         {
+            ## calculate aspect ratio of panel to use in calculating label alignment
+            cpl <- current.panel.limits(unit="cm")
+            asp <- diff(cpl$ylim) / diff(cpl$xlim)
+
             ## Processing the labels argument
             if (is.logical(labels) && !labels) labels <- NULL
             else
@@ -208,12 +212,10 @@ panel.levelplot <-
                             fontfamily = text$fontfamily,
                             fontface = text$fontface,
                             font = text$font)
-
                 labels <-
                     updateList(tmp,
                                if (is.list(labels)) labels
                                else list()) # FIXME: risky
-
                 if (!is.characterOrExpression(labels$label))
                     labels$label <- format(at)
             }
@@ -280,7 +282,7 @@ panel.levelplot <-
                                         # slopes has one less entry,
                                         # and textloc indexes slopes
 
-                            rotangle <- atan(slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
+                            rotangle <- atan(asp * slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
                         }
                         else if (label.style == "mixed")
                         {
@@ -298,7 +300,7 @@ panel.levelplot <-
 
                             if (depth[textloc] < .05 ) {
                                 textloc <- min(which.max(depth), length(slopes))
-                                rotangle <- atan(slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
+                                rotangle <- atan(asp * slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
                             }
 
                         }

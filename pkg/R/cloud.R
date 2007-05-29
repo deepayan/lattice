@@ -1,3 +1,4 @@
+
 ### Copyright (C) 2001-2006  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
 ###
 ### This file is part of the lattice package for R.
@@ -15,9 +16,6 @@
 ### License along with this program; if not, write to the Free
 ### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 ### MA 02110-1301, USA
-
-
-
 
 
 
@@ -687,7 +685,7 @@ panel.cloud <-
         xlabelinfo <-
             calculateAxisComponents(xlim,
                                     at = scales.3d$x$at,
-                                    ##num.limit = scales.3d$x$num.limit,
+                                    num.limit = NULL,
                                     labels = scales.3d$x$labels,
                                     logsc = scales.3d$x$log,
                                     abbreviate = scales.3d$x$abbreviate,
@@ -699,7 +697,7 @@ panel.cloud <-
         ylabelinfo <-
             calculateAxisComponents(ylim,
                                     at = scales.3d$y$at,
-                                    ##num.limit = scales.3d$x$num.limit,
+                                    num.limit = NULL,
                                     labels = scales.3d$y$labels,
                                     logsc = scales.3d$y$log,
                                     abbreviate = scales.3d$y$abbreviate,
@@ -711,7 +709,7 @@ panel.cloud <-
         zlabelinfo <-
             calculateAxisComponents(zlim,
                                     at = scales.3d$z$at,
-                                    ##num.limit = scales.3d$x$num.limit,
+                                    num.limit = NULL,
                                     labels = scales.3d$z$labels,
                                     logsc = scales.3d$z$log,
                                     abbreviate = scales.3d$z$abbreviate,
@@ -1106,7 +1104,8 @@ panel.cloud <-
                 else eval(panel.3d.cloud)
 
             pargs <- list(x = x, y = y, z = z,
-                          rot.mat = rot.mat, distance,
+                          rot.mat = rot.mat,
+                          distance = distance,
                           groups = groups,
                           subscripts = subscripts,
                           xlim = xlim,
@@ -1359,16 +1358,25 @@ wireframe <- function(x, data, ...) UseMethod("wireframe")
 wireframe.matrix <-
     function(x, data = NULL,
              zlab = deparse(substitute(x)),
+             aspect,
              ...)
 {
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     form <- eval(z ~ row * column)
+    if (missing(aspect)) aspect <- pmin(ncol(x) / nrow(x), c(Inf, 1))
     data <-
         expand.grid(row = seq_len(nrow(x)),
                     column = seq_len(ncol(x)))
     data$z <- as.vector(as.numeric(x))
-    ## What if rownames/colnames are non-null?
-    wireframe(form, data, zlab = zlab, ...)
+    ## Change default tick labels if rownames/colnames are non-null
+##     default.scales <- list()
+##     if (!is.null(rownames(x)))
+##         default.scales$x <- list(at = seq_len(nrow(x)), labels = rownames(x))
+##     if (!is.null(colnames(x)))
+##         default.scales$y <- list(at = seq_len(ncol(x)), labels = colnames(x))
+    wireframe(form, data, zlab = zlab, aspect = aspect,
+##               default.scales = default.scales,
+              ...)
 }
 
 
@@ -1400,22 +1408,24 @@ cloud <- function(x, data, ...) UseMethod("cloud")
 cloud.matrix <-
     function(x, data = NULL, type = 'h',
              zlab = deparse(substitute(x)),
+             aspect,
              ...)
 {
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     form <- eval(z ~ row * column)
+    if (missing(aspect)) aspect <- pmin(ncol(x) / nrow(x), c(Inf, 1))
     data <-
         expand.grid(row = seq_len(nrow(x)),
                     column = seq_len(ncol(x)))
     data$z <- as.vector(as.numeric(x))
     ## Change default tick labels if rownames/colnames are non-null
-    default.scales <- list()
-    if (!is.null(rownames(x)))
-        default.scales$x <- list(at = seq_len(nrow(x)), labels = rownames(x))
-    if (!is.null(colnames(x)))
-        default.scales$y <- list(at = seq_len(ncol(x)), labels = colnames(x))
-    cloud(form, data, type = type, zlab = zlab,
-          default.scales = default.scales,
+##     default.scales <- list()
+##     if (!is.null(rownames(x)))
+##         default.scales$x <- list(at = seq_len(nrow(x)), labels = rownames(x))
+##     if (!is.null(colnames(x)))
+##         default.scales$y <- list(at = seq_len(ncol(x)), labels = colnames(x))
+    cloud(form, data, type = type, zlab = zlab, aspect = aspect, 
+##           default.scales = default.scales,
           ...)
 }
 

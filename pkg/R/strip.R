@@ -105,10 +105,12 @@ strip.default <-
     if (horizontal)
         pushViewport(viewport(y = (which.given-0.5)/length(which.panel),
                               height = 1/length(which.panel),
+                              clip = trellis.par.get("clip")$strip,
                               name = paste("strip.default", which.given, sep = ".")))
     else 
         pushViewport(viewport(x = 1 - (which.given-0.5)/length(which.panel),
                               width = 1/length(which.panel),
+                              clip = trellis.par.get("clip")$strip,
                               name = paste("strip.default", which.given, sep = ".")))
 
     gp.text <- 
@@ -227,6 +229,20 @@ strip.default <-
             }
         }
     }
+    upViewport()
+
+    ## border is drawn with clipping off
+    if (horizontal)
+        pushViewport(viewport(y = (which.given-0.5)/length(which.panel),
+                              height = 1/length(which.panel),
+                              clip = "off",
+                              name = paste("strip.default.off", which.given, sep = ".")))
+    else 
+        pushViewport(viewport(x = 1 - (which.given-0.5)/length(which.panel),
+                              width = 1/length(which.panel),
+                              clip = "off",
+                              name = paste("strip.default.off", which.given, sep = ".")))
+
 
     strip.border <- trellis.par.get("strip.border")
     ## draw border for strip

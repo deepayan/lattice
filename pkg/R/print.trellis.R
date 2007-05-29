@@ -1045,7 +1045,7 @@ print.trellis <-
                         {
                             pushViewport(viewport(layout.pos.row = pos.row - 1,
                                                   layout.pos.col = pos.col,
-                                                  clip = trellis.par.get("clip")$strip,
+                                                  clip = "off", ## was: trellis.par.get("clip")$strip,
                                                   name =
                                                   trellis.vpname("strip",
                                                                  column = column,
