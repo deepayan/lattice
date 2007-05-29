@@ -9,14 +9,17 @@ new features
 
  o Default panel functions are now settable options
 
- o limits of a parallel coordinates plot can now be controlled via
+ o Limits of a parallel coordinates plot can now be controlled via
    functions
+
+ o New 'panel.aspect' argument for cloud and wireframe
+
+ o better support for factors in cloud and wireframe
 
 changes in behaviour
 --------------------
 
- o non-numeric data do not cause warning in bwplot
-
+ o non-numeric data no longer cause warnings in bwplot
 
 
 
