@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2007-04-01 17:06\n"
+"POT-Creation-Date: 2007-05-29 12:28\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -58,13 +58,13 @@ msgstr "Incohérence lors de la verification de la longueur ; Vous avez trouvé un
 msgid "Non matching lengths"
 msgstr "Longueurs incohérentes"
 
-msgid "length and prop cannot both be specified"
+msgid "'length' and 'prop' cannot both be specified"
 msgstr "'length' et 'prop' ne peuvent être spécifiés simultanément"
 
-msgid "length must be positive"
+msgid "'length' must be positive"
 msgstr "'length' doit être positif"
 
-msgid "improper length of lim"
+msgid "improper length of 'lim'"
 msgstr "taille incorrecte de 'lim'"
 
 msgid "Invalid value of perm.cond"
@@ -113,7 +113,6 @@ msgstr "aucun point dans"
 msgid "points"
 msgstr "points"
 
-#, fuzzy
 msgid "nearest observation already identified"
 msgstr "le point le plus proche est déjà identifié"
 
@@ -168,7 +167,6 @@ msgstr "'x' doit être un facteur (ou doit être convertible automatiquement en fa
 msgid "error"
 msgstr "erreur"
 
-#, fuzzy
 msgid "Invalid value of 'pos'"
 msgstr "Valeur de 'pos' incorrecte"
 

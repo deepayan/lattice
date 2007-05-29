@@ -1,4 +1,271 @@
 ------------------------------------------------------------------------
+r4400 | deepayan | 2007-05-29 12:28:38 -0700 (Tue, 29 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/demo/lattice.R
+
+bumped version, fixed strip clipping issue in demo
+------------------------------------------------------------------------
+r4399 | deepayan | 2007-05-29 11:41:53 -0700 (Tue, 29 May 2007) | 12 lines
+Changed paths:
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/strip.R
+   M /trunk/lattice/man/cloud.Rd
+
+(hopefully) better handling of clipping for strips
+
+fixes for default tick/label computations (esp. in cloud etc)
+
+changed default aspect for cloud.matrix and wireframe.matrix
+
+fix for contour label alignment
+------------------------------------------------------------------------
+r4390 | deepayan | 2007-05-27 15:55:07 -0700 (Sun, 27 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+
+bumped version
+------------------------------------------------------------------------
+r4389 | deepayan | 2007-05-27 15:47:06 -0700 (Sun, 27 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/legend.R
+
+bugfix: 'fill' didn't work in legends
+------------------------------------------------------------------------
+r4379 | deepayan | 2007-05-22 11:33:54 -0700 (Tue, 22 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.cloud.Rd
+
+doc clarification
+------------------------------------------------------------------------
+r4376 | deepayan | 2007-05-21 19:13:04 -0700 (Mon, 21 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/scales.R
+   M /trunk/lattice/R/xyplot.R
+
+changes related to dates being no longer numeric in R
+------------------------------------------------------------------------
+r4375 | deepayan | 2007-05-21 18:54:10 -0700 (Mon, 21 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/zzz.R
+
+unimportant fix in .First.lib (typically unused)
+------------------------------------------------------------------------
+r4374 | deepayan | 2007-05-21 18:53:31 -0700 (Mon, 21 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+
+workaround in ltext.default to handle srt=NA by treating them as srt=0
+------------------------------------------------------------------------
+r4373 | deepayan | 2007-05-21 18:52:00 -0700 (Mon, 21 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/tests/MASSch04.R
+   M /trunk/lattice/tests/dates.R
+
+minor fixes in tests
+------------------------------------------------------------------------
+r4372 | deepayan | 2007-05-21 18:48:45 -0700 (Mon, 21 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/prepanel.default.Rd
+
+added panel.aspect in docs
+------------------------------------------------------------------------
+r4342 | deepayan | 2007-05-14 16:53:40 -0700 (Mon, 14 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/man/cloud.Rd
+
+(1) added a new panel.aspect argument and (2) made default color white
+if background is transparent
+------------------------------------------------------------------------
+r4341 | deepayan | 2007-05-14 16:51:11 -0700 (Mon, 14 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+
+changed default clip to 'on' for strip (not sure why it wasn't)
+------------------------------------------------------------------------
+r4340 | deepayan | 2007-05-14 16:48:47 -0700 (Mon, 14 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/cloud.Rd
+
+slightly modified example
+------------------------------------------------------------------------
+r4319 | deepayan | 2007-04-30 15:01:12 -0700 (Mon, 30 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/R/qqmath.R
+
+changed prepanel.qqmath.default and panel.loess to be more tolerant of
+non-finite values
+------------------------------------------------------------------------
+r4318 | deepayan | 2007-04-30 14:37:09 -0700 (Mon, 30 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/man/llines.Rd
+
+changed as.name() to quote() in several places, and updated docs to
+reflect lpolygon fix that ignores font parameters
+------------------------------------------------------------------------
+r4315 | deepayan | 2007-04-26 19:18:44 -0700 (Thu, 26 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+
+version of lpolygon that honors color (but may be slow (it's a grid
+thing that Paul will fix))
+------------------------------------------------------------------------
+r4314 | deepayan | 2007-04-26 19:13:09 -0700 (Thu, 26 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/man/panel.functions.Rd
+
+panel.average in NAMESPACE and docs
+------------------------------------------------------------------------
+r4313 | deepayan | 2007-04-26 19:11:44 -0700 (Thu, 26 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/panels.R
+
+added a hoizontal argument to panel.loess and made panel.average an
+alias of panel.linejoin
+------------------------------------------------------------------------
+r4295 | deepayan | 2007-04-24 14:21:13 -0700 (Tue, 24 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/parallel.R
+
+(1) made parallel(..., groups=) more efficient. (2) Tick labels
+default to row/colnames in cloud.matrix.
+------------------------------------------------------------------------
+r4294 | deepayan | 2007-04-23 20:52:43 -0700 (Mon, 23 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/parallel.R
+
+panel.parallel had calls like z[subscripts,i,] (not sure why) which is
+giving errors with matrices
+------------------------------------------------------------------------
+r4293 | deepayan | 2007-04-23 17:58:54 -0700 (Mon, 23 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+
+bug fix in lpolygon (border could only be black or transparent)
+------------------------------------------------------------------------
+r4292 | deepayan | 2007-04-19 15:05:39 -0700 (Thu, 19 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/layout.R
+
+fixed spurious warning about between not being multiple of longer
+vector etc.
+------------------------------------------------------------------------
+r4291 | deepayan | 2007-04-17 16:08:10 -0700 (Tue, 17 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/shingle.R
+
+bug fix in print.shingle
+------------------------------------------------------------------------
+r4287 | deepayan | 2007-04-13 11:25:41 -0700 (Fri, 13 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/man/trellis.device.Rd
+
+clarified documentation
+------------------------------------------------------------------------
+r4233 | deepayan | 2007-04-01 17:09:07 -0700 (Sun, 01 Apr 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/man/panel.functions.Rd
+   M /trunk/lattice/man/prepanel.default.Rd
+   M /trunk/lattice/po/R-fr.po
+   M /trunk/lattice/po/R-lattice.pot
+
+changed default of b to 0 in panel.abline to minimize potential
+problems in other packages
+------------------------------------------------------------------------
+r4216 | deepayan | 2007-03-28 12:07:35 -0700 (Wed, 28 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/panel.pairs.Rd
+   A /trunk/lattice/man/prepanel.default.Rd
+   M /trunk/lattice/man/prepanel.functions.Rd
+
+exported default prepanel functions, plus other small fixes
+------------------------------------------------------------------------
+r4213 | deepayan | 2007-03-27 18:21:32 -0700 (Tue, 27 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.functions.Rd
+
+changed panel.abline to be more like abline
+------------------------------------------------------------------------
+r4212 | deepayan | 2007-03-27 18:05:33 -0700 (Tue, 27 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/demo/lattice.R
+   M /trunk/lattice/tests/test.R
+
+bugfixes
+------------------------------------------------------------------------
+r4211 | deepayan | 2007-03-27 14:53:13 -0700 (Tue, 27 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/qq.Rd
+   M /trunk/lattice/man/qqmath.Rd
+   M /trunk/lattice/man/splom.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+made the 'lattice.options' argument work better, in the sense that it
+is used when trellis objects are created, not just when they are
+printed
+------------------------------------------------------------------------
+r4210 | deepayan | 2007-03-27 12:34:29 -0700 (Tue, 27 Mar 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/man/trellis.object.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+some improvements in print.trellis, including making x.args work as documented
+------------------------------------------------------------------------
 r4194 | deepayan | 2007-03-22 08:47:15 -0700 (Thu, 22 Mar 2007) | 1 line
 Changed paths:
    M /trunk/lattice/DESCRIPTION
