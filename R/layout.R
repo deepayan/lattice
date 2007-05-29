@@ -316,7 +316,6 @@ calculateGridLayout <-
             else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
 
-
     ## All the upcoming scary code about labels is only to determine
     ## how much space to leave for them. Much of these calculations
     ## will be repeated later before actually drawing them. 

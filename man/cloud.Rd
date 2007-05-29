@@ -64,8 +64,9 @@ wireframe(x, data, \dots)
 %           \dots,
 %           col.regions)
 \method{cloud}{matrix}(x, data = NULL, type = "h", 
-      zlab = deparse(substitute(x)), \dots)
-\method{wireframe}{matrix}(x, data = NULL, zlab = deparse(substitute(x)), \dots)
+      zlab = deparse(substitute(x)), aspect, \dots)
+\method{wireframe}{matrix}(x, data = NULL,
+          zlab = deparse(substitute(x)), aspect, \dots)
 }
 \description{
   Generic functions to draw 3d scatter plots and surfaces.  The
@@ -126,6 +127,10 @@ wireframe(x, data, \dots)
     role of the \code{aspect} argument in determining the aspect ratio
     of the panel (see \code{\link{xyplot}} for details) is played by
     \code{panel.aspect}, except that it can only be a numeric value.
+
+    For the \code{matrix} methods, the default y/x aspect is
+    \code{ncol(x) / nrow(x)} and the z/x aspect is the smaller of the
+    y/x aspect and 1.
   }
   \item{panel}{
     panel function used to create the display.  See

@@ -314,14 +314,16 @@ formattedTicksAndLabels <- function(x, ...)
 
 
 formattedTicksAndLabels.default <-
-    function(x, at = FALSE,
+    function(x,
+             at = FALSE,
              used.at = NULL,
-             num.limit = NULL,
              labels = FALSE,
              logsc = FALSE,
+             ...,
+             num.limit = NULL,
              abbreviate = NULL,
              minlength = 4,
-             format.posixt, ...)
+             format.posixt)
     ## meant for when x is numeric
 {
     range <-
@@ -372,12 +374,13 @@ formattedTicksAndLabels.default <-
 formattedTicksAndLabels.date <-
     function(x, at = FALSE,
              used.at = NULL,
+             ...,
              num.limit = NULL,
              labels = FALSE,
              logsc = FALSE,
              abbreviate = NULL,
              minlength = 4,
-             format.posixt, ...)
+             format.posixt)
 {
     ## handle log scales (not very meaningful, though)
 
