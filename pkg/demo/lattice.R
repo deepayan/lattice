@@ -168,7 +168,7 @@ qq(gl(2, 100) ~ c(runif(100, min = -2, max = 2), rnorm(100)),
 barchart(variety ~ yield | year * site, barley, origin = 0,
          layout = c(4, 3),
          between = list(x = c(0, 0.5, 0)),
-         par.settings = list(clip = list(strip = "on")),
+         ## par.settings = list(clip = list(strip = "on")),
          strip =
          function(which.given,
                   which.panel,
@@ -176,6 +176,7 @@ barchart(variety ~ yield | year * site, barley, origin = 0,
                   bg = trellis.par.get("strip.background")$col[which.given],
                   ...) {
              axis.line <- trellis.par.get("axis.line")
+             pushViewport(viewport(clip = trellis.par.get("clip")$strip))
              if (which.given == 1)
              {
                  grid.rect(x = .26, just = "right",
@@ -190,6 +191,7 @@ barchart(variety ~ yield | year * site, barley, origin = 0,
                  ltext(factor.levels[which.panel[which.given]],
                        x = .28, y = .5, adj = 0)
              }
+             upViewport()
              grid.rect(gp =
                        gpar(col = axis.line$col,
                             lty = axis.line$lty,

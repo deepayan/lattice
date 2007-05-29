@@ -1015,10 +1015,10 @@ print.trellis <-
 
 
 
-######################################################################
-### Draw the box around panels.  This used to be done with clipping ##
-### on, which caused some subtle and puzzling side effects.         ##
-######################################################################
+#########################################################################
+### Draw the box around panels.  This used to be done with clipping    ##
+### on, which caused some subtle and apparently puzzling side effects. ##
+#########################################################################
 
 
                         downViewport(trellis.vpname("panel",
