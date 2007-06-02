@@ -154,7 +154,7 @@ plot.shingle <-
              ylab = gettext("Panel"),
              ...)
 {
-    ocall <- match.call()
+    ocall <- sys.call(sys.parent())
     panel.shingle <-
         function(x, y,
                  col = plot.polygon$col,

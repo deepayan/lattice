@@ -1387,7 +1387,8 @@ wireframe.formula <-
              panel = lattice.getOption("panel.wireframe"),
              ...)
 {
-    ocall <- ccall <- match.call()
+    ocall <- sys.call(sys.parent())
+    ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
     ccall[[1]] <- quote(lattice::cloud)
@@ -1574,7 +1575,7 @@ cloud.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- match.call()
+    foo$call <- sys.call(sys.parent())
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 

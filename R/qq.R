@@ -152,7 +152,7 @@ qq.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- match.call()
+    foo$call <- sys.call(sys.parent())
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
