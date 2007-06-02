@@ -347,7 +347,8 @@ splom.matrix <-
 splom.data.frame <-
     function(x, data = NULL, ...)
 {
-    ocall <- ccall <- match.call()
+    ocall <- sys.call(sys.parent())
+    ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
@@ -457,7 +458,7 @@ splom.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- match.call()
+    foo$call <- sys.call(sys.parent())
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 

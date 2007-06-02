@@ -222,7 +222,8 @@ qqmath <- function(x, data, ...) UseMethod("qqmath")
 qqmath.numeric <-
     function(x, data = NULL, ylab = deparse(substitute(x)), ...)
 {
-    ocall <- ccall <- match.call()
+    ocall <- sys.call(sys.parent())
+    ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
     ccall$data <- list(x = x)
@@ -323,7 +324,7 @@ qqmath.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- match.call()
+    foo$call <- sys.call(sys.parent())
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
