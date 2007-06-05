@@ -116,8 +116,8 @@ panel.levelplot <-
     label.style <- match.arg(label.style)
     x <- as.numeric(x[subscripts])
     y <- as.numeric(y[subscripts])
-    minXwid <- min(diff(sort(unique(x))))
-    minYwid <- min(diff(sort(unique(y))))
+    minXwid <- if (length(unique(x)) > 1) min(diff(sort(unique(x)))) else 1
+    minYwid <- if (length(unique(x)) > 1) min(diff(sort(unique(y)))) else 1
 
     fullZrange <- range(as.numeric(z), finite = TRUE) # for shrinking
     z <- as.numeric(z[subscripts])
@@ -146,7 +146,7 @@ panel.levelplot <-
         else min + (max - min) * (z - zl[1]) / diff(zl)
     }
 
-    
+    ## FIXME: this is probably not what we want
     if (any(subscripts)) {
 
         ## sorted unique values of x 
