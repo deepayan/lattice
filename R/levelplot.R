@@ -104,16 +104,29 @@ panel.levelplot <-
 {
     if (length(subscripts) == 0) return()
     regions <- trellis.par.get("regions")
+    x <- as.numeric(x)
+    y <- as.numeric(y)
+    z <- as.numeric(z)
     numcol <- length(at) - 1
     numcol.r <- length(col.regions)
     col.regions <-
         if (numcol.r <= numcol)
             rep(col.regions, length = numcol)
-        else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
-    zcol <- rep(NA, length(z)) #numeric(length(z))
-    for (i in seq_along(col.regions))
-        zcol[!is.na(x) & !is.na(y) & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
-
+        else
+            col.regions[round(seq(1, numcol.r, length = numcol))]
+    zcol <- cut(z, at, include.lowest = TRUE, labels = FALSE)
+    x <- x[subscripts]
+    y <- y[subscripts]
+    z <- z[subscripts]
+##     numcol <- length(at) - 1
+##     numcol.r <- length(col.regions)
+##     col.regions <-
+##         if (numcol.r <= numcol)
+##             rep(col.regions, length = numcol)
+##         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
+##     zcol <- rep(NA, length(z)) #numeric(length(z))
+##     for (i in seq_along(col.regions))
+##         zcol[!is.na(x) & !is.na(y) & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
     label.style <- match.arg(label.style)
     x <- as.numeric(x[subscripts])
     y <- as.numeric(y[subscripts])
@@ -182,10 +195,8 @@ panel.levelplot <-
     if (region) 
         grid.rect(x = cx[idx],
                   y = cy[idy],
-                  width = lx[idx] *
-                  scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
-                  height = ly[idy] *
-                  scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
+                  width = lx[idx] * scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
+                  height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
                   default.units = "native",
                   gp =
                   gpar(fill = col.regions[zcol],
@@ -301,13 +312,11 @@ panel.levelplot <-
                             textloc <- min(which.max(depth), length(slopes))
                             rotangle <- atan(asp * slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
                         }
-
                     }
                     else stop("Invalid label.style")
 
                     i <- match(val$level, at)
 
-                    
                     ltext(lab = labels$lab[i], adj = c(.5, 0),
                           srt = rotangle,
                           col = labels$col,
@@ -317,7 +326,6 @@ panel.levelplot <-
                           fontface = labels$fontface,
                           x = .5 * (val$x[textloc]+val$x[textloc + 1]),
                           y = .5 * (val$y[textloc]+val$y[textloc + 1]))
-
                 }
             }
         }
