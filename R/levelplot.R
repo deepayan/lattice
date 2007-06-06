@@ -78,8 +78,8 @@ prepanel.default.levelplot <-
 panel.contourplot <- function(...) panel.levelplot(...)
 
 
-## new version using contourLines, and hopefully to work for missing
-## matrix entries as well
+## version using contourLines, and hopefully works for missing matrix
+## entries as well
 
 panel.levelplot <-
     function(x, y, z, 
@@ -104,6 +104,7 @@ panel.levelplot <-
 {
     if (length(subscripts) == 0) return()
     regions <- trellis.par.get("regions")
+    label.style <- match.arg(label.style)
     x <- as.numeric(x)
     y <- as.numeric(y)
     z <- as.numeric(z)
@@ -117,7 +118,11 @@ panel.levelplot <-
     zcol <- cut(z, at, include.lowest = TRUE, labels = FALSE)
     x <- x[subscripts]
     y <- y[subscripts]
+    minXwid <- if (length(unique(x)) > 1) min(diff(sort(unique(x)))) else 1
+    minYwid <- if (length(unique(x)) > 1) min(diff(sort(unique(y)))) else 1
+    fullZrange <- range(as.numeric(z), finite = TRUE) # for shrinking
     z <- z[subscripts]
+    zcol <- as.numeric(zcol[subscripts])
 ##     numcol <- length(at) - 1
 ##     numcol.r <- length(col.regions)
 ##     col.regions <-
@@ -127,15 +132,9 @@ panel.levelplot <-
 ##     zcol <- rep(NA, length(z)) #numeric(length(z))
 ##     for (i in seq_along(col.regions))
 ##         zcol[!is.na(x) & !is.na(y) & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
-    label.style <- match.arg(label.style)
-    x <- as.numeric(x[subscripts])
-    y <- as.numeric(y[subscripts])
-    minXwid <- if (length(unique(x)) > 1) min(diff(sort(unique(x)))) else 1
-    minYwid <- if (length(unique(x)) > 1) min(diff(sort(unique(y)))) else 1
-
-    fullZrange <- range(as.numeric(z), finite = TRUE) # for shrinking
-    z <- as.numeric(z[subscripts])
-    zcol <- as.numeric(zcol[subscripts])
+##     x <- as.numeric(x[subscripts])
+##     y <- as.numeric(y[subscripts])
+##     z <- as.numeric(z[subscripts])
 
     ## Do we need a zlim-like argument ?
 
