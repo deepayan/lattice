@@ -635,7 +635,8 @@ formattedTicksAndLabels.times <-
     function(x, at = FALSE, used.at = NULL,
              num.limit = NULL, labels = FALSE, logsc = FALSE, 
              abbreviate = NULL, minlength = 4, simplify = TRUE, 
-             ...) 
+             ...,
+             format.posixt = NULL) 
 {
     ## most arguments ignored for now
 
@@ -668,7 +669,7 @@ formattedTicksAndLabels.times <-
         }
         else labels <- format(at, simplify = simplify)
     }
-    ##invisible(list(n = n, at = at, labels = labels))
+    ## invisible(list(n = n, at = at, labels = labels))
 
     list(at = as.numeric(at), labels = labels, 
          check.overlap = check.overlap,
