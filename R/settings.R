@@ -42,7 +42,7 @@ col.whitebg <- function()
          col = c("darkgreen","red","royalblue",
          "brown","orange","turquoise", "orchid")))
 
-
+standard.theme <- 
 canonical.theme <- function(name = .Device, color = name != "postscript")
 {
     ## For the purpose of this function, the only differences in the
@@ -741,6 +741,7 @@ lattice.options <- function(...)
     list(save.object = TRUE,
          drop.unused.levels = list(cond = TRUE, data = TRUE),
          default.theme = getOption("lattice.theme"), ## for back compatibility, usually NULL
+         legend.bbox = "panel", ## for key$space = "inside"
 
          banking = banking,
 

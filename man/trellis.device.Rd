@@ -1,5 +1,6 @@
 \name{trellis.device}
 \alias{trellis.device}
+\alias{standard.theme}
 \alias{canonical.theme}
 \alias{col.whitebg}
 \title{ Initializing Trellis Displays }
@@ -15,6 +16,8 @@ trellis.device(device = getOption("device"),
                new = TRUE,
                retain = FALSE,
                \dots)
+
+standard.theme(name, color)
 canonical.theme(name, color)
 col.whitebg()
 }
@@ -78,7 +81,7 @@ col.whitebg()
   settings are mostly ignored by Lattice).  Unlike \code{\link{par}},
   Trellis settings can be controlled separately for each different
   device type (but not concurrently for different instances of the same
-  device).  \code{canonical.theme} and \code{col.whitebg} produce
+  device).  \code{standard.theme} and \code{col.whitebg} produce
   predefined settings (a.k.a. themes), while \code{trellis.device}
   provides a high level interface to control which \dQuote{theme} will
   be in effect when a new device is opened.  \code{trellis.device} is
@@ -87,7 +90,7 @@ col.whitebg()
   properly configured system it is rarely necessary for the user to call
   \code{trellis.device} explicitly.
 
-  The \code{canonical.theme} function is intended to provide device
+  The \code{standard.theme} function is intended to provide device
   specific settings (e.g. light colors on a grey background for screen
   devices, dark colors or black and white for print devices) which were
   used as defaults prior to \R 2.3.0.  However, these defaults are not
@@ -96,24 +99,25 @@ col.whitebg()
   on a particular device may be subsequently used in many different
   ways.  For this reason, a \dQuote{safe} default is used for all
   devices from \R 2.3.0 onwards.  The old behaviour can be reinstated by
-  setting \code{canonical.theme} as the default \code{theme} argument,
-  e.g. by putting \code{options(lattice.theme = "canonical.theme")} in a
+  setting \code{standard.theme} as the default \code{theme} argument,
+  e.g. by putting \code{options(lattice.theme = "standard.theme")} in a
   startup script (see the entry for \code{theme} above for details).
 }
 
 \value{
-  \code{canonical.theme} returns a list of components defining graphical
+  \code{standard.theme} returns a list of components defining graphical
   parameter settings for Lattice displays. It is used internally in
   \code{trellis.device}, and can also be used as the \code{theme}
   argument to \code{trellis.par.set}, or even as \code{theme} in
   \code{trellis.device} to use the defaults for another device.
+  \code{canonical.theme} is an alias for \code{standard.theme}.
 
   \code{col.whitebg} returns a similar (but smaller) list that is
   suitable as the \code{theme} argument to \code{trellis.device} and
   \code{\link{trellis.par.set}}.  It contains settings values which
   provide colors suitable for plotting on a white background.  Note that
-  the name \code{col.whitebg} is somewhat a misnomer, since it actually
-  sets the background to transparent rather than white.
+  the name \code{col.whitebg} is somewhat of a misnomer, since it
+  actually sets the background to transparent rather than white.
 }
 
 \note{
