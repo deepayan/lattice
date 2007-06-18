@@ -713,19 +713,27 @@ bwplot(x, data, \dots)
 	the \code{legend} argument.
 
 
-	The position of the key can be controlled in either of two possible
-	ways. If a component called \code{space} is present, the key is
-	positioned outside the plot region, in one of the four sides,
-	determined by the value of \code{space}, which can be one of
-	\code{"top"}, \code{"bottom"}, \code{"left"} and \code{"right"}.
-	Alternatively, the key can be positioned inside the plot region by
-	specifying components \code{x}, \code{y} and \code{corner}. \code{x}
-	and \code{y} determine the location of the corner of the key given
-	by \code{corner}, which can be one of \code{c(0,0)}, \code{c(1,0)},
-	\code{c(1,1)} and \code{c(0,1)}, which denote the corners of the
-	unit square.  \code{x} and \code{y} must be numbers between 0 and 1,
-	giving coordinates with respect to the whole display area.
+	The position of the key can be controlled in either of two
+	possible ways. If a component called \code{space} is present,
+	the key is positioned outside the plot region, in one of the
+	four sides, determined by the value of \code{space}, which can
+	be one of \code{"top"}, \code{"bottom"}, \code{"left"} and
+	\code{"right"}.  Alternatively, the key can be positioned inside
+	the plot region by specifying components \code{x}, \code{y} and
+	\code{corner}. \code{x} and \code{y} determine the location of
+	the corner of the key given by \code{corner}, which is usually
+	one of \code{c(0,0)}, \code{c(1,0)}, \code{c(1,1)} and
+	\code{c(0,1)}, which denote the corners of the unit square.
+	Fractional values are also allowed, in which case \code{x} and
+	\code{y} determine the position of an arbitrary point inside (or
+	outside for values outside the unit interval) the key.
 
+	\code{x} and \code{y} should be numbers between 0 and 1, giving
+	coordinates with respect to the \dQuote{display area}.
+	Depending on the value of
+	\code{lattice.getOption("legend.bbox")}, this can be either the
+	full figure region (\code{"full"}), or just the region that
+	bounds the panels and strips (\code{"panel"}).
 
 	The key essentially consists of a number of columns, possibly
 	divided into blocks, each containing some rows.  The contents of the
