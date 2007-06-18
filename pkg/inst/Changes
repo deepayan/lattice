@@ -14,7 +14,15 @@ new features
 
  o New 'panel.aspect' argument for cloud and wireframe
 
- o better support for factors in cloud and wireframe
+ o Better support for factors in cloud and wireframe
+
+ o More flexible placement of legends with x, y and corner.  In
+   particular, corner can have fractional values, and (x, y) can refer
+   to a position w.r.t. two potential bounding boxes depending on
+   lattice.getOption("legend.bbox") ('full', meaning full plot region,
+   or 'panel', meaning the subregion containing panels and strips.
+   The default is 'panel', which is a change in behaiour)
+
 
 changes in behaviour
 --------------------
