@@ -14,7 +14,9 @@ panel.xyplot(x, y, type = "p",
              pch, col, col.line, col.symbol,
              font, fontfamily, fontface,
              lty, cex, fill, lwd,
-             horizontal = FALSE, \dots)
+             horizontal = FALSE, \dots,
+             jitter.x = FALSE, jitter.y = FALSE,
+             factor = 0.5, amount = NULL)
 panel.splom(\dots)
 panel.qq(\dots)
 }
@@ -59,7 +61,12 @@ panel.qq(\dots)
     \code{panel.loess} respectively.
   }
   \item{horizontal}{ logical. Controls orientation for certain
-    \code{type}'s, e.g.  one of \code{"h"}, \code{"s"} or \code{"S"}}. }
+    \code{type}'s, e.g.  one of \code{"h"}, \code{"s"} or \code{"S"}}.
+  \item{jitter.x, jitter.y}{ logical, whether the data should be
+    jittered before being plotted. }
+  \item{factor, amount}{ controls amount of jittering. }
+}
+
 
 
 \details{
