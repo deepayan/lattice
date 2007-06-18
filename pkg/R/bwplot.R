@@ -443,18 +443,12 @@ panel.stripplot <-
              factor = 0.5, amount = NULL,
              horizontal = TRUE, groups = NULL, ...)
 {
-    if (all(is.na(x) | is.na(y))) return()
-    x <- as.numeric(x)
-    y <- as.numeric(y)
-    if (jitter.data)
-    {
-        if (horizontal)
-            y[] <- jitter(y, factor = factor, amount = amount)
-        else
-            x[] <- jitter(x, factor = factor, amount = amount)
-    }
+    if (!any(is.finite(x) & is.finite(y))) return()
     panel.xyplot(x = x,
                  y = y,
+                 jitter.x = jitter.data && !horizontal,
+                 jitter.y = jitter.data &&  horizontal,
+                 factor = factor, amount = amount,
                  groups = groups,
                  horizontal = horizontal, ...)
 }

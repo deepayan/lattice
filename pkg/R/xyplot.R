@@ -80,7 +80,9 @@ panel.xyplot <-
              fill = if (is.null(groups)) plot.symbol$fill else superpose.symbol$fill,
              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
              horizontal = FALSE,
-             ...)
+             ...,
+             jitter.x = FALSE, jitter.y = FALSE,
+             factor = 0.5, amount = NULL)
 {
     if (all(is.na(x) | is.na(y))) return()
     x <- as.numeric(x)
@@ -110,13 +112,18 @@ panel.xyplot <-
                         lwd = lwd,
                         horizontal = horizontal,
                         panel.groups = panel.xyplot,
+                        jitter.x = jitter.x,
+                        jitter.y = jitter.y,
+                        factor = factor,
+                        amount = amount,
                         ...)
     else
     {
         if ("o" %in% type || "b" %in% type) type <- c(type, "p", "l")
         if ("g" %in% type) panel.grid(h = -1, v = -1)
         if ("p" %in% type)
-            panel.points(x = x, y = y,
+            panel.points(x = if (jitter.x) jitter(x, factor = factor, amount = amount) else x,
+                         y = if (jitter.y) jitter(y, factor = factor, amount = amount) else y,
                          cex = cex,
                          fill = fill,
                          font = font,
