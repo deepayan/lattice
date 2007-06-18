@@ -1155,21 +1155,23 @@ print.trellis <-
                                                    name = trellis.vpname("legend", side = "bottom"))),
                            inside = {
 
-                               ## FIXME: there are two choices here
-                               ## --- either treat the whole figure
-                               ## region as the rectangle, or use just
-                               ## the region covered by the panels.
-                               ## Currently, the first is done.
-                               ## Ideally, it should be
-                               ## user-controllable, presumably
-                               ## through lattice.options().  Easy to
-                               ## do, just need to figure out the
-                               ## limits.  Just not feeling
-                               ## enthusiastic enough right now.
+                               ## There are two choices here ---
+                               ## either treat the whole figure region
+                               ## as the rectangle, or use just the
+                               ## region covered by the panels.  This
+                               ## is user-controllable through
+                               ## lattice.options("legend.bbox").
 
-                               pushViewport(viewport(layout.pos.row = c(1, n.row),
-                                                     layout.pos.col = c(1, n.col),
-                                                     name = trellis.vpname("legend", side = "inside")))
+                               legend.bbox <- lattice.getOption("legend.bbox")
+                               switch(legend.bbox,
+                                      full = 
+                                      pushViewport(viewport(layout.pos.row = c(1, n.row),
+                                                            layout.pos.col = c(1, n.col),
+                                                            name = trellis.vpname("legend", side = "inside"))),
+                                      panel =
+                                      pushViewport(viewport(layout.pos.row = range(pos.heights$panel, pos.heights$strip),
+                                                            layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                                            name = trellis.vpname("legend", side = "inside"))))
                                key.corner <-
                                    if (is.null(legend[[i]]$corner)) c(0,1)
                                    else legend[[i]]$corner
@@ -1179,49 +1181,10 @@ print.trellis <-
                                key.y <- 
                                    if (is.null(legend[[i]]$y)) key.corner[2]
                                    else legend[[i]]$y
-                               if (all(key.corner == c(0,1)))
-                               {
-                                   pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
-                                                         widths = unit(c(key.x, 1, 1),
-                                                         c("npc", "grobwidth", "null"),
-                                                         list(NULL, key.gf, NULL)),
-                                                         heights = unit(c(1 - key.y, 1, 1),
-                                                         c("npc", "grobheight", "null"),
-                                                         list(NULL, key.gf, NULL)))))
-                               }
-                               else if (all(key.corner == c(1,1)))
-                               {
-                                   pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
-                                                         heights = unit(c(1 - key.y, 1, 1),
-                                                         c("npc", "grobheight", "null"),
-                                                         list(NULL, key.gf, NULL)),
-                                                         widths = unit(c(1, 1, 1 - key.x),
-                                                         c("null", "grobwidth", "npc"),
-                                                         list(NULL, key.gf, NULL)))))
-                               }
-                               else if (all(key.corner == c(0,0)))
-                               {
-                                   pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 3,
-                                                         widths = unit(c(key.x, 1, 1),
-                                                         c("npc", "grobwidth", "null"),
-                                                         list(NULL, key.gf, NULL)),
-                                                         heights = unit(c(1, 1, key.y),
-                                                         c("null", "grobheight", "npc"),
-                                                         list(NULL, key.gf, NULL)))))
-                               }
-                               else if (all(key.corner == c(1,0)))
-                               {
-                                   pushViewport(viewport(layout=grid.layout(nrow = 3, ncol = 3,
-                                                         widths = unit(c(1, 1, 1 - key.x),
-                                                         c("null", "grobwidth", "npc"),
-                                                         list(NULL, key.gf, NULL)),
-                                                         heights = unit(c(1, 1, key.y),
-                                                         c("null", "grobheight", "npc"),
-                                                         list(NULL, key.gf, NULL)))))
-                               }
                                drawInViewport(key.gf,
-                                              viewport(layout.pos.row = 2, layout.pos.col = 2))
-                               upViewport(2)
+                                              viewport(x = unit(key.x, "npc") + unit(0.5 - key.corner[1], "grobwidth", list(key.gf)),
+                                                       y = unit(key.y, "npc") + unit(0.5 - key.corner[2], "grobheight", list(key.gf))))
+                               upViewport(1)
                            })
                        }
                 }
