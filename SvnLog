@@ -1,4 +1,95 @@
 ------------------------------------------------------------------------
+r4482 | deepayan | 2007-06-18 16:32:42 -0700 (Mon, 18 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/inst/Changes
+
+updated version and changelog
+------------------------------------------------------------------------
+r4481 | deepayan | 2007-06-18 16:30:18 -0700 (Mon, 18 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/man/xyplot.Rd
+
+better control over placement of key, including a new option
+------------------------------------------------------------------------
+r4480 | deepayan | 2007-06-18 16:22:21 -0700 (Mon, 18 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/man/trellis.device.Rd
+
+added 'standard.theme', an alias for 'canonical.theme'
+------------------------------------------------------------------------
+r4479 | deepayan | 2007-06-18 16:20:27 -0700 (Mon, 18 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.xyplot.Rd
+
+better support for jittering in panel.stripplot and panel.xyplot
+------------------------------------------------------------------------
+r4478 | deepayan | 2007-06-18 16:19:33 -0700 (Mon, 18 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/xyplot.R
+
+better support for jittering in panel.stripplot and panel.xyplot
+------------------------------------------------------------------------
+r4477 | deepayan | 2007-06-18 16:15:38 -0700 (Mon, 18 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+
+bugfix for chron dates
+------------------------------------------------------------------------
+r4437 | deepayan | 2007-06-05 17:51:22 -0700 (Tue, 05 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+
+fixed bugs introduced by recent changes
+------------------------------------------------------------------------
+r4435 | deepayan | 2007-06-05 12:57:38 -0700 (Tue, 05 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+
+slightly cleaner computation of color indices
+------------------------------------------------------------------------
+r4434 | deepayan | 2007-06-05 12:38:55 -0700 (Tue, 05 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+
+formatting change
+------------------------------------------------------------------------
+r4433 | deepayan | 2007-06-05 12:21:41 -0700 (Tue, 05 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+
+bugfix to make panel.levelplot work with one row or column
+------------------------------------------------------------------------
+r4408 | deepayan | 2007-06-01 17:46:09 -0700 (Fri, 01 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/shingle.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/xyplot.R
+
+changed all slots to sys.call(sys.parent()), which hopefully better
+approximates the original call
+------------------------------------------------------------------------
+r4401 | deepayan | 2007-05-29 12:38:14 -0700 (Tue, 29 May 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/SvnLog
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/po/R-fr.po
+   M /trunk/lattice/po/R-lattice.pot
+
+updated translations and change logs
+------------------------------------------------------------------------
 r4400 | deepayan | 2007-05-29 12:28:38 -0700 (Tue, 29 May 2007) | 1 line
 Changed paths:
    M /trunk/lattice/DESCRIPTION
