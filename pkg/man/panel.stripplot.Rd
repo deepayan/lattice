@@ -23,13 +23,16 @@ panel.stripplot(x, y, jitter.data = FALSE,
     explanation.
   }
   \item{groups}{ optional grouping variable }
-  \item{\dots}{ graphical parameters etc can be supplied, passed to
-    \code{panel.xyplot} or \code{panel.superpose}, depending on whether
-    \code{groups} is present}
+
+  \item{\dots}{ additional arguments, passed on to
+    \code{\link{panel.xyplot}} }
 }
+
 \details{ Creates stripplot (one dimensional scatterplot) of \code{x}
-  for each level of \code{y}
+  for each level of \code{y} (or vice versa, depending on the value of
+  \code{horizontal})
 }
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{stripplot}}, \code{\link{jitter}}}
 \keyword{dplot}
