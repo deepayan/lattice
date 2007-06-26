@@ -1,6 +1,7 @@
 
 
 ### Copyright (C) 2001-2006  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
+### Copyright (C) 2007 Felix Andrews <felix@nfrac.org> 
 ###
 ### This file is part of the lattice package for R.
 ### It is made available under the terms of the GNU General Public
@@ -159,6 +160,11 @@ trellis.focus <-
              highlight = interactive(),
              ...)
 {
+    if (missing(name) && missing(column) && missing(row))
+        return(trellis.clickFocus(clip.off = clip.off,
+                                  highlight = highlight,
+                                  ...))
+
     trellis.unfocus()
 
     if (name %in% c("panel", "strip", "strip.left"))
@@ -281,6 +287,86 @@ trellis.panelArgs <-
     c(x$panel.args[[packet.number]], x$panel.args.common)
 }
 
+
+
+### based on an original version contributed by
+### Felix Andrews <felix@nfrac.org> (2007/06/21)
+
+trellis.clickFocus <-
+    function(clip.off = FALSE,
+             highlight = interactive(),
+             ...)
+{
+    layoutMatrix <- trellis.currentLayout()
+    trellis.focus("toplevel", highlight = FALSE)
+    glayout <- lattice.getStatus("layout.details")
+    rowRange <- range(glayout$pos.heights$panel, glayout$pos.heights$strip)
+    colRange <- range(glayout$pos.widths$panel, glayout$pos.widths$strip.left)
+    layCols <-  glayout$page.layout$ncol
+    layRows <- glayout$page.layout$nrow
+    leftPad <- convertX(sum(glayout$page.layout$widths[1:(colRange[1]-1)]), "npc", valueOnly = TRUE)
+    rightPad <- convertX(sum(glayout$page.layout$widths[(colRange[2]+1):layCols]), "npc", valueOnly = TRUE)
+    topPad <- convertY(sum(glayout$page.layout$heights[1:(rowRange[1]-1)]), "npc", valueOnly = TRUE)
+    botPad <- convertY(sum(glayout$page.layout$heights[(rowRange[2]+1):layRows]), "npc", valueOnly = TRUE)
+    clickLoc <- grid.locator("npc")
+    if (is.null(clickLoc)) return()
+    clickXScaled <- (as.numeric(clickLoc$x) - leftPad) / (1 - leftPad - rightPad)
+    focusCol <- ceiling(clickXScaled * ncol(layoutMatrix))
+    clickYScaled <- (as.numeric(clickLoc$y) - botPad) / (1 - botPad - topPad)
+    focusRow <- ceiling(clickYScaled * nrow(layoutMatrix))
+    if ((focusCol >= 1) && (focusCol <= ncol(layoutMatrix)) &&
+        (focusRow >= 1) && (focusRow <= nrow(layoutMatrix)) &&
+        layoutMatrix[focusRow, focusCol] > 0)
+    {
+        trellis.focus("panel", column = focusCol, row = focusRow,
+                      clip.off = clip.off, highlight = highlight,
+                      ...)
+    }
+    invisible(list(col=focusCol, row=focusRow))
+}
+
+
+
+
+
+## trellis.clickFocus <- function() {
+##        layoutMatrix <- trellis.currentLayout()
+##        currVpp <- current.vpPath()
+##        if (!is.null(currVpp)) { upViewport(currVpp$n) }
+##        depth <- downViewport(trellis.vpname("panel", 1, 1))
+##        colRange <- current.viewport()$layout.pos.col[1]
+##        rowRange <- current.viewport()$layout.pos.row[1]
+##        upViewport()
+##        downViewport(trellis.vpname("panel", ncol(layoutMatrix), nrow(layoutMatrix)))
+##        colRange[2] <- current.viewport()$layout.pos.col[1]
+##        rowRange[2] <- current.viewport()$layout.pos.row[1]
+##        upViewport()
+##        layCols <- current.viewport()$layout$ncol
+##        layRows <- current.viewport()$layout$nrow
+##        leftPad <- sum(sapply(current.viewport()$layout$widths[1:(min(colRange)-1)], convertX, "npc"))
+##        rightPad <- sum(sapply(current.viewport()$layout$widths[(max(colRange)+1):layCols], convertX, "npc"))
+##        topPad <- sum(sapply(current.viewport()$layout$heights[1:(min(rowRange)-1)],convertY, "npc"))
+##        botPad <- sum(sapply(current.viewport()$layout$heights[(max(rowRange)+1):layRows],convertY, "npc"))
+##        clickLoc <- grid.locator("npc")
+##        # reset current viewport so lattice doesn't get confused
+##        upViewport(depth-1)
+##        if (!is.null(currVpp)) { downViewport(currVpp) }
+##        if (is.null(clickLoc)) {
+##                return(NULL)
+##        }
+##        clickXScaled <- (as.numeric(clickLoc$x) - leftPad) / (1 - leftPad - rightPad)
+##        focusCol <- ceiling(clickXScaled * ncol(layoutMatrix))
+##        clickYScaled <- (as.numeric(clickLoc$y) - botPad) / (1 - botPad - topPad)
+##        focusRow <- ceiling(clickYScaled * nrow(layoutMatrix))
+##        if ((focusCol < 1) || (focusCol > ncol(layoutMatrix))
+##         || (focusRow < 1) || (focusRow > nrow(layoutMatrix))) {
+##                focusCol <- focusRow <- 0
+##                trellis.unfocus()
+##        } else {
+##                trellis.focus("panel", focusCol, focusRow)
+##        }
+##        invisible(list(col=focusCol, row=focusRow))
+## }
 
 
 
