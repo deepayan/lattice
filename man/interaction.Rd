@@ -1,5 +1,6 @@
 \name{interaction}
 \alias{panel.identify}
+\alias{panel.identify.qqmath}
 \alias{trellis.focus}
 \alias{trellis.unfocus}
 \alias{trellis.switchFocus}
@@ -26,6 +27,9 @@ panel.identify(x, y = NULL,
                threshold = 18, ## in points, roughly 0.25 inches
                panel.args = trellis.panelArgs(),
                \dots)
+panel.identify.qqmath(x, distribution, groups, subscripts, labels,
+                      panel.args = trellis.panelArgs(),
+                      \dots)
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
                "panel", "strip", "strip.left", "legend",
                "main", "sub", "xlab", "ylab", "page"),
@@ -54,6 +58,10 @@ trellis.panelArgs(x, packet.number)
   \item{labels}{
     an optional vector of labels associated with each point.  Defaults
     to \code{subscripts}
+  }
+  \item{distribution, groups}{ typical panel arguments of
+    \code{\link{panel.qqmath}}.  These will usually be obtained from
+    \code{panel.args}
   }
   \item{offset}{
     the labels are printed either below, above, to the left or to the
@@ -128,10 +136,12 @@ trellis.panelArgs(x, packet.number)
     \code{\link{packet.number}} for details on how this is calculated
   }
   \item{\dots}{
-    graphical parameters. For \code{panel.identify} these are used for
-    labelling.  For \code{trellis.focus} and \code{trellis.switchFocus},
-    these are used (in combination with \code{\link{lattice.options}})
-    for highlighting the chosen viewport if so requested.
+    For \code{panel.identify.qqmath}, extra parameters are passed on to
+    \code{panel.identify}.  For \code{panel.identify}, extra arguments
+    are treated as graphical parameters and are used for labelling.  For
+    \code{trellis.focus} and \code{trellis.switchFocus}, these are used
+    (in combination with \code{\link{lattice.options}}) for highlighting
+    the chosen viewport if so requested.
   }
 }
 
@@ -144,7 +154,10 @@ trellis.panelArgs(x, packet.number)
   plotting the whole object, in which case a call to
   \code{trellis.focus} first is necessary.
 
-  One way in which \code{panel.identify} is different from
+  \code{panel.identify.qqmath} is a specialized wrapper meant for use
+  with the display produced by \code{\link{qqmath}}.
+
+  One way in which \code{panel.identify} etc. are different from
   \code{\link{identify}} is in how it uses the \code{subscripts}
   argument.  In general, when one identifies points in a panel, one
   wants to identify the origin in the data frame used to produce the
@@ -335,7 +348,12 @@ for (row in 1:nrow(panel.locs))
   \code{\link[grid:viewports]{viewports}}
 }
 
-\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
+\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}.  Felix
+  Andrews provided initial implementations of
+  \code{panel.identify.qqmath} and support for focusing on panels
+  interctively.
+}
+
 \keyword{dplot}
 
 

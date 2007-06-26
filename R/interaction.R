@@ -66,6 +66,8 @@ panel.identify <-
     px <- convertX(unit(x, "native"), "points", TRUE)
     py <- convertY(unit(y, "native"), "points", TRUE)
     labels <- as.character(labels)
+    if (length(labels) > length(subscripts))
+        labels <- labels[subscripts]
 
     unmarked <- rep(TRUE, length(x))
     count <- 0
@@ -289,8 +291,8 @@ trellis.panelArgs <-
 
 
 
-### based on an original version contributed by
-### Felix Andrews <felix@nfrac.org> (2007/06/21)
+### trellis.clickFocus() and panel.identify.qqmath() are based on
+### contributions by Felix Andrews <felix@nfrac.org> (2007/06/21)
 
 trellis.clickFocus <-
     function(clip.off = FALSE,
@@ -328,45 +330,60 @@ trellis.clickFocus <-
 
 
 
+panel.identify.qqmath <-
+    function(x = panel.args$x,
+             distribution = panel.args$distribution,
+             groups = panel.args$groups, 
+             subscripts = panel.args$subscripts,
+             labels = subscripts, 
+             panel.args = trellis.panelArgs(),
+             ...)
+{
+    x <- as.numeric(x)
+    if (is.null(subscripts)) subscripts <- seq_along(x)
+    labels <- as.character(labels)
+    if (length(labels) > length(subscripts))
+        labels <- labels[subscripts]
+    str(subscripts)
+    str(labels)
+    if (!is.null(panel.args$f.value)) warning("'f.value' not supported; ignoring")
+    distribution <-
+        if (is.function(distribution)) distribution 
+        else if (is.character(distribution)) get(distribution)
+        else eval(distribution)
+    ## compute quantiles corresponding to given vector, possibly
+    ## containing NA's.  The return value must correspond to the
+    ## original order
+    getq <- function(x)
+    {
+        ans <- x
+        id <- !is.na(x)
+        ord <- order(x[id])
+        if (any(id)) ans[id] <- distribution(ppoints(sum(id)))[order(ord)]
+        ans
+    }
+    if (is.null(groups))
+    {
+        ## panel.points(x = getq(x), y = x, pch = ".", col = "red", cex = 3)
+        panel.identify(x = getq(x), y = x, labels = labels, ...)
+    }
+    else
+    {
+        allq <- rep(NA_real_, length(x))
+        subg <- groups[subscripts]
+        vals <- if (is.factor(groups)) levels(groups) else sort(unique(groups))
+        for (i in seq_along(vals))
+        {
+            ok <- !is.na(subg) & (subg == vals[i])
+            allq[ok] <- getq(x[ok])
+        }
+        panel.identify(x = allq, y = x, labels = labels, ...)
+    }
+}
 
-## trellis.clickFocus <- function() {
-##        layoutMatrix <- trellis.currentLayout()
-##        currVpp <- current.vpPath()
-##        if (!is.null(currVpp)) { upViewport(currVpp$n) }
-##        depth <- downViewport(trellis.vpname("panel", 1, 1))
-##        colRange <- current.viewport()$layout.pos.col[1]
-##        rowRange <- current.viewport()$layout.pos.row[1]
-##        upViewport()
-##        downViewport(trellis.vpname("panel", ncol(layoutMatrix), nrow(layoutMatrix)))
-##        colRange[2] <- current.viewport()$layout.pos.col[1]
-##        rowRange[2] <- current.viewport()$layout.pos.row[1]
-##        upViewport()
-##        layCols <- current.viewport()$layout$ncol
-##        layRows <- current.viewport()$layout$nrow
-##        leftPad <- sum(sapply(current.viewport()$layout$widths[1:(min(colRange)-1)], convertX, "npc"))
-##        rightPad <- sum(sapply(current.viewport()$layout$widths[(max(colRange)+1):layCols], convertX, "npc"))
-##        topPad <- sum(sapply(current.viewport()$layout$heights[1:(min(rowRange)-1)],convertY, "npc"))
-##        botPad <- sum(sapply(current.viewport()$layout$heights[(max(rowRange)+1):layRows],convertY, "npc"))
-##        clickLoc <- grid.locator("npc")
-##        # reset current viewport so lattice doesn't get confused
-##        upViewport(depth-1)
-##        if (!is.null(currVpp)) { downViewport(currVpp) }
-##        if (is.null(clickLoc)) {
-##                return(NULL)
-##        }
-##        clickXScaled <- (as.numeric(clickLoc$x) - leftPad) / (1 - leftPad - rightPad)
-##        focusCol <- ceiling(clickXScaled * ncol(layoutMatrix))
-##        clickYScaled <- (as.numeric(clickLoc$y) - botPad) / (1 - botPad - topPad)
-##        focusRow <- ceiling(clickYScaled * nrow(layoutMatrix))
-##        if ((focusCol < 1) || (focusCol > ncol(layoutMatrix))
-##         || (focusRow < 1) || (focusRow > nrow(layoutMatrix))) {
-##                focusCol <- focusRow <- 0
-##                trellis.unfocus()
-##        } else {
-##                trellis.focus("panel", focusCol, focusRow)
-##        }
-##        invisible(list(col=focusCol, row=focusRow))
-## }
+
+
+
 
 
 
