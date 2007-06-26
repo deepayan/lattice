@@ -135,12 +135,12 @@ prepanel.default.qqmath <-
         if (is.null(f.value))
             sort(x)
         else if (is.numeric(f.value))
-            fast.quantile(x, f.value,
+            quantile(x, f.value,       # was fast.quantile 
                      names = FALSE,
                      type = qtype,
                      na.rm = TRUE)
         else
-            fast.quantile(x, f.value(nobs),
+            quantile(x, f.value(nobs), # was fast.quantile
                      names = FALSE,
                      type = qtype,
                      na.rm = TRUE)
@@ -204,7 +204,7 @@ panel.qqmath <-
         else
             panel.xyplot(x = distribution(if (is.numeric(f.value)) f.value else f.value(nobs)), 
                          y =
-                         fast.quantile(x, if (is.numeric(f.value)) f.value else f.value(nobs),
+                         quantile(x, if (is.numeric(f.value)) f.value else f.value(nobs), # was fast.quantile 
                                   names = FALSE,
                                   type = qtype,
                                   na.rm = TRUE),
@@ -503,7 +503,7 @@ panel.qqmathline <-
     else if (nobs)
     {
         yy <-
-            fast.quantile(y, p, names = FALSE,
+            quantile(y, p, names = FALSE, # was fast.quantile 
                      type = qtype, na.rm = TRUE)
         xx <- distribution(p)
         r <- diff(yy)/diff(xx)
@@ -537,7 +537,7 @@ prepanel.qqmathline <-
     nobs <- sum(!is.na(y))
     getdy <- function(x)
     {
-        diff(fast.quantile(x, p, names = FALSE,
+        diff(quantile(x, p, names = FALSE, # was fast.quantile 
                       type = qtype,
                       na.rm = TRUE))
     }
@@ -551,4 +551,11 @@ prepanel.qqmathline <-
     }
     ans
 }
+
+
+
+
+
+
+
 
