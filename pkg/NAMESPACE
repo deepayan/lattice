@@ -190,6 +190,7 @@ export(
        ## interaction etc
        
        panel.identify,
+       panel.identify.qqmath,
        trellis.focus,
        trellis.unfocus,
        trellis.switchFocus,
