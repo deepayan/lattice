@@ -572,7 +572,6 @@ print.trellis <-
     ## this layout will now be used for each page (this is quite
     ## complicated and unfortunately very convoluted)
 
-
     layoutCalculations <-
         calculateGridLayout(x,
                             rows.per.page, cols.per.page,
@@ -586,6 +585,8 @@ print.trellis <-
                             xaxis.cex, yaxis.cex,
                             par.strip.text,
                             legend)
+    lattice.setStatus(layout.details = layoutCalculations)
+
     page.layout <- layoutCalculations$page.layout
     pos.heights <- layoutCalculations$pos.heights
     pos.widths <- layoutCalculations$pos.widths

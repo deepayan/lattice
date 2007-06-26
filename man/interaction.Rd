@@ -81,6 +81,10 @@ trellis.panelArgs(x, packet.number)
     names only, and only accept the values explicitly listed above.
     \code{trellis.grobname} is meant to create names for grobs, and can
     currently accept any value.
+
+    If \code{name}, as well as \code{column} and \code{row} is missing
+    in a call to \code{trellis.focus}, the user can click inside a panel
+    (or an associated strip) to focus on that panel.
   }
   \item{column, row}{
     integers, indicating position of the panel or strip that should be
