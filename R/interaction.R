@@ -294,6 +294,10 @@ trellis.panelArgs <-
 ### trellis.clickFocus() and panel.identify.qqmath() are based on
 ### contributions by Felix Andrews <felix@nfrac.org> (2007/06/21)
 
+
+### click on a panel to focus on it.  trellis.clickFocus is not
+### exported, but used by trellis.focus() when 'name' etc. is missing.
+
 trellis.clickFocus <-
     function(clip.off = FALSE,
              highlight = interactive(),
@@ -328,7 +332,7 @@ trellis.clickFocus <-
 }
 
 
-
+### wrapper around panel.identify meant to work with qqmath.
 
 panel.identify.qqmath <-
     function(x = panel.args$x,
@@ -384,6 +388,67 @@ panel.identify.qqmath <-
 
 
 
+### `brushing' for splom
 
+panel.brush.splom <-
+    function(threshold = 18, verbose = getOption("verbose"), ...)
+{
+    while (splom.brushPoint(threshold = threshold, verbose = verbose, ...)) {}
+}
 
+splom.brushPoint <-
+    function(pargs = trellis.panelArgs(),
+             threshold = 18,
+             col = 'black', pch = 16, cex = 1, ...,
+             verbose = getOption("verbose"))
+{
+    if (verbose) message("Click to choose one point to highlight")
+    ll <- grid.locator(unit = "npc")
+    if (is.null(ll)) return(FALSE)
+    nvars <- length(pargs$z)
+    ## which subpanel
+    colpos <- ceiling(convertUnit(ll$x, "npc", valueOnly = TRUE) * nvars)
+    rowpos <- ceiling(convertUnit(ll$y, "npc", valueOnly = TRUE) * nvars)
+    if (rowpos == colpos) return(TRUE)
+    subpanel.name <- paste("subpanel", colpos, rowpos, sep = ".")
+    ## coordinates of click in subpanel
+    ll$x <- nvars * (ll$x - unit((colpos-1) / nvars, "npc"))
+    ll$y <- nvars * (ll$y - unit((rowpos-1) / nvars, "npc"))
+    ## get to that viewport, so we can convert units
+    depth <- downViewport(subpanel.name)
+    xnative <- convertX(ll$x, "native", TRUE)
+    ynative <- convertY(ll$y, "native", TRUE)
+    ## find nearest point in data (replicate steps in panel.identify)
+    xpoints <- convertX(unit(xnative, "native"), "points", TRUE)
+    ypoints <- convertY(unit(ynative, "native"), "points", TRUE)
+    data.xp <- convertX(unit(pargs$z[, colpos], "native"), "points", TRUE)
+    data.yp <- convertY(unit(pargs$z[, rowpos], "native"), "points", TRUE)
+    pdists <- sqrt((data.xp - xpoints)^2 + (data.yp - ypoints)^2)
+    if (min(pdists, na.rm = TRUE) > threshold)
+    {
+        if (verbose) warning("no points within ", threshold, " points of click")
+        upViewport(depth)
+    }
+    else
+    {
+        w <- which.min(pdists)
+        if (verbose) print(pargs$z[w,])
+        upViewport(depth)
+        for (row in 1:nvars)
+        for (column in 1:nvars)
+            if (row != column)
+            {
+                subpanel.name <-
+                    paste("subpanel",
+                          column, row, sep = ".")
+                depth <- downViewport(subpanel.name)
+                panel.points(x = pargs$z[w, column],
+                             y = pargs$z[w, row],
+                             pch = pch, col = col, cex = cex,
+                             ...)
+                upViewport(depth)
+            }
+    }
+    return(TRUE)
+}
 
