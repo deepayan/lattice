@@ -191,6 +191,7 @@ export(
        
        panel.identify,
        panel.identify.qqmath,
+       panel.brush.splom,
        trellis.focus,
        trellis.unfocus,
        trellis.switchFocus,
