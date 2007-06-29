@@ -399,7 +399,7 @@ panel.brush.splom <-
 splom.brushPoint <-
     function(pargs = trellis.panelArgs(),
              threshold = 18,
-             col = 'black', pch = 16, cex = 1, ...,
+             col = 'black', pch = 16, cex = 0.8, ...,
              verbose = getOption("verbose"))
 {
     if (verbose) message("Click to choose one point to highlight")

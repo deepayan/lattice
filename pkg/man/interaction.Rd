@@ -1,6 +1,7 @@
 \name{interaction}
 \alias{panel.identify}
 \alias{panel.identify.qqmath}
+\alias{panel.brush.splom}
 \alias{trellis.focus}
 \alias{trellis.unfocus}
 \alias{trellis.switchFocus}
@@ -30,6 +31,8 @@ panel.identify(x, y = NULL,
 panel.identify.qqmath(x, distribution, groups, subscripts, labels,
                       panel.args = trellis.panelArgs(),
                       \dots)
+panel.brush.splom(threshold = 18, verbose = getOption("verbose"), \dots)
+
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
                "panel", "strip", "strip.left", "legend",
                "main", "sub", "xlab", "ylab", "page"),
@@ -135,13 +138,16 @@ trellis.panelArgs(x, packet.number)
     integer, which panel to get data from.  See
     \code{\link{packet.number}} for details on how this is calculated
   }
+  \item{verbose}{ whether details about points highlighted will be
+    printed }
   \item{\dots}{
     For \code{panel.identify.qqmath}, extra parameters are passed on to
     \code{panel.identify}.  For \code{panel.identify}, extra arguments
     are treated as graphical parameters and are used for labelling.  For
     \code{trellis.focus} and \code{trellis.switchFocus}, these are used
     (in combination with \code{\link{lattice.options}}) for highlighting
-    the chosen viewport if so requested.
+    the chosen viewport if so requested.  Graphical parameters can be
+    supplied for \code{panel.brush.splom}.
   }
 }
 
@@ -154,9 +160,14 @@ trellis.panelArgs(x, packet.number)
   plotting the whole object, in which case a call to
   \code{trellis.focus} first is necessary.
 
+  \code{panel.brush.splom} is meant for use with \code{\link{splom}},
+  and requires a panel to be chosen using \code{trellis.focus} before it
+  is called.  Clicking on a point causes that and the corresponding
+  proections in other pairwise scatter plots to be highlighted.
+
   \code{panel.identify.qqmath} is a specialized wrapper meant for use
   with the display produced by \code{\link{qqmath}}.
-
+  
   One way in which \code{panel.identify} etc. are different from
   \code{\link{identify}} is in how it uses the \code{subscripts}
   argument.  In general, when one identifies points in a panel, one

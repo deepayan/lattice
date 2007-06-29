@@ -739,6 +739,7 @@ lattice.options <- function(...)
 
 .defaultLatticeOptions <- function()
     list(save.object = TRUE,
+         panel.error = "panel.error",
          drop.unused.levels = list(cond = TRUE, data = TRUE),
          default.theme = getOption("lattice.theme"), ## for back compatibility, usually NULL
          legend.bbox = "panel", ## for key$space = "inside"
