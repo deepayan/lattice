@@ -70,6 +70,8 @@ export(
        panel.parallel,
        panel.tmd.default, panel.tmd.qqmath,
        
+       panel.error,
+
        ## Components for use in custom panel functions:
 
        ## superposition (usually unnecessary)

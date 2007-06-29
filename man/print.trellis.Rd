@@ -4,6 +4,7 @@
 \alias{summary.trellis}
 \alias{dim.trellis}
 \alias{dimnames.trellis}
+\alias{panel.error}
 \title{Plot and Summarize Trellis Objects}
 \usage{
 \method{print}{trellis}(x, position, split,
@@ -13,6 +14,7 @@
       panel.height = lattice.getOption("layout.heights")$panel,
       panel.width = lattice.getOption("layout.widths")$panel,
       save.object = lattice.getOption("save.object"),
+      panel.error = lattice.getOption("panel.error"),
       prefix,
       \dots)
 \method{plot}{trellis}(x, \dots)
@@ -21,6 +23,9 @@
 
 \method{dim}{trellis}(x)
 \method{dimnames}{trellis}(x)
+
+panel.error(e)
+
 }
 \description{
   The \code{print} and \code{plot} methods produce a graph from a
@@ -29,6 +34,8 @@
   an alias, provided for convenience.  The \code{summary} method
   gives a textual summary of the object.  \code{dim} and \code{dimnames}
   describe the cross-tabulation induced by conditioning.
+  \code{panel.error} is the default handler used when an error occurs
+  while executing the panel function.
 }
 
 
@@ -96,6 +103,15 @@
     assigned to a variable explicitly.  For more details, see
     \code{\link{trellis.focus}}.
   }
+  \item{panel.error}{
+    a function, or a character string naming a function, that is to be
+    executed when an error occurs during the execution of the panel
+    function.  The error is caught (using \code{\link{tryCatch}}) and
+    supplied as the only argument to \code{panel.error}.  The default
+    behaviour (implemented as the the \code{panel.error} function) is to
+    print the corresponding error message in the panel and continue.  To
+    stop execution on error, use \code{panel.error = stop}.
+  }
   \item{prefix}{
     character string used as a prefix in viewport and grob names, used
     to distinguish similar viewports if a page contains multiple plots. 
@@ -106,6 +122,7 @@
     start with a letter or a period followed by a letter) and must not
     contain the grid path separator (currently \code{"::"}).
   }
+  \item{e}{ an error condition caught by \code{\link{tryCatch}}}
   \item{\dots}{
     extra arguments, ignored by the \code{print} method.  All arguments
     to the \code{plot} method are passed on to the \code{print} method.
