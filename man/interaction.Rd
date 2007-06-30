@@ -41,7 +41,8 @@ trellis.vpname(name = c("position", "split", "split.location", "toplevel",
                clip.off = FALSE, prefix)
 trellis.grobname(name, prefix)
 trellis.focus(name, column, row, side, clip.off,
-              highlight = interactive(), \dots)
+              highlight = interactive(), \dots,
+              guess = TRUE, verbose = getOption("verbose"))
 trellis.switchFocus(name, side, clip.off, highlight, \dots)
 trellis.unfocus()
 trellis.panelArgs(x, packet.number)
@@ -103,6 +104,11 @@ trellis.panelArgs(x, packet.number)
     from the bottom up, unless the plot was created with
     \code{as.table=TRUE}
   }
+  \item{guess}{
+    logical.  If \code{TRUE}, and the display has only one panel, that
+    panel will be automatically selected by a call to
+    \code{trellis.focus}.
+  }
   \item{side}{
     character string, relevant only for legends (i.e. when
     \code{name="legend"}), indicating their position.  Partial specification
@@ -138,8 +144,7 @@ trellis.panelArgs(x, packet.number)
     integer, which panel to get data from.  See
     \code{\link{packet.number}} for details on how this is calculated
   }
-  \item{verbose}{ whether details about points highlighted will be
-    printed }
+  \item{verbose}{ whether details  will be printed }
   \item{\dots}{
     For \code{panel.identify.qqmath}, extra parameters are passed on to
     \code{panel.identify}.  For \code{panel.identify}, extra arguments
