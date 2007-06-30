@@ -29,19 +29,19 @@ assign("last.object",     NULL,   env = .LatticeEnv)
 
 experimentalOptions <- function()
     list(layout.heights =
-         list(top.padding = list(x = 0.1, units = "char", data = NULL),
-              main.key.padding = list(x = 0.1, units = "char", data = NULL),
-              key.axis.padding = list(x = 0.1, units = "char", data = NULL),
-              axis.xlab.padding = list(x = 0.1, units = "char", data = NULL),
-              xlab.key.padding = list(x = 0.1, units = "char", data = NULL),
-              key.sub.padding = list(x = 0.1, units = "char", data = NULL),
-              bottom.padding = list(x = 0.1, units = "char", data = NULL)),
+         list(top.padding = list(x = 0.5, units = "char", data = NULL),
+              main.key.padding = list(x = 0.5, units = "char", data = NULL),
+              key.axis.padding = list(x = 0.5, units = "char", data = NULL),
+              axis.xlab.padding = list(x = 0.5, units = "char", data = NULL),
+              xlab.key.padding = list(x = 0.5, units = "char", data = NULL),
+              key.sub.padding = list(x = 0.5, units = "char", data = NULL),
+              bottom.padding = list(x = 0.5, units = "char", data = NULL)),
          layout.widths =
-         list(left.padding = list(x = 0.1, units = "char", data = NULL),
-              key.ylab.padding = list(x = 0.1, units = "char", data = NULL),
-              ylab.axis.padding = list(x = 0.1, units = "char", data = NULL),
-              axis.key.padding = list(x = 0.1, units = "char", data = NULL),
-              right.padding = list(x = 0.1, units = "char", data = NULL))
+         list(left.padding = list(x = 0.5, units = "char", data = NULL),
+              key.ylab.padding = list(x = 0.5, units = "char", data = NULL),
+              ylab.axis.padding = list(x = 0.5, units = "char", data = NULL),
+              axis.key.padding = list(x = 0.5, units = "char", data = NULL),
+              right.padding = list(x = 0.5, units = "char", data = NULL))
          )
 
 
