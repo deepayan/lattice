@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2007-05-29 12:28\n"
+"POT-Creation-Date: 2007-06-29 18:41\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -133,6 +133,28 @@ msgstr "le graphe actuel n'a pas été souvegardé, impossible de restaurer les don
 
 msgid "you have to first select a panel using trellis.focus()"
 msgstr "vous devez d'abord sélectionner un panneau avec trellis.focus()"
+
+msgid "Selecting panel at position (%g, %g)"
+msgstr ""
+
+msgid "No panels available"
+msgstr ""
+
+msgid "Click on panel to focus"
+msgstr ""
+
+msgid "'f.value' not supported; ignoring"
+msgstr ""
+
+msgid "Click to choose one point to highlight"
+msgstr ""
+
+#, fuzzy
+msgid "no points within"
+msgstr "aucun point dans"
+
+msgid "points of click"
+msgstr ""
 
 msgid "component '%s' duplicated in key and legend"
 msgstr "la composante '%s' est redondante dans 'key' et 'legend'"

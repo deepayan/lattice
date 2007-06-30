@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.3.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2007-06-19 17:07\n"
+"POT-Creation-Date: 2007-06-29 18:53\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,6 +126,27 @@ msgid "current plot was not saved, can't retrieve panel data"
 msgstr ""
 
 msgid "you have to first select a panel using trellis.focus()"
+msgstr ""
+
+msgid "Selecting panel at position (%g, %g)"
+msgstr ""
+
+msgid "No panels available"
+msgstr ""
+
+msgid "Click on panel to focus"
+msgstr ""
+
+msgid "'f.value' not supported; ignoring"
+msgstr ""
+
+msgid "Click to choose one point to highlight"
+msgstr ""
+
+msgid "no points within"
+msgstr ""
+
+msgid "points of click"
 msgstr ""
 
 msgid "component '%s' duplicated in key and legend"
