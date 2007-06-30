@@ -23,11 +23,23 @@ new features
    or 'panel', meaning the subregion containing panels and strips.
    The default is 'panel', which is a change in behaiour)
 
+ o trellis.focus() now allows choosing panels interactively.
+
+ o New interaction functions panel.identify.qqmath() and
+   panel.brush.splom()
+
+ o There is now an error handling mechanism for panel functions.  By
+   default, errors in panel functions no longer stop execution.  See 
+   ?print.trellis for details.
+
 
 changes in behaviour
 --------------------
 
  o non-numeric data no longer cause warnings in bwplot
+
+ o the default padding between components has been changed to 
+   0.5 "chars"
 
 
 
