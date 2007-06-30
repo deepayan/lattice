@@ -133,6 +133,10 @@ diag.panel.splom(x = NULL,
   \code{panel.pairs} is the function that is actually passed in as the
   \code{panel} function in a trellis object produced by splom (taking
   the \code{panel} function as its argument).
+
+  Note that the axis labeling does not support date-time classes at
+  present.
+
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
