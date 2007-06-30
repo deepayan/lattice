@@ -93,11 +93,11 @@ panel.levelplot <-
              col = add.line$col,
              lty = add.line$lty,
              lwd = add.line$lwd,
-             cex = add.text$cex,
-             font = add.text$font,
-             fontfamily = add.text$fontfamily,
-             fontface = add.text$fontface,
-             col.text = add.text$col,
+##              cex = add.text$cex,
+##              font = add.text$font,
+##              fontfamily = add.text$fontfamily,
+##              fontface = add.text$fontface,
+##              col.text = add.text$col,
              ...,
              col.regions = regions$col,
              alpha.regions = regions$alpha)
@@ -215,8 +215,9 @@ panel.levelplot <-
         {
             if (is.logical(labels)) labels <- format(at, trim = TRUE)
             text <- trellis.par.get("add.text") # something better ?
-            tmp <- list(label = if (is.list(labels)) labels[[1]] else labels,
-                        col = text$col, rot = text$rot,
+            tmp <- list(labels = if (is.list(labels)) labels[[1]] else labels,
+                        col = text$col, 
+                        alpha = text$alpha,
                         cex = text$cex,
                         fontfamily = text$fontfamily,
                         fontface = text$fontface,
@@ -225,8 +226,8 @@ panel.levelplot <-
                 updateList(tmp,
                            if (is.list(labels)) labels
                            else list()) # FIXME: risky
-            if (!is.characterOrExpression(labels$label))
-                labels$label <- format(at)
+            if (!is.characterOrExpression(labels$labels))
+                labels$labels <- format(at)
         }
 
         add.line <- trellis.par.get("add.line")
@@ -306,7 +307,6 @@ panel.levelplot <-
                         textloc <- which.min(abs(slopes))
                         rotangle <- 0
 
-
                         if (depth[textloc] < .05 ) {
                             textloc <- min(which.max(depth), length(slopes))
                             rotangle <- atan(asp * slopes[textloc] * diff(rx) / diff(ry)) * 180 / base::pi
@@ -316,9 +316,10 @@ panel.levelplot <-
 
                     i <- match(val$level, at)
 
-                    ltext(lab = labels$lab[i], adj = c(.5, 0),
+                    ltext(lab = labels$labels[i], adj = c(.5, 0),
                           srt = rotangle,
                           col = labels$col,
+                          alpha = labels$alpha,
                           cex = labels$cex,
                           font = labels$font,
                           fontfamily = labels$fontfamily,

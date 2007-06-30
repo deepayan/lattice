@@ -17,11 +17,11 @@ panel.levelplot(x, y, z,
                 col = add.line$col,
                 lty = add.line$lty,
                 lwd = add.line$lwd,
-                cex = add.text$cex,
-                font = add.text$font,
-                fontfamily = add.text$fontfamily,
-                fontface = add.text$fontface,
-                col.text = add.text$col,
+%                 cex = add.text$cex,
+%                 font = add.text$font,
+%                 fontfamily = add.text$fontfamily,
+%                 fontface = add.text$fontface,
+%                 col.text = add.text$col,
                 \dots,
                 col.regions = regions$col,
                 alpha.regions = regions$alpha)
@@ -45,9 +45,35 @@ panel.contourplot(\dots)
     length 2 numeric vector gives the minimum and maximum proportion of
     shrinkage (corresponding to min and max of z).
   }
-  \item{labels}{contour labels}
+  \item{labels}{
+    either a logical scalar indicating whether the labels are to be
+    drawn, or a character or expression vector giving the labels
+    associated with the \code{at} values.  Alternatively, \code{labels}
+    can be a list with the following components:
+    
+    \describe{
+    
+      \item{\code{labels}:}{ a character or expression vector giving the
+	labels.  This can be omitted, in which case the defaults will be
+	used. }
+
+      \item{\code{col, cex, alpha}:}{ graphical parameters for label
+	texts }
+
+      \item{\code{fontfamily, fontface, font}:}{ font used for the
+	labels }
+    }
+    
+  }
   \item{label.style}{
-    controls choice of how label positions are determined.
+    controls how label positions and rotation are determined.  A value
+    of \code{"flat"} causes the label to be positioned where the contour
+    is flattest, and the label is not rotated.  A value of
+    \code{"align"} causes the label to be drawn as far from the
+    boundaries as possible, and the label is rotated to align with the
+    contour at that point.  The default is to mix these approaches,
+    preferring the flattest location unless it is too close to the
+    boundaries.
   }
   \item{contour}{
     logical, specifying whether contour lines should be
@@ -58,7 +84,7 @@ panel.contourplot(\dots)
     with the appropriate color
   }
   \item{col, lty, lwd}{ graphical parameters for contour lines}
-  \item{cex, col.text, font, fontfamily, fontface}{ graphical parameters for contour labels}
+%   \item{cex, col.text, font, fontfamily, fontface}{ graphical parameters for contour labels}
   \item{\dots}{ extra parameters }
   \item{col.regions}{
     a vector of colors used if \code{region=TRUE}.  Usually a subset of

@@ -130,8 +130,9 @@ contourplot(x, data, \dots)
 
       \item{\code{labels}:}{
         a character vector for labelling the \code{at} values, or more
-        commonly, a list of components \code{labels, at, cex, col,
-          font} describing label positions.
+        commonly, a list of components (e.g. some of \code{labels},
+	\code{at}, \code{cex}, \code{col} and \code{font}) describing
+	label positions.
       }
 
       \item{\code{tick.number}:}{ approximate number of ticks. }
@@ -150,10 +151,12 @@ contourplot(x, data, \dots)
     number of levels the range of \code{z} would be divided into
   }
   \item{labels}{
-    logical specifying whether contour lines should be labelled, or
-    character vector of labels for contour lines. The type of labelling
-    can be controlled by the \code{label.style} argument, which is
-    passed on to \code{\link{panel.levelplot}}
+    typically a logical indicating whether contour lines should be
+    labelled, but other possibilities for more sophisticated control
+    exists.  Details are documented in the help page for
+    \code{\link{panel.levelplot}}, to which this argument is passed on
+    unchanged.  That help page also documents the \code{label.style}
+    argument, which affects how the labels are rendered.
   }
   \item{pretty}{
     logical, whether to use pretty cut locations and labels
