@@ -342,6 +342,7 @@ trellis.clickFocus <-
         focusCol <- ceiling(clickXScaled * ncol(layoutMatrix))
         clickYScaled <- (as.numeric(clickLoc$y) - botPad) / (1 - botPad - topPad)
         focusRow <- ceiling(clickYScaled * nrow(layoutMatrix))
+        if (lattice.getStatus("as.table")) focusRow <- nrow(layoutMatrix) - focusRow + 1
     }
     if ((focusCol >= 1) && (focusCol <= ncol(layoutMatrix)) &&
         (focusRow >= 1) && (focusRow <= nrow(layoutMatrix)) &&
@@ -350,6 +351,10 @@ trellis.clickFocus <-
         trellis.focus("panel", column = focusCol, row = focusRow,
                       clip.off = clip.off, highlight = highlight,
                       ...)
+    }
+    else
+    {
+        focusCol <- focusRow <- 0
     }
     invisible(list(col=focusCol, row=focusRow))
 }
@@ -371,8 +376,6 @@ panel.identify.qqmath <-
     labels <- as.character(labels)
     if (length(labels) > length(subscripts))
         labels <- labels[subscripts]
-    str(subscripts)
-    str(labels)
     if (!is.null(panel.args$f.value)) warning("'f.value' not supported; ignoring")
     distribution <-
         if (is.function(distribution)) distribution 
@@ -416,7 +419,13 @@ panel.identify.qqmath <-
 panel.brush.splom <-
     function(threshold = 18, verbose = getOption("verbose"), ...)
 {
-    while (splom.brushPoint(threshold = threshold, verbose = verbose, ...)) {}
+    ans <- numeric(0)
+    repeat {
+        new <- splom.brushPoint(threshold = threshold, verbose = verbose, ...)
+        if (is.null(new)) break
+        else ans[length(ans) + 1] <- new
+    }
+    ans
 }
 
 splom.brushPoint <-
@@ -427,12 +436,12 @@ splom.brushPoint <-
 {
     if (verbose) message("Click to choose one point to highlight")
     ll <- grid.locator(unit = "npc")
-    if (is.null(ll)) return(FALSE)
+    if (is.null(ll)) return(NULL)
     nvars <- length(pargs$z)
     ## which subpanel
     colpos <- ceiling(convertUnit(ll$x, "npc", valueOnly = TRUE) * nvars)
     rowpos <- ceiling(convertUnit(ll$y, "npc", valueOnly = TRUE) * nvars)
-    if (rowpos == colpos) return(TRUE)
+    if (rowpos == colpos) return(numeric(0))
     subpanel.name <- paste("subpanel", colpos, rowpos, sep = ".")
     ## coordinates of click in subpanel
     ll$x <- nvars * (ll$x - unit((colpos-1) / nvars, "npc"))
@@ -451,6 +460,7 @@ splom.brushPoint <-
     {
         if (verbose) warning("no points within ", threshold, " points of click")
         upViewport(depth)
+        return(numeric(0))
     }
     else
     {
@@ -471,7 +481,7 @@ splom.brushPoint <-
                              ...)
                 upViewport(depth)
             }
+        return(w)
     }
-    return(TRUE)
 }
 
