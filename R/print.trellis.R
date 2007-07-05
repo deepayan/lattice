@@ -139,9 +139,9 @@ plot.trellis <-
 
 panel.error <- function(e)
 {
-    grid.text(sprintf("Error using packet %g\n%s",
-                      panel.number(),
-                      conditionMessage(e)))
+    grid.text(gettextf("Error using packet %g\n%s",
+                       panel.number(),
+                       conditionMessage(e)))
 }
 
 
@@ -598,6 +598,7 @@ print.trellis <-
                             par.strip.text,
                             legend)
     lattice.setStatus(layout.details = layoutCalculations)
+    lattice.setStatus(as.table = x$as.table)
 
     page.layout <- layoutCalculations$page.layout
     pos.heights <- layoutCalculations$pos.heights

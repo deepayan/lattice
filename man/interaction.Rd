@@ -263,6 +263,14 @@ trellis.panelArgs(x, packet.number)
 
   \code{trellis.vpname} and \code{trellis.grobname} return character
   strings.
+
+  \code{trellis.focus} has a meaningful return value only if it has been
+  used to focus on a panel interactively, in which case the return value
+  is a list with components \code{col} and \code{row} giving the column
+  and row positions respectively of the chosen panel, unless the choice
+  was cancelled (by a right click), in which case the return value is
+  \code{NULL}.  If click was outside a panel, both \code{col} and
+  \code{row} are set to 0.
 }
   
 \note{
