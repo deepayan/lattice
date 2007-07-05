@@ -4,6 +4,7 @@
 \alias{wireframe}
 \alias{cloud.formula}
 \alias{cloud.matrix}
+\alias{cloud.table}
 \alias{wireframe.formula}
 \alias{wireframe.matrix}
 \usage{
@@ -65,6 +66,11 @@ wireframe(x, data, \dots)
 %           col.regions)
 \method{cloud}{matrix}(x, data = NULL, type = "h", 
       zlab = deparse(substitute(x)), aspect, \dots)
+
+\method{cloud}{table}(x, data = NULL, groups = FALSE,
+      zlab = deparse(substitute(x)),
+      type = "h", \dots)
+
 \method{wireframe}{matrix}(x, data = NULL,
           zlab = deparse(substitute(x)), aspect, \dots)
 }
@@ -114,7 +120,11 @@ wireframe(x, data, \dots)
     xlim, ylab, ylim, drop.unused.levels, lattice.options,
     default.scales, subset}{
     These arguments are documented in the help page for
-    \code{\link{xyplot}}.
+    \code{\link{xyplot}}.  For the \code{cloud.table} method,
+    \code{groups} must be a logical indicating whether the last
+    dimension should be used as a grouping variable as opposed to a
+    conditioning variable.  This is only relevant if the table has more
+    than 2 dimensions.
   }
   \item{type}{
     type of display in \code{cloud} (see \code{\link{panel.3dscatter}}
@@ -333,6 +343,15 @@ wireframe(z ~ x * y, data = g, groups = gr,
 
 cloud(Sepal.Length ~ Petal.Length * Petal.Width | Species, data = iris,
       screen = list(x = -90, y = 70), distance = .4, zoom = .6)
+
+## cloud.table
+
+cloud(prop.table(Titanic, margin = 1:3),
+      type = c("p", "h"), strip = strip.custom(strip.names = TRUE),
+      scales = list(arrows = FALSE, distance = 2), panel.aspect = 0.7,
+      zlab = "Proportion")[, 1]
+
+## transparent axes
 
 par.set <-
     list(axis.line = list(col = "transparent"),
