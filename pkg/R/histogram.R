@@ -151,7 +151,6 @@ histogram <- function(x, data, ...) UseMethod("histogram")
 histogram.factor <- histogram.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent())
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -159,9 +158,7 @@ histogram.factor <- histogram.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::histogram)
-    ans <- eval.parent(ccall)
-    ans$call <- ocall
-    ans
+    eval.parent(ccall)
 }
 
 
@@ -260,7 +257,7 @@ histogram.formula <-
                           
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent())
+    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(histogram)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 

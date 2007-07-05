@@ -367,7 +367,7 @@ contourplot.formula <-
              region = FALSE,
              ...)
 {
-    ocall <- sys.call(sys.parent())
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(contourplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -513,7 +513,7 @@ levelplot.formula <-
     
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent())
+    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(levelplot)
 
     ## Step 2: Compute scales.common (excluding limits)
 

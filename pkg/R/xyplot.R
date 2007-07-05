@@ -281,7 +281,8 @@ xyplot.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent())
+    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(xyplot)
+    ## This is NOT OK: foo$call <- sys.call(); foo$call[[1]] <- quote(xyplot)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
