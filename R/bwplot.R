@@ -792,7 +792,6 @@ dotplot <- function(x, data, ...) UseMethod("dotplot")
 dotplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent())
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -800,22 +799,15 @@ dotplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::dotplot)
-    ans <- eval.parent(ccall)
-    ans$call <- ocall
-    ans
+    eval.parent(ccall)
 }
-
-
 
 
 
 dotplot.table <-
     function(x, data = NULL, groups = TRUE, ...)
 {
-    formula <- x
-    ocall <- sys.call(sys.parent())
-    ## formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    data <- as.data.frame(formula)
+    data <- as.data.frame(x)
     nms <- names(data)
     freq <- which(nms == "Freq")
     nms <- nms[-freq]
@@ -834,11 +826,7 @@ dotplot.table <-
         rest <- paste(nms, collapse = "+")
         form <- paste(form, rest, sep = "|")
     }
-    ans <-
-        dotplot(as.formula(form), data, groups = eval(groups),
-                 ...)
-    ans$call <- ocall
-    ans
+    dotplot(as.formula(form), data, groups = eval(groups), ...)
 }
 
 
@@ -853,7 +841,7 @@ dotplot.formula <-
              panel = lattice.getOption("panel.dotplot"),
              ...)
 {
-    ocall <- sys.call(sys.parent())
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(dotplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -870,7 +858,6 @@ barchart <- function(x, data, ...) UseMethod("barchart")
 barchart.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent())
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -878,9 +865,7 @@ barchart.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::barchart)
-    ans <- eval.parent(ccall)
-    ans$call <- ocall
-    ans
+    eval.parent(ccall)
 }
 
 
@@ -890,11 +875,8 @@ barchart.table <-
     function(x, data = NULL, groups = TRUE,
              origin = 0, stack = TRUE, ...)
 {
-    formula <- x
-    ocall <- sys.call(sys.parent())
     if (!is.null(data)) warning("explicit 'data' specification ignored")
-    ## formula <- eval(substitute(~foo, list(foo = substitute(formula))))
-    data <- as.data.frame(formula)
+    data <- as.data.frame(x)
     nms <- names(data)
     freq <- which(nms == "Freq")
     nms <- nms[-freq]
@@ -913,14 +895,11 @@ barchart.table <-
         rest <- paste(nms, collapse = "+")
         form <- paste(form, rest, sep = "|")
     }
-    ans <-
-        barchart(as.formula(form), data,
-                 groups = eval(groups),
-                 ##groups = groups,
-                 origin = origin, stack = stack, 
-                 ...)
-    ans$call <- ocall
-    ans
+    barchart(as.formula(form), data,
+             groups = eval(groups),
+             ##groups = groups,
+             origin = origin, stack = stack, 
+             ...)
 }
 
 barchart.default <- function(x, data = NULL, ...) barchart(table(x), data, ...)
@@ -935,7 +914,7 @@ barchart.formula <-
              box.ratio = 2, 
              ...)
 {
-    ocall <- sys.call(sys.parent())
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -953,7 +932,6 @@ stripplot <- function(x, data, ...)  UseMethod("stripplot")
 stripplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent())
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -961,9 +939,7 @@ stripplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::stripplot)
-    ans <- eval.parent(ccall)
-    ans$call <- ocall
-    ans
+    eval.parent(ccall)
 }
 
 
@@ -974,7 +950,7 @@ stripplot.formula <-
              panel = lattice.getOption("panel.stripplot"),
              ...)
 {
-    ocall <- sys.call(sys.parent())
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(stripplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -996,7 +972,6 @@ bwplot <- function(x, data, ...) UseMethod("bwplot")
 bwplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent())
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -1004,9 +979,7 @@ bwplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::bwplot)
-    ans <- eval.parent(ccall)
-    ans$call <- ocall
-    ans
+    eval.parent(ccall)
 }
 
 
@@ -1138,7 +1111,7 @@ bwplot.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent())
+    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(bwplot)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 

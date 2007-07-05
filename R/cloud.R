@@ -1387,7 +1387,7 @@ wireframe.formula <-
              panel = lattice.getOption("panel.wireframe"),
              ...)
 {
-    ocall <- sys.call(sys.parent())
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(wireframe)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -1429,6 +1429,45 @@ cloud.matrix <-
 ##           default.scales = default.scales,
           ...)
 }
+
+
+
+cloud.table <-
+    function(x, data = NULL, groups = FALSE,
+             zlab = deparse(substitute(x)),
+             type = "h", ...)
+{
+    stopifnot(length(dim(x)) > 1)
+    data <- as.data.frame(x)
+    nms <- names(data)
+    freq <- which(nms == "Freq")
+    nms <- nms[-freq]
+    form <- sprintf("Freq ~ %s * %s", nms[1], nms[2])
+    nms <- nms[-c(1, 2)]
+    len <- length(nms)
+    if (is.logical(groups) && groups && len > 0)
+    {
+        groups <- as.name(nms[len])
+        nms <- nms[-len]
+        len <- length(nms)
+    }
+    else groups <- NULL
+    if (len > 0)
+    {
+        rest <- paste(nms, collapse = "+")
+        form <- paste(form, rest, sep = "|")
+    }
+    cloud(as.formula(form), data,
+          groups = eval(groups),
+          zlab = zlab,
+          type = type, ...,
+          default.scales =
+          list(x = list(arrows = FALSE),
+               y = list(arrows = FALSE)))
+}
+
+
+
 
 
 cloud.formula <-
@@ -1575,7 +1614,7 @@ cloud.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent())
+    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(cloud)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
