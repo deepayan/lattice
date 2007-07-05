@@ -206,7 +206,7 @@ tmd.trellis <-
     ## One special case is qqmath, which is treated differently.  May
     ## modify this for others if there's demand.
 
-    qqmath <- object$call[[1]] == quote(qqmath.formula) ## bad hack
+    qqmath <- object$call[[1]] == quote(qqmath) ## FIXME bad hack (use class(x) = c("trellis", "qqmath") instead?)
     object$xlab.default <- gettext("mean")
     object$ylab.default <- gettext("difference")
 
