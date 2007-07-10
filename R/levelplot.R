@@ -338,13 +338,16 @@ contourplot <- function(x, data, ...) UseMethod("contourplot")
 
 
 contourplot.matrix <-
-    function(x, data = NULL, aspect = "iso", ...)
+    function(x, data = NULL, aspect = "iso", 
+             ...,
+             row.values = seq_len(nrow(x)),
+             column.values = seq_len(ncol(x)))
 {
+    stopifnot(length(row.values) == nrow(x),
+              length(column.values) == ncol(x))
     if (!missing(data)) warning("explicit 'data' specification ignored")
     form <- z ~ row * column
-    data <-
-        expand.grid(row = seq_len(nrow(x)),
-                    column = seq_len(ncol(x)))
+    data <- expand.grid(row = row.values, column = column.values)
     data$z <- as.vector(as.numeric(x))
     ## if rownames/colnames are non-null, make them factors
     if (!is.null(rownames(x)))
@@ -388,13 +391,16 @@ contourplot.formula <-
 levelplot <- function(x, data, ...) UseMethod("levelplot")
 
 levelplot.matrix <-
-    function(x, data = NULL, aspect = "iso", ...)
+    function(x, data = NULL, aspect = "iso",
+             ...,
+             row.values = seq_len(nrow(x)),
+             column.values = seq_len(ncol(x)))
 {
+    stopifnot(length(row.values) == nrow(x),
+              length(column.values) == ncol(x))
     if (!missing(data)) warning("explicit 'data' specification ignored")
     form <- z ~ row * column
-    data <-
-        expand.grid(row = seq_len(nrow(x)),
-                    column = seq_len(ncol(x)))
+    data <- expand.grid(row = row.values, column = column.values)
     data$z <- as.vector(as.numeric(x))
     ## if rownames/colnames are non-null, make them factors
     if (!is.null(rownames(x)))
