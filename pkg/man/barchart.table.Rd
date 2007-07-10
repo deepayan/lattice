@@ -9,7 +9,7 @@
 
 \usage{
 \method{barchart}{table}(x, data, groups = TRUE,
-         origin = 0, stack = TRUE, \dots)
+         origin = 0, stack = TRUE, \dots, horizontal = TRUE)
 
 \method{barchart}{array}(x, data, \dots)
 
@@ -43,6 +43,9 @@
   \item{origin, stack}{
     arguments to \code{panel.barchart} controlling the display.  The
     defaults for the \code{table} method are diffrent.
+  }
+  \item{horizontal}{ logical, indicating whether the bars should be
+    horizontal or vertical
   }
   \item{\dots}{ other arguments, passed to the underlying \code{formula}
     method.

@@ -873,14 +873,15 @@ barchart.numeric <-
 
 barchart.table <-
     function(x, data = NULL, groups = TRUE,
-             origin = 0, stack = TRUE, ...)
+             origin = 0, stack = TRUE, ..., horizontal = TRUE)
 {
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
     freq <- which(nms == "Freq")
     nms <- nms[-freq]
-    form <- paste(nms[1], "Freq", sep = "~")
+    form <- ## WAS paste(nms[1], "Freq", sep = "~")
+        sprintf(if (horizontal) "Freq ~ %s" else "%s ~ Freq", nms[1])
     nms <- nms[-1]
     len <- length(nms)
     if (is.logical(groups) && groups && len > 0)
