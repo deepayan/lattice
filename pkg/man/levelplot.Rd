@@ -46,8 +46,12 @@ contourplot(x, data, \dots)
             pretty = TRUE,
             region = FALSE,
             \dots)
-\method{levelplot}{matrix}(x, data = NULL, aspect = "iso", ...)
-\method{contourplot}{matrix}(x, data = NULL, aspect = "iso", ...)
+
+\method{levelplot}{matrix}(x, data = NULL, aspect = "iso", \dots,
+          row.values, column.values)
+
+\method{contourplot}{matrix}(x, data = NULL, aspect = "iso", \dots,
+            row.values, column.values)
 
 
 }
@@ -81,6 +85,11 @@ contourplot(x, data, \dots)
     \code{subset}, if any) are to be evaluated.  Usually ignored with a
     warning in other cases.
   }
+  \item{row.values, columns.values}{ Optional vectors of values that
+    define the grid when \code{x} is a matrix.  \code{row.values} and
+    \code{column.values} must have the same lengths as \code{nrow(x)}
+    and \code{ncol(x)} respectively.  By default, row and column
+    numbers. }
   \item{panel}{
     panel function used to create the display, as described in
     \code{\link{xyplot}}
