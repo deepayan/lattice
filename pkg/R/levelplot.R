@@ -105,6 +105,8 @@ panel.levelplot <-
     if (length(subscripts) == 0) return()
     regions <- trellis.par.get("regions")
     label.style <- match.arg(label.style)
+    x.is.factor <- is.factor(x)
+    y.is.factor <- is.factor(y)
     x <- as.numeric(x)
     y <- as.numeric(y)
     z <- as.numeric(z)
@@ -159,34 +161,56 @@ panel.levelplot <-
         else min + (max - min) * (z - zl[1]) / diff(zl)
     }
 
-
-    ## sorted unique values of x 
-    ux <- sort(unique(x[!is.na(x)]))
-    ## actual box boundaries (x axis)
-    bx <-
-        if (length(ux) > 1)
-            c(3 * ux[1] - ux[2],
-              ux[-length(ux)] + ux[-1],
-              3 * ux[length(ux)] - ux[length(ux)-1]) / 2
-        else
-            ux + c(-.5, .5) * minXwid
-    ## dimension of rectangles
-    lx <- diff(bx)
-    ## centers of rectangles
-    cx <- (bx[-1] + bx[-length(bx)])/2
+    if (x.is.factor)
+    {
+        ## unique values
+        ux <- sort(unique(x[!is.na(x)]))
+        ## dimension of rectangles
+        lx <- rep(1, length(ux))
+        ## centers of rectangles
+        cx <- ux
+    }
+    else
+    {
+        ## sorted unique values of x 
+        ux <- sort(unique(x[!is.na(x)]))
+        ## actual box boundaries (x axis)
+        bx <-
+            if (length(ux) > 1)
+                c(3 * ux[1] - ux[2],
+                  ux[-length(ux)] + ux[-1],
+                  3 * ux[length(ux)] - ux[length(ux)-1]) / 2
+            else
+                ux + c(-.5, .5) * minXwid
+        ## dimension of rectangles
+        lx <- diff(bx)
+        ## centers of rectangles
+        cx <- (bx[-1] + bx[-length(bx)])/2
+    }
 
     ## same things for y
-    uy <- sort(unique(y[!is.na(y)]))
-    by <-
-        if (length(uy) > 1)
-            c(3 * uy[1] - uy[2],
-              uy[-length(uy)] + uy[-1],
-              3 * uy[length(uy)] - uy[length(uy)-1]) / 2
-        else
-            uy + c(-.5, .5) * minYwid
-    ly <- diff(by)
-    cy <- (by[-1] + by[-length(by)])/2
-
+    if (y.is.factor)
+    {
+        ## unique values
+        uy <- sort(unique(y[!is.na(y)]))
+        ## dimension of rectangles
+        ly <- rep(1, length(uy))
+        ## centers of rectangles
+        cy <- uy
+    }
+    else
+    {
+        uy <- sort(unique(y[!is.na(y)]))
+        by <-
+            if (length(uy) > 1)
+                c(3 * uy[1] - uy[2],
+                  uy[-length(uy)] + uy[-1],
+                  3 * uy[length(uy)] - uy[length(uy)-1]) / 2
+            else
+                uy + c(-.5, .5) * minYwid
+        ly <- diff(by)
+        cy <- (by[-1] + by[-length(by)])/2
+    }
 
     idx <- match(x, ux)
     idy <- match(y, uy)
