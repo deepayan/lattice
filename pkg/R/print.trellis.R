@@ -53,7 +53,8 @@ getLabelList <- function(label, text.settings, default.label = NULL)
         ans <-
             list(label = 
                  if (is.characterOrExpression(label)) label
-                 else if (is.list(label) && (is.null(names(label)) || names(label)[1] == "")) label[[1]]
+                 else if (is.list(label) && (is.null(names(label)) ||
+                                             names(label)[1] == "")) label[[1]]
                  else default.label,
                  col = text.settings$col, cex = text.settings$cex,
                  fontfamily = text.settings$fontfamily,
@@ -85,14 +86,50 @@ grobFromLabelList <- function(lab, name = "label", rot = 0)
 {
     if (is.null(lab) || (is.character(lab) && lab == "")) return (NULL)
     if (inherits(lab, "grob")) return(lab)
-    textGrob(label = lab$label, name= name, rot = rot,
-             gp =
-             gpar(col = lab$col,
-                  fontfamily = lab$fontfamily,
-                  fontface = chooseFace(lab$fontface, lab$font),
-                  lineheight = lab$lineheight,
-                  alpha = lab$alpha,
-                  cex = lab$cex))
+    process.lab <-
+        function(label, rot = rot,
+                 x = NULL, y = NULL,
+                 just = "centre",
+                 hjust = NULL, vjust = NULL,
+                 check.overlap = FALSE,
+                 font, fontfamily, fontface,
+                 ...)
+        {
+            ans <-
+                list(label = label, rot = rot, x = x, y = y,
+                     just = just, hjust = hjust, vjust = vjust,
+                     check.overlap = check.overlap)
+            ans$gplist <- 
+                gpar(fontfamily = fontfamily,
+                     fontface = chooseFace(fontface, font),
+                     ...)
+            ans
+        }
+    lab <- process.lab(lab)
+    if (is.null(lab$x))
+        lab$x <-
+            if (rot == 0) ppoints(n = length(lab$label), a = 0.5)
+            else 0.5 
+    if (is.null(lab$y))
+        lab$y <-
+            if (rot == 90) ppoints(n = length(lab$label), a = 0.5)
+            else 0.5
+    textGrob(label = lab$label,
+             x = lab$x,
+             y = lab$y,
+             name = name,
+             just = lab$just,
+             hjust = lab$hjust,
+             vjust = lab$vjust,
+             check.overlap = lab$check.overlap,
+             rot = lab$rot,
+             gp = lab$gplist)
+##     gpar(col = lab$col,
+##                   fontfamily = lab$fontfamily,
+##                   fontface = chooseFace(lab$fontface, lab$font),
+##                   lineheight = lab$lineheight,
+##                   alpha = lab$alpha,
+##                   cex = lab$cex))
 }
 
 
