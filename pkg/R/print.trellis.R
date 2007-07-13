@@ -81,18 +81,17 @@ drawInViewport <-
 
 
 
-
-grobFromLabelList <- function(lab, name = "label", rot = 0)
+grobFromLabelList <- function(lab, name = "label", orient = 0)
 {
     if (is.null(lab) || (is.character(lab) && lab == "")) return (NULL)
     if (inherits(lab, "grob")) return(lab)
     process.lab <-
-        function(label, rot = rot,
+        function(label, rot = orient,
                  x = NULL, y = NULL,
                  just = "centre",
                  hjust = NULL, vjust = NULL,
                  check.overlap = FALSE,
-                 font, fontfamily, fontface,
+                 font = NULL, fontfamily = NULL, fontface = NULL,
                  ...)
         {
             ans <-
@@ -105,14 +104,14 @@ grobFromLabelList <- function(lab, name = "label", rot = 0)
                      ...)
             ans
         }
-    lab <- process.lab(lab)
+    lab <- do.call(process.lab, lab)
     if (is.null(lab$x))
         lab$x <-
-            if (rot == 0) ppoints(n = length(lab$label), a = 0.5)
+            if (orient == 0) ppoints(n = length(lab$label), a = 0.5)
             else 0.5 
     if (is.null(lab$y))
         lab$y <-
-            if (rot == 90) ppoints(n = length(lab$label), a = 0.5)
+            if (orient == 90) ppoints(n = length(lab$label), a = 0.5)
             else 0.5
     textGrob(label = lab$label,
              x = lab$x,
@@ -124,12 +123,12 @@ grobFromLabelList <- function(lab, name = "label", rot = 0)
              check.overlap = lab$check.overlap,
              rot = lab$rot,
              gp = lab$gplist)
-##     gpar(col = lab$col,
-##                   fontfamily = lab$fontfamily,
-##                   fontface = chooseFace(lab$fontface, lab$font),
-##                   lineheight = lab$lineheight,
-##                   alpha = lab$alpha,
-##                   cex = lab$cex))
+    ##     gpar(col = lab$col,
+    ##                   fontfamily = lab$fontfamily,
+    ##                   fontface = chooseFace(lab$fontface, lab$font),
+    ##                   lineheight = lab$lineheight,
+    ##                   alpha = lab$alpha,
+    ##                   cex = lab$cex))
 }
 
 
@@ -604,7 +603,7 @@ print.trellis <-
         grobFromLabelList(getLabelList(x$ylab,
                                        trellis.par.get("par.ylab.text"),
                                        x$ylab.default),
-                          name = trellis.grobname("ylab"), rot = 90)
+                          name = trellis.grobname("ylab"), orient = 90)
 
 
     ## get par.strip.text

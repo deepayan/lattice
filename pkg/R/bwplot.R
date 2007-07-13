@@ -881,7 +881,7 @@ barchart.table <-
     freq <- which(nms == "Freq")
     nms <- nms[-freq]
     form <- ## WAS paste(nms[1], "Freq", sep = "~")
-        sprintf(if (horizontal) "Freq ~ %s" else "%s ~ Freq", nms[1])
+        sprintf(if (horizontal) "%s ~ Freq" else "Freq ~ %s", nms[1])
     nms <- nms[-1]
     len <- length(nms)
     if (is.logical(groups) && groups && len > 0)
