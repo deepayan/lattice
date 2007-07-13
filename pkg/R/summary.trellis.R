@@ -88,8 +88,16 @@ dimnames.trellis <- function(x)
     x$condlevels
 
 
-
-
-
+"dimnames<-.trellis" <- 
+    function (x, value)
+{
+    d <- dim(x)
+    if (!is.list(value) || length(value) != length(d))
+        stop("supplied 'dimnames' have wrong length")
+    if (!all(d == sapply(value, length)))
+        stop("some components of supplied 'dimnames' have wrong length")
+    x$condlevels <- value
+    x
+}
 
 
