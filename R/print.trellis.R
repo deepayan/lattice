@@ -61,7 +61,11 @@ getLabelList <- function(label, text.settings, default.label = NULL)
                  fontface = text.settings$fontface,
                  font = text.settings$font,
                  lineheight = text.settings$lineheight)
-        if (is.list(label)) ans[names(label)] <- label
+        if (is.list(label) && !is.null(names(label)))
+        {
+            if (names(label)[1] == "") label <- label[-1]
+            ans[names(label)] <- label
+        }
     }
     else ans <- NULL
     if (is.null(ans$lab) ||

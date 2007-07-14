@@ -132,13 +132,13 @@ axis.CF <-
     switch(side,
            left = {
                prettyF <- pretty(ylim)
-               labF <- parse(text = sprintf("%s ~ degree * F", prettyF))
+               labF <- parse(text = sprintf("\%s ~ degree * F", prettyF))
                panel.axis(side = side, outside = TRUE,
                           at = prettyF, labels = labF)
            },
            right = {
                prettyC <- pretty(F2C(ylim))
-               labC <- parse(text = sprintf("%s ~ degree * C", prettyC))
+               labC <- parse(text = sprintf("\%s ~ degree * C", prettyC))
                panel.axis(side = side, outside = TRUE,
                           at = C2F(prettyC), labels = labC)
            },
@@ -158,21 +158,21 @@ yscale.components.CF <-
     ans <- yscale.components.default(...)
     ans$right <- ans$left
     ans$left$labels$labels <-
-        parse(text = sprintf("%s ~ degree * F", ans$left$labels$at))
+        parse(text = sprintf("\%s ~ degree * F", ans$left$labels$at))
     prettyC <- pretty(F2C(ans$num.limit))
     ans$right$ticks$at <- C2F(prettyC)
     ans$right$labels$at <- C2F(prettyC)
     ans$right$labels$labels <-
-        parse(text = sprintf("%s ~ degree * C", prettyC))
+        parse(text = sprintf("\%s ~ degree * C", prettyC))
     ans
 }
       
+
 xyplot(nhtemp ~ time(nhtemp), aspect = "xy", type = "o",
        scales = list(y = list(alternating = 3)),
        yscale.components = yscale.components.CF,
        xlab = "Year", ylab = "Temperature", 
        main = "Yearly temperature in New Haven, CT")
-
 
 
 }

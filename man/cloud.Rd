@@ -117,7 +117,7 @@ wireframe(x, data, \dots)
     \code{subset}, if any) are to be evaluated.  \code{data} should not
     be specified except when using the \code{"formula"} method.
   }
-  \item{row.values, columns.values}{ Optional vectors of values that
+  \item{row.values, column.values}{ Optional vectors of values that
     define the grid when \code{x} is a matrix.  \code{row.values} and
     \code{column.values} must have the same lengths as \code{nrow(x)}
     and \code{ncol(x)} respectively.  By default, row and column

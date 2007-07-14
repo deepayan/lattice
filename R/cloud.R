@@ -1307,7 +1307,7 @@ panel.cloud <-
         ## supplied in the *lab lists
 
         xlab <-
-            grobFromLabelList(xlab, name = trellis.grobname("xlab")),
+            grobFromLabelList(xlab, name = trellis.grobname("xlab"))
 #                              rot = if (is.null(xlab$rot)) 0 else xlab$rot)
         ylab <-
             grobFromLabelList(ylab, name = trellis.grobname("ylab"))
