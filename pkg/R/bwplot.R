@@ -792,6 +792,7 @@ dotplot <- function(x, data, ...) UseMethod("dotplot")
 dotplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(dotplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -799,7 +800,9 @@ dotplot.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::dotplot)
-    eval.parent(ccall)
+    ans <- eval.parent(ccall)
+    ans$call <- ocall
+    ans
 }
 
 
@@ -858,6 +861,7 @@ barchart <- function(x, data, ...) UseMethod("barchart")
 barchart.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -865,7 +869,9 @@ barchart.numeric <-
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::barchart)
-    eval.parent(ccall)
+    ans <- eval.parent(ccall)
+    ans$call <- ocall
+    ans
 }
 
 
