@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2007-06-29 18:41\n"
+"POT-Creation-Date: 2007-07-13 17:21\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -213,6 +213,11 @@ msgstr ""
 msgid "cannot have log y-scale"
 msgstr "axe Y logarithmique impossible"
 
+msgid ""
+"Error using packet %g\n"
+"%s"
+msgstr ""
+
 msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
 msgstr "'packet.number' et 'panel.number' ne sont plus passés à la fonction panel. Voir ?packet.number"
 
@@ -296,6 +301,12 @@ msgstr "Appel :"
 
 msgid "Number of observations:"
 msgstr "Nombre d'observations :"
+
+msgid "supplied 'dimnames' have wrong length"
+msgstr ""
+
+msgid "some components of supplied 'dimnames' have wrong length"
+msgstr ""
 
 msgid "mean"
 msgstr "moyenne"

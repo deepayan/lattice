@@ -1,4 +1,108 @@
 ------------------------------------------------------------------------
+r4631 | deepayan | 2007-07-16 19:10:59 -0700 (Mon, 16 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+
+strip.left now gets called with horizontal=FALSE
+------------------------------------------------------------------------
+r4630 | deepayan | 2007-07-16 19:09:47 -0700 (Mon, 16 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+better $call in dotplot.numeric and barchart.numeric
+------------------------------------------------------------------------
+r4629 | deepayan | 2007-07-16 19:08:45 -0700 (Mon, 16 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/scales.R
+
+some fixes for date support (related to dates no longer being numeric)
+------------------------------------------------------------------------
+r4628 | deepayan | 2007-07-16 19:06:52 -0700 (Mon, 16 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/banking.Rd
+
+added the sunspot example to ?banking
+------------------------------------------------------------------------
+r4611 | deepayan | 2007-07-12 18:12:24 -0700 (Thu, 12 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+
+labels (xlab, main, etc) can now be vectors, and supports more parameters
+------------------------------------------------------------------------
+r4610 | deepayan | 2007-07-12 18:11:18 -0700 (Thu, 12 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/summary.trellis.R
+
+made dimnames settable, so that changing levels and names of
+conditioning variables is now possible
+------------------------------------------------------------------------
+r4609 | deepayan | 2007-07-12 14:39:47 -0700 (Thu, 12 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+
+changed width calculation for levelplots when x, y are factors
+------------------------------------------------------------------------
+r4594 | deepayan | 2007-07-10 11:58:42 -0700 (Tue, 10 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/levelplot.Rd
+
+added '(row|column).values' arguments in levelplot.matrix and
+cloud.matrix
+------------------------------------------------------------------------
+r4593 | deepayan | 2007-07-10 11:57:26 -0700 (Tue, 10 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/man/barchart.table.Rd
+
+added a 'horizontal' option in barchart.table
+------------------------------------------------------------------------
+r4554 | deepayan | 2007-07-05 11:42:20 -0700 (Thu, 05 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/shingle.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/R/xyplot.R
+
+a better value for the call slot of trellis objects; update.default
+now works
+------------------------------------------------------------------------
+r4553 | deepayan | 2007-07-05 11:40:34 -0700 (Thu, 05 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/cloud.Rd
+
+a cloud.table method
+------------------------------------------------------------------------
+r4552 | deepayan | 2007-07-05 11:39:49 -0700 (Thu, 05 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+
+'x' in dotplot(~x, data) etc now gets names(x) set to rownames(data)
+------------------------------------------------------------------------
+r4551 | deepayan | 2007-07-05 11:36:06 -0700 (Thu, 05 Jul 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/man/interaction.Rd
+
+change in trellis.focus() return value, plus misc bugfixes
+------------------------------------------------------------------------
+r4526 | deepayan | 2007-06-29 19:20:29 -0700 (Fri, 29 Jun 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.pairs.Rd
+
+Added note that date-time variables are not properly supported by splom
+------------------------------------------------------------------------
 r4524 | deepayan | 2007-06-29 18:53:09 -0700 (Fri, 29 Jun 2007) | 1 line
 Changed paths:
    M /trunk/lattice/R/interaction.R
