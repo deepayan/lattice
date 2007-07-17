@@ -219,7 +219,7 @@ limitsFromLimitlist <-
 ##                 if (is.numeric(lim)) diff(range(lim))
 ##                 else length(lim) + 2
                 if (is.character(lim)) length(lim) + 2
-                else diff(range(lim))
+                else diff(range(as.numeric(lim)))
         }
         else
         {
@@ -290,15 +290,15 @@ limitsFromLimitlist <-
                 {
                     if (any(is.finite(limitlist[[i]])))
                         ## range unnecessary, but...
-                        diff(range(limitlist[[i]], finite = TRUE))
+                        diff(range(as.numeric(limitlist[[i]]), finite = TRUE))
                     else NA
                 }
                 else if (!any(is.na(numlimitlist[[i]])))
-                    diff(range(numlimitlist[[i]]))
+                    diff(range(as.numeric(numlimitlist[[i]])))
                 else NA
         }
         slicelen <-
-            (if (axs == "i") 1 else 1.14) *
+            (if (axs == "i") 1 else 1 + 2 * lattice.getOption("axis.padding")$numeric) *
                 max(unlist(slicelen), na.rm = TRUE)
         for (i in seq_along(limitlist))
         {
@@ -310,7 +310,7 @@ limitsFromLimitlist <-
         {
             if (!all(is.na(numlimitlist[[i]])))
                 numlimitlist[[i]] <-
-                    extend.limits(numlimitlist[[i]], length = slicelen)
+                    extend.limits(as.numeric(numlimitlist[[i]]), length = slicelen)
         }
         ans <-
             list(limits = limitlist,
@@ -353,7 +353,7 @@ limitsFromLimitlist <-
         }
         for (i in seq_along(limitlist))
         {
-            if (is.numeric(limitlist[[i]])) 
+            if (!is.character(limitlist[[i]])) 
                 limitlist[[i]] <- ## preserves class
                     extend.limits(limitlist[[i]], axs = axs)
             ## o.w., keep it as it is
@@ -361,8 +361,8 @@ limitsFromLimitlist <-
         slicelen <- numeric(length(limitlist))
         for (i in seq_along(limitlist))
             slicelen[i] <-
-                if (is.numeric(limitlist[[i]]))
-                    diff(range(limitlist[[i]]))
+                if (!is.character(limitlist[[i]]))
+                    diff(range(as.numeric(limitlist[[i]])))
                 else if (!any(is.na(numlimitlist[[i]])))
                     diff(range(numlimitlist[[i]]))
                 else NA
