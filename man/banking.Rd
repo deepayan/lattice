@@ -12,9 +12,9 @@ banking(dx, dy)
 }
 
 \details{
-  \code{banking} is a crude banking function used when
+  \code{banking} is the banking function used when
   \code{aspect = "xy"} in high level Trellis functions. It is usually not
-  very meaningful except with \code{xyplot}.  It just considers the
+  very meaningful except with \code{xyplot}.  It considers the
   absolute slopes (based on \code{dx} and \code{dy}) and returns a value
   which when adjusted by the panel scale limits will make the median of
   the above absolute slopes correspond to a 45 degree line.
@@ -22,11 +22,20 @@ banking(dx, dy)
   This function was inspired by the discussion of banking in the
   documentation for Trellis Graphics available at Bell Labs' website
   (see \code{\link{Lattice}}), but is most likely identical to an
-  algorithm described previously by Cleveland et al (see below).  It is
+  algorithm described by Cleveland et al (see below).  It is
   not clear (to the author) whether this is the algorithm used in
   S-PLUS.  Alternative banking rules, implemented as a similar function,
   can be used as a drop-in replacement by suitably modifying
   \code{lattice.options("banking")}.
+
+}
+
+\examples{
+
+xyplot(sunspot.year ~ time(sunspot.year) | equal.count(time(sunspot.year)), 
+       xlab = "", type = "l", aspect = "xy", strip = FALSE,
+       scales = list(x = list(alternating = 2, relation = "sliced")),
+       as.table = TRUE, main = "Yearly Sunspots")
 
 }
 
