@@ -1123,6 +1123,7 @@ print.trellis <-
                                       shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
                                       do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
 
+                                      horizontal = TRUE,
                                       bg = strip.col.default.bg[i],
                                       fg = strip.col.default.fg[i],
                                       par.strip.text = par.strip.text)
@@ -1167,6 +1168,7 @@ print.trellis <-
                                            shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
                                            do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
 
+                                           horizontal = FALSE,
                                            bg = strip.col.default.bg[i],
                                            fg = strip.col.default.fg[i],
                                            par.strip.text = par.strip.text)
