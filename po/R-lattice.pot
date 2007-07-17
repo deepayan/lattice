@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.3.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2007-06-29 18:53\n"
+"POT-Creation-Date: 2007-07-16 19:11\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,6 +206,9 @@ msgstr ""
 msgid "cannot have log y-scale"
 msgstr ""
 
+msgid "Error using packet %g\n%s"
+msgstr ""
+
 msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
 msgstr ""
 
@@ -288,6 +291,12 @@ msgid "Call:"
 msgstr ""
 
 msgid "Number of observations:"
+msgstr ""
+
+msgid "supplied 'dimnames' have wrong length"
+msgstr ""
+
+msgid "some components of supplied 'dimnames' have wrong length"
 msgstr ""
 
 msgid "mean"

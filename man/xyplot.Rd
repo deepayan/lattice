@@ -881,22 +881,37 @@ bwplot(x, data, \dots)
 	\sQuote{grid-compliant}, and is called with the whole display area
 	as the default viewport.
       }
-      \item{\code{main}:}{ typically a character string or expression or list
-	describing the main title to be placed on top of each page. Defaults
-	to \code{NULL}.  Can be a character string or expression, or a list
-	with components \code{label}, \code{cex}, \code{col},
-	\code{alpha} and \code{font}.  The \code{label} tag can be
-	omitted if it is the first element of the list.  Expressions are
-	treated as specification of LaTeX-like markup as in
-	\code{\link{plotmath}}.
+      \item{\code{main}:}{ typically a character string or expression
+	describing the main title to be placed on top of each page.
+	Defaults to \code{NULL}.  \code{main} (as well as \code{xlab},
+	\code{ylab} and \code{sub}) is usually a character string or an
+	expression that gets used as the label, but can also be a list
+	that controls further details.  Expressions are treated as
+	specification of LaTeX-like markup as described in
+	\code{\link{plotmath}}.  The label can be a vector, in which
+	case the components will be spaced out horizontally (or
+	vertically for \code{ylab}).  This feature can be used to
+	provide column or row labels rather than a single axis label.
 
-	\code{main} can also be an arbitrary \code{"grob"} (grid graphical
-	object).
+	When \code{main} (etc.) is a list, the actual label should be
+	specified as the \code{label} component (which may be unnamed if
+	it is the first component).  The label can be missing, in which
+	case the default will be used (\code{xlab} and \code{ylab}
+	usually have defaults, but \code{main} and \code{sub} do not).
+	Further named arguments are passed on to
+	\code{\link[grid:grid.text]{textGrob}}; this can include
+	arguments controlling positioning like \code{just} and
+	\code{rot} as well as graphical parameters such as \code{col}
+	and \code{font} (see \code{\link[grid:gpar]{gpar}} for a full
+	list).
+
+	\code{main}, \code{xlab}, \code{ylab} and \code{sub} can also be
+	an arbitrary \code{"grob"} (grid graphical object).
       }
       \item{\code{sub}:}{
-	character string or expression (or a \code{"grob"}) for a subtitle
-	to be placed at the bottom of each page.  See entry for \code{main}
-	for finer control options.
+	character string or expression (or a list or \code{"grob"}) for
+	a subtitle to be placed at the bottom of each page.  See entry
+	for \code{main} for finer control options.
       }
       \item{\code{par.strip.text}:}{ list of  parameters to control the appearance
 	of strip text.  Notable components are \code{col}, \code{cex},
