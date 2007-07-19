@@ -353,7 +353,7 @@ limitsFromLimitlist <-
         }
         for (i in seq_along(limitlist))
         {
-            if (!is.character(limitlist[[i]])) 
+            if (!all(is.na(limitlist[[i]])) && !is.character(limitlist[[i]])) 
                 limitlist[[i]] <- ## preserves class
                     extend.limits(limitlist[[i]], axs = axs)
             ## o.w., keep it as it is
