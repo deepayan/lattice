@@ -1,4 +1,41 @@
 
+
+Changes in lattice 0.15
+=======================
+
+changes in behaviour
+--------------------
+
+ o 'x' in dotplot(~x, data) etc now gets names(x) set to
+   rownames(data)
+
+ o the 'call' component of a "trellis" object is set to a better value
+   than before (at least for the methods in lattice).  One consequence
+   is that update.default() now works for cases in which
+   update.trellis() doesn't (i.e. those where data packets need to
+   change)
+
+ o barchart.table now has an 'horizontal' argument
+
+ o levelplot.matrix() now allows specification of column labels or
+   positions through arguments 'row.values' and 'column.values'
+
+ o width calculation for rectangles changed for levelplot() when 'x',
+   'y' are factors; they are set to 1, rather than trying to
+   accomodate unequally spaced 'x' and 'y' values.  This is important
+   when there are empty levels
+
+ o dimnames() of a "trellis" object is now settable (this allows
+   changing names and levels of conditioning variables)
+
+ o labels ('xlab', 'main', etc) can now be character vectors.  In
+   their list form, they support more graphical parameters as well as
+   finer positioning (justification, rotation, etc.)
+
+ o 'strip.left' gets called with 'horizontal = FALSE', so 
+   'strip.left = strip.default' now works as expected
+
+
 Changes in lattice 0.15
 =======================
 
