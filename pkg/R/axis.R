@@ -482,6 +482,15 @@ formattedTicksAndLabels.Date <-
     num.lim <- 
         if (length(x) == 2) as.numeric(x)
         else range(as.numeric(x))
+    if (!missing(labels)) ## no need to do anything
+    {
+        if (missing(at) || length(at) != length(labels))
+            stop("'at' missing or incompatible with 'labels'")
+        return(list(at = at,
+                    labels = labels,
+                    check.overlap = FALSE,
+                    num.limit = num.lim))
+    }
     mat <- is.logical(at)
     if(!mat) x <- as.Date(at) else x <- as.Date(x)
     range <- range(num.lim) # thus, range[1] <= range[2]
