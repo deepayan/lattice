@@ -58,8 +58,9 @@ panel.parallel <-
     }
     else
     {
-        gnum <- as.integer(as.factor(groups))
-        n.g <- length(unique(gnum))
+        groups <- as.factor(groups)[subscripts]
+        n.g <- nlevels(groups)
+        gnum <- as.numeric(groups) ## probably unnecessary
         col <- rep(col, length = n.g)[gnum]
         lty <- rep(lty, length = n.g)[gnum]
         lwd <- rep(lwd, length = n.g)[gnum]
