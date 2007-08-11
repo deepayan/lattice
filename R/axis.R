@@ -482,7 +482,7 @@ formattedTicksAndLabels.Date <-
     num.lim <- 
         if (length(x) == 2) as.numeric(x)
         else range(as.numeric(x))
-    if (!missing(labels)) ## no need to do anything
+    if (!is.logical(labels)) ## no need to do anything
     {
         if (missing(at) || length(at) != length(labels))
             stop("'at' missing or incompatible with 'labels'")
