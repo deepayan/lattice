@@ -454,7 +454,7 @@ lplot.xy <-
            p = {
                grid.points(x = x, y = y, 
                            gp =
-                           gpar(col = col, cex = cex,
+                           gpar(col = col, cex = cex, lwd = lwd,
                                 alpha = alpha, fill = fill,
                                 fontsize = fontsize.points,
                                 fontfamily = fontfamily,
@@ -472,7 +472,7 @@ lplot.xy <-
            b = {
                grid.points(x = x, y = y, 
                            gp =
-                           gpar(col = col, cex = cex,
+                           gpar(col = col, cex = cex, lwd = lwd,
                                 alpha = alpha, fill = fill,
                                 fontsize = fontsize.points,
                                 fontfamily = fontfamily,
