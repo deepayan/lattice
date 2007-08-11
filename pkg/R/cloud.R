@@ -1093,7 +1093,7 @@ panel.cloud <-
 
 
             if (!("..." %in% names(formals(panel.3d.wireframe))))
-                pargs <- pargs[names(formals(panel.3d.wireframe))]
+                pargs <- pargs[intersect(names(pargs), names(formals(panel.3d.wireframe)))]
             do.call("panel.3d.wireframe", pargs)
 
         }
@@ -1118,7 +1118,7 @@ panel.cloud <-
                           ...)
 
             if (!("..." %in% names(formals(panel.3d.cloud))))
-                pargs <- pargs[names(formals(panel.3d.cloud))]
+                pargs <- pargs[intersect(names(pargs), names(formals(panel.3d.cloud)))]
             do.call("panel.3d.cloud", pargs)
         }
 

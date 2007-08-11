@@ -634,7 +634,7 @@ cond.orders <- function(foo, ...)
                 {
                     pargs <- c(foo$panel.args.common, foo$panel.args[[count]], list(...))
                     prenames <- names(formals(FUN))
-                    if (!("..." %in% prenames)) pargs <- pargs[prenames]
+                    if (!("..." %in% prenames)) pargs <- pargs[intersect(names(pargs), prenames)]
                     panel.order[count] <- do.call("FUN", pargs)
                 }
                 else  ## this happens for empty panels

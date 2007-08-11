@@ -410,7 +410,7 @@ limits.and.aspect <-
             if (is.function(prepanel)) ## results will 'overwrite' defaults
             {
                 prenames <- names(formals(prepanel))
-                if (!("..." %in% prenames)) pargs <- pargs[prenames]
+                if (!("..." %in% prenames)) pargs <- pargs[intersect(names(pargs), prenames)]
                 pretem <- do.call("prepanel", pargs)
                 tem <- updateList(tem, pretem)
                 ## tem[names(pretem)] <- pretem

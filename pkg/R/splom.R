@@ -316,7 +316,7 @@ panel.pairs <-
                               list(...))
 
                     if (!("..." %in% names(formals(panel))))
-                        pargs <- pargs[names(formals(panel))]
+                        pargs <- pargs[intersect(names(pargs), names(formals(panel)))]
 
                     if (as.matrix)
                         do.call(if (i > j) "lower.panel" else "upper.panel",
