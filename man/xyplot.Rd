@@ -302,32 +302,36 @@ bwplot(x, data, \dots)
     \code{allow.multiple} is in effect.  Details can be found in the
     source code of the function \code{latticeParseFormula}.
 
-    A panel function can have two other optional arguments for
-    convenience, namely \code{panel.number} and \code{packet.number},
-    representing panel order and packet order respectively.  Both
-    provide a simple integer index indicating which panel is currently
-    being drawn, but differ in how the count is calculated.
-    \code{panel.number} is a simple incremental counter that starts with
-    1 and is incremented each time a panel is drawn.
-    \code{packet.number} on the other hand indexes the combination of
-    levels of the conditioning variables that is represented by that
-    panel.  The two indices coincide unless the order of conditioning
-    variables is permuted and/or the plotting order of levels within one
-    or more conditioning variables is altered (using \code{perm.cond}
-    and \code{index.cond} respectively), in which case
-    \code{packet.number} gives the index corresponding to the
+    One can also use functions called \code{\link{panel.number}} and
+    \code{\link{packet.number}}, representing panel order and packet
+    order respectively, inside the panel function (as well as the strip
+    function or while interacting with a lattice display using
+    \code{\link{trellis.focus}} etc).  Both provide a simple integer
+    index indicating which panel is currently being drawn, but differ in
+    how the count is calculated.  The panel number is a simple
+    incremental counter that starts with 1 and is incremented each time
+    a panel is drawn.  The packet number on the other hand indexes the
+    combination of levels of the conditioning variables that is
+    represented by that panel.  The two indices coincide unless the
+    order of conditioning variables is permuted and/or the plotting
+    order of levels within one or more conditioning variables is altered
+    (using \code{perm.cond} and \code{index.cond} respectively), in
+    which case \code{packet.number} gives the index corresponding to the
     \sQuote{natural} ordering of that combination of levels of the
     conditioning variables.
 
-    \code{panel.xyplot} has an argument called \code{type} which is
-    worth mentioning here because it is quite frequently used (and as
-    mentioned above, can be passed to \code{xyplot} directly).  panel
-    functions for \code{bwplot} and friends should have an argument
-    called \code{horizontal} to account for the cases when \code{x} is
-    the factor or shingle.
+    \code{\link{panel.xyplot}} has an argument called \code{type} which
+    is worth mentioning here because it is quite frequently used (and as
+    mentioned above, can be passed to \code{xyplot} directly).  In the
+    event that a \code{groups} variable is used,
+    \code{\link{panel.xyplot}} calls \code{\link{panel.superpose}},
+    arguments of which can also be passed directly to \code{xyplot}.
+    Panel functions for \code{bwplot} and friends should have an
+    argument called \code{horizontal} to account for the cases when
+    \code{x} is the factor or shingle.
   }
 
-  %   \item{panel.groups}{
+  % \item{panel.groups}{
   %     useful mostly for \code{xyplot} and \code{densityplot}. Applies when
   %     \code{panel} is \code{panel.superpose} (which happens by default in
   %     these cases if \code{groups} is non-null)
