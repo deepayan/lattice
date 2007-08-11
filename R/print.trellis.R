@@ -202,11 +202,6 @@ print.trellis <-
              prefix = NULL,
              ...)
 {
-    panel.error <-
-        if (is.function(panel.error)) panel.error 
-        else if (is.character(panel.error)) get(panel.error)
-        else eval(panel.error)
-
     ## save the current object, if so requested.  This used to be done
     ## at the end, so that it wouldn't happen if there were errors
     ## during printing.  However, doing this now will allow things
@@ -270,6 +265,11 @@ print.trellis <-
         if ("panel.error"  %in% supplied && missing(panel.error))  panel.error  <- x$plot.args$panel.error
         if ("prefix"       %in% supplied && missing(prefix))       prefix       <- x$plot.args$prefix
     }
+
+    panel.error <-
+        if (is.function(panel.error)) panel.error 
+        else if (is.character(panel.error)) get(panel.error)
+        else eval(panel.error)
 
     bg <- trellis.par.get("background")$col
     new <-  newpage && !lattice.getStatus("print.more") && is.null(draw.in)
@@ -1056,7 +1056,7 @@ print.trellis <-
 
 
                         if (!("..." %in% names(formals(panel))))
-                            pargs <- pargs[names(formals(panel))]
+                            pargs <- pargs[intersect(names(pargs), names(formals(panel)))]
                         tryCatch(do.call("panel", pargs),
                                  error = function(e) panel.error(e))
 

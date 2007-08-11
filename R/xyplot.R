@@ -191,6 +191,27 @@ panel.xyplot <-
 xyplot <- function(x, data, ...) UseMethod("xyplot")
 
 
+## xyplot.default <- 
+##     function(x, data = NULL,
+##              formula = try(stats::formula(x), silent = TRUE),
+##              ...)
+## {
+##     ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(xyplot)
+##     ccall <- match.call()
+##     if (!is.null(ccall$data)) 
+##         warning("explicit 'data' specification ignored")
+##     if (!inherits(formula, "formula")) formula = y ~ x
+##     ccall$data <- x
+##     ccall$x <- formula
+##     ccall$formula <- NULL
+##     ccall[[1]] <- quote(lattice::xyplot)
+##     ans <- eval.parent(ccall)
+##     ans$call <- ocall
+##     ans
+## }
+
+
+
 xyplot.formula <-
     function(x,
              data = NULL,
