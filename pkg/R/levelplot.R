@@ -22,6 +22,31 @@
 
 
 
+level.colors <- function(x, at, col.regions, colors = TRUE, ...)
+{
+    ind.col <- cut(x, at, include.lowest = TRUE, labels = FALSE)
+    if (!colors) 
+        ind.col
+    else 
+    {
+        if (missing(col.regions)) col.regions <- trellis.par.get("regions")$col
+        nregions <- length(at) - 1
+        if (is.function(col.regions)) col.regions <- col.regions(nregions)
+        ncolor <- length(col.regions)
+        col.regions <-
+            if (ncolor <= nregions)
+                rep(col.regions, length = nregions)
+            else 
+                col.regions[round(seq(1, ncolor, length = nregions))]
+        col.regions[ind.col]
+    }
+}
+
+
+
+
+
+
 prepanel.default.levelplot <-
     function(x, y, subscripts, ...)
 {
@@ -110,33 +135,25 @@ panel.levelplot <-
     x <- as.numeric(x)
     y <- as.numeric(y)
     z <- as.numeric(z)
-    numcol <- length(at) - 1
-    numcol.r <- length(col.regions)
-    col.regions <-
-        if (numcol.r <= numcol)
-            rep(col.regions, length = numcol)
-        else
-            col.regions[round(seq(1, numcol.r, length = numcol))]
-    zcol <- cut(z, at, include.lowest = TRUE, labels = FALSE)
+
+##     numcol <- length(at) - 1
+##     numcol.r <- length(col.regions)
+##     col.regions <-
+##         if (numcol.r <= numcol)
+##             rep(col.regions, length = numcol)
+##         else
+##             col.regions[round(seq(1, numcol.r, length = numcol))]
+##     zcol <- cut(z, at, include.lowest = TRUE, labels = FALSE)
+
+    zcol <- level.colors(z, at, col.regions, colors = TRUE)
+
     x <- x[subscripts]
     y <- y[subscripts]
     minXwid <- if (length(unique(x)) > 1) min(diff(sort(unique(x)))) else 1
     minYwid <- if (length(unique(x)) > 1) min(diff(sort(unique(y)))) else 1
     fullZrange <- range(as.numeric(z), finite = TRUE) # for shrinking
     z <- z[subscripts]
-    zcol <- as.numeric(zcol[subscripts])
-##     numcol <- length(at) - 1
-##     numcol.r <- length(col.regions)
-##     col.regions <-
-##         if (numcol.r <= numcol)
-##             rep(col.regions, length = numcol)
-##         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
-##     zcol <- rep(NA, length(z)) #numeric(length(z))
-##     for (i in seq_along(col.regions))
-##         zcol[!is.na(x) & !is.na(y) & !is.na(z) & z>=at[i] & z<at[i+1]] <- i
-##     x <- as.numeric(x[subscripts])
-##     y <- as.numeric(y[subscripts])
-##     z <- as.numeric(z[subscripts])
+    zcol <- zcol[subscripts]
 
     ## Do we need a zlim-like argument ?
 
@@ -222,7 +239,7 @@ panel.levelplot <-
                   height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
                   default.units = "native",
                   gp =
-                  gpar(fill = col.regions[zcol],
+                  gpar(fill = zcol,
                        lwd = 0.00001,
                        col = "transparent",
                        alpha = alpha.regions))

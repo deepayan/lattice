@@ -738,12 +738,17 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     ## Getting the locations/dimensions/centers of the rectangles
     key$at <- sort(key$at) ## should check if ordered
     numcol <- length(key$at)-1
-    numcol.r <- length(key$col)
-    key$col <-
-        if (numcol.r <= numcol)
-            rep(key$col, length = numcol)
-        else key$col[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
+##     numcol.r <- length(key$col)
+##     key$col <-
+##         if (is.function(key$col)) key$col(numcol)
+##         else if (numcol.r <= numcol) rep(key$col, length = numcol)
+##         else key$col[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
 
+    key$col <-
+        level.colors(x = seq_len(numcol) - 0.5,
+                     at = seq_len(numcol + 1) - 1,
+                     col.regions = key$col,
+                     colors = TRUE)
 
 
     ## FIXME: need to handle DateTime classes properly
