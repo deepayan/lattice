@@ -20,5 +20,6 @@ dat <-
 xyplot(a~b, dat)
 xyplot(a~b, dat, scales=list(x=list(at=dat$b)))
 
+
 dev.off()
 

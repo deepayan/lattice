@@ -53,7 +53,6 @@ contourplot(x, data, \dots)
 \method{contourplot}{matrix}(x, data = NULL, aspect = "iso", \dots,
             row.values, column.values)
 
-
 }
 \description{
   Draw Level Plots and Contour plots.
