@@ -692,7 +692,6 @@ print.trellis <-
                                   gp = global.gpar,
                                   name = trellis.vpname("toplevel")))
 
-
             if (!is.null(main))
             {
                 drawInViewport(main,

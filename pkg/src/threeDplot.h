@@ -5,10 +5,6 @@
 #include <Rdefines.h>
 
 
-static void calculate_angles(double *x, double *y, double *z,
-			     double *ls, double *misc, 
-			     double distance);
-
 
 SEXP wireframePanelCalculations(SEXP xArg, SEXP yArg, SEXP zArg, SEXP rotArg, 
 				SEXP distanceArg,

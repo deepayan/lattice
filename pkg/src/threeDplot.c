@@ -3,9 +3,10 @@
 
 
 
-static void calculate_angles(double *x, double *y, double *z,
-			     double *ls, double *misc, 
-			     double distance)
+static void 
+calculate_angles(double *x, double *y, double *z,
+		 double *ls, double *misc, 
+		 double distance)
 {
 
     double x1, x2, y1, y2, z1, z2, len;
