@@ -154,8 +154,8 @@ prepanel.default.qqmath <-
         sx <- split(x, groups[subscripts])
         xxlist <- lapply(sx, getxx, f.value = f.value)
         yylist <- lapply(sx, getyy, f.value = f.value)
-        list(xlim = range(unlist(xxlist), na.rm = TRUE),
-             ylim = range(unlist(yylist), na.rm = TRUE),
+        list(xlim = range(unlist(xxlist), finite = TRUE),
+             ylim = range(unlist(yylist), finite = TRUE),
              dx = unlist(lapply(xxlist, diff)),
              dy = unlist(lapply(yylist, diff)))
     }
