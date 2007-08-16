@@ -175,7 +175,9 @@ panel.xyplot <-
                         lty = lty, col = col.line, lwd = lwd, ...)
         }
         if ("r" %in% type) panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
-        if ("smooth" %in% type) panel.loess(x, y, col = col.line, lty = lty, lwd = lwd, ...)
+        if ("smooth" %in% type)
+            panel.loess(x, y, horizontal = horizontal,
+                        col = col.line, lty = lty, lwd = lwd, ...)
         if ("a" %in% type)
             panel.linejoin(x, y, 
                            horizontal = horizontal,
