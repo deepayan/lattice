@@ -100,7 +100,7 @@ xyplot(y ~ x | gl(1, length(types)),
        strip = function(...) {
            panel.fill(trellis.par.get("strip.background")$col[1])
            type <- types[panel.number()]
-           grid::grid.text(lab = sprintf('"%s"', type), 
+           grid::grid.text(lab = sprintf('"\%s"', type), 
                            x = 0.5, y = 0.5)
            grid::grid.rect()
        },
