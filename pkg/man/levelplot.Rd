@@ -138,9 +138,10 @@ contourplot(x, data, \dots)
 
       \item{\code{labels}:}{
         a character vector for labelling the \code{at} values, or more
-        commonly, a list of components (e.g. some of \code{labels},
-	\code{at}, \code{cex}, \code{col} and \code{font}) describing
-	label positions.
+        commonly, a list describing characteristics of the labels.  This
+	list may include components \code{labels}, \code{at},
+	\code{cex}, \code{col}, \code{rot}, \code{font}, \code{fontface}
+	and \code{fontfamily}.
       }
 
       \item{\code{tick.number}:}{ approximate number of ticks. }
