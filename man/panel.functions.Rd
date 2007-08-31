@@ -20,7 +20,7 @@
 panel.abline(a = NULL, b = 0,
              h = NULL, v = NULL,
              reg = NULL, coef = NULL,
-             col, col.line, lty, lwd, type,
+             col, col.line, lty, lwd, alpha, type,
              \dots)
 
 panel.curve(expr, from, to, n = 101,

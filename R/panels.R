@@ -32,11 +32,11 @@ panel.abline <-
              col.line = add.line$col,
              lty = add.line$lty,
              lwd = add.line$lwd,
+             alpha = add.line$alpha,
              type, ...)
 {
     add.line <- trellis.par.get("add.line")
     if (!missing(col) && missing(col.line)) col.line <- col
-
     ## mostly copied from abline
     if (!is.null(reg))
     {
@@ -78,13 +78,11 @@ panel.abline <-
         cpl <- current.panel.limits()
         xx <- cpl$xlim
         yy <- cpl$ylim
-
         x <- numeric(0)
         y <- numeric(0)
         ll <- function(i, j, k, l)
             (yy[j]-coeff[1]-coeff[2]*xx[i]) *
                 (yy[l]-coeff[1]-coeff[2]*xx[k])
-
         if (ll(1,1,2,1)<=0) {
             y <- c(y, yy[1])
             x <- c(x, (yy[1]-coeff[1])/coeff[2])
@@ -105,14 +103,15 @@ panel.abline <-
                     col = col.line,
                     lty = lty,
                     lwd = lwd,
+                    alpha = alpha,
                     ...)
     }
     if (length(h <- as.numeric(h)) > 0)
         grid.segments(y0 = h, y1 = h, default.units="native",
-                      gp = gpar(col = col.line, lty = lty, lwd = lwd))
+                      gp = gpar(col = col.line, lty = lty, lwd = lwd, alpha = alpha))
     if (length(as.numeric(v)) > 0)
         grid.segments(x0 = v, x1 = v, default.units="native",
-                      gp = gpar(col = col.line, lty = lty, lwd = lwd))
+                      gp = gpar(col = col.line, lty = lty, lwd = lwd, alpha = alpha))
     invisible()
 }
 
