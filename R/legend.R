@@ -766,6 +766,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     font <- axis.text$font
     fontfamily <- axis.text$fontfamily
     fontface <- axis.text$fontface
+    rot <- 0
 
     if (is.null(key$lab))
     {
@@ -792,11 +793,11 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         if (!is.null(key$lab$font)) font <- key$lab$font
         if (!is.null(key$lab$fontface)) fontface <- key$lab$fontface
         if (!is.null(key$lab$fontfamily)) fontfamily <- key$lab$fontfamily
+        if (!is.null(key$lab$rot)) rot <- key$lab$rot
     }
     else stop("malformed colorkey")
 
     labscat <- at
-
 
     if (key$space == "right") {
 
@@ -807,7 +808,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      vp = viewport(yscale = atrange),
                      default.units = "native",
                      check.overlap = check.overlap,
-                     just = c("left","center"),
+                     just = if (rot == -90) c("center", "bottom") else c("left", "center"),
+                     rot = rot,
                      gp =
                      gpar(col = col,
                           cex = cex,
@@ -874,8 +876,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     }
     else if (key$space == "left") {
 
-
-
         labelsGrob <-
             textGrob(label = labels,
                      x = rep(1, length(labscat)),
@@ -883,7 +883,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      vp = viewport(yscale = atrange),
                      default.units = "native",
                      check.overlap = check.overlap,
-                     just = c("right","center"),
+                     just = if (rot == 90) c("center", "bottom") else c("right", "center"),
+                     rot = rot,
                      gp =
                      gpar(col = col,
                           cex = cex,
@@ -954,7 +955,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      vp = viewport(xscale = atrange),
                      default.units = "native",
                      check.overlap = check.overlap,
-                     just = c("center","bottom"),
+                     just = if (rot == 0) c("center","bottom") else c("left", "center"),
+                     rot = rot,
                      gp =
                      gpar(col = col,
                           cex = cex,
@@ -1026,7 +1028,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      vp = viewport(xscale = atrange),
                      default.units = "native",
                      check.overlap = check.overlap,
-                     just = c("center","top"),
+                     just = if (rot == 0) c("center", "top") else c("right", "center"),
+                     rot = rot,
                      gp =
                      gpar(col = col,
                           cex = cex,
