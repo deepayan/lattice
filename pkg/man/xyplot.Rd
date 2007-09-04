@@ -574,14 +574,28 @@ bwplot(x, data, \dots)
 	argument passed to \code{abbreviate} if \code{abbreviate=TRUE}.
       }
       \item{\code{log}}{
-	whether to use a log scale. Defaults to \code{FALSE}, other
-	possible values are any number that works as a base for taking
-	logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
-	natural logarithm).  Note that in this case the values passed to
-	the panel function are already transformed, so all computations
-	done inside the panel function will be affected accordingly. For
-	example, \code{panel.lmline} will fit a line to the transformed
-	values.
+	Controls whether the corresponding variable (\code{x} or
+	\code{y}) will be log transformed before being passed to the
+	panel function.  Defaults to \code{FALSE}, in
+	which case the data are not transformed.  Other possible values
+	are any number that works as a base for taking logarithm,
+	\code{TRUE} (which is equivalent to 10), and \code{"e"} (for the
+	natural logarithm).  As a side effect, the corresponding axis is
+	labeled differently.  Note that this is a transformation of the
+	data, not the axes.  Other than the axis labeling, using this
+	feature is no different than transforming the data in the
+	formula; e.g., \code{scales=list(x = list(log = 2))} is
+	equivalent to \code{y ~ log2(x)}.  
+
+
+% 	whether to use a log scale. Defaults to \code{FALSE}, other
+% 	possible values are any number that works as a base for taking
+% 	logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
+% 	natural logarithm).  Note that in this case the values passed to
+% 	the panel function are already transformed, so all computations
+% 	done inside the panel function will be affected accordingly. For
+% 	example, \code{panel.lmline} will fit a line to the transformed
+% 	values.
       }
       \item{\code{format}}{
 	the \code{format} to use for POSIXct variables. See
