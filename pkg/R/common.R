@@ -254,12 +254,18 @@ latticeParseFormula <-
 
         tmp <- eval(varsRHS[[1]], data, env)
         if (is.matrix(tmp)) tmp <- as.data.frame(tmp)
-        else if (length(model) == 2 && is.data.frame(data) &&
-                 (is.vector(tmp, "numeric") || is.factor(tmp)) &&
-                 is.null(names(tmp)))
-        {
-            names(tmp) <- rownames(data) # for dotplot(~x, data)
-        }
+
+### This was a attempted new feature that turned out not to be such a
+### good idea.  It would change '~x | a' to 'rownames(data) ~ x | a',
+### which is good for dot plot, but not good for bwplot.  So, back to
+### old behaviour...
+
+##         else if (length(model) == 2 && is.data.frame(data) &&
+##                  (is.vector(tmp, "numeric") || is.factor(tmp)) &&
+##                  is.null(names(tmp)))
+##         {
+##             names(tmp) <- rownames(data) # for dotplot(~x, data)
+##         }
         nobs <- if (is.data.frame(tmp)) nrow(tmp) else length(tmp)
 
         if (nLHS == 1 && nRHS == 1) {
