@@ -8,7 +8,8 @@ changes in behaviour
 --------------------
 
  o 'x' in dotplot(~x, data) etc now gets names(x) set to
-   rownames(data)
+   rownames(data).  Update: this feature has now been removed, as the
+   resulting behaviour is undesirable for bwplot()
 
  o the 'call' component of a "trellis" object is set to a better value
    than before (at least for the methods in lattice).  One consequence
