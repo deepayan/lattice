@@ -976,6 +976,7 @@ lattice.setStatus <- function (...)
     lattice.status <- get("lattice.status", envir = .LatticeEnv)
     lattice.status[names(dots)] <- dots
     assign("lattice.status", lattice.status, env = .LatticeEnv)
+    invisible()
 }
 
 
