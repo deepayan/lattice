@@ -991,3 +991,40 @@ lattice.setStatus <- function (...)
          vp.highlighted = FALSE,
          plot.index = 1) ## keeps track of multiple plots in a page
 
+
+
+simpleTheme <-
+    function(col, alpha, 
+             cex, pch, lty, lwd, font, fill, border,
+             col.points, col.line, 
+             alpha.points, alpha.line)
+{
+    ans <-
+        list(plot.symbol = list(),
+             plot.line = list(),
+             plot.polygon = list(),
+             superpose.symbol = list(),
+             superpose.line = list(),
+             superpose.polygon = list())
+    setValue <- function(value, name, targets)
+    {
+        for (t in targets) ans[[t]][[name]] <<- value
+    }
+    if (!missing(col)) setValue(col, "col", 1:6)
+    if (!missing(alpha)) setValue(alpha, "alpha", 1:6)
+    if (!missing(cex)) setValue(cex, "cex", c(1, 4))
+    if (!missing(pch)) setValue(pch, "pch", c(1, 4))
+    if (!missing(lty)) setValue(lty, "lty", 1:6)
+    if (!missing(lwd)) setValue(lwd, "lwd", 1:6)
+    if (!missing(font)) setValue(font, "font", c(1, 4))
+    if (!missing(fill)) setValue(fill, "fill", c(1, 3, 4, 6))
+    if (!missing(border)) setValue(border, "border", c(3, 6))
+    if (!missing(col.points)) setValue(col.points, "col", c(1, 4))
+    if (!missing(col.line)) setValue(col.line, "col", c(2, 5))
+    if (!missing(alpha.points)) setValue(alpha.points, "alpha", c(1, 4))
+    if (!missing(alpha.line)) setValue(alpha.line, "alpha", c(2, 5))
+    ans
+}
+
+
+
