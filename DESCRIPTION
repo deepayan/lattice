@@ -13,4 +13,4 @@ Imports: grid, grDevices, graphics, stats, utils
 Enhances: chron
 LazyLoad: yes
 LazyData: yes
-License: GPL version 2 or later
+License: GPL (>= 2)
