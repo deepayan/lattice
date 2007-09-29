@@ -20,6 +20,13 @@ trellis.device(device = getOption("device"),
 standard.theme(name, color)
 canonical.theme(name, color)
 col.whitebg()
+
+simpleTheme(col, alpha, 
+            cex, pch, lty, lwd, font, fill, border,
+            col.points, col.line, 
+            alpha.points, alpha.line)
+
+
 }
 \arguments{
   \item{device}{ function (or the name of one as a character string)

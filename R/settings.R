@@ -1023,6 +1023,9 @@ simpleTheme <-
     if (!missing(col.line)) setValue(col.line, "col", c(2, 5))
     if (!missing(alpha.points)) setValue(alpha.points, "alpha", c(1, 4))
     if (!missing(alpha.line)) setValue(alpha.line, "alpha", c(2, 5))
+    ## ensure first three only have scalars
+    for (nm in c("plot.symbol", "plot.line", "plot.polygon"))
+        ans[[nm]] <- lapply(ans[[nm]], head, 1)
     ans
 }
 
