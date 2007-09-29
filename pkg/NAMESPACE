@@ -187,6 +187,7 @@ export(
        canonical.theme,
        standard.theme,
        col.whitebg,
+       simpleTheme,
        
 
 
