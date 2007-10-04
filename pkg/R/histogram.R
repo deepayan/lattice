@@ -37,7 +37,7 @@ hist.constructor <-
              include.lowest = include.lowest,
              right = right)
     else
-        hist(as.numeric(x), breaks = breaks, plot = FALSE)
+        hist(as.numeric(x), breaks = breaks, right = right, plot = FALSE)
 }
 
 
