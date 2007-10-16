@@ -216,11 +216,11 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
   \item{shade.colors.palette}{
     a function (or the name of one) that is supposed to calculate the
     color of a facet when shading is being used. Three pieces of
-    information is available to the function: first, the cosine of the
+    information are available to the function: first, the cosine of the
     angle between the incident light ray and the normal to the surface
     (representing foreshortening); second, the cosine of half the angle
     between the reflected ray and the viewing direction (useful for
-    non-lambertian surfaces); and third, the scaled (average) height of
+    non-Lambertian surfaces); and third, the scaled (average) height of
     that particular facet with respect to the total plot z-axis limits.
 
     All three numbers should be between 0 and 1. The

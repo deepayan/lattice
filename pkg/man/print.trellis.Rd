@@ -7,7 +7,7 @@
 \alias{panel.error}
 \title{Plot and Summarize Trellis Objects}
 \usage{
-\method{print}{trellis}(x, position, split,
+\method{plot}{trellis}(x, position, split,
       more = FALSE, newpage = TRUE,
       packet.panel = packet.panel.default, 
       draw.in = NULL,
@@ -17,7 +17,7 @@
       panel.error = lattice.getOption("panel.error"),
       prefix,
       \dots)
-\method{plot}{trellis}(x, \dots)
+\method{print}{trellis}(x, \dots)
 
 \method{summary}{trellis}(object, \dots)
 

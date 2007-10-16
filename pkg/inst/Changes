@@ -1,6 +1,20 @@
 
 
 
+Changes in lattice 0.17
+=======================
+
+new features
+------------
+
+ o new function simpleTheme() for creating nested lists without
+   specifying the nesting structure (which is guessed)
+
+ o support for lattice.option(print.function) which is the function
+   actually used when print.trellis() is called
+
+
+
 Changes in lattice 0.16
 =======================
 
