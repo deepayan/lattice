@@ -161,22 +161,6 @@ evaluate.legend <- function(legend)
 
 
 
-
-
-
-
-## S3 plot method for "trellis" objects (essentially an alias to
-## print.trellis)
-
-plot.trellis <-
-    function(x, ...)
-{
-    print(x, ...)
-    invisible()
-}
-
-
-
 panel.error <- function(e)
 {
     grid.text(gettextf("Error using packet %g\n%s",
@@ -185,11 +169,21 @@ panel.error <- function(e)
 }
 
 
-
-
 ## S3 print method for "trellis" objects
 
-print.trellis <-
+print.trellis <- function(x, ...)
+{
+    printFunction <- lattice.getOption("print.function")
+    if (is.null(printFunction)) printFunction <- plot.trellis
+    printFunction(x, ...)
+    invisible(x)
+}
+
+
+
+## S3 plot method for "trellis" objects
+
+plot.trellis <-
     function(x,
              position = NULL, split = NULL,
              more = FALSE, newpage = TRUE,
@@ -1282,7 +1276,7 @@ print.trellis <-
                       current.focus.column = 0,
                       vp.highlighted = FALSE,
                       vp.depth = 0)
-    invisible(x)
+    invisible()
 }
 
 
