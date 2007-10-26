@@ -436,17 +436,18 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
         ## adjusting heights
         heights.insertlist.position <- 0
         heights.insertlist.unit <- unit(1, "null")
-        for (i in 1:n.row)
+        for (i in seq_len(n.row))
         {
             textLocations <- textMatrix[i,]
-            textLocations <- textLocations[textLocations>0]
-            if (any(textLocations))
+            if (any(textLocations > 0))
             {
+                textLocations <- textLocations[textLocations>0]
                 strbar <- textList[textLocations]
                 heights.insertlist.position <- c(heights.insertlist.position, i)
                 heights.insertlist.unit <-
                     unit.c(heights.insertlist.unit,
-                           unit(.2 * key$padding.text, "lines") + max(unit(textCex[textLocations], "strheight", strbar)))
+                           unit(.2 * key$padding.text, "lines") +
+                           max(unit(textCex[textLocations], "strheight", strbar)))
             }
         }
 
@@ -464,9 +465,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL)
         for (i in 1:n.col)
         {
             textLocations <- textMatrix[,i]
-            textLocations <- textLocations[textLocations>0]
-            if (any(textLocations))
+            if (any(textLocations > 0))
             {
+                textLocations <- textLocations[textLocations>0]
                 strbar <- textList[textLocations]
                 widths.insertlist.position <- c(widths.insertlist.position, i)
                 widths.insertlist.unit <-
