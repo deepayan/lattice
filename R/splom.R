@@ -206,7 +206,7 @@ panel.pairs <-
     
     ## maybe (ideally) this should be affected by scales
 
-    if (any(subscripts))
+    if (length(subscripts))
     {
         draw <- is.list(pscales) || (is.numeric(pscales) && pscales!=0) # whether axes to be drawn
         splom.layout <- grid.layout(nrow = n.var, ncol = n.var)
