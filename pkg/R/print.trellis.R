@@ -60,6 +60,7 @@ getLabelList <- function(label, text.settings, default.label = NULL)
                  fontfamily = text.settings$fontfamily,
                  fontface = text.settings$fontface,
                  font = text.settings$font,
+                 alpha = text.settings$alpha,
                  lineheight = text.settings$lineheight)
         if (is.list(label) && !is.null(names(label)))
         {
