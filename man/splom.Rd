@@ -37,6 +37,7 @@ parallel(x, data, \dots)
       subset = TRUE)
 \method{parallel}{formula}(x,
          data,
+         auto.key = FALSE,
          aspect = "fill",
          between = list(x = 0.5, y = 0.5),
          panel = lattice.getOption("panel.parallel"),
