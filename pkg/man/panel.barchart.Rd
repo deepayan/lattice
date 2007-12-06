@@ -10,10 +10,14 @@ panel.barchart(x, y, box.ratio = 1,
                origin = NULL, reference = TRUE,
                stack = FALSE,
                groups = NULL, 
-               col = if (is.null(groups)) plot.polygon$col else superpose.polygon$col,
-               border = if (is.null(groups)) plot.polygon$border else superpose.polygon$border,
-               lty = if (is.null(groups)) plot.polygon$lty else superpose.polygon$lty, 
-               lwd = if (is.null(groups)) plot.polygon$lwd else superpose.polygon$lwd,
+               col = if (is.null(groups)) plot.polygon$col
+                     else superpose.polygon$col,
+               border = if (is.null(groups)) plot.polygon$border
+                        else superpose.polygon$border,
+               lty = if (is.null(groups)) plot.polygon$lty
+                     else superpose.polygon$lty, 
+               lwd = if (is.null(groups)) plot.polygon$lwd
+                     else superpose.polygon$lwd,
                \dots)
 }
 \arguments{
@@ -48,10 +52,12 @@ panel.barchart(x, y, box.ratio = 1,
     stacked.
   }
   \item{groups}{ optional grouping variable}
-  \item{col, border, lty, lwd} {
+  \item{col, border, lty, lwd}{
     Graphical parameters for the bars. By default, the trellis parameter
     \code{plot.polygon} is used if there is no grouping variable, otherwise
-    \code{superpose.polygon} is used.
+    \code{superpose.polygon} is used.  \code{col} gives the fill color,
+    \code{border} the border color, and \code{lty} and \code{lwd} the
+    line type and width of the borders.
   }
   \item{\dots}{ extra arguments will be accepted but ignored }
 }
