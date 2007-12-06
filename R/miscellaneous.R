@@ -485,7 +485,7 @@ lplot.xy <-
            },
            s = ,
            S = {
-               ord <- sort.list(x)
+               ord <- seq_along(x) ## sort.list(x)
                if ((n <- length(x)) > 1)
                {
                    xx <- numeric(2*n-1)
