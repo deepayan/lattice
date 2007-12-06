@@ -39,6 +39,11 @@ panel.qq(\dots)
     useful for creating interaction plots.  The effect of several of
     these specifications depend on the value of \code{horizontal}.
 
+    Type \code{"s"} (and \code{"S"}) sorts the values along one of the
+    axes (depending on \code{horizontal}); this is unlike the behavior
+    in \code{plot}.  For the latter behavior, use \code{type = "s"} with
+    \code{panel = panel.points}.
+
     See \code{example(xyplot)} and \code{demo(lattice)} for examples.
   }
   \item{groups}{ an optional grouping variable.  If present,
