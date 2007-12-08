@@ -74,12 +74,34 @@ axis.default(side = c("top", "bottom", "left", "right"),
 
 \value{
 
-  %% FIXME
-  
   \code{xscale.components.default} and \code{yscale.components.default}
-  return lists in a specific format expected by \code{axis.default}.
-  The exact form will be documented later.
+  return a list of the form suitable as the \code{components} argument
+  of \code{axis.default}.  Valid components in the return value of
+  \code{xscale.components.default} are:
 
+  \item{\code{num.limit}}{ A numeric limit for the box. }
+  \item{\code{bottom}}{ A list with two elements, \code{ticks} and
+    \code{labels}.  \code{ticks} must be a list with components
+    \code{at} and \code{tck} which give the location and lengths of tick
+    marks.  \code{tck} can be a vector, and will be recycled to be as
+    long as \code{at}.  \code{labels} must be a list with components
+    \code{at}, \code{labels}, and \code{check.overlap}.  \code{at} and
+    \code{labels} give the location and labels of the tick labels; this
+    is usually the same as the location of the ticks, but is not
+    required to be so.  \code{check.overlap} is a logical flag
+    indicating whether overlapping of labels should be avoided by
+    omitting some of the labels while rendering.  }
+  \item{\code{top}}{ This can be a logical flag; if \code{TRUE},
+    \code{top} is treated as being the same as \code{bottom}; if
+    \code{FALSE}, axis annotation for the top axis is omitted.
+    Alternatively, \code{top} can be a list like \code{bottom}.
+  }
+
+  Valid components in the return value of
+  \code{yscale.components.default} are \code{left} and \code{right}.
+  Their interpretations are analogous to (respectively) the
+  \code{bottom} and \code{top} components described above.
+  
 }
 
 \details{
