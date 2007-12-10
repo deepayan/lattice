@@ -14,7 +14,10 @@ panel.stripplot(x, y, jitter.data = FALSE,
 \arguments{
   \item{x,y}{ coordinates of points to be plotted}
   \item{jitter.data}{ whether points should be jittered to avoid
-    overplotting.} 
+    overplotting.  The actual jittering is performed inside
+    \code{\link{panel.xyplot}}, using its \code{jitter.x} or
+      \code{jitter.y} argument (depending on the value of
+      \code{horizontal}).  }
   \item{factor, amount}{amount of jittering, see \code{\link{jitter}}}
   \item{horizontal}{ logical. If FALSE, the plot is \sQuote{transposed}
     in the sense that the behaviours of x and y are switched. x is now
