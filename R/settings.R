@@ -42,6 +42,27 @@ col.whitebg <- function()
          col = c("darkgreen","red","royalblue",
          "brown","orange","turquoise", "orchid")))
 
+
+
+
+## this function is used to make the superpose.plygon colors less
+## saturated versions of the symbol and line colors
+
+lower.saturation <-
+    function(x, f = 0.2)
+{
+    rgb <- col2rgb(x)
+    rgb[] <- 255 - rgb
+    rgb[] <- round(f * rgb)
+    rgb[] <- 255 - rgb
+    rgb(rgb["red", ],
+        rgb["green", ],
+        rgb["blue", ],
+        maxColorValue = 255)
+}
+
+
+
 standard.theme <- 
 canonical.theme <- function(name = .Device, color = name != "postscript")
 {
@@ -108,9 +129,11 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
              strip.border     = list(alpha = 1, col = rep(can.col[1], 7), lty = rep(1, 7), lwd = rep(1, 7)),
              superpose.line   = list(alpha = 1, col = can.col[2:8], lty = rep(1, 7), lwd = rep(1, 7)),
              superpose.symbol = list(alpha = rep(1, 7), cex = rep(0.8, 7), col = can.col[2:8],
-                                     font = rep(1, 7), pch = rep(1, 7),
-                                     fill = rep("transparent", 7)),
-             superpose.polygon   = list(alpha = rep(1, 7), col = can.col[2:8],
+                                     fill = lower.saturation(can.col[2:8]),
+                                     ## WAS: fill = rep("transparent", 7),
+                                     font = rep(1, 7), pch = rep(1, 7)),
+             superpose.polygon= list(alpha = rep(1, 7),
+                                     col = lower.saturation(can.col[2:8]), ## WAS can.col[2:8]
                                      border = rep("black", 7), lty = rep(1, 7), lwd = rep(1, 7)),
              regions          = list(alpha = 1, col = rev(cm.colors(100))),
              shade.colors     = list(alpha = 1, palette = function(irr, ref, height, saturation = .9) {
