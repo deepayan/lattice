@@ -46,11 +46,11 @@ prepanel.default.bwplot <-
                  if (stack) {
                      foo1 <-
                          if (any(x > 0))
-                             range( by(x[x > 0], y[x > 0, drop = TRUE], sum, na.rm = TRUE), finite = TRUE) 
+                             range(tapply(x[x > 0], y[x > 0, drop = TRUE], sum, na.rm = TRUE), finite = TRUE) 
                          else 0
                      foo2 <-
                          if (any(x < 0))
-                             range( by(x[x<0], y[x<0, drop = TRUE], sum, na.rm = TRUE), finite = TRUE) 
+                             range(tapply(x[x < 0], y[x < 0, drop = TRUE], sum, na.rm = TRUE), finite = TRUE) 
                          else 0
                      range(foo1, foo2)
                  }
@@ -74,11 +74,11 @@ prepanel.default.bwplot <-
                  if (stack) {
                      foo1 <-
                          if (any(y > 0))
-                             range( by(y[y > 0], x[y > 0], sum, na.rm = TRUE), finite = TRUE)
+                             range(tapply(y[y > 0], x[y > 0], sum, na.rm = TRUE), finite = TRUE)
                          else 0
                      foo2 <-
                          if (any(y < 0))
-                             range( by(y[y < 0], x[y < 0], sum, na.rm = TRUE), finite = TRUE)
+                             range(tapply(y[y < 0], x[y < 0], sum, na.rm = TRUE), finite = TRUE)
                          else 0
                      range(foo1, foo2)
                  }
@@ -498,7 +498,7 @@ panel.bwplot <-
         blist.height <- box.ratio / (1 + box.ratio)
         if (varwidth)
         {
-            maxn <- max(by(x, y, length))
+            maxn <- max(table(y))
             blist.n <- sapply(blist, "[[", "n")
             blist.height <- sqrt(blist.n / maxn) * blist.height
         }
@@ -577,7 +577,7 @@ panel.bwplot <-
         blist.height <- box.ratio / (1 + box.ratio)
         if (varwidth)
         {
-            maxn <- max(by(y, x, length))
+            maxn <- max(table(x))
             blist.n <- sapply(blist, "[[", "n")
             blist.height <- sqrt(blist.n / maxn) * blist.height
         }
