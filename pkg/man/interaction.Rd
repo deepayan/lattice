@@ -85,7 +85,7 @@ trellis.panelArgs(x, packet.number)
   }
   \item{name}{
     character string indicating which viewport or grob we are looking
-    for. Although these do not necessarily provide access to all
+    for.  Although these do not necessarily provide access to all
     viewports and grobs created by a lattice plot, they cover most that
     users might find interesting.
 
@@ -97,6 +97,12 @@ trellis.panelArgs(x, packet.number)
     If \code{name}, as well as \code{column} and \code{row} is missing
     in a call to \code{trellis.focus}, the user can click inside a panel
     (or an associated strip) to focus on that panel.
+
+    When \code{name} is \code{"panel"}, \code{"strip"}, or
+    \code{"strip.left"}, \code{column} and \code{row} must also be
+    specified.  When \code{name} is \code{"legend"}, \code{side} must
+    also be specified.
+
   }
   \item{column, row}{
     integers, indicating position of the panel or strip that should be
@@ -110,7 +116,7 @@ trellis.panelArgs(x, packet.number)
     \code{trellis.focus}.
   }
   \item{side}{
-    character string, relevant only for legends (i.e. when
+    character string, relevant only for legends (i.e., when
     \code{name="legend"}), indicating their position.  Partial specification
     is allowed, as long as it is unambiguous.
   }
