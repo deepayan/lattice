@@ -97,7 +97,8 @@
   learn about manipulating a \code{"trellis"} object.  Tools to augment
   lattice plots after they are drawn (including
   \code{\link{locator}}-like functionality) is described in the
-  \code{\link[lattice:interaction]{interaction}} help page.
+  \code{\link{trellis.focus}} help page.
+  % \code{\link[lattice:interaction]{interaction}} help page.
 
   The following is a list of \sQuote{high level} functions in the
   Lattice package with a brief description of what they do.  In all
