@@ -345,13 +345,16 @@ splom <- function(x, data, ...) UseMethod("splom")
 
 splom.matrix <-
 splom.data.frame <-
-    function(x, data = NULL, ...)
+    function(x, data = NULL, ..., groups = NULL, subscripts = TRUE)
 {
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <- list(x = x)
+    ccall$data <-
+        list(x = x, groups = groups, subscripts = subscripts)
     ccall$x <- ~x
+    ccall$groups <- groups
+    ccall$subscripts <- subscripts
     ccall[[1]] <- quote(lattice::splom)
     eval.parent(ccall)
 }
