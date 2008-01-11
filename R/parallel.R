@@ -201,16 +201,16 @@ parallel <- function(x, data, ...) UseMethod("parallel")
 
 parallel.matrix <-
 parallel.data.frame <-
-    function(x, data = NULL, ..., groups = NULL, subscripts = TRUE)
+    function(x, data = NULL, ..., groups = NULL, subset = TRUE)
 {
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
     ccall$data <-
-        list(x = x, groups = groups, subscripts = subscripts)
+        list(x = x, groups = groups, subset = subset)
     ccall$x <- ~x
     ccall$groups <- groups
-    ccall$subscripts <- subscripts
+    ccall$subset <- subset
     ccall[[1]] <- quote(lattice::parallel)
     eval.parent(ccall)
 }
