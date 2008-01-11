@@ -56,11 +56,11 @@ parallel(x, data, \dots)
          default.scales,
          subset = TRUE)
 
-\method{splom}{data.frame}(x, data = NULL, \dots)
-\method{splom}{matrix}(x, data = NULL, \dots)
+\method{splom}{data.frame}(x, data = NULL, \dots, groups = NULL, subset = TRUE)
+\method{splom}{matrix}(x, data = NULL, \dots, groups = NULL, subset = TRUE)
 
-\method{parallel}{matrix}(x, data = NULL, \dots)
-\method{parallel}{data.frame}(x, data = NULL, \dots)
+\method{parallel}{matrix}(x, data = NULL, \dots, groups = NULL, subset = TRUE)
+\method{parallel}{data.frame}(x, data = NULL, \dots, groups = NULL, subset = TRUE)
 }
 \description{
   Draw Conditional Scatter Plot Matrices and Parallel Coordinate Plots
