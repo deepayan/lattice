@@ -526,13 +526,7 @@ formattedTicksAndLabels.Date <-
         z <- x[is.finite(x)] # override changes
     z <- z[z >= range[1] & z <= range[2]]
     z <- structure(sort(unique(z)), class = "Date")    
-    if (is.logical(labels))
-        labels <- format.Date(z, format = format.posixt)
-##     if (identical(labels, TRUE))
-##         labels <- format.Date(z, format = format.posixt)
-##     else if (identical(labels, FALSE))
-##         ## suppress labelling of ticks
-##         labels <- rep("", length(z))
+    labels <- format.Date(z, format = format.posixt)
     list(at = as.numeric(z),
          labels = labels,
          check.overlap = FALSE,
@@ -623,12 +617,12 @@ formattedTicksAndLabels.POSIXct <-
         if (is.null(format.posixt)) 
             format.posixt <- "%Y"
     }
-    if (!mat) 
-        z <- x[is.finite(x)]
-    z <- z[z >= range[1] & z <= range[2]]
+    if (!mat) z <- x[is.finite(x)]
     if (mlab) labels <- format(z, format = format.posixt)
-    list(at = as.numeric(z),
-         labels = labels,
+    z <- as.numeric(z)
+    keep <- z >= range[1] & z <= range[2]
+    list(at = z[keep],
+         labels = labels[keep],
          check.overlap = FALSE,
          num.limit = num.lim)
 }
