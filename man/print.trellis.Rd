@@ -111,6 +111,10 @@ panel.error(e)
     behaviour (implemented as the the \code{panel.error} function) is to
     print the corresponding error message in the panel and continue.  To
     stop execution on error, use \code{panel.error = stop}.
+
+    Normal error recovery and debugging tools are unhelpful when
+    \code{tryCatch} is used.  \code{tryCatch} can be completely bypassed
+    by setting \code{panel.error} to NULL.
   }
   \item{prefix}{
     character string used as a prefix in viewport and grob names, used
