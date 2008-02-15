@@ -45,8 +45,6 @@ level.colors <- function(x, at, col.regions, colors = TRUE, ...)
 
 
 
-
-
 prepanel.default.levelplot <-
     function(x, y, subscripts, ...)
 {
@@ -380,7 +378,7 @@ contourplot <- function(x, data, ...) UseMethod("contourplot")
 
 contourplot.matrix <-
     function(x, data = NULL, aspect = "iso", 
-             ...,
+             ..., xlim, ylim,
              row.values = seq_len(nrow(x)),
              column.values = seq_len(ncol(x)))
 {
@@ -390,12 +388,16 @@ contourplot.matrix <-
     form <- z ~ row * column
     data <- expand.grid(row = row.values, column = column.values)
     data$z <- as.vector(as.numeric(x))
-    ## if rownames/colnames are non-null, make them factors
-    if (!is.null(rownames(x)))
-        data$row <- factor(data$row, labels = rownames(x))
-    if (!is.null(colnames(x)))
-        data$column <- factor(data$column, labels = colnames(x))
-    contourplot(form, data, aspect = aspect, ...)
+    ## if rownames/colnames are non-null, use them to label
+    if (missing(xlim))
+        xlim <-
+            if (!is.null(rownames(x))) rownames(x)
+            else range(row.values, finite = TRUE) + c(-0.5, 0.5)
+    if (missing(ylim))
+        ylim <-
+            if (!is.null(colnames(x))) colnames(x)
+            else range(column.values, finite = TRUE) + c(-0.5, 0.5)
+    contourplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
 }
 
 
@@ -443,12 +445,16 @@ levelplot.matrix <-
     form <- z ~ row * column
     data <- expand.grid(row = row.values, column = column.values)
     data$z <- as.vector(as.numeric(x))
-    ## if rownames/colnames are non-null, make them factors
-    if (!is.null(rownames(x)))
-        data$row <- factor(data$row, labels = rownames(x))
-    if (!is.null(colnames(x)))
-        data$column <- factor(data$column, labels = colnames(x))
-    levelplot(form, data, aspect = aspect, ...)
+    ## if rownames/colnames are non-null, use them to label
+    if (missing(xlim))
+        xlim <-
+            if (!is.null(rownames(x))) rownames(x)
+            else range(row.values, finite = TRUE) + c(-0.5, 0.5)
+    if (missing(ylim))
+        ylim <-
+            if (!is.null(colnames(x))) colnames(x)
+            else range(column.values, finite = TRUE) + c(-0.5, 0.5)
+    levelplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
 }
 
 levelplot.formula <-
