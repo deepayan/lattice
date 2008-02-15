@@ -1057,14 +1057,14 @@ plot.trellis <-
 ###                                    ###
 ##########################################
 
-
                         if (!("..." %in% names(formals(panel))))
                             pargs <- pargs[intersect(names(pargs), names(formals(panel)))]
-                        tryCatch(do.call("panel", pargs),
-                                 error = function(e) panel.error(e))
-
+                        if (is.null(panel.error))
+                            do.call("panel", pargs)
+                        else
+                            tryCatch(do.call("panel", pargs),
+                                     error = function(e) panel.error(e))
                         upViewport()
-
 
 ############################################
 ###       finished drawing panel          ##
