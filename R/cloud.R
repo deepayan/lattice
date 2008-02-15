@@ -1408,6 +1408,9 @@ wireframe.formula <-
 cloud <- function(x, data, ...) UseMethod("cloud")
 
 
+## FIXME: make xlim/ylim similar to levelplot.matrix? What about
+## cloud.table?
+
 cloud.matrix <-
     function(x, data = NULL, type = 'h',
              zlab = deparse(substitute(x)),
