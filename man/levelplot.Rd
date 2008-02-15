@@ -48,10 +48,10 @@ contourplot(x, data, \dots)
             \dots)
 
 \method{levelplot}{matrix}(x, data = NULL, aspect = "iso", \dots,
-          row.values, column.values)
+          xlim, ylim, row.values, column.values)
 
 \method{contourplot}{matrix}(x, data = NULL, aspect = "iso", \dots,
-            row.values, column.values)
+            xlim, ylim, row.values, column.values)
 
 }
 \description{
@@ -179,7 +179,9 @@ contourplot(x, data, \dots)
     these arguments are described in the help page for
     \code{\link{xyplot}}.
   }
-  \item{\dots}{other arguments}
+  \item{\dots}{ other arguments.  Some are processed by \code{levelplot}
+    or \code{contourplot}, and those unrecognized are passed on to the
+    panel function.  }
 }
 \details{
   These and all other high level Trellis functions have several
