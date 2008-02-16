@@ -66,7 +66,7 @@ wireframe(x, data, \dots)
 %           col.regions)
 \method{cloud}{matrix}(x, data = NULL, type = "h", 
       zlab = deparse(substitute(x)), aspect, \dots,
-      row.values, column.values)
+      xlim, ylim, row.values, column.values)
 
 \method{cloud}{table}(x, data = NULL, groups = FALSE,
       zlab = deparse(substitute(x)),
@@ -74,7 +74,7 @@ wireframe(x, data, \dots)
 
 \method{wireframe}{matrix}(x, data = NULL,
           zlab = deparse(substitute(x)), aspect, \dots,
-          row.values, column.values)
+          xlim, ylim, row.values, column.values)
 }
 \description{
   Generic functions to draw 3d scatter plots and surfaces.  The

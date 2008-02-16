@@ -435,7 +435,7 @@ levelplot <- function(x, data, ...) UseMethod("levelplot")
 
 levelplot.matrix <-
     function(x, data = NULL, aspect = "iso",
-             ...,
+             ..., xlim, ylim,
              row.values = seq_len(nrow(x)),
              column.values = seq_len(ncol(x)))
 {

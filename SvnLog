@@ -1,4 +1,212 @@
 ------------------------------------------------------------------------
+r4947 | deepayan | 2008-02-14 23:05:22 -0800 (Thu, 14 Feb 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/man/levelplot.Rd
+
+documented new arguments, bumped version
+------------------------------------------------------------------------
+r4946 | deepayan | 2008-02-14 18:30:10 -0800 (Thu, 14 Feb 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/levelplot.R
+
+better axis labeling for matrix input
+------------------------------------------------------------------------
+r4945 | deepayan | 2008-02-14 16:50:26 -0800 (Thu, 14 Feb 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/man/print.trellis.Rd
+
+added support for 'panel.error=NULL' in print.trellis(), to bypass
+tryCatch when calling panel functions.  This allows the use of normal
+debgging tools such as traceback() and recover()
+------------------------------------------------------------------------
+r4920 | deepayan | 2008-02-05 13:02:00 -0800 (Tue, 05 Feb 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/axis.R
+
+bugfix in formattedTicksAndLabels.POSIXct; labels are now subsetted in
+accordance with at
+------------------------------------------------------------------------
+r4898 | deepayan | 2008-01-11 14:12:50 -0800 (Fri, 11 Jan 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/man/splom.Rd
+
+fixed scoping behaviour for some non-formula methods
+------------------------------------------------------------------------
+r4896 | deepayan | 2008-01-03 10:13:56 -0800 (Thu, 03 Jan 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/splom.R
+
+better scoping behaviour
+------------------------------------------------------------------------
+r4892 | deepayan | 2007-12-31 15:40:44 -0800 (Mon, 31 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/demo/00Index
+   M /trunk/lattice/man/Lattice.Rd
+
+better behaved link to ?interaction
+------------------------------------------------------------------------
+r4881 | deepayan | 2007-12-25 22:42:30 -0800 (Tue, 25 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/interaction.Rd
+
+clarification of 'name' argument
+------------------------------------------------------------------------
+r4877 | deepayan | 2007-12-17 14:59:58 -0800 (Mon, 17 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+replaced wrong use of by() by tapply() (no longer works in r-devel)
+------------------------------------------------------------------------
+r4876 | deepayan | 2007-12-16 13:48:07 -0800 (Sun, 16 Dec 2007) | 1 line
+Changed paths:
+   A /trunk/lattice/demo/labels.R
+   M /trunk/lattice/demo/lattice.R
+
+added a 'labels' demo as promised in the book
+------------------------------------------------------------------------
+r4875 | deepayan | 2007-12-16 13:47:23 -0800 (Sun, 16 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+
+modified (desaturated) superpose.polygon colors
+------------------------------------------------------------------------
+r4872 | deepayan | 2007-12-10 13:04:57 -0800 (Mon, 10 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.stripplot.Rd
+
+clarification
+------------------------------------------------------------------------
+r4869 | deepayan | 2007-12-07 22:34:35 -0800 (Fri, 07 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/axis.default.Rd
+
+added details of return value
+------------------------------------------------------------------------
+r4866 | deepayan | 2007-12-06 09:21:18 -0800 (Thu, 06 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/man/panel.xyplot.Rd
+
+type='s' now works as plot in panel.points etc (but not in panel.xyplot)
+------------------------------------------------------------------------
+r4865 | deepayan | 2007-12-06 09:20:45 -0800 (Thu, 06 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.barchart.Rd
+
+doc fix (had spaces between braces)
+------------------------------------------------------------------------
+r4864 | deepayan | 2007-12-06 09:19:08 -0800 (Thu, 06 Dec 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/man/splom.Rd
+
+added auto.key support to parallel
+------------------------------------------------------------------------
+r4841 | deepayan | 2007-10-31 18:37:39 -0700 (Wed, 31 Oct 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/print.trellis.R
+
+honor alpha specification for xlab, ylab, main, sub
+------------------------------------------------------------------------
+r4839 | deepayan | 2007-10-26 01:42:10 -0700 (Fri, 26 Oct 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/R/splom.R
+
+fixed a couple of wrong uses of any()
+------------------------------------------------------------------------
+r4833 | deepayan | 2007-10-15 18:12:38 -0700 (Mon, 15 Oct 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/panel.cloud.Rd
+   M /trunk/lattice/man/print.trellis.Rd
+   A /trunk/lattice/man/simpleTheme.Rd
+   M /trunk/lattice/man/trellis.device.Rd
+
+simpleTheme() documented, print.trellis now uses
+lattice.getOption('print.function') to do the actual printing, plus
+misc updates
+------------------------------------------------------------------------
+r4811 | deepayan | 2007-10-04 15:33:17 -0700 (Thu, 04 Oct 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/histogram.R
+
+include 'right' parameter in hist() call
+------------------------------------------------------------------------
+r4797 | deepayan | 2007-09-28 18:21:58 -0700 (Fri, 28 Sep 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+
+made license standard
+------------------------------------------------------------------------
+r4796 | deepayan | 2007-09-28 18:21:12 -0700 (Fri, 28 Sep 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/settings.R
+   M /trunk/lattice/man/trellis.device.Rd
+
+exported simpleTheme (not yet documented)
+------------------------------------------------------------------------
+r4792 | deepayan | 2007-09-27 18:09:39 -0700 (Thu, 27 Sep 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/R/settings.R
+
+new function simpleTheme (as yet unexported) to create a theme just
+from graphical parameters, to be used to produce temporary themes on
+the fly
+------------------------------------------------------------------------
+r4777 | deepayan | 2007-09-20 15:57:32 -0700 (Thu, 20 Sep 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/R/settings.R
+
+changed use of prefix in print.trellis so that printing another
+trellis object while one is being printed doesn't mess things up
+------------------------------------------------------------------------
+r4770 | deepayan | 2007-09-13 15:36:54 -0700 (Thu, 13 Sep 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/strip.default.Rd
+
+fixed typo
+------------------------------------------------------------------------
+r4764 | deepayan | 2007-09-07 17:28:36 -0700 (Fri, 07 Sep 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/inst/Changes
+
+reverted recently introduced behaviour of setting names(x) <-
+rownames(data) for formulas of the form ~x, as this gives undesirable
+results for bwplot
+------------------------------------------------------------------------
+r4761 | deepayan | 2007-09-03 17:23:51 -0700 (Mon, 03 Sep 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/xyplot.Rd
+
+clarified role of scales
+------------------------------------------------------------------------
+r4757 | deepayan | 2007-08-31 16:05:30 -0700 (Fri, 31 Aug 2007) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.xyplot.Rd
+   M /trunk/lattice/po/R-lattice.pot
+
+escape % sign in man page
+------------------------------------------------------------------------
 r4755 | deepayan | 2007-08-31 14:31:14 -0700 (Fri, 31 Aug 2007) | 1 line
 Changed paths:
    M /trunk/lattice/R/legend.R

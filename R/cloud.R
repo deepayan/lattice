@@ -1359,7 +1359,7 @@ wireframe.matrix <-
     function(x, data = NULL,
              zlab = deparse(substitute(x)),
              aspect,
-             ...,
+             ..., xlim, ylim,
              row.values = seq_len(nrow(x)),
              column.values = seq_len(ncol(x)))
 {
@@ -1370,14 +1370,17 @@ wireframe.matrix <-
     if (missing(aspect)) aspect <- pmin(ncol(x) / nrow(x), c(Inf, 1))
     data <- expand.grid(row = row.values, column = column.values)
     data$z <- as.vector(as.numeric(x))
-    ## Change default tick labels if rownames/colnames are non-null
-##     default.scales <- list()
-##     if (!is.null(rownames(x)))
-##         default.scales$x <- list(at = seq_len(nrow(x)), labels = rownames(x))
-##     if (!is.null(colnames(x)))
-##         default.scales$y <- list(at = seq_len(ncol(x)), labels = colnames(x))
+    ## if rownames/colnames are non-null, use them to label
+    if (missing(xlim))
+        xlim <-
+            if (!is.null(rownames(x))) rownames(x)
+            else range(row.values, finite = TRUE)
+    if (missing(ylim))
+        ylim <-
+            if (!is.null(colnames(x))) colnames(x)
+            else range(column.values, finite = TRUE)
     wireframe(form, data, zlab = zlab, aspect = aspect,
-##               default.scales = default.scales,
+              xlim = xlim, ylim = ylim,
               ...)
 }
 
@@ -1408,14 +1411,14 @@ wireframe.formula <-
 cloud <- function(x, data, ...) UseMethod("cloud")
 
 
-## FIXME: make xlim/ylim similar to levelplot.matrix? What about
+## FIXME: made xlim/ylim similar to levelplot.matrix? What about
 ## cloud.table?
 
 cloud.matrix <-
     function(x, data = NULL, type = 'h',
              zlab = deparse(substitute(x)),
              aspect,
-             ...,
+             ..., xlim, ylim, 
              row.values = seq_len(nrow(x)),
              column.values = seq_len(ncol(x)))
 {
@@ -1428,14 +1431,17 @@ cloud.matrix <-
         expand.grid(row = seq_len(nrow(x)),
                     column = seq_len(ncol(x)))
     data$z <- as.vector(as.numeric(x))
-    ## Change default tick labels if rownames/colnames are non-null
-##     default.scales <- list()
-##     if (!is.null(rownames(x)))
-##         default.scales$x <- list(at = seq_len(nrow(x)), labels = rownames(x))
-##     if (!is.null(colnames(x)))
-##         default.scales$y <- list(at = seq_len(ncol(x)), labels = colnames(x))
+    ## if rownames/colnames are non-null, use them to label
+    if (missing(xlim))
+        xlim <-
+            if (!is.null(rownames(x))) rownames(x)
+            else range(row.values, finite = TRUE)
+    if (missing(ylim))
+        ylim <-
+            if (!is.null(colnames(x))) colnames(x)
+            else range(column.values, finite = TRUE)
     cloud(form, data, type = type, zlab = zlab, aspect = aspect, 
-##           default.scales = default.scales,
+          xlim = xlim, ylim = ylim,
           ...)
 }
 
