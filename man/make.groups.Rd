@@ -28,7 +28,7 @@ make.groups(\dots)
     came from
   }
   When all the input arguments are data frames, the result of
-  \code{\link{cbind}} applied to them, along with an additional
+  \code{\link{rbind}} applied to them, along with an additional
   \code{which} column as described above.
 }
 
