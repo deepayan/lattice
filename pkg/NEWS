@@ -12,6 +12,9 @@ new features
  o support for lattice.option(print.function) which is the function
    actually used when print.trellis() is called
 
+ o new argument 'box.width' wherever 'box.ratio' is available (e.g.,
+   panel.bwplot, panel.barchart, etc.), to specify absolute thickness
+   (of boxes, bars, etc.)
 
 
 Changes in lattice 0.16
