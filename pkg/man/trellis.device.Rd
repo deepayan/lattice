@@ -131,6 +131,11 @@ col.whitebg()
   argument instead.
 }
 
+\references{
+  Sarkar, Deepayan (2008) "Lattice: Multivariate Data Visualization with
+  R", Springer. \url{http://lmdvr.r-forge.r-project.org/}
+}
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
 

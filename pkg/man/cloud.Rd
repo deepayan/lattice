@@ -319,6 +319,11 @@ wireframe(x, data, \dots)
   a row in the data frame for each grid point, with an \code{NA}
   response (\code{z}) in rows that were previously missing.  }
 
+\references{
+  Sarkar, Deepayan (2008) "Lattice: Multivariate Data Visualization with
+  R", Springer. \url{http://lmdvr.r-forge.r-project.org/}
+}
+
 \value{
 
   An object of class \code{"trellis"}. The

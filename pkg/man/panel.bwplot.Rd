@@ -6,6 +6,7 @@
 }
 \usage{
 panel.bwplot(x, y, box.ratio = 1,
+             box.width = box.ratio / (1 + box.ratio),
              horizontal = TRUE,
              pch, col, cex, 
              font, fontfamily, fontface, 
@@ -19,7 +20,11 @@ panel.bwplot(x, y, box.ratio = 1,
 \arguments{
   \item{x, y}{ numeric vector or factor. Boxplots drawn for each unique value of
     \code{y} (\code{x}) if \code{horizontal} is \code{TRUE} (\code{FALSE})}
-  \item{box.ratio}{ ratio of box height to inter box space}
+  \item{box.ratio}{ ratio of box thickness to inter box space}
+  \item{box.width}{ thickness of box in absolute units; overrides
+    \code{box.ratio}.  Useful for specifying thickness when the
+    categorical variable is not a factor, as use of \code{box.ratio}
+    alone cannot achieve a thickness greater than 1. }
   \item{horizontal}{
     logical. If FALSE, the plot is \sQuote{transposed} in the sense that
     the behaviours of x and y are switched. x is now the

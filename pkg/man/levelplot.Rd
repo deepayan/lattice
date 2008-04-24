@@ -194,6 +194,12 @@ contourplot(x, data, \dots)
   arguments to the panel function, but can be specified in the high
   level calls directly).
 }
+
+\references{
+  Sarkar, Deepayan (2008) "Lattice: Multivariate Data Visualization with
+  R", Springer. \url{http://lmdvr.r-forge.r-project.org/}
+}
+
 \value{
 
   An object of class \code{"trellis"}. The
