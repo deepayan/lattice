@@ -5,7 +5,7 @@
   Default panel function for \code{barchart}.
 }
 \usage{
-panel.barchart(x, y, box.ratio = 1,
+panel.barchart(x, y, box.ratio = 1, box.width,
                horizontal = TRUE,
                origin = NULL, reference = TRUE,
                stack = FALSE,
@@ -26,6 +26,10 @@ panel.barchart(x, y, box.ratio = 1,
   }
   \item{y}{ Horizontal location of bars, possibly factor}
   \item{box.ratio}{ratio of bar width to inter-bar space}
+  \item{box.width}{ thickness of bars in absolute units; overrides
+    \code{box.ratio}.  Useful for specifying thickness when the
+    categorical variable is not a factor, as use of \code{box.ratio}
+    alone cannot achieve a thickness greater than 1. }
   \item{horizontal}{
     logical. If FALSE, the plot is \sQuote{transposed} in the sense that
     the behaviours of x and y are switched. x is now the

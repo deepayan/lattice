@@ -7,7 +7,8 @@
 }
 \usage{
 
-panel.violin(x, y, box.ratio = 1, horizontal = TRUE,
+panel.violin(x, y, box.ratio = 1, box.width,
+             horizontal = TRUE,
              alpha, border, lty, lwd, col,
              varwidth = FALSE,
              bw, adjust, kernel, window, 
@@ -21,8 +22,12 @@ panel.violin(x, y, box.ratio = 1, horizontal = TRUE,
     (\code{FALSE})
   }
   \item{box.ratio}{
-    ratio of height of a violin and inter violin space
+    ratio of the thickness of each violin and inter violin space
   }
+  \item{box.width}{ thickness of the violins in absolute units;
+    overrides \code{box.ratio}.  Useful for specifying thickness when
+    the categorical variable is not a factor, as use of \code{box.ratio}
+    alone cannot achieve a thickness greater than 1. }
   \item{horizontal}{
     logical. If FALSE, the plot is \sQuote{transposed} in the sense that
     the behaviours of \code{x} and \code{y} are switched.  \code{x} is

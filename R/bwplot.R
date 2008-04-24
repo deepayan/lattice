@@ -98,7 +98,7 @@ prepanel.default.bwplot <-
 
 
 panel.barchart <-
-    function(x, y, box.ratio = 1,
+    function(x, y, box.ratio = 1, box.width = box.ratio / (1 + box.ratio),
              horizontal = TRUE,
              origin = NULL, reference = TRUE,
              stack = FALSE,
@@ -155,7 +155,7 @@ panel.barchart <-
                 origin <- current.panel.limits()$xlim[1]
                 reference <- FALSE
             }
-            height <- box.ratio / (1 + box.ratio)
+            height <- box.width # box.ratio / (1 + box.ratio)
         
             if (reference)
                 panel.abline(v = origin,
@@ -189,7 +189,7 @@ panel.barchart <-
             lty <- rep(lty, length = nvals)
             lwd <- rep(lwd, length = nvals)
 
-            height <- box.ratio / (1 + box.ratio)
+            height <- box.width # box.ratio / (1 + box.ratio)
 
             if (reference)
                 panel.abline(v = origin,
@@ -247,7 +247,7 @@ panel.barchart <-
             lty <- rep(lty, length = nvals)
             lwd <- rep(lwd, length = nvals)
 
-            height <- box.ratio/(1 + nvals * box.ratio)
+            height <- box.width / nvals # box.ratio/(1 + nvals * box.ratio)
             if (reference)
                 panel.abline(v = origin,
                              col = reference.line$col,
@@ -281,7 +281,7 @@ panel.barchart <-
                 origin <- current.panel.limits()$ylim[1]
                 reference <- FALSE
             }
-            width <- box.ratio/(1+box.ratio)
+            width <- box.width # box.ratio/(1+box.ratio)
 
             if (reference)
                 panel.abline(h = origin,
@@ -313,7 +313,7 @@ panel.barchart <-
             lty <- rep(lty, length = nvals)
             lwd <- rep(lwd, length = nvals)
 
-            width <- box.ratio/(1 + box.ratio)
+            width <- box.width # box.ratio/(1 + box.ratio)
 
             if (reference)
                 panel.abline(h = origin,
@@ -368,7 +368,7 @@ panel.barchart <-
             lty <- rep(lty, length = nvals)
             lwd <- rep(lwd, length = nvals)
 
-            width <- box.ratio/(1 + nvals * box.ratio)
+            width <- box.width / nvals # box.ratio/(1 + nvals * box.ratio)
             if (reference)
                 panel.abline(h = origin,
                              col = reference.line$col,
@@ -457,7 +457,7 @@ panel.stripplot <-
 
 
 panel.bwplot <-
-    function(x, y, box.ratio = 1,
+    function(x, y, box.ratio = 1, box.width = box.ratio / (1 + box.ratio),
              horizontal = TRUE,
              pch = box.dot$pch,
              col = box.dot$col,
@@ -495,7 +495,7 @@ panel.bwplot <-
                    do.out = do.out)
         blist.stats <- t(sapply(blist, "[[", "stats"))
         blist.out <- lapply(blist, "[[", "out")
-        blist.height <- box.ratio / (1 + box.ratio)
+        blist.height <- box.width # box.ratio / (1 + box.ratio)
         if (varwidth)
         {
             maxn <- max(table(y))
@@ -574,7 +574,7 @@ panel.bwplot <-
                    do.out = do.out)
         blist.stats <- t(sapply(blist, "[[", "stats"))
         blist.out <- lapply(blist, "[[", "out")
-        blist.height <- box.ratio / (1 + box.ratio)
+        blist.height <- box.width # box.ratio / (1 + box.ratio)
         if (varwidth)
         {
             maxn <- max(table(x))
@@ -664,7 +664,8 @@ panel.bwplot <-
 
 
 panel.violin <-
-    function(x, y, box.ratio = 1, horizontal = TRUE,
+    function(x, y, box.ratio = 1, box.width = box.ratio / (1 + box.ratio),
+             horizontal = TRUE,
 
              alpha = plot.polygon$alpha,
              border = plot.polygon$border,
@@ -727,7 +728,7 @@ panel.violin <-
     
     xscale <- current.panel.limits()$xlim
     yscale <- current.panel.limits()$ylim
-    height <- box.ratio / (1 + box.ratio)
+    height <- box.width # box.ratio / (1 + box.ratio)
 
     if (horizontal)
     {

@@ -1135,6 +1135,12 @@ bwplot(x, data, \dots)
   usually be supplied as arguments to the high level plot.
 
 }
+
+\references{
+  Sarkar, Deepayan (2008) "Lattice: Multivariate Data Visualization with
+  R", Springer. \url{http://lmdvr.r-forge.r-project.org/}
+}
+
 \seealso{
   \code{\link{Lattice}} for an overview of the package, as well as 
   \code{\link{barchart.table}},

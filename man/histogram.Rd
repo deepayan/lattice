@@ -198,6 +198,11 @@ do.breaks(endpoints, nint)
   allows plots as in the second example below.
 }
 
+\references{
+  Sarkar, Deepayan (2008) "Lattice: Multivariate Data Visualization with
+  R", Springer. \url{http://lmdvr.r-forge.r-project.org/}
+}
+
 \seealso{
   \code{\link{xyplot}},
   \code{\link{panel.histogram}},
