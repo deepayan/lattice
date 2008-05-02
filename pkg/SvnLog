@@ -1,4 +1,68 @@
 ------------------------------------------------------------------------
+r5124 | deepayan | 2008-05-02 15:49:51 -0700 (Fri, 02 May 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/panels.R
+   D /trunk/lattice/inst
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/panel.functions.Rd
+
+added support for 'type' in panel.average, plus misc bookkeeping
+------------------------------------------------------------------------
+r5123 | deepayan | 2008-05-02 15:41:17 -0700 (Fri, 02 May 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/interaction.R
+
+renamed panel.brush.splom to panel.link.splom (which is less of a misnomer)
+------------------------------------------------------------------------
+r5112 | deepayan | 2008-04-24 14:42:23 -0700 (Thu, 24 Apr 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/NEWS
+
+updated NEWS
+------------------------------------------------------------------------
+r5111 | deepayan | 2008-04-24 14:39:32 -0700 (Thu, 24 Apr 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/man/Lattice.Rd
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/panel.barchart.Rd
+   M /trunk/lattice/man/panel.bwplot.Rd
+   M /trunk/lattice/man/panel.violin.Rd
+   M /trunk/lattice/man/trellis.device.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+updated man pages to include Springer book reference
+------------------------------------------------------------------------
+r5086 | deepayan | 2008-04-22 09:22:34 -0700 (Tue, 22 Apr 2008) | 1 line
+Changed paths:
+   A /trunk/lattice/NEWS (from /trunk/lattice/inst/Changes:5085)
+   D /trunk/lattice/inst/Changes
+
+renamed inst/Changes to NEWS, which is more standard
+------------------------------------------------------------------------
+r4966 | deepayan | 2008-02-28 08:31:34 -0800 (Thu, 28 Feb 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/man/make.groups.Rd
+
+fixed typo
+------------------------------------------------------------------------
+r4948 | deepayan | 2008-02-15 19:03:09 -0800 (Fri, 15 Feb 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/SvnLog
+   M /trunk/lattice/inst/Changes
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/po/R-lattice.pot
+
+xlim/ylim updates in cloud() too; updated logs
+------------------------------------------------------------------------
 r4947 | deepayan | 2008-02-14 23:05:22 -0800 (Thu, 14 Feb 2008) | 1 line
 Changed paths:
    M /trunk/lattice/DESCRIPTION
