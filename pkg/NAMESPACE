@@ -195,6 +195,7 @@ export(
        
        panel.identify,
        panel.identify.qqmath,
+       panel.link.splom,
        panel.brush.splom,
        trellis.focus,
        trellis.unfocus,
