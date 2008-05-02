@@ -112,12 +112,15 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
     to \code{\link{llines}}
   }
   \item{col, col.line, lty, lwd, alpha, border}{ graphical parameters }
-  \item{type}{ usually ignored.  This is present only to make sure an
-    explicitly specified \code{type} argument (perhaps meant for another
-    function) doesn't affect the display. }
+  \item{type}{ passed on to \code{\link{panel.points}} by
+    \code{panel.average}, but is usually ignored by the other panel
+    functions documented here.  In such cases, the argument is present
+    only to make sure an explicitly specified \code{type} argument
+    (perhaps meant for another function) doesn't affect the display.
+  }
   \item{span, degree, family, evaluation}{ arguments to
     \code{loess.smooth}, for which \code{panel.loess} is essentially
-    a wrapper
+    a wrapper.
   }
   \item{fun}{ the function that will be applied to the subset of x(y)
     determined by the unique values of y(x)}

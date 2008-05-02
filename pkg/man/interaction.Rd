@@ -1,6 +1,7 @@
 \name{interaction}
 \alias{panel.identify}
 \alias{panel.identify.qqmath}
+\alias{panel.link.splom}
 \alias{panel.brush.splom}
 \alias{trellis.focus}
 \alias{trellis.unfocus}
@@ -31,6 +32,7 @@ panel.identify(x, y = NULL,
 panel.identify.qqmath(x, distribution, groups, subscripts, labels,
                       panel.args = trellis.panelArgs(),
                       \dots)
+panel.link.splom(threshold = 18, verbose = getOption("verbose"), \dots)
 panel.brush.splom(threshold = 18, verbose = getOption("verbose"), \dots)
 
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
@@ -158,7 +160,7 @@ trellis.panelArgs(x, packet.number)
     \code{trellis.focus} and \code{trellis.switchFocus}, these are used
     (in combination with \code{\link{lattice.options}}) for highlighting
     the chosen viewport if so requested.  Graphical parameters can be
-    supplied for \code{panel.brush.splom}.
+    supplied for \code{panel.link.splom}.
   }
 }
 
@@ -171,10 +173,12 @@ trellis.panelArgs(x, packet.number)
   plotting the whole object, in which case a call to
   \code{trellis.focus} first is necessary.
 
-  \code{panel.brush.splom} is meant for use with \code{\link{splom}},
+  \code{panel.link.splom} is meant for use with \code{\link{splom}},
   and requires a panel to be chosen using \code{trellis.focus} before it
   is called.  Clicking on a point causes that and the corresponding
   proections in other pairwise scatter plots to be highlighted.
+  \code{panel.brush.splom} is a (misnamed) alias for
+  \code{panel.link.splom}, retained for back-compatibility.
 
   \code{panel.identify.qqmath} is a specialized wrapper meant for use
   with the display produced by \code{\link{qqmath}}.
