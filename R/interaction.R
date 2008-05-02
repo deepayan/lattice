@@ -414,21 +414,25 @@ panel.identify.qqmath <-
 
 
 
-### `brushing' for splom
+### `link' for splom
 
-panel.brush.splom <-
+
+panel.link.splom <-
     function(threshold = 18, verbose = getOption("verbose"), ...)
 {
     ans <- numeric(0)
     repeat {
-        new <- splom.brushPoint(threshold = threshold, verbose = verbose, ...)
+        new <- splom.linkPoint(threshold = threshold, verbose = verbose, ...)
         if (is.null(new)) break
         else ans[length(ans) + 1] <- new
     }
     ans
 }
 
-splom.brushPoint <-
+panel.brush.splom <- panel.link.splom # for back-compatibility
+
+
+splom.linkPoint <-
     function(pargs = trellis.panelArgs(),
              threshold = 18,
              col = 'black', pch = 16, cex = 0.8, ...,
