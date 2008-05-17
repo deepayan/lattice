@@ -294,13 +294,24 @@ bwplot(x, data, \dots)
     \code{subscripts} argument passed to the panel function are the
     indices of the \code{x} and \code{y} data for that panel in the
     original \code{data}, BEFORE taking into account the effect of
-    the \code{subset} argument. Note that \code{groups} remains
+    the \code{subset} argument.  Note that \code{groups} remains
     unaffected by any subsetting operations, so
     \code{groups[subscripts]} gives the values of \code{groups} that
-    correspond to the data in that panel.  The value of
-    \code{subscripts} becomes slightly more complicated when
-    \code{allow.multiple} is in effect.  Details can be found in the
-    source code of the function \code{latticeParseFormula}.
+    correspond to the data in that panel.
+
+    This interpretation of \code{subscripts} does not hold when the
+    extended formula interface is in use (i.e., when
+    \code{allow.multiple} is in effect).  A comprehensive description
+    would be too complicated (details can be found in the source code of
+    the function \code{latticeParseFormula}), but in short, the extended
+    interface works by creating an artificial grouping variable that is
+    longer than the original data frame, and consequently,
+    \code{subscripts} needs to refer to rows beyond those in the
+    original data.  To further complicate matters, the artificial
+    grouping variable is created after any effect of \code{subset}, in
+    which case \code{subscripts} has practically no relationship with
+    corresponding rows in the original data frame.
+
 
     One can also use functions called \code{\link{panel.number}} and
     \code{\link{packet.number}}, representing panel order and packet
