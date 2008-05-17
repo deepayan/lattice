@@ -308,7 +308,7 @@ histogram.formula <-
     if (missing(breaks)) # explicit NULL, or function, or character is fine
         breaks <- # use nint and endpoints
             if (is.factor(x)) seq_len(1 + nlevels(x)) - 0.5
-            else do.breaks(endpoints, nint)
+            else do.breaks(as.numeric(endpoints), nint)
 
     prefer.density <- 
         (is.function(breaks) || 
