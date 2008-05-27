@@ -232,7 +232,8 @@ panel.3dscatter <-
             tmpcol0 <- col.line[ord][-1]
             tmpcol1 <- col.line[ord][-tmplen]
 
-            tmpcol0[tmpcol0 != tmpcol1] <- "transparent"
+            ## segments shouldn't join points in different groups 
+            tmpcol0[ groups[ord][-1] != groups[ord][-tmplen] ] <- "transparent"
 
             m0 <- ltransform3dto3d(rbind(tmpx0, tmpy0, tmpz0), rot.mat, distance)
             m1 <- ltransform3dto3d(rbind(tmpx1, tmpy1, tmpz1), rot.mat, distance)
@@ -350,9 +351,9 @@ panel.3dwire <-
                 bg[["col"]] <- "white"
             bg
         }
+
     numcol <- length(at) - 1
     numcol.r <- length(col.regions)
-
     col.regions <-
         if (numcol.r <= numcol)
             rep(col.regions, length = numcol)
