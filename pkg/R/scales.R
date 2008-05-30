@@ -421,7 +421,7 @@ limits.and.aspect <-
             y.used.at[[count]] <- if (is.null(tem$yat)) NA else tem$yat
             x.num.limit[[count]] <- if (is.null(tem$xat)) NA else range(tem$xat)
             y.num.limit[[count]] <- if (is.null(tem$yat)) NA else range(tem$yat)
-            dxdy[[count]] <- list(tem$dx, tem$dy)
+            dxdy[[count]] <- list(dx = tem$dx, dy = tem$dy)
         }
         else  ## this happens for empty panels
         {
@@ -431,7 +431,7 @@ limits.and.aspect <-
             y.used.at[[count]] <- NA
             x.num.limit[[count]] <- NA
             y.num.limit[[count]] <- NA
-            dxdy[[count]] <- list(NA, NA)
+            dxdy[[count]] <- list(dx = NA, dy = NA)
         }
     }
 
