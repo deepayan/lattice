@@ -430,6 +430,43 @@ banking <- function(dx, dy = 1)
 
 
 
+## method in Visualizing Data: needs x-range and y-range as well.  Not
+## sure what the best way to extend the API is; for now, we will just
+## define (but not export) an implementation
+
+
+weighted.banking <-
+    function(dx, dy = 1, xrange = sum(dx), yrange = sum(dy))
+{
+    if (is.list(dx)) {
+        if (is.null(names(dx))) names(dx) <- c("dx", "dy")
+        dy <- abs(dx[["dy"]])
+        dx <- abs(dx[["dx"]])
+    }
+    if (length(dx)!=length(dy)) stop("Non matching lengths")
+    id <- dx!=0 & dy!=0 & !is.na(dx) & !is.na(dy)
+    if (any(id))
+    {
+        ndx <- dx / xrange
+        ndy <- dy / yrange
+        obj <- function(a)
+        {
+            sum(atan(a * ndy / ndx) * sqrt(ndx^2 + a^2 * ndy^2) ) /
+                sum(sqrt(ndx^2 + a^2 * ndy^2)) -
+                    base::pi / 4 
+        }
+        ##         r  <- abs(dx[id]/dy[id])
+        ##         median(r)
+        ## transform to have arg between 0 and 1
+        objtan <- function(x) obj(tan(base::pi * x / 2))
+        u <- uniroot(f = objtan, lower = 0.01, upper = 0.99)
+        aspect.ratio <- tan(base::pi * u$root / 2)
+        aspect.ratio * xrange / yrange
+    }
+    else 1
+}
+
+
 
 
 
