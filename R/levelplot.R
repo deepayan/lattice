@@ -54,7 +54,7 @@ prepanel.default.levelplot <-
         x <- x[subscripts]
         y <- y[subscripts]
 
-        if (is.numeric(x))
+        if (!is.factor(x)) ## (is.numeric(x)) 
         {
             ux <- sort(unique(x[is.finite(x)]))
 
@@ -68,7 +68,7 @@ prepanel.default.levelplot <-
             }
         }
 
-        if (is.numeric(y))
+        if (!is.factor(y)) ## (is.numeric(y))
         {
             uy <- sort(unique(y[is.finite(y)]))
 
@@ -81,10 +81,15 @@ prepanel.default.levelplot <-
                           uy[ulen] + diffs[2] / 2)
             }
         }
-        list(xlim = if (is.numeric(x)) extend.limits(xlim, prop = -pad/(1 + 2*pad)) 
-             else levels(x),               ##   ^^ these get extended back later
+        list(xlim =
+             if (!is.factor(x)) { ## (is.numeric(x))
+                 extend.limits(xlim, prop = -pad/(1 + 2*pad))
+             } ##                    ^^ these get extended back later
+             else levels(x),
 
-             ylim = if (is.numeric(y)) extend.limits(ylim, prop = -pad/(1 + 2*pad))
+             ylim = if (!is.factor(y)) { ## (is.numeric(y))
+                 extend.limits(ylim, prop = -pad/(1 + 2*pad))
+             }
              else levels(y),
 
              dx = if (is.numeric(x)) length(ux) else 1,
