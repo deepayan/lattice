@@ -366,7 +366,7 @@ qqmath.formula <-
             else if (ylog == "e") exp(1)
         
         x <- log(x, ybase)
-        if (have.ylim) ylim <- log(ylim, ybase)
+        if (have.ylim) ylim <- logLimits(ylim, ybase)
     }
 
 
