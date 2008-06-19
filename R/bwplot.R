@@ -1154,7 +1154,7 @@ bwplot.formula <-
             else if (xlog == "e") exp(1)
 
         x <- log(x, xbase)
-        if (have.xlim) xlim <- log(xlim, xbase)
+        if (have.xlim) xlim <- logLimits(xlim, xbase)
     }
     if (have.ylog) {
         ## warning("Are you sure you want log scale for y ?")
@@ -1165,7 +1165,7 @@ bwplot.formula <-
             else if (ylog == "e") exp(1)
 
         y <- log(y, ybase)
-        if (have.ylim) ylim <- log(ylim, ybase)
+        if (have.ylim) ylim <- logLimits(ylim, ybase)
     }
     
     ## Step 5: Process cond

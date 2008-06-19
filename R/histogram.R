@@ -293,7 +293,7 @@ histogram.formula <-
             else if (xlog == "e") exp(1)
         
         x <- log(x, xbase)
-        if (have.xlim) xlim <- log(xlim, xbase)
+        if (have.xlim) xlim <- logLimits(xlim, xbase)
     }
     if (have.ylog)
     {

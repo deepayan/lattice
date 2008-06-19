@@ -20,14 +20,22 @@
 ### MA 02110-1301, USA
 
 
+logLimits <- function(lim, base)
+{
+    if (is.list(lim))
+        lapply(lim, log, base)
+    else log(lim, base)
+}
 
 
 chooseFace <- function(fontface = NULL, font = 1)
+{
     if (is.null(fontface)) font else fontface
+}
 
 
-
-lpretty <- function(x, ...) { 
+lpretty <- function(x, ...)
+{
     eps <- 1e-10
     at <- pretty(x[is.finite(x)], ...)
     ifelse(abs(at-round(at, 3))<eps, round(at, 3), at)

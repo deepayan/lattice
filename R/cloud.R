@@ -1664,7 +1664,7 @@ cloud.formula <-
             else if (xlog == "e") exp(1)
 
         x <- log(x, xbase)
-        if (!missing(xlim)) xlim <- log(xlim, xbase)
+        if (!missing(xlim)) xlim <- logLimits(xlim, xbase)
     }
     if (have.ylog)
     {
@@ -1675,7 +1675,7 @@ cloud.formula <-
             else if (ylog == "e") exp(1)
 
         y <- log(y, ybase)
-        if (!missing(ylim)) ylim <- log(ylim, ybase)
+        if (!missing(ylim)) ylim <- logLimits(ylim, ybase)
     }
     if (have.zlog)
     {
@@ -1686,7 +1686,7 @@ cloud.formula <-
             else if (zlog == "e") exp(1)
 
         z <- log(z, zbase)
-        if (!missing(zlim)) zlim <- log(zlim, zbase)
+        if (!missing(zlim)) zlim <- logLimits(zlim, zbase)
     }
 
     ## Step 5: Process cond
