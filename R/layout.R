@@ -306,12 +306,12 @@ calculateGridLayout <-
     }
 
     heights.x[pos.heights[["strip"]]] <-
-        heights.x[pos.heights[["strip"]]] * heights.settings[["strip"]] *
+        heights.x[pos.heights[["strip"]]] *
             if (is.logical(x$strip)) 0  # which means strip = F, strips not to be drawn
             else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
     widths.x[pos.widths[["strip.left"]]] <-
-        widths.x[pos.widths[["strip.left"]]] * widths.settings[["strip.left"]] *
+        widths.x[pos.widths[["strip.left"]]] *
             if (is.logical(x$strip.left)) 0  # which means strip = F, strips not to be drawn
             else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
