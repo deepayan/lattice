@@ -1,3 +1,65 @@
+
+------------------------------------------------------------------------
+r5167 | deepayan | 2008-06-23 15:52:14 -0700 (Mon, 23 Jun 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/layout.R
+
+bugfix: strip heights in layout.widths settings were being used twice
+------------------------------------------------------------------------
+r5162 | deepayan | 2008-06-19 12:17:33 -0700 (Thu, 19 Jun 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/xyplot.R
+
+bugfix: [xy]lim=list() didn't work with scales=TRUE (reported by Richard Cotton)
+------------------------------------------------------------------------
+r5161 | deepayan | 2008-06-19 11:58:08 -0700 (Thu, 19 Jun 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+
+bugfix: prepanel.default.levelplot was not handling Date-Time variables correctly
+------------------------------------------------------------------------
+r5141 | deepayan | 2008-05-29 19:46:51 -0700 (Thu, 29 May 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/scales.R
+
+a more sophisticated (but unexported) version of banking
+------------------------------------------------------------------------
+r5138 | deepayan | 2008-05-27 13:59:48 -0700 (Tue, 27 May 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/cloud.R
+
+bugfix in cloud(..., groups=, col=) with repeated colors
+------------------------------------------------------------------------
+r5134 | deepayan | 2008-05-16 17:17:28 -0700 (Fri, 16 May 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/man/xyplot.Rd
+
+clarified interpretation of subscripts, updated DESCRIPTION
+------------------------------------------------------------------------
+r5133 | deepayan | 2008-05-16 17:16:11 -0700 (Fri, 16 May 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/histogram.R
+
+bugfix for non-numeric (e.g. Date) 'breaks' in histogram
+------------------------------------------------------------------------
+r5125 | deepayan | 2008-05-02 15:51:47 -0700 (Fri, 02 May 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/SvnLog
+   M /trunk/lattice/po/R-lattice.pot
+
+updated logs
 ------------------------------------------------------------------------
 r5124 | deepayan | 2008-05-02 15:49:51 -0700 (Fri, 02 May 2008) | 1 line
 Changed paths:
