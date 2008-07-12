@@ -461,6 +461,7 @@ panel.bwplot <-
              horizontal = TRUE,
              pch = box.dot$pch,
              col = box.dot$col,
+             alpha = box.dot$alpha,
              cex = box.dot$cex,
              font = box.dot$font,
              fontfamily = box.dot$fontfamily,
@@ -512,6 +513,7 @@ panel.bwplot <-
               lwd = box.rectangle$lwd,
               lty = box.rectangle$lty,
               col = fill,
+              alpha = box.rectangle$alpha,
               border = box.rectangle$col)
 
         ## whiskers
@@ -521,6 +523,7 @@ panel.bwplot <-
                        c(blist.stats[, 1], blist.stats[, 5]),
                        rep(levels.fos, 2),
                        col = box.umbrella$col,
+                       alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
                        lty = box.umbrella$lty)
         panel.segments(c(blist.stats[, 1], blist.stats[, 5]),
@@ -528,6 +531,7 @@ panel.bwplot <-
                        c(blist.stats[, 1], blist.stats[, 5]),
                        levels.fos + blist.height / 2,
                        col = box.umbrella$col,
+                       alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
                        lty = box.umbrella$lty)
 
@@ -541,14 +545,15 @@ panel.bwplot <-
                            levels.fos + blist.height / 2,
                            lwd = box.rectangle$lwd,
                            lty = box.rectangle$lty,
-                           col = box.rectangle$col)
+                           col = box.rectangle$col,
+                           alpha = alpha)
         }
         else
         {
             panel.points(x = blist.stats[, 3],
                          y = levels.fos,
                          pch = pch,
-                         col = col, cex = cex,
+                         col = col, alpha = alpha, cex = cex,
                          fontfamily = fontfamily,
                          fontface = chooseFace(fontface, font),
                          fontsize = fontsize.points)
@@ -560,6 +565,7 @@ panel.bwplot <-
                      y = rep(levels.fos, sapply(blist.out, length)),
                      pch = plot.symbol$pch,
                      col = plot.symbol$col,
+                     alpha = plot.symbol$alpha,
                      cex = plot.symbol$cex,
                      fontfamily = plot.symbol$fontfamily,
                      fontface = chooseFace(plot.symbol$fontface, plot.symbol$font),
@@ -591,6 +597,7 @@ panel.bwplot <-
               lwd = box.rectangle$lwd,
               lty = box.rectangle$lty,
               col = fill,
+              alpha = box.rectangle$alpha,
               border = box.rectangle$col)
 
         ## whiskers
@@ -600,6 +607,7 @@ panel.bwplot <-
                        rep(levels.fos, 2),
                        c(blist.stats[, 1], blist.stats[, 5]),
                        col = box.umbrella$col,
+                       alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
                        lty = box.umbrella$lty)
         panel.segments(levels.fos - blist.height / 2,
@@ -607,6 +615,7 @@ panel.bwplot <-
                        levels.fos + blist.height / 2,
                        c(blist.stats[, 1], blist.stats[, 5]),
                        col = box.umbrella$col,
+                       alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
                        lty = box.umbrella$lty)
 
@@ -620,14 +629,15 @@ panel.bwplot <-
                            blist.stats[, 3],
                            lwd = box.rectangle$lwd,
                            lty = box.rectangle$lty,
-                           col = box.rectangle$col)
+                           col = box.rectangle$col,
+                           alpha = alpha)
         }
         else
         {
             panel.points(x = levels.fos,
                          y = blist.stats[, 3],
                          pch = pch,
-                         col = col, cex = cex,
+                         col = col, alpha = alpha, cex = cex,
                          fontfamily = fontfamily,
                          fontface = chooseFace(fontface, font),
                          fontsize = fontsize.points)
@@ -639,6 +649,7 @@ panel.bwplot <-
                      y = unlist(blist.out),
                      pch = plot.symbol$pch,
                      col = plot.symbol$col,
+                     alpha = plot.symbol$alpha,
                      cex = plot.symbol$cex,
                      fontfamily = plot.symbol$fontfamily,
                      fontface = chooseFace(plot.symbol$fontface, plot.symbol$font),
