@@ -8,7 +8,7 @@
 panel.bwplot(x, y, box.ratio = 1,
              box.width = box.ratio / (1 + box.ratio),
              horizontal = TRUE,
-             pch, col, cex, 
+             pch, col, alpha, cex, 
              font, fontfamily, fontface, 
              fill, varwidth = FALSE,
              \dots,
@@ -32,9 +32,10 @@ panel.bwplot(x, y, box.ratio = 1,
     accordingly. See documentation of \code{\link{bwplot}} for a fuller
     explanation.
   }
-  \item{pch, col, cex, font, fontfamily, fontface}{ graphical parameters
-    controlling the dot.  \code{pch="|"} is treated specially, by
-    replacing the dot with a line (similar to \code{\link{boxplot}})
+  \item{pch, col, alpha, cex, font, fontfamily, fontface}{ graphical
+    parameters controlling the dot.  \code{pch="|"} is treated
+    specially, by replacing the dot with a line (similar to
+    \code{\link{boxplot}})
   }
   \item{fill}{ color to fill the boxplot}
   \item{varwidth}{ logical. If TRUE, widths of boxplots are proportional
