@@ -22,7 +22,7 @@ densityplot(x, data, \dots)
           type = c("percent", "count", "density"),
           nint = if (is.factor(x)) nlevels(x)
           else round(log2(length(x)) + 1),
-          endpoints = extend.limits(range(x, finite = TRUE), prop = 0.04),
+          endpoints = extend.limits(range(as.numeric(x), finite = TRUE), prop = 0.04),
           breaks,
           equal.widths = TRUE,
           drop.unused.levels = lattice.getOption("drop.unused.levels"),

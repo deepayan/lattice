@@ -54,8 +54,9 @@ prepanel.default.bwplot <-
                          else 0
                      range(foo1, foo2)
                  }
-                 else if (is.numeric(x)) range(x, origin, finite = TRUE)
-                 else levels(x),
+                 ## else if (is.numeric(x)) range(x, origin, finite = TRUE)
+                 ## else levels(x),
+                 else scale.limits(c(x, origin)),
                  ylim = levels(y),
                  yat = sort(unique(as.numeric(y))),
                  dx = 1,
@@ -82,8 +83,9 @@ prepanel.default.bwplot <-
                          else 0
                      range(foo1, foo2)
                  }
-                 else if (is.numeric(y)) range(y, origin, finite = TRUE)
-                 else levels(y),
+                 ## else if (is.numeric(y)) range(y, origin, finite = TRUE)
+                 ## else levels(y),
+                 else scale.limits(c(y, origin)),
                  dx = 1,
                  dy = 1)
         }
@@ -114,9 +116,9 @@ panel.barchart <-
     reference.line <- trellis.par.get("reference.line")
 
     ## this function doesn't have a subscripts argument (which would
-    ## make barchart always pass the subscripts to the trellis object,
-    ## which is unnecessary when groups = NULL).  To work around this,
-    ## we have to do some things that may seem a bit odd
+    ## have made barchart always pass the subscripts to the trellis
+    ## object, which is unnecessary when groups = NULL).  To work
+    ## around this, we have to do some things that may seem a bit odd
 
     keep <- 
         (function(x, y, groups, subscripts, ...) {

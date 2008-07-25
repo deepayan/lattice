@@ -24,11 +24,10 @@
 prepanel.default.qq <-
     function(x, y, ...)
 {
-    if (!is.numeric(x)) x <- as.numeric(x)
-    if (!is.numeric(y)) y <- as.numeric(y)
-
-    list(xlim = range(x, y),
-         ylim = range(x, y),
+    ## if (!is.numeric(x)) x <- as.numeric(x)
+    ## if (!is.numeric(y)) y <- as.numeric(y)
+    list(xlim = scale.limits(c(x, y)), # range(x, y),
+         ylim = scale.limits(c(x, y)), # range(x, y),
          dx = 1,
          dy = 1)
 }

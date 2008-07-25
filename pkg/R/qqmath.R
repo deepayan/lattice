@@ -113,7 +113,7 @@ prepanel.default.qqmath <-
              groups = NULL,
              subscripts, ...)
 {
-    if (!is.numeric(x)) x <- as.numeric(x)
+    if (!is.numeric(x)) x <- as.numeric(x) # FIXME: dates?
     distribution <-
         if (is.function(distribution)) distribution 
         else if (is.character(distribution)) get(distribution)
@@ -163,8 +163,8 @@ prepanel.default.qqmath <-
     {
         xx <- getxx(x, f.value, nobs)
         yy <- getyy(x, f.value, nobs)
-        list(xlim = range(xx, finite = TRUE),
-             ylim = range(yy, finite = TRUE),
+        list(xlim = scale.limits(xx), # range(xx, finite = TRUE),
+             ylim = scale.limits(yy), # range(yy, finite = TRUE),
              dx = diff(xx),
              dy = diff(yy))
     }

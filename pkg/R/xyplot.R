@@ -21,7 +21,6 @@
 
 
 
-
 prepanel.default.xyplot <-
     function(x, y, type, subscripts, groups = NULL, ...)
 {
@@ -49,13 +48,7 @@ prepanel.default.xyplot <-
             dy <- diff(as.numeric(y[ord]))
             ## ok <- TRUE
         }
-        ## the following no longer works because dates are not numeric
-##         list(xlim = if (is.numeric(x)) range(x, finite = TRUE) else levels(x),
-##              ylim = if (is.numeric(y)) range(y, finite = TRUE) else levels(y),
-##              dx = dx, dy = dy)
-        list(xlim = if (is.factor(x)) levels(x) else range(x, finite = TRUE),
-             ylim = if (is.factor(y)) levels(y) else range(y, finite = TRUE),
-             dx = dx, dy = dy)
+        list(xlim = scale.limits(x), ylim = scale.limits(y), dx = dx, dy = dy)
     }
     else list(xlim = c(NA, NA),
               ylim = c(NA, NA),
