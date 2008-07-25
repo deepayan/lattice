@@ -67,9 +67,9 @@ prepanel.default.histogram <-
             if (type == "count") h$counts
             else if (type == "percent") 100 * h$counts / length(x)
             else h$intensities
-        list(xlim =
-             if (is.factor(x)) levels(x)
-             else range(x, h$breaks, finite = TRUE),
+        list(xlim = scale.limits(c(x, h$breaks)),
+             ## if (is.factor(x)) levels(x)
+             ## else range(x, h$breaks, finite = TRUE),
              ylim = range(0, y, finite = TRUE),
              dx = 1,
              dy = 1)
@@ -184,7 +184,7 @@ histogram.formula <-
              type = c("percent", "count", "density"),
              nint = if (is.factor(x)) nlevels(x)
              else round(log2(length(x)) + 1),
-             endpoints = extend.limits(range(x, finite = TRUE), prop = 0.04),
+             endpoints = extend.limits(range(as.numeric(x), finite = TRUE), prop = 0.04),
              breaks,
              equal.widths = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),

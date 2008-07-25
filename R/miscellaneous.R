@@ -20,6 +20,7 @@
 ### MA 02110-1301, USA
 
 
+
 logLimits <- function(lim, base)
 {
     if (is.list(lim))
@@ -92,6 +93,18 @@ as.factorOrShingle <- function(x, subset = TRUE, drop = FALSE)
         else ##if (is.character(x)) or logical or ??
             as.factor(x)
     x[subset, drop = drop]
+}
+
+
+
+## this is a generalization of range(x), used as the xlim/ylim
+## components of prepanel functions.  It should deals with factors,
+## numerics, and date-time classes.
+scale.limits <- function(x)
+{
+    if (is.factor(x)) levels(x)
+    else if (is.numeric(x)) range(x, finite = TRUE)
+    else range(x, na.rm = TRUE)
 }
 
 
