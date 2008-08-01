@@ -21,6 +21,7 @@
 ## the following functions don't do much error checking yet
 
 
+panel.refline <- function(...) panel.abline(..., reference = TRUE)
 
 panel.abline <-
     function(a = NULL, b = 0,
@@ -33,9 +34,10 @@ panel.abline <-
              lty = add.line$lty,
              lwd = add.line$lwd,
              alpha = add.line$alpha,
-             type, ...)
+             type, ...,
+             reference = FALSE)
 {
-    add.line <- trellis.par.get("add.line")
+    add.line <- if (reference) trellis.par.get("reference.line") else trellis.par.get("add.line")
     if (!missing(col) && missing(col.line)) col.line <- col
     ## mostly copied from abline
     if (!is.null(reg))
