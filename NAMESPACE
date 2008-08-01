@@ -92,6 +92,7 @@ export(
        ## decorative / adds reference
 
        panel.abline,
+       panel.refline,
        panel.curve,
        panel.fill,
        panel.grid,

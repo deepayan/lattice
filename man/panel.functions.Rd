@@ -1,6 +1,7 @@
 \name{panel.functions}
 \alias{panel.functions}
 \alias{panel.abline}
+\alias{panel.refline}
 \alias{panel.curve}
 \alias{panel.rug}
 \alias{panel.fill}
@@ -21,7 +22,9 @@ panel.abline(a = NULL, b = 0,
              h = NULL, v = NULL,
              reg = NULL, coef = NULL,
              col, col.line, lty, lwd, alpha, type,
-             \dots)
+             \dots,
+             reference = FALSE)
+panel.refline(\dots) 
 
 panel.curve(expr, from, to, n = 101,
             curve.type = "l",
@@ -88,6 +91,14 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
     than \code{-1}, in which case \code{-h} and \code{-v} (as
     appropriate) is supplied as the \code{n} argument to
     \code{\link{pretty}}. }
+  \item{reference}{ logical indicating whether the default graphical
+    parameters for \code{panel.abline} should be taken from the
+    \dQuote{reference.line} parameter settings.  The default is to take
+    them from the \dQuote{add.line} settings.  The \code{panel.refline}
+    function is a wrapper around \code{panel.abline} that calls it with
+    \code{reference=TRUE}.
+  }
+
   \item{expr}{ expression as a function of x or a function to plot as a
     curve }
   \item{n}{ the number of points to use for drawing the curve }
@@ -141,9 +152,12 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
 }
 \details{
   \code{panel.abline} adds a line of the form \code{y=a+bx} or vertical
-  and/or horizontal lines. Graphical parameters are obtained from 
-  \code{reference.line} for panel.grid, and \code{add.line} for the
-  others (can be set using \code{trellis.par.set} )
+  and/or horizontal lines.  Graphical parameters are obtained from the
+  \dQuote{add.line} settings by default.  \code{panel.refline} is
+  similar, but uses the \dQuote{reference.line} settings for the
+  defaults.
+
+  \code{panel.grid} draws a reference grid.
 
   \code{panel.curve} adds a curve, similar to what \code{curve} does
   with \code{add = TRUE}. Graphical parameters for the line are obtained
@@ -173,7 +187,7 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
 
 \seealso{\code{\link[stats:scatter.smooth]{loess.smooth}},
   \code{\link{panel.axis}}, \code{\link{panel.identify}}
-  \code{\link{identify}}, \code{\link{trellis.par.get}}
+  \code{\link{identify}}, \code{\link{trellis.par.set}}
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
