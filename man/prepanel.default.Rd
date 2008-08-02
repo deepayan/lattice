@@ -34,7 +34,7 @@ prepanel.default.levelplot(x, y, subscripts, \dots)
 prepanel.default.qqmath(x, f.value, distribution, qtype,
                         groups, subscripts, \dots)
 prepanel.default.densityplot(x, darg, groups, subscripts, \dots)
-prepanel.default.parallel(x, y, z, \dots)
+prepanel.default.parallel(x, y, z, \dots, horizontal)
 prepanel.default.splom(z, \dots)
 
 }
@@ -58,6 +58,9 @@ prepanel.default.splom(z, \dots)
   \item{z}{ see \code{\link{panel.parallel}} and \code{\link{panel.pairs}} }
 
   \item{qtype}{ type of \code{\link{quantile}}}
+  \item{horizontal}{logical indicating whether the parallel axes should
+    be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).
+  }
   \item{\dots}{ other arguments, usually ignored }
 }
 

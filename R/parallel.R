@@ -21,13 +21,19 @@
 
 
 prepanel.default.parallel <-
-    function(x, y, z, ...)
+    function(x, y, z, ..., horizontal = TRUE)
 {
-    list(xlim = c(0,1),
-         ylim = extend.limits(c(1, ncol(as.data.frame(z))), prop = 0.03), 
-         ##ylim = colnames(as.data.frame(z)),
-         dx = 1,
-         dy = 1)
+    if (horizontal)
+        list(xlim = c(0,1),
+             ylim = extend.limits(c(1, ncol(as.data.frame(z))), prop = 0.03), 
+             ##ylim = colnames(as.data.frame(z)),
+             dx = 1,
+             dy = 1)
+    else
+        list(xlim = extend.limits(c(1, ncol(as.data.frame(z))), prop = 0.03), 
+             ylim = c(0,1),
+             dx = 1,
+             dy = 1)
 }
 
 
@@ -42,7 +48,7 @@ panel.parallel <-
              common.scale = FALSE,
              lower = sapply(z, function(x) min(as.numeric(x), na.rm = TRUE)),
              upper = sapply(z, function(x) max(as.numeric(x), na.rm = TRUE)),
-             ...)
+             ..., horizontal = TRUE)
 {
     superpose.line <- trellis.par.get("superpose.line")
     reference.line <- trellis.par.get("reference.line")
@@ -79,25 +85,41 @@ panel.parallel <-
     dif <- upper - lower
 
     if (n.r > 1)
-        panel.segments(x0 = 0, x1 = 1,
-                       y0 = seq_len(n.r),
-                       y1 = seq_len(n.r),
-                       col = reference.line$col,
-                       lwd = reference.line$lwd,
-                       lty = reference.line$lty)
+        if (horizontal)
+            panel.segments(x0 = 0, x1 = 1,
+                           y0 = seq_len(n.r),
+                           y1 = seq_len(n.r),
+                           col = reference.line$col,
+                           lwd = reference.line$lwd,
+                           lty = reference.line$lty)
+        else
+            panel.segments(x0 = seq_len(n.r),
+                           x1 = seq_len(n.r),
+                           y0 = 0, y1 = 1,
+                           col = reference.line$col,
+                           lwd = reference.line$lwd,
+                           lty = reference.line$lty)
     else return(invisible())
 
     for (i in seq_len(n.r-1))
     {
-        x0 <- (as.numeric(z[subscripts, i]) - lower[i])/dif[i]
-        x1 <- (as.numeric(z[subscripts, i+1]) - lower[i+1])/dif[i+1]
-        panel.segments(x0 = x0, y0 = i, x1 = x1, y1 = i + 1,
-                       col = col,
-                       lty = lty,
-                       lwd = lwd,
-                       alpha = alpha,
-                       ...)
-    }        
+        z0 <- (as.numeric(z[subscripts, i]) - lower[i])/dif[i]
+        z1 <- (as.numeric(z[subscripts, i+1]) - lower[i+1])/dif[i+1]
+        if (horizontal)
+            panel.segments(x0 = z0, y0 = i, x1 = z1, y1 = i + 1,
+                           col = col,
+                           lty = lty,
+                           lwd = lwd,
+                           alpha = alpha,
+                           ...)
+        else
+            panel.segments(x0 = i, y0 = z0, x1 = i + 1, y1 = z1,
+                           col = col,
+                           lty = lty,
+                           lwd = lwd,
+                           alpha = alpha,
+                           ...)
+    }
 
 ##     if (is.null(groups))
 ##     {
@@ -232,14 +254,11 @@ parallel.formula <-
              ylab = NULL,
              ylim,
              varnames,
+             horizontal = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              lattice.options = NULL,
-             default.scales =
-             list(x = list(at = c(0, 1), labels = c("Min", "Max")),
-                  y =
-                  list(alternating = FALSE, axs = "i", tck = 0,
-                       at = seq_len(ncol(x)), labels = colnames(x))),
+             default.scales,
              subset = TRUE)
 {
     formula <- x
@@ -310,7 +329,9 @@ parallel.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = gettext("Parallel Coordinate Plot"),
-                       lattice.options = lattice.options), dots))
+                       lattice.options = lattice.options,
+                       horizontal = horizontal),
+                  dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
@@ -319,6 +340,16 @@ parallel.formula <-
     ## Step 2: Compute scales.common (leaving out limits for now)
 
     ## overriding at and labels, maybe not necessary
+
+    if (missing(default.scales))
+    {
+        default.scales <- 
+            list(x = list(at = c(0, 1), labels = c("Min", "Max")),
+                 y =
+                 list(alternating = FALSE, axs = "i", tck = 0,
+                      at = seq_len(ncol(x)), labels = colnames(x)))
+        if (!horizontal) names(default.scales) <- c("y", "x")
+    }
     
     if (is.character(scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)

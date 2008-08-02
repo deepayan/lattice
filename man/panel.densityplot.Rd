@@ -40,7 +40,9 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
     a \code{type} argument, if specified, from affecting the density
     curve.
   }
-  \item{\dots}{ extra graphical parameters }
+  \item{\dots}{ extra graphical parameters.  Note that additional
+    arguments to \code{\link{panel.rug}} cannot be passed on through
+    \code{panel.densityplot}. }
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
