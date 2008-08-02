@@ -50,6 +50,7 @@ parallel(x, data, \dots)
          ylab = NULL,
          ylim,
          varnames,
+         horizontal = TRUE,
          drop.unused.levels,
          \dots,
          lattice.options = NULL,
@@ -119,6 +120,9 @@ parallel(x, data, \dots)
     character vector giving the names of the p variables in x. By
     default, the column names of x.
   }
+  \item{horizontal}{logical indicating whether the parallel axes should
+    be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).
+  }
   \item{auto.key, prepanel, scales,
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
     lattice.options, default.scales, subset}{ See \code{\link{xyplot}} }
@@ -181,6 +185,7 @@ splom(~iris[1:3]|Species, data = iris,
                 cex = 2)
       })
 parallel(~iris[1:4] | Species, iris) 
+parallel(~iris[1:4], iris, groups = Species, horizontal = FALSE)
 }
 \keyword{hplot}
 

@@ -11,7 +11,8 @@ panel.parallel(x, y, z, subscripts,
                common.scale = FALSE,
                lower,
                upper,
-               \dots)
+               \dots,
+               horizontal = TRUE)
 }
 \arguments{
   \item{x, y}{ dummy variables, ignored. }
@@ -50,24 +51,11 @@ panel.parallel(x, y, z, subscripts,
     column) that return a scalar.
   }
   \item{\dots}{ other arguments (ignored) }
+  \item{horizontal}{logical indicating whether the parallel axes should
+    be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).
+  }
 }
 \details{ Difficult to describe. See example for \code{parallel}}
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{parallel}}}
 \keyword{dplot}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
