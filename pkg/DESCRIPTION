@@ -1,6 +1,6 @@
 Package: lattice
-Version: 0.17-12
-Date: 2008/07/23
+Version: 0.17-13
+Date: 2008/08/04
 Priority: recommended
 Title: Lattice Graphics
 Author: Deepayan Sarkar <deepayan.sarkar@r-project.org>

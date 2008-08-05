@@ -222,14 +222,17 @@ qqmath <- function(x, data, ...) UseMethod("qqmath")
 qqmath.numeric <-
     function(x, data = NULL, ylab = deparse(substitute(x)), ...)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(qqmath)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <- list(x = x)
+    ccall$data <- environment() # list(x = x)
     ccall$ylab <- ylab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::qqmath)
-    eval.parent(ccall)
+    ans <- eval.parent(ccall)
+    ans$call <- ocall
+    ans
 }
 
 

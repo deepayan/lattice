@@ -41,7 +41,11 @@ prepanel.default.splom(z, \dots)
 \arguments{
   \item{x, y}{x and y values, numeric or factor}
   \item{horizontal}{ logical, applicable when one of the variables is to
-    be treated as categorical (factor or shingle) }
+    be treated as categorical (factor or shingle).  In the case of
+    \code{prepanel.default.parallel}, a logical indicating whether the
+    parallel axes should be laid out horizontally (\code{TRUE}) or
+    vertically (\code{FALSE}).
+  }
   \item{nlevels}{ number of levels of such a categorical variable. }
   \item{origin, stack}{ for barcharts or the \code{type="h"} plot type}
   \item{breaks, equal.widths, type, nint}{ details of histogram
@@ -58,9 +62,6 @@ prepanel.default.splom(z, \dots)
   \item{z}{ see \code{\link{panel.parallel}} and \code{\link{panel.pairs}} }
 
   \item{qtype}{ type of \code{\link{quantile}}}
-  \item{horizontal}{logical indicating whether the parallel axes should
-    be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).
-  }
   \item{\dots}{ other arguments, usually ignored }
 }
 
