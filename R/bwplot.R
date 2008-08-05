@@ -810,7 +810,7 @@ dotplot.numeric <-
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <- list(x = x)
+    ccall$data <- environment() # list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::dotplot)
@@ -879,7 +879,7 @@ barchart.numeric <-
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <- list(x = x)
+    ccall$data <- environment() # list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::barchart)
@@ -953,14 +953,17 @@ stripplot <- function(x, data, ...)  UseMethod("stripplot")
 stripplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(stripplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <- list(x = x)
+    ccall$data <- environment() # list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::stripplot)
-    eval.parent(ccall)
+    ans <- eval.parent(ccall)
+    ans$call <- ocall
+    ans
 }
 
 
@@ -993,14 +996,17 @@ bwplot <- function(x, data, ...) UseMethod("bwplot")
 bwplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(bwplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <- list(x = x)
+    ccall$data <- environment() # list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::bwplot)
-    eval.parent(ccall)
+    ans <- eval.parent(ccall)
+    ans$call <- ocall
+    ans
 }
 
 

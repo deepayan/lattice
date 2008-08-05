@@ -162,14 +162,17 @@ densityplot <- function(x, data, ...) UseMethod("densityplot")
 densityplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(densityplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <- list(x = x)
+    ccall$data <- environment() # list(x = x)
     ccall$xlab <- xlab
     ccall$x <- ~x
     ccall[[1]] <- quote(lattice::densityplot)
-    eval.parent(ccall)
+    ans <- eval.parent(ccall)
+    ans$call <- ocall
+    ans
 }
 
 
