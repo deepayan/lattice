@@ -1,4 +1,54 @@
+------------------------------------------------------------------------
+r5194 | deepayan | 2008-08-05 15:41:08 -0700 (Tue, 05 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/man/prepanel.default.Rd
 
+improved memory usage for non-formula methods; make one less copy
+------------------------------------------------------------------------
+r5183 | deepayan | 2008-08-01 17:16:14 -0700 (Fri, 01 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/man/panel.densityplot.Rd
+   M /trunk/lattice/man/panel.parallel.Rd
+   M /trunk/lattice/man/prepanel.default.Rd
+   M /trunk/lattice/man/splom.Rd
+
+added the possibility of parallel coordinate plots stacked side by
+side through a 'horizontal' argument.
+------------------------------------------------------------------------
+r5182 | deepayan | 2008-08-01 12:56:04 -0700 (Fri, 01 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/man/panel.functions.Rd
+
+added a panel.refline() function
+------------------------------------------------------------------------
+r5179 | deepayan | 2008-07-24 17:37:03 -0700 (Thu, 24 Jul 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/R/qq.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/xyplot.R
+   M /trunk/lattice/man/histogram.Rd
+
+slightly reworked prepanel functions to get better date support
+------------------------------------------------------------------------
+r5175 | deepayan | 2008-07-11 17:28:33 -0700 (Fri, 11 Jul 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/man/panel.bwplot.Rd
+
+fix use of alpha in panel.bwplot
 ------------------------------------------------------------------------
 r5167 | deepayan | 2008-06-23 15:52:14 -0700 (Mon, 23 Jun 2008) | 1 line
 Changed paths:

@@ -16,6 +16,12 @@ new features
    panel.bwplot, panel.barchart, etc.), to specify absolute thickness
    (of boxes, bars, etc.)
 
+ o New panel.refline() function, same as panel.abline(), but with
+   default parameters from the "reference.line" settings.
+
+ o parallel() has a new 'horizontal' argument; when FALSE, the axes
+   are vertical and are stacked side by side.  
+
 
 Changes in lattice 0.16
 =======================
