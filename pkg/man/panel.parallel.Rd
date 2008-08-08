@@ -12,7 +12,7 @@ panel.parallel(x, y, z, subscripts,
                lower,
                upper,
                \dots,
-               horizontal = TRUE)
+               horizontal.axis = TRUE)
 }
 \arguments{
   \item{x, y}{ dummy variables, ignored. }
@@ -51,7 +51,7 @@ panel.parallel(x, y, z, subscripts,
     column) that return a scalar.
   }
   \item{\dots}{ other arguments (ignored) }
-  \item{horizontal}{logical indicating whether the parallel axes should
+  \item{horizontal.axis}{logical indicating whether the parallel axes should
     be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).
   }
 }

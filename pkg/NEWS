@@ -19,8 +19,8 @@ new features
  o New panel.refline() function, same as panel.abline(), but with
    default parameters from the "reference.line" settings.
 
- o parallel() has a new 'horizontal' argument; when FALSE, the axes
-   are vertical and are stacked side by side.  
+ o parallel() has a new 'horizontal.axis' argument; when FALSE, the
+   axes are vertical and are stacked side by side.
 
 
 Changes in lattice 0.16

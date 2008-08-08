@@ -21,9 +21,9 @@
 
 
 prepanel.default.parallel <-
-    function(x, y, z, ..., horizontal = TRUE)
+    function(x, y, z, ..., horizontal.axis = TRUE)
 {
-    if (horizontal)
+    if (horizontal.axis)
         list(xlim = c(0,1),
              ylim = extend.limits(c(1, ncol(as.data.frame(z))), prop = 0.03), 
              ##ylim = colnames(as.data.frame(z)),
@@ -48,7 +48,7 @@ panel.parallel <-
              common.scale = FALSE,
              lower = sapply(z, function(x) min(as.numeric(x), na.rm = TRUE)),
              upper = sapply(z, function(x) max(as.numeric(x), na.rm = TRUE)),
-             ..., horizontal = TRUE)
+             ..., horizontal.axis = TRUE)
 {
     superpose.line <- trellis.par.get("superpose.line")
     reference.line <- trellis.par.get("reference.line")
@@ -85,7 +85,7 @@ panel.parallel <-
     dif <- upper - lower
 
     if (n.r > 1)
-        if (horizontal)
+        if (horizontal.axis)
             panel.segments(x0 = 0, x1 = 1,
                            y0 = seq_len(n.r),
                            y1 = seq_len(n.r),
@@ -105,7 +105,7 @@ panel.parallel <-
     {
         z0 <- (as.numeric(z[subscripts, i]) - lower[i])/dif[i]
         z1 <- (as.numeric(z[subscripts, i+1]) - lower[i+1])/dif[i+1]
-        if (horizontal)
+        if (horizontal.axis)
             panel.segments(x0 = z0, y0 = i, x1 = z1, y1 = i + 1,
                            col = col,
                            lty = lty,
@@ -254,7 +254,7 @@ parallel.formula <-
              ylab = NULL,
              ylim,
              varnames,
-             horizontal = TRUE,
+             horizontal.axis = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              lattice.options = NULL,
@@ -330,7 +330,7 @@ parallel.formula <-
                        ylab = ylab,
                        xlab.default = gettext("Parallel Coordinate Plot"),
                        lattice.options = lattice.options,
-                       horizontal = horizontal),
+                       horizontal.axis = horizontal.axis),
                   dots))
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
@@ -348,7 +348,7 @@ parallel.formula <-
                  y =
                  list(alternating = FALSE, axs = "i", tck = 0,
                       at = seq_len(ncol(x)), labels = colnames(x)))
-        if (!horizontal) names(default.scales) <- c("y", "x")
+        if (!horizontal.axis) names(default.scales) <- c("y", "x")
     }
     
     if (is.character(scales)) scales <- list(relation = scales)
