@@ -1,7 +1,4 @@
 
-
-
-
 ### Copyright (C) 2001-2006  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
 ###
 ### This file is part of the lattice package for R.
@@ -19,8 +16,6 @@
 ### License along with this program; if not, write to the Free
 ### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 ### MA 02110-1301, USA
-
-
 
 
 
@@ -331,63 +326,88 @@ calculateGridLayout <-
             ## this means we need to allocate space for
             ## pos.heights[axis.top] and pos.heights[axis.bottom]
 
-            lab <- 
+##             lab <- 
+##                 calculateAxisComponents(x = x$x.limits,
+##                                         at = x$x.scales$at,
+
+##                                         used.at = x$x.used.at,
+##                                         num.limit = x$x.num.limit,
+
+##                                         labels = x$x.scales$lab,
+##                                         logsc = x$x.scales$log,
+##                                         abbreviate = x$x.scales$abbr,
+##                                         minlength = x$x.scales$minl,
+##                                         format.posixt = x$x.scales$format,
+##                                         n = x$x.scales$tick.number)$lab
+
+            lab.comps <- 
                 calculateAxisComponents(x = x$x.limits,
                                         at = x$x.scales$at,
-
                                         used.at = x$x.used.at,
                                         num.limit = x$x.num.limit,
-
                                         labels = x$x.scales$lab,
                                         logsc = x$x.scales$log,
                                         abbreviate = x$x.scales$abbr,
                                         minlength = x$x.scales$minl,
                                         format.posixt = x$x.scales$format,
-                                        n = x$x.scales$tick.number)$lab
+                                        n = x$x.scales$tick.number)
 
             ## top
-            tick.unit <-
-                unit(max(0, x$x.scales$tck[2] * axis.units$top$tick$x * axis.settings$top$tck),
-                     axis.units$top$tick$units)
-            pad1.unit <-
-                unit(axis.units$top$pad1$x * axis.settings$top$pad1,
-                     axis.units$top$pad1$units)
-            pad2.unit <-
-                unit(axis.units$top$pad2$x * axis.settings$top$pad2,
-                     axis.units$top$pad2$units)
 
-            ## FIXME: dims may depend on other gpars like font (but
-            ## implementing that maybe overkill)
+            if (is.logical(lab.comps$top) && !lab.comps$top)
+            {
+                axis.top.unit <- unit(0, "mm")
+            }
+            else
+            {
+                lab.comps.top <- 
+                    if (is.logical(lab.comps$top)) # must be TRUE
+                        lab.comps$bottom
+                    else
+                        lab.comps$top
+                lab <- lab.comps.top$labels$labels
 
-            lab.grob <-
-                if (length(lab))
-                    textGrob(label = lab,
-                             x = rep(0.5, length(lab)),
-                             y = rep(0.5, length(lab)),
-                             rot = xaxis.rot[2],
-                             gp = gpar(cex = xaxis.cex[2]))
-                else textGrob("")
+                tick.unit <-
+                    unit(max(0, x$x.scales$tck[2] * axis.units$top$tick$x * axis.settings$top$tck * lab.comps.top$ticks$tck),
+                         axis.units$top$tick$units)
+                pad1.unit <-
+                    unit(axis.units$top$pad1$x * axis.settings$top$pad1,
+                         axis.units$top$pad1$units)
+                pad2.unit <-
+                    unit(axis.units$top$pad2$x * axis.settings$top$pad2,
+                         axis.units$top$pad2$units)
 
-            ## FIXME: this is slightly inefficient (refer to email
-            ## exchange with Paul), in the sense that grid has to go
-            ## through a lot of hoops to figure out that the
-            ## dimensions of textGrob("") is 0x0.
+                ## FIXME: dims may depend on other gpars like font (but
+                ## implementing that maybe overkill)
 
+                lab.grob <-
+                    if (length(lab) > 0)
+                        textGrob(label = lab,
+                                 x = rep(0.5, length(lab)),
+                                 y = rep(0.5, length(lab)),
+                                 rot = xaxis.rot[2],
+                                 gp = gpar(cex = xaxis.cex[2]))
+                    else textGrob("")
 
+                ## FIXME: this is slightly inefficient (refer to email
+                ## exchange with Paul), in the sense that grid has to go
+                ## through a lot of hoops to figure out that the
+                ## dimensions of textGrob("") is 0x0.
 
-            axis.top.unit <-
-                heights.settings[["axis.top"]] *
-                    (unit(if (any(x.alternating==2 | x.alternating==3)) 1 else 0,
-                          "grobheight", data = list(lab.grob)) + 
-                     tick.unit + pad1.unit + pad2.unit)
-
-
+                axis.top.unit <-
+                    heights.settings[["axis.top"]] *
+                        (unit(if (any(x.alternating==2 | x.alternating==3)) 1 else 0,
+                              "grobheight", data = list(lab.grob)) + 
+                         tick.unit + pad1.unit + pad2.unit)
+            }
 
             
             ## bottom
+            lab.comps.bottom <- lab.comps$bottom
+            lab <- lab.comps.bottom$labels$labels
+
             tick.unit <-
-                unit(max(0, x$x.scales$tck[1] * axis.units$bottom$tick$x *
-                         axis.settings$bottom$tck),
+                unit(max(0, x$x.scales$tck[1] * axis.units$bottom$tick$x * axis.settings$bottom$tck * lab.comps.bottom$ticks$tck),
                      axis.units$bottom$tick$units)
             pad1.unit <-
                 unit(axis.units$bottom$pad1$x * axis.settings$bottom$pad1,
@@ -397,7 +417,7 @@ calculateGridLayout <-
                      axis.units$bottom$pad2$units)
 
             lab.grob <- 
-                if (length(lab))
+                if (length(lab) > 0)
                     textGrob(label = lab,
                              x = rep(0.5, length(lab)),
                              y = rep(0.5, length(lab)),
@@ -440,10 +460,25 @@ calculateGridLayout <-
                 vector(mode = "list", length = length(x$x.limits))
             for (i in seq_along(x$x.limits))
             {
-                lab <-
-                    calculateAxisComponents(x = x$x.limits[[i]],
-                                            at = if (is.list(x$x.scales$at))
-                                            x$x.scales$at[[i]] else x$x.scales$at,
+##                 lab <-
+##                     calculateAxisComponents(x = x$x.limits[[i]],
+##                                             at = if (is.list(x$x.scales$at))
+##                                             x$x.scales$at[[i]] else x$x.scales$at,
+
+##                                             used.at = x$x.used.at[[i]],
+##                                             num.limit = x$x.num.limit[[i]],
+
+##                                             labels = if (is.list(x$x.scales$lab))
+##                                             x$x.scales$lab[[i]] else x$x.scales$lab,
+##                                             logsc = x$x.scales$log,
+##                                             abbreviate = x$x.scales$abbr,
+##                                             minlength = x$x.scales$minl,
+##                                             n = x$x.scales$tick.number,
+##                                             format.posixt = x$x.scales$format)$lab
+
+                lab.comps <-
+                    calculateAxisComponents(x$x.limits[[i]],
+                                            at = if (is.list(x$x.scales$at)) x$x.scales$at[[i]] else x$x.scales$at,
 
                                             used.at = x$x.used.at[[i]],
                                             num.limit = x$x.num.limit[[i]],
@@ -454,10 +489,11 @@ calculateGridLayout <-
                                             abbreviate = x$x.scales$abbr,
                                             minlength = x$x.scales$minl,
                                             n = x$x.scales$tick.number,
-                                            format.posixt = x$x.scales$format)$lab
+                                            format.posixt = x$x.scales$format)
 
+                lab <- lab.comps$bottom$labels$labels
                 lab.groblist[[i]] <- 
-                    if (length(lab))
+                    if (length(lab) > 0)
                         textGrob(label = lab,
                                  x = rep(0.5, length(lab)),
                                  y = rep(0.5, length(lab)),
@@ -486,51 +522,79 @@ calculateGridLayout <-
             ## this means we need to allocate space for
             ## pos.widths[axis.left] and pos.widths[axis.right]
 
-            lab <- 
-                calculateAxisComponents(x = x$y.limits,
-                                        at = x$y.scales$at,
-                                        used.at = x$y.used.at,
-                                        num.limit = x$y.num.limit,
-                                        labels = x$y.scales$lab,
-                                        logsc = x$y.scales$log,
-                                        abbreviate = x$y.scales$abbr,
-                                        minlength = x$y.scales$minl,
-                                        format.posixt = x$y.scales$format,
-                                        n = x$y.scales$tick.number)$lab
+##             lab <- 
+##                 calculateAxisComponents(x = x$y.limits,
+##                                         at = x$y.scales$at,
+##                                         used.at = x$y.used.at,
+##                                         num.limit = x$y.num.limit,
+##                                         labels = x$y.scales$lab,
+##                                         logsc = x$y.scales$log,
+##                                         abbreviate = x$y.scales$abbr,
+##                                         minlength = x$y.scales$minl,
+##                                         format.posixt = x$y.scales$format,
+##                                         n = x$y.scales$tick.number)$lab
 
+            lab.comps <-
+                x$yscale.components(x$y.limits,
+                                    at = x$y.scales$at,
+                                    used.at = x$y.used.at,
+                                    num.limit = x$y.num.limit,
+                                    labels = x$y.scales$lab,
+                                    logsc = x$y.scales$log,
+                                    abbreviate = x$y.scales$abbr,
+                                    minlength = x$y.scales$minl,
+                                    format.posixt = x$y.scales$format,
+                                    n = x$y.scales$tick.number)
+
+            
             ## right
-            tick.unit <-
-                unit(max(0, x$y.scales$tck[2] * axis.units$right$tick$x * axis.settings$right$tck),
-                     axis.units$right$tick$units)
-            pad1.unit <-
-                unit(axis.units$right$pad1$x * axis.settings$right$pad1,
-                     axis.units$right$pad1$units)
-            pad2.unit <-
-                unit(axis.units$right$pad2$x * axis.settings$right$pad2,
-                     axis.units$right$pad2$units)
 
-            lab.grob <- 
-                if (length(lab))
-                    textGrob(label = lab,
-                             x = rep(0.5, length(lab)),
-                             y = rep(0.5, length(lab)),
-                             rot = yaxis.rot[2],
-                             gp = gpar(cex = yaxis.cex[2]))
-                else textGrob("")
+            if (is.logical(lab.comps$right) && !lab.comps$right)
+            {
+                axis.right.unit <- unit(0, "mm")
+            }
+            else
+            {
+                lab.comps.right <- 
+                    if (is.logical(lab.comps$right)) # must be TRUE
+                        lab.comps$left
+                    else
+                        lab.comps$right
+                lab <- lab.comps.right$labels$labels
 
-            axis.right.unit <- widths.settings[["axis.right"]] *
-                (unit(if (any(y.alternating==2 | y.alternating==3)) 1 else 0,
-                      "grobwidth", data = list(lab.grob)) + 
-                 tick.unit + pad1.unit + pad2.unit)
+                tick.unit <-
+                    unit(max(0, x$y.scales$tck[2] * axis.units$right$tick$x * axis.settings$right$tck * lab.comps.right$ticks$tck),
+                         axis.units$right$tick$units)
+                pad1.unit <-
+                    unit(axis.units$right$pad1$x * axis.settings$right$pad1,
+                         axis.units$right$pad1$units)
+                pad2.unit <-
+                    unit(axis.units$right$pad2$x * axis.settings$right$pad2,
+                         axis.units$right$pad2$units)
 
+                lab.grob <- 
+                    if (length(lab) > 0)
+                        textGrob(label = lab,
+                                 x = rep(0.5, length(lab)),
+                                 y = rep(0.5, length(lab)),
+                                 rot = yaxis.rot[2],
+                                 gp = gpar(cex = yaxis.cex[2]))
+                    else textGrob("")
+
+                axis.right.unit <- widths.settings[["axis.right"]] *
+                    (unit(if (any(y.alternating==2 | y.alternating==3)) 1 else 0,
+                          "grobwidth", data = list(lab.grob)) + 
+                     tick.unit + pad1.unit + pad2.unit)
+            }
 
 
 
 
             ## left
+            lab.comps.left <- lab.comps$left
+            lab <- lab.comps.left$labels$labels
             tick.unit <-
-                unit(max(0, x$y.scales$tck[1] * axis.units$left$tick$x *
-                         axis.settings$left$tck),
+                unit(max(0, x$y.scales$tck[1] * axis.units$left$tick$x * axis.settings$left$tck * lab.comps.left$ticks$tck),
                      axis.units$left$tick$units)
             pad1.unit <-
                 unit(axis.units$left$pad1$x * axis.settings$left$pad1,
@@ -540,7 +604,7 @@ calculateGridLayout <-
                      axis.units$left$pad2$units)
 
             lab.grob <- 
-                if (length(lab))
+                if (length(lab) > 0)
                     textGrob(label = lab,
                              x = rep(0.5, length(lab)),
                              y = rep(0.5, length(lab)),
@@ -582,25 +646,40 @@ calculateGridLayout <-
                 vector(mode = "list", length = length(x$y.limits))
             for (i in seq_along(x$y.limits))
             {
-                lab <-
-                    calculateAxisComponents(x = x$y.limits[[i]],
-                                            at = if (is.list(x$y.scales$at))
-                                            x$y.scales$at[[i]] else x$y.scales$at,
+##                 lab <-
+##                     calculateAxisComponents(x = x$y.limits[[i]],
+##                                             at = if (is.list(x$y.scales$at))
+##                                             x$y.scales$at[[i]] else x$y.scales$at,
 
-                                            used.at = x$y.used.at[[i]],
-                                            num.limit = x$y.num.limit[[i]],
+##                                             used.at = x$y.used.at[[i]],
+##                                             num.limit = x$y.num.limit[[i]],
 
-                                            labels = if (is.list(x$y.scales$lab))
-                                            x$y.scales$lab[[i]] else x$y.scales$lab,
-                                            logsc = x$y.scales$log,
-                                            abbreviate = x$y.scales$abbr,
-                                            minlength = x$y.scales$minl,
-                                            n = x$y.scales$tick.number,
-                                            format.posixt = x$y.scales$format)$lab
+##                                             labels = if (is.list(x$y.scales$lab))
+##                                             x$y.scales$lab[[i]] else x$y.scales$lab,
+##                                             logsc = x$y.scales$log,
+##                                             abbreviate = x$y.scales$abbr,
+##                                             minlength = x$y.scales$minl,
+##                                             n = x$y.scales$tick.number,
+##                                             format.posixt = x$y.scales$format)$lab
 
+                lab.comps <-
+                    x$yscale.components(x$y.limits[[i]],
+                                        at = if (is.list(x$y.scales$at)) x$y.scales$at[[i]] else x$y.scales$at,
 
+                                        used.at = x$y.used.at[[i]],
+                                        num.limit = x$y.num.limit[[i]],
+
+                                        labels = if (is.list(x$y.scales$lab))
+                                        x$y.scales$lab[[i]] else x$y.scales$lab,
+                                        logsc = x$y.scales$log,
+                                        abbreviate = x$y.scales$abbr,
+                                        minlength = x$y.scales$minl,
+                                        n = x$y.scales$tick.number,
+                                        format.posixt = x$y.scales$format)
+
+                lab <- lab.comps$left$labels$labels
                 lab.groblist[[i]] <- 
-                    if (length(lab))
+                    if (length(lab) > 0)
                         textGrob(label = lab,
                                  x = rep(0.5, length(lab)),
                                  y = rep(0.5, length(lab)),
