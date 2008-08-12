@@ -1,6 +1,6 @@
 \name{panel.parallel}
 \alias{panel.parallel}
-\title{ Default Panel Function for parallel}
+\title{ Default Panel Function for parallel }
 \description{
   This is the default panel function for \code{parallel}.
 }
@@ -55,7 +55,22 @@ panel.parallel(x, y, z, subscripts,
     be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).
   }
 }
-\details{ Difficult to describe. See example for \code{parallel}}
+
+\details{ Produces parallel coordinate plots, which are easier to
+  understand from an example than through a verbal description.  See
+  example for \code{\link{parallel}}
+}
+
+\references{
+
+  Inselberg, Alfred (2009) \dQuote{Parallel Coordinates: Visual
+  Multidimensional Geometry and Its Applications}, Springer. ISBN:
+  978-0-387-21507-5.
+
+  Inselberg, A. (1985) \dQuote{The Plane with Parallel Coordinates},
+  \emph{The Visual Computer}.
+}
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{parallel}}}
 \keyword{dplot}

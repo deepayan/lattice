@@ -163,7 +163,9 @@ parallel(x, data, \dots)
 }
 
 \seealso{
-  \code{\link{xyplot}}, \code{\link{Lattice}}, \code{\link{panel.pairs}}
+  \code{\link{xyplot}}, \code{\link{Lattice}}, \code{\link{panel.pairs},
+    \code{\link{panel.parallel}}
+  }
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
@@ -185,7 +187,8 @@ splom(~iris[1:3]|Species, data = iris,
                 cex = 2)
       })
 parallel(~iris[1:4] | Species, iris) 
-parallel(~iris[1:4], iris, groups = Species, horizontal.axis = FALSE)
+parallel(~iris[1:4], iris, groups = Species,
+         horizontal.axis = FALSE, scales = list(x = list(rot = 90)))
 }
 \keyword{hplot}
 
