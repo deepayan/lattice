@@ -61,8 +61,9 @@
 
 \references{
 
-  Sarkar, Deepayan (2008) "Lattice: Multivariate Data Visualization with
-  R", Springer. \url{http://lmdvr.r-forge.r-project.org/}
+  Sarkar, Deepayan (2008) \dQuote{Lattice: Multivariate Data
+    Visualization with R}, Springer.  ISBN: 978-0-387-75968-5
+  \url{http://lmdvr.r-forge.r-project.org/}
 
   Bell Lab's Trellis Page:
   \url{http://cm.bell-labs.com/cm/ms/departments/sia/project/trellis/}

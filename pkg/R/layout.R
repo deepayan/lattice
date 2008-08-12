@@ -341,16 +341,16 @@ calculateGridLayout <-
 ##                                         n = x$x.scales$tick.number)$lab
 
             lab.comps <- 
-                calculateAxisComponents(x = x$x.limits,
-                                        at = x$x.scales$at,
-                                        used.at = x$x.used.at,
-                                        num.limit = x$x.num.limit,
-                                        labels = x$x.scales$lab,
-                                        logsc = x$x.scales$log,
-                                        abbreviate = x$x.scales$abbr,
-                                        minlength = x$x.scales$minl,
-                                        format.posixt = x$x.scales$format,
-                                        n = x$x.scales$tick.number)
+                x$xscale.components(x$x.limits,
+                                    at = x$x.scales$at,
+                                    used.at = x$x.used.at,
+                                    num.limit = x$x.num.limit,
+                                    labels = x$x.scales$lab,
+                                    logsc = x$x.scales$log,
+                                    abbreviate = x$x.scales$abbr,
+                                    minlength = x$x.scales$minl,
+                                    format.posixt = x$x.scales$format,
+                                    n = x$x.scales$tick.number)
 
             ## top
 
@@ -477,19 +477,17 @@ calculateGridLayout <-
 ##                                             format.posixt = x$x.scales$format)$lab
 
                 lab.comps <-
-                    calculateAxisComponents(x$x.limits[[i]],
-                                            at = if (is.list(x$x.scales$at)) x$x.scales$at[[i]] else x$x.scales$at,
-
-                                            used.at = x$x.used.at[[i]],
-                                            num.limit = x$x.num.limit[[i]],
-
-                                            labels = if (is.list(x$x.scales$lab))
-                                            x$x.scales$lab[[i]] else x$x.scales$lab,
-                                            logsc = x$x.scales$log,
-                                            abbreviate = x$x.scales$abbr,
-                                            minlength = x$x.scales$minl,
-                                            n = x$x.scales$tick.number,
-                                            format.posixt = x$x.scales$format)
+                    x$xscale.components(x$x.limits[[i]],
+                                        at = if (is.list(x$x.scales$at)) x$x.scales$at[[i]] else x$x.scales$at,
+                                        used.at = x$x.used.at[[i]],
+                                        num.limit = x$x.num.limit[[i]],
+                                        labels = if (is.list(x$x.scales$lab))
+                                        x$x.scales$lab[[i]] else x$x.scales$lab,
+                                        logsc = x$x.scales$log,
+                                        abbreviate = x$x.scales$abbr,
+                                        minlength = x$x.scales$minl,
+                                        n = x$x.scales$tick.number,
+                                        format.posixt = x$x.scales$format)
 
                 lab <- lab.comps$bottom$labels$labels
                 lab.groblist[[i]] <- 
@@ -665,10 +663,8 @@ calculateGridLayout <-
                 lab.comps <-
                     x$yscale.components(x$y.limits[[i]],
                                         at = if (is.list(x$y.scales$at)) x$y.scales$at[[i]] else x$y.scales$at,
-
                                         used.at = x$y.used.at[[i]],
                                         num.limit = x$y.num.limit[[i]],
-
                                         labels = if (is.list(x$y.scales$lab))
                                         x$y.scales$lab[[i]] else x$y.scales$lab,
                                         logsc = x$y.scales$log,
