@@ -1,6 +1,17 @@
 
 require(grid)
-old.prompt <- grid.prompt(TRUE)
+
+## branch for compatibility with older R
+
+old.prompt <-
+    if (exists("devAskNewPage", mode = "function",
+               where = getNamespace("grDevices"),
+               inherits = FALSE)) {
+        devAskNewPage(TRUE)
+    } else {
+        grid.prompt(TRUE)
+    }
+    
 
 
 ## store current settings, to be restored later
@@ -157,6 +168,12 @@ barchart(variety ~ yield | year * site, barley, origin = 0,
 
 trellis.par.set(theme = old.settings)
 
-grid.prompt(old.prompt)
+if (exists("devAskNewPage", mode = "function",
+           where = getNamespace("grDevices"),
+           inherits = FALSE)) {
+    devAskNewPage(old.prompt)
+} else {
+    grid.prompt(old.prompt)
+}
 
 
