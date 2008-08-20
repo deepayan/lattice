@@ -597,24 +597,33 @@ formattedTicksAndLabels.POSIXct <-
     else if (d < 1.1 * 60 * 60 * 24 * 365) {
         class(z) <- c("POSIXt", "POSIXct")
         zz <- as.POSIXlt(z)
-        zz$mday <- 1
-        zz$isdst <- zz$hour <- zz$min <- zz$sec <- 0
+        zz$mday <- zz$wday <- zz$yday <- 1
+        zz$isdst <- -1
+        zz$hour <- zz$min <- zz$sec <- 0
         zz$mon <- pretty(zz$mon, ...)
         m <- length(zz$mon)
-        m <- rep(zz$year[1], m)
+        M <- 2 * m
+        m <- rep.int(zz$year[1], m)
         zz$year <- c(m, m + 1)
+        zz <- lapply(zz, function(x) rep(x, length = M))
+        class(zz) <- c("POSIXt", "POSIXlt")
         z <- as.POSIXct(zz)
-        if (is.null(format.posixt)) 
+        if (missing(format))
             format.posixt <- "%b"
     }
     else {
         class(z) <- c("POSIXt", "POSIXct")
         zz <- as.POSIXlt(z)
-        zz$mday <- 1
-        zz$isdst <- zz$mon <- zz$hour <- zz$min <- zz$sec <- 0
+
+        zz$mday <- zz$wday <- zz$yday <- 1
+        zz$isdst <- -1
+        zz$mon <- zz$hour <- zz$min <- zz$sec <- 0
         zz$year <- pretty(zz$year, ...)
+        M <- length(zz$year)
+        zz <- lapply(zz, function(x) rep(x, length = M))
+        class(zz) <- c("POSIXt", "POSIXlt")
         z <- as.POSIXct(zz)
-        if (is.null(format.posixt)) 
+        if (missing(format))
             format.posixt <- "%Y"
     }
     if (!mat) z <- x[is.finite(x)]
