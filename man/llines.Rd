@@ -33,7 +33,7 @@
 \usage{
 lplot.xy(xy, type, pch, lty, col, cex, lwd,
          font, fontfamily, fontface,
-         col.line, alpha, fill,
+         col.line, col.symbol, alpha, fill,
          origin = 0, \dots)
 
 llines(x, ...)

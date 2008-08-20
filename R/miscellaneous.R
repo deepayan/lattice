@@ -458,7 +458,7 @@ lplot.xy <-
              type = c("p", "l", "o", "b", "c", "s", "S", "h", "H"),
              pch = 1, lty = 1, col = 1, cex = 1, lwd = 1,
              font = 1, fontfamily = NULL, fontface = NULL,
-             col.line = col, alpha = 1, fill = NULL,
+             col.line = col, col.symbol = col, alpha = 1, fill = NULL,
              origin = 0,
              ...)
 {
@@ -475,7 +475,7 @@ lplot.xy <-
            p = {
                grid.points(x = x, y = y, 
                            gp =
-                           gpar(col = col, cex = cex, lwd = lwd,
+                           gpar(col = col.symbol, cex = cex, lwd = lwd,
                                 alpha = alpha, fill = fill,
                                 fontsize = fontsize.points,
                                 fontfamily = fontfamily,
@@ -493,7 +493,7 @@ lplot.xy <-
            b = {
                grid.points(x = x, y = y, 
                            gp =
-                           gpar(col = col, cex = cex, lwd = lwd,
+                           gpar(col = col.symbol, cex = cex, lwd = lwd,
                                 alpha = alpha, fill = fill,
                                 fontsize = fontsize.points,
                                 fontfamily = fontfamily,
