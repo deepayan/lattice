@@ -130,13 +130,6 @@ panel.densityplot <-
     }
     else
     {
-        if (sum(!is.na(x)) > 1)
-        {
-            h <- do.call("density", c(list(x = x), darg))
-            lim <- current.panel.limits()$xlim
-            id <- h$x > min(lim) & h$x < max(lim)
-            panel.lines(x = h$x[id], y = h$y[id], ...)
-        }
         switch(as.character(plot.points),
                "TRUE" =
                panel.xyplot(x = x, y = rep(0, length(x)), type = type, ...),
@@ -151,6 +144,13 @@ panel.densityplot <-
                             y = jitter(rep(0, length(x)), amount = jitter.amount),
                             type = type,
                             ...))
+        if (sum(!is.na(x)) > 1)
+        {
+            h <- do.call("density", c(list(x = x), darg))
+            lim <- current.panel.limits()$xlim
+            id <- h$x > min(lim) & h$x < max(lim)
+            panel.lines(x = h$x[id], y = h$y[id], ...)
+        }
     }
 }
 
