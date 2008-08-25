@@ -102,17 +102,17 @@ panel.polygon(\dots)
     descriptive names rather than integer codes.  If specified, this
     overrides \code{code}}
   \item{col, alpha, lty, lwd, fill, pch, cex, lineheight, font,
-    fontfamily, fontface, col.line, border}{ graphical parameters.
-    \code{fill} applies to points when \code{pch} is in \code{21:25} and
-    specifies the fill color, similar to the \code{bg} argument in the
-    base graphics function \code{\link{points}}. For devices that
-    support alpha-transparency, a numeric argument \code{alpha} between
-    0 and 1 can controls transparency.  Be careful with this, since for
-    devices that do not support alpha-transparency, nothing will be
-    drawn at all if this is set to anything other than 0.  \code{font}
-    and \code{fontface} are included in \code{lpolygon} only to ensure
-    that they are not passed down (as \code{\link[grid:gpar]{gpar}}
-    doesn't like them).
+    fontfamily, fontface, col.line, col.symbol, border}{ graphical
+    parameters.  \code{fill} applies to points when \code{pch} is in
+    \code{21:25} and specifies the fill color, similar to the \code{bg}
+    argument in the base graphics function \code{\link{points}}. For
+    devices that support alpha-transparency, a numeric argument
+    \code{alpha} between 0 and 1 can controls transparency.  Be careful
+    with this, since for devices that do not support alpha-transparency,
+    nothing will be drawn at all if this is set to anything other than
+    0.  \code{font} and \code{fontface} are included in \code{lpolygon}
+    only to ensure that they are not passed down (as
+    \code{\link[grid:gpar]{gpar}} doesn't like them).
   }
   \item{origin}{ for \code{type="h"} or \code{type="H"}, the value to
     which lines drop down. }
