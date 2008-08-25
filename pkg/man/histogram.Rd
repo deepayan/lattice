@@ -43,7 +43,7 @@ densityplot(x, data, \dots)
             auto.key = FALSE,
             aspect = "fill",
             panel = lattice.getOption("panel.densityplot"),
-            prepanel, scales, strip, groups,
+            prepanel, scales, strip, groups, weights,
             xlab, xlim, ylab, ylim,
             bw, adjust, kernel, window, width, give.Rkern,
             n = 50, from, to, cut, na.rm,
@@ -155,6 +155,16 @@ do.breaks(endpoints, nint)
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
     lattice.options, default.scales, subscripts, subset}{ See
     \code{\link{xyplot}} }
+  \item{weights}{ numeric vector of weights for the density
+    calculations, evaluated in the non-standard manner used for
+    \code{groups} and terms in the formula, if any.  If this is
+    specified, it is subsetted using \code{subscripts} inside the panel
+    function to match it to the corresponding \code{x} values.
+
+    At the time of writing, \code{weights} do not work in conjunction
+    with an extended formula specification (this is not too hard to fix,
+    so just bug the maintainer if you need this feature).
+  }
   \item{bw, adjust, kernel, window, width, give.Rkern, from, to, cut,
     na.rm}{ arguments to \code{\link{density}}, passed on as appropriate
   }

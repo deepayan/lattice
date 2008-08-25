@@ -30,6 +30,7 @@ prepanel.default.densityplot <-
     function(x,
              darg,
              groups = NULL,
+             weights = NULL,
              subscripts = TRUE,
              ...)
 {
@@ -48,7 +49,9 @@ prepanel.default.densityplot <-
     }
     else if (is.null(groups))
     {
-        h <- do.call(density, c(list(x = x), darg))
+        h <- do.call(density,
+                     c(list(x = x, weights = weights[subscripts]),
+                       darg))
         ## for banking calculations, include only middle 70% values
         quants <-
             quantile(x, prob = c(0.15, 0.85),
@@ -72,7 +75,10 @@ prepanel.default.densityplot <-
             id <- (groups[subscripts] == vals[i])
             if (sum(id, na.rm = TRUE) > 1) ## need at least 2
             {
-                h <- do.call(density, c(list(x = x[id]), darg))
+                h <- do.call(density,
+                             c(list(x = x[id],
+                                    weights = weights[subscripts][id]),
+                               darg))
                 xl <- c(xl, h$x)
                 yl <- c(yl, h$y)
                 ## for banking calculations, include only middle 70% values
@@ -99,6 +105,7 @@ panel.densityplot <-
              plot.points = "jitter",
              ref = FALSE,
              groups = NULL,
+             weights = NULL,
 ##              col = if (is.null(groups)) plot.symbol$col else superpose.symbol$col,
 ##              lty = if (is.null(groups)) plot.line$lty else superpose.line$lty,
 ##              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
@@ -123,6 +130,7 @@ panel.densityplot <-
         panel.superpose(x, darg = darg,
                         plot.points = plot.points, ref = FALSE,
                         groups = groups,
+                        weights = weights,
                         panel.groups = panel.densityplot,
                         jitter.amount = jitter.amount,
                         type = type,
@@ -144,9 +152,18 @@ panel.densityplot <-
                             y = jitter(rep(0, length(x)), amount = jitter.amount),
                             type = type,
                             ...))
+        density.fun <- function(x, weights, subscripts = TRUE, darg, ...)
+            ## wrapper to handle 'subscripts' without actually making
+            ## it a formal argument to panel.densityplot
+        {
+            do.call("density",
+                    c(list(x = x,
+                           weights = weights[subscripts]),
+                      darg))
+        }
         if (sum(!is.na(x)) > 1)
         {
-            h <- do.call("density", c(list(x = x), darg))
+            h <- density.fun(x = x, weights = weights, ..., darg = darg)
             lim <- current.panel.limits()$xlim
             id <- h$x > min(lim) & h$x < max(lim)
             panel.lines(x = h$x[id], y = h$y[id], ...)
@@ -177,6 +194,10 @@ densityplot.numeric <-
 
 
 
+## FIXME: weights will not currently work with the extended formula
+## interface.  The fix is to pass it to latticeParseFormula and
+## replicate it there, but I'll postpone that for now.
+
 densityplot.formula <-
     function(x,
              data = NULL,
@@ -189,6 +210,7 @@ densityplot.formula <-
              scales = list(),
              strip = TRUE,
              groups = NULL,
+             weights = NULL,
              xlab,
              xlim,
              ylab,
@@ -208,12 +230,13 @@ densityplot.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(),
-             subscripts = !is.null(groups),
+             subscripts = !is.null(groups) || !is.null(weights),
              subset = TRUE)
 {
     formula <- x
     dots <- list(...)
     groups <- eval(substitute(groups), data, environment(formula))
+    weights <- eval(substitute(weights), data, environment(formula))
     subset <- eval(substitute(subset), data, environment(formula))
     if (!is.null(lattice.options))
     {
@@ -340,6 +363,7 @@ densityplot.formula <-
     if (subscripts)
     {
         foo$panel.args.common$groups <- groups
+        foo$panel.args.common$weights <- weights
     }
 
     npackets <- prod(cond.max.level)
@@ -370,7 +394,6 @@ densityplot.formula <-
             cupdate(cond.current.level,
                     cond.max.level)
     }
-
 
     more.comp <-
         c(limits.and.aspect(prepanel.default.densityplot,

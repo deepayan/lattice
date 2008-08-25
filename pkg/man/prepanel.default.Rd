@@ -33,7 +33,7 @@ prepanel.default.cloud(perspective, distance,
 prepanel.default.levelplot(x, y, subscripts, \dots)
 prepanel.default.qqmath(x, f.value, distribution, qtype,
                         groups, subscripts, \dots)
-prepanel.default.densityplot(x, darg, groups, subscripts, \dots)
+prepanel.default.densityplot(x, darg, groups, weights, subscripts, \dots)
 prepanel.default.parallel(x, y, z, \dots, horizontal.axis)
 prepanel.default.splom(z, \dots)
 
@@ -56,6 +56,9 @@ prepanel.default.splom(z, \dots)
   \item{groups, subscripts}{ See \code{\link{xyplot}}.  Whenever
     appropriate, calculations are done separately for each group and
     then combined.  }
+  \item{weights}{ numeric vector of weights for the density
+    calculations.  If this is specified, it is subsetted by
+    \code{subscripts} to match it to \code{x}.  }
   \item{perspective, distance, xlim, ylim, zlim, screen, R.mat, aspect,
     panel.aspect, zoom}{ see \code{\link{panel.cloud}}}
   \item{f.value, distribution}{ see \code{panel.qqmath} }
