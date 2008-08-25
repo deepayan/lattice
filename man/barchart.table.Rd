@@ -15,7 +15,7 @@
 
 \method{barchart}{matrix}(x, data, \dots)
 
-\method{dotplot}{table}(x, data, groups = TRUE, \dots)
+\method{dotplot}{table}(x, data, groups = TRUE, \dots, horizontal = TRUE)
 
 \method{dotplot}{array}(x, data, \dots)
 
@@ -44,8 +44,8 @@
     arguments to \code{panel.barchart} controlling the display.  The
     defaults for the \code{table} method are diffrent.
   }
-  \item{horizontal}{ logical, indicating whether the bars should be
-    horizontal or vertical
+  \item{horizontal}{ logical, indicating whether the plot should be
+    horizontal (with the categorical variable on the y-axis) or vertical.
   }
   \item{\dots}{ other arguments, passed to the underlying \code{formula}
     method.

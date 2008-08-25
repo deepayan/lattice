@@ -822,13 +822,16 @@ dotplot.numeric <-
 
 
 dotplot.table <-
-    function(x, data = NULL, groups = TRUE, ...)
+    function(x, data = NULL, groups = TRUE,
+             ..., horizontal = TRUE)
 {
+    if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
     freq <- which(nms == "Freq")
     nms <- nms[-freq]
-    form <- paste(nms[1], "Freq", sep = "~")
+    form <- ## WAS paste(nms[1], "Freq", sep = "~")
+        sprintf(if (horizontal) "%s ~ Freq" else "Freq ~ %s", nms[1])
     nms <- nms[-1]
     len <- length(nms)
     if (is.logical(groups) && groups && len > 0)
@@ -843,7 +846,9 @@ dotplot.table <-
         rest <- paste(nms, collapse = "+")
         form <- paste(form, rest, sep = "|")
     }
-    dotplot(as.formula(form), data, groups = eval(groups), ...)
+    dotplot(as.formula(form), data,
+            groups = eval(groups),
+            ...)
 }
 
 
