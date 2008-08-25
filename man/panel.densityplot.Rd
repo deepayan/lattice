@@ -6,7 +6,7 @@
 }
 \usage{
 panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
-                  groups = NULL, 
+                  groups = NULL, weights = NULL,
                   jitter.amount, type, \dots)
 }
 \arguments{
@@ -31,6 +31,10 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
   \item{groups}{ an optional grouping variable.  If present,
     \code{\link{panel.superpose}} will be used instead to display each
     subgroup }
+  \item{weights}{ numeric vector of weights for the density
+    calculations.  If this is specified, the \code{\dots} part must
+    also include a \code{subscripts} argument that matches the weights
+    to \code{x}.  }
   \item{jitter.amount}{
     when \code{plot.points="jitter"}, the value to use as the
     \code{amount} argument to \code{\link{jitter}}.
