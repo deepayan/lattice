@@ -341,7 +341,7 @@ panel.grid <-
 panel.lmline <-
     function(x, y, ...)
 {
-    if (length(x) > 0) panel.abline(lm(as.numeric(y) ~ as.numeric(x)), ...)
+    if (length(x) > 1) panel.abline(lm(as.numeric(y) ~ as.numeric(x)), ...)
 }
 
 
@@ -351,7 +351,7 @@ prepanel.lmline <-
     x <- as.numeric(x)
     y <- as.numeric(y)
 
-    if (length(x)>0) {
+    if (length(x) > 1) {
         coeff <- coef(lm(y~x))
         tem <- coeff[1] + coeff[2] * range(x, finite = TRUE)
         list(xlim = range(x, finite = TRUE),
