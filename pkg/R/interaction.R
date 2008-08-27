@@ -100,6 +100,191 @@ panel.identify <-
 
 
 
+## identify for cloud().  This is a lot more complicated because we
+## need to redo all the projection calculations.  The first bit is a
+## function that separates out the panel.identify() functionality.
+
+
+panel.3didentify <-
+    function(x, y, z, rot.mat = diag(4), distance,
+             xlim.scaled,
+             ylim.scaled,
+             zlim.scaled,
+             subscripts = seq_along(x),
+             labels = subscripts, 
+             n = length(x), offset = 0.5,
+             threshold = 18, ## in points, roughly 0.25 inches
+             ...)
+    ## ... goes to ltext
+{
+    ## 2-D projection
+    id <- ((x >= xlim.scaled[1]) & (x <= xlim.scaled[2]) &
+           (y >= ylim.scaled[1]) & (y <= ylim.scaled[2]) &
+           (z >= zlim.scaled[1]) & (z <= zlim.scaled[2]) &
+           !is.na(x) & !is.na(y) & !is.na(z))
+    m <- ltransform3dto3d(rbind(x, y, z), rot.mat, distance)
+    x <- m[1, ]
+    y <- m[2, ]
+
+    ## rest is like panel.identify
+    px <- convertX(unit(x, "native"), "points", TRUE)
+    py <- convertY(unit(y, "native"), "points", TRUE)
+    labels <- as.character(labels)
+    if (length(labels) > length(subscripts))
+        labels <- labels[subscripts]
+
+    unmarked <- rep(TRUE, length(x))
+    count <- 0
+
+    while (count < n)
+    {
+        ll <- grid.locator(unit = "points")
+        if (is.null(ll)) break ## non-left click
+        lx <- convertX(ll$x, "points", TRUE)
+        ly <- convertY(ll$y, "points", TRUE)
+        pdists <- sqrt((px - lx)^2 + (py - ly)^2)
+        if (min(pdists, na.rm = TRUE) > threshold)
+            warning("no observations within ", threshold, " points")
+        else
+        {
+            w <- which.min(pdists)
+            if (unmarked[w])
+            {
+                pos <- getTextPosition(x = lx - px[w], y = ly - py[w])
+                ltext(x[w], y[w], labels[w], pos = pos, offset = offset, ...)
+                unmarked[w] <- FALSE
+                count <- count + 1
+            }
+            else
+                warning("nearest observation already identified")
+        }
+    }
+    subscripts[!unmarked]
+}
+
+
+
+## The more involved part is the wrapper that computes the projections
+## etc.
+
+
+panel.identify.cloud <-
+    function(x = panel.args$x,
+             y = panel.args$y,
+             z = panel.args$z,
+             subscripts = panel.args$subscripts,
+
+             perspective = TRUE,
+             distance = if (perspective) 0.2 else 0, 
+             xlim = panel.args$xlim,
+             ylim = panel.args$ylim,
+             zlim = panel.args$zlim,
+
+             screen = list(z = 40, x = -60),
+             R.mat = diag(4),
+             aspect = c(1, 1),
+
+             scales.3d = panel.args$scales.3d,
+             ...,
+
+             n = length(subscripts),
+             offset = 0.5,
+             threshold = 18, ## in points, roughly 0.25 inches
+             labels = subscripts,
+             panel.args = trellis.panelArgs())
+{
+    argOrDefault <- function(arg) {
+        if (is.null(panel.args[[arg]])) get(arg) # default
+        else panel.args[[arg]]
+    }
+    if (missing(perspective)) perspective <- argOrDefault("perspective")
+    if (missing(distance)) distance <- argOrDefault("distance")
+    if (missing(screen)) screen <- argOrDefault("screen")
+    if (missing(R.mat)) R.mat <- argOrDefault("R.mat")
+    if (missing(aspect)) aspect <- argOrDefault("aspect")
+    ## if (missing())  <- argOrDefault("")
+
+    if (is.factor(x)) x <- as.numeric(x)
+    if (is.factor(y)) y <- as.numeric(y)
+    if (is.factor(z)) z <- as.numeric(z)
+
+    ## calculate rotation matrix:
+    rot.mat <- ltransform3dMatrix(screen = screen, R.mat = R.mat)
+
+    if (length(subscripts) == 0)  ## nothing to do
+        return (integer(0))
+    
+    xlabelinfo <-
+        calculateAxisComponents(xlim,
+                                at = scales.3d$x$at,
+                                num.limit = NULL,
+                                labels = scales.3d$x$labels,
+                                logsc = scales.3d$x$log,
+                                abbreviate = scales.3d$x$abbreviate,
+                                minlength = scales.3d$x$minlength,
+                                format.posixt = scales.3d$x$format,
+                                n = scales.3d$x$tick.number)
+
+    ylabelinfo <-
+        calculateAxisComponents(ylim,
+                                at = scales.3d$y$at,
+                                num.limit = NULL,
+                                labels = scales.3d$y$labels,
+                                logsc = scales.3d$y$log,
+                                abbreviate = scales.3d$y$abbreviate,
+                                minlength = scales.3d$y$minlength,
+                                format.posixt = scales.3d$y$format,
+                                n = scales.3d$y$tick.number)
+
+    zlabelinfo <-
+        calculateAxisComponents(zlim,
+                                at = scales.3d$z$at,
+                                num.limit = NULL,
+                                labels = scales.3d$z$labels,
+                                logsc = scales.3d$z$log,
+                                abbreviate = scales.3d$z$abbreviate,
+                                minlength = scales.3d$z$minlength,
+                                format.posixt = scales.3d$z$format,
+                                n = scales.3d$z$tick.number)
+
+    xlim <- xlabelinfo$num.limit
+    ylim <- ylabelinfo$num.limit
+    zlim <- zlabelinfo$num.limit
+    aspect <- rep(aspect, length=2)
+    x <- x[subscripts]
+    y <- y[subscripts]
+    z <- z[subscripts]
+    corners <-
+        data.frame(x = c(-1, 1, 1,-1,-1, 1, 1,-1),
+                   y = c(-1,-1,-1,-1, 1, 1, 1, 1) * aspect[1],
+                   z = c(-1,-1, 1, 1,-1,-1, 1, 1) * aspect[2])
+    corners <- corners / (2 * max(corners)) ## contain in [-.5, .5] cube
+    xlim.scaled <- range(corners$x)
+    ylim.scaled <- range(corners$y)
+    zlim.scaled <- range(corners$z)
+    ## box ranges and lengths
+    cmin <- lapply(corners, min)
+    cmax <- lapply(corners, max)
+    clen <- lapply(corners, function(x) diff(range(x, finite = TRUE)))
+    ## scaled (to bounding box) data
+    x <- cmin$x + clen$x * (x-xlim[1])/diff(xlim)
+    y <- cmin$y + clen$y * (y-ylim[1])/diff(ylim)
+    z <- cmin$z + clen$z * (z-zlim[1])/diff(zlim)
+
+    panel.3didentify(x, y, z,
+                     rot.mat = rot.mat,
+                     distance = distance,
+                     xlim.scaled = xlim.scaled,
+                     ylim.scaled = ylim.scaled,
+                     zlim.scaled = zlim.scaled,
+                     subscripts = subscripts,
+                     labels = labels, 
+                     n = length(x), offset = 0.5,
+                     threshold = 18,
+                     ...)
+}
+
+
 
 trellis.vpname <-
     function(name =
