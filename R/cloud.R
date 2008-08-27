@@ -668,7 +668,7 @@ panel.cloud <-
 
 
 
-    if (any(subscripts))  ## otherwise nothing to draw (not even box ?)
+    if (length(subscripts) > 0)  ## otherwise nothing to draw (not even box ?)
     {
 
         ## figure out data ranges and tick locations / labels
