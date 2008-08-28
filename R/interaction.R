@@ -187,6 +187,7 @@ panel.identify.cloud <-
              scales.3d = panel.args$scales.3d,
              ...,
 
+             panel.3d.identify = panel.3didentify,
              n = length(subscripts),
              offset = 0.5,
              threshold = 18, ## in points, roughly 0.25 inches
@@ -271,17 +272,17 @@ panel.identify.cloud <-
     y <- cmin$y + clen$y * (y-ylim[1])/diff(ylim)
     z <- cmin$z + clen$z * (z-zlim[1])/diff(zlim)
 
-    panel.3didentify(x, y, z,
-                     rot.mat = rot.mat,
-                     distance = distance,
-                     xlim.scaled = xlim.scaled,
-                     ylim.scaled = ylim.scaled,
-                     zlim.scaled = zlim.scaled,
-                     subscripts = subscripts,
-                     labels = labels, 
-                     n = length(x), offset = 0.5,
-                     threshold = 18,
-                     ...)
+    panel.3d.identify(x, y, z,
+                      rot.mat = rot.mat,
+                      distance = distance,
+                      xlim.scaled = xlim.scaled,
+                      ylim.scaled = ylim.scaled,
+                      zlim.scaled = zlim.scaled,
+                      subscripts = subscripts,
+                      labels = labels, 
+                      n = length(x), offset = 0.5,
+                      threshold = 18,
+                      ...)
 }
 
 
