@@ -38,6 +38,7 @@ panel.identify.cloud(x, y, z, subscripts,
                      xlim, ylim, zlim,
                      screen, R.mat, aspect, scales.3d,
                      \dots,
+                     panel.3d.identify,
                      n = length(subscripts),
                      offset = 0.5,
                      threshold = 18,
@@ -103,7 +104,12 @@ trellis.panelArgs(x, packet.number)
     required to recompute the relevant three-dimensional projections in
     \code{panel.identify.cloud}.
   }
-
+  \item{panel.3d.identify}{
+    the function that is responsible for the actual interaction once the
+    data rescaling and rotation computations have been done.  By
+    default, an internal function similar to \code{panel.identify} is
+    used.
+  }
   \item{name}{
     character string indicating which viewport or grob we are looking
     for.  Although these do not necessarily provide access to all
