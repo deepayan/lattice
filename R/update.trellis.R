@@ -232,18 +232,16 @@ update.trellis <-
         if (is.null(legend)) object$legend <- NULL
         else object$legend <- updateList(object$legend, legend)
     }
-    if (!missing(key))  ## FIXME: why?
+    if (!missing(key))
     {
-        ## should we allow partial update?
-        ## object$key <- updateList(object$key, key)
-        object$key <- key
+        object$legend <-
+            updateList(object$legend, 
+                       construct.legend(legend = NULL, key = key))
     }
     if (!missing(auto.key))
     {
         if (!is.null(object$legend))
-
-            cat(gettext("\nNote: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"),
-                fill = TRUE)
+            message("Note: 'auto.key' ignored since legend already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)")
         else 
         {
             groups <- object$panel.args.common$groups
