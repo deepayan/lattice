@@ -6,7 +6,7 @@
   key) that can be placed in other Grid plots.
 }
 \usage{
-draw.key(key, draw=FALSE, vp=NULL)
+draw.key(key, draw=FALSE, vp=NULL, \dots)
 }
 \arguments{
   \item{key}{ A list determining the key. See documentation for
@@ -15,6 +15,7 @@ draw.key(key, draw=FALSE, vp=NULL)
   }
   \item{draw}{ logical, whether the grob is to be drawn. }
   \item{vp}{ viewport }
+  \item{\dots}{ignored}
 }
 \value{
   A Grid frame object (that inherits from \sQuote{grob}).
