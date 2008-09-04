@@ -33,6 +33,8 @@
        ylab,
        ylim,
        par.settings,
+       plot.args,
+       lattice.options,
        index.cond,
        perm.cond,
        \dots)
@@ -59,8 +61,8 @@ trellis.last.object(warn = TRUE, \dots)
   }
   \item{panel, aspect, as.table, between, key, auto.key, legend, layout,
     main, page, par.strip.text, prepanel, scales, skip, strip,
-    strip.left, sub, xlab, xlim, ylab, ylim, par.settings, index.cond,
-    perm.cond, \dots}{
+    strip.left, sub, xlab, xlim, ylab, ylim, par.settings, plot.args,
+    lattice.options, index.cond, perm.cond, \dots}{
     arguments that will be used to update \code{object}. See details
     below. 
   }
@@ -106,6 +108,10 @@ trellis.last.object(warn = TRUE, \dots)
 
 }
 
+% WAS: \dontrun{
+% trellis.last.object(xlab = "Year")
+% }
+
 \examples{
 spots <- by(sunspots, gl(235, 12, lab = 1749:1983), mean)
 old.options <- lattice.options(save.object = TRUE)
@@ -113,9 +119,7 @@ xyplot(spots ~ 1749:1983, xlab = "", type = "l",
        scales = list(x = list(alternating = 2)),
        main = "Average Yearly Sunspots")
 update(trellis.last.object(), aspect = "xy")
-\dontrun{
 trellis.last.object(xlab = "Year")
-}
 lattice.options(old.options)
 }
 

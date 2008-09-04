@@ -107,6 +107,8 @@ update.trellis <-
              ylab,
              ylim,
              par.settings,
+             plot.args,
+             lattice.options,
 
              index.cond,
              perm.cond,
@@ -186,6 +188,22 @@ update.trellis <-
             object$par.settings <- updateList(object$par.settings, par.settings)
         else warning("'par.settings' must be a list")
     }
+    if (!missing(plot.args))
+    {
+        ## this only overwrites earlier things, leaves alone those
+        ## that are not specified explicitly
+        if (is.list(plot.args))
+            object$plot.args <- updateList(object$plot.args, plot.args)
+        else warning("'plot.args' must be a list")
+    }
+    if (!missing(lattice.options))
+    {
+        ## this only overwrites earlier things, leaves alone those
+        ## that are not specified explicitly
+        if (is.list(lattice.options))
+            object$lattice.options <- updateList(object$lattice.options, lattice.options)
+        else warning("'lattice.options' must be a list")
+    }
 
     ## during construction of trellis objects, perm.cond and
     ## index.cond are calculated by the cond.orders function. We could
@@ -200,7 +218,7 @@ update.trellis <-
             object$perm.cond <- seq_len(length(object$condlevels))
         else if (all(sort(perm.cond) == object$perm.cond))
             object$perm.cond <- perm.cond
-        else stop("Invalid value of perm.cond")
+        else stop("Invalid value of 'perm.cond'")
     }
     if (!missing(index.cond))
     {
