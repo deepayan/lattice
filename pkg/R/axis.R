@@ -608,7 +608,7 @@ formattedTicksAndLabels.POSIXct <-
         zz <- lapply(zz, function(x) rep(x, length = M))
         class(zz) <- c("POSIXt", "POSIXlt")
         z <- as.POSIXct(zz)
-        if (missing(format))
+        if (missing(format.posixt))
             format.posixt <- "%b"
     }
     else {
@@ -623,7 +623,7 @@ formattedTicksAndLabels.POSIXct <-
         zz <- lapply(zz, function(x) rep(x, length = M))
         class(zz) <- c("POSIXt", "POSIXlt")
         z <- as.POSIXct(zz)
-        if (missing(format))
+        if (missing(format.posixt))
             format.posixt <- "%Y"
     }
     if (!mat) z <- x[is.finite(x)]
