@@ -129,6 +129,7 @@ panel.3didentify <-
     ## rest is like panel.identify
     px <- convertX(unit(x, "native"), "points", TRUE)
     py <- convertY(unit(y, "native"), "points", TRUE)
+    is.na(px) <- is.na(py) <- !id # make these unavailable
     labels <- as.character(labels)
     if (length(labels) > length(subscripts))
         labels <- labels[subscripts]
@@ -288,7 +289,7 @@ panel.identify.cloud <-
 
 
 trellis.vpname <-
-    function(name =
+    function(name = 
              c("position", "split", "split.location", "toplevel",
                "panel", "strip", "strip.left", "legend", "main", "sub",
                "xlab", "ylab", "page"),
@@ -318,7 +319,7 @@ trellis.vpname <-
                  if (clip.off) paste("panel", column, row, "off", "vp",  sep = ".")
                  else paste("panel", column, row, "vp", sep = "."), 
 
-                 strip =
+                 strip = 
                  if (clip.off) paste("strip", column, row, "off", "vp", sep = ".")
                  else paste("strip", column, row, "vp", sep = "."), 
 
