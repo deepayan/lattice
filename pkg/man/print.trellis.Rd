@@ -108,7 +108,7 @@ panel.error(e)
     executed when an error occurs during the execution of the panel
     function.  The error is caught (using \code{\link{tryCatch}}) and
     supplied as the only argument to \code{panel.error}.  The default
-    behaviour (implemented as the the \code{panel.error} function) is to
+    behaviour (implemented as the \code{panel.error} function) is to
     print the corresponding error message in the panel and continue.  To
     stop execution on error, use \code{panel.error = stop}.
 
