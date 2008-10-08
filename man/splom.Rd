@@ -130,10 +130,15 @@ parallel(x, data, \dots)
     \code{\link{xyplot}} for non-trivial details.  }
 }
 \details{
-  \code{splom} produces Scatter Plot Matrices. The role usually played by
-  \code{panel} is taken over by \code{superpanel}, which determines how
-  the columns of \code{x} are to be arranged for pairwise plots. The
-  only available option currently is \code{panel.pairs}.
+  \code{splom} produces Scatter Plot Matrices.  The role usually played
+  by \code{panel} is taken over by \code{superpanel}, which takes a data
+  frame subset and is responsible for plotting it.  It is called with
+  the coordinate system set up to have both x- and y-limits from
+  \code{0.5} to \code{ncol(z) + 0.5}.  The only built-in option
+  currently available is \code{\link{panel.pairs}}, which calls a
+  further panel function for each pair \code{(i, j)} of variables in
+  \code{z} inside a rectangle of unit width and height centered at
+  \code{c(i, j)} (see \code{\link{panel.pairs}} for details).
 
   Many of the finer customizations usually done via arguments to high
   level function like \code{xyplot} are instead done by
