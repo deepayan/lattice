@@ -55,7 +55,7 @@ simpleTheme(col, alpha,
   is used for both the actual graphical encoding and the legend.  The
   easiest way to specify custom settings for a particular display is to
   use the \code{par.settings} argument, which is usually tedious to
-  construct as it is a nested list.  The \code{simpleKey} function can
+  construct as it is a nested list.  The \code{simpleTheme} function can
   be used in such situations as a wrapper that generates a suitable list
   given parameters in simple \code{name=value} form, with the nesting
   made implicit.  This is less flexible, but straightforward and
