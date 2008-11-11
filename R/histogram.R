@@ -67,7 +67,9 @@ prepanel.default.histogram <-
             if (type == "count") h$counts
             else if (type == "percent") 100 * h$counts / length(x)
             else h$intensities
-        list(xlim = scale.limits(c(x, h$breaks)),
+        list(xlim =
+             if (is.factor(x)) levels(x)
+             else scale.limits(c(x, h$breaks)),
              ## if (is.factor(x)) levels(x)
              ## else range(x, h$breaks, finite = TRUE),
              ylim = range(0, y, finite = TRUE),

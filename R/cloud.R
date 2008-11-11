@@ -163,7 +163,7 @@ panel.3dscatter <-
         else
         {
             nvals <- nlevels(as.factor(groups))
-            groups <- as.numeric(groups[subscripts])
+            groups <- as.numeric(as.factor(groups))[subscripts]
 
             col.point <- rep(col.point, length = nvals)[groups]
             col.line <- rep(col.line, length = nvals)[groups]
