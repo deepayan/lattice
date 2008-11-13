@@ -131,7 +131,7 @@ update.trellis <-
         object$call[nm] <- upcall[nm]
     }
     have.xlim <- !missing(xlim)    ## needed later
-    have.ylim <- !missing(xlim)
+    have.ylim <- !missing(ylim)
 
     ## deal with the non-problematic stuff first
 
@@ -335,12 +335,12 @@ update.trellis <-
         if (!is.null(xscales$limits))
         {
             have.xlim <- TRUE
-            xlim <- scales$limits
+            xlim <- xscales$limits
         }
         if (!is.null(yscales$limits))
         {
             have.ylim <- TRUE
-            xlim <- scales$limits
+            ylim <- yscales$limits
         }
 
         if (!is.null(scales$relation) || !is.null(xscales$relation) || !is.null(yscales$relation))
