@@ -433,43 +433,40 @@ update.trellis <-
 
 ## `subsetting': shortcut to updating index.cond
 
+
 "[.trellis" <- function(x, i, j, ..., drop = FALSE)
 {
     ## index.cond <-
-    tmp <- as.list(match.call())[-(1:2)]
-    isj <- "j" %in% names(tmp)
-    isi <- "i" %in% names(tmp)
-    if (drop)
+    print(match.call())
+    ocall <- match.call()[-2] # removes 'x'
+    ocall[[1]] <- quote(base::list)
+    if (!missing(drop))
     {
-        warning("'drop=TRUE' ignored")
-        tmp$drop <- NULL
+        if (drop) warning("'drop=TRUE' ignored")
+        ocall$drop <- NULL
     }
-    len <-
-        if (length(dim(x)) == 1) 1
-        else length(tmp) + (1 - isj) + (1 - isi)
-    indices <- rep(list(TRUE), length = len)
-    if (isi)
-    {
-        indices[[1]] <- tmp$i
-        tmp <- tmp[-1]
+    indices <- list(TRUE, TRUE)
+    if (!missing(i)) {
+        indices[[1]] <- i
+        ocall$i <- NULL
     }
-    if (isj)
-    {
-        indices[[2]] <- tmp$j
-        tmp <- tmp[-1]
+    if (!missing(j)) {
+        indices[[2]] <- j
+        ocall$j <- NULL
     }
-    if (len > 2)
-    {
-        keep <-
-            sapply(tmp,
-                   function(x) 
-                   typeof(x) == "symbol" && as.character(x) == "")
-        tmp[keep] <- list(TRUE)
-        indices[-(1:2)] <- tmp
-    }
-    indices <- lapply(indices, eval)
+    ## set missing args in ocall to TRUE before evaluating
+    emptyArgs <-
+        sapply(as.list(ocall[-1]),
+               function(x) (typeof(x) == "symbol" &&
+                            as.character(x) == ""))
+    str(emptyArgs)
+    ocall[1L + which(emptyArgs)] <- quote(TRUE)
+    str(ocall)
+    dots <- eval.parent(ocall)
+    str(dots)
+    indices <- c(indices, dots)
     original.levs <- lapply(sapply(x$condlevels, length), seq)
-    stopifnot(length(original.levs) == len)
+    stopifnot(length(original.levs) == length(indices))
     current.levs <-
         mapply("[", original.levs, x$index.cond,
                SIMPLIFY = FALSE)
@@ -480,6 +477,62 @@ update.trellis <-
         stop("Invalid indices")
     update(x, index.cond = new.levs)
 }
+
+
+
+## ## Old version.  Failed with
+
+## ## bar <- function(i) { foo[,,,i] }
+## ## bar(1)
+
+## "[.trellis" <- function(x, i, j, ..., drop = FALSE)
+## {
+##     ## index.cond <-
+##     ocall <- match.call()
+##     tmp <- as.list(ocall)[-(1:2)]
+##     isj <- "j" %in% names(tmp)
+##     isi <- "i" %in% names(tmp)
+##     if (drop)
+##     {
+##         warning("'drop=TRUE' ignored")
+##         tmp$drop <- NULL
+##     }
+##     len <-
+##         if (length(dim(x)) == 1) 1
+##         else length(tmp) + (1 - isj) + (1 - isi)
+##     indices <- rep(list(TRUE), length = len)
+##     if (isi)
+##     {
+##         indices[[1]] <- tmp$i
+##         tmp <- tmp[-1]
+##     }
+##     if (isj)
+##     {
+##         indices[[2]] <- tmp$j
+##         tmp <- tmp[-1]
+##     }
+##     if (len > 2)
+##     {
+##         keep <-
+##             sapply(tmp,
+##                    function(x) 
+##                    typeof(x) == "symbol" && as.character(x) == "")
+##         tmp[keep] <- list(TRUE)
+##         indices[-(1:2)] <- tmp
+##     }
+##     indices <- lapply(indices, eval)
+##     original.levs <- lapply(sapply(x$condlevels, length), seq)
+##     stopifnot(length(original.levs) == len)
+##     current.levs <-
+##         mapply("[", original.levs, x$index.cond,
+##                SIMPLIFY = FALSE)
+##     new.levs <-
+##         mapply("[", current.levs, indices,
+##                SIMPLIFY = FALSE)
+##     if (any(sapply(new.levs, function(x) any(is.na(x)))))
+##         stop("Invalid indices")
+##     update(x, index.cond = new.levs)
+## }
 
 
 
