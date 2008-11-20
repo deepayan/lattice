@@ -11,6 +11,7 @@ panel.bwplot(x, y, box.ratio = 1,
              pch, col, alpha, cex, 
              font, fontfamily, fontface, 
              fill, varwidth = FALSE,
+             notch = FALSE, notch.frac = 0.5,
              \dots,
              levels.fos,
              stats = boxplot.stats,
@@ -40,6 +41,13 @@ panel.bwplot(x, y, box.ratio = 1,
   \item{fill}{ color to fill the boxplot}
   \item{varwidth}{ logical. If TRUE, widths of boxplots are proportional
     to the number of points used in creating it.}
+  \item{notch}{ if \code{notch} is \code{TRUE}, a notch is drawn in each
+    side of the boxes.  If the notches of two plots do not overlap this
+    is \sQuote{strong evidence} that the two medians differ (Chambers et
+    al., 1983, p. 62).  See \code{\link{boxplot.stats}} for the
+    calculations used. }
+  \item{notch.frac}{ numeric in (0,1). When \code{notch=TRUE}, the
+    fraction of the box width that the notches should use. }
   \item{stats}{ a function, defaulting to \code{\link{boxplot.stats}},
     that accepts a numeric vector and returns a list similar to the
     return value of \code{boxplot.stats}.  The function must accept
@@ -55,11 +63,13 @@ panel.bwplot(x, y, box.ratio = 1,
 }
 \details{
   Creates Box and Whisker plot of \code{x} for every level of
-  \code{y} (or the reverse if \code{horizontal=FALSE}).  By default, the
-  actual boxplot statistics are calculated using \code{boxplot.stats}.
-  Note that most arguments controlling the display can be supplied to
-  the high-level \code{bwplot} call directly.  Unlike the traditional
-  analog \code{\link{boxplot}}, notches are not implemented.
+  \code{y} (or the other way round if \code{horizontal=FALSE}).  By
+  default, the actual boxplot statistics are calculated using
+  \code{boxplot.stats}.  Note that most arguments controlling the
+  display can be supplied to the high-level \code{bwplot} call directly.
+
+%   Unlike the traditional
+%   analog \code{\link{boxplot}}, notches are not implemented.
 
   Although the graphical parameters for the dot representing the median
   can be controlled by optional arguments, many others can not.  These
@@ -77,6 +87,11 @@ bwplot(voice.part ~ height, data = singer,
            panel.bwplot(...)
        },
        par.settings = list(plot.symbol = list(pch = 4)))
+
+bwplot(voice.part ~ height, data = singer,
+       xlab = "Height (inches)",
+       notch = TRUE, pch = "|")
+
 
 }
 

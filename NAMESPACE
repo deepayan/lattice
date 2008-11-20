@@ -56,7 +56,7 @@ export(
        panel.densityplot,
        panel.qqmath,
        panel.qq,
-       panel.bwplot,
+       panel.bwplot, 
        panel.dotplot,
        panel.barchart,
        panel.stripplot,
