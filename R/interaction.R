@@ -290,7 +290,7 @@ panel.identify.cloud <-
 
 trellis.vpname <-
     function(name = 
-             c("position", "split", "split.location", "toplevel",
+             c("position", "split", "split.location", "toplevel", "figure",
                "panel", "strip", "strip.left", "legend", "main", "sub",
                "xlab", "ylab", "page"),
              column = lattice.getStatus("current.focus.column"),
@@ -309,6 +309,7 @@ trellis.vpname <-
                  split = "split.vp",
                  split.location = "split.location.vp",
                  toplevel = "toplevel.vp",
+                 figure = "figure.vp",
 
                  xlab = "xlab.vp",
                  ylab = "ylab.vp",
@@ -489,6 +490,7 @@ trellis.panelArgs <-
 ### click on a panel to focus on it.  trellis.clickFocus is not
 ### exported, but used by trellis.focus() when 'name' etc. is missing.
 
+
 trellis.clickFocus <-
     function(clip.off = FALSE,
              highlight = interactive(),
@@ -513,23 +515,15 @@ trellis.clickFocus <-
     else 
     {
         if (verbose) message("Click on panel to focus")
-        ## trellis.focus("toplevel", highlight = FALSE)
-        glayout <- lattice.getStatus("layout.details")
-        rowRange <- range(glayout$pos.heights$panel, glayout$pos.heights$strip)
-        colRange <- range(glayout$pos.widths$panel, glayout$pos.widths$strip.left)
-        layCols <-  glayout$page.layout$ncol
-        layRows <- glayout$page.layout$nrow
-        leftPad <- convertX(sum(glayout$page.layout$widths[1:(colRange[1]-1)]), "npc", valueOnly = TRUE)
-        rightPad <- convertX(sum(glayout$page.layout$widths[(colRange[2]+1):layCols]), "npc", valueOnly = TRUE)
-        topPad <- convertY(sum(glayout$page.layout$heights[1:(rowRange[1]-1)]), "npc", valueOnly = TRUE)
-        botPad <- convertY(sum(glayout$page.layout$heights[(rowRange[2]+1):layRows]), "npc", valueOnly = TRUE)
+        trellis.focus("figure", highlight = FALSE)
+
         clickLoc <- grid.locator("npc")
         if (is.null(clickLoc)) return()
-        clickXScaled <- (as.numeric(clickLoc$x) - leftPad) / (1 - leftPad - rightPad)
-        focusCol <- ceiling(clickXScaled * ncol(layoutMatrix))
-        clickYScaled <- (as.numeric(clickLoc$y) - botPad) / (1 - botPad - topPad)
-        focusRow <- ceiling(clickYScaled * nrow(layoutMatrix))
-        if (lattice.getStatus("as.table")) focusRow <- nrow(layoutMatrix) - focusRow + 1
+        focusCol <- ceiling(as.numeric(clickLoc$x) * ncol(layoutMatrix))
+        focusRow <- ceiling(as.numeric(clickLoc$y) * nrow(layoutMatrix))
+        if (lattice.getStatus("as.table"))
+            focusRow <- nrow(layoutMatrix) - focusRow + 1
+        trellis.unfocus()
     }
     if ((focusCol >= 1) && (focusCol <= ncol(layoutMatrix)) &&
         (focusRow >= 1) && (focusRow <= nrow(layoutMatrix)) &&
@@ -545,6 +539,70 @@ trellis.clickFocus <-
     }
     invisible(list(col=focusCol, row=focusRow))
 }
+
+
+## old version: doesn't work with aspect != "fill"
+
+## trellis.clickFocus <-
+##     function(clip.off = FALSE,
+##              highlight = interactive(),
+##              ...,
+##              guess = TRUE,
+##              verbose = TRUE)
+## {
+##     layoutMatrix <- trellis.currentLayout()
+##     if (guess && sum(layoutMatrix > 0) == 1)
+##     {
+##         ## there's only one panel, so just select it
+##         w <- which(layoutMatrix > 0)
+##         focusRow <- row(layoutMatrix)[w]
+##         focusCol <- col(layoutMatrix)[w]
+##         if (verbose) message(sprintf("Selecting panel at position (%g, %g)", focusRow, focusCol))
+##     }
+##     else if (all(layoutMatrix == 0))
+##     {
+##         warning("No panels available")
+##         return()
+##     }
+##     else 
+##     {
+##         if (verbose) message("Click on panel to focus")
+##         ## trellis.focus("toplevel", highlight = FALSE)
+##         glayout <- lattice.getStatus("layout.details")
+##         rowRange <- range(glayout$pos.heights$panel, glayout$pos.heights$strip)
+##         colRange <- range(glayout$pos.widths$panel, glayout$pos.widths$strip.left)
+##         layCols <-  glayout$page.layout$ncol
+##         layRows <- glayout$page.layout$nrow
+##         leftPad <- convertX(sum(glayout$page.layout$widths[1:(colRange[1]-1)]), "npc", valueOnly = TRUE)
+##         rightPad <- convertX(sum(glayout$page.layout$widths[(colRange[2]+1):layCols]), "npc", valueOnly = TRUE)
+##         topPad <- convertY(sum(glayout$page.layout$heights[1:(rowRange[1]-1)]), "npc", valueOnly = TRUE)
+##         botPad <- convertY(sum(glayout$page.layout$heights[(rowRange[2]+1):layRows]), "npc", valueOnly = TRUE)
+##         clickLoc <- grid.locator("npc")
+##         if (is.null(clickLoc)) return()
+##         clickXScaled <- (as.numeric(clickLoc$x) - leftPad) / (1 - leftPad - rightPad)
+##         focusCol <- ceiling(clickXScaled * ncol(layoutMatrix))
+##         clickYScaled <- (as.numeric(clickLoc$y) - botPad) / (1 - botPad - topPad)
+##         focusRow <- ceiling(clickYScaled * nrow(layoutMatrix))
+##         if (lattice.getStatus("as.table")) focusRow <- nrow(layoutMatrix) - focusRow + 1
+##     }
+##     if ((focusCol >= 1) && (focusCol <= ncol(layoutMatrix)) &&
+##         (focusRow >= 1) && (focusRow <= nrow(layoutMatrix)) &&
+##         layoutMatrix[focusRow, focusCol] > 0)
+##     {
+##         trellis.focus("panel", column = focusCol, row = focusRow,
+##                       clip.off = clip.off, highlight = highlight,
+##                       ...)
+##     }
+##     else
+##     {
+##         focusCol <- focusRow <- 0
+##     }
+##     invisible(list(col=focusCol, row=focusRow))
+## }
+
+
+
+
 
 
 ### wrapper around panel.identify meant to work with qqmath.

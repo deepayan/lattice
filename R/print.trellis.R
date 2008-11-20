@@ -720,6 +720,18 @@ plot.trellis <-
 
             last.panel <- prod(sapply(x$index.cond, length))
 
+            ## Create a viewport encompassing all panels and strips,
+            ## but don't do anything in it.  This is useful later for
+            ## trellis.focus() like operations.
+
+            rowRange <- with(pos.heights, range(panel, strip, axis.panel))
+            colRange <- with(pos.widths, range(panel, strip.left, axis.panel))
+            pushViewport(viewport(layout.pos.row = rowRange,
+                                  layout.pos.col = colRange,
+                                  clip = "off",
+                                  name = trellis.vpname("figure")))
+            upViewport()
+
 
             ## preliminary loop through possible positions, doing some
             ## calculations that allow some helpful status variables
