@@ -49,7 +49,7 @@ panel.brush.splom(threshold = 18, verbose = getOption("verbose"), \dots)
 
 
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
-               "panel", "strip", "strip.left", "legend",
+               "figure", "panel", "strip", "strip.left", "legend",
                "main", "sub", "xlab", "ylab", "page"),
                column, row,
                side = c("left", "top", "right", "bottom", "inside"),
@@ -123,7 +123,9 @@ trellis.panelArgs(x, packet.number)
 
     If \code{name}, as well as \code{column} and \code{row} is missing
     in a call to \code{trellis.focus}, the user can click inside a panel
-    (or an associated strip) to focus on that panel.
+    (or an associated strip) to focus on that panel.  Note however that
+    this assumes equal width and height for each panel, and may not work
+    when this is not true.
 
     When \code{name} is \code{"panel"}, \code{"strip"}, or
     \code{"strip.left"}, \code{column} and \code{row} must also be
