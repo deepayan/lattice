@@ -291,11 +291,11 @@ limitsFromLimitlist <-
                     if (any(is.finite(limitlist[[i]])))
                         ## range unnecessary, but...
                         diff(range(as.numeric(limitlist[[i]]), finite = TRUE))
-                    else NA
+                    else NA_real_
                 }
                 else if (!any(is.na(numlimitlist[[i]])))
                     diff(range(as.numeric(numlimitlist[[i]])))
-                else NA
+                else NA_real_
         }
         slicelen <-
             (if (axs == "i") 1 else 1 + 2 * lattice.getOption("axis.padding")$numeric) *
@@ -365,7 +365,7 @@ limitsFromLimitlist <-
                     diff(range(as.numeric(limitlist[[i]])))
                 else if (!any(is.na(numlimitlist[[i]])))
                     diff(range(numlimitlist[[i]]))
-                else NA
+                else NA_real_
         ans <-
             list(limits = limitlist,
                  used.at = used.at,
@@ -425,13 +425,13 @@ limits.and.aspect <-
         }
         else  ## this happens for empty panels
         {
-            x.limits[[count]] <- c(NA, NA)
-            y.limits[[count]] <- c(NA, NA)
-            x.used.at[[count]] <- NA
-            y.used.at[[count]] <- NA
-            x.num.limit[[count]] <- NA
-            y.num.limit[[count]] <- NA
-            dxdy[[count]] <- list(dx = NA, dy = NA)
+            x.limits[[count]] <- c(NA_real_, NA_real_)
+            y.limits[[count]] <- c(NA_real_, NA_real_)
+            x.used.at[[count]] <- NA_real_
+            y.used.at[[count]] <- NA_real_
+            x.num.limit[[count]] <- NA_real_
+            y.num.limit[[count]] <- NA_real_
+            dxdy[[count]] <- list(dx = NA_real_, dy = NA_real_)
         }
     }
 

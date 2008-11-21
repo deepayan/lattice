@@ -36,14 +36,11 @@ prepanel.default.densityplot <-
 {
     if (!is.numeric(x)) x <- as.numeric(x)
     if (sum(!is.na(x)) < 1)
-        list(xlim = NA,
-             ylim = NA,
-             dx = NA,
-             dy = NA)
+        prepanel.null()
     else if (sum(!is.na(x)) == 1)
     {
-        list(xlim = x,
-             ylim = 0,
+        list(xlim = rep(x, 2),
+             ylim = rep(0, 2),
              dx = 1,
              dy = 1)
     }

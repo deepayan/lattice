@@ -66,9 +66,7 @@ prepanel.tmd.qqmath <-
                      na.rm = TRUE)
     }
     if (!nobs)
-        list(xlim = c(NA, NA),
-             ylim = c(NA, NA),
-             dx = NA, dy = NA)
+        prepanel.null()
     else if (!is.null(groups))
     {
         sx <- split(x, groups[subscripts])

@@ -96,9 +96,7 @@ prepanel.default.levelplot <-
              dy = if (is.numeric(y)) length(uy) else 1)
     }
     else
-        list(xlim = c(NA, NA),
-             ylim = c(NA, NA),
-             dx = NA, dy = NA)
+        prepanel.null()
 }
     
 
@@ -281,7 +279,7 @@ panel.levelplot <-
         ## 'missing' from data frame. There's scope for ambiguity
         ## here, which can be avoided by the user.
 
-        m <- matrix(NA, nrow = length(ux), ncol = length(uy))
+        m <- matrix(NA_real_, nrow = length(ux), ncol = length(uy))
         m[(idy - 1) * length(ux) + idx ] <- z
 
         clines <-
