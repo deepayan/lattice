@@ -16,7 +16,7 @@ lattice.options         Low-level Options Controlling Behaviour of
 latticeParseFormula     Parse Trellis formula
 level.colors            A function to compute false colors representing
                         a numeric or categorical variable
-levelplot               Level Plots
+levelplot               Level plots and contour plots
 llines                  Replacements of traditional graphics functions
 lset                    Interface to modify Trellis Settings -
                         Deprecated

@@ -380,30 +380,85 @@ panel.levelplot <-
 contourplot <- function(x, data, ...) UseMethod("contourplot")
 
 
-
-contourplot.matrix <-
-    function(x, data = NULL, aspect = "iso", 
+contourplot.table <-
+    function(x, data = NULL, aspect = "iso",
              ..., xlim, ylim,
-             row.values = seq_len(nrow(x)),
-             column.values = seq_len(ncol(x)))
+             row.values = seq_len(dim(x)[1]),
+             column.values = seq_len(dim(x)[2]))
 {
+    if (!missing(data)) warning("explicit 'data' specification ignored")
     stopifnot(length(row.values) == nrow(x),
               length(column.values) == ncol(x))
-    if (!missing(data)) warning("explicit 'data' specification ignored")
-    form <- z ~ row * column
-    data <- expand.grid(row = row.values, column = column.values)
-    data$z <- as.vector(as.numeric(x))
+    dn <- dimnames(x)
+    if (!is.null(dn)) dimnames(x) <- lapply(dn, make.unique)
+    data <- as.data.frame.table(x)
+    nms <- names(data)
+    freq <- which(nms == "Freq")
+    nms <- nms[-freq]
+    form <- sprintf("Freq ~ %s + %s", nms[1], nms[2])
+    nms <- nms[-c(1, 2)]
+    len <- length(nms)
+    if (len > 0)
+    {
+        rest <- paste(nms, collapse = "+")
+        form <- paste(form, rest, sep = "|")
+    }
     ## if rownames/colnames are non-null, use them to label
     if (missing(xlim))
         xlim <-
-            if (!is.null(rownames(x))) rownames(x)
+            if (!is.null(dn[[1]])) dn[[1]]
             else range(row.values, finite = TRUE) + c(-0.5, 0.5)
     if (missing(ylim))
         ylim <-
-            if (!is.null(colnames(x))) colnames(x)
+            if (!is.null(dn[[2]])) dn[[2]]
             else range(column.values, finite = TRUE) + c(-0.5, 0.5)
-    contourplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
+    contourplot(as.formula(form), data,
+                aspect = aspect, xlim = xlim, ylim = ylim, ...)
 }
+
+contourplot.matrix <- function(x, data = NULL, xlab, ylab, ...)
+{
+    if (!missing(data)) warning("explicit 'data' specification ignored")
+    dns <- names(dimnames(x))
+    if (missing(xlab))
+        xlab <- if (is.null(dns)) "row" else dns[1]
+    if (missing(ylab))
+        ylab <- if (is.null(dns)) "column" else dns[2]
+    contourplot(as.table(x), xlab = xlab, ylab = ylab, ...)
+}
+
+contourplot.array <- function(x, data = NULL, ...)
+{
+    if (!missing(data)) warning("explicit 'data' specification ignored")
+    contourplot(as.table(x), ...)
+}
+
+
+
+
+## contourplot.matrix <-
+##     function(x, data = NULL, aspect = "iso", 
+##              ..., xlim, ylim,
+##              row.values = seq_len(nrow(x)),
+##              column.values = seq_len(ncol(x)))
+## {
+##     stopifnot(length(row.values) == nrow(x),
+##               length(column.values) == ncol(x))
+##     if (!missing(data)) warning("explicit 'data' specification ignored")
+##     form <- z ~ row * column
+##     data <- expand.grid(row = row.values, column = column.values)
+##     data$z <- as.vector(as.numeric(x))
+##     ## if rownames/colnames are non-null, use them to label
+##     if (missing(xlim))
+##         xlim <-
+##             if (!is.null(rownames(x))) rownames(x)
+##             else range(row.values, finite = TRUE) + c(-0.5, 0.5)
+##     if (missing(ylim))
+##         ylim <-
+##             if (!is.null(colnames(x))) colnames(x)
+##             else range(column.values, finite = TRUE) + c(-0.5, 0.5)
+##     contourplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
+## }
 
 
 
@@ -438,29 +493,93 @@ contourplot.formula <-
 
 levelplot <- function(x, data, ...) UseMethod("levelplot")
 
-levelplot.matrix <-
+levelplot.matrix <- function(x, data = NULL, xlab, ylab, ...)
+{
+    if (!missing(data)) warning("explicit 'data' specification ignored")
+    dns <- names(dimnames(x))
+    if (missing(xlab))
+        xlab <- if (is.null(dns)) "row" else dns[1]
+    if (missing(ylab))
+        ylab <- if (is.null(dns)) "column" else dns[2]
+    levelplot(as.table(x), xlab = xlab, ylab = ylab, ...)
+}
+
+levelplot.array <- function(x, data = NULL, ...)
+{
+    if (!missing(data)) warning("explicit 'data' specification ignored")
+    levelplot(as.table(x), ...)
+}
+
+levelplot.table <-
     function(x, data = NULL, aspect = "iso",
              ..., xlim, ylim,
-             row.values = seq_len(nrow(x)),
-             column.values = seq_len(ncol(x)))
+             row.values = seq_len(dim(x)[1]),
+             column.values = seq_len(dim(x)[2]))
 {
-    stopifnot(length(row.values) == nrow(x),
-              length(column.values) == ncol(x))
     if (!missing(data)) warning("explicit 'data' specification ignored")
-    form <- z ~ row * column
-    data <- expand.grid(row = row.values, column = column.values)
-    data$z <- as.vector(as.numeric(x))
+    stopifnot(length(dim(x)) >= 2,
+              length(row.values) == nrow(x),
+              length(column.values) == ncol(x))
+    dn <- dimnames(x)
+
+    ## We don't want to collapse duplicate names. We do prefer to use
+    ## original names for labeling, and we do so for xlim and ylim
+    ## below, but not for conditioning variables (too much work, plus
+    ## may not even be possible)
+
+    if (!is.null(dn)) dimnames(x) <- lapply(dn, make.unique)
+    data <- as.data.frame.table(x)
+    nms <- names(data)
+    freq <- which(nms == "Freq")
+    nms <- nms[-freq]
+    form <- sprintf("Freq ~ %s + %s", nms[1], nms[2])
+    nms <- nms[-c(1, 2)]
+    len <- length(nms)
+    if (len > 0)
+    {
+        rest <- paste(nms, collapse = "+")
+        form <- paste(form, rest, sep = "|")
+    }
     ## if rownames/colnames are non-null, use them to label
     if (missing(xlim))
         xlim <-
-            if (!is.null(rownames(x))) rownames(x)
+            if (!is.null(dn[[1]])) dn[[1]]
             else range(row.values, finite = TRUE) + c(-0.5, 0.5)
     if (missing(ylim))
         ylim <-
-            if (!is.null(colnames(x))) colnames(x)
+            if (!is.null(dn[[2]])) dn[[2]]
             else range(column.values, finite = TRUE) + c(-0.5, 0.5)
-    levelplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
+    levelplot(as.formula(form), data,
+              aspect = aspect, xlim = xlim, ylim = ylim, ...)
 }
+
+
+## levelplot.matrix <-
+##     function(x, data = NULL, aspect = "iso",
+##              ..., xlim, ylim,
+##              row.values = seq_len(nrow(x)),
+##              column.values = seq_len(ncol(x)))
+## {
+##     stopifnot(length(row.values) == nrow(x),
+##               length(column.values) == ncol(x))
+##     if (!missing(data)) warning("explicit 'data' specification ignored")
+##     form <- z ~ row * column
+##     data <- expand.grid(row = row.values, column = column.values)
+##     data$z <- as.vector(as.numeric(x))
+##     ## if rownames/colnames are non-null, use them to label
+##     if (missing(xlim))
+##         xlim <-
+##             if (!is.null(rownames(x))) rownames(x)
+##             else range(row.values, finite = TRUE) + c(-0.5, 0.5)
+##     if (missing(ylim))
+##         ylim <-
+##             if (!is.null(colnames(x))) colnames(x)
+##             else range(column.values, finite = TRUE) + c(-0.5, 0.5)
+##     levelplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
+## }
+
+
+
 
 levelplot.formula <-
     function(x,

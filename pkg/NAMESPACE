@@ -10,7 +10,7 @@ import(grid)
 
 importFrom(grDevices,
 
-           dev.list, cm.colors, gray,
+           dev.list, cm.colors, gray, col2rgb,
            heat.colors, grey, hsv, xy.coords,
            boxplot.stats, contourLines)
 
@@ -266,8 +266,12 @@ S3method(stripplot,   numeric)
 S3method(qq,          formula)
 S3method(xyplot,      formula)
 S3method(levelplot,   formula)
+S3method(levelplot,   table)
+S3method(levelplot,   array)
 S3method(levelplot,   matrix)
 S3method(contourplot, formula)
+S3method(contourplot, table)
+S3method(contourplot, array)
 S3method(contourplot, matrix)
 S3method(cloud,       formula)
 S3method(cloud,       matrix)

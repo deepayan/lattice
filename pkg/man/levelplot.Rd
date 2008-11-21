@@ -1,9 +1,13 @@
 \name{levelplot}
-\title{Level Plots}
+\title{Level plots and contour plots}
 \alias{levelplot}
 \alias{contourplot}
 \alias{levelplot.formula}
 \alias{contourplot.formula}
+\alias{levelplot.table}
+\alias{contourplot.table}
+\alias{levelplot.array}
+\alias{contourplot.array}
 \alias{levelplot.matrix}
 \alias{contourplot.matrix}
 \usage{
@@ -47,11 +51,20 @@ contourplot(x, data, \dots)
             region = FALSE,
             \dots)
 
-\method{levelplot}{matrix}(x, data = NULL, aspect = "iso", \dots,
+\method{levelplot}{table}(x, data = NULL, aspect = "iso", \dots,
           xlim, ylim, row.values, column.values)
 
-\method{contourplot}{matrix}(x, data = NULL, aspect = "iso", \dots,
+\method{contourplot}{table}(x, data = NULL, aspect = "iso", \dots,
             xlim, ylim, row.values, column.values)
+
+\method{levelplot}{matrix}(x, data = NULL, xlab, ylab, \dots)
+
+\method{contourplot}{matrix}(x, data = NULL, xlab, ylab, \dots)
+
+\method{levelplot}{array}(x, data = NULL, \dots)
+
+\method{contourplot}{array}(x, data = NULL, \dots)
+
 
 }
 \description{
@@ -72,11 +85,16 @@ contourplot(x, data, \dots)
     spaced.
 
     Both \code{levelplot} and \code{wireframe} have methods for
-    \code{matrix} objects, in which case \code{x} provides the
-    \code{z} vector described above, while its rows and columns are
-    interpreted as the \code{x} and \code{y} vectors respectively.  This
-    is similar to the form used in \code{filled.contour} and
-    \code{image}.
+    \code{matrix}, \code{array}, and \code{table} objects, in which case
+    \code{x} provides the \code{z} vector described above, while its
+    rows and columns are interpreted as the \code{x} and \code{y}
+    vectors respectively.  This is similar to the form used in
+    \code{filled.contour} and \code{image}.  For higher-dimensional
+    arrays and tables, further dimensions are used as conditioning
+    variables.  Note that the dimnames may be duplicated; this is
+    handled by calling \code{\link{make.unique}} to make the names
+    unique (although the original labels are used for the x- and
+    y-axes).
   }
   \item{data}{
     For the \code{formula} methods, an optional data frame in which

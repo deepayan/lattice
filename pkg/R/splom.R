@@ -350,11 +350,12 @@ splom.data.frame <-
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
-    ccall$data <-
-        list(x = x, groups = groups, subset = subset)
     ccall$x <- ~x
-    ccall$groups <- groups
-    ccall$subset <- subset
+    ccall$data <- environment()
+    ## WAS:
+    ## ccall$data <- list(x = x, groups = groups, subset = subset)
+    ## ccall$groups <- groups
+    ## ccall$subset <- subset
     ccall[[1]] <- quote(lattice::splom)
     eval.parent(ccall)
 }
