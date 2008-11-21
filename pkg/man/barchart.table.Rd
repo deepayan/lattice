@@ -42,7 +42,7 @@
   }
   \item{origin, stack}{
     arguments to \code{panel.barchart} controlling the display.  The
-    defaults for the \code{table} method are diffrent.
+    defaults for the \code{table} method are different.
   }
   \item{horizontal}{ logical, indicating whether the plot should be
     horizontal (with the categorical variable on the y-axis) or vertical.
