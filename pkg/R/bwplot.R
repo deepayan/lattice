@@ -90,9 +90,7 @@ prepanel.default.bwplot <-
                  dy = 1)
         }
     }
-    else list(xlim = c(NA, NA),
-              ylim = c(NA, NA),
-              dx = 1, dy = 1)
+    else prepanel.null()
 }
 
 
@@ -739,8 +737,8 @@ panel.bwplot <-
                       ybot + notch.frac * blist.height / 2,
                       ybot, ybot, ytop, ytop,
                       ytop - notch.frac * blist.height / 2)
-        xs <- matrix(NA, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        ys <- matrix(NA, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        xs <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        ys <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
         xs[seq(along = levels.fos, by = 2), ] <- xbnd[seq(along = levels.fos), ]
         ys[seq(along = levels.fos, by = 2), ] <- ybnd[seq(along = levels.fos), ]
 
@@ -847,8 +845,8 @@ panel.bwplot <-
                       xright - notch.frac * blist.height / 2,
                       xright, xright, xleft, xleft,
                       xleft + notch.frac * blist.height / 2)
-        xs <- matrix(NA, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        ys <- matrix(NA, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        xs <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        ys <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
         xs[seq(along = levels.fos, by = 2), ] <- xbnd[seq(along = levels.fos), ]
         ys[seq(along = levels.fos, by = 2), ] <- ybnd[seq(along = levels.fos), ]
 

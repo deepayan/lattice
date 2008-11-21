@@ -50,9 +50,7 @@ prepanel.default.xyplot <-
         }
         list(xlim = scale.limits(x), ylim = scale.limits(y), dx = dx, dy = dy)
     }
-    else list(xlim = c(NA, NA),
-              ylim = c(NA, NA),
-              dx = NA, dy = NA)
+    else prepanel.null()
 }
 
 

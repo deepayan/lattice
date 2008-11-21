@@ -20,6 +20,14 @@
 
 
 
+prepanel.null <- function() {
+    list(xlim = rep(NA_real_, 2),
+         ylim = rep(NA_real_, 2),
+         dx = NA_real_,
+         dy = NA_real_)
+}
+
+
 
 cupdate <- function(index, maxim)
 {
@@ -682,7 +690,7 @@ cond.orders <- function(foo, ...)
                 }
                 else  ## this happens for empty panels
                 {
-                    panel.order[count] <- NA
+                    is.na(panel.order) <- count # panel.order[count] <- NA
                 }
             }
             dim(panel.order) <- sapply(foo$condlevels, length)

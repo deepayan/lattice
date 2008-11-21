@@ -359,7 +359,7 @@ prepanel.lmline <-
              dx = diff(range(x, finite = TRUE)),
              dy = diff(tem, finite = TRUE))
     }
-    else list(xlim=c(NA,NA), ylim=c(NA,NA), dx=NA, dy=NA)
+    else prepanel.null()
 }
 
 
@@ -426,9 +426,7 @@ prepanel.loess <-
              dx = diff(smooth$x),
              dy = diff(smooth$y))
     }
-    else list(xlim = c(NA, NA),
-              ylim = c(NA, NA),
-              dx = NA, dy = NA)
+    else prepanel.null()
 }
 
 
@@ -494,7 +492,7 @@ panel.superpose <-
 
         ## have.type <- TRUE
         type <- unique(type)
-        wg <- match('g', type, nomatch = NA)
+        wg <- match('g', type, nomatch = NA_character_)
         if (!is.na(wg))
         {
             panel.grid(h = -1, v = -1)

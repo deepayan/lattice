@@ -83,7 +83,7 @@ fast.quantile <-
         }
     }
     else {
-        qs <- rep(as.numeric(NA), np)
+        qs <- rep(NA_real_, np)
     }
     if (names && np > 0) {
         dig <- max(2, getOption("digits"))
@@ -146,9 +146,7 @@ prepanel.default.qqmath <-
                      na.rm = TRUE)
     }
     if (!nobs)
-        list(xlim = c(NA, NA),
-             ylim = c(NA, NA),
-             dx = NA, dy = NA)
+        prepanel.null()
     else if (!is.null(groups))
     {
         sx <- split(x, groups[subscripts])
