@@ -436,8 +436,7 @@ update.trellis <-
 
 "[.trellis" <- function(x, i, j, ..., drop = FALSE)
 {
-    ## index.cond <-
-    print(match.call())
+    ## call update.trellis with a suitable 'index.cond' argument
     ocall <- match.call()[-2] # removes 'x'
     ocall[[1]] <- quote(base::list)
     if (!missing(drop))
@@ -445,7 +444,7 @@ update.trellis <-
         if (drop) warning("'drop=TRUE' ignored")
         ocall$drop <- NULL
     }
-    indices <- list(TRUE, TRUE)
+    indices <- rep(list(TRUE), length = length(x$condlevels))
     if (!missing(i)) {
         indices[[1]] <- i
         ocall$i <- NULL
@@ -455,16 +454,16 @@ update.trellis <-
         ocall$j <- NULL
     }
     ## set missing args in ocall to TRUE before evaluating
-    emptyArgs <-
-        sapply(as.list(ocall[-1]),
-               function(x) (typeof(x) == "symbol" &&
-                            as.character(x) == ""))
-    str(emptyArgs)
-    ocall[1L + which(emptyArgs)] <- quote(TRUE)
-    str(ocall)
-    dots <- eval.parent(ocall)
-    str(dots)
-    indices <- c(indices, dots)
+    if (length(ocall) > 1)
+    {
+        emptyArgs <-
+            sapply(as.list(ocall[-1]),
+                   function(x) (typeof(x) == "symbol" &&
+                                as.character(x) == ""))
+        ocall[1L + which(emptyArgs)] <- quote(TRUE)
+        dots <- eval.parent(ocall)
+        indices[-c(1, 2)] <- dots
+    }
     original.levs <- lapply(sapply(x$condlevels, length), seq)
     stopifnot(length(original.levs) == length(indices))
     current.levs <-

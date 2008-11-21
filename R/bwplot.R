@@ -712,7 +712,6 @@ panel.bwplot <-
         blist.stats <- t(sapply(blist, "[[", "stats"))
         blist.out <- lapply(blist, "[[", "out")
         blist.height <- box.width # box.ratio / (1 + box.ratio)
-        blist.conf <- t(sapply(blist,"[[", "conf"))
         if (varwidth)
         {
             maxn <- max(table(y))
@@ -721,7 +720,11 @@ panel.bwplot <-
         }
 
         ## start of major changes to support notches
-        if (!notch) blist.conf <- blist.stats[ ,c(2,4)]
+        blist.conf <-
+            if (notch)
+                t(sapply(blist, "[[", "conf"))
+            else
+                blist.stats[ , c(2,4), drop = FALSE]
 
         xbnd <- cbind(blist.stats[, 3], blist.conf[, 2],
                       blist.stats[, 4], blist.stats[, 4],
@@ -818,7 +821,6 @@ panel.bwplot <-
         blist.stats <- t(sapply(blist, "[[", "stats"))
         blist.out <- lapply(blist, "[[", "out")
         blist.height <- box.width # box.ratio / (1 + box.ratio)
-        blist.conf <- sapply(blist,"[[", "conf")
         if (varwidth)
         {
             maxn <- max(table(x))
@@ -826,7 +828,11 @@ panel.bwplot <-
             blist.height <- sqrt(blist.n / maxn) * blist.height
         }
 
-        if (!notch) blist.conf <- t(blist.stats[ ,c(2,4)])
+        blist.conf <-
+            if (notch)
+                sapply(blist, "[[", "conf")
+            else
+                t(blist.stats[ , c(2,4), drop = FALSE])
 
         ybnd <- cbind(blist.stats[, 3], blist.conf[2, ],
                       blist.stats[, 4], blist.stats[, 4],
