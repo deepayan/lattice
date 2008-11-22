@@ -1,4 +1,245 @@
 ------------------------------------------------------------------------
+r5270 | deepayan | 2008-11-20 23:37:39 -0800 (Thu, 20 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/common.R
+
+make extend.limits handle NAs
+------------------------------------------------------------------------
+r5269 | deepayan | 2008-11-20 21:39:30 -0800 (Thu, 20 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/R/histogram.R
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/panels.R
+   M /trunk/lattice/R/qqmath.R
+   M /trunk/lattice/R/scales.R
+   M /trunk/lattice/R/tmd.R
+   M /trunk/lattice/R/xyplot.R
+
+fixed densityplot prepanel bug for empty packets; also cleaned up NA usage
+------------------------------------------------------------------------
+r5268 | deepayan | 2008-11-20 21:08:29 -0800 (Thu, 20 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/man/barchart.table.Rd
+
+fixed spelling mistake
+------------------------------------------------------------------------
+r5267 | deepayan | 2008-11-20 20:58:03 -0800 (Thu, 20 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/R/splom.R
+   M /trunk/lattice/man/levelplot.Rd
+
+added a table method for levelplot; better memory management for splom and parallel methods
+------------------------------------------------------------------------
+r5266 | deepayan | 2008-11-20 16:09:55 -0800 (Thu, 20 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/R/update.trellis.R
+
+cleaned up remaining bugs
+------------------------------------------------------------------------
+r5265 | deepayan | 2008-11-20 01:31:14 -0800 (Thu, 20 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/man/panel.bwplot.Rd
+
+Added support for notches in panel.bwplot (thanks to patch from Mike Kay)
+------------------------------------------------------------------------
+r5264 | deepayan | 2008-11-19 17:18:45 -0800 (Wed, 19 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/R/print.trellis.R
+   M /trunk/lattice/man/interaction.Rd
+
+fixed trellis.focus() bug by adding a dummy viewport
+------------------------------------------------------------------------
+r5263 | deepayan | 2008-11-17 17:32:25 -0800 (Mon, 17 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/update.trellis.R
+
+bugfix for [.trellis
+------------------------------------------------------------------------
+r5262 | deepayan | 2008-11-12 22:24:45 -0800 (Wed, 12 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/update.trellis.R
+
+update.trellis bugfixes
+------------------------------------------------------------------------
+r5261 | deepayan | 2008-11-10 23:33:18 -0800 (Mon, 10 Nov 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/histogram.R
+
+bug-fixes related to factor handling
+------------------------------------------------------------------------
+r5241 | deepayan | 2008-10-08 13:58:14 -0700 (Wed, 08 Oct 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/man/simpleTheme.Rd
+   M /trunk/lattice/man/splom.Rd
+
+doc clarifications
+------------------------------------------------------------------------
+r5240 | deepayan | 2008-10-02 19:22:15 -0700 (Thu, 02 Oct 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/man/print.trellis.Rd
+
+fixed typo
+------------------------------------------------------------------------
+r5230 | deepayan | 2008-09-17 12:27:32 -0700 (Wed, 17 Sep 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+
+updated version
+------------------------------------------------------------------------
+r5229 | deepayan | 2008-09-11 23:29:55 -0700 (Thu, 11 Sep 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+
+update of previous bugfix
+------------------------------------------------------------------------
+r5228 | deepayan | 2008-09-11 22:11:08 -0700 (Thu, 11 Sep 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+
+bugfix: was using wrong argument name
+------------------------------------------------------------------------
+r5227 | deepayan | 2008-09-11 22:10:33 -0700 (Thu, 11 Sep 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/interaction.R
+
+skip points outside bounding box (not drawn) when identifying
+------------------------------------------------------------------------
+r5222 | deepayan | 2008-09-03 18:02:18 -0700 (Wed, 03 Sep 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/man/update.trellis.Rd
+
+updated update.trellis() to recognise 'plot.args' and 'lattice.options'
+------------------------------------------------------------------------
+r5221 | deepayan | 2008-08-29 16:59:53 -0700 (Fri, 29 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/legend.R
+   M /trunk/lattice/R/update.trellis.R
+   M /trunk/lattice/man/draw.key.Rd
+   M /trunk/lattice/po/R-lattice.pot
+
+better handling of legends in update.trellis
+------------------------------------------------------------------------
+r5220 | deepayan | 2008-08-28 13:04:07 -0700 (Thu, 28 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/man/interaction.Rd
+
+made interactive part customizable in panel.identify.cloud
+------------------------------------------------------------------------
+r5219 | deepayan | 2008-08-27 16:32:49 -0700 (Wed, 27 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/interaction.R
+   M /trunk/lattice/man/interaction.Rd
+
+added a panel.identify.cloud
+------------------------------------------------------------------------
+r5218 | deepayan | 2008-08-27 15:01:32 -0700 (Wed, 27 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/panels.R
+
+[pre]panel.lmline now checks for at least 2 observations
+------------------------------------------------------------------------
+r5216 | deepayan | 2008-08-25 16:59:04 -0700 (Mon, 25 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/man/llines.Rd
+
+doc update
+------------------------------------------------------------------------
+r5215 | deepayan | 2008-08-25 16:58:41 -0700 (Mon, 25 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/man/barchart.table.Rd
+
+added a 'horizontal' argument for dotplot.table
+------------------------------------------------------------------------
+r5214 | deepayan | 2008-08-25 16:44:04 -0700 (Mon, 25 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/densityplot.R
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/panel.densityplot.Rd
+   M /trunk/lattice/man/prepanel.default.Rd
+
+added a 'weights' argument to densityplot
+------------------------------------------------------------------------
+r5210 | deepayan | 2008-08-20 17:04:22 -0700 (Wed, 20 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/densityplot.R
+
+draw density last, to allow grids etc.
+------------------------------------------------------------------------
+r5209 | deepayan | 2008-08-20 16:41:34 -0700 (Wed, 20 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/axis.R
+
+date-time fix ported from R
+------------------------------------------------------------------------
+r5208 | deepayan | 2008-08-20 16:40:39 -0700 (Wed, 20 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/miscellaneous.R
+   M /trunk/lattice/man/llines.Rd
+
+added 'col.symbol' convenience in lplot.xy
+------------------------------------------------------------------------
+r5207 | deepayan | 2008-08-20 16:39:15 -0700 (Wed, 20 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/demo/lattice.R
+
+use devAskNewPage instead of grid.prompt if available
+------------------------------------------------------------------------
+r5203 | deepayan | 2008-08-11 18:18:33 -0700 (Mon, 11 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/layout.R
+   M /trunk/lattice/man/Lattice.Rd
+   M /trunk/lattice/man/panel.parallel.Rd
+   M /trunk/lattice/man/splom.Rd
+
+bugfix and doc updates
+------------------------------------------------------------------------
+r5202 | deepayan | 2008-08-10 00:24:42 -0700 (Sun, 10 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/R/layout.R
+
+bugfix: layout calculations now use scale.components
+------------------------------------------------------------------------
+r5200 | deepayan | 2008-08-08 16:25:01 -0700 (Fri, 08 Aug 2008) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/NEWS
+   M /trunk/lattice/R/parallel.R
+   M /trunk/lattice/man/panel.parallel.Rd
+   M /trunk/lattice/man/prepanel.default.Rd
+   M /trunk/lattice/man/splom.Rd
+
+changed horizontal to horizontal.axis in parallel
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------
 r5194 | deepayan | 2008-08-05 15:41:08 -0700 (Tue, 05 Aug 2008) | 1 line
 Changed paths:
    M /trunk/lattice/DESCRIPTION

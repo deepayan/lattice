@@ -6,13 +6,13 @@ Changes in lattice 0.17
 new features
 ------------
 
- o new function simpleTheme() for creating nested lists without
+ o New function simpleTheme() for creating nested lists without
    specifying the nesting structure (which is guessed)
 
- o support for lattice.option(print.function) which is the function
+ o Support for lattice.option(print.function) which is the function
    actually used when print.trellis() is called
 
- o new argument 'box.width' wherever 'box.ratio' is available (e.g.,
+ o New argument 'box.width' wherever 'box.ratio' is available (e.g.,
    panel.bwplot, panel.barchart, etc.), to specify absolute thickness
    (of boxes, bars, etc.)
 
@@ -21,6 +21,17 @@ new features
 
  o parallel() has a new 'horizontal.axis' argument; when FALSE, the
    axes are vertical and are stacked side by side.
+
+ o densityplot() now supports weights.
+
+ o dotplot.table() etc. allow change of orientation (horizontal=FALSE).
+
+ o New function panel.identify.cloud() to interactively label
+   three-dimensional scatterplots.
+
+ o Added support for notches in panel.bwplot (based on patch from Mike
+   Kay)
+
 
 
 Changes in lattice 0.16
