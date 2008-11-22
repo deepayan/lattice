@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.3.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2008-08-29 16:07\n"
+"POT-Creation-Date: 2008-11-21 15:55\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -323,7 +323,16 @@ msgstr ""
 msgid "'par.settings' must be a list"
 msgstr ""
 
-msgid "Note: auto.key ignored since key already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"
+msgid "'plot.args' must be a list"
+msgstr ""
+
+msgid "'lattice.options' must be a list"
+msgstr ""
+
+msgid "Invalid value of 'perm.cond'"
+msgstr ""
+
+msgid "Note: 'auto.key' ignored since legend already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"
 msgstr ""
 
 msgid "log scales cannot be changed via 'update'"
