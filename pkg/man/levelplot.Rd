@@ -51,15 +51,20 @@ contourplot(x, data, \dots)
             region = FALSE,
             \dots)
 
-\method{levelplot}{table}(x, data = NULL, aspect = "iso", \dots,
-          xlim, ylim, row.values, column.values)
+\method{levelplot}{table}(x, data = NULL, aspect = "iso", \dots, xlim, ylim)
 
-\method{contourplot}{table}(x, data = NULL, aspect = "iso", \dots,
-            xlim, ylim, row.values, column.values)
+\method{contourplot}{table}(x, data = NULL, aspect = "iso", \dots, xlim, ylim)
 
-\method{levelplot}{matrix}(x, data = NULL, xlab, ylab, \dots)
+\method{levelplot}{matrix}(x, data = NULL, aspect = "iso",
+          \dots, xlim, ylim,
+          row.values = seq_len(nrow(x)),
+          column.values = seq_len(ncol(x)))
 
-\method{contourplot}{matrix}(x, data = NULL, xlab, ylab, \dots)
+\method{contourplot}{matrix}(x, data = NULL, aspect = "iso",
+            \dots, xlim, ylim,
+            row.values = seq_len(nrow(x)),
+            column.values = seq_len(ncol(x)))
+
 
 \method{levelplot}{array}(x, data = NULL, \dots)
 

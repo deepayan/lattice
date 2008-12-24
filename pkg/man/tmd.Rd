@@ -70,7 +70,7 @@ prepanel.tmd.default(x, y, \dots)
   Such functions currently exist for \code{xyplot}, \code{qq} (the ones
   with \code{default} in their name) and \code{qqmath}, as listed in the
   usage section above.  These assume the default displays for the
-  corresponding high-level call.  If unspecified, the code{prepanel} and
+  corresponding high-level call.  If unspecified, the \code{prepanel} and
   \code{panel} arguments default to suitable choices.
 
   \code{tmd} uses the \code{update} method for \code{"trellis"} objects,

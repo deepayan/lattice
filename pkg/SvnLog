@@ -37,7 +37,8 @@ Changed paths:
    M /trunk/lattice/R/splom.R
    M /trunk/lattice/man/levelplot.Rd
 
-added a table method for levelplot; better memory management for splom and parallel methods
+added a table method for levelplot; better memory management for splom
+and parallel methods
 ------------------------------------------------------------------------
 r5266 | deepayan | 2008-11-20 16:09:55 -0800 (Thu, 20 Nov 2008) | 1 line
 Changed paths:
