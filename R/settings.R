@@ -115,7 +115,7 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
              clip             = list(panel = "on", strip = "on"),
              add.line         = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
              add.text         = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1.2),
-             plot.polygon         = list(alpha = 1, col = can.col[2], border = "black", lty = 1, lwd = 1),
+             plot.polygon     = list(alpha = 1, col = can.col[2], border = "black", lty = 1, lwd = 1),
              box.dot          = list(alpha = 1, col = can.col[1], cex = 1, font = 1, pch = 16),
              box.rectangle    = list(alpha = 1, col = can.col[2], fill = "transparent", lty = 1, lwd = 1),
              box.umbrella     = list(alpha = 1, col = can.col[2], lty = 2, lwd = 1),
