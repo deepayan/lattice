@@ -252,6 +252,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         {
             pars <-
                 list(col = key$col,
+                     border = "black",
                      alpha = key$alpha,
                      size = key$size,
                      angle = key$angle,
@@ -553,7 +554,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                         placeGrob(key.gf, 
                                   rectGrob(width = cur$pars$size[j] / max(cur$pars$size),
                                            ## centred, unlike S-PLUS, due to aesthetic reasons !
-                                           gp = gpar(alpha = cur$pars$alpha[j], fill = cur$pars$col[j])),
+                                           gp = gpar(alpha = cur$pars$alpha[j],
+                                                     fill = cur$pars$col[j],
+                                                     col = cur$pars$border[j])),
                                   row = yy, col = xx)
                     ## FIXME: Need to make changes to support angle/density
                 }
