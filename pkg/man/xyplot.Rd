@@ -1242,7 +1242,7 @@ states <- data.frame(state.x77,
 xyplot(Murder ~ Population | state.region, data = states, 
        groups = state.name, 
        panel = function(x, y, subscripts, groups)  
-       ltext(x = x, y = y, label = groups[subscripts], cex=1,
+       ltext(x = x, y = y, labels = groups[subscripts], cex=1,
              fontfamily = "HersheySans"))
 
 barchart(yield ~ variety | site, data = barley,
@@ -1265,7 +1265,7 @@ dotplot(variety ~ yield | site, data = barley, groups = year,
         aspect=0.5, layout = c(1,6), ylab=NULL)
 
 stripplot(voice.part ~ jitter(height), data = singer, aspect = 1,
-          jitter = TRUE, xlab = "Height (inches)")
+          jitter.data = TRUE, xlab = "Height (inches)")
 ## Interaction Plot
 
 xyplot(decrease ~ treatment, OrchardSprays, groups = rowpos,

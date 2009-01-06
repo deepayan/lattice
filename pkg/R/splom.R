@@ -110,7 +110,7 @@ diag.panel.splom <-
             panel.axis(side = side,
                        at = at,
                        labels = lab,
-                       tick = TRUE,
+                       ticks = TRUE,
                        half = TRUE,
 
                        tck = axis.line.tck,

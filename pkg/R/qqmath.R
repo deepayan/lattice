@@ -478,13 +478,13 @@ qqmath.formula <-
 panel.qqmathline <-
     function(x, y = x,
              distribution = qnorm,
-             p = c(0.25, 0.75),
+             probs = c(0.25, 0.75),
              qtype = 7,
              groups = NULL, 
              ...)
 {
     y <- as.numeric(y)
-    stopifnot(length(p) == 2)
+    stopifnot(length(probs) == 2)
     distribution <-
         if (is.function(distribution)) distribution 
         else if (is.character(distribution)) get(distribution)
@@ -493,7 +493,7 @@ panel.qqmathline <-
     if (!is.null(groups))
         panel.superpose(x = y, y = NULL,
                         distribution = distribution,
-                        p = p,
+                        probs = probs,
                         qtype = qtype,
                         groups = groups,
                         panel.groups = panel.qqmathline,
@@ -501,9 +501,9 @@ panel.qqmathline <-
     else if (nobs)
     {
         yy <-
-            quantile(y, p, names = FALSE, # was fast.quantile 
+            quantile(y, probs, names = FALSE, # was fast.quantile 
                      type = qtype, na.rm = TRUE)
-        xx <- distribution(p)
+        xx <- distribution(probs)
         r <- diff(yy)/diff(xx)
         panel.abline(c( yy[1]-xx[1]*r , r), ...)
     }
@@ -513,7 +513,7 @@ panel.qqmathline <-
 prepanel.qqmathline <-
     function(x, y = x,
              distribution = qnorm,
-             p = c(0.25, 0.75),
+             probs = c(0.25, 0.75),
              qtype = 7,
              groups = NULL,
              subscripts = TRUE,
@@ -527,7 +527,7 @@ prepanel.qqmathline <-
                                 subscripts = subscripts,
                                 ...)
     y <- as.numeric(y)
-    stopifnot(length(p) == 2)
+    stopifnot(length(probs) == 2)
     distribution <-
         if (is.function(distribution)) distribution 
         else if (is.character(distribution)) get(distribution)
@@ -535,7 +535,7 @@ prepanel.qqmathline <-
     nobs <- sum(!is.na(y))
     getdy <- function(x)
     {
-        diff(quantile(x, p, names = FALSE, # was fast.quantile 
+        diff(quantile(x, probs, names = FALSE, # was fast.quantile 
                       type = qtype,
                       na.rm = TRUE))
     }
@@ -545,7 +545,7 @@ prepanel.qqmathline <-
     if (!all(is.na(dy)))
     {
         ans$dy <- dy[!is.na(dy)]
-        ans$dx <- rep(diff(distribution(p)), length(ans$dy))
+        ans$dx <- rep(diff(distribution(probs)), length(ans$dy))
     }
     ans
 }

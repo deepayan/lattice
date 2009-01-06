@@ -123,8 +123,8 @@ strip.default <-
 
     name <- var.name[which.given]
     level <- which.panel[which.given]
-    strip.names <- rep(strip.names, length = 2)
-    strip.levels <- rep(strip.levels, length = 2)
+    strip.names <- rep(strip.names, length.out = 2)
+    strip.levels <- rep(strip.levels, length.out = 2)
     ## str(shingle.intervals)
 
     formatLabel <-
@@ -247,10 +247,10 @@ strip.default <-
     strip.border <- trellis.par.get("strip.border")
     ## draw border for strip
     grid.rect(gp =
-              gpar(col = rep(strip.border$col, length = which.given)[which.given],
-                   lty = rep(strip.border$lty, length = which.given)[which.given],
-                   lwd = rep(strip.border$lwd, length = which.given)[which.given],
-                   alpha = rep(strip.border$alpha, length = which.given)[which.given],
+              gpar(col = rep(strip.border$col, length.out = which.given)[which.given],
+                   lty = rep(strip.border$lty, length.out = which.given)[which.given],
+                   lwd = rep(strip.border$lwd, length.out = which.given)[which.given],
+                   alpha = rep(strip.border$alpha, length.out = which.given)[which.given],
                    fill = "transparent"))
     upViewport()
 }

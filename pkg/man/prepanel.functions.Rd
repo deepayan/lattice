@@ -11,7 +11,7 @@
 prepanel.lmline(x, y, \dots)
 prepanel.loess(x, y, span, degree, family, evaluation, \dots)
 prepanel.qqmathline(x, y = x, distribution = qnorm,
-                    p = c(0.25, 0.75), qtype = 7,
+                    probs = c(0.25, 0.75), qtype = 7,
                     groups, subscripts,
                     \dots) 
 }
@@ -22,7 +22,7 @@ prepanel.qqmathline(x, y = x, distribution = qnorm,
     prepanel function in \code{qqmath}.
   }
   \item{qtype}{ type of \code{\link{quantile}}}
-  \item{p}{
+  \item{probs}{
     numeric vector of length two, representing probabilities.  If used
     with \code{aspect="xy"}, the aspect ratio will be chosen to make the
     line passing through the corresponding quantile pairs as close to 45

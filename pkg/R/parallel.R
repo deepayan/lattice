@@ -57,20 +57,20 @@ panel.parallel <-
     n.c <- length(subscripts)
     if (is.null(groups))
     {
-        col <- rep(col, length = n.c)
-        lty <- rep(lty, length = n.c)
-        lwd <- rep(lwd, length = n.c)
-        alpha <- rep(alpha, length = n.c)
+        col <- rep(col, length.out = n.c)
+        lty <- rep(lty, length.out = n.c)
+        lwd <- rep(lwd, length.out = n.c)
+        alpha <- rep(alpha, length.out = n.c)
     }
     else
     {
         groups <- as.factor(groups)[subscripts]
         n.g <- nlevels(groups)
         gnum <- as.numeric(groups) ## probably unnecessary
-        col <- rep(col, length = n.g)[gnum]
-        lty <- rep(lty, length = n.g)[gnum]
-        lwd <- rep(lwd, length = n.g)[gnum]
-        alpha <- rep(alpha, length = n.g)[gnum]
+        col <- rep(col, length.out = n.g)[gnum]
+        lty <- rep(lty, length.out = n.g)[gnum]
+        lwd <- rep(lwd, length.out = n.g)[gnum]
+        alpha <- rep(alpha, length.out = n.g)[gnum]
     }
 
     if (is.function(lower)) lower <- sapply(z, lower)
@@ -80,8 +80,8 @@ panel.parallel <-
         lower <- min(lower)
         upper <- max(upper)
     }
-    lower <- rep(lower, length = n.r)
-    upper <- rep(upper, length = n.r)
+    lower <- rep(lower, length.out = n.r)
+    upper <- rep(upper, length.out = n.r)
     dif <- upper - lower
 
     if (n.r > 1)

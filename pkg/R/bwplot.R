@@ -184,10 +184,10 @@ panel.barchart <-
 ##             ## vals <- sort(unique(groups))
 ##             nvals <- length(vals)
 
-            col <- rep(col, length = nvals)
-            border <- rep(border, length = nvals)
-            lty <- rep(lty, length = nvals)
-            lwd <- rep(lwd, length = nvals)
+            col <- rep(col, length.out = nvals)
+            border <- rep(border, length.out = nvals)
+            lty <- rep(lty, length.out = nvals)
+            lwd <- rep(lwd, length.out = nvals)
 
             height <- box.width # box.ratio / (1 + box.ratio)
 
@@ -242,10 +242,10 @@ panel.barchart <-
 ##             ## vals <- sort(unique(groups))
 ##             nvals <- length(vals)
 
-            col <- rep(col, length = nvals)
-            border <- rep(border, length = nvals)
-            lty <- rep(lty, length = nvals)
-            lwd <- rep(lwd, length = nvals)
+            col <- rep(col, length.out = nvals)
+            border <- rep(border, length.out = nvals)
+            lty <- rep(lty, length.out = nvals)
+            lwd <- rep(lwd, length.out = nvals)
 
             height <- box.width / nvals # box.ratio/(1 + nvals * box.ratio)
             if (reference)
@@ -308,10 +308,10 @@ panel.barchart <-
 ##             ## vals <- sort(unique(groups))
 ##             nvals <- length(vals)
 
-            col <- rep(col, length = nvals)
-            border <- rep(border, length = nvals)
-            lty <- rep(lty, length = nvals)
-            lwd <- rep(lwd, length = nvals)
+            col <- rep(col, length.out = nvals)
+            border <- rep(border, length.out = nvals)
+            lty <- rep(lty, length.out = nvals)
+            lwd <- rep(lwd, length.out = nvals)
 
             width <- box.width # box.ratio/(1 + box.ratio)
 
@@ -363,10 +363,10 @@ panel.barchart <-
 ##             ## vals <- sort(unique(groups))
 ##             nvals <- length(vals)
 
-            col <- rep(col, length = nvals)
-            border <- rep(border, length = nvals)
-            lty <- rep(lty, length = nvals)
-            lwd <- rep(lwd, length = nvals)
+            col <- rep(col, length.out = nvals)
+            border <- rep(border, length.out = nvals)
+            lty <- rep(lty, length.out = nvals)
+            lwd <- rep(lwd, length.out = nvals)
 
             width <- box.width / nvals # box.ratio/(1 + nvals * box.ratio)
             if (reference)
@@ -737,10 +737,10 @@ panel.bwplot <-
                       ybot + notch.frac * blist.height / 2,
                       ybot, ybot, ytop, ytop,
                       ytop - notch.frac * blist.height / 2)
-        xs <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        ys <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        xs[seq(along = levels.fos, by = 2), ] <- xbnd[seq(along = levels.fos), ]
-        ys[seq(along = levels.fos, by = 2), ] <- ybnd[seq(along = levels.fos), ]
+        xs <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        ys <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        xs[seq(along.with = levels.fos, by = 2), ] <- xbnd[seq(along.with = levels.fos), ]
+        ys[seq(along.with = levels.fos, by = 2), ] <- ybnd[seq(along.with = levels.fos), ]
 
         ## box
 
@@ -847,8 +847,8 @@ panel.bwplot <-
                       xleft + notch.frac * blist.height / 2)
         xs <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
         ys <- matrix(NA_real_, nr = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        xs[seq(along = levels.fos, by = 2), ] <- xbnd[seq(along = levels.fos), ]
-        ys[seq(along = levels.fos, by = 2), ] <- ybnd[seq(along = levels.fos), ]
+        xs[seq(along.with = levels.fos, by = 2), ] <- xbnd[seq(along.with = levels.fos), ]
+        ys[seq(along.with = levels.fos, by = 2), ] <- ybnd[seq(along.with = levels.fos), ]
 
         ## box
 
@@ -1340,7 +1340,7 @@ bwplot.formula <-
     y <- form$left
     if (is.null(y))
     {
-        y <- rep(if (is.null(names(x))) '' else names(x), length = length(x))
+        y <- rep(if (is.null(names(x))) '' else names(x), length.out = length(x))
         y <- factor(y, levels = unique(y))
     }
     if (length(cond) == 0)

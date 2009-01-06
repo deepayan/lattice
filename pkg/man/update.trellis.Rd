@@ -113,7 +113,7 @@ trellis.last.object(warn = TRUE, \dots)
 % }
 
 \examples{
-spots <- by(sunspots, gl(235, 12, lab = 1749:1983), mean)
+spots <- by(sunspots, gl(235, 12, labels = 1749:1983), mean)
 old.options <- lattice.options(save.object = TRUE)
 xyplot(spots ~ 1749:1983, xlab = "", type = "l",
        scales = list(x = list(alternating = 2)),

@@ -252,7 +252,7 @@ panel.identify.cloud <-
     xlim <- xlabelinfo$num.limit
     ylim <- ylabelinfo$num.limit
     zlim <- zlabelinfo$num.limit
-    aspect <- rep(aspect, length=2)
+    aspect <- rep(aspect, length.out = 2)
     x <- x[subscripts]
     y <- y[subscripts]
     z <- z[subscripts]

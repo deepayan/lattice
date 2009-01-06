@@ -82,8 +82,8 @@ construct.scales <-
             if (yfoo$alternating) c(1,2)
             else 1
     for (nm in c("tck", "cex", "rot")) {
-        xfoo[[nm]] <- rep(xfoo[[nm]], length = 2)
-        yfoo[[nm]] <- rep(yfoo[[nm]], length = 2)
+        xfoo[[nm]] <- rep(xfoo[[nm]], length.out = 2)
+        yfoo[[nm]] <- rep(yfoo[[nm]], length.out = 2)
     }
     if (xfoo$rel == "same" && (is.list(xfoo$at) || is.list(xfoo$lab)))
         stop("the at and labels components of scales may not be lists when relation = same")
@@ -137,7 +137,7 @@ construct.3d.scales <-
                  abbreviate = abbreviate, minlength = minlength)
     yfoo <- xfoo
     zfoo <- xfoo
-    distance <- rep(distance, length = 3)
+    distance <- rep(distance, length.out = 3)
     xfoo$distance <- distance[1]
     yfoo$distance <- distance[2]
     zfoo$distance <- distance[3]
@@ -277,7 +277,7 @@ limitsFromLimitlist <-
         {
             if (is.list(lim))
             {
-                limits <- rep(lim, length = npackets)
+                limits <- rep(lim, length.out = npackets)
             }
             else warning("Explicitly specified limits ignored")
         }

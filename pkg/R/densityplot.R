@@ -51,7 +51,7 @@ prepanel.default.densityplot <-
                        darg))
         ## for banking calculations, include only middle 70% values
         quants <-
-            quantile(x, prob = c(0.15, 0.85),
+            quantile(x, c(0.15, 0.85),
                      names = FALSE, na.rm = TRUE)
         ok <- h$x > quants[1] & h$x < quants[2]
         list(xlim = range(h$x),
@@ -80,7 +80,7 @@ prepanel.default.densityplot <-
                 yl <- c(yl, h$y)
                 ## for banking calculations, include only middle 70% values
                 quants <-
-                    quantile(x[id], prob = c(0.15, 0.85),
+                    quantile(x[id], c(0.15, 0.85),
                              names = FALSE, na.rm = TRUE)
                 ok <- h$x > quants[1] & h$x < quants[2]
                 dxl <- c(dxl, diff(h$x[ok]))
