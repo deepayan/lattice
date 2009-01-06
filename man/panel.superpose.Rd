@@ -11,12 +11,12 @@
 \usage{
 panel.superpose(x, y = NULL, subscripts, groups,
                 panel.groups = "panel.xyplot",
+                \dots,
                 col, col.line, col.symbol,
                 pch, cex, fill, font,
                 fontface, fontfamily,
                 lty, lwd, alpha,
                 type = "p",
-                \dots,
                 distribute.type = FALSE)
 panel.superpose.2(\dots, distribute.type = TRUE)
 }

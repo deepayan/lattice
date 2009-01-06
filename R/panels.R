@@ -212,7 +212,7 @@ panel.curve <-
     lims <- current.panel.limits()$xlim
     if (missing(from)) from <- min(lims)
     if (missing(to)) to <- max(lims)
-    x <- seq(from, to, length = n)
+    x <- seq(from, to, length.out = n)
     y <- eval(expr, envir = list(x = x), enclos = parent.frame())
     panel.lines(x, y, type = curve.type, col = col, lty = lty, lwd = lwd, ...)
 }
@@ -238,8 +238,8 @@ panel.rug <-
     if (!any(is.finite(x))) x <- NULL
     if (!any(is.finite(y))) y <- NULL
     plot.line <- trellis.par.get("plot.line")
-    x.units <- rep(x.units, length = 2)
-    y.units <- rep(y.units, length = 2)
+    x.units <- rep(x.units, length.out = 2)
+    y.units <- rep(y.units, length.out = 2)
     if (!is.null(x))
     {
         grid.segments(x0 = unit(x, "native"), x1 = unit(x, "native"),
@@ -451,6 +451,7 @@ prepanel.loess <-
 panel.superpose <-
     function(x, y = NULL, subscripts, groups,
              panel.groups = "panel.xyplot",
+             ...,
              col = NA,
              col.line = superpose.line$col,
              col.symbol = superpose.symbol$col,
@@ -464,7 +465,6 @@ panel.superpose <-
              lwd = superpose.line$lwd,
              alpha = superpose.symbol$alpha,
              type = 'p',
-             ...,
              distribute.type = FALSE)
 {
     if (distribute.type)
@@ -515,19 +515,19 @@ panel.superpose <-
             if (is.factor(groups)) levels(groups)
             else sort(unique(groups))
         nvals <- length(vals)
-        col <- rep(col, length = nvals)
-        col.line <- rep(col.line, length = nvals)
-        col.symbol <- rep(col.symbol, length = nvals)
-        pch <- rep(pch, length = nvals)
-        fill <- rep(fill, length = nvals)
-        lty <- rep(lty, length = nvals)
-        lwd <- rep(lwd, length = nvals)
-        alpha <- rep(alpha, length = nvals)
-        cex <- rep(cex, length = nvals)
-        font <- rep(font, length = nvals)
-        fontface <- rep(fontface, length = nvals)
-        fontfamily <- rep(fontfamily, length = nvals)
-        type <- rep(type, length = nvals)
+        col <- rep(col, length.out = nvals)
+        col.line <- rep(col.line, length.out = nvals)
+        col.symbol <- rep(col.symbol, length.out = nvals)
+        pch <- rep(pch, length.out = nvals)
+        fill <- rep(fill, length.out = nvals)
+        lty <- rep(lty, length.out = nvals)
+        lwd <- rep(lwd, length.out = nvals)
+        alpha <- rep(alpha, length.out = nvals)
+        cex <- rep(cex, length.out = nvals)
+        font <- rep(font, length.out = nvals)
+        fontface <- rep(fontface, length.out = nvals)
+        fontfamily <- rep(fontfamily, length.out = nvals)
+        type <- rep(type, length.out = nvals)
 
         panel.groups <-
             if (is.function(panel.groups)) panel.groups
@@ -623,17 +623,17 @@ panel.superpose.2 <-
 ##             if (is.factor(groups)) levels(groups)
 ##             else sort(unique(groups))
 ##         nvals <- length(vals)
-##         col.line <- rep(col.line, length = nvals)
-##         col.symbol <- rep(col.symbol, length = nvals)
-##         pch <- rep(pch, length = nvals)
-##         lty <- rep(lty, length = nvals)
-##         lwd <- rep(lwd, length = nvals)
-##         alpha <- rep(alpha, length = nvals)
-##         cex <- rep(cex, length = nvals)
-##         font <- rep(font, length = nvals)
-##         fontface <- rep(fontface, length = nvals)
-##         fontfamily <- rep(fontfamily, length = nvals)
-##         type <- rep(type, length = nvals)
+##         col.line <- rep(col.line, length.out = nvals)
+##         col.symbol <- rep(col.symbol, length.out = nvals)
+##         pch <- rep(pch, length.out = nvals)
+##         lty <- rep(lty, length.out = nvals)
+##         lwd <- rep(lwd, length.out = nvals)
+##         alpha <- rep(alpha, length.out = nvals)
+##         cex <- rep(cex, length.out = nvals)
+##         font <- rep(font, length.out = nvals)
+##         fontface <- rep(fontface, length.out = nvals)
+##         fontfamily <- rep(fontfamily, length.out = nvals)
+##         type <- rep(type, length.out = nvals)
 
 ##         panel.groups <- 
 ##             if (is.function(panel.groups)) panel.groups
@@ -710,13 +710,13 @@ panel.superpose.2 <-
 #             if (is.factor(groups)) levels(groups)
 #             else sort(unique(groups))
 #         nvals <- length(vals)
-#         col.line <- rep(col.line, length = nvals)
-#         col.symbol <- rep(col.symbol, length = nvals)
-#         pch <- rep(pch, length = nvals)
-#         lty <- rep(lty, length = nvals)
-#         lwd <- rep(lwd, length = nvals)
-#         cex <- rep(cex, length = nvals)
-#         type <- rep(type, length = nvals)      # new line here
+#         col.line <- rep(col.line, length.out = nvals)
+#         col.symbol <- rep(col.symbol, length.out = nvals)
+#         pch <- rep(pch, length.out = nvals)
+#         lty <- rep(lty, length.out = nvals)
+#         lwd <- rep(lwd, length.out = nvals)
+#         cex <- rep(cex, length.out = nvals)
+#         type <- rep(type, length.out = nvals)      # new line here
 #         for (i in seq_along(vals)) {
 #             id <- (groups[subscripts] == vals[i])
 #             if (any(id))

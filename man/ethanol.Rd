@@ -54,9 +54,9 @@ xyplot(NOx ~ C | EE, data = ethanol,
 require(stats)
 with(ethanol, {
   eth.lo <- loess(NOx ~ C * E, span = 1/3, parametric = "C", 
-	                drop.square = "C", family="symmetric")
-  eth.marginal <- list(C = seq(min(C), max(C), length = 25), 
-	                     E = seq(min(E), max(E), length = 25))
+                  drop.square = "C", family="symmetric")
+  eth.marginal <- list(C = seq(min(C), max(C), length.out = 25), 
+                       E = seq(min(E), max(E), length.out = 25))
   eth.grid <- expand.grid(eth.marginal)
   eth.fit <- predict(eth.lo, eth.grid)
   wireframe(eth.fit ~ eth.grid$C * eth.grid$E,

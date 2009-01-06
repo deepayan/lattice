@@ -9,7 +9,7 @@
 \usage{
 panel.qqmathline(x, y = x,
                  distribution = qnorm,
-                 p = c(0.25, 0.75),
+                 probs = c(0.25, 0.75),
                  qtype = 7,
                  groups = NULL, 
                  \dots)
@@ -25,7 +25,7 @@ panel.qqmathline(x, y = x,
   \item{distribution}{
     quantile function for reference theoretical distribution.
   }
-  \item{p}{
+  \item{probs}{
     numeric vector of length two, representing probabilities.
     Corresponding quantile pairs define the line drawn.
   }

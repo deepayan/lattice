@@ -35,9 +35,9 @@ level.colors <- function(x, at, col.regions, colors = TRUE, ...)
         ncolor <- length(col.regions)
         col.regions <-
             if (ncolor <= nregions)
-                rep(col.regions, length = nregions)
+                rep(col.regions, length.out = nregions)
             else 
-                col.regions[round(seq(1, ncolor, length = nregions))]
+                col.regions[round(seq(1, ncolor, length.out = nregions))]
         col.regions[ind.col]
     }
 }
@@ -141,9 +141,9 @@ panel.levelplot <-
 ##     numcol.r <- length(col.regions)
 ##     col.regions <-
 ##         if (numcol.r <= numcol)
-##             rep(col.regions, length = numcol)
+##             rep(col.regions, length.out = numcol)
 ##         else
-##             col.regions[round(seq(1, numcol.r, length = numcol))]
+##             col.regions[round(seq(1, numcol.r, length.out = numcol))]
 ##     zcol <- cut(z, at, include.lowest = TRUE, labels = FALSE)
 
     zcol <- level.colors(z, at, col.regions, colors = TRUE)
@@ -162,14 +162,14 @@ panel.levelplot <-
     shrinky <- c(1, 1)
     if (!missing(shrink)) {
         if (is.numeric(shrink)) {
-            shrinkx <- rep(shrink, length = 2)
-            shrinky <- rep(shrink, length = 2)
+            shrinkx <- rep(shrink, length.out = 2)
+            shrinky <- rep(shrink, length.out = 2)
         }
         else if (is.list(shrink)) {
-            shrinkx <- rep(shrink[[1]], length = 2)
-            shrinky <- rep(shrink[[1]], length = 2)
-            if ("x" %in% names(shrink)) shrinkx <- rep(shrink$x, length = 2)
-            if ("y" %in% names(shrink)) shrinky <- rep(shrink$y, length = 2)
+            shrinkx <- rep(shrink[[1]], length.out = 2)
+            shrinky <- rep(shrink[[1]], length.out = 2)
+            if ("x" %in% names(shrink)) shrinkx <- rep(shrink$x, length.out = 2)
+            if ("y" %in% names(shrink)) shrinky <- rep(shrink$y, length.out = 2)
         }
         else warning("Invalid 'shrink' parameter ignored")
     }
@@ -358,7 +358,8 @@ panel.levelplot <-
 
                     i <- match(val$level, at)
 
-                    ltext(lab = labels$labels[i], adj = c(.5, 0),
+                    ltext(labels$labels[i],
+                          adj = c(.5, 0),
                           srt = rotangle,
                           col = labels$col,
                           alpha = labels$alpha,
@@ -607,7 +608,7 @@ levelplot.formula <-
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
     form <-
-        latticeParseFormula(formula, data, dim = 3,
+        latticeParseFormula(formula, data, dimension = 3,
                             subset = subset, groups = groups,
                             multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
@@ -652,7 +653,7 @@ levelplot.formula <-
     if (missing(at))
         at <-
             if (pretty) pretty(zrng, cuts)
-            else seq(zrng[1], zrng[2], length = cuts + 2)
+            else seq(zrng[1], zrng[2], length.out = cuts + 2)
     
     ## create a skeleton trellis object with the
     ## less complicated components:
@@ -772,7 +773,7 @@ levelplot.formula <-
 
 #     col.regions <-
 #         if (numcol.r <= numcol)
-#             rep(col.regions, length = numcol)
+#             rep(col.regions, length.out = numcol)
 #         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
 
 #     if (is.logical(colorkey))

@@ -316,10 +316,10 @@ update.trellis <-
 
         for (nm in c("tck", "cex", "rot"))
         {
-            scales[[nm]] <- rep(scales[[nm]], length = 2)
-            xscales[[nm]] <- rep(xscales[[nm]], length = 2)
-            yscales[[nm]] <- rep(yscales[[nm]], length = 2)
-            zscales[[nm]] <- rep(zscales[[nm]], length = 2)
+            scales[[nm]] <- rep(scales[[nm]], length.out = 2)
+            xscales[[nm]] <- rep(xscales[[nm]], length.out = 2)
+            yscales[[nm]] <- rep(yscales[[nm]], length.out = 2)
+            zscales[[nm]] <- rep(zscales[[nm]], length.out = 2)
         }
 
         if (!is.null(scales$limits))
@@ -444,7 +444,7 @@ update.trellis <-
         if (drop) warning("'drop=TRUE' ignored")
         ocall$drop <- NULL
     }
-    indices <- rep(list(TRUE), length = length(x$condlevels))
+    indices <- rep(list(TRUE), length.out = length(x$condlevels))
     if (!missing(i)) {
         indices[[1]] <- i
         ocall$i <- NULL
@@ -499,7 +499,7 @@ update.trellis <-
 ##     len <-
 ##         if (length(dim(x)) == 1) 1
 ##         else length(tmp) + (1 - isj) + (1 - isi)
-##     indices <- rep(list(TRUE), length = len)
+##     indices <- rep(list(TRUE), length.out = len)
 ##     if (isi)
 ##     {
 ##         indices[[1]] <- tmp$i

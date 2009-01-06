@@ -205,10 +205,10 @@ axis.default <-
                    ## rule: if (alternating[row/column] %in% c(2, 3)) for
                    ## a ``boundary'' panel, then draw, otherwise don't.
                    switch(side,
-                          top    = rep(scales$alternating, length = column)[column] %in% c(2, 3),
-                          bottom = rep(scales$alternating, length = column)[column] %in% c(1, 3),
-                          left   = rep(scales$alternating, length = row)[row] %in% c(1, 3),
-                          right  = rep(scales$alternating, length = row)[row] %in% c(2, 3))
+                          top    = rep(scales$alternating, length.out = column)[column] %in% c(2, 3),
+                          bottom = rep(scales$alternating, length.out = column)[column] %in% c(1, 3),
+                          left   = rep(scales$alternating, length.out = row)[row] %in% c(1, 3),
+                          right  = rep(scales$alternating, length.out = row)[row] %in% c(2, 3))
 
                } else TRUE)) 
 
@@ -235,7 +235,7 @@ axis.default <-
                        draw.labels = do.labels, 
                        check.overlap = comp.list$labels$check.overlap,
                        outside = TRUE,
-                       tick = do.ticks,
+                       ticks = do.ticks,
                        tck = scales.tck * comp.list$ticks$tck,
                        ...)
     }
@@ -605,7 +605,7 @@ formattedTicksAndLabels.POSIXct <-
         M <- 2 * m
         m <- rep.int(zz$year[1], m)
         zz$year <- c(m, m + 1)
-        zz <- lapply(zz, function(x) rep(x, length = M))
+        zz <- lapply(zz, function(x) rep(x, length.out = M))
         class(zz) <- c("POSIXt", "POSIXlt")
         z <- as.POSIXct(zz)
         if (is.null(format.posixt))
@@ -620,7 +620,7 @@ formattedTicksAndLabels.POSIXct <-
         zz$mon <- zz$hour <- zz$min <- zz$sec <- 0
         zz$year <- pretty(zz$year, ...)
         M <- length(zz$year)
-        zz <- lapply(zz, function(x) rep(x, length = M))
+        zz <- lapply(zz, function(x) rep(x, length.out = M))
         class(zz) <- c("POSIXt", "POSIXlt")
         z <- as.POSIXct(zz)
         if (is.null(format.posixt))
@@ -742,7 +742,7 @@ panel.axis <-
 
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
-    rot <- rep(rot, length = 2) ## for x- and y-axes respectively
+    rot <- rep(rot, length.out = 2) ## for x- and y-axes respectively
 
 #    if (missing(at) || is.null(at))
 #    {

@@ -729,7 +729,7 @@ compute.layout <-
             layout[1] <- cond.max.level[1]
             layout[2] <- cond.max.level[2]
         }
-        skip <- rep(skip, length = max(layout[1] * layout[2], layout[2]))
+        skip <- rep(skip, length.out = max(layout[1] * layout[2], layout[2]))
         plots.per.page <- length(skip) - length(skip[skip])
         layout[3] <- ceiling(nplots/plots.per.page) # + 1
     }
@@ -741,7 +741,7 @@ compute.layout <-
             stop("at least one element of layout must be positive")
         else if (layout[2]==0) stop("inadmissible value of layout")
         
-        skip <- rep(skip, length = max(layout[1] * layout[2], layout[2]))
+        skip <- rep(skip, length.out = max(layout[1] * layout[2], layout[2]))
         plots.per.page <- length(skip) - length(skip[skip])
         layout[3] <- ceiling(nplots / plots.per.page) # + 1 
     }

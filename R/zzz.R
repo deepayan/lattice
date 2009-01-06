@@ -20,10 +20,10 @@
 
 
 .LatticeEnv <- new.env()
-assign("lattice.status",  list(), env = .LatticeEnv)
-assign("lattice.theme",   list(), env = .LatticeEnv)
-assign("lattice.options", list(), env = .LatticeEnv)
-assign("last.object",     NULL,   env = .LatticeEnv)
+assign("lattice.status",  list(), envir = .LatticeEnv)
+assign("lattice.theme",   list(), envir = .LatticeEnv)
+assign("lattice.options", list(), envir = .LatticeEnv)
+assign("last.object",     NULL,   envir = .LatticeEnv)
 
 
 

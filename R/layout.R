@@ -228,10 +228,10 @@ calculateGridLayout <-
 
     if (rows.per.page > 1)
         heights.x[pos.heights[["between"]]] <-
-            rep(x$y.between, length = rows.per.page - 1) * heights.x[pos.heights[["between"]]]
+            rep(x$y.between, length.out = rows.per.page - 1) * heights.x[pos.heights[["between"]]]
     if (cols.per.page > 1)
         widths.x[pos.widths[["between"]]] <-
-            rep(x$x.between, length = cols.per.page - 1) * widths.x[pos.widths[["between"]]]
+            rep(x$x.between, length.out = cols.per.page - 1) * widths.x[pos.widths[["between"]]]
 
 
     if (!is.null(panel.height))
@@ -722,7 +722,7 @@ calculateGridLayout <-
             pcol <- length(pos.heights[["axis.panel"]])
             axis.panel.mult <-
                 rep(trellis.par.get("layout.heights")[["axis.panel"]],
-                    length = pcol)
+                    length.out = pcol)
             for (i in seq_len(pcol))
                 layout.heights <-
                     rearrangeUnit(layout.heights,
@@ -748,7 +748,7 @@ calculateGridLayout <-
             prow <- length(pos.widths[["axis.panel"]])
             axis.panel.mult <-
                 rep(trellis.par.get("layout.widths")[["axis.panel"]],
-                    length = prow)
+                    length.out = prow)
             for (i in seq_len(prow))
                 layout.widths <-
                     rearrangeUnit(layout.widths,
@@ -807,11 +807,11 @@ packet.panel.default <-
 
     if (all.pages.skip)
     {
-        skip <- rep(skip, length = panels.per.page * page)
+        skip <- rep(skip, length.out = panels.per.page * page)
     }
     else
     {
-        skip <- rep(skip, length = panels.per.page)
+        skip <- rep(skip, length.out = panels.per.page)
         skip <- rep(skip, page)
     }
     ## This covers current page, which is all we care about. 

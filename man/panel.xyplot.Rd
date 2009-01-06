@@ -94,7 +94,7 @@ horiz <- rep(c(FALSE, TRUE), c(length(types.plain), length(types.horiz)))
 
 types <- c(types.plain, types.horiz)
 
-x <- sample(seq(-10, 10, length = 15), 30, TRUE)
+x <- sample(seq(-10, 10, length.out = 15), 30, TRUE)
 y <- x + 0.25 * (x + 1)^2 + rnorm(length(x), sd = 5)
 
 xyplot(y ~ x | gl(1, length(types)),
@@ -105,7 +105,7 @@ xyplot(y ~ x | gl(1, length(types)),
        strip = function(...) {
            panel.fill(trellis.par.get("strip.background")$col[1])
            type <- types[panel.number()]
-           grid::grid.text(lab = sprintf('"\%s"', type), 
+           grid::grid.text(label = sprintf('"\%s"', type), 
                            x = 0.5, y = 0.5)
            grid::grid.rect()
        },

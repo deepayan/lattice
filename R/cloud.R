@@ -96,7 +96,7 @@ prepanel.default.cloud <-
              zoom = 0.8)
 {
     rot.mat <- ltransform3dMatrix(screen = screen, R.mat = R.mat)
-    aspect <- rep(aspect, length=2)
+    aspect <- rep(aspect, length.out = 2)
     corners <-
         rbind(x = c(-1,1,1,-1,-1,1,1,-1),
               y = c(-1,-1,-1,-1,1,1,1,1) * aspect[1],
@@ -153,24 +153,24 @@ panel.3dscatter <-
     {
         if (is.null(groups))
         {
-            col.point <- rep(col.point, length = n)
-            col.line <- rep(col.line, length = n)
-            lty <- rep(lty, length = n)
-            lwd <- rep(lwd, length = n)
-            cex <- rep(cex, length = n)
-            pch <- rep(pch, length = n)
+            col.point <- rep(col.point, length.out = n)
+            col.line <- rep(col.line, length.out = n)
+            lty <- rep(lty, length.out = n)
+            lwd <- rep(lwd, length.out = n)
+            cex <- rep(cex, length.out = n)
+            pch <- rep(pch, length.out = n)
         }
         else
         {
             nvals <- nlevels(as.factor(groups))
             groups <- as.numeric(as.factor(groups))[subscripts]
 
-            col.point <- rep(col.point, length = nvals)[groups]
-            col.line <- rep(col.line, length = nvals)[groups]
-            lty <- rep(lty, length = nvals)[groups]
-            lwd <- rep(lwd, length = nvals)[groups]
-            cex <- rep(cex, length = nvals)[groups]
-            pch <- rep(pch, length = nvals)[groups]
+            col.point <- rep(col.point, length.out = nvals)[groups]
+            col.line <- rep(col.line, length.out = nvals)[groups]
+            lty <- rep(lty, length.out = nvals)[groups]
+            lwd <- rep(lwd, length.out = nvals)[groups]
+            cex <- rep(cex, length.out = nvals)[groups]
+            pch <- rep(pch, length.out = nvals)[groups]
         }
 
 
@@ -356,7 +356,7 @@ panel.3dwire <-
     numcol.r <- length(col.regions)
     col.regions <-
         if (numcol.r <= numcol)
-            rep(col.regions, length = numcol)
+            rep(col.regions, length.out = numcol)
         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
 
 
@@ -382,8 +382,8 @@ panel.3dwire <-
     {
         ngroups <- if (is.matrix(z)) ncol(z) else 1
         superpose.polygon <- trellis.par.get("superpose.polygon")
-        col.groups <- rep(col.groups, length = ngroups)
-        if (length(col) > 1) col <- rep(col, length = ngroups)
+        col.groups <- rep(col.groups, length.out = ngroups)
+        if (length(col) > 1) col <- rep(col, length.out = ngroups)
 
 
         ## remove things outside xlim and ylim bounds
@@ -444,7 +444,7 @@ panel.3dwire <-
 
                     if (count == polynum)
                     {
-                        grid.polygon(x = pol.x, y = pol.y, id.length = rep(3, polynum),
+                        grid.polygon(x = pol.x, y = pol.y, id.lengths = rep(3, polynum),
                                      default.units = "native",
                                      gp = gpar(fill = pol.fill,
                                      col = pol.col,
@@ -477,9 +477,9 @@ panel.3dwire <-
         if (count > 0)
         {
             grid.polygon(x = pol.x[1:(count * 3)], y = pol.y[1:(count * 3)],
-                         default.units = "native", id.length = rep(3, count),
-                         gp = gpar(fill = rep(pol.fill, length = count),
-                         col = rep(pol.col, length = count),
+                         default.units = "native", id.lengths = rep(3, count),
+                         gp = gpar(fill = rep(pol.fill, length.out = count),
+                         col = rep(pol.col, length.out = count),
                          lty = lty, lwd = lwd,
                          alpha = pol.alpha))
         }
@@ -553,7 +553,7 @@ panel.3dwire <-
 
                     if (count == polynum) {
 
-                        grid.polygon(x = pol.x, y = pol.y, id.length = rep(4, polynum),
+                        grid.polygon(x = pol.x, y = pol.y, id.lengths = rep(4, polynum),
                                      default.units = "native",
                                      gp = gpar(fill = pol.fill,
                                      col = pol.col,
@@ -583,9 +583,9 @@ panel.3dwire <-
         if (count > 0)
         {
             grid.polygon(x = pol.x[1:(count * 4)], y = pol.y[1:(count * 4)],
-                         default.units = "native", id.length = rep(4, count),
-                         gp = gpar(fill = rep(pol.fill, length = count),
-                         col = rep(pol.col, length = count),
+                         default.units = "native", id.lengths = rep(4, count),
+                         gp = gpar(fill = rep(pol.fill, length.out = count),
+                         col = rep(pol.col, length.out = count),
                          lty = lty, lwd = lwd,
                          alpha = pol.alpha))
         }
@@ -734,7 +734,7 @@ panel.cloud <-
         par.box.final <- trellis.par.get("box.3d")
         if (!is.null(par.box)) par.box.final[names(par.box)] <- par.box
 
-        aspect <- rep(aspect, length=2)
+        aspect <- rep(aspect, length.out = 2)
 
         if (!isParametrizedSurface)
         {
@@ -1164,7 +1164,7 @@ panel.cloud <-
             if (is.logical(scales.3d$x.scales$fontfamily)) axis.text$fontfamily
             else scales.3d$x.scales$fontfamily
         xaxis.cex <-
-            if (is.logical(scales.3d$x.scales$cex)) rep(axis.text$cex, length = 1)
+            if (is.logical(scales.3d$x.scales$cex)) rep(axis.text$cex, length.out = 1)
             else scales.3d$x.scales$cex
         xaxis.rot <-
             if (is.logical(scales.3d$x.scales$rot)) 0
@@ -1193,7 +1193,7 @@ panel.cloud <-
             if (is.logical(scales.3d$y.scales$fontfamily)) axis.text$fontfamily
             else scales.3d$y.scales$fontfamily
         yaxis.cex <-
-            if (is.logical(scales.3d$y.scales$cex)) rep(axis.text$cex, length = 1)
+            if (is.logical(scales.3d$y.scales$cex)) rep(axis.text$cex, length.out = 1)
             else scales.3d$y.scales$cex
         yaxis.rot <-
             if (is.logical(scales.3d$y.scales$rot)) 0
@@ -1222,7 +1222,7 @@ panel.cloud <-
             if (is.logical(scales.3d$z.scales$fontfamily)) axis.text$fontfamily
             else scales.3d$z.scales$fontfamily
         zaxis.cex <-
-            if (is.logical(scales.3d$z.scales$cex)) rep(axis.text$cex, length = 1)
+            if (is.logical(scales.3d$z.scales$cex)) rep(axis.text$cex, length.out = 1)
             else scales.3d$z.scales$cex
         zaxis.rot <-
             if (is.logical(scales.3d$z.scales$rot)) 0
@@ -1538,7 +1538,7 @@ cloud.formula <-
     ## Step 1: Evaluate x, y, z etc. and do some preprocessing
 
     form <-
-        latticeParseFormula(formula, data, dim = 3,
+        latticeParseFormula(formula, data, dimension = 3,
                             subset = subset, groups = groups,
                             multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
@@ -1604,7 +1604,7 @@ cloud.formula <-
             if (drape)
             {
                 if (pretty) pretty(zrng, cuts)
-                else seq(zrng[1], zrng[2], length = cuts+2)
+                else seq(zrng[1], zrng[2], length.out = cuts+2)
             }
             else zrng
 
@@ -1730,7 +1730,7 @@ cloud.formula <-
 
 #     col.regions <-
 #         if (numcol.r <= numcol)
-#             rep(col.regions, length = numcol)
+#             rep(col.regions, length.out = numcol)
 #         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
 
 

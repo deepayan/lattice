@@ -217,7 +217,7 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
         ans$plot.symbol$col <- can.col[1]
         ## changing this to be like barplot
         ## ans$regions$col <- gray(29:128/128)
-        ans$regions$col <- grey(seq(0.3^2.2, 0.9^2.2, length = 100)^(1/2.2))
+        ans$regions$col <- grey(seq(0.3^2.2, 0.9^2.2, length.out = 100)^(1/2.2))
         ans$shade.colors$palette <-
             function(irr, ref, height, w = .5)
                 grey(w * irr + (1 - w) * (1 - (1-ref)^.4))
@@ -496,7 +496,7 @@ show.settings <- function(x = NULL)
                     groups = gl(len, len),
                     subscripts = 1:(len*len))
     popViewport()
-    grid.text(lab = "superpose.symbol",
+    grid.text(label = "superpose.symbol",
               vp = viewport(layout.pos.row = 3, layout.pos.col = 2))
 
 
@@ -513,7 +513,7 @@ show.settings <- function(x = NULL)
                     subscripts = 1:(2*len),
                     type = "l")
     popViewport()
-    grid.text(lab = "superpose.line",
+    grid.text(label = "superpose.line",
               vp = viewport(layout.pos.row = 3, layout.pos.col = 4))
 
     ## strip.background
@@ -535,7 +535,7 @@ show.settings <- function(x = NULL)
                    lty = strip.border$lty,
                    lwd = strip.border$lwd))
     popViewport()
-    grid.text(lab = "strip.background",
+    grid.text(label = "strip.background",
               vp = viewport(layout.pos.row = 3, layout.pos.col = 6))
 
     ## strip.shingle
@@ -552,7 +552,7 @@ show.settings <- function(x = NULL)
                    alpha = strip.shingle$alpha,
                    col = "transparent", lwd = 0.0001))
     popViewport()
-    grid.text(lab = "strip.shingle",
+    grid.text(label = "strip.shingle",
               vp = viewport(layout.pos.row = 3, layout.pos.col = 8))
 
     ## dot.[symbol, line]
@@ -563,7 +563,7 @@ show.settings <- function(x = NULL)
     panel.dotplot(x = 1:5, y = 1:5)
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "dot.[symbol, line]",
+    grid.text(label = "dot.[symbol, line]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 2))
 
     ## box.[dot, rectangle, umbrella]
@@ -574,7 +574,7 @@ show.settings <- function(x = NULL)
     panel.bwplot(x = 1:5, y = rep(0, 5))
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "box.[dot, rectangle, umbrella]",
+    grid.text(label = "box.[dot, rectangle, umbrella]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 4))
 
     ## add.[line, text]
@@ -584,15 +584,15 @@ show.settings <- function(x = NULL)
                           layout.pos.col = 6,
                           yscale = c(-1,1),
                           xscale = c(0,1)))
-    x <- seq(.1, .9, length = 50)
+    x <- seq(.1, .9, length.out = 50)
     y <- .9 * sin(.1+11*x)
     llines(x = x, y = y, type = "l", col = add.line$col,
            lty = add.line$lty, lwd = add.line$lwd)
-    ltext(lab = c("Hello", "World"),
+    ltext(labels = c("Hello", "World"),
           x = c(.25, .75), y = c(-.5, .5))
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "add.[line, text]",
+    grid.text(label = "add.[line, text]",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 6))
 
     ## reference.line
@@ -603,7 +603,7 @@ show.settings <- function(x = NULL)
     panel.grid()
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "reference.line",
+    grid.text(label = "reference.line",
               vp = viewport(layout.pos.row = 6, layout.pos.col = 8))
 
     ## plot.[symbol, line]
@@ -613,13 +613,13 @@ show.settings <- function(x = NULL)
                           layout.pos.col = 2,
                           yscale = c(-1.1,1.1),
                           xscale = c(-.1,1.1)))
-    x <- seq(.1, .9, length = 20)
+    x <- seq(.1, .9, length.out = 20)
     y <- .9 * sin(.1+11*x)
     panel.xyplot(x = x+.05, y = y+.1, type = "l")
     panel.xyplot(x = x-.05, y = y-.1)
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "plot.[symbol, line]",
+    grid.text(label = "plot.[symbol, line]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 2))
 
     ## plot.shingle[plot.polygon]
@@ -628,7 +628,7 @@ show.settings <- function(x = NULL)
                           layout.pos.col = 4,
                           yscale = extend.limits(c(0,6)),
                           xscale = extend.limits(c(1,10))))
-    grid.rect(x = c(3.5, 4.5, 5.5, 6.5, 7.5), w = rep(5,5),
+    grid.rect(x = c(3.5, 4.5, 5.5, 6.5, 7.5), width = rep(5,5),
               y = c(1,2,3,4,5), height = rep(.5, ,5),
               default.units = "native",
               gp =
@@ -639,7 +639,7 @@ show.settings <- function(x = NULL)
                    lwd = plot.polygon$lwd))
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "plot.shingle[plot.polygon]",
+    grid.text(label = "plot.shingle[plot.polygon]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 4))
 
     ## histogram[plot.polygon]
@@ -650,7 +650,7 @@ show.settings <- function(x = NULL)
     panel.histogram(x = rep(1:7, 1:7), breaks = 0:7 + 0.5, type = "count")
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "histogram[plot.polygon]",
+    grid.text(label = "histogram[plot.polygon]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 6))
 
     ## barchart[plot.polygon]
@@ -661,7 +661,7 @@ show.settings <- function(x = NULL)
     panel.barchart(x = 6:1, y = 1:6)
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "barchart[plot.polygon]",
+    grid.text(label = "barchart[plot.polygon]",
               vp = viewport(layout.pos.row = 9, layout.pos.col = 8))
 
 
@@ -678,7 +678,7 @@ show.settings <- function(x = NULL)
                    stack = FALSE)
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "superpose.polygon",
+    grid.text(label = "superpose.polygon",
               vp = viewport(layout.pos.row = 12, layout.pos.col = 2))
 
     ## regions
@@ -687,7 +687,7 @@ show.settings <- function(x = NULL)
     pushViewport(viewport(layout.pos.row = 11,
                           layout.pos.col = 4,
                           xscale = c(0,len+1)))
-    grid.rect(x = 1:len, w = 1,
+    grid.rect(x = 1:len, width = 1,
               default.units = "native",
               gp =
               gpar(col = "transparent",
@@ -695,7 +695,7 @@ show.settings <- function(x = NULL)
                    alpha = regions$alpha))
     grid.rect(gp = gp.box)
     popViewport()
-    grid.text(lab = "regions",
+    grid.text(label = "regions",
               vp = viewport(layout.pos.row = 12, layout.pos.col = 4))
     invisible()
 }
@@ -905,9 +905,9 @@ lattice.options <- function(...)
          layout.heights =
 
 ##          list(top.padding = list(x = 2, units = "mm", data = NULL),
-##               main = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               main = list(x = 0, units = "grobheight", data = textGrob(label="")),
 ##               main.key.padding = list(x = 2, units = "mm", data = NULL),
-##               key.top = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               key.top = list(x = 0, units = "grobheight", data = textGrob(label="")),
 ##               key.axis.padding = list(x = 2, units = "mm", data = NULL),
 ##               axis.top = list(x = 0, units = "mm", data = NULL),
 ##               strip = list(x = 1, units = "lines", data = NULL),
@@ -916,19 +916,19 @@ lattice.options <- function(...)
 ##               between = list(x = 5, units = "mm", data = NULL),
 ##               axis.bottom = list(x = 0, units = "mm", data = NULL),
 ##               axis.xlab.padding = list(x = 2, units = "mm", data = NULL),
-##               xlab = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               xlab = list(x = 0, units = "grobheight", data = textGrob(label="")),
 ##               xlab.key.padding = list(x = 2, units = "mm", data = NULL),
-##               key.bottom = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               key.bottom = list(x = 0, units = "grobheight", data = textGrob(label="")),
 ##               key.sub.padding = list(x = 2, units = "mm", data = NULL),
-##               sub = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+##               sub = list(x = 0, units = "grobheight", data = textGrob(label="")),
 ##               bottom.padding = list(x = 2, units = "mm", data = NULL)),
 ##          layout.widths =
 ##          list(left.padding = list(x = 2, units = "mm", data = NULL),
-##               key.left = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+##               key.left = list(x = 0, units = "grobwidth", data = textGrob(label="")),
 ##               key.ylab.padding = list(x = 2, units = "mm", data = NULL),
 
 ##               ## changed in 2.1.0
-##               ylab = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+##               ylab = list(x = 0, units = "grobwidth", data = textGrob(label="")),
 
 
 ##               ylab.axis.padding = list(x = 2, units = "mm", data = NULL),
@@ -938,15 +938,15 @@ lattice.options <- function(...)
 ##               between = list(x = 5, units = "mm", data = NULL),
 ##               axis.right = list(x = 0, units = "mm", data = NULL),
 ##               axis.key.padding = list(x = 2, units = "mm", data = NULL),
-##               key.right = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+##               key.right = list(x = 0, units = "grobwidth", data = textGrob(label="")),
 ##               right.padding = list(x = 2, units = "mm", data = NULL)),
 
 
 
          list(top.padding = list(x = 0.01, units = "snpc", data = NULL),
-              main = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+              main = list(x = 0, units = "grobheight", data = textGrob(label="")),
               main.key.padding = list(x = 0.01, units = "snpc", data = NULL),
-              key.top = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+              key.top = list(x = 0, units = "grobheight", data = textGrob(label="")),
               key.axis.padding = list(x = 0.01, units = "snpc", data = NULL),
               axis.top = list(x = 0, units = "mm", data = NULL),
               strip = list(x = 1, units = "lines", data = NULL),
@@ -955,17 +955,17 @@ lattice.options <- function(...)
               between = list(x = 5, units = "mm", data = NULL),
               axis.bottom = list(x = 0, units = "mm", data = NULL),
               axis.xlab.padding = list(x = 0.01, units = "snpc", data = NULL),
-              xlab = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+              xlab = list(x = 0, units = "grobheight", data = textGrob(label="")),
               xlab.key.padding = list(x = 0.01, units = "snpc", data = NULL),
-              key.bottom = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+              key.bottom = list(x = 0, units = "grobheight", data = textGrob(label="")),
               key.sub.padding = list(x = 0.01, units = "snpc", data = NULL),
-              sub = list(x = 0, units = "grobheight", data = textGrob(lab="")),
+              sub = list(x = 0, units = "grobheight", data = textGrob(label="")),
               bottom.padding = list(x = 0.01, units = "snpc", data = NULL)),
          layout.widths =
          list(left.padding = list(x = 0.01, units = "snpc", data = NULL),
-              key.left = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+              key.left = list(x = 0, units = "grobwidth", data = textGrob(label="")),
               key.ylab.padding = list(x = 0.01, units = "snpc", data = NULL),
-              ylab = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+              ylab = list(x = 0, units = "grobwidth", data = textGrob(label="")),
               ylab.axis.padding = list(x = 0.01, units = "snpc", data = NULL),
               axis.left = list(x = 0, units = "mm", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),
@@ -974,7 +974,7 @@ lattice.options <- function(...)
               between = list(x = 5, units = "mm", data = NULL),
               axis.right = list(x = 0, units = "mm", data = NULL),
               axis.key.padding = list(x = 0.01, units = "snpc", data = NULL),
-              key.right = list(x = 0, units = "grobwidth", data = textGrob(lab="")),
+              key.right = list(x = 0, units = "grobwidth", data = textGrob(label="")),
               right.padding = list(x = 0.01, units = "snpc", data = NULL)),
 
          highlight.gpar = list(col = "red", lwd = 2, fill = "transparent")
@@ -998,7 +998,7 @@ lattice.setStatus <- function (...)
         return()
     lattice.status <- get("lattice.status", envir = .LatticeEnv)
     lattice.status[names(dots)] <- dots
-    assign("lattice.status", lattice.status, env = .LatticeEnv)
+    assign("lattice.status", lattice.status, envir = .LatticeEnv)
     invisible()
 }
 

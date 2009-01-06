@@ -155,7 +155,7 @@ do.breaks  <- function(endpoints, nint)
 Rows <- function(x, which)
 {
     for (i in seq_along(x)) x[[i]] <-
-        rep(x[[i]], length = max(which, length(which)))[which]
+        rep(x[[i]], length.out = max(which, length(which)))[which]
     x
 }
 
@@ -255,10 +255,10 @@ lsegments <-
     if (missing(y0)) y0 <- y2
     add.line <- trellis.par.get("add.line")
     ml <- max(length(x0), length(x1), length(y0), length(y1))
-    x0 <- rep(x0, length = ml)
-    x1 <- rep(x1, length = ml)
-    y0 <- rep(y0, length = ml)
-    y1 <- rep(y1, length = ml)
+    x0 <- rep(x0, length.out = ml)
+    x1 <- rep(x1, length.out = ml)
+    y0 <- rep(y0, length.out = ml)
+    y1 <- rep(y1, length.out = ml)
     grid.segments(x0 = x0, x1 = x1,
                   y0 = y0, y1 = y1,
                   gp =
@@ -321,10 +321,10 @@ larrows <-
     if (missing(y0)) y0 <- y2
     add.line <- trellis.par.get("add.line")
     ml <- max(length(x0), length(x1), length(y0), length(y1))
-    x0 <- rep(x0, length = ml)
-    x1 <- rep(x1, length = ml)
-    y0 <- rep(y0, length = ml)
-    y1 <- rep(y1, length = ml)
+    x0 <- rep(x0, length.out = ml)
+    x1 <- rep(x1, length.out = ml)
+    y0 <- rep(y0, length.out = ml)
+    y1 <- rep(y1, length.out = ml)
     gp <- gpar(col = col, lty=lty, lwd = lwd, alpha = alpha, fill = fill, ...)
     grid.segments(x0 = x0, x1 = x1,
                   y0 = y0, y1 = y1,

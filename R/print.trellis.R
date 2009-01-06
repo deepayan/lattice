@@ -209,7 +209,7 @@ plot.trellis <-
 
     if (save.object)
     {
-        assign("last.object", x, env = .LatticeEnv)
+        assign("last.object", x, envir = .LatticeEnv)
         lattice.setStatus(current.plot.saved = TRUE)
     }
     else
@@ -487,7 +487,7 @@ plot.trellis <-
         if (is.logical(x$x.scales$fontfamily)) axis.text$fontfamily
         else x$x.scales$fontfamily
     xaxis.cex <-
-        if (is.logical(x$x.scales$cex)) rep(axis.text$cex, length = 2)
+        if (is.logical(x$x.scales$cex)) rep(axis.text$cex, length.out = 2)
         else x$x.scales$cex
     xaxis.rot <-
         if (is.logical(x$x.scales$rot)) c(0, 0)
@@ -523,7 +523,7 @@ plot.trellis <-
         if (is.logical(x$y.scales$fontfamily)) axis.text$fontfamily
         else x$y.scales$fontfamily
     yaxis.cex <-
-        if (is.logical(x$y.scales$cex)) rep(axis.text$cex, length = 2)
+        if (is.logical(x$y.scales$cex)) rep(axis.text$cex, length.out = 2)
         else x$y.scales$cex
     yaxis.rot <-
         if (!is.logical(x$y.scales$rot)) x$y.scales$rot
@@ -535,13 +535,13 @@ plot.trellis <-
 
     strip.col.default.bg <-
         rep(trellis.par.get("strip.background")$col,
-            length = number.of.cond)
+            length.out = number.of.cond)
     strip.col.default.fg <-
         rep(trellis.par.get("strip.shingle")$col,
-            length = number.of.cond)
+            length.out = number.of.cond)
     strip.border <-
         lapply(trellis.par.get("strip.border"),
-               function(x) rep(x, length = number.of.cond))
+               function(x) rep(x, length.out = number.of.cond))
 
 
     ## Start layout calculations when only number of panels per page
@@ -580,10 +580,10 @@ plot.trellis <-
     dim(current.cond.levels) <- c(rows.per.page, cols.per.page)
 
     ## ## following now relegated to packet.panel 
-    ## skip <- rep(x$skip, length = number.of.pages * rows.per.page * cols.per.page)
+    ## skip <- rep(x$skip, length.out = number.of.pages * rows.per.page * cols.per.page)
 
-    x.alternating <- rep(x$x.scales$alternating, length = cols.per.page)
-    y.alternating <- rep(x$y.scales$alternating, length = rows.per.page)
+    x.alternating <- rep(x$x.scales$alternating, length.out = cols.per.page)
+    y.alternating <- rep(x$y.scales$alternating, length.out = rows.per.page)
     x.relation.same <- x$x.scales$relation == "same"
     y.relation.same <- x$y.scales$relation == "same"
 
