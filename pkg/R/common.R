@@ -489,7 +489,11 @@ extend.limits <-
              else lattice.getOption("axis.padding")$numeric)
 {
     ## if (!is.numeric(lim)) NA
-    if (is.character(lim) || all(is.na(lim))) NA_real_ # or lim?
+    if (all(is.na(lim))) NA_real_ # or lim?
+    else if (is.character(lim) )
+    {
+        c(1, length(lim)) + c(-1, 1) * if (axs == "i") 0.5 else lattice.getOption("axis.padding")$factor
+    }
     else if (length(lim) == 2)
     {
         if (lim[1] > lim[2])

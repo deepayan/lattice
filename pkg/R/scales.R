@@ -240,7 +240,7 @@ limitsFromLimitlist <-
                 if (is.character(limits))
                 {
                     limits <- unique(limits[!is.na(limits)])
-                    slicelen <- length(limits) + 2
+                    slicelen <- diff(extend.limits(limits, axs = axs))
                 }
                 else ## if (is.numeric(limits)) # or dates etc
                 {
