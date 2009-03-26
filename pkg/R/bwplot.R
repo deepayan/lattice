@@ -978,9 +978,11 @@ panel.violin <-
     darg$to <- to
     darg$cut <- cut
     darg$na.rm <- na.rm
-
-    my.density <- function(x) do.call("density", c(list(x = x), darg))
-
+    my.density <- function(x)
+    {
+        ans <- try(do.call("density", c(list(x = x), darg)), silent = TRUE)
+        if (inherits(ans, "try-error")) list(x = numeric(0), y = numeric(0)) else ans
+    }
     numeric.list <- if (horizontal) split(x, factor(y)) else split(y, factor(x))
     levels.fos <- as.numeric(names(numeric.list))
     d.list <- lapply(numeric.list, my.density)
@@ -1001,30 +1003,36 @@ panel.violin <-
     {
         for (i in seq_along(levels.fos))
         {
-            pushViewport(viewport(y = unit(levels.fos[i], "native"),
-                                  height = unit(height, "native"),
-                                  yscale = c(max.d[i] * c(-1, 1)),
-                                  xscale = xscale))
-            grid.polygon(x = c(dx.list[[i]], rev(dx.list[[i]])),
-                         y = c(dy.list[[i]], -rev(dy.list[[i]])),
-                         default.units = "native",
-                         gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
-            popViewport()
+            if (is.finite(max.d[i]))
+            {
+                pushViewport(viewport(y = unit(levels.fos[i], "native"),
+                                      height = unit(height, "native"),
+                                      yscale = c(max.d[i] * c(-1, 1)),
+                                      xscale = xscale))
+                grid.polygon(x = c(dx.list[[i]], rev(dx.list[[i]])),
+                             y = c(dy.list[[i]], -rev(dy.list[[i]])),
+                             default.units = "native",
+                             gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
+                popViewport()
+            }
         }
     }
     else
     {
         for (i in seq_along(levels.fos))
         {
-            pushViewport(viewport(x = unit(levels.fos[i], "native"),
-                                  width = unit(height, "native"),
-                                  xscale = c(max.d[i] * c(-1, 1)),
-                                  yscale = yscale))
-            grid.polygon(y = c(dx.list[[i]], rev(dx.list[[i]])),
-                         x = c(dy.list[[i]], -rev(dy.list[[i]])),
-                         default.units = "native",
-                         gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
-            popViewport()
+            if (is.finite(max.d[i]))
+            {
+                pushViewport(viewport(x = unit(levels.fos[i], "native"),
+                                      width = unit(height, "native"),
+                                      xscale = c(max.d[i] * c(-1, 1)),
+                                      yscale = yscale))
+                grid.polygon(y = c(dx.list[[i]], rev(dx.list[[i]])),
+                             x = c(dy.list[[i]], -rev(dy.list[[i]])),
+                             default.units = "native",
+                             gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
+                popViewport()
+            }
         }
     }
     invisible()
