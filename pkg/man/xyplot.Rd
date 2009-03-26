@@ -709,8 +709,6 @@ bwplot(x, data, \dots)
     The effect of the first group of common arguments are as follows:
 
     \describe{
-
-
       \item{\code{as.table}:}{ logical that controls the order in which panels
 	should be plotted: if \code{FALSE} (the default), panels are drawn
 	left to right, bottom to top (as in a graph); if \code{TRUE}, left

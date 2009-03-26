@@ -981,7 +981,11 @@ panel.violin <-
     my.density <- function(x)
     {
         ans <- try(do.call("density", c(list(x = x), darg)), silent = TRUE)
-        if (inherits(ans, "try-error")) list(x = numeric(0), y = numeric(0)) else ans
+        ## if (inherits(ans, "try-error")) list(x = numeric(0), y = numeric(0)) else ans
+        if (inherits(ans, "try-error"))
+            list(x = rep(x[1], 3),
+                 y = c(0, 1, 0))
+        else ans
     }
     numeric.list <- if (horizontal) split(x, factor(y)) else split(y, factor(x))
     levels.fos <- as.numeric(names(numeric.list))
