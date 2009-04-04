@@ -44,7 +44,7 @@ panel.smoothScatter(x, y = NULL,
   \item{range.x}{see  \code{\link[KernSmooth::bkde2D]{bkde2D}} for details.}
   \item{col}{\code{\link{points}} color parameter}
   \item{\dots}{Further arguments that are passed on to
-    \code{\link[lattice]{panel.levelplot}}.}
+    \code{\link{panel.levelplot}}.}
   \item{subscripts}{ ignored, but necessary for handling of \dots in
     certain situations.  Likely to be removed in future. }
 }
@@ -60,7 +60,6 @@ panel.smoothScatter(x, y = NULL,
 }
 
 \author{ Deepayan Sarkar \email{deepayan.sarkar@r-project.org} }
-\seealso{ \code{\link{smoothScatter}}}
 \examples{
 
 ddf <- as.data.frame(matrix(rnorm(40000), ncol = 4) + 3 * rnorm(10000))
