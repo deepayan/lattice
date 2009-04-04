@@ -50,7 +50,7 @@ panel.smoothScatter(x, y = NULL,
 }
 
 \details{
-  This replicates the display part of the \code{\link{smoothScatter}}
+  This replicates the display part of the \code{smoothScatter}
   function by replacing standard graphics calls by grid-compatible ones.
 }
 
