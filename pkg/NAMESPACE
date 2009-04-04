@@ -81,6 +81,7 @@ export(
        
        ## data-driven (usually summary of some sort)
 
+       panel.smoothScatter,
        panel.violin,
        panel.rug,
        panel.average,
