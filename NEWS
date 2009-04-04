@@ -32,6 +32,8 @@ new features
  o Added support for notches in panel.bwplot (based on patch from Mike
    Kay)
 
+ o New panel function panel.smoothScatter (relocated from Bioconductor
+   package geneplotter)
 
 
 Changes in lattice 0.16

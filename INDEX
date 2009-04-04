@@ -40,6 +40,8 @@ panel.pairs             Default Superpanel Function for splom
 panel.parallel          Default Panel Function for parallel
 panel.qqmath            Default Panel and Prepanel Function for qqmath
 panel.qqmathline        Useful panel function with qqmath
+panel.smoothScatter     Lattice panel function analogous to
+                        smoothScatter
 panel.stripplot         Default Panel Function for stripplot
 panel.superpose         Panel Function for Display Marked by groups
 panel.violin            Panel Function to create Violin Plots
