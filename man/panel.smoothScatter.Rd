@@ -9,8 +9,7 @@
 panel.smoothScatter(x, y = NULL,
                     nbin = 64, cuts = 255,
                     bandwidth,
-                    colramp =
-                    colorRampPalette(c("white", brewer.pal(9, "Blues"))),
+                    colramp,
                     nrpoints = 100,
                     transformation = function(x) x^0.25,
                     pch = ".",
