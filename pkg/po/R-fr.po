@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2008-11-21 15:55\n"
+"POT-Creation-Date: 2009-04-28 15:20\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -194,6 +194,21 @@ msgstr "erreur"
 
 msgid "Invalid value of 'pos'"
 msgstr "Valeur de 'pos' incorrecte"
+
+msgid "(loaded the KernSmooth namespace)"
+msgstr ""
+
+msgid "panel.smoothScatter() requires the KernSmooth package, but unable to load KernSmooth namespace"
+msgstr ""
+
+msgid "'nbin' must be numeric of length 1 or 2"
+msgstr ""
+
+msgid "'bandwidth' must be numeric"
+msgstr ""
+
+msgid "'nrpoints' should be numeric scalar with value >= 0."
+msgstr ""
 
 msgid "'a' is overridden by 'reg'"
 msgstr ""
