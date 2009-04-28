@@ -112,18 +112,13 @@ panel.levelplot <-
              subscripts,
              at = pretty(z),
              shrink,
-             labels = NULL,
+             labels = FALSE,
              label.style = c("mixed", "flat", "align"),
              contour = FALSE,
              region = TRUE,
              col = add.line$col,
              lty = add.line$lty,
              lwd = add.line$lwd,
-##              cex = add.text$cex,
-##              font = add.text$font,
-##              fontfamily = add.text$fontfamily,
-##              fontface = add.text$fontface,
-##              col.text = add.text$col,
              ...,
              col.regions = regions$col,
              alpha.regions = regions$alpha)
@@ -255,25 +250,21 @@ panel.levelplot <-
         if (is.logical(labels) && !labels) labels <- NULL
         else
         {
-            if (is.logical(labels)) labels <- format(at, trim = TRUE)
-            text <- trellis.par.get("add.text") # something better ?
-            tmp <- list(labels = if (is.list(labels)) labels[[1]] else labels,
-                        col = text$col, 
+            text <- trellis.par.get("add.text")
+            tmp <- list(col = text$col,
                         alpha = text$alpha,
                         cex = text$cex,
                         fontfamily = text$fontfamily,
                         fontface = text$fontface,
                         font = text$font)
-            labels <-
-                updateList(tmp,
-                           if (is.list(labels)) labels
-                           else list()) # FIXME: risky
-            if (!is.characterOrExpression(labels$labels))
-                labels$labels <- format(at)
+            labels <- 
+                if (is.list(labels)) updateList(tmp, labels)
+                else tmp
+            if (!is.characterOrExpression(labels$labels)) # NULL/TRUE
+                labels$labels <- format(at, trim = TRUE)
         }
 
         add.line <- trellis.par.get("add.line")
-        add.text <- trellis.par.get("add.text")
 
         ## convert z into a matrix, with NA entries for those
         ## 'missing' from data frame. There's scope for ambiguity
