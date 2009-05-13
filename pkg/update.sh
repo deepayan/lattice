@@ -10,17 +10,19 @@
 ##   (2) update SvnLog [actually create a file with latest entries]
 
 R_PROG=R-devel
+PKG=lattice
+
 export LC_ALL=C
-echo "library(tools); xgettext2pot('.', 'po/R-lattice.pot')" | ${R_PROG} --vanilla --silent
+echo "library(tools); xgettext2pot('.', 'po/R-${PKG}.pot')" | ${R_PROG} --vanilla --silent
 
 LANGUAGES="fr de"
 
 for LANG in ${LANGUAGES}; do 
     echo "Updating translations for ${LANG}"
     POFILE=po/R-${LANG}.po 
-    msgmerge --no-wrap --update ${POFILE} po/R-lattice.pot
+    msgmerge --no-wrap --update ${POFILE} po/R-${PKG}.pot
     PODIR=inst/po/${LANG}/LC_MESSAGES
-    MOFILE=${PODIR}/R-${LANG}.mo
+    MOFILE=${PODIR}/R-${PKG}.mo
     mkdir -p ${PODIR}
     msgfmt --statistics -c ${POFILE} -o ${MOFILE}
 done
