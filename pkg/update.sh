@@ -12,7 +12,18 @@
 R_PROG=R-devel
 export LC_ALL=C
 echo "library(tools); xgettext2pot('.', 'po/R-lattice.pot')" | ${R_PROG} --vanilla --silent
-for f in po/R-*.po; do msgmerge --no-wrap --update $f po/R-lattice.pot; done
+
+LANGUAGES="fr de"
+
+for LANG in ${LANGUAGES}; do 
+    echo "Updating translations for ${LANG}"
+    POFILE=po/R-${LANG}.po 
+    msgmerge --no-wrap --update ${POFILE} po/R-lattice.pot
+    PODIR=inst/po/${LANG}/LC_MESSAGES
+    MOFILE=${PODIR}/R-${LANG}.mo
+    mkdir -p ${PODIR}
+    msgfmt --statistics -c ${POFILE} -o ${MOFILE}
+done
 
 ## Note: -o is relatively new in grep
 LASTLOG=`grep -o -m 1 "r[0-9]* |" SvnLog | sed -e 's/[^0-9]//g'`
