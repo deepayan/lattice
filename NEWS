@@ -35,6 +35,13 @@ new features
  o New panel function panel.smoothScatter (relocated from Bioconductor
    package geneplotter)
 
+ o Added German translations (contributed by Chris Leick)
+
+bug fixes
+---------
+
+ o Make translations available (they were never actually installed before)
+
 
 Changes in lattice 0.16
 =======================

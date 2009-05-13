@@ -122,9 +122,15 @@ contourplot(x, data, \dots)
     as described in \code{\link{xyplot}}.
   }
   \item{at}{
-    numeric vector giving breaks along the range of \code{z}. Contours
-    (if any) will be drawn at these heights, and the regions in between
-    would be colored using \code{col.regions}.
+    numeric vector giving breakpoints along the range of
+    \code{z}. Contours (if any) will be drawn at these heights, and the
+    regions in between would be colored using \code{col.regions}.  In
+    the latter case, values outside the range of \code{at} will not be
+    drawn at all.  This serves as a way to limit the range of the data
+    shown, similar to what a \code{zlim} argument might have been used
+    for.  However, this also means that when supplying \code{at}
+    explicitly, one has to be careful to include values outside the
+    range of \code{z} to ensure that all the data are shown.
   }
   \item{col.regions}{ color vector to be used if regions is TRUE. The
     general idea is that this should be a color vector of moderately
@@ -132,8 +138,10 @@ contourplot(x, data, \dots)
     100). It is expected that this vector would be gradually varying in
     color (so that nearby colors would be similar). When the colors are
     actually chosen, they are chosen to be equally spaced along this
-    vector. When there are more regions than col.regions, the colors are
-    recycled.
+    vector.  When there are more regions than colors in
+    \code{col.regions}, the colors are recycled.  The actual color
+    assignment is performed by \code{\link{level.colors}}, which is
+    documented separately.
   }
   \item{alpha.regions}{
     numeric, specifying alpha transparency (works only on some devices)
