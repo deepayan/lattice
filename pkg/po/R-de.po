@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: R 2.3.0\n"
+"Project-Id-Version: R 2.5.0 / Lattice 0.17.23\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
 "POT-Creation-Date: 2009-04-28 15:20\n"
-"PO-Revision-Date: 2009-04-03 11:46+0100\n"
+"PO-Revision-Date: 2009-04-29 08:34+0100\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "explicit 'data' specification ignored"
 msgstr "ausdrückliche »data«-Spezifikation ignoriert"
 
 msgid "mismatch in number of packets"
-msgstr ""
+msgstr "fehlende Übereinstimmung in Anzahl der Pakete"
 
 msgid "'type' has unsupported values"
 msgstr "»type« enthält nicht unterstützte Werte"
@@ -53,10 +53,13 @@ msgid "newFactor cannot be NULL; you have found a bug!"
 msgstr "newFactor kann nicht NULL sein. Sie haben einen Fehler gefunden!"
 
 msgid "newFactor != NULL && groups == NULL does not hold; you have found a bug!"
-msgstr "newFactor != NULL && groups == NULL gilt nicht. Sie haben einen Fehler gefunden!"
+msgstr ""
+"newFactor != NULL && groups == NULL gilt nicht. Sie haben einen Fehler "
+"gefunden!"
 
 msgid "Length check mismatch; you have found a bug!"
-msgstr "Längenprüfung stimmt nicht überein. Sie haben einen Fehler gefunden!"
+msgstr ""
+"Längenprüfung stimmt nicht überein. Sie haben einen Fehler gefunden!"
 
 msgid "Non matching lengths"
 msgstr "Nicht übereinstimmende Längen"
@@ -77,7 +80,7 @@ msgid "Invalid value of index.cond"
 msgstr "Ungültiger Wert von index.cond"
 
 msgid "skip cannot be all TRUE"
-msgstr ""
+msgstr "»skip« kann nicht nur TRUE sein"
 
 msgid "layout must have at least 2 elements"
 msgstr "Layout muss mindestens 2 Elemente haben"
@@ -95,13 +98,13 @@ msgid "Density"
 msgstr "Dichte"
 
 msgid "Can't have log Y-scale"
-msgstr "Y-Achse kann keine logarithmische Skala haben."
+msgstr "Y-Achse kann keine logarithmische Skala haben"
 
 msgid "problem with 'hist' computations"
 msgstr "Problem mit »hist«-Berechnungen"
 
 msgid "type='%s' can be misleading in this context"
-msgstr "Typ=»%s« kann in diesem Zusammenhang irreführend sein"
+msgstr "type=»%s« kann in diesem Zusammenhang irreführend sein"
 
 msgid "Count"
 msgstr "Anzahl"
@@ -131,16 +134,19 @@ msgid "plot spans multiple pages, only last page can be updated"
 msgstr "Ausdruck umfasst mehrere Seiten. Nur die letzte Seite kann aktualisiert werden"
 
 msgid "current plot was not saved, can't retrieve panel data"
-msgstr "Aktueller Ausdruck wurde nicht gespeichert. Daten des Bedienfeldes können nicht abgefragt werden."
+msgstr ""
+"Aktueller Ausdruck wurde nicht gespeichert. Daten des Bedienfeldes können "
+"nicht abgefragt werden."
 
 msgid "you have to first select a panel using trellis.focus()"
-msgstr "Sie müssen zuerst ein Bedienfeld auswählen, das trellis.focus() benutzt."
+msgstr ""
+"Sie müssen zuerst ein Bedienfeld auswählen, das trellis.focus() benutzt."
 
 msgid "Selecting panel at position (%g, %g)"
 msgstr "Bedienfeld an Position (%g, %g) wird ausgewählt."
 
 msgid "No panels available"
-msgstr "Beine Bedienfelder verfügbar"
+msgstr "Keine Bedienfelder verfügbar"
 
 msgid "Click on panel to focus"
 msgstr "Zum Fokussieren auf das Bedienfeld klicken."
@@ -167,7 +173,9 @@ msgid "first component of text has to be vector of labels"
 msgstr "erste Komponente des Textes muss ein Vektor aus Bezeichnungen sein"
 
 msgid "Invalid key, need at least one component named lines, text, rect or points"
-msgstr "Ungültiger Schlüssel. Es wird mindestens eine Komponente mit Namen »lines, »text«, »rect« oder »points« benötigt."
+msgstr 
+"Ungültiger Schlüssel. Es wird mindestens eine Komponente mit Namen "
+"»lines«, »text«, »rect« oder »points« benötigt."
 
 msgid "not enough rows for columns"
 msgstr "nicht genug Zeilen für Spalten"
@@ -179,7 +187,7 @@ msgid "malformed colorkey"
 msgstr "missgestalteter Farbschlüssel"
 
 msgid "Invalid 'shrink' parameter ignored"
-msgstr "Falsche »shrink«-Parameter ignoriert"
+msgstr "Falscher »shrink«-Parameter ignoriert"
 
 msgid "Invalid label.style"
 msgstr "Ungültiger label.style"
@@ -194,25 +202,27 @@ msgid "Invalid value of 'pos'"
 msgstr "Ungültiger Wert für »pos«"
 
 msgid "(loaded the KernSmooth namespace)"
-msgstr ""
+msgstr "(lud den KernSmooth-Namensraum)"
 
 msgid "panel.smoothScatter() requires the KernSmooth package, but unable to load KernSmooth namespace"
 msgstr ""
+"panel.smoothScatter() benötigt das KernSmooth-Paket, aber der "
+"KernSmooth-Namensraum kann nicht geladen werden."
 
 msgid "'nbin' must be numeric of length 1 or 2"
-msgstr ""
+msgstr "»nbin« muss numerisch und von der Länge 1 oder 2 sein"
 
 msgid "'bandwidth' must be numeric"
-msgstr ""
+msgstr "»bandwidth« muss numerisch sein"
 
 msgid "'nrpoints' should be numeric scalar with value >= 0."
-msgstr ""
+msgstr "»nrpoints« sollte numerisch skalar mit Wert >= 0 sein."
 
 msgid "'a' is overridden by 'reg'"
-msgstr "»a« wurde mit »reg« überschreiben"
+msgstr "»a« wurde mit »reg« überschrieben"
 
 msgid "only using the first two of"
-msgstr "benutzt nur die ersten beiden von"
+msgstr "benutze nur die ersten beiden von"
 
 msgid "regression coefficients"
 msgstr "Regressionskoeffizienten"
@@ -227,15 +237,19 @@ msgid "Parallel Coordinate Plot"
 msgstr "Plot paralleler Koordinaten"
 
 msgid "cannot have log y-scale"
-msgstr "Y-Achse kann keine logarithmische Skala haben."
+msgstr "Y-Achse kann keine logarithmische Skala haben"
 
 msgid ""
 "Error using packet %g\n"
 "%s"
 msgstr ""
+"Fehler beim Benutzen des Paketes %g\n"
+"%s"
 
 msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
-msgstr "»packet.number« und »panel.number« werde nicht länger von der »panel«-Funktion unterstützt. Siehe ?packet.number"
+msgstr ""
+"»packet.number« und »panel.number« werden nicht länger an die "
+"»panel«-Funktion weitergereicht. Siehe ?packet.number"
 
 msgid "y must have exactly 2 levels"
 msgstr "y muss genau 2 Stufen haben"
@@ -247,7 +261,7 @@ msgid "'probs' outside [0,1]"
 msgstr "»probs« außerhalb [0,1]"
 
 msgid "Can't have log X-scale"
-msgstr "X-Achse kann keine logarithmische Skala haben."
+msgstr "X-Achse kann keine logarithmische Skala haben"
 
 msgid "Fitted Values minus Mean"
 msgstr "Angepasste Werte abzüglich Mittelwert"
@@ -256,10 +270,12 @@ msgid "Residuals"
 msgstr "Residuen"
 
 msgid "the at and labels components of scales may not be lists when relation = same"
-msgstr "die »at«- und »labels«-Komponenten der Skalen sind möglicherweise keine Listen, wenn »relations = same«"
+msgstr ""
+"die »at«- und »labels«-Komponenten der Skalen sind möglicherweise keine "
+"Listen, wenn »relation = same«"
 
 msgid "limits cannot be a list when relation = same"
-msgstr "Begrenzungen können keine Liste sein, wenn »relations = same«"
+msgstr "Begrenzungen können keine Liste sein, wenn »relation = same«"
 
 msgid "Explicitly specified limits ignored"
 msgstr "Ausdrücklich angegebene Begrenzungen ignoriert"
@@ -268,19 +284,23 @@ msgid "need at least one panel"
 msgstr "mindestens ein Bedienfeld wird benötigt"
 
 msgid "'aspect=\"iso\"' approximate since 'relation=\"free\"'"
-msgstr "»aspect=\"iso\"« ungefähr seit »relations=\"free\"«"
+msgstr "»aspect=\"iso\"« ungefähr seit »relation=\"free\"«"
 
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
-msgstr "Anmerkung: Das Standardgerät wurde geöffnet, um zu versuchen, das Verändern von Trellis-Einstellungen zu akzeptieren."
+msgstr ""
+"Anmerkung: Das Standardgerät wurde geöffnet, um zu versuchen, das "
+"Verändern von Trellis-Einstellungen zu akzeptieren."
 
 msgid "Invalid 'theme' specified"
 msgstr "Ungültiges »theme« angegeben"
 
 msgid "Could not find device function '%s'"
-msgstr "Gerätfunktion »%s« konnte nicht gefunden werden"
+msgstr "Gerätefunktion »%s« konnte nicht gefunden werden"
 
 msgid "'trellis.device' has changed, 'bg' may not be doing what you think it is"
-msgstr "»trellis.device« geändert, »bg« tut möglicherweise nicht das, was Sie denken"
+msgstr ""
+"»trellis.device« wurde geändert, »bg« tut möglicherweise nicht das, was "
+"Sie denken"
 
 msgid "x must be a shingle"
 msgstr "x muss eine Kachel sein"
@@ -319,10 +339,11 @@ msgid "Number of observations:"
 msgstr "Anzahl der Beobachtungen:"
 
 msgid "supplied 'dimnames' have wrong length"
-msgstr "unterstützte »dimnames« haben falsche Längen"
+msgstr "angegebene »dimnames« haben falsche Längen"
 
 msgid "some components of supplied 'dimnames' have wrong length"
-msgstr "einige Bestandteile der unterstützten »dimnames« haben falsche Längen"
+msgstr ""
+"einige Bestandteile der angegebenen »dimnames« haben falsche Längen"
 
 msgid "mean"
 msgstr "Mittelwert"
@@ -331,7 +352,7 @@ msgid "difference"
 msgstr "Unterschied"
 
 msgid "No trellis object currently saved"
-msgstr "Derzeit kein Trellis-Objekt gespeichert"
+msgstr "Derzeit ist kein Trellis-Objekt gespeichert"
 
 msgid "currently saved object is not the last one plotted"
 msgstr "derzeit gespeichertes Objekt ist nicht das zuletzt dargestellte"
@@ -359,7 +380,8 @@ msgid ""
 "Use 'update(..., legend = NULL)' to remove existing legend(s)"
 msgstr ""
 "Anmerkung: »auto.key« ignoriert, da Beschriftung bereits vorhanden.\n"
-"Benutzen Sie »update(..., legend = NULL)«, um existierende Legende(n) zu entfernen."
+"Benutzen Sie »update(..., legend = NULL)«, um existierende\n"
+"Beschriftung(en) zu entfernen."
 
 msgid "log scales cannot be changed via 'update'"
 msgstr "logarithmische Skalen können nicht per »update« geändert werden"
