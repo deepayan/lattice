@@ -15,7 +15,7 @@ PKG=lattice
 export LC_ALL=C
 echo "library(tools); xgettext2pot('.', 'po/R-${PKG}.pot')" | ${R_PROG} --vanilla --silent
 
-LANGUAGES="fr de"
+LANGUAGES="en@quot fr de"
 
 for LANG in ${LANGUAGES}; do 
     echo "Updating translations for ${LANG}"
@@ -26,6 +26,8 @@ for LANG in ${LANGUAGES}; do
     mkdir -p ${PODIR}
     msgfmt --statistics -c ${POFILE} -o ${MOFILE}
 done
+
+
 
 ## Note: -o is relatively new in grep
 LASTLOG=`grep -o -m 1 "r[0-9]* |" SvnLog | sed -e 's/[^0-9]//g'`
