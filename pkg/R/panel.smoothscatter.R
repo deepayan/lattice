@@ -70,7 +70,8 @@ panel.smoothScatter <-
     if (!is.numeric(nrpoints) | (nrpoints < 0) | (length(nrpoints) != 1))
         stop("'nrpoints' should be numeric scalar with value >= 0.")
     xy <- xy.coords(x, y)
-    x <- cbind(xy$x, xy$y)[!(is.na(xy$x) | is.na(xy$y)), ]
+    x <- cbind(xy$x, xy$y)[!(is.na(xy$x) | is.na(xy$y)), , drop = FALSE]
+    if (nrow(x) < 1) return()
     map <- .smoothScatterCalcDensity(x, nbin, bandwidth, range.x)
     xm <- map$x1
     ym <- map$x2
