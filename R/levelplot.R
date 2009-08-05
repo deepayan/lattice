@@ -250,6 +250,7 @@ panel.levelplot <-
         if (is.logical(labels) && !labels) labels <- NULL
         else
         {
+            if (is.characterOrExpression(labels)) labels <- list(labels = labels)
             text <- trellis.par.get("add.text")
             tmp <- list(col = text$col,
                         alpha = text$alpha,
