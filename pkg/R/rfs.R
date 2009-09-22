@@ -3,7 +3,10 @@
 rfs <-
     function(model, layout = c(2,1), xlab = "f-value", ylab = NULL,
              distribution = qunif,
-             panel = function(...) {panel.grid(); panel.qqmath(...)},
+             panel = function(...) {
+                 panel.grid(h = -1, v = -1)
+                 panel.qqmath(...)
+             },
              prepanel = NULL, strip = TRUE, ...)
 {
 
