@@ -1,4 +1,232 @@
 ------------------------------------------------------------------------
+r5489 | deepayan | 2009-10-04 12:59:18 -0700 (Sun, 04 Oct 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/man/Lattice.Rd
+   M /trunk/lattice/man/Rows.Rd
+   M /trunk/lattice/man/axis.default.Rd
+   M /trunk/lattice/man/banking.Rd
+   M /trunk/lattice/man/barchart.table.Rd
+   M /trunk/lattice/man/barley.Rd
+   M /trunk/lattice/man/cloud.Rd
+   M /trunk/lattice/man/draw.colorkey.Rd
+   M /trunk/lattice/man/draw.key.Rd
+   M /trunk/lattice/man/environmental.Rd
+   M /trunk/lattice/man/ethanol.Rd
+   M /trunk/lattice/man/histogram.Rd
+   M /trunk/lattice/man/interaction.Rd
+   M /trunk/lattice/man/lattice.options.Rd
+   M /trunk/lattice/man/latticeParseFormula.Rd
+   M /trunk/lattice/man/level.colors.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/llines.Rd
+   M /trunk/lattice/man/lset.Rd
+   M /trunk/lattice/man/make.groups.Rd
+   M /trunk/lattice/man/melanoma.Rd
+   M /trunk/lattice/man/oneway.Rd
+   M /trunk/lattice/man/packet.panel.default.Rd
+   M /trunk/lattice/man/panel.axis.Rd
+   M /trunk/lattice/man/panel.barchart.Rd
+   M /trunk/lattice/man/panel.bwplot.Rd
+   M /trunk/lattice/man/panel.cloud.Rd
+   M /trunk/lattice/man/panel.densityplot.Rd
+   M /trunk/lattice/man/panel.dotplot.Rd
+   M /trunk/lattice/man/panel.functions.Rd
+   M /trunk/lattice/man/panel.histogram.Rd
+   M /trunk/lattice/man/panel.levelplot.Rd
+   M /trunk/lattice/man/panel.number.Rd
+   M /trunk/lattice/man/panel.pairs.Rd
+   M /trunk/lattice/man/panel.parallel.Rd
+   M /trunk/lattice/man/panel.qqmath.Rd
+   M /trunk/lattice/man/panel.qqmathline.Rd
+   M /trunk/lattice/man/panel.smoothScatter.Rd
+   M /trunk/lattice/man/panel.stripplot.Rd
+   M /trunk/lattice/man/panel.superpose.Rd
+   M /trunk/lattice/man/panel.violin.Rd
+   M /trunk/lattice/man/panel.xyplot.Rd
+   M /trunk/lattice/man/prepanel.default.Rd
+   M /trunk/lattice/man/prepanel.functions.Rd
+   M /trunk/lattice/man/print.trellis.Rd
+   M /trunk/lattice/man/qq.Rd
+   M /trunk/lattice/man/qqmath.Rd
+   M /trunk/lattice/man/rfs.Rd
+   M /trunk/lattice/man/shingles.Rd
+   M /trunk/lattice/man/simpleKey.Rd
+   M /trunk/lattice/man/simpleTheme.Rd
+   M /trunk/lattice/man/singer.Rd
+   M /trunk/lattice/man/splom.Rd
+   M /trunk/lattice/man/strip.default.Rd
+   M /trunk/lattice/man/tmd.Rd
+   M /trunk/lattice/man/trellis.device.Rd
+   M /trunk/lattice/man/trellis.object.Rd
+   M /trunk/lattice/man/trellis.par.get.Rd
+   M /trunk/lattice/man/update.trellis.Rd
+   M /trunk/lattice/man/utilities.3d.Rd
+   M /trunk/lattice/man/xyplot.Rd
+
+reordered man pages, plus misc fixes for R 2.10
+------------------------------------------------------------------------
+r5488 | deepayan | 2009-09-30 04:52:44 -0700 (Wed, 30 Sep 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/inst/po/de/LC_MESSAGES/R-lattice.mo
+   M /trunk/lattice/inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+   M /trunk/lattice/po/R-de.po
+   M /trunk/lattice/po/R-en@quot.po
+   M /trunk/lattice/po/R-lattice.pot
+
+German translation update
+------------------------------------------------------------------------
+r5484 | deepayan | 2009-09-22 05:23:35 -0700 (Tue, 22 Sep 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/rfs.R
+
+rfs default grid change
+------------------------------------------------------------------------
+r5455 | deepayan | 2009-08-04 17:01:59 -0700 (Tue, 04 Aug 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+
+revert labels behaviour
+------------------------------------------------------------------------
+r5454 | deepayan | 2009-08-04 17:01:29 -0700 (Tue, 04 Aug 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/panel.smoothscatter.R
+
+guard against failure with a single data point
+------------------------------------------------------------------------
+r5452 | deepayan | 2009-08-03 10:20:09 -0700 (Mon, 03 Aug 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/man/cloud.Rd
+
+added link to panel.interaction.cloud
+------------------------------------------------------------------------
+r5419 | deepayan | 2009-05-14 16:15:13 -0700 (Thu, 14 May 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/inst/po/de/LC_MESSAGES/R-lattice.mo
+   A /trunk/lattice/inst/po/en@quot
+   A /trunk/lattice/inst/po/en@quot/LC_MESSAGES
+   A /trunk/lattice/inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+   M /trunk/lattice/po/R-de.po
+   M /trunk/lattice/po/R-lattice.pot
+   M /trunk/lattice/update.sh
+
+translation updates
+------------------------------------------------------------------------
+r5418 | deepayan | 2009-05-13 15:38:21 -0700 (Wed, 13 May 2009) | 1 line
+Changed paths:
+   A /trunk/lattice/po/R-en@quot.po
+
+en@quot translations
+------------------------------------------------------------------------
+r5417 | deepayan | 2009-05-13 14:53:11 -0700 (Wed, 13 May 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/po/R-lattice.pot
+   M /trunk/lattice/update.sh
+
+fix .mo file names
+------------------------------------------------------------------------
+r5416 | deepayan | 2009-05-13 14:52:41 -0700 (Wed, 13 May 2009) | 1 line
+Changed paths:
+   D /trunk/lattice/inst/po/de/LC_MESSAGES/R-de.mo
+   A /trunk/lattice/inst/po/de/LC_MESSAGES/R-lattice.mo (from /trunk/lattice/inst/po/de/LC_MESSAGES/R-de.mo:5415)
+   D /trunk/lattice/inst/po/fr/LC_MESSAGES/R-fr.mo
+   A /trunk/lattice/inst/po/fr/LC_MESSAGES/R-lattice.mo (from /trunk/lattice/inst/po/fr/LC_MESSAGES/R-fr.mo:5415)
+
+fix .mo file names
+------------------------------------------------------------------------
+r5415 | deepayan | 2009-05-13 14:47:19 -0700 (Wed, 13 May 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/NEWS
+   A /trunk/lattice/inst
+   A /trunk/lattice/inst/po
+   A /trunk/lattice/inst/po/de
+   A /trunk/lattice/inst/po/de/LC_MESSAGES
+   A /trunk/lattice/inst/po/de/LC_MESSAGES/R-de.mo
+   A /trunk/lattice/inst/po/fr
+   A /trunk/lattice/inst/po/fr/LC_MESSAGES
+   A /trunk/lattice/inst/po/fr/LC_MESSAGES/R-fr.mo
+   M /trunk/lattice/man/level.colors.Rd
+   M /trunk/lattice/man/levelplot.Rd
+   M /trunk/lattice/man/panel.levelplot.Rd
+   M /trunk/lattice/po/R-lattice.pot
+   M /trunk/lattice/update.sh
+
+doc fixes, and translation-related updates
+------------------------------------------------------------------------
+r5401 | deepayan | 2009-04-28 15:26:35 -0700 (Tue, 28 Apr 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   A /trunk/lattice/po/R-de.po
+   M /trunk/lattice/po/R-fr.po
+   M /trunk/lattice/po/R-lattice.pot
+
+added German translations
+------------------------------------------------------------------------
+r5400 | deepayan | 2009-04-28 15:26:11 -0700 (Tue, 28 Apr 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/man/panel.levelplot.Rd
+
+levelplot labeling fix
+------------------------------------------------------------------------
+r5385 | deepayan | 2009-04-03 17:53:54 -0700 (Fri, 03 Apr 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.smoothScatter.Rd
+
+removed another link
+------------------------------------------------------------------------
+r5384 | deepayan | 2009-04-03 17:43:07 -0700 (Fri, 03 Apr 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.smoothScatter.Rd
+
+removed doc link that would be absent in R < 2.9.0
+------------------------------------------------------------------------
+r5383 | deepayan | 2009-04-03 17:37:31 -0700 (Fri, 03 Apr 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/man/panel.smoothScatter.Rd
+
+fixed doc mismatch
+------------------------------------------------------------------------
+r5382 | deepayan | 2009-04-03 17:36:45 -0700 (Fri, 03 Apr 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NAMESPACE
+   M /trunk/lattice/NEWS
+   A /trunk/lattice/R/panel.smoothscatter.R
+   A /trunk/lattice/man/panel.smoothScatter.Rd
+
+added panel.smoothScatter
+------------------------------------------------------------------------
+r5379 | deepayan | 2009-03-26 14:09:05 -0700 (Thu, 26 Mar 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+   M /trunk/lattice/man/xyplot.Rd
+
+update to panel.violin fix
+------------------------------------------------------------------------
+r5378 | deepayan | 2009-03-26 11:27:09 -0700 (Thu, 26 Mar 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/bwplot.R
+
+fixed panel.violin to handle length-1 samples
+------------------------------------------------------------------------
+r5339 | deepayan | 2009-02-03 13:11:58 -0800 (Tue, 03 Feb 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/R/common.R
+   M /trunk/lattice/R/scales.R
+
+fixed aspect='iso' behaviour in levelplot with factor x and y
+------------------------------------------------------------------------
+r5316 | deepayan | 2009-01-05 17:59:58 -0800 (Mon, 05 Jan 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/SvnLog
+   M /trunk/lattice/po/R-lattice.pot
+
+updated log
+------------------------------------------------------------------------
 r5315 | deepayan | 2009-01-05 16:57:02 -0800 (Mon, 05 Jan 2009) | 1 line
 Changed paths:
    M /trunk/lattice/DESCRIPTION
