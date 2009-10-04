@@ -1,4 +1,4 @@
-\name{panel.axis}
+\name{G_panel.axis}
 \alias{panel.axis}
 \alias{current.panel.limits}
 \title{Panel Function for Drawing Axis Ticks and Labels}

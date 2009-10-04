@@ -1,4 +1,4 @@
-\name{panel.levelplot}
+\name{F_1_panel.levelplot}
 \alias{panel.levelplot}
 \alias{panel.contourplot}
 \title{ Default Panel Function for levelplot }

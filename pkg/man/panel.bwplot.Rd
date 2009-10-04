@@ -1,4 +1,4 @@
-\name{panel.bwplot}
+\name{F_1_panel.bwplot}
 \alias{panel.bwplot}
 \title{ Default Panel Function for bwplot }
 \description{

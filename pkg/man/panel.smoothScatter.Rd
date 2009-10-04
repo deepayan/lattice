@@ -1,4 +1,4 @@
-\name{panel.smoothScatter}
+\name{F_2_panel.smoothScatter}
 \alias{panel.smoothScatter}
 \title{Lattice panel function analogous to smoothScatter}
 \description{
@@ -30,7 +30,7 @@ panel.smoothScatter(x, y = NULL,
   \item{bandwidth}{Numeric vector: the smoothing bandwidth.  If missing,
     these functions come up with a more or less useful guess.  This
     parameter then gets passed on to the function
-    \code{\link[KernSmooth::bkde2D]{bkde2D}}.}
+    \code{\link[KernSmooth:bkde2D]{bkde2D}}.}
   \item{colramp}{Function accepting an integer \code{n} as an argument and
     returning \code{n} colors.}
   \item{nrpoints}{Numeric vector of length 1 giving number of points to
@@ -41,7 +41,7 @@ panel.smoothScatter(x, y = NULL,
   \item{transformation}{Function that maps the density scale to the color scale.}
   \item{pch, cex}{ graphical parameters for the \code{nrpoints}
     \dQuote{outlying} points shown in the display }
-  \item{range.x}{see  \code{\link[KernSmooth::bkde2D]{bkde2D}} for details.}
+  \item{range.x}{see  \code{\link[KernSmooth:bkde2D]{bkde2D}} for details.}
   \item{col}{\code{\link{points}} color parameter}
   \item{\dots}{Further arguments that are passed on to
     \code{\link{panel.levelplot}}.}

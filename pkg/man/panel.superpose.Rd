@@ -1,4 +1,4 @@
-\name{panel.superpose}
+\name{F_2_panel.superpose}
 \alias{panel.superpose}
 \alias{panel.superpose.2}
 \title{ Panel Function for Display Marked by groups }

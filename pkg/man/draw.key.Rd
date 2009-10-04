@@ -1,4 +1,4 @@
-\name{draw.key}
+\name{D_draw.key}
 \alias{draw.key}
 \title{Produce a Legend or Key}
 \description{

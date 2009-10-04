@@ -1,18 +1,26 @@
-\name{Lattice}
+\name{A_01_Lattice}
 \alias{Lattice}
 \alias{lattice}
 \alias{lattice-package}
 \title{Lattice Graphics}
 \description{
-  Implementation of Trellis Graphics in R
+  Trellis Graphics for R
 }
 \details{
-  Trellis Graphics is a framework for data visualization developed at
-  the Bell Labs by Rick Becker, Bill Cleveland et al, extending ideas
-  presented in Bill Cleveland's 1993 book \emph{Visualizing Data}.
 
-  Lattice is best thought of as an implementation of Trellis Graphics
-  for R.  It is built upon the Grid graphics engine and requires the
+  Trellis Graphics is a framework for data visualization developed at
+  the Bell Labs by Rick Becker, Bill Cleveland, et al, extending ideas
+  presented in Bill Cleveland's 1993 book \emph{Visualizing Data}.
+  Lattice is an implementation of Trellis Graphics for R.
+
+  Type \code{help(package = lattice)} to see a list of (public)
+  functions for which further documentation is available.  The
+  \sQuote{See Also} section below lists specific areas of interest with
+  pointers to the help pages with respective details.  Apart from the
+  documentation accompanying this package, a book on lattice is also
+  available as part of Springer's \sQuote{Use R} series.
+
+  Lattice is built upon the Grid graphics engine and requires the
   \code{grid} add-on package.  It is not (readily) compatible with
   traditional R graphics tools.  The public interface is based on the
   implementation in S-PLUS, but features several extensions, in addition
@@ -23,16 +31,6 @@
   read the entry for \code{panel} in the documentation for
   \code{\link{xyplot}}. Most high level Trellis functions in S-PLUS are
   implemented, with the exception of \code{piechart}.
-
-  Type \code{help(package = lattice)} to see a list of (public)
-  Lattice graphics functions for which further documentation is
-  available.  The \sQuote{See Also} section below has list of specific
-  areas of possible interest and pointers to the help pages with
-  respective details.  Apart from the documentation accompanying this
-  package, several documents outlining the use of Trellis graphics are
-  available from Bell Lab's website; these might provide a holistic
-  introduction to the Trellis paradigm.  A book on lattice is also
-  available as part of Springer's \sQuote{Use R} series.
 
   The example section below shows how to bring up a brief history of
   changes to the lattice package, which provides a summary of new
@@ -65,15 +63,17 @@
     Visualization with R}, Springer.  ISBN: 978-0-387-75968-5
   \url{http://lmdvr.r-forge.r-project.org/}
 
-  Bell Lab's Trellis Page:
-  \url{http://cm.bell-labs.com/cm/ms/departments/sia/project/trellis/}
-
   Cleveland, W.S. (1993) \emph{Visualizing Data}.
 
   Becker, R.A., Cleveland, W.S. and Shyu, M.
   \dQuote{The Visual Design and Control of Trellis Display},
   \emph{Journal of Computational and Graphical Statistics}
 
+  Bell Lab's Trellis Page contains several documents outlining the use
+  of Trellis graphics; these provide a holistic introduction to
+  the Trellis paradigm:
+  \url{http://cm.bell-labs.com/cm/ms/departments/sia/project/trellis/}
+  
 }
 
 
@@ -103,7 +103,6 @@
   lattice plots after they are drawn (including
   \code{\link{locator}}-like functionality) is described in the
   \code{\link{trellis.focus}} help page.
-  % \code{\link[lattice:interaction]{interaction}} help page.
 
   The following is a list of \sQuote{high level} functions in the
   Lattice package with a brief description of what they do.  In all

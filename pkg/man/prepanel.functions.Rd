@@ -1,4 +1,4 @@
-\name{prepanel.functions}
+\name{F_3_prepanel.functions}
 \alias{prepanel.lmline}
 \alias{prepanel.loess}
 \alias{prepanel.qqmathline}

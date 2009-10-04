@@ -1,4 +1,4 @@
-\name{llines}
+\name{F_2_llines}
 \alias{llines}
 \alias{lpoints}
 \alias{ltext}

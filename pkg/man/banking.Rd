@@ -1,4 +1,4 @@
-\name{banking}
+\name{G_banking}
 \alias{banking}
 \title{Banking}
 \description{

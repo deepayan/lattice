@@ -1,4 +1,4 @@
-\name{melanoma}
+\name{H_melanoma}
 \alias{melanoma}
 \docType{data}
 \title{ Melanoma skin cancer incidence }

@@ -1,4 +1,4 @@
-\name{prepanel.default}
+\name{F_3_prepanel.default}
 \alias{prepanel.default.bwplot}
 \alias{prepanel.default.histogram}
 \alias{prepanel.default.qq}

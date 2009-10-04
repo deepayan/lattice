@@ -1,4 +1,4 @@
-\name{tmd}
+\name{B_09_tmd}
 \alias{tmd}
 \alias{tmd.formula}
 \alias{tmd.trellis}

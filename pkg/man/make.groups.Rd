@@ -1,4 +1,4 @@
-\name{make.groups}
+\name{D_make.groups}
 \alias{make.groups}
 \title{ Grouped data from multiple vectors }
 \description{

@@ -1,4 +1,4 @@
-\name{axis.default}
+\name{G_axis.default}
 \alias{axis.default}
 \alias{xscale.components.default}
 \alias{yscale.components.default}

@@ -1,4 +1,4 @@
-\name{trellis.device}
+\name{C_01_trellis.device}
 \alias{trellis.device}
 \alias{standard.theme}
 \alias{canonical.theme}

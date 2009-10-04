@@ -1,4 +1,4 @@
-\name{singer}
+\name{H_singer}
 \alias{singer}
 \docType{data}
 \title{ Heights of New York Choral Society singers }
