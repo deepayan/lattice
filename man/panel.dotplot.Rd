@@ -1,4 +1,4 @@
-\name{panel.dotplot}
+\name{F_1_panel.dotplot}
 \alias{panel.dotplot}
 \title{ Default Panel Function for dotplot}
 \description{

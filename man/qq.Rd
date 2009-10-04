@@ -1,4 +1,4 @@
-\name{qq}
+\name{B_05_qq}
 \alias{qq}
 \alias{qq.formula}
 \title{ Quantile-Quantile Plots of Two Samples }

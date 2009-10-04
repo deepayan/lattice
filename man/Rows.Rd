@@ -1,4 +1,4 @@
-\name{Rows}
+\name{G_Rows}
 \alias{Rows}
 \title{Extract rows from a list}
 \description{

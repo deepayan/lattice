@@ -1,4 +1,4 @@
-\name{simpleKey}
+\name{D_simpleKey}
 \alias{simpleKey}
 \title{ Function to generate a simple key }
 \description{

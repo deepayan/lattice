@@ -1,4 +1,4 @@
-\name{xyplot}
+\name{B_01_xyplot}
 \title{Common Bivariate Trellis Plots}
 \alias{xyplot}
 \alias{xyplot.formula}
@@ -1158,7 +1158,6 @@ bwplot(x, data, \dots)
 \seealso{
   \code{\link{Lattice}} for an overview of the package, as well as 
   \code{\link{barchart.table}},
-  \code{\link{Lattice}},
   \code{\link{print.trellis}},
   \code{\link{shingle}},
   \code{\link{banking}},

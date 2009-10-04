@@ -1,4 +1,4 @@
-\name{levelplot}
+\name{B_06_levelplot}
 \title{Level plots and contour plots}
 \alias{levelplot}
 \alias{contourplot}

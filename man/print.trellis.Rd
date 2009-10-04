@@ -1,4 +1,4 @@
-\name{print.trellis}
+\name{C_05_print.trellis}
 \alias{print.trellis}
 \alias{plot.trellis}
 \alias{summary.trellis}

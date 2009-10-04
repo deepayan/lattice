@@ -1,4 +1,4 @@
-\name{panel.pairs}
+\name{F_1_panel.pairs}
 \alias{panel.pairs}
 \alias{diag.panel.splom}
 \title{ Default Superpanel Function for splom}

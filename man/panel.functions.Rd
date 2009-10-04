@@ -1,4 +1,4 @@
-\name{panel.functions}
+\name{F_2_panel.functions}
 \alias{panel.functions}
 \alias{panel.abline}
 \alias{panel.refline}

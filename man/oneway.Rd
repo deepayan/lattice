@@ -1,4 +1,4 @@
-\name{oneway}
+\name{B_11_oneway}
 \alias{oneway}
 \title{ Fit One-way Model}
 \description{

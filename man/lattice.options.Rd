@@ -1,4 +1,4 @@
-\name{lattice.options}
+\name{C_04_lattice.options}
 \alias{lattice.options}
 \alias{lattice.getOption}
 \title{ Low-level Options Controlling Behaviour of Lattice }

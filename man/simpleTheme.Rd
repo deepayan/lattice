@@ -1,4 +1,4 @@
-\name{simpleTheme}
+\name{C_03_simpleTheme}
 \alias{simpleTheme}
 \title{ Function to generate a simple theme }
 \description{

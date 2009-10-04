@@ -1,4 +1,4 @@
-\name{barley}
+\name{H_barley}
 \alias{barley}
 \docType{data}
 \title{ Yield data from a Minnesota barley trial }

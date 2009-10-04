@@ -1,4 +1,4 @@
-\name{cloud}
+\name{B_07_cloud}
 \title{3d Scatter Plot and Wireframe Surface Plot}
 \alias{cloud}
 \alias{wireframe}
@@ -51,19 +51,6 @@ wireframe(x, data, \dots)
           panel = lattice.getOption("panel.wireframe"),
           \dots)
 
-% \method{wireframe}{formula}(x, data,
-%           zoom,
-%           scales,
-%           at = pretty(z, cuts),
-%           drape = FALSE,
-%           shade = FALSE,
-%           pretty = FALSE,
-%           colorkey = any(drape),
-%           cuts = 70,
-%           col.regions,
-%           alpha.regions,
-%           \dots,
-%           col.regions)
 \method{cloud}{matrix}(x, data = NULL, type = "h", 
       zlab = deparse(substitute(x)), aspect, \dots,
       xlim, ylim, row.values, column.values)

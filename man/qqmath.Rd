@@ -1,4 +1,4 @@
-\name{qqmath}
+\name{B_04_qqmath}
 \alias{qqmath}
 \alias{qqmath.formula}
 \alias{qqmath.numeric}
@@ -8,7 +8,6 @@
 }
 \usage{
 qqmath(x, data, \dots)
-
 
 \method{qqmath}{formula}(x,
        data,

@@ -1,4 +1,4 @@
-\name{latticeParseFormula}
+\name{G_latticeParseFormula}
 \alias{latticeParseFormula}
 \title{Parse Trellis formula}
 \usage{

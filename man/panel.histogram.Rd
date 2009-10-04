@@ -1,4 +1,4 @@
-\name{panel.histogram}
+\name{F_1_panel.histogram}
 \alias{panel.histogram}
 \title{ Default Panel Function for histogram }
 \description{

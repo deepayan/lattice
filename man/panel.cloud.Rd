@@ -1,4 +1,4 @@
-\name{panel.cloud}
+\name{F_1_panel.cloud}
 \alias{panel.cloud}
 \alias{panel.wireframe}
 \alias{panel.3dscatter}

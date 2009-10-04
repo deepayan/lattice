@@ -1,4 +1,4 @@
-\name{panel.qqmathline}
+\name{F_2_panel.qqmathline}
 \alias{panel.qqmathline}
 \title{Useful panel function with qqmath}
 \description{

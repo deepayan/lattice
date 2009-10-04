@@ -1,4 +1,4 @@
-\name{splom}
+\name{B_08_splom}
 \title{Scatter Plot Matrices}
 \alias{splom}
 \alias{parallel}
@@ -168,9 +168,8 @@ parallel(x, data, \dots)
 }
 
 \seealso{
-  \code{\link{xyplot}}, \code{\link{Lattice}}, \code{\link{panel.pairs},
-    \code{\link{panel.parallel}}
-  }
+  \code{\link{xyplot}}, \code{\link{Lattice}}, \code{\link{panel.pairs}},
+    \code{\link{panel.parallel}}.
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{

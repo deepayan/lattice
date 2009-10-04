@@ -1,4 +1,4 @@
-\name{panel.densityplot}
+\name{F_1_panel.densityplot}
 \alias{panel.densityplot}
 \title{ Default Panel Function for densityplot }
 \description{

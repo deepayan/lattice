@@ -1,4 +1,4 @@
-\name{barchart.table}
+\name{B_02_barchart.table}
 \title{table methods for barchart and dotplot}
 \alias{barchart.table}
 \alias{barchart.array}
@@ -61,8 +61,7 @@
   altered (except by permuting the original argument using
   \code{\link{t}} or \code{\link{aperm}}).  For more flexibility, use
   the formula method after converting the table to a data frame using
-  the relevant \code{\link[base:as.data.frame.table]{as.data.frame}}
-  method.
+  the relevant \code{\link[base:table]{as.data.frame}} method.
 
 }
 

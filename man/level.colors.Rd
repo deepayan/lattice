@@ -1,4 +1,4 @@
-\name{level.colors}
+\name{D_level.colors}
 \alias{level.colors}
 \title{
   A function to compute false colors representing a numeric or
