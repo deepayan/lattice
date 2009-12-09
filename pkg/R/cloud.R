@@ -119,7 +119,7 @@ prepanel.default.cloud <-
 panel.3dscatter <-
     function(x, y, z, rot.mat = diag(4), distance,
              groups = NULL,
-             type = 'p',
+             type = "p",
              xlim.scaled,
              ylim.scaled,
              zlim.scaled,
@@ -180,7 +180,7 @@ panel.3dscatter <-
         ## this is too much to make it worth the effort.)
 
         ## 'points' type
-        if (any(c('p', 'b', 'o') %in% type))
+        if (any(c("p", "b", "o") %in% type))
         {
             id <-
                 ((x >= xlim.scaled[1]) & (x <= xlim.scaled[2]) &
@@ -219,7 +219,7 @@ panel.3dscatter <-
         }
 
         ## 'lines' type
-        if (any(c('l', 'b', 'o') %in% type))
+        if (any(c("l", "b", "o") %in% type))
         {
             ord <- if (is.null(groups)) TRUE else sort.list(groups)
             tmplen <- length(x)
@@ -249,7 +249,7 @@ panel.3dscatter <-
 
 
         ## 'histogram' type
-        if ('h' %in% type)
+        if ("h" %in% type)
         {
             id <-
                 ((x >= xlim.scaled[1]) & (x <= xlim.scaled[2]) &
@@ -269,7 +269,7 @@ panel.3dscatter <-
                       lty = lty[ord],
                       lwd = lwd[ord])
         }
-        if (any(!(type %in% c('p', 'h', 'l', 'b', 'o'))))
+        if (any(!(type %in% c("p", "h", "l", "b", "o"))))
         {
             warning("'type' has unsupported values")
         }
@@ -904,6 +904,8 @@ panel.cloud <-
             }
             else cmin$z + clen$z * (at - zlim[1])/diff(zlim)
 
+        ## same?: zero.scaled <- cmin$z + clen$z * (0 - zlim[1])/diff(zlim)
+        ## yes.                  cmin$z - clen$z *       zlim[1]/diff(zlim)
         zero.scaled <- cmin$z - clen$z * zlim[1]/diff(zlim)
         ## needed in panel.3dscatter for type = 'h'
 
