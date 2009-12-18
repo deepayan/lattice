@@ -17,6 +17,7 @@ panel.levelplot(x, y, z,
                 col = add.line$col,
                 lty = add.line$lty,
                 lwd = add.line$lwd,
+                border = "transparent",
                 \dots,
                 col.regions = regions$col,
                 alpha.regions = regions$alpha)
@@ -76,9 +77,10 @@ panel.contourplot(\dots)
   }
   \item{region}{
     A logical flag, specifying whether inter-contour regions should be
-    filled with the appropriate color.
+    filled with appropriately colored rectangles.
   }
   \item{col, lty, lwd}{ graphical parameters for contour lines}
+  \item{border}{ border color for rectangles used when \code{region=TRUE}. }
 %   \item{cex, col.text, font, fontfamily, fontface}{ graphical parameters for contour labels}
   \item{\dots}{ Extra parameters. }
   \item{col.regions}{
