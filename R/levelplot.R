@@ -119,6 +119,7 @@ panel.levelplot <-
              col = add.line$col,
              lty = add.line$lty,
              lwd = add.line$lwd,
+             border = "transparent",
              ...,
              col.regions = regions$col,
              alpha.regions = regions$alpha)
@@ -146,7 +147,7 @@ panel.levelplot <-
     x <- x[subscripts]
     y <- y[subscripts]
     minXwid <- if (length(unique(x)) > 1) min(diff(sort(unique(x)))) else 1
-    minYwid <- if (length(unique(x)) > 1) min(diff(sort(unique(y)))) else 1
+    minYwid <- if (length(unique(y)) > 1) min(diff(sort(unique(y)))) else 1
     fullZrange <- range(as.numeric(z), finite = TRUE) # for shrinking
     z <- z[subscripts]
     zcol <- zcol[subscripts]
@@ -237,7 +238,7 @@ panel.levelplot <-
                   gp =
                   gpar(fill = zcol,
                        lwd = 0.00001,
-                       col = "transparent",
+                       col = border,
                        alpha = alpha.regions))
 
     if (contour)
