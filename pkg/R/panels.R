@@ -558,6 +558,7 @@ panel.superpose <-
                          alpha = alpha[i],
                          type = type[[i]],
                          group.number = i,
+                         group.value = vals[i],
                          ...)
                 ## if (have.type) args$type <- type
                 if (!is.null(y)) args$y <- y[id]

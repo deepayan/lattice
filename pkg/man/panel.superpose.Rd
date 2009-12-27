@@ -27,9 +27,10 @@ panel.superpose.2(\dots, distribute.type = TRUE)
     \code{panel.xyplot} (behaviour in S).
 
     To be able to distinguish between different levels of the
-    originating group inside \code{panel.groups}, it will be supplied a
-    special argument called \code{group.number} which will hold the
-    numeric code corresponding to the current level of \code{groups}.
+    originating group inside \code{panel.groups}, it will be supplied
+    two special arguments called \code{group.number} and
+    \code{group.value} which will hold the numeric code and factor level
+    corresponding to the current level of \code{groups}.
     No special care needs to be taken when writing a \code{panel.groups}
     function if this feature is not used.
   }
@@ -78,7 +79,7 @@ panel.superpose.2(\dots, distribute.type = TRUE)
     \code{panel.superpose}.
   }
   \item{distribute.type}{logical controlling interpretation of the
-    \code{type} argument.  
+    \code{type} argument.
   }
 
 }
