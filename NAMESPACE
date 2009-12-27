@@ -295,9 +295,6 @@ S3method(llines,      default)
 S3method(ltext,       default)
 S3method(lpoints,     default)
 
-S3method(llines,      ts)
-S3method(lpoints,     ts)
-
 
 ### Local variables:
 ### mode: R
