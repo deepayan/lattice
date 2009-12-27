@@ -66,3 +66,4 @@ trellis.par.get         Graphical Parameters for Trellis Displays
 update.trellis          Retrieve and Update Trellis Object
 utilities.3d            Utility functions for 3-D plots
 xyplot                  Common Bivariate Trellis Plots
+xyplot.ts               Time series plotting methods

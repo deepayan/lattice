@@ -1,8 +1,8 @@
 
 xyplot.ts <-
     function(x, data = NULL,
-             ...,
              screens = if (superpose) 1 else colnames(x),
+             ...,
              superpose = FALSE, ## not used directly
              cut = FALSE,
              type = "l",
@@ -11,10 +11,11 @@ xyplot.ts <-
              lwd = if (!superpose) plot.line$lwd,
              pch = if (!superpose) plot.symbol$pch,
              auto.key = superpose,
-             par.settings = list(), 
+             par.settings = list(),
              layout = NULL, as.table = TRUE,
-             xlab = "Index", ylab = NULL,
-             default.scales = list(y = list(relation = "free")))
+             xlab = "Time", ylab = NULL,
+             default.scales = list(y = list(relation =
+                 if (missing(cut)) "free" else "same")))
 {
     plot.line <- trellis.par.get("plot.line")
     plot.symbol <- trellis.par.get("plot.symbol")
@@ -28,7 +29,21 @@ xyplot.ts <-
     ## set up shingle for cut-and-stack plot
     ## (may not work well with irregular series)
     time <- NULL
-    if (is.logical(cut) && cut) cut <- list()
+    if (is.numeric(cut)) cut <- list(number = cut)
+    if (isTRUE(cut)) {
+        ## calculate optimum aspect ratio using banking (as for aspect = "xy")
+        timediff <- diff(timex)
+        asp <- apply(x, 2, function(y)
+                     banking(timediff, diff(y)) * diff(range(y)) / diff(range(timex))
+                     )
+        asp <- median(asp)
+        ## work out aspect ratio of n panels in vertical layout on a square
+        nasp <- 1 / (1:6)
+        ## choose number of cuts so that the "xy" aspect matches layout
+        number <- which.min(abs(1 - (asp * 1:6) / nasp))
+        cut <- list(number = number)
+        if (number == 1) cut <- FALSE
+    }
     if (is.list(cut))
     {
         ecargs <- list(x = timex)
@@ -62,7 +77,7 @@ xyplot.ts <-
 
     if (is.null(layout)) {
         npanels <- nlevels(fac) * max(1, nlevels(time))
-        nc <- ceiling(npanels/5)
+        nc <- ceiling(npanels/6)
         nr <- ceiling(npanels/nc)
         layout <- c(nc, nr)
     }
@@ -142,24 +157,3 @@ make.par.list <- function(nams, x, n, m, def, recycle = sum(unnamed) > 0) {
     }
     lapply(y, function(y) if (length(y)==1) y else rep(y, length.out = n))
 }
-
-llines.ts <-
-    function(x, y = NULL, ...)
-{
-    if (!is.null(y)) {
-        llines(as.vector(x), y = y, ...)
-    } else {
-        llines(as.vector(time(x)), y = as.vector(x), ...)
-    }
-}
-
-lpoints.ts <-
-    function(x, y = NULL, ...)
-{
-    if (!is.null(y)) {
-        lpoints(as.vector(x), y = y, ...)
-    } else {
-        lpoints(as.vector(time(x)), y = as.vector(x), ...)
-    }
-}
-
