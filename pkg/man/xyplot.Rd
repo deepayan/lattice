@@ -1115,7 +1115,7 @@ bwplot(x, data, \dots)
   a single panel.
 
   The coordinate system used by lattice by default is like a graph,
-  with the origin at the bottom left, with axes increasing to left and
+  with the origin at the bottom left, with axes increasing right and
   up. In particular, panels are by default drawn starting from the
   bottom left corner, going right and then up; unless \code{as.table =
     TRUE}, in which case panels are drawn from the top left corner,
