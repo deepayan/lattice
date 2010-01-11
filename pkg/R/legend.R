@@ -72,9 +72,20 @@ construct.legend <-
 
 
 
+## A convenience function for deciding whether an ``automatic'' legend
+## should be drawn following instructions contained in the 'auto.key'
+## argument.
+
+needAutoKey <- function(auto.key, groups = NULL)
+{
+    (is.list(auto.key) || isTRUE(auto.key)) &&
+    (!is.null(groups) || !is.null(auto.key$text))
+    ## old behaviour was:
+    ## !is.null(groups) && (is.list(auto.key) || isTRUE(auto.key))
+}
 
 
-# convenience function for auto.key
+## convenience function for auto.key
 drawSimpleKey <- function(...)
     draw.key(simpleKey(...), draw = FALSE)
 
@@ -82,7 +93,7 @@ drawSimpleKey <- function(...)
 
 
 
-# convenience function for the most common type of key
+## convenience function for the most common type of key
 
 simpleKey <-
     function(text, points = TRUE,

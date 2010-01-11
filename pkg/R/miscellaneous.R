@@ -1,7 +1,5 @@
 
-
-
-### Copyright (C) 2001-2006 Deepayan Sarkar <Deepayan.Sarkar@R-project.org> 
+### Copyright (C) 2001-2009 Deepayan Sarkar <Deepayan.Sarkar@R-project.org> 
 ###
 ### This file is part of the lattice package for R.
 ### It is made available under the terms of the GNU General Public
@@ -137,10 +135,6 @@ updateList <- function(x, val)
 ##     }
 ##     x
 ## }
-
-
-
-
 
 
 ## Next 3 are convenience functions following those available in Trellis
@@ -604,5 +598,6 @@ lplot.xy <-
 ##     }
     return()
 }
+
 
 
