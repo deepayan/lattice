@@ -403,8 +403,7 @@ xyplot.formula <-
           cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
-    if (is.null(foo$legend) && !is.null(groups) &&
-        (is.list(auto.key) || (is.logical(auto.key) && auto.key)))
+    if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
         foo$legend <-
             list(list(fun = "drawSimpleKey",
