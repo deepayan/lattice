@@ -263,7 +263,7 @@ update.trellis <-
         else 
         {
             groups <- object$panel.args.common$groups
-            if (!is.null(groups) && (is.list(auto.key) || (is.logical(auto.key) && auto.key)))
+            if (needAutoKey(auto.key, groups))
             {
                 object$legend <-
                     list(list(fun = "drawSimpleKey",

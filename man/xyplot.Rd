@@ -394,7 +394,9 @@ bwplot(x, data, \dots)
     specified in the call, a key is created with \code{simpleKey} with
     \code{levels(groups)} as the first argument. (Note: this may not
     work in all high level functions, but it does work for the ones
-    where grouping makes sense with the default panel function)
+    where grouping makes sense with the default panel function).
+    The \code{text} parameter sets the key labels, and forces the key
+    to be drawn even without \code{groups}.
 
     \code{simpleKey} uses the trellis settings to determine the
     graphical parameters in the key, so this will be meaningful only if
