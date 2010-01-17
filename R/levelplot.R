@@ -854,3 +854,87 @@ levelplot.formula <-
     foo
 }
 
+
+## experimental version using grid.raster (R >= 2.11.0)
+
+panel.levelplot.raster <-
+    function(x, y, z, 
+             subscripts,
+             at = pretty(z),
+             ...,
+             col.regions = regions$col,
+             alpha.regions = regions$alpha,
+             interpolate = FALSE)
+{
+    if (length(subscripts) == 0) return()
+    regions <- trellis.par.get("regions")
+    x.is.factor <- is.factor(x)
+    y.is.factor <- is.factor(y)
+    x <- as.numeric(x)
+    y <- as.numeric(y)
+    z <- as.numeric(z)
+    zcol <- level.colors(z, at, col.regions, colors = TRUE)
+    x <- x[subscripts]
+    y <- y[subscripts]
+    z <- z[subscripts]
+    zcol <- zcol[subscripts]
+
+    if (x.is.factor)
+    {
+        ## unique values (we want to keep missing levels in between)
+        ux <- seq(from = min(x, na.rm = TRUE), to = max(x, na.rm = TRUE))
+        xwid <- 1L
+    }
+    else
+    {
+        ## sorted unique values of x 
+        ux <- sort(unique(x[!is.na(x)]))
+        ## complain if all ux are not equidistant
+        if (length(unique(diff(ux))) != 1) warning("'x' values are not equispaced; output will be wrong")
+        xwid <- mean(diff(ux))
+    }
+    ## same things for y
+    if (y.is.factor)
+    {
+        ux <- seq(from = min(y, na.rm = TRUE), to = max(y, na.rm = TRUE))
+        ywid <- 1L
+    }
+    else
+    {
+        uy <- sort(unique(y[!is.na(y)]))
+        if (length(unique(diff(uy))) != 1) warning("'y' values are not equispaced; output will be wrong")
+        ywid <- mean(diff(uy))
+    }
+    ncolumns <- length(ux)
+    nrows <- length(uy)
+    xlow <- ux[1] - 0.5 * xwid
+    xhigh <- ux[ncolumns] + 0.5 * xwid
+    ylow <- uy[1] - 0.5 * ywid
+    yhigh <- uy[nrows] + 0.5 * ywid
+    ## create a suitable matrix of colors
+    zmat <- rep("transparent", ncolumns * nrows)
+    idx <- match(x, ux)
+    idy <- match(y, rev(uy)) # image goes top to bottom
+    id <- idy + nrows * (idx-1L)
+    zmat[id] <- zcol
+    dim(zmat) <- c(nrows, ncolumns)
+    grid.raster(as.raster(zmat), interpolate = interpolate,
+                x = xlow, y = ylow,
+                width = xhigh - xlow, height = yhigh - ylow,
+                just = c("left", "bottom"),
+                default.units = "native")
+}
+
+## require(grid)
+
+## levelplot(rnorm(10) ~ 1:10 + (2 * 1:10), panel = panel.levelplot.raster)
+
+## levelplot(rnorm(10) ~ 1:10 + sort(runif(10)), panel = panel.levelplot.raster)
+
+## levelplot(volcano, panel = panel.levelplot.raster)
+
+## levelplot(volcano, panel = panel.levelplot.raster,
+##           col.regions = topo.colors, cuts = 30, interpolate = TRUE)
+
+
+
