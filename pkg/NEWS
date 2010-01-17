@@ -1,5 +1,21 @@
 
 
+Changes in lattice 0.18
+=======================
+
+ o Hosting of the upstream sources has moved to R-forge.  This allows,
+   among other things, the use of the R-forge issue tracker.
+
+ o New method xyplot.ts method, merging versions previously available
+   in latticeExtra and zoo (thanks to the efforts of Felix Andrews)
+
+ o An argument 'group.value', cotaining the level of the group, is now
+   passed by panel.superpose to the 'panel.groups' function
+
+ o Specifying 'auto.key' as a list now produces a legend even in the
+   absence of 'groups', provided a 'text' component has been included
+
+
 Changes in lattice 0.17
 =======================
 
