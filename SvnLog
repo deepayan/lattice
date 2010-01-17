@@ -1,4 +1,98 @@
 ------------------------------------------------------------------------
+r560 | felix | 2010-01-11 18:48:42 -0800 (Mon, 11 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
+   M /pkg/R/cloud.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/parallel.R
+   M /pkg/R/qqmath.R
+   M /pkg/R/splom.R
+   M /pkg/R/update.trellis.R
+   M /pkg/R/xyplot.R
+   M /pkg/man/xyplot.Rd
+
+allow 'text' argument to force auto.key
+------------------------------------------------------------------------
+r559 | deepayan | 2010-01-11 06:06:53 -0800 (Mon, 11 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/R/legend.R
+   M /pkg/R/miscellaneous.R
+   A /www/index.php
+
+new internal function, plus a placeholder webpage
+------------------------------------------------------------------------
+r558 | deepayan | 2010-01-10 13:43:10 -0800 (Sun, 10 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/man/xyplot.Rd
+
+fixed typo
+------------------------------------------------------------------------
+r557 | felix | 2009-12-26 21:57:22 -0800 (Sat, 26 Dec 2009) | 1 line
+Changed paths:
+   M /pkg/R/panels.R
+   M /pkg/man/panel.superpose.Rd
+
+'group.value' passed by panel.superpose
+------------------------------------------------------------------------
+r556 | felix | 2009-12-26 21:27:28 -0800 (Sat, 26 Dec 2009) | 1 line
+Changed paths:
+   M /pkg/INDEX
+   M /pkg/NAMESPACE
+   M /pkg/R/xyplot.ts.R
+   A /pkg/man/xyplot.ts.Rd
+
+xyplot.ts: cleanup, add doc
+------------------------------------------------------------------------
+r555 | deepayan | 2009-12-18 05:27:48 -0800 (Fri, 18 Dec 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/man/panel.levelplot.Rd
+
+panel.levelplot bugfix, and add option for borders
+
+NOTE: THIS IS THE SAME ENTRY AS THE NEXT ONE, AND REPRESENTS THE
+RELOCATION OF THE SUBVERSION TREE FROM
+https://svn.r-project.org/R-packages/ TO R-FORGE.  THIS LEADS TO A
+REMAPPING OF THE REVISION NUMBERS.
+------------------------------------------------------------------------
+r5540 | deepayan | 2009-12-18 05:27:48 -0800 (Fri, 18 Dec 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/levelplot.R
+   M /trunk/lattice/man/panel.levelplot.Rd
+
+panel.levelplot bugfix, and add option for borders
+------------------------------------------------------------------------
+r5534 | deepayan | 2009-12-08 23:21:20 -0800 (Tue, 08 Dec 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/man/xyplot.Rd
+
+doc clarification
+------------------------------------------------------------------------
+r5533 | deepayan | 2009-12-08 22:43:46 -0800 (Tue, 08 Dec 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/NAMESPACE
+   A /trunk/lattice/R/xyplot.ts.R
+
+add xyplot.ts method, merging versions in latticeExtra and zoo (courtesy of Felix Andrews)
+------------------------------------------------------------------------
+r5531 | deepayan | 2009-12-08 22:40:26 -0800 (Tue, 08 Dec 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/R/cloud.R
+   M /trunk/lattice/R/panels.R
+
+panel.average fix + minor formatting
+------------------------------------------------------------------------
+r5490 | deepayan | 2009-10-04 13:06:23 -0700 (Sun, 04 Oct 2009) | 1 line
+Changed paths:
+   M /trunk/lattice/DESCRIPTION
+   M /trunk/lattice/INDEX
+   M /trunk/lattice/NEWS
+   M /trunk/lattice/SvnLog
+   M /trunk/lattice/po/R-lattice.pot
+
+updated version, news
+------------------------------------------------------------------------
 r5489 | deepayan | 2009-10-04 12:59:18 -0700 (Sun, 04 Oct 2009) | 1 line
 Changed paths:
    M /trunk/lattice/man/Lattice.Rd
