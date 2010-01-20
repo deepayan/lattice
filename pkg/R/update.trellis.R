@@ -132,6 +132,7 @@ update.trellis <-
     }
     have.xlim <- !missing(xlim)    ## needed later
     have.ylim <- !missing(ylim)
+    have.axs <- FALSE
 
     ## deal with the non-problematic stuff first
 
@@ -309,6 +310,9 @@ update.trellis <-
             zscales$log <- NULL
         }
 
+        if (!is.null(scales$axs) || !is.null(xscales$axs) || !is.null(yscales$axs))
+            have.axs <- TRUE
+
         if (is.logical(scales$alternating)) scales$alternating <- if (scales$alternating) c(1,2) else 1
         if (is.logical(xscales$alternating)) xscales$alternating <- if (xscales$alternating) c(1,2) else 1
         if (is.logical(yscales$alternating)) yscales$alternating <- if (yscales$alternating) c(1,2) else 1
@@ -370,7 +374,7 @@ update.trellis <-
 
     ## stuff that may need recalculation of limits and aspect ratio
 
-    recalculateLimits <- have.xlim || have.ylim || relationChanged
+    recalculateLimits <- have.xlim || have.ylim || relationChanged || have.axs
 
     if (!missing(aspect))
     {
@@ -422,7 +426,9 @@ update.trellis <-
                                  y.relation = object$y.scales$relation,
                                  panel.args.common = object$panel.args.common,
                                  panel.args = object$panel.args,
-                                 aspect = object$aspect.ratio)
+                                 aspect = object$aspect.ratio,
+                                 x.axs = object$x.scales$axs,
+                                 y.axs = object$y.scales$axs)
         ##...)  ## extra arguments for prepanel (for qqmathline)
         object[names(laa)] <- laa
     }
