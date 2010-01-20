@@ -15,6 +15,8 @@ Changes in lattice 0.18
  o Specifying 'auto.key' as a list now produces a legend even in the
    absence of 'groups', provided a 'text' component has been included
 
+ o The 'layout' argument now accepts Inf for either columns or rows.
+
 
 Changes in lattice 0.17
 =======================

@@ -744,6 +744,11 @@ compute.layout <-
         if(all(layout < 1))
             stop("at least one element of layout must be positive")
         else if (layout[2]==0) stop("inadmissible value of layout")
+
+        if (is.infinite(layout[1]))
+            layout[1] <- ceiling(nplots / layout[2])
+        if (is.infinite(layout[2]))
+            layout[2] <- ceiling(nplots / layout[1])
         
         skip <- rep(skip, length.out = max(layout[1] * layout[2], layout[2]))
         plots.per.page <- length(skip) - length(skip[skip])

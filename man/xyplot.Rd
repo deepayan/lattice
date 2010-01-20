@@ -980,6 +980,10 @@ bwplot(x, data, \dots)
 	by default set to as many as is required to plot all the panels.  In
 	general, giving a high value of \code{layout[3]} is not wasteful
 	because blank pages are never created.
+
+	If the special value \code{Inf} is specified for the number of
+	rows or columns, that dimension will be filled out according to
+	the number of panels.
       }
       \item{\code{skip}:}{
 	logical vector (default \code{FALSE}), replicated to be as long as
