@@ -745,7 +745,8 @@ compute.layout <-
             stop("inadmissible value of layout")
         else if (all(layout < 1))
             stop("at least one element of layout must be positive")
-        else if (layout[2]==0) stop("inadmissible value of layout")
+        else if (isTRUE(layout[2] == 0))
+            stop("inadmissible value of layout")
 
         if (is.na(layout[1]))
             layout[1] <- ceiling(nplots / layout[2])
