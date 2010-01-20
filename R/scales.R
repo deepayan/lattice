@@ -209,20 +209,9 @@ limitsFromLimitlist <-
         ## class.
 
 
-        if (have.lim)
-        {
-            if (is.list(lim))
-                stop("limits cannot be a list when relation = same")
-            limits <- lim
-            slicelen <-
-                ## this no longer works for dates (R 2.6)
-##                 if (is.numeric(lim)) diff(range(lim))
-##                 else length(lim) + 2
-                if (is.character(lim)) length(lim) + 2
-                else diff(range(as.numeric(lim)))
-        }
-        else
-        {
+        #if (!have.lim)
+        ## always calculate the limits from prepanel first:
+
             ## should check that all classes are the same. How ? What
             ## about NA's ? Arrgh!
 
@@ -268,6 +257,22 @@ limitsFromLimitlist <-
                 limits <- c(0,1)
                 slicelen <- 1
             }
+
+        if (have.lim)
+        {
+            if (is.list(lim))
+                stop("limits cannot be a list when relation = same")
+            old.limits <- limits
+            limits <- lim
+            ## lim overrides prepanel except NAs
+            if (!is.character(old.limits))
+                limits[is.na(limits)] <- old.limits[is.na(limits)]
+            slicelen <-
+                ## this no longer works for dates (R 2.6)
+##                 if (is.numeric(lim)) diff(range(lim))
+##                 else length(lim) + 2
+                if (is.character(limits)) length(limits) + 2
+                else diff(range(as.numeric(limits)))
         }
         ans <- list(limits = limits, slicelen = slicelen)
     }
@@ -350,6 +355,16 @@ limitsFromLimitlist <-
             limitlist[id] <- lim
             which.null <- sapply(limitlist, is.null)
             limitlist[which.null] <- old.limitlist[which.null]
+
+            ## lim overrides prepanel except NAs
+            for (i in seq_along(limitlist))
+            {
+                if (!is.character(limitlist[[i]]))
+                {
+                    isna <- is.na(limitlist[[i]])
+                    limitlist[[i]][isna] <- old.limitlist[[i]][isna]
+                }
+            }
         }
         for (i in seq_along(limitlist))
         {
@@ -412,6 +427,11 @@ limits.and.aspect <-
                 prenames <- names(formals(prepanel))
                 if (!("..." %in% prenames)) pargs <- pargs[intersect(names(pargs), prenames)]
                 pretem <- do.call("prepanel", pargs)
+                ## prepanel() over-rides defaults except NAs - e.g. ylim = c(0, NA)
+                if (any(isna <- is.na(as.numeric(pretem$xlim))))
+                    pretem$xlim[isna] <- tem$xlim[isna]
+                if (any(isna <- is.na(as.numeric(pretem$ylim))))
+                    pretem$ylim[isna] <- tem$ylim[isna]
                 tem <- updateList(tem, pretem)
                 ## tem[names(pretem)] <- pretem
             }

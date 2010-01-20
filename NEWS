@@ -17,6 +17,8 @@ Changes in lattice 0.18
 
  o The 'layout' argument now accepts NA for number of columns or rows.
 
+ o Scale limits 'xlim' & 'ylim' can have one NA to fix only one side.
+
 
 Changes in lattice 0.17
 =======================
