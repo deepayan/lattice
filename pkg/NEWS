@@ -15,7 +15,7 @@ Changes in lattice 0.18
  o Specifying 'auto.key' as a list now produces a legend even in the
    absence of 'groups', provided a 'text' component has been included
 
- o The 'layout' argument now accepts Inf for either columns or rows.
+ o The 'layout' argument now accepts NA for number of columns or rows.
 
 
 Changes in lattice 0.17
@@ -96,7 +96,7 @@ changes in behaviour
    their list form, they support more graphical parameters as well as
    finer positioning (justification, rotation, etc.)
 
- o 'strip.left' gets called with 'horizontal = FALSE', so 
+ o 'strip.left' gets called with 'horizontal = FALSE', so
    'strip.left = strip.default' now works as expected
 
 
@@ -130,7 +130,7 @@ new features
    panel.brush.splom()
 
  o There is now an error handling mechanism for panel functions.  By
-   default, errors in panel functions no longer stop execution.  See 
+   default, errors in panel functions no longer stop execution.  See
    ?print.trellis for details.
 
 
@@ -139,7 +139,7 @@ changes in behaviour
 
  o non-numeric data no longer cause warnings in bwplot
 
- o the default padding between components has been changed to 
+ o the default padding between components has been changed to
    0.5 "chars"
 
 
@@ -227,7 +227,7 @@ new features
    by calling 'panel.superpose'.  Consequently, the default of 'panel'
    in 'xyplot' etc does not need to be conditional on 'groups'.
 
- o added 'lineheight' as a graphical parameter where appropriate. 
+ o added 'lineheight' as a graphical parameter where appropriate.
 
  o added a 'grid.pars' setting for arbitrary grid parameters to be
    set initially via gpar().
@@ -306,8 +306,8 @@ Changes in lattice 0.12
 improvements
 ------------
 
- o panel.bwplot has a new 'stats' argument, which is a function used to 
-   calculate the statistics in the box and whisker plot.  Defaults 
+ o panel.bwplot has a new 'stats' argument, which is a function used to
+   calculate the statistics in the box and whisker plot.  Defaults
    to boxplot.stats, which was the hard-coded value earlier.
 
  o panel.bwplot has been re-implemented.  Faster, avoids direct grid
@@ -498,7 +498,7 @@ new features
  o type="H" in lplot.xy (for horizontal line).  New argument
    'horizontal' for panel.xyplot, which affects what happens for
    various 'type'-s.
- 
+
  o type="g" in panel.xyplot, which draws a reference grid
 
  o the print method now (optionally) saves the (last) object printed
@@ -528,7 +528,7 @@ changes in behaviour
  o choice of color for grouped barcharts now taken from a new setting
    parameter 'superpose.fill' and not 'regions' as previously
 
- o arguments to panel.levelplot has changed (this is related to how 
+ o arguments to panel.levelplot has changed (this is related to how
    default colors are obtained, as described above).
 
 
@@ -596,8 +596,8 @@ new features
    multiple legends and the use of arbitrary grid objects as keys
 
  o option to NOT drop unused factor levels when subsetting, by setting
-   drop.unused.levels = FALSE or 
-   drop.unused.levels = list(cond = FALSE, data = FALSE) 
+   drop.unused.levels = FALSE or
+   drop.unused.levels = list(cond = FALSE, data = FALSE)
    in high-level functions like xyplot.
 
  o Ability to attach settings to a trellis object (rather than
@@ -632,7 +632,7 @@ bug fixes
 
  o Fixed important bug concerning interaction of subscripts and
    subsets
-   
+
 
  o lots of other fixes, mostly obscure
 
@@ -659,7 +659,7 @@ Changes in lattice 0.8
  o Clipping can now be turned off in panels and strips via the
    trellis.par.get("clip") setting.
 
-See the Changelog for other minor changes. 
+See the Changelog for other minor changes.
 
 
 
@@ -712,7 +712,7 @@ scales
 Changes in lattice 0.6
 ======================
 
-API change: 
+API change:
 ----------
 
  o panel functions: In earlier versions, panel functions and prepanel
@@ -767,7 +767,7 @@ New Features and Fixes:
    routine currently used is a hack of axis.POSIXt (without the format
    option), but will hopefully improve in future.
 
- o 3-D functions: 
+ o 3-D functions:
 
    The 3-D functions cloud and wireframe have been greatly improved in
    terms of extensibility. The code is much cleaner, and writing new
@@ -798,7 +798,7 @@ New Features and Fixes:
 
 
 
-Known bugs: 
+Known bugs:
 ==========
 
  o Handling of NA values are often inconsistent and buggy. Some of
@@ -814,7 +814,7 @@ Known bugs:
 Changes in lattice 0.5
 ======================
 
-Not many. 
+Not many.
 
  o Biggest change in the way settings are handled. Settings are now
    stored in a global list called lattice.theme, and is truly
@@ -841,7 +841,7 @@ Not many.
 
  o Following changes in grid, calls to base R graphics and lattice
    functions can now be mixed.
-  
+
 
 Changes in lattice 0.4
 ======================
@@ -879,7 +879,7 @@ bugfixes (notably in levelplot). The important changes are:
    the left, top or bottom as well
 
  o new ``lines'' component in the par.strip.text argument that can be
-   used to change the height of strips 
+   used to change the height of strips
 
  o xlab, main etc can be double height strings (containing "\n"-s),
    the spaces allocated for these would be automatically adjusted
@@ -903,7 +903,7 @@ bugfixes (notably in levelplot). The important changes are:
 
 
 
-  
+
 
 Changes in lattice 0.3
 ======================
@@ -925,13 +925,13 @@ New Features:
  o levelplot (but no contourplot. In particular, the contour = T option
    in levelplot does not work)
 
- o tmd now works on the output from qq 
+ o tmd now works on the output from qq
 
  o panel function names can now be quoted strings
 
  o scales and its x and y components can now be just a character
    string like "free" or "sliced", i.e., the relation tag can be
-   omitted. 
+   omitted.
 
  o extension to the `type' argument in panel.xyplot and
    panel.superpose to allow stair-like and histogram-like plots
@@ -946,7 +946,7 @@ New Features:
    functions to help port existing S-Plus Trellis code. See below for
    details.
 
- o changes in print.trellis to allow mixing of Lattice and usual R 
+ o changes in print.trellis to allow mixing of Lattice and usual R
    graphics. See below for details.
 
 
@@ -985,7 +985,7 @@ Still Missing [OBSOLETE, except for the parts about piechart and scale]
  o Some components of scale (I haven't found a full list, so
    can't say exactly which are missing)
 
- o Fonts 
+ o Fonts
 
  o axis labels badly implemented, no checking for overlaps.
 
