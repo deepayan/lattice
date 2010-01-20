@@ -68,7 +68,7 @@ cupdate <- function(index, maxim)
 ## in f:g (the point is to have a 'sep' argument).  Solely intended
 ## for use below in latticeParseFormula
 
-interaction2 <- 
+interaction2 <-
     function (f, g, sep = ":")
 {
     ans <- f:g
@@ -163,7 +163,7 @@ latticeParseFormula <-
                 stop("shingles can not be concatenated")
             } else do.call("c", arglist)
         }
-    
+
     if (!inherits(model, "formula"))
         stop("model must be a formula object")
     if (multiple && !outer && !is.null(groups))
@@ -183,7 +183,7 @@ latticeParseFormula <-
              right.y.name = character(0))
     }
     else stop(gettextf("invalid dimension '%s'", as.character(dimension)))
-    
+
     if (length(model) == 3) {  ## <something> ~ <something>
         if (multiple) {
             varsLHS <- parseSide(model[[2]])
@@ -198,7 +198,7 @@ latticeParseFormula <-
     modelRHS <- model[[length(model)]]
     if (length(modelRHS) == 3 && modelRHS[[1]] == as.name("|"))
         modelRHS <- modelRHS[[2]]
-        
+
 
     ## Note that when dimension = 3, multiple does not apply to RHS
 
@@ -341,7 +341,7 @@ latticeParseFormula <-
         nRows <- length(ans$right.x)/nLHS
     }
     else stop("invalid model")
-    
+
     if (nLHS > 1)
         LHSgroups <-
             rep(gl(nLHS, nRows,
@@ -350,7 +350,7 @@ latticeParseFormula <-
     if (nRHS > 1)
         RHSgroups <-
             gl(nRHS, nRows*nLHS, labels = sapply(varsRHS, expr2char))
-    newFactor <- 
+    newFactor <-
         if (nLHS > 1 && nRHS > 1) {
             interaction2(LHSgroups, RHSgroups, sep = lattice.getOption("interaction.sep"))
             ## WAS: factor(paste(LHSgroups, RHSgroups, sep=" * "))
@@ -461,7 +461,7 @@ weighted.banking <-
         {
             sum(atan(a * ndy / ndx) * sqrt(ndx^2 + a^2 * ndy^2) ) /
                 sum(sqrt(ndx^2 + a^2 * ndy^2)) -
-                    base::pi / 4 
+                    base::pi / 4
         }
         ##         r  <- abs(dx[id]/dy[id])
         ##         median(r)
@@ -591,7 +591,7 @@ trellis.skeleton <-
              aspect.fill = (aspect == "fill"),
              ## key = key,
              legend = construct.legend(legend = legend, key = key),
-             panel = panel, 
+             panel = panel,
              page = page,
              layout = layout,
              skip = skip,
@@ -632,7 +632,7 @@ trellis.skeleton <-
 
 
 
-cond.orders <- function(foo, ...) 
+cond.orders <- function(foo, ...)
     ## function to determine order of panels within a cond. variable
     ## foo: trellis object-to-be
 
@@ -649,7 +649,7 @@ cond.orders <- function(foo, ...)
     ## contents, and those cannot be changed via update.
 
 {
-    
+
     ## the following to be used for changing order of conditioning
     ## variables and indexing their levels. The object foo already has
     ## components index.cond and perm.cond as whatever was passed to
@@ -723,7 +723,7 @@ compute.layout <-
     if (all(skip)) stop("skip cannot be all TRUE")
     number.of.cond <- length(cond.max.level)
     nplots <- prod(cond.max.level)
-    
+
     if (!is.numeric(layout))
     {
         layout <- c(0,1,1)
@@ -741,18 +741,20 @@ compute.layout <-
         stop("layout must have at least 2 elements")
     else if (length(layout) == 2)
     {
-        if(all(layout < 1))
+        if (all(is.na(layout)))
+            stop("inadmissible value of layout")
+        else if (all(layout < 1))
             stop("at least one element of layout must be positive")
         else if (layout[2]==0) stop("inadmissible value of layout")
 
-        if (is.infinite(layout[1]))
+        if (is.na(layout[1]))
             layout[1] <- ceiling(nplots / layout[2])
-        if (is.infinite(layout[2]))
+        if (is.na(layout[2]))
             layout[2] <- ceiling(nplots / layout[1])
-        
+
         skip <- rep(skip, length.out = max(layout[1] * layout[2], layout[2]))
         plots.per.page <- length(skip) - length(skip[skip])
-        layout[3] <- ceiling(nplots / plots.per.page) # + 1 
+        layout[3] <- ceiling(nplots / plots.per.page) # + 1
     }
     else if (length(layout)==3)
     {

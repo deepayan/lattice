@@ -152,7 +152,7 @@ bwplot(x, data, \dots)
     rows come from which variable.  In fact, this is exactly what is
     done internally using the \code{\link{reshape}} function. This
     feature cannot be used in conjunction with the \code{groups}
-    argument.  
+    argument.
 
     To interpret \code{y1 + y2} as a sum, one can either set
     \code{allow.multiple=FALSE} or use \code{I(y1+y2)}.
@@ -161,7 +161,7 @@ bwplot(x, data, \dots)
     to \code{TRUE} as well as \code{allow.multiple}. In that case, the
     plots are not superposed in each panel, but instead separated into
     different panels (as if a new conditioning variable had been added).
-    
+
     The \code{x} and \code{y} variables should both be numeric in
     \code{xyplot}, and an attempt is made to coerce them if
     not. However, if either is a factor, the levels of that factor are
@@ -180,7 +180,7 @@ bwplot(x, data, \dots)
     formula method was essentially the only method).  This is no longer
     allowed.  It is recommended that this argument not be named in any
     case, but rather be the first (unnamed) argument.
-    
+
     %     All points with at least one of its values missing (NA) in any
     %     of the variates involved are omitted from the plot.
   }
@@ -210,7 +210,7 @@ bwplot(x, data, \dots)
       barchart} and \code{stripplot}. Determines which of \code{x} and
     \code{y} is to be a factor or shingle (\code{y} if TRUE, \code{x}
     otherwise). Defaults to \code{FALSE} if \code{x} is a factor or
-    shingle, \code{TRUE} otherwise. This argument is used to process the  
+    shingle, \code{TRUE} otherwise. This argument is used to process the
     arguments to these high level functions, but more importantly, it is
     passed as an argument to the panel function, which is supposed to
     use it as appropriate.
@@ -350,7 +350,7 @@ bwplot(x, data, \dots)
 
   \item{aspect}{ controls physical aspect ratio of the panels (same for
     all the panels). It can be specified as a ratio (vertical
-    size/horizontal size) or as a character string. Legitimate 
+    size/horizontal size) or as a character string. Legitimate
     values are \code{"fill"} (the default) which tries to make the
     panels as big as possible to fill the available space; \code{"xy"},
     which \bold{tries} to compute the aspect based on the 45 degree
@@ -598,7 +598,7 @@ bwplot(x, data, \dots)
 	data, not the axes.  Other than the axis labeling, using this
 	feature is no different than transforming the data in the
 	formula; e.g., \code{scales=list(x = list(log = 2))} is
-	equivalent to \code{y ~ log2(x)}.  
+	equivalent to \code{y ~ log2(x)}.
 
 
 % 	whether to use a log scale. Defaults to \code{FALSE}, other
@@ -656,7 +656,7 @@ bwplot(x, data, \dots)
 
   }
   \item{ylim}{ similar to \code{xlim}, applied to the y-axis. }
-  \item{drop.unused.levels}{ 
+  \item{drop.unused.levels}{
     logical indicating whether the unused levels of factors will be
     dropped, usually relevant with a subsetting operation is performed
     or an \code{\link{interaction}} is created.  Unused levels are
@@ -701,7 +701,7 @@ bwplot(x, data, \dots)
     here nor in the help page of the relevant high level function, are
     passed unchanged to the panel function used.  By convention, the
     default panel function used for any high level function is named as
-    \code{"panel."} followed by the name of the high level function; 
+    \code{"panel."} followed by the name of the high level function;
     for example, the default panel function for \code{bwplot} is
     \code{panel.bwplot}.  In practical terms, this means that in
     addition to the help page of the high level function being used, the
@@ -890,7 +890,7 @@ bwplot(x, data, \dots)
 	the legend argument can be useful if one wants to place more than
 	one key. It also allows one to use arbitrary \code{"grob"}s (grid
 	objects) as legends.
-	
+
 	If used, \code{legend} must be a list, with an arbitrary number of
 	components. Each component must be named one of \code{"left"},
 	\code{"right"}, \code{"top"}, \code{"bottom"} or \code{"inside"}.
@@ -981,9 +981,9 @@ bwplot(x, data, \dots)
 	general, giving a high value of \code{layout[3]} is not wasteful
 	because blank pages are never created.
 
-	If the special value \code{Inf} is specified for the number of
-	rows or columns, that dimension will be filled out according to
-	the number of panels.
+	If \code{NA} is specified for the number of rows or columns (not
+	both), that dimension will be filled out according to the number
+	of panels.
       }
       \item{\code{skip}:}{
 	logical vector (default \code{FALSE}), replicated to be as long as
@@ -1010,12 +1010,12 @@ bwplot(x, data, \dots)
 	This is rarely useful for the end-user, but can be helpful when
 	developing new Trellis functions.}
 
-      \item{\code{xscale.components, yscale.components}:}{ 
+      \item{\code{xscale.components, yscale.components}:}{
 	functions that determine axis annotation for the x and y axes
 	respectively.  See documentation for
 	\code{\link{xscale.components.default}}, the default values of
 	these arguments, to learn more. }
-      
+
       \item{\code{axis}:}{ function that draws axis annotation.  See
 	documentation for \code{\link{axis.default}}, the default value
 	of this argument, to learn more. }
@@ -1095,7 +1095,7 @@ bwplot(x, data, \dots)
     }
   }
 }
-  
+
 
 \value{
 
@@ -1166,7 +1166,7 @@ bwplot(x, data, \dots)
 }
 
 \seealso{
-  \code{\link{Lattice}} for an overview of the package, as well as 
+  \code{\link{Lattice}} for an overview of the package, as well as
   \code{\link{barchart.table}},
   \code{\link{print.trellis}},
   \code{\link{shingle}},
@@ -1236,7 +1236,7 @@ print(update(plot, aspect = "xy", main = "", xlab = "Year"),
 
 ## Multiple variables in formula for grouped displays
 
-xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species, 
+xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
        data = iris, scales = "free", layout = c(2, 2),
        auto.key = list(x = .6, y = .7, corner = c(0, 0)))
 
@@ -1244,11 +1244,11 @@ xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
 ## user defined panel functions
 
 states <- data.frame(state.x77,
-                     state.name = dimnames(state.x77)[[1]], 
-                     state.region = state.region) 
-xyplot(Murder ~ Population | state.region, data = states, 
-       groups = state.name, 
-       panel = function(x, y, subscripts, groups)  
+                     state.name = dimnames(state.x77)[[1]],
+                     state.region = state.region)
+xyplot(Murder ~ Population | state.region, data = states,
+       groups = state.name,
+       panel = function(x, y, subscripts, groups)
        ltext(x = x, y = y, labels = groups[subscripts], cex=1,
              fontfamily = "HersheySans"))
 
@@ -1258,7 +1258,7 @@ barchart(yield ~ variety | site, data = barley,
          scales = list(x = list(abbreviate = TRUE,
                        minlength = 5)))
 barchart(yield ~ variety | site, data = barley,
-         groups = year, layout = c(1,6), stack = TRUE, 
+         groups = year, layout = c(1,6), stack = TRUE,
          auto.key = list(points = FALSE, rectangles = TRUE, space = "right"),
          ylab = "Barley Yield (bushels/acre)",
          scales = list(x = list(rot = 45)))
@@ -1288,7 +1288,7 @@ bwplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
        panel.groups = "panel.linejoin",
        xlab = "treatment",
        key = list(lines = Rows(trellis.par.get("superpose.line"),
-                  c(1:7, 1)), 
+                  c(1:7, 1)),
                   text = list(lab = as.character(unique(OrchardSprays$rowpos))),
                   columns = 4, title = "Row position"))
 }
