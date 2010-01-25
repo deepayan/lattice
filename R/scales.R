@@ -212,51 +212,51 @@ limitsFromLimitlist <-
         #if (!have.lim)
         ## always calculate the limits from prepanel first:
 
-            ## should check that all classes are the same. How ? What
-            ## about NA's ? Arrgh!
+        ## should check that all classes are the same. How ? What
+        ## about NA's ? Arrgh!
 
-            ## to handle NA's, how about:
+        ## to handle NA's, how about:
 
-            all.na <- unlist(lapply(limitlist, function(x) all(is.na(x))))
-            class.lim <- ## retain non-NA limitlists only
-                lapply(limitlist[!all.na], class)
-            ## class.lim is a list now, may be length 0
-            limits <- unlist(limitlist) ## loses the class attribute
+        all.na <- unlist(lapply(limitlist, function(x) all(is.na(x))))
+        class.lim <- ## retain non-NA limitlists only
+            lapply(limitlist[!all.na], class)
+        ## class.lim is a list now, may be length 0
+        limits <- unlist(limitlist) ## loses the class attribute
 
-            ## if (length(limits) > 0)
-            if (sum(!is.na(limits)) > 0)
+        ## if (length(limits) > 0)
+        if (sum(!is.na(limits)) > 0)
+        {
+            if (is.character(limits))
             {
-                if (is.character(limits))
-                {
-                    limits <- unique(limits[!is.na(limits)])
-                    slicelen <- diff(extend.limits(limits, axs = axs))
-                }
-                else ## if (is.numeric(limits)) # or dates etc
-                {
-                    limits <-
-                        extend.limits(range(as.numeric(limits), finite = TRUE),
-                                      axs = axs)
-                    slicelen <- diff(range(limits, finite = TRUE))
-                }
-
-                ## hopefully put back appropriate class of limits:
-                ## FIXME: date changes may have messed this up
-
-                if (length(class.lim) > 0)
-                    class(limits) <-
-                        if (all(class.lim[[1]] == "integer"))
-                            "numeric" else class.lim[[1]]
-
-                ## (have to handle "integer" specially, since variable
-                ## specifications like 1:10 are rather common, and
-                ## class() <- "integer" would turn the limits into
-                ## integers)
+                limits <- unique(limits[!is.na(limits)])
+                slicelen <- diff(extend.limits(limits, axs = axs))
             }
-            else
+            else ## if (is.numeric(limits)) # or dates etc
             {
-                limits <- c(0,1)
-                slicelen <- 1
+                limits <-
+                    extend.limits(range(as.numeric(limits), finite = TRUE),
+                                  axs = axs)
+                slicelen <- diff(range(limits, finite = TRUE))
             }
+
+            ## hopefully put back appropriate class of limits:
+            ## FIXME: date changes may have messed this up
+
+            if (length(class.lim) > 0)
+                class(limits) <-
+                    if (all(class.lim[[1]] == "integer"))
+                        "numeric" else class.lim[[1]]
+
+            ## (have to handle "integer" specially, since variable
+            ## specifications like 1:10 are rather common, and
+            ## class() <- "integer" would turn the limits into
+            ## integers)
+        }
+        else
+        {
+            limits <- c(0,1)
+            slicelen <- 1
+        }
 
         if (have.lim)
         {
@@ -265,7 +265,7 @@ limitsFromLimitlist <-
             old.limits <- limits
             limits <- lim
             ## lim overrides prepanel except NAs
-            if (!is.character(old.limits))
+            if (!is.character(limits))
                 limits[is.na(limits)] <- old.limits[is.na(limits)]
             slicelen <-
                 ## this no longer works for dates (R 2.6)
@@ -428,10 +428,12 @@ limits.and.aspect <-
                 if (!("..." %in% prenames)) pargs <- pargs[intersect(names(pargs), prenames)]
                 pretem <- do.call("prepanel", pargs)
                 ## prepanel() over-rides defaults except NAs - e.g. ylim = c(0, NA)
-                if (any(isna <- is.na(as.numeric(pretem$xlim))))
-                    pretem$xlim[isna] <- tem$xlim[isna]
-                if (any(isna <- is.na(as.numeric(pretem$ylim))))
-                    pretem$ylim[isna] <- tem$ylim[isna]
+                if (!is.character(pretem$xlim))
+                    if (any(isna <- is.na(pretem$xlim)))
+                        pretem$xlim[isna] <- tem$xlim[isna]
+                if (!is.character(pretem$ylim))
+                    if (any(isna <- is.na(pretem$ylim)))
+                        pretem$ylim[isna] <- tem$ylim[isna]
                 tem <- updateList(tem, pretem)
                 ## tem[names(pretem)] <- pretem
             }
