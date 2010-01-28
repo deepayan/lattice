@@ -76,7 +76,7 @@ xyplot.ts <-
     }
 
     if (is.null(layout)) {
-        npanels <- nlevels(fac) * max(1, nlevels(time))
+        npanels <- max(1, nlevels(fac)) * max(1, nlevels(time))
         nc <- ceiling(npanels/6)
         nr <- ceiling(npanels/nc)
         layout <- c(nc, nr)
@@ -117,7 +117,7 @@ xyplot.ts <-
                xlab = xlab, ylab = ylab,
                default.scales = default.scales)
 
-    obj$call <- match.call()
+    obj$call <- sys.call(sys.parent()); obj$call[[1]] <- quote(xyplot)
     obj
 }
 

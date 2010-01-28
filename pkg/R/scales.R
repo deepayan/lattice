@@ -428,10 +428,10 @@ limits.and.aspect <-
                 if (!("..." %in% prenames)) pargs <- pargs[intersect(names(pargs), prenames)]
                 pretem <- do.call("prepanel", pargs)
                 ## prepanel() over-rides defaults except NAs - e.g. ylim = c(0, NA)
-                if (!is.character(pretem$xlim))
+                if (!is.null(pretem$xlim) && !is.character(pretem$xlim))
                     if (any(isna <- is.na(pretem$xlim)))
                         pretem$xlim[isna] <- tem$xlim[isna]
-                if (!is.character(pretem$ylim))
+                if (!is.null(pretem$ylim) && !is.character(pretem$ylim))
                     if (any(isna <- is.na(pretem$ylim)))
                         pretem$ylim[isna] <- tem$ylim[isna]
                 tem <- updateList(tem, pretem)
