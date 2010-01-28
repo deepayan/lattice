@@ -93,7 +93,9 @@
   \item{xlab, ylab}{
     X axis and Y axis labels; see \code{\link{xyplot}}. Note in
     particular that \code{ylab} may be a character vector, in which case the
-    labels are spaced out equally, to correspond to the panels.
+    labels are spaced out equally, to correspond to the panels;
+    but \emph{NOTE} in this case the vector should be reversed OR the
+    argument \code{as.table} set to \code{FALSE}. 
   }
   \item{default.scales}{
     \code{scales} specification. The default is set to have
