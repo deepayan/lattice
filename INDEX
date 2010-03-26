@@ -35,7 +35,7 @@ panel.dotplot           Default Panel Function for dotplot
 panel.functions         Useful Panel Functions
 panel.histogram         Default Panel Function for histogram
 panel.identify          Functions to Interact with Lattice Plots
-panel.levelplot         Default Panel Function for levelplot
+panel.levelplot         Panel Functions for levelplot and contourplot
 panel.pairs             Default Superpanel Function for splom
 panel.parallel          Default Panel Function for parallel
 panel.qqmath            Default Panel and Prepanel Function for qqmath

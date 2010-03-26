@@ -78,8 +78,8 @@ construct.legend <-
 
 needAutoKey <- function(auto.key, groups = NULL)
 {
-    (is.list(auto.key) || isTRUE(auto.key)) &&
-    (!is.null(groups) || !is.null(auto.key$text))
+    ((!is.null(groups) && (isTRUE(auto.key) || is.list(auto.key))) || 
+     (is.list(auto.key) && !is.null(auto.key$text)))
     ## old behaviour was:
     ## !is.null(groups) && (is.list(auto.key) || isTRUE(auto.key))
 }

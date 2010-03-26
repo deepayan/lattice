@@ -1,6 +1,5 @@
 
 
-
 ### Copyright (C) 2001-2006  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
 ###
 ### This file is part of the lattice package for R.
@@ -924,17 +923,5 @@ panel.levelplot.raster <-
                 just = c("left", "bottom"),
                 default.units = "native")
 }
-
-## require(grid)
-
-## levelplot(rnorm(10) ~ 1:10 + (2 * 1:10), panel = panel.levelplot.raster)
-
-## levelplot(rnorm(10) ~ 1:10 + sort(runif(10)), panel = panel.levelplot.raster)
-
-## levelplot(volcano, panel = panel.levelplot.raster)
-
-## levelplot(volcano, panel = panel.levelplot.raster,
-##           col.regions = topo.colors, cuts = 30, interpolate = TRUE)
-
 
 

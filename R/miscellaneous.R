@@ -187,6 +187,7 @@ lpolygon <-
              border = "black",
              col = "transparent",
              ## lty = NULL,
+             fill = NULL, # capture so that doesn't overload 'fill=col' in gpar()
 
              font, fontface, ## gpar() doesn't like these
              ...) 

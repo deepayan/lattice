@@ -47,6 +47,7 @@ panel.smoothScatter <-
               cex = 1, col="black",
               range.x,
               ...,
+              raster = FALSE,
               subscripts)
 
     ## subscripts is ignored (and recomputed), but the formal argument
@@ -77,13 +78,14 @@ panel.smoothScatter <-
     ym <- map$x2
     dens <- map$fhat
     dens <- array(transformation(dens), dim = dim(dens))
-    panel.levelplot(x = rep(xm, length(ym)),
-                    y = rep(ym, each = length(xm)),
-                    z = as.numeric(dens),
-                    subscripts = TRUE,
-                    at = seq(from = 0, to = 1.01 * max(dens), length = cuts + 2),
-                    col.regions = colramp(cuts + 1),
-                    ...)
+    PFUN <- if (raster) panel.levelplot.raster else panel.levelplot
+    PFUN(x = rep(xm, length(ym)),
+         y = rep(ym, each = length(xm)),
+         z = as.numeric(dens),
+         subscripts = TRUE,
+         at = seq(from = 0, to = 1.01 * max(dens), length = cuts + 2),
+         col.regions = colramp(cuts + 1),
+         ...)
     if (nrpoints != 0)
     {
         stopifnot(length(xm) == nrow(dens), length(ym) == ncol(dens))

@@ -1,9 +1,12 @@
 \name{F_1_panel.levelplot}
 \alias{panel.levelplot}
 \alias{panel.contourplot}
-\title{ Default Panel Function for levelplot }
+\alias{panel.levelplot.raster}
+\title{ Panel Functions for levelplot and contourplot }
 \description{
-  This is the default panel function for \code{levelplot}.
+  These are the default panel functions for \code{\link{levelplot}} and
+  \code{contourplot}.  Also documented is an alternative raster-based
+  panel function for use with \code{levelplot}.
 }
 \usage{
 panel.levelplot(x, y, z, 
@@ -22,6 +25,17 @@ panel.levelplot(x, y, z,
                 col.regions = regions$col,
                 alpha.regions = regions$alpha)
 panel.contourplot(\dots)
+
+panel.levelplot.raster(x, y, z, 
+                       subscripts,
+                       at = pretty(z),
+                       ...,
+                       col.regions = regions$col,
+                       alpha.regions = regions$alpha,
+                       interpolate = FALSE)
+
+
+
 }
 \arguments{
   \item{x, y, z}{ Variables defining the plot. }
@@ -93,6 +107,7 @@ panel.contourplot(\dots)
   \item{alpha.regions}{
     numeric scalar controlling transparency of facets
   }
+  \item{interpolate}{ logical, passed to \code{\link{grid.raster}}. }
 }
 
 \details{
@@ -103,8 +118,30 @@ panel.contourplot(\dots)
 
   When \code{contour=TRUE}, the \code{contourLines} function is used to
   calculate the contour lines.
-} 
 
+  \code{panel.levelplot.raster} is an alternative panel function that
+  uses the raster drawing abilities in R 2.11.0 and higher (through
+  \code{\link{grid.raster}}).  It has fewer options (e.g., can only render
+  data on an equispaced grid), but can be more efficient. 
+
+}
+
+\examples{
+
+require(grid)
+
+levelplot(rnorm(10) ~ 1:10 + sort(runif(10)), panel = panel.levelplot)
+
+suppressWarnings(plot(levelplot(rnorm(10) ~ 1:10 + sort(runif(10)),
+                                panel = panel.levelplot.raster,
+                                interpolate = TRUE)))
+
+levelplot(volcano, panel = panel.levelplot.raster)
+
+levelplot(volcano, panel = panel.levelplot.raster,
+          col.regions = topo.colors, cuts = 30, interpolate = TRUE)
+
+}
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{
   \code{\link{levelplot}},
@@ -112,19 +149,3 @@ panel.contourplot(\dots)
   \code{\link{contourLines}}
 }
 \keyword{dplot}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
