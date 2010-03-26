@@ -62,7 +62,7 @@ export(
        panel.stripplot,
        panel.xyplot,
        panel.contourplot,
-       panel.levelplot,
+       panel.levelplot,   panel.levelplot.raster,
        panel.cloud,       panel.3dscatter, 
        panel.wireframe,   panel.3dwire,
        panel.pairs,

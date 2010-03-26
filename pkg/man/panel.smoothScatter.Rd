@@ -16,6 +16,7 @@ panel.smoothScatter(x, y = NULL,
                     cex = 1, col="black",
                     range.x,
                     ...,
+                    raster = FALSE,
                     subscripts)
 }
 \arguments{
@@ -45,6 +46,9 @@ panel.smoothScatter(x, y = NULL,
   \item{col}{\code{\link{points}} color parameter}
   \item{\dots}{Further arguments that are passed on to
     \code{\link{panel.levelplot}}.}
+  \item{raster}{ logical; if \code{TRUE},
+    \code{\link{panel.levelplot.raster}} is used, making potentially
+    smaller output files. }
   \item{subscripts}{ ignored, but necessary for handling of \dots in
     certain situations.  Likely to be removed in future. }
 }
@@ -66,7 +70,7 @@ ddf <- as.data.frame(matrix(rnorm(40000), ncol = 4) + 3 * rnorm(10000))
 ddf[, c(2,4)] <- (-ddf[, c(2,4)])
 xyplot(V1 ~ V2 + V3, ddf, outer = TRUE,
        panel = panel.smoothScatter, aspect = "iso")
-splom(ddf, panel = panel.smoothScatter, nbin = 64)
+splom(ddf, panel = panel.smoothScatter, nbin = 64, raster = TRUE)
 
 }
 \keyword{ hplot }

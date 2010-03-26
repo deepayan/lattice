@@ -72,7 +72,7 @@ larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         lwd = add.line$lwd,
         fill = NULL, \dots)
 lpolygon(x, y = NULL,
-         border = "black", col = "transparent",
+         border = "black", col = "transparent", fill = NULL, 
          font, fontface, \dots)
 
 panel.lines(\dots)
@@ -110,9 +110,9 @@ panel.polygon(\dots)
     \code{alpha} between 0 and 1 can controls transparency.  Be careful
     with this, since for devices that do not support alpha-transparency,
     nothing will be drawn at all if this is set to anything other than
-    0.  \code{font} and \code{fontface} are included in \code{lpolygon}
-    only to ensure that they are not passed down (as
-    \code{\link[grid:gpar]{gpar}} doesn't like them).
+    0.  \code{fill}, \code{font} and \code{fontface} are included in
+    \code{lpolygon} only to ensure that they are not passed down (as
+    \code{\link{gpar}} doesn't like them).
   }
   \item{origin}{ for \code{type="h"} or \code{type="H"}, the value to
     which lines drop down. }
