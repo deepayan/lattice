@@ -19,6 +19,9 @@ Changes in lattice 0.18
 
  o Scale limits 'xlim' & 'ylim' can have one NA to fix only one side.
 
+ o Date and POSIXt scales now use corresponding methods of pretty(), 
+   and so respond to the 'tick.number' component of scales.
+
 
 Changes in lattice 0.17
 =======================
