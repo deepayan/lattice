@@ -32,7 +32,7 @@ prepanel.default.cloud(perspective, distance,
                        \dots, zoom = 0.8)
 prepanel.default.levelplot(x, y, subscripts, \dots)
 prepanel.default.qqmath(x, f.value, distribution, qtype,
-                        groups, subscripts, \dots)
+                        groups, subscripts, \dots, tails.n = 0)
 prepanel.default.densityplot(x, darg, groups, weights, subscripts, \dots)
 prepanel.default.parallel(x, y, z, \dots, horizontal.axis)
 prepanel.default.splom(z, \dots)
@@ -61,7 +61,7 @@ prepanel.default.splom(z, \dots)
     \code{subscripts} to match it to \code{x}.  }
   \item{perspective, distance, xlim, ylim, zlim, screen, R.mat, aspect,
     panel.aspect, zoom}{ see \code{\link{panel.cloud}}}
-  \item{f.value, distribution}{ see \code{panel.qqmath} }
+  \item{f.value, distribution, tails.n}{ see \code{panel.qqmath} }
   \item{darg}{ list of arguments passed to \code{\link{density}}}
   \item{z}{ see \code{\link{panel.parallel}} and \code{\link{panel.pairs}} }
 

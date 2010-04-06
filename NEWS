@@ -6,7 +6,7 @@ Changes in lattice 0.18
  o Hosting of the upstream sources has moved to R-forge.  This allows,
    among other things, the use of the R-forge issue tracker.
 
- o New method xyplot.ts method, merging versions previously available
+ o New xyplot.ts method, merging versions previously available
    in latticeExtra and zoo (thanks to the efforts of Felix Andrews)
 
  o An argument 'group.value', cotaining the level of the group, is now
@@ -18,6 +18,8 @@ Changes in lattice 0.18
  o The 'layout' argument now accepts NA for number of columns or rows.
 
  o Scale limits 'xlim' & 'ylim' can have one NA to fix only one side.
+
+ o 'panel.qqmath' gains an argument 'tails.n' for exact data on tails.
 
  o Date and POSIXt scales now use corresponding methods of pretty(), 
    and so respond to the 'tick.number' component of scales.

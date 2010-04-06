@@ -8,7 +8,8 @@
 panel.qqmath(x, f.value = NULL,
              distribution = qnorm,
              qtype = 7,
-             groups = NULL, \dots)
+             groups = NULL, \dots,
+             tails.n = 0)
 }
 \arguments{
   \item{x}{
@@ -30,6 +31,13 @@ panel.qqmath(x, f.value = NULL,
   \item{\dots}{
     further arguments, often graphical parameters.
   }
+  \item{tails.n}{
+    number of data points to represent exactly on each tail of the
+    distribution. This reproduces the effect of \code{f.value = NULL}
+    for the extreme data values, while approximating the remaining
+    data. It has no effect if \code{f.value = NULL}.
+    If \code{tails.n} is given, \code{qtype} is forced to be 1.
+  }
 }
 
 \details{
@@ -44,5 +52,17 @@ panel.qqmath(x, f.value = NULL,
 
 \seealso{
   \code{\link{qqmath}}
+}
+\examples{
+set.seed(0)
+xx <- rt(10000, df = 10)
+qqmath(~ xx, type = c("b", "g"), pch = "+", distribution = qnorm, 
+  panel = function(..., f.value) {
+    switch(panel.number(),
+      panel.qqmath(..., f.value = NULL),
+      panel.qqmath(..., f.value = ppoints(100), tails.n = 50),
+      panel.qqmath(..., f.value = ppoints(100)))
+  }, main = c("raw", "tails.n = 50", "ppoints(100)"),
+  layout = c(3, 1))[c(1,1,1)]
 }
 \keyword{dplot}
