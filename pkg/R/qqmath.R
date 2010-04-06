@@ -111,7 +111,8 @@ prepanel.default.qqmath <-
              distribution = qnorm,
              qtype = 7,
              groups = NULL,
-             subscripts, ...)
+             subscripts, ...,
+             tails.n = 0)
 {
     if (!is.numeric(x)) x <- as.numeric(x) # FIXME: dates?
     distribution <-
@@ -119,6 +120,9 @@ prepanel.default.qqmath <-
         else if (is.character(distribution)) get(distribution)
         else eval(distribution)
     nobs <- sum(!is.na(x))
+    ## if plotting tails, do prepanel as for raw data:
+    if (tails.n > 0)
+        f.value <- NULL
     getxx <- function(x, f.value = NULL,
                       nobs = sum(!is.na(x)))
     {
@@ -177,7 +181,8 @@ panel.qqmath <-
              f.value = NULL,
              distribution = qnorm,
              qtype = 7,
-             groups = NULL, ...)
+             groups = NULL, ...,
+             tails.n = 0)
 {
     x <- as.numeric(x)
     distribution <-
@@ -192,21 +197,39 @@ panel.qqmath <-
                         qtype = qtype,
                         groups = groups,
                         panel.groups = panel.qqmath,
-                        ...)
+                        ...,
+                        tails.n = tails.n)
     else if (nobs)
     {
         if (is.null(f.value)) # exact data instead of quantiles
+        {
             panel.xyplot(x = distribution(ppoints(nobs)),
                          y = sort(x),
                          ...)
+        }
         else
-            panel.xyplot(x = distribution(if (is.numeric(f.value)) f.value else f.value(nobs)), 
-                         y =
-                         quantile(x, if (is.numeric(f.value)) f.value else f.value(nobs), # was fast.quantile 
+        {
+            pp <- if (is.numeric(f.value)) f.value else f.value(nobs)
+            if (tails.n > 0)
+            {
+                ## use exact data for tails of distribution
+                tails.n <- min(tails.n, nobs %/% 2)
+                ppd <- ppoints(nobs)
+                ## omit probabilities within the exact tails
+                pp <- pp[(pp > ppd[tails.n] &
+                          pp < ppd[nobs + 1 - tails.n])]
+                ## add on probs corresponding to exact tails
+                pp <- c(head(ppd, tails.n), pp, tail(ppd, tails.n))
+                ## must use a quantile type that recovers exact values:
+                qtype <- 1
+            }
+            xx <- distribution(pp)
+            yy <- quantile(x, pp, 
                                   names = FALSE,
                                   type = qtype,
-                                  na.rm = TRUE),
-                         ...)
+                                  na.rm = TRUE)
+            panel.xyplot(x = xx, y = yy, ...)
+        }
     }
 }
 
