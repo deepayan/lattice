@@ -56,13 +56,13 @@ panel.qqmath(x, f.value = NULL,
 \examples{
 set.seed(0)
 xx <- rt(10000, df = 10)
-qqmath(~ xx, type = c("b", "g"), pch = "+", distribution = qnorm, 
+qqmath(~ xx, type = c("b", "g"), pch = "+", distribution = qnorm,
+  main = c("raw", "ppoints(100)", "tails.n = 50"),
   panel = function(..., f.value) {
     switch(panel.number(),
       panel.qqmath(..., f.value = NULL),
-      panel.qqmath(..., f.value = ppoints(100), tails.n = 50),
-      panel.qqmath(..., f.value = ppoints(100)))
-  }, main = c("raw", "tails.n = 50", "ppoints(100)"),
-  layout = c(3, 1))[c(1,1,1)]
+      panel.qqmath(..., f.value = ppoints(100)),
+      panel.qqmath(..., f.value = ppoints(100), tails.n = 50))
+  }, layout = c(3, 1))[c(1,1,1)]
 }
 \keyword{dplot}
