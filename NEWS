@@ -9,7 +9,7 @@ Changes in lattice 0.18
  o New xyplot.ts method, merging versions previously available
    in latticeExtra and zoo (thanks to the efforts of Felix Andrews)
 
- o An argument 'group.value', cotaining the level of the group, is now
+ o An argument 'group.value', containing the level of the group, is now
    passed by panel.superpose to the 'panel.groups' function
 
  o Specifying 'auto.key' as a list now produces a legend even in the
@@ -19,10 +19,10 @@ Changes in lattice 0.18
 
  o Scale limits 'xlim' & 'ylim' can have one NA to fix only one side.
 
- o 'panel.qqmath' gains an argument 'tails.n' for exact data on tails.
+ o Date and POSIXt scales now use new methods to calculate axis ticks,
+   and now respond to the 'tick.number' component of 'scales'.
 
- o Date and POSIXt scales now use corresponding methods of pretty(), 
-   and so respond to the 'tick.number' component of scales.
+ o 'panel.qqmath' gains an argument 'tails.n' for exact data on tails.
 
 
 Changes in lattice 0.17
