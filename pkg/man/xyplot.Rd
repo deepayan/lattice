@@ -367,8 +367,6 @@ bwplot(x, data, \dots)
     \code{\link{banking}} for details on the implementation of banking .
   }
 
-
-
   \item{groups}{ a variable or expression to be evaluated in the data
     frame specified by \code{data}, expected to act as a grouping
     variable within each panel, typically used to distinguish different
@@ -385,18 +383,35 @@ bwplot(x, data, \dots)
     and \code{\link{simpleKey}} for how to draw a key.
   }
   \item{auto.key}{
-    A logical (indicating whether a key is to be drawn automatically when
-    a grouping variable is present in the plot), or a list of parameters
-    that would be valid arguments to \code{\link{simpleKey}} (in effect,
-    most valid components of \code{key} can be specified in this
-    manner).  If \code{auto.key} is not \code{FALSE}, \code{groups} is
-    non-null and there is no \code{key} or \code{legend} argument
-    specified in the call, a key is created with \code{simpleKey} with
-    \code{levels(groups)} as the first argument. (Note: this may not
-    work in all high level functions, but it does work for the ones
-    where grouping makes sense with the default panel function).
-    The \code{text} parameter sets the key labels, and forces the key
-    to be drawn even without \code{groups}.
+
+    A logical, or a list containing components to be used as arguments
+    to \code{\link{simpleKey}}.  \code{auto.key=TRUE} is equivalent to
+    \code{auto.key=list()}, in which case \code{\link{simpleKey}} is
+    called with a set of default arguments (which may depend on the
+    relevant high-level function).  Most valid components to the
+    \code{key} argument can be specified in this manner, as
+    \code{\link{simpleKey}} will simply add unrecognized arguments to
+    the list it produces.
+
+    \code{auto.key} is typically used to automatically produce a
+    suitable legend in conjunction with a grouping variable.  If
+    \code{auto.key=TRUE}, a suitable legend will be drawn if a
+    \code{groups} argument is also provided, and not otherwise.  In list
+    form, \code{auto.key} will modify the default legend thus produced.
+    For example, \code{auto.key=list(columns = 2)} will create a legend
+    split into two columns (\code{columns} is documented in the entry
+    for \code{key}).
+
+    More precisely, if \code{auto.key} is not \code{FALSE},
+    \code{groups} is non-null, and there is no \code{key} or
+    \code{legend} argument specified in the call, a key is created with
+    \code{simpleKey} with \code{levels(groups)} as the first
+    argument. (Note: this may not work in all high level functions, but
+    it does work for the ones where grouping makes sense with the
+    default panel function).  If \code{auto.key} is provided as a list
+    and includes a \code{text} component, then that is used as the text
+    labels in the key, and the key is drawn even is \code{groups} is not
+    specified.
 
     \code{simpleKey} uses the trellis settings to determine the
     graphical parameters in the key, so this will be meaningful only if
@@ -405,10 +420,10 @@ bwplot(x, data, \dots)
     One disadvantage to using \code{key} (or even \code{simpleKey})
     directly is that the graphical parameters used in the key are
     absolutely determined at the time when the \code{"trellis"} object is
-    created. Consequently, if a plot once created is re-\code{print}ed
+    created. Consequently, if a plot once created is re-\code{plot}ted
     with different settings, the parameter settings for the original
     device will be used. However, with \code{auto.key}, the key is
-    actually created at printing time, so the key settings will match
+    actually created at plotting time, so the key settings will match
     the device settings.
   }
   \item{prepanel}{
