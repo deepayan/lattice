@@ -55,6 +55,8 @@ xyplot.ts <-
     }
 
     ## 'screens' defines which panels to draw series in
+    ## if 'screens' was given as a readable value then always show strips
+    screensgiven <- !missing(screens) && !is.numeric(screens)
     screens <- make.par.list(cn, screens, NROW(x), NCOL(x), 1)
     screens <- unlist(screens, use.names = FALSE)
     screens <- factor(screens, levels = unique(screens))
@@ -63,7 +65,7 @@ xyplot.ts <-
 
     ## formula
     tt <- rep(timex, NCOL(x))
-    fo <- if (nlevels(fac) > 1) {
+    fo <- if ((nlevels(fac) > 1) || screensgiven) {
         if (!is.null(time))
             x ~ tt | time * fac
         else
