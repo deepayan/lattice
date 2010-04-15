@@ -406,25 +406,26 @@ bwplot(x, data, \dots)
     \code{groups} is non-null, and there is no \code{key} or
     \code{legend} argument specified in the call, a key is created with
     \code{simpleKey} with \code{levels(groups)} as the first
-    argument. (Note: this may not work in all high level functions, but
-    it does work for the ones where grouping makes sense with the
-    default panel function).  If \code{auto.key} is provided as a list
-    and includes a \code{text} component, then that is used as the text
-    labels in the key, and the key is drawn even is \code{groups} is not
-    specified.
+    (\code{text}) argument. (Note: this may not work in all high level
+    functions, but it does work for the ones where grouping makes sense
+    with the default panel function).  If \code{auto.key} is provided as
+    a list and includes a \code{text} component, then that is used
+    instead as the text labels in the key, and the key is drawn even if
+    \code{groups} is not specified.
 
-    \code{simpleKey} uses the trellis settings to determine the
-    graphical parameters in the key, so this will be meaningful only if
-    the settings are used in the plot as well.
+    Note that \code{simpleKey} uses the default settings (see
+    \code{\link{trellis.par.get}}) to determine the graphical parameters
+    in the key, so the resulting legend will be meaningful only if the
+    same settings are used in the plot as well.
 
     One disadvantage to using \code{key} (or even \code{simpleKey})
     directly is that the graphical parameters used in the key are
-    absolutely determined at the time when the \code{"trellis"} object is
-    created. Consequently, if a plot once created is re-\code{plot}ted
-    with different settings, the parameter settings for the original
-    device will be used. However, with \code{auto.key}, the key is
-    actually created at plotting time, so the key settings will match
-    the device settings.
+    absolutely determined at the time when the \code{"trellis"} object
+    is created. Consequently, if a plot once created is
+    re-\code{plot}ted with different settings, the original parameter
+    settings will be used for the key even though the new settings are
+    used for the actual display. However, with \code{auto.key}, the key
+    is actually created at plotting time, so the settings will match.
   }
   \item{prepanel}{
     function that takes the same arguments as the \code{panel} function
