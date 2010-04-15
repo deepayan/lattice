@@ -1,4 +1,174 @@
 ------------------------------------------------------------------------
+r579 | deepayan | 2010-04-15 15:36:06 +1000 (Thu, 15 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/man/xyplot.Rd
+
+further minor doc updates
+------------------------------------------------------------------------
+r578 | felix | 2010-04-15 15:14:18 +1000 (Thu, 15 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+   M /pkg/R/xyplot.ts.R
+
+fix monthly time steps in prettyDate!
+------------------------------------------------------------------------
+r577 | deepayan | 2010-04-13 20:50:18 +1000 (Tue, 13 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/man/simpleKey.Rd
+   M /pkg/man/xyplot.Rd
+
+doc improvements
+------------------------------------------------------------------------
+r576 | felix | 2010-04-07 16:58:14 +1000 (Wed, 07 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/NEWS
+   M /pkg/R/axis.R
+   M /pkg/man/panel.qqmath.Rd
+
+local copy of prettyDate; tweak qqmath example
+------------------------------------------------------------------------
+r575 | felix | 2010-04-06 14:08:45 +1000 (Tue, 06 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/NEWS
+   M /pkg/R/qqmath.R
+   M /pkg/man/panel.qqmath.Rd
+   M /pkg/man/prepanel.default.Rd
+
+add argument 'tails.n' to panel.qqmath
+------------------------------------------------------------------------
+r574 | felix | 2010-03-29 17:14:17 +1100 (Mon, 29 Mar 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/NEWS
+   M /pkg/R/axis.R
+   M /pkg/man/xyplot.ts.Rd
+
+new date/time axes using pretty()
+------------------------------------------------------------------------
+r573 | deepayan | 2010-03-26 22:56:37 +1100 (Fri, 26 Mar 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/INDEX
+   M /pkg/NAMESPACE
+   M /pkg/R/legend.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/panel.smoothscatter.R
+   M /pkg/man/llines.Rd
+   M /pkg/man/panel.levelplot.Rd
+   M /pkg/man/panel.smoothScatter.Rd
+
+miscellaneous updates, including use of grid.raster, and depending on R 2.11
+------------------------------------------------------------------------
+r572 | deepayan | 2010-02-28 19:33:42 +1100 (Sun, 28 Feb 2010) | 1 line
+Changed paths:
+   M /www/Vignettes/src/lattice-intro/Makefile
+   M /www/Vignettes/src/lattice-tricks/Makefile
+   A /www/Vignettes/src/lattice-tricks/SweaveBeamer.sty
+
+updates
+------------------------------------------------------------------------
+r571 | deepayan | 2010-02-28 19:25:15 +1100 (Sun, 28 Feb 2010) | 1 line
+Changed paths:
+   M /www/Vignettes/src/lattice-intro/Makefile
+   D /www/Vignettes/src/lattice-intro/Sweave.sty
+   M /www/Vignettes/src/lattice-intro/lattice-intro-slides.Rnw
+
+updates
+------------------------------------------------------------------------
+r570 | deepayan | 2010-02-28 19:11:27 +1100 (Sun, 28 Feb 2010) | 1 line
+Changed paths:
+   A /www/Vignettes
+   A /www/Vignettes/TODO
+   A /www/Vignettes/index.html
+   A /www/Vignettes/src
+   A /www/Vignettes/src/lattice-intro
+   A /www/Vignettes/src/lattice-intro/Makefile
+   A /www/Vignettes/src/lattice-intro/Sweave.sty
+   A /www/Vignettes/src/lattice-intro/SweaveBeamer.sty
+   A /www/Vignettes/src/lattice-intro/figs
+   A /www/Vignettes/src/lattice-intro/lattice-intro-slides.Rnw
+   A /www/Vignettes/src/lattice-intro/lattice-intro.Rnw
+   A /www/Vignettes/src/lattice-intro/references.bib
+   A /www/Vignettes/src/lattice-tricks
+   A /www/Vignettes/src/lattice-tricks/Makefile
+   A /www/Vignettes/src/lattice-tricks/figs
+   A /www/Vignettes/src/lattice-tricks/lattice-tricks-slides.Rnw
+   A /www/Vignettes/src/lattice-tricks/lattice-tricks.Rnw
+   A /www/Vignettes/src/lattice-tricks/panelFunctions.Rnw
+   A /www/Vignettes/src/lattice-tricks/references.bib
+   A /www/Vignettes/src/lattice-tricks/regGcsemv.Rnw
+   A /www/Vignettes/src/lattice-tricks/regOxboys.Rnw
+   A /www/Vignettes/src/lattice-tricks/reorder.Rnw
+   M /www/index.php
+
+initial checkin of tutorials section (in progress)
+------------------------------------------------------------------------
+r569 | felix | 2010-01-28 15:37:36 +1100 (Thu, 28 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/R/scales.R
+   M /pkg/R/xyplot.ts.R
+   M /pkg/man/xyplot.ts.Rd
+
+warnings...
+------------------------------------------------------------------------
+r568 | felix | 2010-01-25 11:27:57 +1100 (Mon, 25 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/R/scales.R
+
+fix for character limits
+------------------------------------------------------------------------
+r567 | felix | 2010-01-21 00:09:31 +1100 (Thu, 21 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/NEWS
+   M /pkg/R/scales.R
+
+allow NAs in xlim, ylim etc - e.g. ylim = c(0, NA)
+------------------------------------------------------------------------
+r566 | felix | 2010-01-21 00:08:15 +1100 (Thu, 21 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/R/update.trellis.R
+
+allow updating scales$axs in update.trellis
+------------------------------------------------------------------------
+r565 | felix | 2010-01-21 00:05:33 +1100 (Thu, 21 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/R/common.R
+
+fix for NAs in 'layout'
+------------------------------------------------------------------------
+r564 | felix | 2010-01-20 21:10:35 +1100 (Wed, 20 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/NEWS
+   M /pkg/R/common.R
+   M /pkg/man/xyplot.Rd
+
+allow NA (not Inf) in 'layout' argument.
+------------------------------------------------------------------------
+r563 | felix | 2010-01-20 12:32:48 +1100 (Wed, 20 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/NEWS
+   M /pkg/R/common.R
+   M /pkg/man/xyplot.Rd
+
+allow Inf in layout argument
+------------------------------------------------------------------------
+r562 | deepayan | 2010-01-18 05:25:49 +1100 (Mon, 18 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/R/levelplot.R
+
+an experimental panel.levelplot.raster based on grid.raster (for R >= 2.11.0)
+------------------------------------------------------------------------
+r561 | deepayan | 2010-01-17 22:25:21 +1100 (Sun, 17 Jan 2010) | 1 line
+Changed paths:
+   M /pkg/ChangeLog
+   M /pkg/DESCRIPTION
+   M /pkg/NEWS
+   M /pkg/SvnLog
+   M /pkg/po/R-lattice.pot
+
+updates for release (including version bump to 0.18)
+------------------------------------------------------------------------
 r560 | felix | 2010-01-11 18:48:42 -0800 (Mon, 11 Jan 2010) | 1 line
 Changed paths:
    M /pkg/R/bwplot.R

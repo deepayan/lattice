@@ -548,7 +548,7 @@ prettyDate_TMP <-
     makeOutput <- function(at, s) {
         flabels <- format(at, s$format)
         ans <-
-            if (isDate) round(as.Date(at))
+            if (isDate) as.Date(round(at, "days"))
             else as.POSIXct(at)
         attr(ans, "labels") <- flabels
         ans
