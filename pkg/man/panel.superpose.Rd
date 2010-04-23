@@ -1,6 +1,7 @@
 \name{F_2_panel.superpose}
 \alias{panel.superpose}
 \alias{panel.superpose.2}
+\alias{panel.superpose.plain}
 \title{ Panel Function for Display Marked by groups }
 \description{
   These are panel functions for Trellis displays useful when a grouping
@@ -19,6 +20,12 @@ panel.superpose(x, y = NULL, subscripts, groups,
                 type = "p",
                 distribute.type = FALSE)
 panel.superpose.2(\dots, distribute.type = TRUE)
+
+panel.superpose.plain(\dots,
+                      col, col.line, col.symbol,
+                      pch, cex, fill, font,
+                      fontface, fontfamily,
+                      lty, lwd, alpha)
 }
 \arguments{
   \item{x,y}{ coordinates of the points to be displayed}
@@ -89,6 +96,11 @@ panel.superpose.2(\dots, distribute.type = TRUE)
   in how \code{type} is interpreted by default.  The default behaviour
   in \code{panel.superpose} is the opposite of that in S, which is the
   same as that of \code{panel.superpose.2}.
+
+  \code{panel.superpose.plain} is the same as \code{panel.superpose},
+  except that the default settings for the style arguments are the
+  same for all groups and are taken from the default plot style.
+  It is used in \code{\link{xyplot.ts}}.
 }
 
 \seealso{

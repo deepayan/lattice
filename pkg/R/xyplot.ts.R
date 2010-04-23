@@ -1,4 +1,25 @@
 
+## overplot groups, but use default plot.* style rather than superpose.* style
+panel.superpose.plain <-
+    function(..., col = NA, col.line = plot.line$col, col.symbol = plot.symbol$col, 
+             pch = plot.symbol$pch, cex = plot.symbol$cex, fill = plot.symbol$fill, 
+             font = plot.symbol$font, fontface = plot.symbol$fontface, 
+             fontfamily = plot.symbol$fontfamily, lty = plot.line$lty, 
+             lwd = plot.line$lwd, alpha = plot.symbol$alpha)
+{
+    plot.line <- trellis.par.get("plot.line")
+    plot.symbol <- trellis.par.get("plot.symbol")
+    if (!missing(col)) {
+        if (missing(col.line)) 
+            col.line <- col
+        if (missing(col.symbol)) 
+            col.symbol <- col
+    }
+    panel.superpose(..., col.line = col.line, col.symbol = col.symbol,
+                    pch = pch, cex = cex, fill = fill, font = font,
+                    fontfamily = fontfamily, lty = lty, lwd = lwd, alpha = alpha)
+}
+
 xyplot.ts <-
     function(x, data = NULL,
              screens = if (superpose) 1 else colnames(x),
@@ -6,19 +27,28 @@ xyplot.ts <-
              superpose = FALSE, ## not used directly
              cut = FALSE,
              type = "l",
-             col = if (!superpose) plot.line$col,
-             lty = if (!superpose) plot.line$lty,
-             lwd = if (!superpose) plot.line$lwd,
-             pch = if (!superpose) plot.symbol$pch,
+             col = NULL,
+             lty = NULL,
+             lwd = NULL,
+             pch = NULL,
+             cex = NULL,
+             fill = NULL,
              auto.key = superpose,
+             panel = if (superpose) "panel.superpose"
+                     else "panel.superpose.plain",
              par.settings = list(),
              layout = NULL, as.table = TRUE,
              xlab = "Time", ylab = NULL,
              default.scales = list(y = list(relation =
                  if (missing(cut)) "free" else "same")))
 {
-    plot.line <- trellis.par.get("plot.line")
-    plot.symbol <- trellis.par.get("plot.symbol")
+    ## fix up some default settings;
+    ## these are too obscure to put in as default arguments
+    if (NCOL(x) == 1) {
+        ## only one series, so use the more standard "panel.superpose"
+        if (missing(superpose)) superpose <- TRUE
+        if (missing(auto.key)) auto.key <- FALSE
+    }
     stopifnot(is.null(data))
     timex <- time(x)
     x <- as.matrix(x)
@@ -90,34 +120,127 @@ xyplot.ts <-
         auto.key <-
             modifyList(list(lines = TRUE, points = FALSE), auto.key)
 
-    ## update with style arguments (col, lty, etc) only if specified.
-    if (!is.null(col)) {
-        col <- unlist(make.par.list(cn, col, NROW(x), NCOL(x), plot.line$col))
-        par.settings <- modifyList(simpleTheme(col = col), par.settings)
-    }
-    if (!is.null(lty)) {
-        lty <- unlist(make.par.list(cn, lty, NROW(x), NCOL(x), plot.line$lty))
-        par.settings <- modifyList(simpleTheme(lty = lty), par.settings)
-    }
-    if (!is.null(lwd)) {
-        lwd <- unlist(make.par.list(cn, lwd, NROW(x), NCOL(x), plot.line$lwd))
-        par.settings <- modifyList(simpleTheme(lwd = lwd), par.settings)
-    }
-    if (!is.null(pch)) {
-        pch <- unlist(make.par.list(cn, pch, NROW(x), NCOL(x), plot.symbol$pch))
-        par.settings <- modifyList(simpleTheme(pch = pch), par.settings)
-    }
+    ## The original approach (e.g. in 0.18-4) was to update par.settings
+    ## with the col, lty etc for each series, and let this be picked up by
+    ## panel.superpose as well as auto.key.
+    ##
+    ## However, that causes problems: further drawing in the panels
+    ## (e.g. with layer()) can appear to be broken because it uses the same
+    ## par.settings, and this has a constant color for all superposed series
+    ## by default.
+    ##
+    ## So now we avoid updating par.settings unless necessary for auto.key:
+
+    needStyles <-
+        (any(sapply(list(col, lty, lwd, pch, cex, fill), length) > 1))
+    
+    ## If all series are plotted in separate panels AND
+    ## all have the same style, then we don't need 'groups'.
+    ## (this avoids using spurious styles when 'panel' is overridden)
+    needGroups <-
+        ((length(unique(screens)) < NCOL(x)) ||
+         (needStyles) ||
+         (is.list(type) && (length(type) > 1)))
+
+    if (needGroups)
+        groups <- factor(col(x), labels = cn)
+    else groups <- rep(factor(1), length(x))
+
     if (is.list(type))
         type <- make.par.list(cn, type, NROW(x), NCOL(x), "l")
 
-    obj <-
-        xyplot(fo, groups = factor(col(x), labels = cn),
-               ...,
+    tmpcall <-
+        quote(xyplot(fo, groups = groups,
+               ..., panel = panel,
                type = type, distribute.type = is.list(type),
                auto.key = auto.key, par.settings = par.settings,
                layout = layout, as.table = as.table,
                xlab = xlab, ylab = ylab,
-               default.scales = default.scales)
+               default.scales = default.scales))
+
+    ## Include style arguments (col, lty, etc) in the call only if specified.
+    ## (Originally they were not, and were picked up only from par.settings)
+
+    if (length(par.settings) > 0) {
+        ## apply settings here before we look up plot.line etc
+        opar <- trellis.par.get()
+        trellis.par.set(par.settings)
+        on.exit(trellis.par.set(opar))
+    }
+    plot.line <- trellis.par.get("plot.line")
+    plot.symbol <- trellis.par.get("plot.symbol")
+    
+    if (!is.null(col)) {
+        col <- unlist(make.par.list(cn, col, NROW(x), NCOL(x), plot.line$col))
+        tmpcall$col <- col
+    }
+    if (!is.null(lty)) {
+        lty <- unlist(make.par.list(cn, lty, NROW(x), NCOL(x), plot.line$lty))
+        tmpcall$lty <- lty
+    }
+    if (!is.null(lwd)) {
+        lwd <- unlist(make.par.list(cn, lwd, NROW(x), NCOL(x), plot.line$lwd))
+        tmpcall$lwd <- lwd
+    }
+    if (!is.null(pch)) {
+        pch <- unlist(make.par.list(cn, pch, NROW(x), NCOL(x), plot.symbol$pch))
+        tmpcall$pch <- pch
+    }
+    if (!is.null(cex)) {
+        cex <- unlist(make.par.list(cn, cex, NROW(x), NCOL(x), plot.symbol$cex))
+        tmpcall$cex <- cex
+    }
+    if (!is.null(fill)) {
+        fill <- unlist(make.par.list(cn, fill, NROW(x), NCOL(x), plot.symbol$fill))
+        tmpcall$fill <- fill
+    }
+
+    if (needStyles) {
+        ## set 'superpose' styles to be picked up by auto.key
+        if (identical(panel, "panel.superpose.plain")) {
+            ## (one alternative would be to define a new simplePlainKey(),
+            ##  but that would not work if the user called update(auto.key=))
+            if (is.null(col)) col <- plot.line$col
+            if (is.null(lty)) lty <- plot.line$lty
+            if (is.null(lwd)) lwd <- plot.line$lwd
+            if (is.null(pch)) pch <- plot.symbol$pch
+            if (is.null(cex)) cex <- plot.symbol$cex
+            if (is.null(fill)) fill <- plot.symbol$fill
+        }
+        if (!is.null(col)) {
+            par.settings <-
+                modifyList(list(superpose.line = list(col = col),
+                                superpose.symbol = list(col = col)),
+                           par.settings)
+        }
+        if (!is.null(lty)) {
+            par.settings <-
+                modifyList(list(superpose.line = list(lty = lty)),
+                           par.settings)
+        }
+        if (!is.null(lwd)) {
+            par.settings <-
+                modifyList(list(superpose.line = list(lwd = lwd)),
+                           par.settings)
+        }
+        if (!is.null(pch)) {
+            par.settings <-
+                modifyList(list(superpose.symbol = list(pch = pch)),
+                           par.settings)
+        }
+        if (!is.null(cex)) {
+            par.settings <-
+                modifyList(list(superpose.symbol = list(cex = cex)),
+                           par.settings)
+        }
+        if (!is.null(fill)) {
+            par.settings <-
+                modifyList(list(superpose.symbol = list(fill = fill)),
+                           par.settings)
+        }
+    }
+
+    obj <- eval(tmpcall)
 
     obj$call <- sys.call(sys.parent()); obj$call[[1]] <- quote(xyplot)
     obj
