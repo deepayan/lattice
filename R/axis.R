@@ -501,7 +501,7 @@ prettyDate_TMP <-
              "1 DSTday" = list(1*DAY, format = "%b %d"),
              "2 DSTdays" = list(2*DAY),
              "1 week" = list(7*DAY, start = "weeks"),
-             "2 weeks" = list(15*DAY, start = "months"),
+             "15 DSTdays" = list(15*DAY, start = "months"),
              "1 month" = list(1*MONTH, format = "%b"),
              "3 months" = list(3*MONTH, start = "years"),
              "6 months" = list(6*MONTH, format = "%Y-%m"),
