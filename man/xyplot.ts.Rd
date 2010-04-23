@@ -9,11 +9,15 @@
        superpose = FALSE,
        cut = FALSE,
        type = "l",
-       col = if (!superpose) plot.line$col,
-       lty = if (!superpose) plot.line$lty,
-       lwd = if (!superpose) plot.line$lwd,
-       pch = if (!superpose) plot.symbol$pch,
+       col = NULL,
+       lty = NULL,
+       lwd = NULL,
+       pch = NULL,
+       cex = NULL,
+       fill = NULL,
        auto.key = superpose,
+       panel = if (superpose) "panel.superpose"
+               else "panel.superpose.plain",
        par.settings = list(),
        layout = NULL, as.table = TRUE,
        xlab = "Time", ylab = NULL,
@@ -65,13 +69,11 @@
     plot region. This should have the effect of minimising wasted space
     when \code{aspect = "xy"}.
   }
-  \item{type, col, lty, lwd, pch}{
+  \item{type, col, lty, lwd, pch, cex, fill}{
     graphical arguments, which are processed and eventually passed to
     \code{\link{panel.xyplot}}.
     These arguments can also be vectors or (named) lists, see Details
     for more information.
-    Note that, except for \code{type}, these are not passed on to the
-    panel function.  See Details.
   }
   \item{auto.key}{
     a logical, or a list describing how to draw a key. See the
@@ -79,9 +81,14 @@
     to draw lines, not points, and any specified style arguments should
     show up automatically.
   }
+  \item{panel}{
+    the panel function. It is recommended to leave this alone, but one
+    can pass a \code{panel.groups} argument which is handled by
+    \code{\link{panel.superpose}} for each series. 
+  }
   \item{par.settings}{
     style settings beyond the standard \code{col}, \code{lty},
-    \code{lwd}, \code{pch}; see \code{\link{trellis.par.set}} and
+    \code{lwd}, etc; see \code{\link{trellis.par.set}} and
     \code{\link{simpleTheme}}.
   }
   \item{layout}{
@@ -115,14 +122,8 @@
   \code{list(A = c(1,2), c(3,4))} in which \code{c(3, 4)} is the
   default value and \code{c(1, 2)} the value only for series \code{A}.
   The \code{screens} argument can be specified in a similar way.
-  
-  NOTE: unlike \code{xyplot}, the arguments \code{col, lty,
-  lwd, pch} are not passed on to the panel function. Instead, they are
-  used to define graphical settings for \code{\link{trellis.par.set}},
-  and a corresponding \code{groups} argument is passed on to the panel
-  function. 
-  %% TODO - explain reasoning behind this, gotchas etc
-  %% To think about - could col etc be passed to the panel function as well?
+
+  %% TODO: explain details of style settings, groups, etc?
   
   Some examples are given below.
 }

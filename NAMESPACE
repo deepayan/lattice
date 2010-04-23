@@ -78,6 +78,7 @@ export(
 
        panel.superpose,
        panel.superpose.2,
+       panel.superpose.plain,
        
        ## data-driven (usually summary of some sort)
 
