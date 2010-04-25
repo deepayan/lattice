@@ -265,8 +265,9 @@ limitsFromLimitlist <-
             old.limits <- limits
             limits <- lim
             ## lim overrides prepanel except NAs
-            if (!is.character(limits))
+            if (!is.character(limits) && !is.character(old.limits)) {
                 limits[is.na(limits)] <- old.limits[is.na(limits)]
+            }
             slicelen <-
                 ## this no longer works for dates (R 2.6)
 ##                 if (is.numeric(lim)) diff(range(lim))
@@ -359,7 +360,8 @@ limitsFromLimitlist <-
             ## lim overrides prepanel except NAs
             for (i in seq_along(limitlist))
             {
-                if (!is.character(limitlist[[i]]))
+                if (!is.character(limitlist[[i]]) &&
+                    !is.character(old.limitlist[[i]]))
                 {
                     isna <- is.na(limitlist[[i]])
                     limitlist[[i]][isna] <- old.limitlist[[i]][isna]
