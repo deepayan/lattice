@@ -471,10 +471,16 @@ formattedTicksAndLabels.expression <-
 ## remove after it appears in R 2.12 ?
 
 prettyDate_TMP <-
-    function(x, n = 5, min.n = max(2, round(n / 2)), ...)
+    function(x, n = 5, min.n = n %/% 2, ...)
 {
     isDate <- inherits(x, "Date")
-    zz <- range(as.POSIXct(x))
+    x <- as.POSIXct(x)
+    if (isDate) # the timezone *does* matter
+        attr(x, "tzone") <- "GMT"
+    zz <- range(x, na.rm = TRUE)
+    if (diff(as.numeric(zz)) == 0)# one value only
+        zz <- zz + c(0,60)
+    
     ## specify the set of pretty timesteps
     MIN <- 60
     HOUR <- MIN * 60
@@ -537,13 +543,13 @@ prettyDate_TMP <-
         at
     }
     init.at <- calcSteps(steps[[init.i]])
-    init.n <- length(init.at)
+    init.n <- length(init.at) - 1L
     ## bump it up if below acceptable threshold
     while (init.n < min.n) {
         init.i <- init.i - 1
         if (init.i == 0) stop("range too small for min.n")
         init.at <- calcSteps(steps[[init.i]])
-        init.n <- length(init.at)
+        init.n <- length(init.at) - 1L
     }
     makeOutput <- function(at, s) {
         flabels <- format(at, s$format)
@@ -565,7 +571,7 @@ prettyDate_TMP <-
         new.i <- max(new.i, 1)
     }
     new.at <- calcSteps(steps[[new.i]])
-    new.n <- length(new.at)
+    new.n <- length(new.at) - 1L
     ## work out whether new.at or init.at is better
     if (new.n < min.n)
         new.n <- -Inf
