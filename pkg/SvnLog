@@ -1,4 +1,53 @@
 ------------------------------------------------------------------------
+r586 | felix | 2010-05-12 21:00:17 +1000 (Wed, 12 May 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+
+chron axis methods; new "halfmonth" time step
+------------------------------------------------------------------------
+r585 | deepayan | 2010-05-07 15:23:54 +1000 (Fri, 07 May 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/xyplot.R
+
+improved prepanel for xyplot()
+------------------------------------------------------------------------
+r584 | felix | 2010-05-04 23:13:48 +1000 (Tue, 04 May 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+
+fix Date axis problem (need "GMT" timezone); sync prettyDate with R-devel
+------------------------------------------------------------------------
+r583 | felix | 2010-04-25 20:48:59 +1000 (Sun, 25 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/scales.R
+
+fix for when numeric limit specified with default character scales
+------------------------------------------------------------------------
+r582 | felix | 2010-04-23 12:10:04 +1000 (Fri, 23 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+
+fix timestep
+------------------------------------------------------------------------
+r581 | felix | 2010-04-23 12:09:30 +1000 (Fri, 23 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/NAMESPACE
+   M /pkg/R/xyplot.ts.R
+   M /pkg/man/panel.superpose.Rd
+   M /pkg/man/xyplot.ts.Rd
+
+improve internals of xyplot.ts (don't clobber styles unless necessary; don't define groups unless relevant) so it works better with layer() etc. New function panel.superpose.plain().
+------------------------------------------------------------------------
+r580 | felix | 2010-04-15 16:02:51 +1000 (Thu, 15 Apr 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/axis.R
+   M /pkg/SvnLog
+
+another problem with Date axis (conversion from POSIXct); final for R 2.11.0
+------------------------------------------------------------------------
 r579 | deepayan | 2010-04-15 15:36:06 +1000 (Thu, 15 Apr 2010) | 1 line
 Changed paths:
    M /pkg/man/xyplot.Rd
