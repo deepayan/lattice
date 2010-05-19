@@ -889,7 +889,9 @@ panel.levelplot.raster <-
         ## sorted unique values of x 
         ux <- sort(unique(x[!is.na(x)]))
         ## complain if all ux are not equidistant
-        if (length(unique(diff(ux))) != 1) warning("'x' values are not equispaced; output will be wrong")
+        ## if             (length(unique(diff(ux))) != 1) -- too strict
+        if (!isTRUE(all.equal(diff(range(diff(ux))), 0)))
+            warning("'x' values are not equispaced; output may be wrong")
         xwid <- mean(diff(ux))
     }
     ## same things for y
@@ -901,7 +903,8 @@ panel.levelplot.raster <-
     else
     {
         uy <- sort(unique(y[!is.na(y)]))
-        if (length(unique(diff(uy))) != 1) warning("'y' values are not equispaced; output will be wrong")
+        if (!isTRUE(all.equal(diff(range(diff(uy))), 0)))
+            warning("'y' values are not equispaced; output may be wrong")
         ywid <- mean(diff(uy))
     }
     ncolumns <- length(ux)
