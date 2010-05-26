@@ -1,12 +1,15 @@
 Package: lattice
-Version: 0.18-8
-Date: 2010/05/18
+Version: 0.19-1
+Date: 2010/05/25
 Priority: recommended
 Title: Lattice Graphics
 Author: Deepayan Sarkar <deepayan.sarkar@r-project.org>
 Maintainer: Deepayan Sarkar <deepayan.sarkar@r-project.org>
-Description: Implementation of Trellis Graphics. See ?Lattice for a
-   brief introduction
+Description: Lattice is a powerful and elegant high-level data
+  visualization system, with an emphasis on multivariate data, that is
+  sufficient for typical graphics needs, and is also flexible enough
+  to handle most nonstandard requirements.  See ?Lattice for an
+  introduction.
 Depends: R (>= 2.11.0)
 Suggests: grid, KernSmooth
 Imports: grid, grDevices, graphics, stats, utils
