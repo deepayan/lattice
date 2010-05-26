@@ -4,33 +4,64 @@
 \alias{lattice-package}
 \title{Lattice Graphics}
 \description{
-  Trellis Graphics for R
+  The lattice add-on package implements Trellis graphics in \R.  It is a
+  powerful and elegant high-level data visualization system, with an
+  emphasis on multivariate data, that is sufficient for typical graphics
+  needs, and is also flexible enough to handle most nonstandard
+  requirements.
 }
 \details{
 
-  Trellis Graphics is a framework for data visualization developed at
-  the Bell Labs by Rick Becker, Bill Cleveland, et al, extending ideas
-  presented in Bill Cleveland's 1993 book \emph{Visualizing Data}.
-  Lattice is an implementation of Trellis Graphics for R.
+  Trellis Graphics, originally developed for S and S-PLUS at the Bell
+  Labs, is a framework for data visualization developed by R. A. Becker,
+  W. S. Cleveland, et al, extending ideas presented in Cleveland's 1993
+  book \emph{Visualizing Data}.  The Lattice API is based on the
+  original design in S, but extends it in many ways.  To the extent
+  possible, care has been taken to ensure that Trellis code written for
+  S works unchanged (or with minimal changes) in Lattice.
 
-  Type \code{help(package = lattice)} to see a list of (public)
-  functions for which further documentation is available.  The
-  \sQuote{See Also} section below lists specific areas of interest with
-  pointers to the help pages with respective details.  Apart from the
-  documentation accompanying this package, a book on lattice is also
-  available as part of Springer's \sQuote{Use R} series.
+  The Lattice user interface primarily consists of several
+  \sQuote{high-level} generic functions (listed below in the \dQuote{See
+  Also} section), each designed to create a particular type of
+  statistical display by default.  Although each function produces
+  different output, they share many common features, reflected in
+  several common arguments that affect the resulting displays in similar
+  ways.  These arguments are extensively (sometimes only) documented in
+  the help page for \code{\link{xyplot}}.  This includes a discussion of
+  the important topics of \emph{conditioning} and control of the Trellis
+  layout.  Features specific to other high-level functions are
+  documented in their respective help pages.
 
-  Lattice is built upon the Grid graphics engine and requires the
-  \code{grid} add-on package.  It is not (readily) compatible with
-  traditional R graphics tools.  The public interface is based on the
-  implementation in S-PLUS, but features several extensions, in addition
-  to incompatibilities introduced through the use of \code{grid}.  To
-  the extent possible, care has been taken to ensure that existing
-  Trellis code written for S-PLUS works unchanged (or with minimal
-  change) in Lattice. If you are having problems porting S-PLUS code,
-  read the entry for \code{panel} in the documentation for
-  \code{\link{xyplot}}. Most high level Trellis functions in S-PLUS are
-  implemented, with the exception of \code{piechart}.
+  Lattice employs an extensive system of user-controllable settings to
+  determine the look and feel of the displays it produces.  To learn how
+  to use and customise the graphical parameters used by lattice, see
+  \code{\link{trellis.par.set}}.  For other settings, see
+  \code{\link{lattice.options}}.  The default graphical settings are
+  (potentially) different for different graphical devices.  To learn how
+  to initialise new devices with the desired settings or change the
+  settings of the current device, see \code{\link{trellis.device}}.
+
+  It is usually unnecessary, but sometimes important to be able to plot
+  multiple lattice plots on a single page.  Such capabilities are
+  described in the \code{\link{print.trellis}} help page.  See
+  \code{\link{update.trellis}} to learn about manipulating a
+  \code{"trellis"} object.  Tools to augment lattice plots after they
+  are drawn (including \code{\link{locator}}-like functionality) are
+  described in the \code{\link{trellis.focus}} help page.
+
+  The online documentation accompanying the package is complete, and
+  effort has been made to present the help pages in a logical sequence,
+  so that one can learn how to use lattice by reading the PDF reference
+  manual available at
+  \url{http://cran.r-project.org/web/packages/lattice/}.  However, the
+  format in which the online documentation is written and the breadth of
+  topics covered necessarily makes it somewhat terse and less than ideal
+  as a first introduction.  For a more gentle introduction, a book on
+  lattice is available as part of Springer's \sQuote{Use R} series.
+
+  % Furthermore, short vignettes focusing on particular topics are
+  % available from the Lattice website at
+  % \url{http://lattice.r-forge.r-project.org/}
 
   The example section below shows how to bring up a brief history of
   changes to the lattice package, which provides a summary of new
@@ -38,23 +69,31 @@
 }
 
 \note{
-  High level Lattice functions (like \code{\link{xyplot}}) are different
-  from conventional R graphics functions because they don't actually
-  draw anything. Instead, they return an object of class
-  \code{"trellis"} which has to be then
+
+  High-level lattice functions like \code{\link{xyplot}} are different
+  from traditional \R graphics functions because they do not perform any
+  plotting themselves.  Instead, they return an object, of class
+  \code{"trellis"}, which has to be then
   \code{\link[lattice:print.trellis]{print}}ed or
   \code{\link[lattice:print.trellis]{plot}}ted to create the actual
-  plot.  This is normally done automatically, but not when the high
-  level functions are called inside another function (most often
-  \code{source}) or other contexts where automatic printing is
-  suppressed (e.g. \code{\link{for}} or \code{\link{while}} loops).  In
-  such situations, an explicit call to \code{print} or \code{plot} is
-  required.
+  plot.
 
-  Lattice plots are highly customizable via user-modifiable settings.
-  However, these are completely unrelated to base graphics settings; in
-  particular, changing \code{par()} settings usually have no effect on
-  lattice plots.
+  Due to \R's automatic printing rule, it is usually not necessary to
+  explicitly carry out the second step, and lattice functions appear to
+  behave like their traditional counterparts.  However, the automatic
+  plotting is suppressed when the high level functions are called inside
+  another function (most often \code{source}) or in other contexts where
+  automatic printing is suppressed (e.g., \code{\link{for}} or
+  \code{\link{while}} loops).  In such situations, an explicit call to
+  \code{print} or \code{plot} is required.
+
+  Lattice is built upon the Grid graphics engine and requires the
+  \code{grid} add-on package.  One consquence of this is that it is not
+  (readily) compatible with traditional \R graphics tools.  In
+  particular, changing \code{par()} settings usually has no effect on
+  lattice plots; lattice provides its own interface for querying and
+  modifying an extensive set of graphical and non-graphical settings.
+
 }
 
 \references{
@@ -65,7 +104,7 @@
 
   Cleveland, W.S. (1993) \emph{Visualizing Data}.
 
-  Becker, R.A., Cleveland, W.S. and Shyu, M.
+  Becker, R. A., Cleveland, W. S. and Shyu, M.
   \dQuote{The Visual Design and Control of Trellis Display},
   \emph{Journal of Computational and Graphical Statistics}
 
@@ -78,42 +117,17 @@
 
 
 \seealso{
-  The Lattice user interface primarily consists of several \sQuote{high
-    level} generic functions (listed below), each designed to create a
-  particular type of statistical display by default.  While each
-  function does different things, they share several common features,
-  reflected in several common arguments that affect the resulting
-  displays in similar ways.  These arguments are extensively (sometimes
-  only) documented in the help page for \code{\link{xyplot}}.  This
-  includes a discussion of \emph{conditioning} and control of the
-  Trellis layout.
 
-  Lattice employs an extensive system of user-controllable parameters to
-  determine the look and feel of the displays it produces.  To learn how
-  to use and customise the Graphical parameters used by the Lattice
-  functions, see \code{\link{trellis.par.set}}.  For other settings, see
-  \code{\link{lattice.options}}.  The default graphical settings are
-  different for different graphical devices.  To learn how to initialise
-  new devices with the desired settings or change the settings of the
-  current device, see \code{\link{trellis.device}}.
-
-  To learn about sophisticated (non-default) printing capabilities, see
-  \code{\link{print.trellis}}.  See \code{\link{update.trellis}} to
-  learn about manipulating a \code{"trellis"} object.  Tools to augment
-  lattice plots after they are drawn (including
-  \code{\link{locator}}-like functionality) is described in the
-  \code{\link{trellis.focus}} help page.
-
-  The following is a list of \sQuote{high level} functions in the
-  Lattice package with a brief description of what they do.  In all
-  cases, the actual display is produced by the so-called \code{panel}
-  function, which has a suitable default, but can be substituted by an
-  user defined function to create custom displays.  The user will most
-  often be interested in the default panel functions, which have a
-  separate help page, linked to from the help pages of the corresponding
-  high level function.  Although documented separately, arguments to
-  these panel functions can be supplied directly to the high level
-  functions, which will forward the arguments as appropriate.
+  The following is a list of high-level functions in the lattice package
+  with a brief description of what they do.  In all cases, the actual
+  display is produced by the so-called \code{panel} function, which has
+  a suitable default, but can be substituted by an user defined function
+  to create custom displays.  The user will most often be interested in
+  the default panel functions, which have a separate help page, linked
+  from the help pages of the corresponding high-level function.
+  Although documented separately, arguments to these panel functions can
+  be supplied directly to the high-level functions, which will pass on
+  the arguments appropriately.
 
   \bold{Univariate:}  
 
@@ -139,13 +153,13 @@
 
   \bold{Trivariate:}
 
-  \code{\link{levelplot}} level plots (similar to image plots in R)
+  \code{\link{levelplot}} level plots (similar to \code{\link{image}} plots in \R)
 
   \code{\link{contourplot}} contour plots
 
   \code{\link{cloud}} 3-D scatter plots
 
-  \code{\link{wireframe}} 3-D surfaces (similar to persp plots in R)
+  \code{\link{wireframe}} 3-D surfaces (similar to \code{\link{persp}} plots in R)
 
   \bold{Hypervariate:}
   
