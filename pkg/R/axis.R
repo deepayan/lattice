@@ -326,7 +326,7 @@ formattedTicksAndLabels.default <-
              format.posixt)
     ## meant for when x is numeric
 {
-    range <-
+    rng <-
         if (length(x) == 2) as.numeric(x)
         else range(as.numeric(x))
 
@@ -359,7 +359,7 @@ formattedTicksAndLabels.default <-
     list(at = at, labels = if (is.logical(labels))
          paste(logpaste, format(at, trim = TRUE), sep = "") else labels,
          check.overlap = check.overlap,
-         num.limit = range)
+         num.limit = rng)
 }
 
 

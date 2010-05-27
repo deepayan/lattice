@@ -3,14 +3,9 @@ useDynLib(lattice, .registration = TRUE)
 
 import(grid)
 
-
-## ## can I do this?
-## export(grid.prompt)
-
-
 importFrom(grDevices,
 
-           dev.list, cm.colors, gray, col2rgb,
+           dev.list, cm.colors, gray, col2rgb, rgb,
            heat.colors, grey, hsv, xy.coords,
            boxplot.stats, contourLines)
 

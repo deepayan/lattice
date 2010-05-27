@@ -85,10 +85,10 @@ construct.scales <-
         xfoo[[nm]] <- rep(xfoo[[nm]], length.out = 2)
         yfoo[[nm]] <- rep(yfoo[[nm]], length.out = 2)
     }
-    if (xfoo$rel == "same" && (is.list(xfoo$at) || is.list(xfoo$lab)))
-        stop("the at and labels components of scales may not be lists when relation = same")
-    if (yfoo$rel == "same" && (is.list(yfoo$at) || is.list(yfoo$lab)))
-        stop("the at and labels components of scales may not be lists when relation = same")
+    if (xfoo$relation == "same" && (is.list(xfoo$at) || is.list(xfoo$labels)))
+        stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
+    if (yfoo$relation == "same" && (is.list(yfoo$at) || is.list(yfoo$labels)))
+        stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
     list(x.scales = xfoo, y.scales = yfoo)
 }
 
