@@ -395,7 +395,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         }
         else heights.x[1] <- 0
 
-        widths.x <- rep(key$between.column, n.col)
+        widths.x <- rep(key$between.columns, n.col)
         widths.units <- rep("strwidth", n.col)
         widths.data <- as.list(rep("o", n.col))
 
