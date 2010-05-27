@@ -1,4 +1,4 @@
-\name{B_01_xyplot}
+\name{B_00_xyplot}
 \title{Common Bivariate Trellis Plots}
 \alias{xyplot}
 \alias{xyplot.formula}
@@ -90,137 +90,179 @@ bwplot(x, data, \dots)
 }
 
 \description{
-  These are the most commonly used high level Trellis functions to plot
-  pairs of variables. By far the most common is \code{xyplot}, designed
-  mainly for two continuous variates (though factors can be supplied as
-  well, in which case they will simply be coerced to numeric), which
-  produces Conditional Scatter plots. The others are useful when one of
-  the variates is a factor or a shingle.  Most of these arguments are
-  also applicable to other high level functions in the lattice package,
-  but are only documented here.
+
+  This help page documents several commonly used high-level Lattice
+  functions.  \code{xyplot} produces bivariate scatterplots or
+  time-series plots, \code{bwplot} produces box-and-whisker plots,
+  \code{dotplot} produces Cleveland dot plots, \code{barchart} produces
+  bar plots, and \code{stripplot} produces one-dimensional scatterplots.
+  All these functions, along with other high-level Lattice functions,
+  respond to a common set of arguments that control conditioning,
+  layout, aspect ratio, legends, axis annotation, and many other details
+  in a consistent manner.  These arguments are described extensively in
+  this help page, and should be used as the reference for other
+  high-level functions as well.  For control and customization of the
+  actual display in each panel, the help page of the respective default
+  panel function will often be more informative.
+  
 }
 
+% designed mainly for two continuous variates (though factors can be
+% supplied as well, in which case they will simply be coerced to
+% numeric), which produces Conditional Scatter plots.
+
+% The others are useful when one of the variates is a factor or a
+% shingle.  Most of these arguments are also applicable to other high
+% level functions in the lattice package, but are only documented here.
+
+
 \arguments{
+
   \item{x}{
-    The object on which method dispatch is carried out.
 
-    For the \code{"formula"} methods, a formula describing the form of
-    conditioning plot. The formula is generally of the form \code{y ~ x
-      | g1 * g2 * \dots}, indicating that plots of \code{y} (on the y
-    axis) versus \code{x} (on the x axis) should be produced conditional
-    on the variables \code{g1, g2, \dots}. However, the conditioning
-    variables \code{g1,g2,\dots} may be omitted. The formula can also be
-    supplied as \code{y ~ x | g1 + g2 + \dots}.
+    All high-level function in \pkg{lattice} are generic.  \code{x} is
+    the object on which method dispatch is carried out.
 
-    For all of these functions, with the exception of \code{xyplot}, a
-    formula of the form \code{ ~ x | g1 * g2 * \dots} is also
-    allowed. In that case, \code{y} defaults to \code{names(x)} if
+    For the \code{"formula"} methods, \code{x} must be a formula
+    describing the primary variables (used for the per-panel display)
+    and the optional conditioning variables (which define the subsets
+    plotted in different panels) to be used in the plot.  Conditioning
+    is described in the \dQuote{Details} section below.  
+
+    For the functions documented here, the formula is generally of the
+    form \code{y ~ x | g1 * g2 * \dots} (or equivalently, \code{y ~ x |
+    g1 + g2 + \dots}), indicating that plots of \code{y} (on the y-axis)
+    versus \code{x} (on the x-axis) should be produced conditional on
+    the variables \code{g1, g2, \dots}.  Here \code{x} and \code{y} are
+    the primary variables, and \code{g1, g2, \dots} are the conditioning
+    variables.  The conditioning variables may be omitted to give a
+    formula of the form \code{y ~ x}, in which case the plot will
+    consist of a single panel with the full dataset.  The formula can
+    also involve expressions, e.g., \code{sqrt()}, \code{log()}, etc.
+    See the \code{data} argument below for rules regarding evaluation of
+    the terms in the formula.
+
+    With the exception of \code{xyplot}, the functions documented here
+    may also be supplied a formula of the form \code{ ~ x | g1 * g2 *
+    \dots}.  In that case, \code{y} defaults to \code{names(x)} if
     \code{x} is named, and a factor with a single level otherwise.
 
-    Other usage of the form \code{dotplot(x)} is handled by method
-    dispatch as appropriate.  The \code{numeric} method is equivalent to
-    a call with no left hand side and no conditioning variables in the
-    formula.  For \code{barchart} and \code{dotplot}, non-trivial
-    methods exist for tables and arrays, documented under
-    \code{\link{barchart.table}}.
+    Cases where \code{x} is not a formula is handled by appropriate
+    methods.  The \code{numeric} methods are equivalent to a call with
+    no left hand side and no conditioning variables in the formula.  For
+    \code{barchart} and \code{dotplot}, non-trivial methods exist for
+    tables and arrays, documented at \code{\link{barchart.table}}.
 
     The conditioning variables \code{g1, g2, \dots} must be either
-    factors or shingles.  Shingles are a way of processing numeric
-    variables for use in conditioning. See documentation of
+    factors or shingles.  Shingles provide a way of using numeric
+    variables for conditioning; see the help page of
     \code{\link{shingle}} for details. Like factors, they have a
     \code{"levels"} attribute, which is used in producing the
-    conditional plots.
+    conditional plots.  If necessary, numeric conditioning variables are
+    converted to shingles using the \code{shingle} function; however,
+    using \code{\link{equal.count}} may be more appropriate in many
+    cases.  Character variables are coerced to factors.
 
-    Numeric conditioning variables are converted to shingles by the
-    function \code{shingle} (however, using \code{\link{equal.count}}
-    might be more appropriate in many cases) and character vectors are
-    coerced to factors.
+    %% As an extension of the interpretation described above, 
+    % A special case is when the left and/or right sides of the
+    % Formulas containing a \sQuote{+} sign in the specification of
+    % primary variables before the conditioning variables) contain a \sQuote{+} sign, e.g.,
+    % \code{y1 + y2 ~ x | a*b}.
 
-    The formula can involve expressions, e.g. \code{sqrt()},
-    \code{log()}.
-
-    A special case is when the left and/or right sides of the formula
-    (before the conditioning variables) contain a \sQuote{+} sign, e.g.,
-    \code{y1+y2 ~ x | a*b}. This formula would be taken to mean that the
-    user wants to plot both \code{y1~x | a*b} and \code{y2~x | a*b}, but
-    with the \code{y1~x} and \code{y2~x} superposed in each panel (this
-    is slightly more complicated in \code{barchart}). The two parts
-    would be distinguished by different graphical parameters. This is
-    essentially what the \code{groups} argument would produce, if
-    \code{y1} and \code{y2} were concatenated to produce a longer
-    vector, with the \code{groups} argument being an indicator of which
-    rows come from which variable.  In fact, this is exactly what is
-    done internally using the \code{\link{reshape}} function. This
-    feature cannot be used in conjunction with the \code{groups}
-    argument.
+    \bold{Extended formula interface:} As a useful extension of the
+    interface described above, the primary variable terms (both the LHS
+    \code{y} and RHS \code{x}) may consist of multiple terms separated
+    by a \sQuote{+} sign, e.g., \code{y1 + y2 ~ x | a * b}.  This
+    formula would be taken to mean that the user wants to plot both
+    \code{y1 ~ x | a * b} and \code{y2 ~ x | a * b}, but with the
+    \code{y1 ~ x} and \code{y2 ~ x} superposed in each panel.  The two
+    groups will be distinguished by different graphical parameters.
+    This is essentially what the \code{groups} argument (see below)
+    would produce, if \code{y1} and \code{y2} were concatenated to
+    produce a longer vector, with the \code{groups} argument being an
+    indicator of which rows come from which variable.  In fact, this is
+    exactly what is done internally using the \code{\link{reshape}}
+    function. This feature cannot be used in conjunction with the
+    \code{groups} argument.
 
     To interpret \code{y1 + y2} as a sum, one can either set
     \code{allow.multiple=FALSE} or use \code{I(y1+y2)}.
 
     A variation on this feature is when the \code{outer} argument is set
-    to \code{TRUE} as well as \code{allow.multiple}. In that case, the
-    plots are not superposed in each panel, but instead separated into
-    different panels (as if a new conditioning variable had been added).
+    to \code{TRUE}. In that case, the plots are not superposed in each
+    panel, but instead separated into different panels (as if a new
+    conditioning variable had been added).
 
-    The \code{x} and \code{y} variables should both be numeric in
-    \code{xyplot}, and an attempt is made to coerce them if
-    not. However, if either is a factor, the levels of that factor are
-    used as axis labels. In the other four functions documented here,
-    exactly one of \code{x} and \code{y} should be numeric, and the
-    other a factor or shingle. Which of these will happen is determined
-    by the \code{horizontal} argument --- if \code{horizontal=TRUE},
-    then \code{y} will be coerced to be a factor or shingle, otherwise
-    \code{x}. The default value of \code{horizontal} is \code{FALSE} if
-    \code{x} is a factor or shingle, \code{TRUE} otherwise. (The
-    functionality provided by \code{horizontal=FALSE} is not
-    S-compatible.)
+    \bold{Primary variables:} The \code{x} and \code{y} variables should
+    both be numeric in \code{xyplot}, and an attempt is made to coerce
+    them if not. However, if either is a factor, the levels of that
+    factor are used as axis labels. In the other four functions
+    documented here, exactly one of \code{x} and \code{y} should be
+    numeric, and the other a factor or shingle. Which of these will
+    happen is determined by the \code{horizontal} argument --- if
+    \code{horizontal=TRUE}, then \code{y} will be coerced to be a factor
+    or shingle, otherwise \code{x}. The default value of
+    \code{horizontal} is \code{FALSE} if \code{x} is a factor or
+    shingle, \code{TRUE} otherwise. (The functionality provided by
+    \code{horizontal=FALSE} is not S-compatible.)
 
     Note that this argument used to be called \code{formula} in earlier
-    versions (when the high level functions were not generic and the
+    versions (when the high-level functions were not generic and the
     formula method was essentially the only method).  This is no longer
     allowed.  It is recommended that this argument not be named in any
-    case, but rather be the first (unnamed) argument.
+    case, but instead be the first (unnamed) argument.
 
-    %     All points with at least one of its values missing (NA) in any
-    %     of the variates involved are omitted from the plot.
   }
   \item{data}{
-    For the \code{formula} method, a data frame containing values (or
-    more precisely, anything that is a valid \code{envir} argument in
-    \code{\link{eval}}, e.g. a list or an environment) for any variables in
-    the formula, as well as \code{groups} and \code{subset} if
-    applicable.  If not found in \code{data}, or if \code{data} is
-    unspecified, the variables are looked for in the environment of the
-    formula.  For other methods (where \code{x} is not a formula),
-    \code{data} is usually ignored, often with a warning.
-  }
-  \item{allow.multiple, outer}{
-    logical flags to control what happens with formulas like \code{y1 +
-      y2 ~ x}. See the entry for \code{x} for details.
-    \code{allow.multiple} defaults to \code{TRUE} whenever it makes
-    sense, and \code{outer} defaults to \code{FALSE} except when
-    \code{groups} is explicitly specified or grouping doesn't make sense
-    for the default panel function
-  }
-  \item{box.ratio}{ applicable to \code{bwplot}, \code{barchart} and
-    \code{stripplot}, specifies the ratio of the width of the rectangles
-    to the inter rectangle space.
-  }
-  \item{horizontal}{ logical, applicable to \code{bwplot, dotplot,
-      barchart} and \code{stripplot}. Determines which of \code{x} and
-    \code{y} is to be a factor or shingle (\code{y} if TRUE, \code{x}
-    otherwise). Defaults to \code{FALSE} if \code{x} is a factor or
-    shingle, \code{TRUE} otherwise. This argument is used to process the
-    arguments to these high level functions, but more importantly, it is
-    passed as an argument to the panel function, which is supposed to
-    use it as appropriate.
 
-    A potentially useful component of \code{scales} in this case might
-    be \code{abbreviate = TRUE}, in which case long labels which would
+    For the \code{formula} method, a data frame (or more precisely,
+    anything that is a valid \code{envir} argument in
+    \code{\link{eval}}, e.g. a list or an environment) containing values
+    for any variables in the formula, as well as \code{groups} and
+    \code{subset} if applicable.  If not found in \code{data}, or if
+    \code{data} is unspecified, the variables are looked for in the
+    environment of the formula.  For other methods (where \code{x} is
+    not a formula), \code{data} is usually ignored, often with a warning
+    if it is explicitly specified.
+
+  }
+  \item{allow.multiple}{
+    Logical flag specifying whether the extended formula interface
+    described above should be in effect.  Defaults to \code{TRUE}
+    whenever sensible.
+  }
+  \item{outer}{
+    Logical flag controlling what happens with formulas using the
+    extended interface described above (see the entry for \code{x} for
+    details).  Defaults to \code{FALSE}, except when \code{groups} is
+    explicitly specified or grouping does not make sense for the default
+    panel function.
+  }
+  \item{box.ratio}{
+    Applicable to \code{bwplot} and \code{barchart}.  Specifies the
+    ratio of the width of the rectangles to the inter rectangle space.
+    See also the \code{box.width} argument in the respective default
+    panel functions.
+  }
+  \item{horizontal}{
+
+    Logical flag applicable to \code{bwplot}, \code{dotplot},
+    \code{barchart}, and \code{stripplot}. Determines which of \code{x}
+    and \code{y} is to be a factor or shingle (\code{y} if TRUE,
+    \code{x} otherwise).  Defaults to \code{FALSE} if \code{x} is a
+    factor or shingle, \code{TRUE} otherwise. This argument is used to
+    process the arguments to these high level functions, but more
+    importantly, it is passed as an argument to the panel function,
+    which is expected to use it as appropriate.
+
+    A potentially useful component of \code{scales} in this case may be
+    \code{abbreviate = TRUE}, in which case long labels which would
     usually overlap will be abbreviated. \code{scales} could also
     contain a \code{minlength} argument in this case, which would be
     passed to the \code{abbreviate} function.
+
   }
+
   %   \item{jitter.data}{
   %     logical specifying whether the values should be jittered by adding a
   %     random noise in stripplot.  This is actually an argument of
