@@ -4,11 +4,13 @@
 \alias{lattice-package}
 \title{Lattice Graphics}
 \description{
-  The lattice add-on package implements Trellis graphics in \R.  It is a
-  powerful and elegant high-level data visualization system, with an
-  emphasis on multivariate data, that is sufficient for typical graphics
-  needs, and is also flexible enough to handle most nonstandard
-  requirements.
+
+  The \pkg{lattice} add-on package is an implementation of Trellis
+  graphics for \R.  It is a powerful and elegant high-level data
+  visualization system, with an emphasis on multivariate data, that is
+  sufficient for typical graphics needs, and is also flexible enough to
+  handle most nonstandard requirements.
+
 }
 \details{
 
@@ -22,15 +24,15 @@
 
   The Lattice user interface primarily consists of several
   \sQuote{high-level} generic functions (listed below in the \dQuote{See
-  Also} section), each designed to create a particular type of
-  statistical display by default.  Although each function produces
-  different output, they share many common features, reflected in
-  several common arguments that affect the resulting displays in similar
-  ways.  These arguments are extensively (sometimes only) documented in
-  the help page for \code{\link{xyplot}}.  This includes a discussion of
-  the important topics of \emph{conditioning} and control of the Trellis
-  layout.  Features specific to other high-level functions are
-  documented in their respective help pages.
+  Also} section), each designed to create a particular type of display
+  by default.  Although each function produces different output, they
+  share many common features, reflected in several common arguments that
+  affect the resulting displays in similar ways.  These arguments are
+  extensively (sometimes only) documented in the help page for
+  \code{\link{xyplot}}.  This includes a discussion of the important
+  topics of \emph{conditioning} and control of the Trellis layout.
+  Features specific to other high-level functions are documented in
+  their respective help pages.
 
   Lattice employs an extensive system of user-controllable settings to
   determine the look and feel of the displays it produces.  To learn how
@@ -70,29 +72,30 @@
 
 \note{
 
-  High-level lattice functions like \code{\link{xyplot}} are different
-  from traditional \R graphics functions because they do not perform any
-  plotting themselves.  Instead, they return an object, of class
-  \code{"trellis"}, which has to be then
+  High-level \pkg{lattice} functions like \code{\link{xyplot}} are
+  different from traditional \R graphics functions because they do not
+  perform any plotting themselves.  Instead, they return an object, of
+  class \code{"trellis"}, which has to be then
   \code{\link[lattice:print.trellis]{print}}ed or
   \code{\link[lattice:print.trellis]{plot}}ted to create the actual
   plot.
 
   Due to \R's automatic printing rule, it is usually not necessary to
-  explicitly carry out the second step, and lattice functions appear to
-  behave like their traditional counterparts.  However, the automatic
-  plotting is suppressed when the high level functions are called inside
-  another function (most often \code{source}) or in other contexts where
-  automatic printing is suppressed (e.g., \code{\link{for}} or
-  \code{\link{while}} loops).  In such situations, an explicit call to
-  \code{print} or \code{plot} is required.
+  explicitly carry out the second step, and \pkg{lattice} functions
+  appear to behave like their traditional counterparts.  However, the
+  automatic plotting is suppressed when the high-level functions are
+  called inside another function (most often \code{source}) or in other
+  contexts where automatic printing is suppressed (e.g.,
+  \code{\link{for}} or \code{\link{while}} loops).  In such situations,
+  an explicit call to \code{print} or \code{plot} is required.
 
-  Lattice is built upon the Grid graphics engine and requires the
-  \code{grid} add-on package.  One consquence of this is that it is not
-  (readily) compatible with traditional \R graphics tools.  In
-  particular, changing \code{par()} settings usually has no effect on
-  lattice plots; lattice provides its own interface for querying and
-  modifying an extensive set of graphical and non-graphical settings.
+  The \pkg{lattice} package is based on the Grid graphics engine and
+  requires the \pkg{grid} add-on package.  One consquence of this is
+  that it is not (readily) compatible with traditional \R graphics
+  tools.  In particular, changing \code{par()} settings usually has no
+  effect on Lattice plots; \pkg{lattice} provides its own interface for
+  querying and modifying an extensive set of graphical and non-graphical
+  settings.
 
 }
 
