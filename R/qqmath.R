@@ -520,7 +520,7 @@ panel.qqmathline <-
                         groups = groups,
                         panel.groups = panel.qqmathline,
                         ...)
-    else if (nobs)
+    else if (nobs > 0)
     {
         yy <-
             quantile(y, probs, names = FALSE, # was fast.quantile 
@@ -554,7 +554,6 @@ prepanel.qqmathline <-
         if (is.function(distribution)) distribution 
         else if (is.character(distribution)) get(distribution)
         else eval(distribution)
-    nobs <- sum(!is.na(y))
     getdy <- function(x)
     {
         diff(quantile(x, probs, names = FALSE, # was fast.quantile 

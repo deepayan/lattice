@@ -345,10 +345,10 @@ calculateGridLayout <-
                                     at = x$x.scales$at,
                                     used.at = x$x.used.at,
                                     num.limit = x$x.num.limit,
-                                    labels = x$x.scales$lab,
+                                    labels = x$x.scales$labels,
                                     logsc = x$x.scales$log,
-                                    abbreviate = x$x.scales$abbr,
-                                    minlength = x$x.scales$minl,
+                                    abbreviate = x$x.scales$abbreviate,
+                                    minlength = x$x.scales$minlength,
                                     format.posixt = x$x.scales$format,
                                     n = x$x.scales$tick.number)
 
@@ -481,11 +481,11 @@ calculateGridLayout <-
                                         at = if (is.list(x$x.scales$at)) x$x.scales$at[[i]] else x$x.scales$at,
                                         used.at = x$x.used.at[[i]],
                                         num.limit = x$x.num.limit[[i]],
-                                        labels = if (is.list(x$x.scales$lab))
-                                        x$x.scales$lab[[i]] else x$x.scales$lab,
+                                        labels = if (is.list(x$x.scales$labels))
+                                        x$x.scales$labels[[i]] else x$x.scales$labels,
                                         logsc = x$x.scales$log,
-                                        abbreviate = x$x.scales$abbr,
-                                        minlength = x$x.scales$minl,
+                                        abbreviate = x$x.scales$abbreviate,
+                                        minlength = x$x.scales$minlength,
                                         n = x$x.scales$tick.number,
                                         format.posixt = x$x.scales$format)
 
@@ -537,10 +537,10 @@ calculateGridLayout <-
                                     at = x$y.scales$at,
                                     used.at = x$y.used.at,
                                     num.limit = x$y.num.limit,
-                                    labels = x$y.scales$lab,
+                                    labels = x$y.scales$labels,
                                     logsc = x$y.scales$log,
-                                    abbreviate = x$y.scales$abbr,
-                                    minlength = x$y.scales$minl,
+                                    abbreviate = x$y.scales$abbreviate,
+                                    minlength = x$y.scales$minlength,
                                     format.posixt = x$y.scales$format,
                                     n = x$y.scales$tick.number)
 
@@ -665,11 +665,11 @@ calculateGridLayout <-
                                         at = if (is.list(x$y.scales$at)) x$y.scales$at[[i]] else x$y.scales$at,
                                         used.at = x$y.used.at[[i]],
                                         num.limit = x$y.num.limit[[i]],
-                                        labels = if (is.list(x$y.scales$lab))
-                                        x$y.scales$lab[[i]] else x$y.scales$lab,
+                                        labels = if (is.list(x$y.scales$labels))
+                                        x$y.scales$labels[[i]] else x$y.scales$labels,
                                         logsc = x$y.scales$log,
-                                        abbreviate = x$y.scales$abbr,
-                                        minlength = x$y.scales$minl,
+                                        abbreviate = x$y.scales$abbreviate,
+                                        minlength = x$y.scales$minlength,
                                         n = x$y.scales$tick.number,
                                         format.posixt = x$y.scales$format)
 
