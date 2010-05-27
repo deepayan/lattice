@@ -51,13 +51,13 @@ col.whitebg <- function()
 lower.saturation <-
     function(x, f = 0.2)
 {
-    rgb <- col2rgb(x)
-    rgb[] <- 255 - rgb
-    rgb[] <- round(f * rgb)
-    rgb[] <- 255 - rgb
-    rgb(rgb["red", ],
-        rgb["green", ],
-        rgb["blue", ],
+    RGB <- col2rgb(x)
+    RGB[] <- 255 - RGB
+    RGB[] <- round(f * RGB)
+    RGB[] <- 255 - RGB
+    rgb(RGB["red", ],
+        RGB["green", ],
+        RGB["blue", ],
         maxColorValue = 255)
 }
 
