@@ -209,8 +209,11 @@ do.breaks(endpoints, nint)
 }
 
 \references{
-  Sarkar, Deepayan (2008) "Lattice: Multivariate Data Visualization with
-  R", Springer. \url{http://lmdvr.r-forge.r-project.org/}
+
+  Sarkar, Deepayan (2008). \emph{Lattice: Multivariate Data
+    Visualization with R}, Springer.
+  \url{http://lmdvr.r-forge.r-project.org/}
+
 }
 
 \seealso{

@@ -23,18 +23,18 @@
   The Lattice user interface primarily consists of several
   \sQuote{high-level} generic functions (listed below in the \dQuote{See
   Also} section), each designed to create a particular type of display
-  by default.  Although each function produces different output, they
+  by default.  Although the functions produce different output, they
   share many common features, reflected in several common arguments that
   affect the resulting displays in similar ways.  These arguments are
   extensively (sometimes only) documented in the help page for
-  \code{\link{xyplot}}.  This includes a discussion of the important
-  topics of \emph{conditioning} and control of the Trellis layout.
-  Features specific to other high-level functions are documented in
-  their respective help pages.
+  \code{\link{xyplot}}, which also includes a discussion of the
+  important topics of \emph{conditioning} and control of the Trellis
+  layout.  Features specific to other high-level functions are
+  documented in their respective help pages.
 
   Lattice employs an extensive system of user-controllable settings to
   determine the look and feel of the displays it produces.  To learn how
-  to use and customise the graphical parameters used by lattice, see
+  to use and customize the graphical parameters used by lattice, see
   \code{\link{trellis.par.set}}.  For other settings, see
   \code{\link{lattice.options}}.  The default graphical settings are
   (potentially) different for different graphical devices.  To learn how
@@ -96,15 +96,16 @@
 
 \references{
 
-  Sarkar, Deepayan (2008) \dQuote{Lattice: Multivariate Data
+  Sarkar, Deepayan (2008). \emph{Lattice: Multivariate Data
     Visualization with R}, Springer.  ISBN: 978-0-387-75968-5
   \url{http://lmdvr.r-forge.r-project.org/}
 
-  Cleveland, W.S. (1993) \emph{Visualizing Data}, Hobart Press.
+  Cleveland, William .S. (1993). \emph{Visualizing Data}, Hobart Press,
+  Summit, New Jersey.
 
-  Becker, R. A., Cleveland, W. S. and Shyu, M. J.  \dQuote{The Visual
-  Design and Control of Trellis Display}, \emph{Journal of Computational
-  and Graphical Statistics} 5(2):123--155, 1996.
+  Becker, R. A., Cleveland, W. S. and Shyu, M. J. (1996).  \dQuote{The
+  Visual Design and Control of Trellis Display}, \emph{Journal of
+  Computational and Graphical Statistics} 5(2):123--155.
 
   Bell Lab's Trellis Page contains several documents outlining the use
   of Trellis graphics; these provide a holistic introduction to

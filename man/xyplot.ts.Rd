@@ -149,10 +149,11 @@
 }
 
 \references{
-  Sarkar, Deepayan (2008) \dQuote{Lattice: Multivariate Data
-  Visualization with R}, Springer.  ISBN: 978-0-387-75968-5
-  \url{http://lmdvr.r-forge.r-project.org/}
-  (cut-and-stack plots)
+
+  Sarkar, Deepayan (2008). \emph{Lattice: Multivariate Data
+    Visualization with R}, Springer.
+  \url{http://lmdvr.r-forge.r-project.org/} (cut-and-stack plots)
+
 }
 
 \seealso{
