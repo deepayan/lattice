@@ -75,6 +75,17 @@ panel.barchart(x, y, box.ratio = 1, box.width,
 \seealso{
   \code{\link{barchart}}
 }
+
+\examples{
+
+barchart(yield ~ variety | site, data = barley,
+         groups = year, layout = c(1,6), origin = 0,
+         ylab = "Barley Yield (bushels/acre)",
+         scales = list(x = list(abbreviate = TRUE,
+                                minlength = 5)))
+
+}
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
 

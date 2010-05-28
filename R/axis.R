@@ -363,14 +363,6 @@ formattedTicksAndLabels.default <-
 }
 
 
-
-
-
-
-
-
-
-
 formattedTicksAndLabels.date <-
     function(x, at = FALSE,
              used.at = NULL,
@@ -439,11 +431,6 @@ formattedTicksAndLabels.character <-
         else num.limit
     ans
 }
-
-
-
-
-
 
 formattedTicksAndLabels.expression <-
     function(x, at = FALSE,

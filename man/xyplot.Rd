@@ -414,14 +414,16 @@ bwplot(x, data, \dots)
 
   }
 
-  \item{groups}{ A variable or expression to be evaluated in
-    \code{data}, expected to act as a grouping variable within each
-    panel, typically used to distinguish different groups by varying
-    graphical parameters like color and line type.  Formally, if
-    \code{groups} is specified, then \code{groups} along with
-    \code{subscripts} is passed to the panel function, which is expected
-    to handle these arguments.  For high level functions where grouping
-    is appropriate, the default panel functions can handle grouping.
+  \item{groups}{
+
+    A variable or expression to be evaluated in \code{data}, expected to
+    act as a grouping variable within each panel, typically used to
+    distinguish different groups by varying graphical parameters like
+    color and line type.  Formally, if \code{groups} is specified, then
+    \code{groups} along with \code{subscripts} is passed to the panel
+    function, which is expected to handle these arguments.  For high
+    level functions where grouping is appropriate, the default panel
+    functions can handle grouping.
 
     It is very common to use a key (legend) when a grouping variable is
     specified.  See entries for \code{key}, \code{auto.key} and
@@ -483,7 +485,7 @@ bwplot(x, data, \dots)
     \code{xlim}, \code{ylim}, \code{dx}, and \code{dy} (and less
     frequently, \code{xat} and \code{yat}).  The return value of a
     user-supplied prepanel function need not contain all these
-    components; in case some are missing, they are replaced by the usual
+    components; in case some are missing, they are replaced by the
     component-wise defaults.
 
     The \code{xlim} and \code{ylim} components are similar to the high
@@ -597,11 +599,13 @@ bwplot(x, data, \dots)
 	The determination of what axis limits are suitable for each
 	panel can be controlled by the \code{prepanel} function, which
 	can be overridden by \code{xlim}, \code{ylim} or
-	\code{scales$limits}.  If relation is not \code{"same"}, the
-	value of \code{xlim} or \code{ylim} is normally ignored, except
-	when it is a list, in which case it is treated as if its
+	\code{scales$limits} (except when \code{relation="sliced"}, in
+	which case explicitly specified limits are ignored with a
+	warning).  When \code{relation} is \code{"free"}, \code{xlim} or
+	\code{ylim} can be a list, in which case it is treated as if its
 	components were the limit values obtained from the prepanel
-	calculations for each panel.
+	calculations for each panel (after being replicated if
+	necessary).
 
       }
       \item{\code{tick.number}}{
@@ -635,7 +639,7 @@ bwplot(x, data, \dots)
 	The default is \code{TRUE}, or equivalently, \code{c(1, 2)}
       }
       \item{\code{limits}}{
-	same as \code{xlim} and \code{ylim}.
+	Same as \code{xlim} and \code{ylim}.
       }
       \item{\code{at}}{
 	The location of tick marks along the axis (in native
@@ -673,126 +677,155 @@ bwplot(x, data, \dots)
 	long labels (e.g., in factors), especially on the x-axis.
       }
       \item{\code{minlength}}{
-	argument passed to \code{abbreviate} if \code{abbreviate=TRUE}.
+	Argument passed to \code{\link{abbreviate}} if
+	\code{abbreviate=TRUE}.
       }
       \item{\code{log}}{
+
 	Controls whether the corresponding variable (\code{x} or
 	\code{y}) will be log transformed before being passed to the
-	panel function.  Defaults to \code{FALSE}, in
-	which case the data are not transformed.  Other possible values
-	are any number that works as a base for taking logarithm,
-	\code{TRUE} (which is equivalent to 10), and \code{"e"} (for the
-	natural logarithm).  As a side effect, the corresponding axis is
-	labeled differently.  Note that this is a transformation of the
-	data, not the axes.  Other than the axis labeling, using this
-	feature is no different than transforming the data in the
-	formula; e.g., \code{scales=list(x = list(log = 2))} is
-	equivalent to \code{y ~ log2(x)}.
-
-
-% 	whether to use a log scale. Defaults to \code{FALSE}, other
-% 	possible values are any number that works as a base for taking
-% 	logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
-% 	natural logarithm).  Note that in this case the values passed to
-% 	the panel function are already transformed, so all computations
-% 	done inside the panel function will be affected accordingly. For
-% 	example, \code{panel.lmline} will fit a line to the transformed
-% 	values.
+	panel function.  Defaults to \code{FALSE}, in which case the
+	data are not transformed.  Other possible values are any number
+	that works as a base for taking logarithm, \code{TRUE} (which is
+	equivalent to 10), and \code{"e"} (for the natural logarithm).
+	As a side effect, the corresponding axis is labeled differently.
+	Note that this is in reality a transformation of the data, not
+	the axes.  Other than the axis labeling, using this feature is
+	no different than transforming the data in the formula; e.g.,
+	\code{scales=list(x = list(log = 2))} is equivalent to \code{y ~
+	  log2(x)}.
+      
+	% whether to use a log scale. Defaults to \code{FALSE}, other
+	% possible values are any number that works as a base for taking
+	% logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
+	% natural logarithm).  Note that in this case the values passed
+	% to the panel function are already transformed, so all
+	% computations done inside the panel function will be affected
+	% accordingly. For example, \code{panel.lmline} will fit a line
+	% to the transformed values.
       }
+
       \item{\code{format}}{
-	the \code{format} to use for POSIXct variables. See
+	The \code{format} to use for POSIXct variables. See
 	\code{\link{strptime}} for description of valid values.
       }
       \item{\code{axs}}{
-	character, \code{"r"} or \code{"i"}.  In the latter case, the
-	axis limits are calculated as the exact data range, instead of
-	being padded on either side. (May not always work as expected.)
+
+	A character string, \code{"r"} (default) or \code{"i"}.  In the
+	latter case, the axis limits are calculated as the exact data
+	range, instead of being padded on either side. (May not always
+	work as expected.)
+
       }
     }
 
     Note that much of the function of \code{scales} is accomplished by
-    \code{pscales} in \code{splom}.
+    \code{pscales} in \code{\link{splom}}.
+
   }
   \item{subscripts}{
-    logical specifying whether or not a vector named \code{subscripts}
-    should be passed to the panel function.  Defaults to \code{FALSE},
-    unless \code{groups} is specified, or if the panel function accepts
-    an argument named \code{subscripts}. (One should be careful when
-    defining the panel function on-the-fly.)
+    
+    A logical flag specifying whether or not a vector named
+    \code{subscripts} should be passed to the panel function.  Defaults
+    to \code{FALSE}, unless \code{groups} is specified, or if the panel
+    function accepts an argument named \code{subscripts}.  This argument
+    is useful if one wants the subscripts to be passed on even if these
+    conditions do not hold; a typical example is when one wishes to
+    augment a Lattice plot after it has been drawn, e.g., using
+    \code{\link{panel.identify}}.
+
   }
   \item{subset}{
-    logical or integer indexing vector (can be specified in terms of
-    variables in \code{data}).  Only these rows of \code{data} will be
-    used for the plot.  If \code{subscripts} is \code{TRUE}, the
-    subscripts will provide indices to the rows of data before the
-    subsetting is done.  Whether levels of factors in the data frame
-    that are unused after the subsetting will be dropped depends on the
+
+    An expression that evaluates to a logical or integer indexing
+    vector.  Like \code{groups}, it is evaluated in \code{data}.  Only
+    the resulting rows of \code{data} are used for the plot.  If
+    \code{subscripts} is \code{TRUE}, the subscripts provided to the
+    panel function will be indices to the rows of \code{data} prior to
+    the subsetting.  Whether levels of factors in the data frame that
+    are unused after the subsetting will be dropped depends on the
     \code{drop.unused.levels} argument.
+
   }
-  \item{xlim}{ Normally a numeric vector of length 2 (possibly a
-    DateTime object) giving minimum and maximum for the x-axis, or, a
-    character vector, expected to denote the levels of \code{x}.  The
-    latter form is interpreted as a range containing c(1, length(xlim)),
-    with the character vector determining labels at tick positions
-    \code{1:length(xlim)}
+
+  \item{xlim}{
+
+    Normally a numeric vector (or a DateTime object) of length 2 giving
+    left and right limits for the x-axis, or a character vector,
+    expected to denote the levels of \code{x}.  The latter form is
+    interpreted as a range containing c(1, length(xlim)), with the
+    character vector determining labels at tick positions
+    \code{1:length(xlim)}.
 
     \code{xlim} could also be a list, with as many components as the
     number of panels (recycled if necessary), with each component as
     described above.  This is meaningful only when
-    \code{scales$x$relation} is \code{"free"} or \code{"sliced"}, in
-    which case these are treated as if they were the corresponding limit
-    components returned by prepanel calculations.
+    \code{scales$x$relation} is \code{"free"}, in which case these are
+    treated as if they were the corresponding limit components returned
+    by prepanel calculations.
 
   }
-  \item{ylim}{ similar to \code{xlim}, applied to the y-axis. }
+
+  \item{ylim}{ Similar to \code{xlim}, applied to the y-axis. }
+  
   \item{drop.unused.levels}{
-    logical indicating whether the unused levels of factors will be
-    dropped, usually relevant with a subsetting operation is performed
-    or an \code{\link{interaction}} is created.  Unused levels are
-    usually dropped, but it is sometimes appropriate to suppress
+
+    A logical flag indicating whether the unused levels of factors will
+    be dropped, usually relevant with a subsetting operation is
+    performed or an \code{\link{interaction}} is created.  Unused levels
+    are usually dropped, but it is sometimes appropriate to suppress
     dropping to preserve a useful layout.  For finer control, this
     argument could also be list containing components \code{cond} and
     \code{data}, both logical, indicating desired behavior for
-    conditioning variables and data variables respectively.  The default
-    is given by \code{lattice.getOption("drop.unused.levels")}, which
-    is initially set to \code{TRUE} for both components.  Note that this
-    argument does not control dropping of levels of the \code{groups}
-    argument.
+    conditioning variables and primary variables respectively.  The
+    default is given by \code{lattice.getOption("drop.unused.levels")},
+    which is initially set to \code{TRUE} for both components.  Note
+    that this argument does not control dropping of levels of the
+    \code{groups} argument.
+
   }
   \item{ default.scales }{
-    list giving the default values of \code{scales} for a particular
-    high level function.  This should not be of any interest to the
-    normal user, but may be helpful when defining other functions that
-    act as a wrapper to one of the high level lattice functions.
+
+    A list giving the default values of \code{scales} for a particular
+    high-level function.  This is usually not of interest to the user,
+    but may be helpful when defining other functions that act as a
+    wrapper to one of the high level lattice functions.
+
   }
+
   \item{lattice.options}{
-    a list that could be supplied to \code{\link{lattice.options}}.
-    These options are temporarily in effect for the duration of the
-    call, after which the settings revert back to whatever they were
-    before.  The settings are also retained along with the object and
-    reused during plotting.  This enables the user to attach options
-    settings to the trellis object itself rather than change the
-    settings globally.  See also the  \code{par.settings} argument
-    described below for a similar treatment of graphical settings.
+
+    A list that could be supplied to \code{\link{lattice.options}}.
+    These options are applied temporarily for the duration of the call,
+    after which the settings revert back to what they were before.  The
+    options are retained along with the object and reused during
+    plotting.  This enables the user to attach options settings to the
+    trellis object itself rather than change the settings globally.  See
+    also the \code{par.settings} argument described below for a similar
+    treatment of graphical settings.
+
   }
-  \item{\dots}{ further arguments, usually not directly processed by the
-    high level functions documented here, but rather passed on to other
+
+  \item{\dots}{
+
+    Further arguments, usually not directly processed by the high-level
+    functions documented here, but instead passed on to other
     functions. Such arguments can be broadly categorized into two types:
-    those that affect all high level Trellis functions in a similar
+    those that affect all high-level Lattice functions in a similar
     manner, and those that are meant for the specific panel function
-    used, which may differ across high level functions.
+    being used.
 
     The first group of arguments are processed by a common, unexported
     function called \code{trellis.skeleton}.  These arguments affect all
-    high level functions, but are only documented here, except to
-    override the behaviour described here.  All other arguments
-    specified in a high level call, specifically those neither described
+    high-level functions, but are only documented here (except to
+    override the behaviour described here).  All other arguments
+    specified in a high-level call, specifically those neither described
     here nor in the help page of the relevant high level function, are
     passed unchanged to the panel function used.  By convention, the
     default panel function used for any high level function is named as
-    \code{"panel."} followed by the name of the high level function;
-    for example, the default panel function for \code{bwplot} is
-    \code{panel.bwplot}.  In practical terms, this means that in
+    \dQuote{\code{panel.}} followed by the name of the high level
+    function; for example, the default panel function for \code{bwplot}
+    is \code{panel.bwplot}.  In practical terms, this means that in
     addition to the help page of the high level function being used, the
     user should also consult the help page of the corresponding panel
     function for arguments that may be specified in the high level call.
@@ -800,27 +833,34 @@ bwplot(x, data, \dots)
     The effect of the first group of common arguments are as follows:
 
     \describe{
-      \item{\code{as.table}:}{ logical that controls the order in which panels
-	should be plotted: if \code{FALSE} (the default), panels are drawn
-	left to right, bottom to top (as in a graph); if \code{TRUE}, left
-	to right, top to bottom.
+
+      \item{\code{as.table}:}{
+
+	A logical flag that controls the order in which panels should be
+	plotted: if \code{FALSE} (the default), panels are drawn left to
+	right, bottom to top (as in a graph); if \code{TRUE}, left to
+	right, top to bottom (as in a table).
+
       }
 
-      \item{\code{between}:}{ a list with components \code{x} and \code{y} (both
-	usually 0 by default), numeric vectors specifying the space between
-	the panels (units are character heights). \code{x} and \code{y} are
+      \item{\code{between}:}{
+
+	A list with components \code{x} and \code{y} (both usually 0 by
+	default), numeric vectors specifying the space between the
+	panels (units are character heights). \code{x} and \code{y} are
 	repeated to account for all panels in a page and any extra
 	components are ignored. The result is used for all pages in a
-	multi page display. (In other words, it is not possible to use
-	different \code{between} values for different pages).
+	multi page display.  In other words, it is not possible to use
+	different \code{between} values for different pages.
+
       }
 
       \item{\code{key}:}{
+
 	A list of arguments that define a legend to be drawn on the plot.
 	This list is used as an argument to the \code{\link{draw.key}}
 	function, which produces a grid object eventually plotted by the
 	print method for \code{"trellis"} objects.
-
 
 	There is also a less flexible but usually sufficient shortcut
 	function \code{\link{simpleKey}} that can generate such a list, as
@@ -829,7 +869,6 @@ bwplot(x, data, \dots)
 	grouping variable. To use more than one legend, or to have arbitrary
 	legends not constrained by the structure imposed by \code{key}, use
 	the \code{legend} argument.
-
 
 	The position of the key can be controlled in either of two
 	possible ways. If a component called \code{space} is present,
@@ -976,9 +1015,10 @@ bwplot(x, data, \dots)
 	}
       }
       \item{\code{legend}:}{
-	the legend argument can be useful if one wants to place more than
-	one key. It also allows one to use arbitrary \code{"grob"}s (grid
-	objects) as legends.
+
+	The legend argument can be useful if one wants to place more
+	than one key.  It also allows one to use arbitrary
+	\code{"grob"}s (grid objects) as legends.
 
 	If used, \code{legend} must be a list, with an arbitrary number of
 	components. Each component must be named one of \code{"left"},
@@ -1279,11 +1319,6 @@ bwplot(x, data, \dots)
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \examples{
 
-\dontrun{
-## wait for user input before each new page (like 'par(ask = TRUE)')
-old.prompt <- grid::grid.prompt(TRUE)
-}
-
 require(stats)
 
 ## Tonga Trench Earthquakes
@@ -1295,38 +1330,23 @@ update(trellis.last.object(),
        par.strip.text = list(cex = 0.75),
        aspect = "iso")
 
-## Examples with data from `Visualizing Data' (Cleveland)
-## (obtained from Bill Cleveland's Homepage :
-## http://cm.bell-labs.com/cm/ms/departments/sia/wsc/, also
-## available at statlib)
+## Examples with data from `Visualizing Data' (Cleveland, 1993) obtained
+## from http://cm.bell-labs.com/cm/ms/departments/sia/wsc/
 
 EE <- equal.count(ethanol$E, number=9, overlap=1/4)
+
 ## Constructing panel functions on the fly; prepanel
 xyplot(NOx ~ C | EE, data = ethanol,
        prepanel = function(x, y) prepanel.loess(x, y, span = 1),
        xlab = "Compression Ratio", ylab = "NOx (micrograms/J)",
        panel = function(x, y) {
-           panel.grid(h=-1, v= 2)
+           panel.grid(h = -1, v = 2)
            panel.xyplot(x, y)
-           panel.loess(x,y, span=1)
+           panel.loess(x, y, span=1)
        },
        aspect = "xy")
 
-
-
-## with and without banking
-
-plot <- xyplot(sunspot.year ~ 1700:1988, xlab = "", type = "l",
-               scales = list(x = list(alternating = 2)),
-               main = "Yearly Sunspots")
-print(plot, position = c(0, .3, 1, .9), more = TRUE)
-print(update(plot, aspect = "xy", main = "", xlab = "Year"),
-      position = c(0, 0, 1, .3))
-
-
-
-
-## Multiple variables in formula for grouped displays
+## Extended formula interface 
 
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
        data = iris, scales = "free", layout = c(2, 2),
@@ -1340,23 +1360,24 @@ states <- data.frame(state.x77,
                      state.region = state.region)
 xyplot(Murder ~ Population | state.region, data = states,
        groups = state.name,
-       panel = function(x, y, subscripts, groups)
-       ltext(x = x, y = y, labels = groups[subscripts], cex=1,
-             fontfamily = "HersheySans"))
+       panel = function(x, y, subscripts, groups) {
+           ltext(x = x, y = y, labels = groups[subscripts], cex=1,
+                 fontfamily = "HersheySans")
+       })
+
+## Stacked bar chart
 
 barchart(yield ~ variety | site, data = barley,
-         groups = year, layout = c(1,6),
-         ylab = "Barley Yield (bushels/acre)",
-         scales = list(x = list(abbreviate = TRUE,
-                       minlength = 5)))
-barchart(yield ~ variety | site, data = barley,
          groups = year, layout = c(1,6), stack = TRUE,
-         auto.key = list(points = FALSE, rectangles = TRUE, space = "right"),
+         auto.key = list(space = "right"),
          ylab = "Barley Yield (bushels/acre)",
          scales = list(x = list(rot = 45)))
 
 bwplot(voice.part ~ height, data=singer, xlab="Height (inches)")
+
 dotplot(variety ~ yield | year * site, data=barley)
+
+## Grouped dot plot showing anomaly at Morris
 
 dotplot(variety ~ yield | site, data = barley, groups = year,
         key = simpleKey(levels(barley$year), space = "right"),
@@ -1365,6 +1386,7 @@ dotplot(variety ~ yield | site, data = barley, groups = year,
 
 stripplot(voice.part ~ jitter(height), data = singer, aspect = 1,
           jitter.data = TRUE, xlab = "Height (inches)")
+
 ## Interaction Plot
 
 xyplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
@@ -1383,10 +1405,6 @@ bwplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
                   c(1:7, 1)),
                   text = list(lab = as.character(unique(OrchardSprays$rowpos))),
                   columns = 4, title = "Row position"))
-}
-
-\dontrun{
-grid::grid.prompt(old.prompt)
 }
 
 
