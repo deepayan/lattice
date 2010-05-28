@@ -42,9 +42,10 @@ xyplot(sunspot.year ~ time(sunspot.year) | equal.count(time(sunspot.year)),
 
 \references{
 
-  Cleveland, William S.,  McGill, Marylyn E. and McGill, Robert (1988),
-    "The Shape Parameter of a Two-variable Graph",
-    \emph{Journal of the American Statistical Association}, 83, 289-300
+  Cleveland, William S., McGill, Marylyn E. and McGill, Robert (1988).
+  \dQuote{The Shape Parameter of a Two-variable Graph}, \emph{Journal of
+  the American Statistical Association}, 83, 289--300.
+
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{\code{\link{Lattice}}, \code{\link{xyplot}}}
