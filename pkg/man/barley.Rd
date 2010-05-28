@@ -57,10 +57,10 @@
 }
 
 \references{
-  Cleveland, William S. (1993). \emph{Visualizing Data}.  Hobart Press,
+  Cleveland, William S. (1993) \emph{Visualizing Data}.  Hobart Press,
   Summit, New Jersey.
 
-  Fisher, R. A. (1971). \emph{The Design of Experiments}.  Hafner, New
+  Fisher, R. A. (1971) \emph{The Design of Experiments}.  Hafner, New
   York, 9th edition.
 }
 

@@ -206,18 +206,18 @@ bwplot(x, data, \dots)
     shingle, \code{TRUE} otherwise. (The functionality provided by
     \code{horizontal=FALSE} is not S-compatible.)
 
-    Note that this argument used to be called \code{formula} in earlier
-    versions (when the high-level functions were not generic and the
-    formula method was essentially the only method).  This is no longer
-    allowed.  It is recommended that this argument not be named in any
-    case, but instead be the first (unnamed) argument.
+    Note that the \code{x} argument used to be called \code{formula} in
+    earlier versions (when the high-level functions were not generic and
+    the formula method was essentially the only method).  This is no
+    longer allowed.  It is recommended that this argument not be named
+    in any case, but instead be the first (unnamed) argument.
 
   }
   \item{data}{
 
-    For the \code{formula} method, a data frame (or more precisely,
+    For the \code{formula} methods, a data frame (or more precisely,
     anything that is a valid \code{envir} argument in
-    \code{\link{eval}}, e.g. a list or an environment) containing values
+    \code{\link{eval}}, e.g., a list or an environment) containing values
     for any variables in the formula, as well as \code{groups} and
     \code{subset} if applicable.  If not found in \code{data}, or if
     \code{data} is unspecified, the variables are looked for in the
@@ -239,8 +239,8 @@ bwplot(x, data, \dots)
     panel function.
   }
   \item{box.ratio}{
-    Applicable to \code{bwplot} and \code{barchart}.  Specifies the
-    ratio of the width of the rectangles to the inter rectangle space.
+    Applicable to \code{barchart} and \code{bwplot}.  Specifies the
+    ratio of the width of the rectangles to the inter-rectangle space.
     See also the \code{box.width} argument in the respective default
     panel functions.
   }
@@ -272,35 +272,35 @@ bwplot(x, data, \dots)
   %     numeric controlling amount of jitter as in \code{\link{jitter}}.
   %   }
 
-  The following arguments are common to all the functions documented
-  here, as well as most other high level Trellis functions. These are
-  not documented elsewhere, except to override the usage given here.
+  \bold{Common arguments: } The following arguments are common to all
+  the functions documented here, as well as most other high level
+  Trellis functions. These are not documented elsewhere, except to
+  override the usage given here.
 
   \item{panel}{
-    Once the subset of rows defined by each unique combination of the
-    levels of the grouping variables are obtained (see details), the
-    corresponding \code{x} and \code{y} variables (or other variables,
-    as appropriate, in the case of other high level functions) are
-    passed on to be plotted in each panel. The actual plotting is done
-    by the function specified by the \code{panel} argument.  Each high
-    level function has its own default panel function, which could
-    depend on whether the \code{groups} argument was supplied.
 
-    The panel function can be a function object or a character string
-    giving the name of a predefined function.
+    Once the subset of rows defined by each unique combination of the
+    levels of the grouping variables are obtained (see
+    \dQuote{Details}), the corresponding \code{x} and \code{y} variables
+    (or other variables, as appropriate, in the case of other high level
+    functions) are passed on to be plotted in each panel. The actual
+    plotting is done by the function specified by the \code{panel}
+    argument.  The argument may be a function object or a character
+    string giving the name of a predefined function.  Each high level
+    function has its own default panel function.
 
     Much of the power of Trellis Graphics comes from the ability to
-    define customized panel functions.  A panel function appropriate
-    for the functions described here would usually expect arguments
-    named \code{x} and \code{y}, which would be provided by the
-    conditioning process.  It can also have other arguments. It might be
-    useful to know in this context that all arguments passed to a high
-    level Trellis function (such as \code{xyplot}) that are not
-    recognized by it are passed through to the panel function. It is
-    thus generally good practice when defining panel functions to allow
-    a \code{\dots} argument. Such extra arguments typically control
-    graphical parameters, but other uses are also common. See
-    documentation for individual panel functions for specifics.
+    define customized panel functions.  A panel function appropriate for
+    the functions described here would usually expect arguments named
+    \code{x} and \code{y}, which would be provided by the conditioning
+    process.  It can also have other arguments. It is useful to know in
+    this context that all arguments passed to a high-level Lattice
+    function (such as \code{xyplot}) that are not recognized by it are
+    passed through to the panel function. It is thus generally good
+    practice when defining panel functions to allow a \code{\dots}
+    argument. Such extra arguments typically control graphical
+    parameters, but other uses are also common. See documentation for
+    individual panel functions for specifics.
 
     Note that unlike in S-PLUS, it is not guaranteed that panel
     functions will be supplied only numeric vectors for the \code{x} and
@@ -390,40 +390,43 @@ bwplot(x, data, \dots)
   %     these cases if \code{groups} is non-null)
   %   }
 
-  \item{aspect}{ controls physical aspect ratio of the panels (same for
-    all the panels). It can be specified as a ratio (vertical
-    size/horizontal size) or as a character string. Legitimate
-    values are \code{"fill"} (the default) which tries to make the
-    panels as big as possible to fill the available space; \code{"xy"},
-    which \bold{tries} to compute the aspect based on the 45 degree
-    banking rule (see \emph{Visualizing Data} by William S. Cleveland
-    for details); and \code{"iso"} for isometric scales, where the
-    relation between physical distance on the device and distance in the
-    data scale are forced to be the same for both axes.
+  \item{aspect}{
+
+    This argument controls the physical aspect ratio of the panels,
+    which is usually the same for all the panels. It can be specified as
+    a ratio (vertical size/horizontal size) or as a character
+    string. Legitimate values are \code{"fill"} (the default) which
+    tries to make the panels as big as possible to fill the available
+    space; \code{"xy"}, which computes the aspect ratio based on the 45
+    degree banking rule (see \code{\link{banking}}); and \code{"iso"}
+    for isometric scales, where the relation between physical distance
+    on the device and distance in the data scale are forced to be the
+    same for both axes.
 
     If a \code{prepanel} function is specified and it returns components
     \code{dx} and \code{dy}, these are used for banking calculations.
     Otherwise, values from the default prepanel function are used.
     Currently, only the default prepanel function for \code{xyplot} can
-    be expected to produce sensible banking calculations.  See
-    \code{\link{banking}} for details on the implementation of banking .
+    be expected to produce sensible banking calculations.
+
   }
 
-  \item{groups}{ a variable or expression to be evaluated in the data
+  \item{groups}{ A variable or expression to be evaluated in the data
     frame specified by \code{data}, expected to act as a grouping
     variable within each panel, typically used to distinguish different
     groups by varying graphical parameters like color and line type.
     Formally, if \code{groups} is specified, then \code{groups} along
     with \code{subscripts} is passed to the panel function, which is
-    expected to handle these arguments.  Not all pre-defined panel
-    functions know how to, but for high level functions where grouping
-    is appropriate, the default panel functions are chosen so that they
-    do.
+    expected to handle these arguments.  For high level functions where
+    grouping is appropriate, the default panel functions can handle
+    grouping.
 
-    It is very common to use a key (legend) when a grouping
-    variable is specified.  See entries for \code{key}, \code{auto.key}
-    and \code{\link{simpleKey}} for how to draw a key.
+    It is very common to use a key (legend) when a grouping variable is
+    specified.  See entries for \code{key}, \code{auto.key} and
+    \code{\link{simpleKey}} for how to draw a key.
+
   }
+
   \item{auto.key}{
 
     A logical, or a list containing components to be used as arguments
@@ -458,21 +461,23 @@ bwplot(x, data, \dots)
     Note that \code{simpleKey} uses the default settings (see
     \code{\link{trellis.par.get}}) to determine the graphical parameters
     in the key, so the resulting legend will be meaningful only if the
-    same settings are used in the plot as well.
+    same settings are used in the plot as well.  The \code{par.settings}
+    argument may be useful to temporarily modify the default settings
+    for this purpose.
 
     One disadvantage to using \code{key} (or even \code{simpleKey})
     directly is that the graphical parameters used in the key are
     absolutely determined at the time when the \code{"trellis"} object
     is created. Consequently, if a plot once created is
-    re-\code{plot}ted with different settings, the original parameter
+    re-\code{plot}-ted with different settings, the original parameter
     settings will be used for the key even though the new settings are
     used for the actual display. However, with \code{auto.key}, the key
     is actually created at plotting time, so the settings will match.
   }
   \item{prepanel}{
-    function that takes the same arguments as the \code{panel} function
+    A function that takes the same arguments as the \code{panel} function
     and returns a list, possibly containing components named
-    \code{xlim}, \code{ylim}, \code{dx} and \code{dy} (and less
+    \code{xlim}, \code{ylim}, \code{dx}, and \code{dy} (and less
     frequently, \code{xat} and \code{yat}).
 
     The \code{xlim} and \code{ylim} components are similar to the high
@@ -480,17 +485,15 @@ bwplot(x, data, \dots)
     a numeric vector of length 2 defining a range of values, or a
     character vector representing levels of a factor).  If the
     \code{xlim} and \code{ylim} arguments are not explicitly specified
-    (possibly as components in \code{scales}), then the actual limits of
-    the panels are guaranteed to include the limits returned by the
-    prepanel function. This happens globally if the \code{relation}
-    component of \code{scales} is \code{"same"}, and on a panel by panel
-    basis otherwise. See \code{xlim} to see what forms of the components
-    \code{xlim} and \code{ylim} are allowed.
+    (possibly as components in \code{scales}) in the high-level call,
+    then the actual limits of the panels are guaranteed to include the
+    limits returned by the prepanel function.  This happens globally if
+    the \code{relation} component of \code{scales} is \code{"same"}, and
+    on a per-panel basis otherwise.
 
     The \code{dx} and \code{dy} components are used for banking
     computations in case \code{aspect} is specified as \code{"xy"}.  See
-    documentation for the function \code{banking} for details regarding
-    how this is done.
+    documentation for \code{\link{banking}} for details.
 
     The return value of the prepanel function need not have all the
     components named above; in case some are missing, they are replaced
@@ -516,12 +519,14 @@ bwplot(x, data, \dots)
 
     The prepanel function is responsible for providing a meaningful
     return value when the \code{x}, \code{y} (etc.) variables are
-    zero-length vectors.  When nothing is appropriate, values of NA
+    zero-length vectors.  When nothing else is appropriate, values of NA
     should be returned for the \code{xlim} and \code{ylim} components.
+
   }
 
   \item{strip}{
-    logical flag or function.  If \code{FALSE}, strips are not drawn.
+
+    A logical flag or function.  If \code{FALSE}, strips are not drawn.
     Otherwise, strips are drawn using the \code{strip} function, which
     defaults to \code{strip.default}.  See documentation of
     \code{strip.default} to see the arguments that are available to the
@@ -529,6 +534,7 @@ bwplot(x, data, \dots)
     \code{strip.left} argument (see \code{\dots} below), which can be
     used to draw strips on the left of each panel, which can be useful
     for wide short panels, e.g. in time series plots.
+
   }
 
   \item{xlab}{ character string or expression (or a \code{"grob"}) giving
@@ -1220,7 +1226,7 @@ bwplot(x, data, \dots)
 
 \references{
 
-  Sarkar, Deepayan (2008). \emph{Lattice: Multivariate Data
+  Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data
     Visualization with R}, Springer.
   \url{http://lmdvr.r-forge.r-project.org/}
 
