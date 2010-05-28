@@ -63,7 +63,7 @@ panel.parallel(x, y, z, subscripts,
 
 \references{
 
-  Inselberg, Alfred (2009) \dQuote{Parallel Coordinates: Visual
+  Inselberg, Alfred (2009) \emph{Parallel Coordinates: Visual
   Multidimensional Geometry and Its Applications}, Springer. ISBN:
   978-0-387-21507-5.
 

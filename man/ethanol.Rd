@@ -33,7 +33,7 @@
 }
 
 \references{
-  Cleveland, William S. (1993). \emph{Visualizing Data}.  Hobart Press,
+  Cleveland, William S. (1993) \emph{Visualizing Data}.  Hobart Press,
   Summit, New Jersey.
 }
 

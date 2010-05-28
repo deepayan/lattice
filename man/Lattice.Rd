@@ -96,16 +96,16 @@
 
 \references{
 
-  Sarkar, Deepayan (2008). \emph{Lattice: Multivariate Data
+  Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data
     Visualization with R}, Springer.  ISBN: 978-0-387-75968-5
   \url{http://lmdvr.r-forge.r-project.org/}
 
-  Cleveland, William .S. (1993). \emph{Visualizing Data}, Hobart Press,
+  Cleveland, William .S. (1993) \emph{Visualizing Data}, Hobart Press,
   Summit, New Jersey.
 
-  Becker, R. A., Cleveland, W. S. and Shyu, M. J. (1996).  \dQuote{The
+  Becker, R. A. and Cleveland, W. S. and Shyu, M. J. (1996).  \dQuote{The
   Visual Design and Control of Trellis Display}, \emph{Journal of
-  Computational and Graphical Statistics} 5(2):123--155.
+  Computational and Graphical Statistics}, \bold{5(2)}, 123--155.
 
   Bell Lab's Trellis Page contains several documents outlining the use
   of Trellis graphics; these provide a holistic introduction to
@@ -133,50 +133,42 @@
   directly to the high-level functions, which will pass on the arguments
   appropriately.
 
-  \bold{Univariate:}  
-
-  \code{\link{barchart}}: Bar plots.
-
-  \code{\link{bwplot}}: Box-and-whisker plots.
-
-  \code{\link{densityplot}}: Kernel density estimates.  
-
-  \code{\link{dotplot}}: Cleveland dot plots.
-
-  \code{\link{histogram}}:  Histograms.
-
-  \code{\link{qqmath}}: Theretical quantile plots.
-
-  \code{\link{stripplot}}: One-dimensional scatterplots.
+  \bold{Univariate:}
+  \describe{
+    \item{\code{\link{barchart}}:}{ Bar plots. }
+    \item{\code{\link{bwplot}}:}{ Box-and-whisker plots. }
+    \item{\code{\link{densityplot}}:}{ Kernel density estimates. }
+    \item{\code{\link{dotplot}}:}{ Cleveland dot plots. }
+    \item{\code{\link{histogram}}:}{ Histograms. }
+    \item{\code{\link{qqmath}}:}{ Theretical quantile plots. }
+    \item{\code{\link{stripplot}}:}{ One-dimensional scatterplots. }
+  }
 
   \bold{Bivariate:}
-
-  \code{\link{qq}}: Quantile plots for comparing two distributions.
-  
-  \code{\link{xyplot}}:  Scatterplots and time-series plots (and potentially a lot more).
+  \describe{
+    \item{\code{\link{qq}}:}{ Quantile plots for comparing two distributions. }
+    \item{\code{\link{xyplot}}:}{ Scatterplots and time-series plots (and potentially a lot more). }
+  }
 
   \bold{Trivariate:}
-
-  \code{\link{levelplot}}: Level plots (similar to \code{\link{image}} plots).
-
-  \code{\link{contourplot}}: Contour plots
-
-  \code{\link{cloud}}: Three-dimensional scatter plots.
-
-  \code{\link{wireframe}}: Three-dimensional surface plots (similar to \code{\link{persp}} plots).
-
+  \describe{
+    \item{\code{\link{levelplot}}:}{ Level plots (similar to \code{\link{image}} plots). }
+    \item{\code{\link{contourplot}}:}{ Contour plots. }
+    \item{\code{\link{cloud}}:}{ Three-dimensional scatter plots. }
+    \item{\code{\link{wireframe}}:}{ Three-dimensional surface plots (similar to \code{\link{persp}} plots). }
+  }
+  
   \bold{Hypervariate:}
-  
-  \code{\link{splom}}:  Scatterplot matrices.
-  
-  \code{\link{parallel}}:  Parallel coordinate plots.
+  \describe{
+    \item{\code{\link{splom}}:}{ Scatterplot matrices. }
+    \item{\code{\link{parallel}}:}{ Parallel coordinate plots. }
+  }
   
   \bold{Miscellaneous:}
-
-  \code{\link{rfs}}: Residual and fitted value plots (also see
-  \code{\link{oneway}})
-
-  \code{\link{tmd}}:  Tukey Mean-Difference plots.
+  \describe{
+    \item{\code{\link{rfs}}:}{ Residual and fitted value plots (also see \code{\link{oneway}}). }
+    \item{\code{\link{tmd}}:}{ Tukey Mean-Difference plots. }
+  }
 
   In addition, there are several panel functions that do little by
   themselves, but can be useful components of custom panel functions.
