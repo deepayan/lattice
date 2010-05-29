@@ -23,41 +23,45 @@
 }
 
 \description{
-  Contingency tables are often displayed using barcharts and dotplots.
-  These methods are provided for convenience and operate directly on
-  tables.  Arrays and matrices are simply coerced to be a table.
+
+  Contingency tables are often displayed using bar charts and dot plots.
+  These methods operate directly on tables, bypassing the need to
+  convert them to data frames for use with the formula interface.
+  Matrices and arrays are also supported, by coercing them to tables.
+
 }
 
 \arguments{
   \item{x}{
-    a \code{table}, \code{array} or \code{matrix} object.
+    A \code{table}, \code{array} or \code{matrix} object.
   }
   \item{data}{
-    should not be specified. If specified, will be ignored with a
+    Should not be specified. If specified, will be ignored with a
     warning.
   }
   \item{groups}{
-    logical, whether to use the last dimension as the grouping variable
-    in the display.
+    A logical flag, indicating whether to use the last dimension as a
+    grouping variable in the display.
   }
   \item{origin, stack}{
-    arguments to \code{panel.barchart} controlling the display.  The
-    defaults for the \code{table} method are different.
+    Arguments to \code{\link{panel.barchart}}.  The defaults for the
+    \code{table} method are different.
   }
-  \item{horizontal}{ logical, indicating whether the plot should be
-    horizontal (with the categorical variable on the y-axis) or vertical.
+  \item{horizontal}{
+    Logical flag, indicating whether the plot should be horizontal (with
+    the categorical variable on the y-axis) or vertical.
   }
-  \item{\dots}{ other arguments, passed to the underlying \code{formula}
-    method.
+  \item{\dots}{
+    Other arguments, passed to the underlying \code{formula} method.
   }
 }
   
 \details{
 
-  The first dimension is used as the variable on the vertical axis.  The
-  last dimension is optionally used as a grouping variable (to produce
-  stacked barcharts by default).  All other dimensions are used as
-  conditioning variables.  The order of these variables cannot be
+  The first dimension is used as the variable on the categorical axis.
+  The last dimension is optionally used as a grouping variable (to
+  produce stacked barcharts by default).  All other dimensions are used
+  as conditioning variables.  The order of these variables cannot be
   altered (except by permuting the original argument using
   \code{\link{t}} or \code{\link{aperm}}).  For more flexibility, use
   the formula method after converting the table to a data frame using
@@ -74,7 +78,6 @@
   default) will plot it on an appropriate plotting device.
 
 }
-
 
 \seealso{
 

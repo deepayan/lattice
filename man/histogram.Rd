@@ -63,24 +63,25 @@ do.breaks(endpoints, nint)
 }
 \arguments{
   \item{x}{
+
     The object on which method dispatch is carried out.
 
     For the \code{formula} method, a formula of the form \code{~ x | g1
-      * g2 * \dots} indicates that histograms or Kernel Density
-    estimates of \code{x} should be produced conditioned on the levels
-    of the (optional) variables \code{g1, g2, \dots}.  \code{x} can be
-    numeric (or factor for \code{histogram}), and each of \code{g1, g2,
-      \dots} must be either factors or shingles.
+    * g2 * \dots} indicates that histograms or Kernel density estimates
+    of \code{x} should be produced conditioned on the levels of the
+    (optional) variables \code{g1, g2, \dots}.  \code{x} can be numeric
+    (or factor for \code{histogram}), and each of \code{g1, g2, \dots}
+    must be either factors or shingles.
 
     As a special case, the right hand side of the formula can contain
-    more than one variable separated by a \code{+} sign. What happens in
+    more than one term separated by \sQuote{+} signs. What happens in
     this case is described in details in the documentation for
-    \code{\link{xyplot}}.  Note that in either form, all the variables
-    involved in the formula have to have same length.
+    \code{\link{xyplot}}.  Note that in either form, all the terms in
+    the formula must have the same length after evaluation.
 
-    For the \code{numeric} and \code{factor} methods, \code{x}
-    replaces the \code{x} vector described above.  Conditioning is not
-    allowed in these cases.
+    For the \code{numeric} and \code{factor} methods, \code{x} is the
+    variable whose histogram or Kernel density estimate is drawn.
+    Conditioning is not allowed in these cases.
 
   }
   \item{data}{
