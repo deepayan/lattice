@@ -251,7 +251,7 @@ bwplot(x, data, \dots)
     and \code{y} is to be a factor or shingle (\code{y} if TRUE,
     \code{x} otherwise).  Defaults to \code{FALSE} if \code{x} is a
     factor or shingle, \code{TRUE} otherwise. This argument is used to
-    process the arguments to these high level functions, but more
+    process the arguments to these high-level functions, but more
     importantly, it is passed as an argument to the panel function,
     which is expected to use it as appropriate.
 
@@ -273,7 +273,7 @@ bwplot(x, data, \dots)
   %   }
 
   \bold{Common arguments: } The following arguments are common to all
-  the functions documented here, as well as most other high level
+  the functions documented here, as well as most other high-level
   Trellis functions. These are not documented elsewhere, except to
   override the usage given here.
 
@@ -282,11 +282,11 @@ bwplot(x, data, \dots)
     Once the subset of rows defined by each unique combination of the
     levels of the grouping variables are obtained (see
     \dQuote{Details}), the corresponding \code{x} and \code{y} variables
-    (or other variables, as appropriate, in the case of other high level
+    (or other variables, as appropriate, in the case of other high-level
     functions) are passed on to be plotted in each panel. The actual
     plotting is done by the function specified by the \code{panel}
     argument.  The argument may be a function object or a character
-    string giving the name of a predefined function.  Each high level
+    string giving the name of a predefined function.  Each high-level
     function has its own default panel function, named as
     \dQuote{\code{panel.}} followed by the name of the corresponding
     high-level function (e.g., \code{\link{panel.xyplot}},
@@ -455,7 +455,7 @@ bwplot(x, data, \dots)
     \code{groups} is non-null, and there is no \code{key} or
     \code{legend} argument specified in the call, a key is created with
     \code{simpleKey} with \code{levels(groups)} as the first
-    (\code{text}) argument. (Note: this may not work in all high level
+    (\code{text}) argument. (Note: this may not work in all high-level
     functions, but it does work for the ones where grouping makes sense
     with the default panel function).  If \code{auto.key} is provided as
     a list and includes a \code{text} component, then that is used
@@ -585,136 +585,136 @@ bwplot(x, data, \dots)
     \describe{
       \item{\code{relation}}{
 
-	A character string that determines how axis limits are
-	calculated for each panel.  Possible values are \code{"same"}
-	(default), \code{"free"} and \code{"sliced"}.  For
-	\code{relation="same"}, the same limits, usually large enough to
-	encompass all the data, are used for all the panels.  For
-	\code{relation="free"}, limits for each panel is determined by
-	just the points in that panel.  Behavior for
-	\code{relation="sliced"} is similar, except that the length (max
-	- min) of the scales are constrained to remain the same across
-	panels.
+        A character string that determines how axis limits are
+        calculated for each panel.  Possible values are \code{"same"}
+        (default), \code{"free"} and \code{"sliced"}.  For
+        \code{relation="same"}, the same limits, usually large enough to
+        encompass all the data, are used for all the panels.  For
+        \code{relation="free"}, limits for each panel is determined by
+        just the points in that panel.  Behavior for
+        \code{relation="sliced"} is similar, except that the length (max
+        - min) of the scales are constrained to remain the same across
+        panels.
 
-	The determination of what axis limits are suitable for each
-	panel can be controlled by the \code{prepanel} function, which
-	can be overridden by \code{xlim}, \code{ylim} or
-	\code{scales$limits} (except when \code{relation="sliced"}, in
-	which case explicitly specified limits are ignored with a
-	warning).  When \code{relation} is \code{"free"}, \code{xlim} or
-	\code{ylim} can be a list, in which case it is treated as if its
-	components were the limit values obtained from the prepanel
-	calculations for each panel (after being replicated if
-	necessary).
+        The determination of what axis limits are suitable for each
+        panel can be controlled by the \code{prepanel} function, which
+        can be overridden by \code{xlim}, \code{ylim} or
+        \code{scales$limits} (except when \code{relation="sliced"}, in
+        which case explicitly specified limits are ignored with a
+        warning).  When \code{relation} is \code{"free"}, \code{xlim} or
+        \code{ylim} can be a list, in which case it is treated as if its
+        components were the limit values obtained from the prepanel
+        calculations for each panel (after being replicated if
+        necessary).
 
       }
       \item{\code{tick.number}}{
 
-	An integer, giving the suggested number of ticks.  This is
-	ignored for a factor, shingle or character vector, in which case
-	there is no natural rule for leaving out some of the labels. But
-	see \code{xlim}.
+        An integer, giving the suggested number of ticks.  This is
+        ignored for a factor, shingle or character vector, in which case
+        there is no natural rule for leaving out some of the labels. But
+        see \code{xlim}.
 
       }
       \item{\code{draw}}{
 
-	A logical flag, defaulting to \code{TRUE}, that determines
-	whether to draw the axis at all.
-	
+        A logical flag, defaulting to \code{TRUE}, that determines
+        whether to draw the axis at all.
+        
       }
       \item{\code{alternating}}{
 
-	Usually a logical flag specifying whether axis labels should
-	alternate from one side of the group of panels to the other.
-	For finer control, \code{alternating} can also be a vector
-	(replicated to be as long as the number of rows or columns per
-	page) consisting of the following numbers
-	\itemize{
-	  \item 0: do not draw tick labels
-	  \item 1: bottom/left
-	  \item 2: top/right
-	  \item 3: both.
-	}
-	\code{alternating} applies only when \code{relation="same"}.
-	The default is \code{TRUE}, or equivalently, \code{c(1, 2)}
+        Usually a logical flag specifying whether axis labels should
+        alternate from one side of the group of panels to the other.
+        For finer control, \code{alternating} can also be a vector
+        (replicated to be as long as the number of rows or columns per
+        page) consisting of the following numbers
+        \itemize{
+          \item 0: do not draw tick labels
+          \item 1: bottom/left
+          \item 2: top/right
+          \item 3: both.
+        }
+        \code{alternating} applies only when \code{relation="same"}.
+        The default is \code{TRUE}, or equivalently, \code{c(1, 2)}
       }
       \item{\code{limits}}{
-	Same as \code{xlim} and \code{ylim}.
+        Same as \code{xlim} and \code{ylim}.
       }
       \item{\code{at}}{
-	The location of tick marks along the axis (in native
-	coordinates), or a list as long as the number of panels
-	describing tick locations for each panel.
+        The location of tick marks along the axis (in native
+        coordinates), or a list as long as the number of panels
+        describing tick locations for each panel.
       }
       \item{\code{labels}}{
-	Vector of labels (characters or expressions) to go along with
-	\code{at}. Can also be a list like \code{at}.
+        Vector of labels (characters or expressions) to go along with
+        \code{at}. Can also be a list like \code{at}.
       }
       \item{\code{cex}}{
-	A numeric multiplier to control character sizes for axis labels.
-	Can be a vector of length 2, to control left/bottom and
-	right/top labels separately.
+        A numeric multiplier to control character sizes for axis labels.
+        Can be a vector of length 2, to control left/bottom and
+        right/top labels separately.
       }
       \item{\code{font}, \code{fontface}, \code{fontfamily}}{
-	Specifies the font to be used for axis labels.
+        Specifies the font to be used for axis labels.
       }
       \item{\code{tck}}{
-	Usually a numeric scalar controlling the length of tick marks.
-	Can also be a vector of length 2, to control the length of
-	left/bottom and right/top tick marks separately.
+        Usually a numeric scalar controlling the length of tick marks.
+        Can also be a vector of length 2, to control the length of
+        left/bottom and right/top tick marks separately.
       }
       \item{\code{col}}{
-	Color of tick marks and labels.
+        Color of tick marks and labels.
       }
       \item{\code{rot}}{
-	Angle (in degrees) by which the axis labels are to be rotated.
-	Can be a vector of length 2, to control left/bottom and
-	right/top axes separately.
+        Angle (in degrees) by which the axis labels are to be rotated.
+        Can be a vector of length 2, to control left/bottom and
+        right/top axes separately.
       }
       \item{\code{abbreviate}}{
-	A logical flag, indicating whether to abbreviate the labels
-	using the \code{\link{abbreviate}} function.  Can be useful for
-	long labels (e.g., in factors), especially on the x-axis.
+        A logical flag, indicating whether to abbreviate the labels
+        using the \code{\link{abbreviate}} function.  Can be useful for
+        long labels (e.g., in factors), especially on the x-axis.
       }
       \item{\code{minlength}}{
-	Argument passed to \code{\link{abbreviate}} if
-	\code{abbreviate=TRUE}.
+        Argument passed to \code{\link{abbreviate}} if
+        \code{abbreviate=TRUE}.
       }
       \item{\code{log}}{
 
-	Controls whether the corresponding variable (\code{x} or
-	\code{y}) will be log transformed before being passed to the
-	panel function.  Defaults to \code{FALSE}, in which case the
-	data are not transformed.  Other possible values are any number
-	that works as a base for taking logarithm, \code{TRUE} (which is
-	equivalent to 10), and \code{"e"} (for the natural logarithm).
-	As a side effect, the corresponding axis is labeled differently.
-	Note that this is in reality a transformation of the data, not
-	the axes.  Other than the axis labeling, using this feature is
-	no different than transforming the data in the formula; e.g.,
-	\code{scales=list(x = list(log = 2))} is equivalent to \code{y ~
-	  log2(x)}.
+        Controls whether the corresponding variable (\code{x} or
+        \code{y}) will be log transformed before being passed to the
+        panel function.  Defaults to \code{FALSE}, in which case the
+        data are not transformed.  Other possible values are any number
+        that works as a base for taking logarithm, \code{TRUE} (which is
+        equivalent to 10), and \code{"e"} (for the natural logarithm).
+        As a side effect, the corresponding axis is labeled differently.
+        Note that this is in reality a transformation of the data, not
+        the axes.  Other than the axis labeling, using this feature is
+        no different than transforming the data in the formula; e.g.,
+        \code{scales=list(x = list(log = 2))} is equivalent to \code{y ~
+          log2(x)}.
       
-	% whether to use a log scale. Defaults to \code{FALSE}, other
-	% possible values are any number that works as a base for taking
-	% logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
-	% natural logarithm).  Note that in this case the values passed
-	% to the panel function are already transformed, so all
-	% computations done inside the panel function will be affected
-	% accordingly. For example, \code{panel.lmline} will fit a line
-	% to the transformed values.
+        % whether to use a log scale. Defaults to \code{FALSE}, other
+        % possible values are any number that works as a base for taking
+        % logarithm, \code{TRUE}, equivalent to 10, and \code{"e"} (for
+        % natural logarithm).  Note that in this case the values passed
+        % to the panel function are already transformed, so all
+        % computations done inside the panel function will be affected
+        % accordingly. For example, \code{panel.lmline} will fit a line
+        % to the transformed values.
       }
 
       \item{\code{format}}{
-	The \code{format} to use for POSIXct variables. See
-	\code{\link{strptime}} for description of valid values.
+        The \code{format} to use for POSIXct variables. See
+        \code{\link{strptime}} for description of valid values.
       }
       \item{\code{axs}}{
 
-	A character string, \code{"r"} (default) or \code{"i"}.  In the
-	latter case, the axis limits are calculated as the exact data
-	range, instead of being padded on either side. (May not always
-	work as expected.)
+        A character string, \code{"r"} (default) or \code{"i"}.  In the
+        latter case, the axis limits are calculated as the exact data
+        range, instead of being padded on either side. (May not always
+        work as expected.)
 
       }
     }
@@ -787,9 +787,9 @@ bwplot(x, data, \dots)
   \item{ default.scales }{
 
     A list giving the default values of \code{scales} for a particular
-    high-level function.  This is usually not of interest to the user,
+    high-level function.  This is rarely of interest to the end-user,
     but may be helpful when defining other functions that act as a
-    wrapper to one of the high level lattice functions.
+    wrapper to one of the high-level Lattice functions.
 
   }
 
@@ -820,15 +820,15 @@ bwplot(x, data, \dots)
     high-level functions, but are only documented here (except to
     override the behaviour described here).  All other arguments
     specified in a high-level call, specifically those neither described
-    here nor in the help page of the relevant high level function, are
+    here nor in the help page of the relevant high-level function, are
     passed unchanged to the panel function used.  By convention, the
-    default panel function used for any high level function is named as
-    \dQuote{\code{panel.}} followed by the name of the high level
+    default panel function used for any high-level function is named as
+    \dQuote{\code{panel.}} followed by the name of the high-level
     function; for example, the default panel function for \code{bwplot}
     is \code{panel.bwplot}.  In practical terms, this means that in
-    addition to the help page of the high level function being used, the
+    addition to the help page of the high-level function being used, the
     user should also consult the help page of the corresponding panel
-    function for arguments that may be specified in the high level call.
+    function for arguments that may be specified in the high-level call.
 
     The effect of the first group of common arguments are as follows:
 
@@ -836,390 +836,443 @@ bwplot(x, data, \dots)
 
       \item{\code{as.table}:}{
 
-	A logical flag that controls the order in which panels should be
-	plotted: if \code{FALSE} (the default), panels are drawn left to
-	right, bottom to top (as in a graph); if \code{TRUE}, left to
-	right, top to bottom (as in a table).
+        A logical flag that controls the order in which panels should be
+        displayed: if \code{FALSE} (the default), panels are drawn left to
+        right, bottom to top (as in a graph); if \code{TRUE}, left to
+        right, top to bottom (as in a table).
 
       }
 
       \item{\code{between}:}{
 
-	A list with components \code{x} and \code{y} (both usually 0 by
-	default), numeric vectors specifying the space between the
-	panels (units are character heights). \code{x} and \code{y} are
-	repeated to account for all panels in a page and any extra
-	components are ignored. The result is used for all pages in a
-	multi page display.  In other words, it is not possible to use
-	different \code{between} values for different pages.
+        A list with components \code{x} and \code{y} (both usually 0 by
+        default), numeric vectors specifying the space between the
+        panels (units are character heights). \code{x} and \code{y} are
+        repeated to account for all panels in a page and any extra
+        components are ignored. The result is used for all pages in a
+        multi page display.  In other words, it is not possible to use
+        different \code{between} values for different pages.
 
       }
 
       \item{\code{key}:}{
 
-	A list of arguments that define a legend to be drawn on the plot.
-	This list is used as an argument to the \code{\link{draw.key}}
-	function, which produces a grid object eventually plotted by the
-	print method for \code{"trellis"} objects.
+        A list that defines a legend to be drawn on the plot.  This list
+        is used as an argument to the \code{\link{draw.key}} function,
+        which produces a \code{"grob"} (grid object) eventually plotted
+        by the print method for \code{"trellis"} objects.  The structure
+        of the legend is constrained in the ways described below.
 
-	There is also a less flexible but usually sufficient shortcut
-	function \code{\link{simpleKey}} that can generate such a list, as
-	well as the argument \code{auto.key} that can be convenient in the
-	most common situation where legends are used, namely when there is a
-	grouping variable. To use more than one legend, or to have arbitrary
-	legends not constrained by the structure imposed by \code{key}, use
-	the \code{legend} argument.
+        Although such a list can be and often is created explicitly, it
+        is also possible to generate such a list using the
+        \code{\link{simpleKey}} function; the latter is more convenient
+        but less flexible.  The \code{auto.key} argument can be even
+        more convenient for the most common situation where legends are
+        used, namely, in conjunction with a grouping variable.  To use
+        more than one legend, or to have arbitrary legends not
+        constrained by the structure imposed by \code{key}, use the
+        \code{legend} argument.
 
-	The position of the key can be controlled in either of two
-	possible ways. If a component called \code{space} is present,
-	the key is positioned outside the plot region, in one of the
-	four sides, determined by the value of \code{space}, which can
-	be one of \code{"top"}, \code{"bottom"}, \code{"left"} and
-	\code{"right"}.  Alternatively, the key can be positioned inside
-	the plot region by specifying components \code{x}, \code{y} and
-	\code{corner}. \code{x} and \code{y} determine the location of
-	the corner of the key given by \code{corner}, which is usually
-	one of \code{c(0,0)}, \code{c(1,0)}, \code{c(1,1)} and
-	\code{c(0,1)}, which denote the corners of the unit square.
-	Fractional values are also allowed, in which case \code{x} and
-	\code{y} determine the position of an arbitrary point inside (or
-	outside for values outside the unit interval) the key.
+        The position of the key can be controlled in either of two
+        possible ways. If a component called \code{space} is present,
+        the key is positioned outside the plot region, in one of the
+        four sides, determined by the value of \code{space}, which can
+        be one of \code{"top"}, \code{"bottom"}, \code{"left"} and
+        \code{"right"}.  Alternatively, the key can be positioned inside
+        the plot region by specifying components \code{x}, \code{y} and
+        \code{corner}. \code{x} and \code{y} determine the location of
+        the corner of the key given by \code{corner}, which is usually
+        one of \code{c(0,0)}, \code{c(1,0)}, \code{c(1,1)} and
+        \code{c(0,1)}, which denote the corners of the unit square.
+        Fractional values are also allowed, in which case \code{x} and
+        \code{y} determine the position of an arbitrary point inside (or
+        outside for values outside the unit interval) the key.
 
-	\code{x} and \code{y} should be numbers between 0 and 1, giving
-	coordinates with respect to the \dQuote{display area}.
-	Depending on the value of
-	\code{lattice.getOption("legend.bbox")}, this can be either the
-	full figure region (\code{"full"}), or just the region that
-	bounds the panels and strips (\code{"panel"}).
+        \code{x} and \code{y} should be numbers between 0 and 1, giving
+        coordinates with respect to the \dQuote{display area}.
+        Depending on the value of
+        \code{lattice.getOption("legend.bbox")}, this can be either the
+        full figure region (\code{"full"}), or just the region that
+        bounds the panels and strips (\code{"panel"}).
 
-	The key essentially consists of a number of columns, possibly
-	divided into blocks, each containing some rows.  The contents of the
-	key are determined by (possibly repeated) components named
-	\code{"rectangles"}, \code{"lines"}, \code{"points"} or
-	\code{"text"}.  Each of these must be lists with relevant graphical
-	parameters (see later) controlling their appearance.  The \code{key}
-	list itself can contain graphical parameters, these would be used if
-	relevant graphical components are omitted from the other components.
+        The key essentially consists of a number of columns, possibly
+        divided into blocks, each containing some rows.  The contents of the
+        key are determined by (possibly repeated) components named
+        \code{"rectangles"}, \code{"lines"}, \code{"points"} or
+        \code{"text"}.  Each of these must be lists with relevant graphical
+        parameters (see later) controlling their appearance.  The \code{key}
+        list itself can contain graphical parameters, these would be used if
+        relevant graphical components are omitted from the other components.
 
-	The length (number of rows) of each such column (except \code{"text"}s)
-	is taken to be the largest of the lengths of the graphical
-	components, including the ones specified outside (see the entry for
-	\code{rep} below for details on this). The \code{"text"} component has to
-	have a character or expression vector as its first component, and
-	the length of this vector determines the number of rows.
+        The length (number of rows) of each such column (except \code{"text"}s)
+        is taken to be the largest of the lengths of the graphical
+        components, including the ones specified outside (see the entry for
+        \code{rep} below for details on this). The \code{"text"} component has to
+        have a character or expression vector as its first component, and
+        the length of this vector determines the number of rows.
 
-	The graphical components that can be included in \code{key} (and
-	also in the components named \code{"text"}, \code{"lines"},
-	\code{"points"} and \code{"rectangles"} as appropriate) are:
+        The graphical components that can be included in \code{key} (and
+        also in the components named \code{"text"}, \code{"lines"},
+        \code{"points"} and \code{"rectangles"} as appropriate) are:
 
-	\itemize{
-	  \item \code{cex=1}
-	  \item \code{col="black"}
-	  \item \code{alpha=1}
-	  \item \code{lty=1}
-	  \item \code{lwd=1}
-	  \item \code{font=1}
-	  \item \code{fontface}
-	  \item \code{fontfamily}
-	  \item \code{pch=8}
-	  \item \code{adj=0}
-	  \item \code{type="l"}
-	  \item \code{size=5}
-	  \item \code{angle=0}
-	  \item \code{density=-1}
-	}
+        \itemize{
+          \item \code{cex=1}
+          \item \code{col="black"}
+          \item \code{alpha=1}
+          \item \code{lty=1}
+          \item \code{lwd=1}
+          \item \code{font=1}
+          \item \code{fontface}
+          \item \code{fontfamily}
+          \item \code{pch=8}
+          \item \code{adj=0}
+          \item \code{type="l"}
+          \item \code{size=5}
+          \item \code{angle=0}
+          \item \code{density=-1}
+        }
 
-	In addition, the component \code{border} can be included inside
-	the \code{"rect"} component to control the border color of the
-	rectangles; when specified at the top level, \code{border}
-	controls the border of the entire key (see below).
+        In addition, the component \code{border} can be included inside
+        the \code{"rect"} component to control the border color of the
+        rectangles; when specified at the top level, \code{border}
+        controls the border of the entire key (see below).
 
-	\code{angle} and \code{density} are unimplemented.  \code{size}
-	determines the width of columns of rectangles and lines in
-	character widths. \code{type} is relevant for lines; \code{"l"}
-	denotes a line, \code{"p"} denotes a point, and \code{"b"} and
-	\code{"o"} both denote both together.
+        \code{angle} and \code{density} are unimplemented.  \code{size}
+        determines the width of columns of rectangles and lines in
+        character widths. \code{type} is relevant for lines; \code{"l"}
+        denotes a line, \code{"p"} denotes a point, and \code{"b"} and
+        \code{"o"} both denote both together.
 
-	Other possible components of \code{key} are:
+        Other possible components of \code{key} are:
 
-	\describe{
-	  \item{\code{reverse.rows}}{
-	    logical, defaulting to \code{FALSE}.  If \code{TRUE}, all
-	    components are reversed \emph{after} being replicated
-	    (the details of which may depend on the value of
-	    \code{rep}).  This is useful in certain situations,
-	    e.g. with a grouped \code{barchart} with \code{stack =
-	      FALSE} with the categorical variable on the vertical axis,
-	    where the bars in the plot will usually be ordered from
-	    bottom to top, but the corresponding legend will have the
-	    levels from top to bottom (unless, of course,
-	    \code{reverse.rows = TRUE}).  Note that in this case, unless
-	    all columns have the same number or rows, they will no
-	    longer be aligned.
-	  }
-	  \item{\code{between}}{
-	    numeric vector giving the amount of space (character widths)
-	    surrounding each column (split equally on both sides)
-	  }
-	  \item{\code{title}}{
-	    string or expression giving a title for the key
-	  }
-	  \item{\code{rep}}{
-	    logical, defaults to \code{TRUE}.  By default, it's assumed that
-	    all columns in the key (except the \code{"text"}s) will have the same
-	    number of rows, and all components are replicated to be as long
-	    as the longest. This can be suppressed by specifying
-	    \code{rep=FALSE}, in which case the length of each column will
-	    be determined by components of that column alone.
-	  }
-	  \item{\code{cex.title}}{
-	    cex for the title
-	  }
-	  \item{\code{lines.title}}{
-	    how many lines the title should occupy (in multiples of
-	    itself).  Defaults to 2.
-	  }
-	  \item{\code{padding.text}}{
-	    how much space (padding) should be used above and below each
-	    row containing text, in multiples of the default, which is
-	    currently \code{0.2 * "lines"}.  This padding is in addition to
-	    the normal height of any row that contains text, which is the
-	    minimum amount necessary to contain all the text entries.
-	  }
-	  \item{\code{background}}{
-	    background color, defaults to default background
-	  }
-	  \item{\code{alpha.background}}{
-	    An alpha transparency value between 0 and 1
-	  }
-	  \item{\code{border}}{
-	    either a color for the border, or a logical.  In the latter
-	    case, the border color is black if \code{border} is
-	    \code{TRUE}, and no border is drawn if it is \code{FALSE} (the
-	    default)
-	  }
-	  \item{\code{transparent=FALSE}}{
-	    logical, whether key area should have a transparent background
-	  }
-	  \item{\code{columns}}{
-	    the number of columns column-blocks the key is to be divided
-	    into, which are drawn side by side.
-	  }
-	  \item{\code{between.columns}}{
-	    Space between column blocks, in addition to \code{between}.
-	  }
-	  \item{\code{divide}}{
-	    Number of point symbols to divide each line when \code{type} is
-	    \code{"b"} or \code{"o"} in \code{lines}.
-	  }
-	}
+        \describe{
+          \item{\code{reverse.rows}}{
+
+            Logical flag, defaulting to \code{FALSE}.  If \code{TRUE},
+            all components are reversed \emph{after} being replicated
+            (the details of which may depend on the value of
+            \code{rep}).  This is useful in certain situations, e.g.,
+            with a grouped \code{barchart} with \code{stack = TRUE} with
+            the categorical variable on the vertical axis, where the
+            bars in the plot will usually be ordered from bottom to top,
+            but the corresponding legend will have the levels from top
+            to bottom unless \code{reverse.rows = TRUE}.  Note that in
+            this case, unless all columns have the same number or rows,
+            they will no longer be aligned.
+
+          }
+          \item{\code{between}}{
+            Numeric vector giving the amount of space (character widths)
+            surrounding each column (split equally on both sides).
+          }
+          \item{\code{title}}{
+            String or expression giving a title for the key.
+          }
+          \item{\code{rep}}{
+
+            Logical flag, defaults to \code{TRUE}.  By default, it is
+            assumed that all columns in the key (except the
+            \code{"text"}s) will have the same number of rows, and all
+            components are replicated to be as long as the longest. This
+            can be suppressed by specifying \code{rep=FALSE}, in which
+            case the length of each column will be determined by
+            components of that column alone.
+
+          }
+          \item{\code{cex.title}}{
+            Zoom factor for the title.
+          }
+          \item{\code{lines.title}}{
+            The amount of vertical space to be occupied by the title in
+            lines (in multiples of itself).  Defaults to 2.
+          }
+          \item{\code{padding.text}}{
+
+            The amount of space (padding) to be used above and below
+            each row containing text, in multiples of the default, which
+            is currently \code{0.2 * "lines"}.  This padding is in
+            addition to the normal height of any row that contains text,
+            which is the minimum amount necessary to contain all the
+            text entries.
+
+          }
+          \item{\code{background}}{
+            Background color for the legend.  Defaults to the global
+            background color.
+          }
+          \item{\code{alpha.background}}{
+            An alpha transparency value between 0 and 1 for the
+            background.
+          }
+          \item{\code{border}}{
+            Either a color for the border, or a logical flag.  In the
+            latter case, the border color is black if \code{border} is
+            \code{TRUE}, and no border is drawn if it is \code{FALSE}
+            (the default).
+          }
+          \item{\code{transparent=FALSE}}{
+            Logical flag, whether legend should have a transparent
+            background.
+          }
+          \item{\code{columns}}{
+            The number of column-blocks (drawn side by side) the legend
+            is to be divided into.
+          }
+          \item{\code{between.columns}}{
+            Space between column blocks, in addition to \code{between}.
+          }
+          \item{\code{divide}}{
+            Number of point symbols to divide each line when \code{type} is
+            \code{"b"} or \code{"o"} in \code{lines}.
+          }
+        }
       }
       \item{\code{legend}:}{
 
-	The legend argument can be useful if one wants to place more
-	than one key.  It also allows one to use arbitrary
-	\code{"grob"}s (grid objects) as legends.
+        The legend argument can be useful if one wants to place more
+        than one key.  It also allows the use of arbitrary
+        \code{"grob"}s (grid objects) as legends.
 
-	If used, \code{legend} must be a list, with an arbitrary number of
-	components. Each component must be named one of \code{"left"},
-	\code{"right"}, \code{"top"}, \code{"bottom"} or \code{"inside"}.
-	The name \code{"inside"} can be repeated, but not the others.  This
-	name will be used to determine the location for that component, and
-	is similar to the \code{space} component of \code{key}.  If
-	\code{key} (or \code{colorkey} for \code{\link{levelplot}} and
-	\code{\link{wireframe}}) is specified, their \code{space} component
-	must not conflict with the name of any component of \code{legend}.
+        If used, \code{legend} must be a list, with an arbitrary number
+        of components.  Each component must be named one of
+        \code{"left"}, \code{"right"}, \code{"top"}, \code{"bottom"}, or
+        \code{"inside"}.  The name \code{"inside"} can be repeated, but
+        not the others.  This name will be used to determine the
+        location for that component, and is similar to the \code{space}
+        component of \code{key}.  If \code{key} (or \code{colorkey} for
+        \code{\link{levelplot}} and \code{\link{wireframe}}) is
+        specified, their \code{space} component must not conflict with
+        the name of any component of \code{legend}.
 
-	Each component of \code{legend} must have a component called
-	\code{fun}. This can be a \code{"grob"}, or a function or the name of a
-	function that produces a \code{"grob"} when called. If this function
-	expects any arguments, they must be supplied as a list in another
-	component called \code{args}. For components named \code{"inside"},
-	there can be additional components called \code{x}, \code{y} and
-	\code{corner}, which work in the same way as it does for \code{key}.
+        Each component of \code{legend} must have a component called
+        \code{fun}.  This can be a \code{"grob"}, or a function (or the
+        name of a function) that produces a \code{"grob"} when called.
+        If this function expects any arguments, they must be supplied as
+        a list in another component called \code{args}.  For components
+        named \code{"inside"}, there can be additional components called
+        \code{x}, \code{y} and \code{corner}, which work in the same way
+        as for \code{key}.
+
       }
 
-      \item{\code{page}:}{ a function of one argument (page number) to be called
-	after drawing each page. The function must be
-	\sQuote{grid-compliant}, and is called with the whole display area
-	as the default viewport.
+      \item{\code{page}:}{
+
+        A function of one argument (page number) to be called after
+        drawing each page.  The function must be
+        \sQuote{grid-compliant}, and is called with the whole display
+        area as the default viewport.
+
       }
-      \item{\code{main}:}{ typically a character string or expression
-	describing the main title to be placed on top of each page.
-	Defaults to \code{NULL}.  \code{main} (as well as \code{xlab},
-	\code{ylab} and \code{sub}) is usually a character string or an
-	expression that gets used as the label, but can also be a list
-	that controls further details.  Expressions are treated as
-	specification of LaTeX-like markup as described in
-	\code{\link{plotmath}}.  The label can be a vector, in which
-	case the components will be spaced out horizontally (or
-	vertically for \code{ylab}).  This feature can be used to
-	provide column or row labels rather than a single axis label.
 
-	When \code{main} (etc.) is a list, the actual label should be
-	specified as the \code{label} component (which may be unnamed if
-	it is the first component).  The label can be missing, in which
-	case the default will be used (\code{xlab} and \code{ylab}
-	usually have defaults, but \code{main} and \code{sub} do not).
-	Further named arguments are passed on to
-	\code{\link[grid:grid.text]{textGrob}}; this can include
-	arguments controlling positioning like \code{just} and
-	\code{rot} as well as graphical parameters such as \code{col}
-	and \code{font} (see \code{\link[grid:gpar]{gpar}} for a full
-	list).
+      \item{\code{main}:}{
 
-	\code{main}, \code{xlab}, \code{ylab} and \code{sub} can also be
-	an arbitrary \code{"grob"} (grid graphical object).
+        Typically a character string or expression describing the main
+        title to be placed on top of each page.  Defaults to
+        \code{NULL}.
+
+        \code{main} (as well as \code{xlab}, \code{ylab} and \code{sub})
+        is usually a character string or an expression that gets used as
+        the label, but can also be a list that controls further details.
+        Expressions are treated as specification of LaTeX-like markup as
+        described in \code{\link{plotmath}}.  The label can be a vector,
+        in which case the components will be spaced out horizontally (or
+        vertically for \code{ylab}).  This feature can be used to
+        provide column or row labels rather than a single axis label.
+
+        When \code{main} (etc.) is a list, the actual label should be
+        specified as the \code{label} component (which may be unnamed if
+        it is the first component).  The label can be missing, in which
+        case the default will be used (\code{xlab} and \code{ylab}
+        usually have defaults, but \code{main} and \code{sub} do not).
+        Further named arguments are passed on to
+        \code{\link[grid:grid.text]{textGrob}}; this can include
+        arguments controlling positioning like \code{just} and
+        \code{rot} as well as graphical parameters such as \code{col}
+        and \code{font} (see \code{\link[grid:gpar]{gpar}} for a full
+        list).
+
+        \code{main}, \code{xlab}, \code{ylab} and \code{sub} can also be
+        an arbitrary \code{"grob"} (grid graphical object).
+
       }
       \item{\code{sub}:}{
-	character string or expression (or a list or \code{"grob"}) for
-	a subtitle to be placed at the bottom of each page.  See entry
-	for \code{main} for finer control options.
+        Character string or expression (or a list or \code{"grob"}) for
+        a subtitle to be placed at the bottom of each page.  See entry
+        for \code{main} for finer control options.
       }
-      \item{\code{par.strip.text}:}{ list of  parameters to control the appearance
-	of strip text.  Notable components are \code{col}, \code{cex},
-	\code{font} and \code{lines}.  The first three control graphical
-	parameters while the last is a means of altering the height of the
-	strips.  This can be useful, for example, if the strip labels
-	(derived from factor levels, say) are double height (i.e., contains
-	\code{"\\n"}-s) or if the default height seems too small or too
-	large.  The \code{lineheight} component can control the space
-	between multiple lines.  Also, the labels can be abbreviated when
-	shown by specifying \code{abbreviate = TRUE}, in which case the
-	components \code{minlength} and \code{dot} (passed along to the
-	\code{\link{abbreviate}} function) can be specified to control the
-	details of how this is done.
+      \item{\code{par.strip.text}:}{
+
+        A list of parameters to control the appearance of strip text.
+        Notable components are \code{col}, \code{cex}, \code{font}, and
+        \code{lines}.  The first three control graphical parameters
+        while the last is a means of altering the height of the strips.
+        This can be useful, for example, if the strip labels (derived
+        from factor levels, say) are double height (i.e., contains
+        \code{"\\n"}-s) or if the default height seems too small or too
+        large.
+
+        Additionally, the \code{lineheight} component can control the
+        space between multiple lines.  The labels can be abbreviated
+        when shown by specifying \code{abbreviate = TRUE}, in which case
+        the components \code{minlength} and \code{dot} (passed along to
+        the \code{\link{abbreviate}} function) can be specified to
+        control the details of how this is done.
+
       }
       \item{\code{layout}:}{
-	In general, a Trellis conditioning plot consists of several panels
-	arranged in a rectangular array, possibly spanning multiple
-	pages. \code{layout} determines this arrangement.
 
-	\code{layout} is a numeric vector giving the number of columns, rows
-	and pages in a multi panel display.  By default, the number of
-	columns is the number of levels of the first conditioning variable
-	and the number of rows is the number of levels of the second
-	conditioning variable.  If there is only one conditioning variable,
-	the default layout vector is \code{c(0,n)}, where \code{n} is the
-	number of levels of the given vector.  Any time the first value in
-	the layout vector is 0, the second value is used as the desired
-	number of panels per page and the actual layout is computed from
-	this, taking into account the aspect ratio of the panels and the
-	device dimensions (via \code{par("din")}).  The number of pages is
-	by default set to as many as is required to plot all the panels.  In
-	general, giving a high value of \code{layout[3]} is not wasteful
-	because blank pages are never created.
+        In general, a conditioning plot in Lattice consists of several
+        panels arranged in a rectangular array, possibly spanning
+        multiple pages. \code{layout} determines this arrangement.
 
-	If \code{NA} is specified for the number of rows or columns (not
-	both), that dimension will be filled out according to the number
-	of panels.
+        \code{layout} is a numeric vector of length 2 or 3 giving the
+        number of columns, rows, and pages (optional) in a multipanel
+        display.  By default, the number of columns is the number of
+        levels of the first conditioning variable and the number of rows
+        is the number of levels of the second conditioning variable.  If
+        there is only one conditioning variable, the default layout
+        vector is \code{c(0,n)}, where \code{n} is the number of levels
+        of the given vector.  Any time the first value in the layout
+        vector is 0, the second value is used as the desired number of
+        panels per page and the actual layout is computed from this,
+        taking into account the aspect ratio of the panels and the
+        device dimensions (via \code{par("din")}).  The number of pages
+        is by default set to as many as is required to plot all the
+        panels.  In general, giving a high value of \code{layout[3]} is
+        not wasteful because blank pages are never created.
+
+        If \code{NA} is specified for the number of rows or columns (not
+        both), that dimension will be filled out according to the number
+        of panels.
+
       }
       \item{\code{skip}:}{
-	logical vector (default \code{FALSE}), replicated to be as long as
-	the number of panels (spanning all pages).  For elements that are
-	\code{TRUE}, the corresponding panel position is skipped; i.e.,
-	nothing is plotted in that position.  The panel that was supposed to
-	be drawn there is now drawn in the next available panel position,
-	and the positions of all the subsequent panels are bumped up
-	accordingly.  This is often useful for arranging plots in an
-	informative manner.
+
+        A logical vector (default \code{FALSE}), replicated to be as
+        long as the number of panels (spanning all pages).  For elements
+        that are \code{TRUE}, the corresponding panel position is
+        skipped; i.e., nothing is plotted in that position.  The panel
+        that was supposed to be drawn there is now drawn in the next
+        available panel position, and the positions of all the
+        subsequent panels are bumped up accordingly.  This may be useful
+        for arranging plots in an informative manner.
+
       }
 
       \item{\code{strip.left}:}{
-	% FIXME: (update: fix what?)
-	\code{strip.left} can be used to draw strips on the left of each
-	panel, which can be useful for wide short panels, as in time
-	series (or similar) plots.  It is a function similar to
-	\code{strip}.
+
+        \code{strip.left} can be used to draw strips on the left of each
+        panel, which can be useful for wide short panels, as in
+        time-series (or similar) plots.  See the entry for \code{strip}
+        for detailed usage.
+
       }
 
-      \item{\code{xlab.default}, \code{ylab.default}:}{ fallback default
-	for \code{xlab} and \code{ylab} when they are not specified.  If
-	\code{NULL}, the defaults are parsed from the Trellis formula.
-	This is rarely useful for the end-user, but can be helpful when
-	developing new Trellis functions.}
+      \item{\code{xlab.default}, \code{ylab.default}:}{
 
-      \item{\code{xscale.components, yscale.components}:}{
-	functions that determine axis annotation for the x and y axes
-	respectively.  See documentation for
-	\code{\link{xscale.components.default}}, the default values of
-	these arguments, to learn more. }
+        Fallback default for \code{xlab} and \code{ylab} when they are
+        not specified.  If \code{NULL}, the defaults are parsed from the
+        Trellis formula.  This is rarely useful for the end-user, but
+        can be helpful when developing new Lattice functions.
 
-      \item{\code{axis}:}{ function that draws axis annotation.  See
-	documentation for \code{\link{axis.default}}, the default value
-	of this argument, to learn more. }
+      }
+
+      \item{\code{xscale.components}, \code{yscale.components}:}{
+        Functions that determine axis annotation for the x and y axes
+        respectively.  See documentation for
+        \code{\link{xscale.components.default}}, the default values of
+        these arguments, to learn more.
+      }
+
+      \item{\code{axis}:}{
+        Function responsible for drawing axis annotation.  See
+        documentation for \code{\link{axis.default}}, the default value
+        of this argument, to learn more.
+      }
 
       \item{\code{perm.cond}:}{
-	numeric vector, a permutation of \code{1:n}, where \code{n} is the
-	number of conditioning variables.  By default, the order in which
-	panels are drawn depends on the order of the conditioning variables
-	specified in the \code{formula}.  \code{perm.cond} can modify this
-	order.  If the trellis display is thought of as an
-	\code{n}-dimensional array, then during printing, its dimensions are
-	permuted using \code{perm.cond} as the \code{perm} argument to
-	\code{\link{aperm}}.
+
+        An integer vector, a permutation of \code{1:n}, where \code{n}
+        is the number of conditioning variables.  By default, the order
+        in which panels are drawn depends on the order of the
+        conditioning variables specified in the formula.
+        \code{perm.cond} can modify this order.  If the trellis display
+        is thought of as an \code{n}-dimensional array, then during
+        printing, its dimensions are permuted using \code{perm.cond} as
+        the \code{perm} argument does in \code{\link{aperm}}.
+
       }
       \item{\code{index.cond}:}{
-	While \code{perm.cond} permutes the dimensions of the
-	multidimensional array of panels, \code{index.cond} can be used
-	to subset (or reorder) margins of that array.  \code{index.cond}
-	can be a list or a function, with behavior in each case
-	described below.
+        
+        Whereas \code{perm.cond} permutes the dimensions of the
+        multidimensional array of panels, \code{index.cond} can be used
+        to subset (or reorder) margins of that array.  \code{index.cond}
+        can be a list or a function, with behavior in each case
+        described below.
 
-	The panel display order within each conditioning variable
-	depends on the order of their levels.  \code{index.cond} can be
-	used to choose a \sQuote{subset} (in the R sense) of these
-	levels, which is then used as the display order for that
-	variable.  If \code{index.cond} is a list, it has to be as long
-	as the number of conditioning variables, and the \code{i}-th
-	component has to be a valid indexing vector for
-	\code{levels(g_i)}, where \code{g_i} is the \code{i}-th
-	conditioning variable in the plot (note that these levels may
-	not contain all levels of the original variable, depending on
-	the effects of the \code{subset} and \code{drop.unused.levels}
-	arguments).  In particular, this indexing may repeat levels, or
-	drop some altogether.  The result of this indexing determines
-	the order of panels within that conditioning variable. To keep
-	the order of a particular variable unchanged, the corresponding
-	component must be set to \code{TRUE}.
+        The panel display order within each conditioning variable
+        depends on the order of their levels.  \code{index.cond} can be
+        used to choose a \sQuote{subset} (in the R sense) of these
+        levels, which is then used as the display order for that
+        variable.  If \code{index.cond} is a list, it has to be as long
+        as the number of conditioning variables, and the \code{i}-th
+        component has to be a valid indexing vector for
+        \code{levels(g_i)}, where \code{g_i} is the \code{i}-th
+        conditioning variable in the plot (note that these levels may
+        not contain all levels of the original variable, depending on
+        the effects of the \code{subset} and \code{drop.unused.levels}
+        arguments).  In particular, this indexing may repeat levels, or
+        drop some altogether.  The result of this indexing determines
+        the order of panels within that conditioning variable. To keep
+        the order of a particular variable unchanged, the corresponding
+        component must be set to \code{TRUE}.
 
-	Note that the components of \code{index.cond} are in the order of
-	the conditioning variables in the original call, and is not affected
-	by \code{perm.cond}.
+        Note that the components of \code{index.cond} are interpreted in
+        the order of the conditioning variables in the original call,
+        and is not affected by \code{perm.cond}.
 
-	Another possibility is to specify \code{index.cond} as a function.
-	In this case, this function is called once for each panel,
-	potentially with all arguments that are passed to the panel function
-	for that panel. (More specifically, if this function has a
-	\code{\dots} argument, then all panel arguments are passed,
-	otherwise, only named arguments that match are passed.) For a single
-	conditioning variable, the levels of that variable are then sorted
-	so that these values are in ascending order. For multiple
-	conditioning variables, the order for each variable is determined by
-	first taking the average over all other conditioning variables.
+        Another possibility is to specify \code{index.cond} as a
+        function.  In this case, this function is called once for each
+        panel, potentially with all arguments that are passed to the
+        panel function for that panel.  (More specifically, if this
+        function has a \code{\dots} argument, then all panel arguments
+        are passed, otherwise, only named arguments that match are
+        passed.)  If there is only one conditioning variable, the levels
+        of that variable are then sorted so that these values are in
+        ascending order.  For multiple conditioning variables, the order
+        for each variable is determined by first taking the average over
+        all other conditioning variables.
 
-	Although they can be supplied in high level function calls directly,
-	it is more typical to use \code{perm.cond} and \code{index.cond} to
-	update an existing \code{"trellis"} object, thus allowing it to be
-	displayed in a different arrangement without re-calculating the data
-	subsets that go into each panel. In the \code{update} method, both
-	can be set to \code{NULL}, which reverts these back to their
-	defaults.
+        Although they can be supplied in high-level function calls
+        directly, it is more typical to use \code{perm.cond} and
+        \code{index.cond} to update an existing \code{"trellis"} object,
+        thus allowing it to be displayed in a different arrangement
+        without re-calculating the data subsets that go into each panel.
+        In the \code{\link{update.trellis}} method, both can be set to
+        \code{NULL}, which reverts these back to their defaults.
+
       }
       \item{\code{par.settings}:}{
-	a list that could be supplied to \code{\link{trellis.par.set}}.
-	This enables the user to attach some display settings to the trellis
-	object itself rather than change the settings globally.  When the
-	object is plotted, these settings are temporarily in effect for
-	the duration of the plot, after which the settings revert back
-	to whatever they were before.
+
+        A list that could be supplied to \code{\link{trellis.par.set}}.
+        When the resulting object is plotted, these options are applied
+        temporarily for the duration of the plotting, after which the
+        settings revert back to what they were before.  This enables the
+        user to attach some display settings to the trellis object
+        itself rather than change the settings globally.  See also the
+        \code{lattice.options} argument described above for a similar
+        treatment of non-graphical options.
+
       }
       \item{\code{plot.args}:}{
-	a list of possible arguments to \code{\link{plot.trellis}},
-	which will be used by the \code{plot} or \code{print} methods
-	when drawing the object, unless overridden explicitly.  This
-	enables the user to attach such arguments to the trellis object
-	itself.  Partial matching is not performed.
+
+        A list containing possible arguments to
+        \code{\link{plot.trellis}}, which will be used by the
+        \code{plot} or \code{print} methods when drawing the object,
+        unless overridden explicitly.  This enables the user to attach
+        such arguments to the trellis object itself.  Partial matching
+        is not performed.
+
       }
     }
   }
@@ -1228,34 +1281,39 @@ bwplot(x, data, \dots)
 
 \value{
 
-  An object of class \code{"trellis"}. The
+  The high-level functions documented here, as well as other high-level
+  Lattice functions, return an object of class \code{"trellis"}.  The
   \code{\link[lattice:update.trellis]{update}} method can be used to
-  update components of the object and the
+  subsequently update components of the object, and the
   \code{\link[lattice:print.trellis]{print}} method (usually called by
   default) will plot it on an appropriate plotting device.
 
 }
+
 \details{
 
-  All the functions documented here are generic, with the \code{formula}
-  method usually doing the actual work.  The structure of the plot that
-  is produced is mostly controlled by the formula.  For each unique
-  combination of the levels of the conditioning variables \code{g1, g2,
-    \dots}, a separate panel is produced using the points \code{(x,y)}
-  for the subset of the data (also called packet) defined by that
-  combination.  The display can be though of as a 3-dimensional array of
-  panels, consisting of one 2-dimensional matrix per page.  The
-  dimensions of this array are determined by the \code{layout} argument.
-  If there are no conditioning variables, the plot produced consists of
-  a single panel.
+  The high-level functions documented here, as well as other high-level
+  Lattice functions, are generic, with the \code{formula} method usually
+  doing the most substantial work.  The structure of the plot that is
+  produced is mostly controlled by the formula (implicitly in the case
+  of the non-formula methods).  For each unique combination of the
+  levels of the conditioning variables \code{g1, g2, \dots}, a separate
+  \dQuote{packet} is produced, consisting of the points \code{(x,y)} for
+  the subset of the data defined by that combination.  The display can
+  be though of as a three-dimensional array of panels, consisting of one
+  two-dimensional matrix per page.  The dimensions of this array are
+  determined by the \code{layout} argument.  If there are no
+  conditioning variables, the plot produced consists of a single packet.
+  Each packet usually corresponds to one panel, but this is not stricly
+  necessary (see the entry for \code{index.cond} above).
 
-  The coordinate system used by lattice by default is like a graph,
-  with the origin at the bottom left, with axes increasing right and
-  up. In particular, panels are by default drawn starting from the
-  bottom left corner, going right and then up; unless \code{as.table =
-    TRUE}, in which case panels are drawn from the top left corner,
-  going right and then down.  One might wish to set a global preference
-  for a table-like arrangement by changing the default to
+  The coordinate system used by lattice by default is like a graph, with
+  the origin at the bottom left, with axes increasing to the right and
+  top.  In particular, panels are by default drawn starting from the
+  bottom left corner, going right and then up, unless \code{as.table =
+  TRUE}, in which case panels are drawn from the top left corner, going
+  right and then down.  It is possible to set a global preference for
+  the table-like arrangement by changing the default to
   \code{as.table=TRUE}; this can be done by setting
   \code{lattice.options(default.args = list(as.table = TRUE))}.  In
   fact, default values can be set in this manner for the following
@@ -1272,12 +1330,13 @@ bwplot(x, data, \dots)
   \code{perm.cond} arguments, possibly using the
   \code{\link[lattice:update.trellis]{update}} (and other related)
   method(s).
+
 }
 
 \note{
 
   Most of the arguments documented here are also applicable for the
-  other high level functions in the lattice package. These are not
+  other high-level functions in the \pkg{lattice} package. These are not
   described in any detail elsewhere unless relevant, and this should be
   considered the canonical documentation for such arguments.
 
@@ -1285,15 +1344,14 @@ bwplot(x, data, \dots)
   will be passed to the panel function. Most predefined panel functions
   have arguments that customize its output. These arguments are
   described only in the help pages for these panel functions, but can
-  usually be supplied as arguments to the high level plot.
+  usually be supplied as arguments to the high-level plot.
 
 }
 
 \references{
 
-  Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data
-    Visualization with R}, Springer.
-  \url{http://lmdvr.r-forge.r-project.org/}
+  Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization
+    with R}, Springer.  \url{http://lmdvr.r-forge.r-project.org/}
 
 }
 
@@ -1311,12 +1369,14 @@ bwplot(x, data, \dots)
   \code{\link{panel.stripplot}},
   \code{\link{panel.superpose}},
   \code{\link{panel.loess}},
-  \code{\link{panel.linejoin}},
+  \code{\link{panel.average}},
   \code{\link{strip.default}},
   \code{\link{simpleKey}}
   \code{\link{trellis.par.set}}
 }
+
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
+
 \examples{
 
 require(stats)
