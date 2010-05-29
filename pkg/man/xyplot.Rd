@@ -1300,34 +1300,34 @@ bwplot(x, data, \dots)
   levels of the conditioning variables \code{g1, g2, \dots}, a separate
   \dQuote{packet} is produced, consisting of the points \code{(x,y)} for
   the subset of the data defined by that combination.  The display can
-  be though of as a three-dimensional array of panels, consisting of one
+  be thought of as a three-dimensional array of panels, consisting of one
   two-dimensional matrix per page.  The dimensions of this array are
   determined by the \code{layout} argument.  If there are no
   conditioning variables, the plot produced consists of a single packet.
-  Each packet usually corresponds to one panel, but this is not stricly
+  Each packet usually corresponds to one panel, but this is not strictly
   necessary (see the entry for \code{index.cond} above).
 
-  The coordinate system used by lattice by default is like a graph, with
-  the origin at the bottom left, with axes increasing to the right and
-  top.  In particular, panels are by default drawn starting from the
-  bottom left corner, going right and then up, unless \code{as.table =
-  TRUE}, in which case panels are drawn from the top left corner, going
-  right and then down.  It is possible to set a global preference for
-  the table-like arrangement by changing the default to
-  \code{as.table=TRUE}; this can be done by setting
-  \code{lattice.options(default.args = list(as.table = TRUE))}.  In
-  fact, default values can be set in this manner for the following
-  arguments: \code{as.table}, \code{aspect}, \code{between},
-  \code{page}, \code{main}, \code{sub}, \code{par.strip.text},
-  \code{layout}, \code{skip} and \code{strip}.  Note that these global
-  defaults are sometimes overridden by individual functions.
+  The coordinate system used by \pkg{lattice} by default is like a
+  graph, with the origin at the bottom left, with axes increasing to the
+  right and top.  In particular, panels are by default drawn starting
+  from the bottom left corner, going right and then up, unless
+  \code{as.table = TRUE}, in which case panels are drawn from the top
+  left corner, going right and then down.  It is possible to set a
+  global preference for the table-like arrangement by changing the
+  default to \code{as.table=TRUE}; this can be done by setting
+  \code{lattice.options(default.args = list(as.table = TRUE))}.  Default
+  values can be set in this manner for the following arguments:
+  \code{as.table}, \code{aspect}, \code{between}, \code{page},
+  \code{main}, \code{sub}, \code{par.strip.text}, \code{layout},
+  \code{skip} and \code{strip}.  Note that these global defaults are
+  sometimes overridden by individual functions.
 
   The order of the panels depends on the order in which the conditioning
-  variables are specified, with \code{g1} varying fastest. Within a
-  conditioning variable, the order depends on the order of the levels
-  (which for factors is usually in alphabetical order).  Both of these
-  orders can be modified using the \code{index.cond} and
-  \code{perm.cond} arguments, possibly using the
+  variables are specified, with \code{g1} varying fastest, followed by
+  \code{g2}, and so on. Within a conditioning variable, the order
+  depends on the order of the levels (which for factors is usually in
+  alphabetical order).  Both of these orders can be modified using the
+  \code{index.cond} and \code{perm.cond} arguments, possibly using the
   \code{\link[lattice:update.trellis]{update}} (and other related)
   method(s).
 
