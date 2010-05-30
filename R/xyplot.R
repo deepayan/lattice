@@ -78,8 +78,6 @@ panel.xyplot <-
              factor = 0.5, amount = NULL)
 {
     if (all(is.na(x) | is.na(y))) return()
-    x <- as.numeric(x)
-    y <- as.numeric(y)
     plot.symbol <- trellis.par.get("plot.symbol")
     plot.line <- trellis.par.get("plot.line")
     superpose.symbol <- trellis.par.get("superpose.symbol")
@@ -113,7 +111,9 @@ panel.xyplot <-
     else
     {
         if ("o" %in% type || "b" %in% type) type <- c(type, "p", "l")
-        if ("g" %in% type) panel.grid(h = -1, v = -1)
+        if ("g" %in% type) panel.grid(h = -1, v = -1, x = x, y = y)
+        x <- as.numeric(x)
+        y <- as.numeric(y)
         if ("p" %in% type)
             panel.points(x = if (jitter.x) jitter(x, factor = factor, amount = amount) else x,
                          y = if (jitter.y) jitter(y, factor = factor, amount = amount) else y,
