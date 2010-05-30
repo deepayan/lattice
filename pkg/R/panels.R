@@ -282,7 +282,8 @@ panel.grid <-
              col,
              col.line = reference.line$col,
              lty = reference.line$lty,
-             lwd = reference.line$lwd, ...)
+             lwd = reference.line$lwd,
+             x = NULL, y = NULL, ...)
 {
     reference.line <- trellis.par.get("reference.line")
     if (!missing(col) && missing(col.line)) col.line <- col
@@ -312,7 +313,14 @@ panel.grid <-
     {
         if (h == -1) n <- 5 else n <- -h
         scale <- limits$ylim
-        at <- pretty(scale, n = n)
+        if (!is.null(y)) {
+            ## class() <- "factor" is an error
+            if (inherits(y, "factor"))
+                y <- as.character(y)
+            mostattributes(scale) <- attributes(y)
+        }
+        #at <- pretty(scale, n = n) ## FIXME: use pretty eventually
+        at <- formattedTicksAndLabels(scale, n = n)$at
         at <- at[at > min(scale) & at < max(scale)]
         grid.segments(y0 = at,
                       y1 = at,
@@ -324,7 +332,14 @@ panel.grid <-
     {
         if (v == -1) n <- 5 else n <- -v
         scale <- limits$xlim
-        at <- pretty(scale, n = n)
+        if (!is.null(x)) {
+            ## class() <- "factor" is an error
+            if (inherits(x, "factor"))
+                x <- as.character(y)
+            mostattributes(scale) <- attributes(x)
+        }
+        #at <- pretty(scale, n = n) ## FIXME: use pretty eventually
+        at <- formattedTicksAndLabels(scale, n = n)$at
         at <- at[at > min(scale) & at < max(scale)]
         grid.segments(x0 = at,
                       x1 = at,
@@ -495,7 +510,7 @@ panel.superpose <-
         wg <- match('g', type, nomatch = NA_character_)
         if (!is.na(wg))
         {
-            panel.grid(h = -1, v = -1)
+            panel.grid(h = -1, v = -1, x = x, y = y)
             type <- type[-wg]
         }
         type <- list(type)

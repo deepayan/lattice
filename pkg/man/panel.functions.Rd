@@ -50,7 +50,7 @@ panel.linejoin(x, y, fun = mean, horizontal = TRUE,
 % panel.abline(reg, \dots)
 % panel.abline(h= ,v= , \dots)
 panel.fill(col, border, \dots)
-panel.grid(h=3, v=3, col, col.line, lty, lwd, \dots)
+panel.grid(h=3, v=3, col, col.line, lty, lwd, x, y, \dots)
 panel.lmline(x, y, \dots)
 panel.loess(x, y, span = 2/3, degree = 1,
             family = c("symmetric", "gaussian"),
@@ -63,7 +63,10 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
                   \dots)
 }
 \arguments{
-  \item{x, y}{ variables defining the contents of the panel}
+  \item{x, y}{ variables defining the contents of the panel.
+    In \code{panel.grid} these are optional and are used only to choose
+    an appropriate method of \code{\link{pretty}}.
+  }
   \item{a, b}{ Coefficients of the line to be added by
     \code{panel.abline}.  \code{a} can be a vector of length 2,
     representing the coefficients of the line to be added, in which case
@@ -86,7 +89,7 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
     aligned with the axis labels.  This doesn't always work; all that
     actually happens is that the locations are chosen using
     \code{pretty}, which is also how the label positions are chosen in
-    the most common cases (but not for factor or date-time variables,
+    the most common cases (but not for factor variables,
     for instance).  \code{h} and \code{v} can be negative numbers other
     than \code{-1}, in which case \code{-h} and \code{-v} (as
     appropriate) is supplied as the \code{n} argument to
