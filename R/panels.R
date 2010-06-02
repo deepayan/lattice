@@ -479,7 +479,7 @@ panel.superpose <-
              lty = superpose.line$lty,
              lwd = superpose.line$lwd,
              alpha = superpose.symbol$alpha,
-             type = 'p',
+             type = "p", grid = FALSE,
              distribute.type = FALSE)
 {
     if (distribute.type)
@@ -510,11 +510,12 @@ panel.superpose <-
         wg <- match('g', type, nomatch = NA_character_)
         if (!is.na(wg))
         {
-            panel.grid(h = -1, v = -1, x = x, y = y)
+            if (missing(grid)) grid <- TRUE
             type <- type[-wg]
         }
         type <- list(type)
     }
+    if (grid) panel.grid(h = -1, v = -1, x = x, y = y)
     x <- as.numeric(x)
     if (!is.null(y)) y <- as.numeric(y)
     if (length(x) > 0)

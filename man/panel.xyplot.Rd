@@ -15,6 +15,7 @@ panel.xyplot(x, y, type = "p",
              font, fontfamily, fontface,
              lty, cex, fill, lwd,
              horizontal = FALSE, \dots,
+             grid = FALSE, abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
              factor = 0.5, amount = NULL)
 panel.splom(\dots)
@@ -35,7 +36,7 @@ panel.qq(\dots)
     default graphical parameters), and \code{"smooth"} adds a lowess fit
     (same as \code{\link{panel.loess}}).  \code{"g"} adds a reference
     grid using \code{\link{panel.grid}} in the background.  \code{"a"}
-    has the effect of calling \code{\link{panel.linejoin}}, which can be
+    has the effect of calling \code{\link{panel.average}}, which can be
     useful for creating interaction plots.  The effect of several of
     these specifications depend on the value of \code{horizontal}.
 
@@ -60,13 +61,35 @@ panel.qq(\dots)
     other graphical parameters.  \code{fill} serves the purpose of
     \code{bg} in \code{\link{points}} for certain values of \code{pch}
   }
+  \item{horizontal}{ logical. Controls orientation for certain
+    \code{type}'s, e.g., \code{"h"}, \code{"s"}, ans \code{"S"}}.
   \item{\dots}{ extra arguments, if any, for \code{panel.xyplot}. In
     most cases \code{panel.xyplot} ignores these. For types "r" and
     "smooth", these are passed on to \code{panel.lmline} and
     \code{panel.loess} respectively.
   }
-  \item{horizontal}{ logical. Controls orientation for certain
-    \code{type}'s, e.g.  one of \code{"h"}, \code{"s"} or \code{"S"}}.
+  \item{grid}{
+    A logical flag specifying whether a background grid should be drawn.
+
+    This provides the same functionality as \code{type="g"}, but is the
+    preferred alternative as the effect \code{type="g"} is conceptually
+    different from that of other \code{type} values (which are all
+    data-dependent).
+
+    Use \code{\link{panel.grid}} for finer control.
+  }
+  \item{abline}{
+    A numeric vector or list, specifying arguments arguments for
+    \code{\link{panel.abline}}, which is called with those arguments.
+    If specified as a (possibly named) numeric vector, \code{abline} is
+    coerced to a list.  This allows arguments of the form \code{abline =
+    c(0, 1)}, which adds the diagonal line, or \code{abline = c(h = 0, v
+    = 0)}, which adds the x- and y-axes to the plot.  Use the list form
+    for finer control; e.g., \code{abline = list(h = 0, v = 0, col =
+      "grey")}.
+
+    For more flexibility, use \code{\link{panel.abline}} directly.
+  }
   \item{jitter.x, jitter.y}{ logical, whether the data should be
     jittered before being plotted. }
   \item{factor, amount}{ controls amount of jittering. }

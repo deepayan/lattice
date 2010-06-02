@@ -17,7 +17,7 @@ panel.superpose(x, y = NULL, subscripts, groups,
                 pch, cex, fill, font,
                 fontface, fontfamily,
                 lty, lwd, alpha,
-                type = "p",
+                type = "p", grid = FALSE,
                 distribute.type = FALSE)
 panel.superpose.2(\dots, distribute.type = TRUE)
 
@@ -73,6 +73,8 @@ panel.superpose.plain(\dots,
     \code{type} causes a grid to be drawn, and all such occurrences are
     removed before \code{type} is passed on to \code{panel.groups}.
   }
+  \item{grid}{ Logical flag specifying whether a background reference
+    grid should be drawn.  See \code{\link{panel.xyplot}} for details. }
   \item{col, col.line, col.symbol, pch, cex, fill, font, fontface,
     fontfamily, lty, lwd, alpha}{ graphical parameters, replicated to be
     as long as the number of groups.  These are eventually passed down
