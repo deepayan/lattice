@@ -1,6 +1,6 @@
 \name{F_1_panel.qqmath}
 \alias{panel.qqmath}
-\title{ Default Panel and Prepanel Function for qqmath }
+\title{ Default Panel Function for qqmath }
 \description{
   This is the default panel function for \code{qqmath}.
 }
@@ -29,7 +29,9 @@ panel.qqmath(x, f.value = NULL,
     by different graphical parameters.
   }
   \item{\dots}{
-    further arguments, often graphical parameters.
+    Further arguments, often graphical parameters, eventually passed on
+    to \code{\link{panel.xyplot}}.  Arguments \code{grid} and
+    \code{abline} of \code{panel.xyplot} may be particularly useful.
   }
   \item{tails.n}{
     number of data points to represent exactly on each tail of the
@@ -56,13 +58,14 @@ panel.qqmath(x, f.value = NULL,
 \examples{
 set.seed(0)
 xx <- rt(10000, df = 10)
-qqmath(~ xx, type = c("b", "g"), pch = "+", distribution = qnorm,
-  main = c("raw", "ppoints(100)", "tails.n = 50"),
-  panel = function(..., f.value) {
-    switch(panel.number(),
-      panel.qqmath(..., f.value = NULL),
-      panel.qqmath(..., f.value = ppoints(100)),
-      panel.qqmath(..., f.value = ppoints(100), tails.n = 50))
-  }, layout = c(3, 1))[c(1,1,1)]
+qqmath(~ xx, pch = "+", distribution = qnorm,
+       grid = TRUE, abline = c(0, 1),
+       main = c("raw", "ppoints(100)", "tails.n = 50"),
+       panel = function(..., f.value) {
+           switch(panel.number(),
+                  panel.qqmath(..., f.value = NULL),
+                  panel.qqmath(..., f.value = ppoints(100)),
+                  panel.qqmath(..., f.value = ppoints(100), tails.n = 50))
+       }, layout = c(3, 1))[c(1,1,1)]
 }
 \keyword{dplot}

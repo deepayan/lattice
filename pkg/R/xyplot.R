@@ -74,6 +74,7 @@ panel.xyplot <-
              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
              horizontal = FALSE,
              ...,
+             grid = FALSE, abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
              factor = 0.5, amount = NULL)
 {
@@ -86,6 +87,13 @@ panel.xyplot <-
     {
         if (missing(col.line)) col.line <- col
         if (missing(col.symbol)) col.symbol <- col
+    }
+    if (missing(grid) && ("g" %in% type)) grid <- TRUE ## FIXME: what if list?
+    if (grid) panel.grid(h = -1, v = -1, x = x, y = y)
+    if (!is.null(abline))
+    {
+        if (is.numeric(abline)) abline <- as.list(abline)
+        do.call(panel.abline, abline)
     }
     if (!is.null(groups))
         panel.superpose(x, y,
@@ -107,13 +115,13 @@ panel.xyplot <-
                         jitter.y = jitter.y,
                         factor = factor,
                         amount = amount,
+                        grid = FALSE, ## grid=TRUE/type="g" already handled
                         ...)
     else
     {
-        if ("o" %in% type || "b" %in% type) type <- c(type, "p", "l")
-        if ("g" %in% type) panel.grid(h = -1, v = -1, x = x, y = y)
         x <- as.numeric(x)
         y <- as.numeric(y)
+        if ("o" %in% type || "b" %in% type) type <- c(type, "p", "l")
         if ("p" %in% type)
             panel.points(x = if (jitter.x) jitter(x, factor = factor, amount = amount) else x,
                          y = if (jitter.y) jitter(y, factor = factor, amount = amount) else y,

@@ -1,3 +1,5 @@
+Lattice                 Lattice Graphics
+Rows                    Extract rows from a list
 axis.default            Default axis annotation utilities
 banking                 Banking
 barchart.table          table methods for barchart and dotplot
@@ -11,7 +13,6 @@ environmental           Atmospheric environmental conditions in New
 equal.count             shingles
 ethanol                 Engine exhaust fumes from burning ethanol
 histogram               Histograms and Kernel Density Plots
-Lattice                 Lattice Graphics
 lattice.options         Low-level Options Controlling Behaviour of
                         Lattice
 latticeParseFormula     Parse Trellis formula
@@ -38,7 +39,7 @@ panel.identify          Functions to Interact with Lattice Plots
 panel.levelplot         Panel Functions for levelplot and contourplot
 panel.pairs             Default Superpanel Function for splom
 panel.parallel          Default Panel Function for parallel
-panel.qqmath            Default Panel and Prepanel Function for qqmath
+panel.qqmath            Default Panel Function for qqmath
 panel.qqmathline        Useful panel function with qqmath
 panel.smoothScatter     Lattice panel function analogous to
                         smoothScatter
@@ -53,7 +54,6 @@ print.trellis           Plot and Summarize Trellis Objects
 qq                      Quantile-Quantile Plots of Two Samples
 qqmath                  Q-Q Plot with Theoretical Distribution
 rfs                     Residual and Fit Spread Plots
-Rows                    Extract rows from a list
 simpleKey               Function to generate a simple key
 simpleTheme             Function to generate a simple theme
 singer                  Heights of New York Choral Society singers
