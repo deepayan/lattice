@@ -902,10 +902,35 @@ plot.trellis <-
                         xscale <- xscale.comps$num.limit
                         yscale <- yscale.comps$num.limit
 
+
+############################################
+###      drawing panel background         ##
+############################################
+
+                        pushViewport(viewport(layout.pos.row = pos.row,
+                                              layout.pos.col = pos.col,
+                                              xscale = xscale,
+                                              yscale = yscale,
+                                              clip = trellis.par.get("clip")$panel,
+                                              name =
+                                              trellis.vpname("panel",
+                                                             column = column,
+                                                             row = row,
+                                                             prefix = prefix,
+                                                             clip.off = FALSE)))
+                        panel.bg <- trellis.par.get("panel.background")
+                        if (!is.null(panel.bg$col) && (panel.bg$col != "transparent"))
+                            panel.fill(col = panel.bg$col)
+                        upViewport()
+
+                        
 ############################################
 ###        drawing the axes               ##
 ############################################
 
+
+### Note: axes should always be drawn before the panel, so that
+### background grids etc. can be drawn.
 
 ### whether or not axes are drawn, we'll create viewports for them
 ### anyway, so that users can later interactively add axes/other stuff
@@ -1040,18 +1065,25 @@ plot.trellis <-
 ###        drawing the panel              ##
 ############################################
 
+                        ## viewport already created for drawing background
+                        downViewport(trellis.vpname("panel",
+                                                    column = column,
+                                                    row = row,
+                                                    prefix = prefix,
+                                                    clip.off = FALSE))
 
-                        pushViewport(viewport(layout.pos.row = pos.row,
-                                              layout.pos.col = pos.col,
-                                              xscale = xscale,
-                                              yscale = yscale,
-                                              clip = trellis.par.get("clip")$panel,
-                                              name =
-                                              trellis.vpname("panel",
-                                                             column = column,
-                                                             row = row,
-                                                             prefix = prefix,
-                                                             clip.off = FALSE)))
+                        
+                        ## pushViewport(viewport(layout.pos.row = pos.row,
+                        ##                       layout.pos.col = pos.col,
+                        ##                       xscale = xscale,
+                        ##                       yscale = yscale,
+                        ##                       clip = trellis.par.get("clip")$panel,
+                        ##                       name =
+                        ##                       trellis.vpname("panel",
+                        ##                                      column = column,
+                        ##                                      row = row,
+                        ##                                      prefix = prefix,
+                        ##                                      clip.off = FALSE)))
 
 
                         pargs <- c(x$panel.args[[packet.number]],

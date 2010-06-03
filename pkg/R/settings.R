@@ -31,21 +31,21 @@ col.whitebg <- function()
          ##gamma = .6)))
          regions = list(col = heat.colors(100)),
          strip.shingle = list(col = c("#ff7f00", "#00ff00", "#00ffff",
-                                 "#0080ff", "#ff00ff", "#ff0000", "#ffff00")),
+                                      "#0080ff", "#ff00ff", "#ff0000", "#ffff00")),
          strip.background = list(col = c("#ffe5cc", "#ccffcc", "#ccffff",
-                                 "#cce6ff", "#ffccff", "#ffcccc", "#ffffcc")),
+                                         "#cce6ff", "#ffccff", "#ffcccc", "#ffffcc")),
          reference.line = list(col="#e8e8e8"),
          superpose.line = list(col = c("darkgreen","red","royalblue",
-                               "brown","orange","turquoise", "orchid"),
-         lty = 1:7),
+                                       "brown","orange","turquoise", "orchid"),
+                               lty = 1:7),
          superpose.symbol = list(pch = c(1,3,6,0,5,16,17), cex = rep(.7, 7),
-         col = c("darkgreen","red","royalblue",
-         "brown","orange","turquoise", "orchid")))
+                                 col = c("darkgreen","red","royalblue",
+                                         "brown","orange","turquoise", "orchid")))
 
 
 
 
-## this function is used to make the superpose.plygon colors less
+## this function is used to make the superpose.polygon colors less
 ## saturated versions of the symbol and line colors
 
 lower.saturation <-
@@ -112,6 +112,7 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
         list(grid.pars        = list(), ## set globally at the beginning
              fontsize         = list(text = 12, points = 8),
              background       = list(alpha = 1, col = can.col[17]),
+             panel.background = list(col = "transparent"),
              clip             = list(panel = "on", strip = "on"),
              add.line         = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
              add.text         = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1.2),
