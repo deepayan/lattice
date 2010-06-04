@@ -17,10 +17,11 @@ show.settings(x = NULL)
 % trellis.par.set(theme)
 % trellis.par.set(\dots)
 \arguments{
-  \item{name}{ character giving the name of a component. If unspecified,
-    \code{names(trellis.par.get())} returns a list containing all the
-    current settings (this can be used to get the valid values for
-    \code{name})
+  \item{name}{
+    A character string giving the name of a component.  If unspecified
+    in \code{trellis.par.get()}, the return value is a named list
+    containing all the current settings (this can be used to get the
+    valid values for \code{name}).
   }
   \item{value}{
     a list giving the desired value of the component. Components that
@@ -44,15 +45,21 @@ show.settings(x = NULL)
     Equivalent to calling with \code{theme = list(\dots)}
   }
   \item{warn}{
-    logical, indicating whether a warning should be issued when
-    \code{trellis.par.get} is called when no graphics device is open
+    A logical flag, indicating whether a warning should be issued when
+    \code{trellis.par.get} is called when no graphics device is open.
   }
   \item{strict}{
-    logical, indicating whether the \code{value} should be interpreted
-    strictly.  Usually, assignment of value to the corresponding named
-    component is fuzzy in the sense that sub-components that are absent
-    from \code{value} but not currently \code{NULL} are retained.  By
-    specifying \code{strict = TRUE}, the assignment will be exact.
+    Usually a logical flag, indicating whether the \code{value} should
+    be interpreted strictly.  Usually, assignment of value to the
+    corresponding named component is fuzzy in the sense that
+    sub-components that are absent from \code{value} but not currently
+    \code{NULL} are retained.  By specifying \code{strict = TRUE}, such
+    values will be removed.
+
+    An even stricter interpretation is allowed by specifying
+    \code{strict} as a numeric value larger than \code{1}.  In that
+    case, top-level components not specified in the call will also be
+    removed.  This is primarily for internal use.
   }
   \item{x}{
     optional list of components that change the settings (any valid

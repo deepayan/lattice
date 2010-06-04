@@ -117,14 +117,15 @@ panel.error(e)
     by setting \code{panel.error} to NULL.
   }
   \item{prefix}{
-    character string used as a prefix in viewport and grob names, used
-    to distinguish similar viewports if a page contains multiple plots. 
-    The default is based on the serial number of the current plot on the
-    current page (which is one more than the number of plots that have
-    been drawn on the page before the current plot).  If supplied
-    explicitly, this has to be a valid R symbol name (briefly, it must
-    start with a letter or a period followed by a letter) and must not
-    contain the grid path separator (currently \code{"::"}).
+    A character string acting as a prefix identifying the plot of a
+    \code{"trellis"} object, primarily used in constructing viewport and
+    grob names, to distinguish similar viewports if a page contains
+    multiple plots.  The default is based on the serial number of the
+    current plot on the current page (specifically, \code{"plot_01"},
+    \code{"plot_02"}, etc.).  If supplied explicitly, this must be a
+    valid \R symbol name (briefly, it must start with a letter or a
+    period followed by a letter) and must not contain the grid path
+    separator (currently \code{"::"}).
   }
   \item{e}{ an error condition caught by \code{\link{tryCatch}}}
   \item{\dots}{

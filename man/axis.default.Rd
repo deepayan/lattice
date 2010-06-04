@@ -30,7 +30,7 @@ axis.default(side = c("top", "bottom", "left", "right"),
              scales, components, as.table,
              labels = c("default", "yes", "no"),
              ticks = c("default", "yes", "no"),
-             \dots)
+             \dots, prefix)
 
 }
 
@@ -70,6 +70,12 @@ axis.default(side = c("top", "bottom", "left", "right"),
     determined by \code{scales} are used.  }
   \item{\dots}{ many other arguments may be supplied, and are passed on
     to other internal functions. }
+  \item{prefix}{
+    A character string identifying the plot being drawn (see
+    \code{\link{print.trellis}}).  Used to retrieve location of current
+    panel in the overall layout, so that axes can be drawn
+    appropriately.
+  }
 }
 
 \value{

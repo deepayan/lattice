@@ -43,7 +43,7 @@
 
 \method{[}{trellis}(x, i, j, \dots, drop = FALSE)
 
-trellis.last.object(warn = TRUE, \dots)
+trellis.last.object(\dots, prefix)
 
 }
 \arguments{
@@ -56,15 +56,23 @@ trellis.last.object(warn = TRUE, \dots)
     logical, whether dimensions with only one level are to be dropped.
     Currently ignored, behaves as if it were \code{FALSE}.
   }
-  \item{warn}{
-    logical, whether to warn when no plot is saved.
-  }
+  % \item{warn}{
+  %   logical, whether to warn when no plot is saved.
+  % }
   \item{panel, aspect, as.table, between, key, auto.key, legend, layout,
     main, page, par.strip.text, prepanel, scales, skip, strip,
     strip.left, sub, xlab, xlim, ylab, ylim, par.settings, plot.args,
     lattice.options, index.cond, perm.cond, \dots}{
     arguments that will be used to update \code{object}. See details
     below. 
+  }
+
+  \item{prefix}{
+    A character string acting as a prefix identifying the plot of a
+    \code{"trellis"} object.  Only relevant when a particular page is
+    occupied by more than one plot.  Defaults to the value appropriate
+    for the last \code{"trellis"} object printed.  See
+    \code{\link{trellis.focus}}.
   }
 }
 
@@ -101,10 +109,12 @@ trellis.last.object(warn = TRUE, \dots)
 
   The print method for \code{"trellis"} objects optionally saves the
   object after printing it.  If this feature is enabled,
-  \code{trellis.last.object} can retrieve it.  Note that at most one
-  object can be saved at a time.  If \code{\link{trellis.last.object}}
-  is called with arguments, these are used to update the retrieved
-  object before returning it.
+  \code{trellis.last.object} can retrieve it.  By default, the last
+  object plotted is retrieved, but if multiple objects are plotted on
+  the current page, then others can be retrieved using the appropriate
+  \code{prefix} argument.  If \code{\link{trellis.last.object}} is
+  called with arguments, these are used to update the retrieved object
+  before returning it.
 
 }
 

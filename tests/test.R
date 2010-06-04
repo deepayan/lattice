@@ -1,6 +1,12 @@
 postscript("test.ps")
 library(lattice)
 
+lattice.options(default.args =
+                list(page = function(n) {
+                    grid::grid.text(label = paste(deparse(trellis.last.object()$call, width.cutoff = 150L), collapse = "\n"),
+                                    x = 0.01, y = 0.99, just = c("left", "top"))
+                }))
+
 densityplot(~ 5)
 densityplot(~ 1:5 | letters[1:5])
 

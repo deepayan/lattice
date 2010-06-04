@@ -340,7 +340,10 @@ trellis.par.set <-
     }
 
     if (strict)
-        lattice.theme[[.Device]][names(theme)] <- theme
+    {
+        if (strict > 1L) lattice.theme[[.Device]] <- theme
+        else lattice.theme[[.Device]][names(theme)] <- theme
+    }
     else
         lattice.theme[[.Device]] <- updateList(lattice.theme[[.Device]], theme)
     assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
@@ -985,36 +988,46 @@ lattice.options <- function(...)
 
 
 
+## Interface to internal storage for use by plot.trellis,
+## trellis.focus, etc.  The optional argument prefix allows one level
+## of nesting for storing plot-specific settings (for example,
+## multiple plots in a page, or the panel function of one plot calling
+## plot.trellis() again).
 
+lattice.getStatus <- function(name, prefix = NULL)
+{
+    if (is.null(prefix))
+        get("lattice.status", envir = .LatticeEnv)[[name]]
+    else
+        get("lattice.status", envir = .LatticeEnv)[[prefix]][[name]]
+}
 
-lattice.getStatus <- function(name)
-    get("lattice.status", envir = .LatticeEnv)[[name]]
-
-lattice.setStatus <- function (...)
+lattice.setStatus <- function (..., prefix = NULL)
 {
     dots <- list(...)
     if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
         dots <- dots[[1]]
-    if (length(dots) == 0)
-        return()
+    if (length(dots) == 0) return()
     lattice.status <- get("lattice.status", envir = .LatticeEnv)
-    lattice.status[names(dots)] <- dots
+    if (is.null(prefix))
+        lattice.status[names(dots)] <- dots
+    else
+        lattice.status[[prefix]][names(dots)] <- dots
     assign("lattice.status", lattice.status, envir = .LatticeEnv)
     invisible()
 }
 
 
-
-
 .defaultLatticeStatus <- function()
     list(print.more = FALSE,
-         current.plot.saved = FALSE,
+         plot.index = 1) ## keeps track of multiple plots in a page
+
+.defaultLatticePrefixStatus <- function()
+    list(current.plot.saved = FALSE,
          current.plot.multipage = FALSE,
          current.focus.row = 0,
          current.focus.column = 0,
-         vp.highlighted = FALSE,
-         plot.index = 1) ## keeps track of multiple plots in a page
-
+         vp.highlighted = FALSE) ## keeps track of multiple plots in a page
 
 
 simpleTheme <-
