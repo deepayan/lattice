@@ -31,21 +31,9 @@ prepanel.default.splom <-
          dy = 1)
 }
 
-
-
-
 panel.splom <-
     function(...)
     panel.xyplot(...)
-
-
-
-
-
-
-
-
-
 
 
 diag.panel.splom <-
