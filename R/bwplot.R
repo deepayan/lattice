@@ -1091,6 +1091,7 @@ dotplot.table <-
     function(x, data = NULL, groups = TRUE,
              ..., horizontal = TRUE)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
@@ -1112,9 +1113,10 @@ dotplot.table <-
         rest <- paste(nms, collapse = "+")
         form <- paste(form, rest, sep = "|")
     }
-    dotplot(as.formula(form), data,
-            groups = eval(groups),
-            ...)
+    modifyList(dotplot(as.formula(form), data,
+                       groups = eval(groups),
+                       ...), 
+               list(call = ocall))
 }
 
 
@@ -1166,6 +1168,7 @@ barchart.table <-
     function(x, data = NULL, groups = TRUE,
              origin = 0, stack = TRUE, ..., horizontal = TRUE)
 {
+    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
@@ -1187,11 +1190,12 @@ barchart.table <-
         rest <- paste(nms, collapse = "+")
         form <- paste(form, rest, sep = "|")
     }
-    barchart(as.formula(form), data,
-             groups = eval(groups),
-             ##groups = groups,
-             origin = origin, stack = stack, 
-             ...)
+    modifyList(barchart(as.formula(form), data,
+                        groups = eval(groups),
+                        ##groups = groups,
+                        origin = origin, stack = stack, 
+                        ...),
+               list(ocall = ocall))
 }
 
 barchart.default <- function(x, data = NULL, ...) barchart(table(x), data, ...)
