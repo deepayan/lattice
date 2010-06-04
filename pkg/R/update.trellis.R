@@ -19,19 +19,23 @@
 ### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 ### MA 02110-1301, USA
 
+## retrieve trellis object saved during plotting
 
-
-## retrieve last saved (while printing) trellis object
-
-trellis.last.object <- function(warn = TRUE, ...)
+trellis.last.object <- function(..., prefix = lattice.getStatus("current.prefix"))
 {
-    ans <- get("last.object", envir = .LatticeEnv)
-    if (is.null(ans)) {
-        warning("No trellis object currently saved")
-        return(invisible())
+    ## if (warn && (!lattice.getStatus("current.plot.saved", prefix = prefix)))
+    ##     warning("Requested object was not saved")
+    if (!lattice.getStatus("current.plot.saved", prefix = prefix))
+    {
+        warning("Requested 'trellis' object was not saved")
+        return(invisible(NULL))
     }
-    if (warn && !lattice.getStatus("current.plot.saved"))
-        warning("currently saved object is not the last one plotted")
+    ans <- lattice.getStatus("last.object", prefix = prefix)
+    ## FIXME: remove, as should not be needed any more
+    ## if (is.null(ans)) { 
+    ##     warning("Could not retrieve saved trellis object")
+    ##     return(invisible())
+    ## }
     update(ans, ...)
 }
 

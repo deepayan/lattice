@@ -151,15 +151,16 @@ axis.default <-
              scales, components, as.table,
              labels = c("default", "yes", "no"),
              ticks = c("default", "yes", "no"),
-             ...)
+             ...,
+             prefix = lattice.getStatus("current.prefix"))
 {
     side <- match.arg(side)
     labels <- match.arg(labels)
     ticks <- match.arg(ticks)
 
-    row <- lattice.getStatus("current.focus.row")
-    column <- lattice.getStatus("current.focus.column")
-    panel.layout <- trellis.currentLayout("panel")
+    row <- lattice.getStatus("current.focus.row", prefix = prefix)
+    column <- lattice.getStatus("current.focus.column", prefix = prefix)
+    panel.layout <- trellis.currentLayout("panel", prefix = prefix)
     layout.dim <- dim(panel.layout)
 
     determineStatus <- function(x)
@@ -173,7 +174,7 @@ axis.default <-
     {
         ## is this the last panel? In that case, it is considered to
         ## be ``on the boundary'' on the right side.
-        ((pn <- panel.number()) > 0 && pn == max(panel.layout))
+        ((pn <- panel.number(prefix = prefix)) > 0 && pn == max(panel.layout))
     }
     atBoundary <- function()
     {

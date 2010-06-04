@@ -293,8 +293,8 @@ trellis.vpname <-
              c("position", "split", "split.location", "toplevel", "figure",
                "panel", "strip", "strip.left", "legend", "main", "sub",
                "xlab", "ylab", "page"),
-             column = lattice.getStatus("current.focus.column"),
-             row = lattice.getStatus("current.focus.row"),
+             column = lattice.getStatus("current.focus.column", prefix = prefix),
+             row = lattice.getStatus("current.focus.row", prefix = prefix),
              side = c("left", "top", "right", "bottom", "inside"),
              clip.off = FALSE,
              prefix = lattice.getStatus("current.prefix"))
@@ -341,6 +341,18 @@ trellis.grobname <-
 }
 
 
+### Primary user-level interface to `focus' on viewports created by
+### plot.trellis(), so that existing plots can be augmented.  Multiple
+### plots can exist on a given page, and all of them are usually
+### accessible using different 'prefix' argument.  To keep code
+### simple, many utility functions related to interaction assume that
+### lattice.getStatus("current.prefix") gives the correct prefix when
+### they are called.  Only trellis.focus() allows an explicit 'prefix'
+### argument, and sets 'current.prefix' to 'prefix' when it is called.
+### To switch to a not-currently-active trellis plot, one must thus
+### use trellis.focus() before any other functions.
+
+
 trellis.focus <-
     function(name,
              column = stop("column must be specified"),
@@ -349,11 +361,14 @@ trellis.focus <-
              clip.off = FALSE,
              highlight = interactive(),
              ...,
+             prefix,
              guess = TRUE,
              verbose = getOption("verbose"))
 {
     trellis.unfocus()
-
+    if (!missing(prefix)) lattice.setStatus(current.prefix = prefix)
+    else prefix <- lattice.getStatus("current.prefix")
+    
     if (missing(name) && missing(column) && missing(row))
         return(trellis.clickFocus(clip.off = clip.off,
                                   highlight = highlight,
@@ -363,27 +378,32 @@ trellis.focus <-
 
     if (name %in% c("panel", "strip", "strip.left"))
     {
-        ll <- lattice.getStatus("current.panel.positions")
+        ll <- lattice.getStatus("current.panel.positions", prefix = prefix)
         if (column > 0 && row > 0 &&
             column <= ncol(ll) && row <= nrow(ll) &&
             ll[row, column] > 0) ## to disallow empty positions
         {
             lattice.setStatus(current.focus.column = column,
-                              current.focus.row = row)
+                              current.focus.row = row,
+                              prefix = prefix)
         }
         else
             stop("panel position unspecified or invalid")
     }
     else ## this is for calls from trellis.switchFocus
     {
-        if (!missing(row)) lattice.setStatus(current.focus.row = row)
-        if (!missing(column)) lattice.setStatus(current.focus.column = column)
+        if (!missing(row))
+            lattice.setStatus(current.focus.row = row, prefix = prefix)
+        if (!missing(column))
+            lattice.setStatus(current.focus.column = column, prefix = prefix)
     }
-    lattice.setStatus(vp.depth = downViewport(trellis.vpname(name,
-                      side = side, clip.off = clip.off)))
+    lattice.setStatus(vp.depth = downViewport(trellis.vpname(name, side = side,
+                                                             clip.off = clip.off,
+                                                             prefix = prefix)),
+                      prefix = prefix)
     if (highlight)
     {
-        lattice.setStatus(vp.highlighted = TRUE)
+        lattice.setStatus(vp.highlighted = TRUE, prefix = prefix)
         gp <- do.call("gpar",
                       updateList(lattice.getOption("highlight.gpar"),
                                  list(...)))
@@ -392,7 +412,7 @@ trellis.focus <-
     }
     else
     {
-        lattice.setStatus(vp.highlighted = FALSE)
+        lattice.setStatus(vp.highlighted = FALSE, prefix = prefix)
     }
     invisible()
 }
@@ -404,11 +424,16 @@ trellis.switchFocus <-
              side = NULL,
              clip.off = FALSE,
              highlight,
-             ...)
+             ...,
+             prefix)
 {
-    row <- lattice.getStatus("current.focus.row")
-    column <- lattice.getStatus("current.focus.column")
-    if (missing(highlight)) highlight <- lattice.getStatus("vp.highlighted")
+    if (!missing(prefix) &&  prefix != lattice.getStatus("current.prefix"))
+        stop("'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first")
+    prefix <- lattice.getStatus("current.prefix")
+    row <- lattice.getStatus("current.focus.row", prefix = prefix)
+    column <- lattice.getStatus("current.focus.column", prefix = prefix)
+    if (missing(highlight))
+        highlight <- lattice.getStatus("vp.highlighted", prefix = prefix)
 
     ## have to evaluate these explicitly to avoid lazy evaluation
     ## inside trellis.focus
@@ -423,61 +448,50 @@ trellis.switchFocus <-
 
 
 
-trellis.unfocus <-
-    function()
+trellis.unfocus <- function()
     ## mainly, undo highlighting
 {
-    if (lattice.getStatus("vp.highlighted"))
+    prefix <- lattice.getStatus("current.prefix")
+    if (lattice.getStatus("vp.highlighted", prefix = prefix))
     {
         grid.remove("lvp.highlight", warn = FALSE)
-        lattice.setStatus(vp.highlighted = FALSE)
+        lattice.setStatus(vp.highlighted = FALSE, prefix = prefix)
     }
     lattice.setStatus(current.focus.column = 0,
-                      current.focus.row = 0)
-    if (lattice.getStatus("vp.depth") > 0)
-        upViewport(lattice.getStatus("vp.depth"))
-    lattice.setStatus(vp.depth = 0)
+                      current.focus.row = 0,
+                      prefix = prefix)
+    if (lattice.getStatus("vp.depth", prefix = prefix) > 0)
+        upViewport(lattice.getStatus("vp.depth", prefix = prefix))
+    lattice.setStatus(vp.depth = 0, prefix = prefix)
     invisible()
 }
-
-
-### This version didn't work
-
-## trellis.panelArgs <-
-##     function(x, packet.number)
-## {
-##     if (lattice.getStatus("current.plot.multipage"))
-##         warning("plot spans multiple pages, only last page can be updated")
-##     if (missing(x)) 
-##         if (lattice.getStatus("current.plot.saved")) x <- trellis.last.object()
-##         else stop("current plot was not saved, can't retrieve panel data")
-##     if (missing(packet.number))
-##         packet.number <- packet.number()
-##     if (!length(packet.number)) ## should be 0x0 matrix otherwise
-##         stop("you have to first select a panel using trellis.focus()")
-##     c(x$panel.args[[packet.number]], x$panel.args.common)
-## }
-
 
 
 trellis.panelArgs <-
     function(x, packet.number)
 {
-    if (lattice.getStatus("current.plot.multipage"))
-        warning("plot spans multiple pages, only last page can be updated")
-    if (missing(x)) 
-        if (lattice.getStatus("current.plot.saved")) x <- trellis.last.object()
-        else stop("current plot was not saved, can't retrieve panel data")
+    if (missing(x))
+    {
+        x <- trellis.last.object()
+        if (is.null(x))
+            stop("Plot object was not saved, cannot retrieve panel data")
+        if (lattice.getStatus("current.plot.multipage",
+                              prefix = lattice.getStatus("current.prefix")))
+            warning("Plot spans multiple pages, only last page can be updated")
+    }
     if (missing(packet.number))
     {
         ## FIXME: workaround for unfortunate choice of names.  May
         ## require more extensive changes
 
-        pn <- get("packet.number", mode = "function")
-        packet.number <- pn()
+        ## pn <- get("packet.number", mode = "function")
+        ## packet.number <- pn()
+
+        ## How about this?
+        packet.number <- lattice::packet.number()
     }
     if (!length(packet.number)) ## should be 0x0 matrix otherwise
-        stop("you have to first select a panel using trellis.focus()")
+        stop("You have to first select a panel using trellis.focus()")
     c(x$panel.args[[packet.number]], x$panel.args.common)
 }
 
@@ -486,8 +500,7 @@ trellis.panelArgs <-
 ### trellis.clickFocus() and panel.identify.qqmath() are based on
 ### contributions by Felix Andrews <felix@nfrac.org> (2007/06/21)
 
-
-### click on a panel to focus on it.  trellis.clickFocus is not
+### Click on a panel to focus on it.  trellis.clickFocus() is not
 ### exported, but used by trellis.focus() when 'name' etc. is missing.
 
 
@@ -521,7 +534,7 @@ trellis.clickFocus <-
         if (is.null(clickLoc)) return()
         focusCol <- ceiling(as.numeric(clickLoc$x) * ncol(layoutMatrix))
         focusRow <- ceiling(as.numeric(clickLoc$y) * nrow(layoutMatrix))
-        if (lattice.getStatus("as.table"))
+        if (lattice.getStatus("as.table", prefix = lattice.getStatus("current.prefix")))
             focusRow <- nrow(layoutMatrix) - focusRow + 1
         trellis.unfocus()
     }

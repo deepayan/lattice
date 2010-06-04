@@ -21,13 +21,13 @@
 }
 \usage{
 
-current.row()
-current.column()
-panel.number()
-packet.number()
-which.packet()
+current.row(prefix)
+current.column(prefix)
+panel.number(prefix)
+packet.number(prefix)
+which.packet(prefix)
 
-trellis.currentLayout(which = c("packet", "panel"))
+trellis.currentLayout(which = c("packet", "panel"), prefix)
 
 }
 
@@ -37,6 +37,15 @@ trellis.currentLayout(which = c("packet", "panel"))
     packet numbers, which are usually, but not necessarily, the same
     (see below for details).
   }
+
+  \item{prefix}{
+    A character string acting as a prefix identifying the plot of a
+    \code{"trellis"} object.  Only relevant when a particular page is
+    occupied by more than one plot.  Defaults to the value appropriate
+    for the last \code{"trellis"} object printed.  See
+    \code{\link{trellis.focus}}.
+  }
+
 }
 
 \value{
