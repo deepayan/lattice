@@ -324,7 +324,7 @@ larrows <-
     grid.segments(x0 = x0, x1 = x1,
                   y0 = y0, y1 = y1,
                   gp = gp,
-                  arrow =
+                  arrow = if (is.null(ends)) NULL else 
                   arrow(angle = angle,
                         length = unit(length, unit),
                         ends = ends,
