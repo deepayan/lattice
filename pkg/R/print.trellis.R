@@ -236,7 +236,7 @@ plot.trellis <-
         ## save current state, restore later
         opar <- trellis.par.get() ## get("lattice.theme", envir = .LatticeEnv)
         trellis.par.set(theme = x$par.settings)
-        on.exit(trellis.par.set(opar, strict = TRUE), add = TRUE)
+        on.exit(trellis.par.set(opar, strict = 2L), add = TRUE)
     }
 
     ## do the same for lattice.options

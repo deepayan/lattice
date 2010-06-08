@@ -185,3 +185,27 @@ plot.shingle <-
     ans$call <- ocall
     ans
 }
+
+
+## as.factor.shingle <- function(x)
+## {
+##     slevels <- unlist(levels(x))
+##     if (is.unsorted(slevels))
+##     {
+##         ## Overlapping levels. Will use overlaps as additional levels
+##         breaks <- sort(unique(slevels))
+##     }
+##     else if (any(slevels[c(TRUE, FALSE)] == slevels[c(FALSE, TRUE)]))
+##     {
+##         ## Some intervals are singleton points.
+##         ## FIXME: This doesn't work
+##         breaks <- unique(slevels)
+##     }
+##     else 
+##     {
+##         breaks <- unique(slevels)
+##     }
+##     cut(as.numeric(x), breaks = breaks,
+##         include.lowest = TRUE, right = TRUE)[drop = TRUE]
+## }
+
