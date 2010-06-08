@@ -1,21 +1,7 @@
 
 require(grid)
-
-## branch for compatibility with older R
-
-old.prompt <-
-    if (exists("devAskNewPage", mode = "function",
-               where = getNamespace("grDevices"),
-               inherits = FALSE)) {
-        devAskNewPage(TRUE)
-    } else {
-        grid.prompt(TRUE)
-    }
-    
-
-
+old.prompt <- devAskNewPage(TRUE)
 ## store current settings, to be restored later
-
 old.settings <- trellis.par.get()
 
 ## changing settings to new 'theme'
@@ -166,14 +152,7 @@ barchart(variety ~ yield | year * site, barley, origin = 0,
          }, par.strip.text = list(lines = 0.4))
 
 
-trellis.par.set(theme = old.settings)
-
-if (exists("devAskNewPage", mode = "function",
-           where = getNamespace("grDevices"),
-           inherits = FALSE)) {
-    devAskNewPage(old.prompt)
-} else {
-    grid.prompt(old.prompt)
-}
+trellis.par.set(theme = old.settings, strict = 2)
+devAskNewPage(old.prompt)
 
 
