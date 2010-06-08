@@ -45,7 +45,6 @@ bwplot(x, data, \dots)
        subscripts = !is.null(groups),
        subset = TRUE)
 
-
 \method{dotplot}{formula}(x,
         data,
         panel = lattice.getOption("panel.dotplot"),
@@ -86,11 +85,9 @@ bwplot(x, data, \dots)
        subscripts = !is.null(groups),
        subset = TRUE)
 
-
 }
 
 \description{
-
   This help page documents several commonly used high-level Lattice
   functions.  \code{xyplot} produces bivariate scatterplots or
   time-series plots, \code{bwplot} produces box-and-whisker plots,
@@ -104,7 +101,6 @@ bwplot(x, data, \dots)
   high-level functions as well.  For control and customization of the
   actual display in each panel, the help page of the respective default
   panel function will often be more informative.
-  
 }
 
 % designed mainly for two continuous variates (though factors can be
@@ -117,9 +113,7 @@ bwplot(x, data, \dots)
 
 
 \arguments{
-
   \item{x}{
-
     All high-level function in \pkg{lattice} are generic.  \code{x} is
     the object on which method dispatch is carried out.
 
@@ -211,10 +205,8 @@ bwplot(x, data, \dots)
     the formula method was essentially the only method).  This is no
     longer allowed.  It is recommended that this argument not be named
     in any case, but instead be the first (unnamed) argument.
-
   }
   \item{data}{
-
     For the \code{formula} methods, a data frame (or more precisely,
     anything that is a valid \code{envir} argument in
     \code{\link{eval}}, e.g., a list or an environment) containing values
@@ -224,7 +216,6 @@ bwplot(x, data, \dots)
     environment of the formula.  For other methods (where \code{x} is
     not a formula), \code{data} is usually ignored, often with a warning
     if it is explicitly specified.
-
   }
   \item{allow.multiple}{
     Logical flag specifying whether the extended formula interface
@@ -245,7 +236,6 @@ bwplot(x, data, \dots)
     panel functions.
   }
   \item{horizontal}{
-
     Logical flag applicable to \code{bwplot}, \code{dotplot},
     \code{barchart}, and \code{stripplot}. Determines which of \code{x}
     and \code{y} is to be a factor or shingle (\code{y} if TRUE,
@@ -260,7 +250,6 @@ bwplot(x, data, \dots)
     usually overlap will be abbreviated. \code{scales} could also
     contain a \code{minlength} argument in this case, which would be
     passed to the \code{abbreviate} function.
-
   }
 
   %   \item{jitter.data}{
@@ -278,7 +267,6 @@ bwplot(x, data, \dots)
   override the usage given here.
 
   \item{panel}{
-
     Once the subset of rows defined by each unique combination of the
     levels of the grouping variables are obtained (see
     \dQuote{Details}), the corresponding \code{x} and \code{y} variables
@@ -394,7 +382,6 @@ bwplot(x, data, \dots)
   %   }
 
   \item{aspect}{
-
     This argument controls the physical aspect ratio of the panels,
     which is usually the same for all the panels. It can be specified as
     a ratio (vertical size/horizontal size) or as a character string.
@@ -411,11 +398,9 @@ bwplot(x, data, \dots)
     Otherwise, values from the default prepanel function are used.  Not
     all default prepanel functions produce sensible banking
     calculations.
-
   }
 
   \item{groups}{
-
     A variable or expression to be evaluated in \code{data}, expected to
     act as a grouping variable within each panel, typically used to
     distinguish different groups by varying graphical parameters like
@@ -428,11 +413,9 @@ bwplot(x, data, \dots)
     It is very common to use a key (legend) when a grouping variable is
     specified.  See entries for \code{key}, \code{auto.key} and
     \code{\link{simpleKey}} for how to draw a key.
-
   }
 
   \item{auto.key}{
-
     A logical, or a list containing components to be used as arguments
     to \code{\link{simpleKey}}.  \code{auto.key=TRUE} is equivalent to
     \code{auto.key=list()}, in which case \code{\link{simpleKey}} is
@@ -479,7 +462,6 @@ bwplot(x, data, \dots)
     is actually created at plotting time, so the settings will match.
   }
   \item{prepanel}{
-
     A function that takes the same arguments as the \code{panel}
     function and returns a list, possibly containing components named
     \code{xlim}, \code{ylim}, \code{dx}, and \code{dy} (and less
@@ -525,11 +507,9 @@ bwplot(x, data, \dots)
     return value when the \code{x}, \code{y} (etc.) variables are
     zero-length vectors.  When nothing else is appropriate, values of NA
     should be returned for the \code{xlim} and \code{ylim} components.
-
   }
 
   \item{strip}{
-
     A logical flag or function.  If \code{FALSE}, strips are not drawn.
     Otherwise, strips are drawn using the \code{strip} function, which
     defaults to \code{strip.default}.  See documentation of
@@ -538,11 +518,9 @@ bwplot(x, data, \dots)
     \code{strip.left} argument (see \code{\dots} below), which can be
     used to draw strips on the left of each panel (useful for wide short
     panels, e.g., in time-series plots).
-
   }
 
   \item{xlab}{
-
     Character or expression (or a \code{"grob"}) giving label(s) for the
     x-axis.  Generally defaults to the expression for \code{x} in the
     formula defining the plot.  Can be specified as \code{NULL} to omit
@@ -550,19 +528,15 @@ bwplot(x, data, \dots)
     the entry for \code{main}, with the modification that if the
     \code{label} component is omitted from the list, it is replaced by
     the default \code{xlab}.
-
   }
   \item{ylab}{
-
     Character or expression (or \code{"grob"}) giving label for the
     y-axis.  Generally defaults to the expression for \code{y} in the
     formula defining the plot.  Finer control is possible, see entries
     for \code{main} and \code{xlab}.
-
   }
 
   \item{scales}{
-
     Generally a list determining how the x- and y-axes (tick marks and
     labels) are drawn.  The list contains parameters in
     \code{name=value} form, and may also contain two other lists called
@@ -584,7 +558,6 @@ bwplot(x, data, \dots)
 
     \describe{
       \item{\code{relation}}{
-
         A character string that determines how axis limits are
         calculated for each panel.  Possible values are \code{"same"}
         (default), \code{"free"} and \code{"sliced"}.  For
@@ -606,24 +579,19 @@ bwplot(x, data, \dots)
         components were the limit values obtained from the prepanel
         calculations for each panel (after being replicated if
         necessary).
-
       }
       \item{\code{tick.number}}{
-
         An integer, giving the suggested number of ticks.  This is
         ignored for a factor, shingle or character vector, in which case
         there is no natural rule for leaving out some of the labels. But
         see \code{xlim}.
-
       }
       \item{\code{draw}}{
-
         A logical flag, defaulting to \code{TRUE}, that determines
         whether to draw the axis at all.
         
       }
       \item{\code{alternating}}{
-
         Usually a logical flag specifying whether axis labels should
         alternate from one side of the group of panels to the other.
         For finer control, \code{alternating} can also be a vector
@@ -681,7 +649,6 @@ bwplot(x, data, \dots)
         \code{abbreviate=TRUE}.
       }
       \item{\code{log}}{
-
         Controls whether the corresponding variable (\code{x} or
         \code{y}) will be log transformed before being passed to the
         panel function.  Defaults to \code{FALSE}, in which case the
@@ -710,21 +677,17 @@ bwplot(x, data, \dots)
         \code{\link{strptime}} for description of valid values.
       }
       \item{\code{axs}}{
-
         A character string, \code{"r"} (default) or \code{"i"}.  In the
         latter case, the axis limits are calculated as the exact data
         range, instead of being padded on either side. (May not always
         work as expected.)
-
       }
     }
 
     Note that much of the function of \code{scales} is accomplished by
     \code{pscales} in \code{\link{splom}}.
-
   }
   \item{subscripts}{
-    
     A logical flag specifying whether or not a vector named
     \code{subscripts} should be passed to the panel function.  Defaults
     to \code{FALSE}, unless \code{groups} is specified, or if the panel
@@ -733,10 +696,8 @@ bwplot(x, data, \dots)
     conditions do not hold; a typical example is when one wishes to
     augment a Lattice plot after it has been drawn, e.g., using
     \code{\link{panel.identify}}.
-
   }
   \item{subset}{
-
     An expression that evaluates to a logical or integer indexing
     vector.  Like \code{groups}, it is evaluated in \code{data}.  Only
     the resulting rows of \code{data} are used for the plot.  If
@@ -745,11 +706,9 @@ bwplot(x, data, \dots)
     the subsetting.  Whether levels of factors in the data frame that
     are unused after the subsetting will be dropped depends on the
     \code{drop.unused.levels} argument.
-
   }
 
   \item{xlim}{
-
     Normally a numeric vector (or a DateTime object) of length 2 giving
     left and right limits for the x-axis, or a character vector,
     expected to denote the levels of \code{x}.  The latter form is
@@ -763,13 +722,11 @@ bwplot(x, data, \dots)
     \code{scales$x$relation} is \code{"free"}, in which case these are
     treated as if they were the corresponding limit components returned
     by prepanel calculations.
-
   }
 
   \item{ylim}{ Similar to \code{xlim}, applied to the y-axis. }
   
   \item{drop.unused.levels}{
-
     A logical flag indicating whether the unused levels of factors will
     be dropped, usually relevant with a subsetting operation is
     performed or an \code{\link{interaction}} is created.  Unused levels
@@ -782,19 +739,15 @@ bwplot(x, data, \dots)
     which is initially set to \code{TRUE} for both components.  Note
     that this argument does not control dropping of levels of the
     \code{groups} argument.
-
   }
   \item{ default.scales }{
-
     A list giving the default values of \code{scales} for a particular
     high-level function.  This is rarely of interest to the end-user,
     but may be helpful when defining other functions that act as a
     wrapper to one of the high-level Lattice functions.
-
   }
 
   \item{lattice.options}{
-
     A list that could be supplied to \code{\link{lattice.options}}.
     These options are applied temporarily for the duration of the call,
     after which the settings revert back to what they were before.  The
@@ -803,11 +756,9 @@ bwplot(x, data, \dots)
     trellis object itself rather than change the settings globally.  See
     also the \code{par.settings} argument described below for a similar
     treatment of graphical settings.
-
   }
 
   \item{\dots}{
-
     Further arguments, usually not directly processed by the high-level
     functions documented here, but instead passed on to other
     functions. Such arguments can be broadly categorized into two types:
@@ -833,18 +784,14 @@ bwplot(x, data, \dots)
     The effect of the first group of common arguments are as follows:
 
     \describe{
-
       \item{\code{as.table}:}{
-
         A logical flag that controls the order in which panels should be
         displayed: if \code{FALSE} (the default), panels are drawn left to
         right, bottom to top (as in a graph); if \code{TRUE}, left to
         right, top to bottom (as in a table).
-
       }
 
       \item{\code{between}:}{
-
         A list with components \code{x} and \code{y} (both usually 0 by
         default), numeric vectors specifying the space between the
         panels (units are character heights). \code{x} and \code{y} are
@@ -852,11 +799,9 @@ bwplot(x, data, \dots)
         components are ignored. The result is used for all pages in a
         multi page display.  In other words, it is not possible to use
         different \code{between} values for different pages.
-
       }
 
       \item{\code{key}:}{
-
         A list that defines a legend to be drawn on the plot.  This list
         is used as an argument to the \code{\link{draw.key}} function,
         which produces a \code{"grob"} (grid object) eventually plotted
@@ -947,7 +892,6 @@ bwplot(x, data, \dots)
 
         \describe{
           \item{\code{reverse.rows}}{
-
             Logical flag, defaulting to \code{FALSE}.  If \code{TRUE},
             all components are reversed \emph{after} being replicated
             (the details of which may depend on the value of
@@ -959,7 +903,6 @@ bwplot(x, data, \dots)
             to bottom unless \code{reverse.rows = TRUE}.  Note that in
             this case, unless all columns have the same number or rows,
             they will no longer be aligned.
-
           }
           \item{\code{between}}{
             Numeric vector giving the amount of space (character widths)
@@ -969,7 +912,6 @@ bwplot(x, data, \dots)
             String or expression giving a title for the key.
           }
           \item{\code{rep}}{
-
             Logical flag, defaults to \code{TRUE}.  By default, it is
             assumed that all columns in the key (except the
             \code{"text"}s) will have the same number of rows, and all
@@ -977,7 +919,6 @@ bwplot(x, data, \dots)
             can be suppressed by specifying \code{rep=FALSE}, in which
             case the length of each column will be determined by
             components of that column alone.
-
           }
           \item{\code{cex.title}}{
             Zoom factor for the title.
@@ -987,14 +928,12 @@ bwplot(x, data, \dots)
             lines (in multiples of itself).  Defaults to 2.
           }
           \item{\code{padding.text}}{
-
             The amount of space (padding) to be used above and below
             each row containing text, in multiples of the default, which
             is currently \code{0.2 * "lines"}.  This padding is in
             addition to the normal height of any row that contains text,
             which is the minimum amount necessary to contain all the
             text entries.
-
           }
           \item{\code{background}}{
             Background color for the legend.  Defaults to the global
@@ -1028,7 +967,6 @@ bwplot(x, data, \dots)
         }
       }
       \item{\code{legend}:}{
-
         The legend argument can be useful if one wants to place more
         than one key.  It also allows the use of arbitrary
         \code{"grob"}s (grid objects) as legends.
@@ -1052,20 +990,16 @@ bwplot(x, data, \dots)
         named \code{"inside"}, there can be additional components called
         \code{x}, \code{y} and \code{corner}, which work in the same way
         as for \code{key}.
-
       }
 
       \item{\code{page}:}{
-
         A function of one argument (page number) to be called after
         drawing each page.  The function must be
         \sQuote{grid-compliant}, and is called with the whole display
         area as the default viewport.
-
       }
 
       \item{\code{main}:}{
-
         Typically a character string or expression describing the main
         title to be placed on top of each page.  Defaults to
         \code{NULL}.
@@ -1093,7 +1027,6 @@ bwplot(x, data, \dots)
 
         \code{main}, \code{xlab}, \code{ylab} and \code{sub} can also be
         an arbitrary \code{"grob"} (grid graphical object).
-
       }
       \item{\code{sub}:}{
         Character string or expression (or a list or \code{"grob"}) for
@@ -1101,7 +1034,6 @@ bwplot(x, data, \dots)
         for \code{main} for finer control options.
       }
       \item{\code{par.strip.text}:}{
-
         A list of parameters to control the appearance of strip text.
         Notable components are \code{col}, \code{cex}, \code{font}, and
         \code{lines}.  The first three control graphical parameters
@@ -1117,10 +1049,8 @@ bwplot(x, data, \dots)
         the components \code{minlength} and \code{dot} (passed along to
         the \code{\link{abbreviate}} function) can be specified to
         control the details of how this is done.
-
       }
       \item{\code{layout}:}{
-
         In general, a conditioning plot in Lattice consists of several
         panels arranged in a rectangular array, possibly spanning
         multiple pages. \code{layout} determines this arrangement.
@@ -1144,10 +1074,8 @@ bwplot(x, data, \dots)
         If \code{NA} is specified for the number of rows or columns (not
         both), that dimension will be filled out according to the number
         of panels.
-
       }
       \item{\code{skip}:}{
-
         A logical vector (default \code{FALSE}), replicated to be as
         long as the number of panels (spanning all pages).  For elements
         that are \code{TRUE}, the corresponding panel position is
@@ -1156,25 +1084,20 @@ bwplot(x, data, \dots)
         available panel position, and the positions of all the
         subsequent panels are bumped up accordingly.  This may be useful
         for arranging plots in an informative manner.
-
       }
 
       \item{\code{strip.left}:}{
-
         \code{strip.left} can be used to draw strips on the left of each
         panel, which can be useful for wide short panels, as in
         time-series (or similar) plots.  See the entry for \code{strip}
         for detailed usage.
-
       }
 
       \item{\code{xlab.default}, \code{ylab.default}:}{
-
         Fallback default for \code{xlab} and \code{ylab} when they are
         not specified.  If \code{NULL}, the defaults are parsed from the
         Trellis formula.  This is rarely useful for the end-user, but
         can be helpful when developing new Lattice functions.
-
       }
 
       \item{\code{xscale.components}, \code{yscale.components}:}{
@@ -1191,7 +1114,6 @@ bwplot(x, data, \dots)
       }
 
       \item{\code{perm.cond}:}{
-
         An integer vector, a permutation of \code{1:n}, where \code{n}
         is the number of conditioning variables.  By default, the order
         in which panels are drawn depends on the order of the
@@ -1200,10 +1122,8 @@ bwplot(x, data, \dots)
         is thought of as an \code{n}-dimensional array, then during
         printing, its dimensions are permuted using \code{perm.cond} as
         the \code{perm} argument does in \code{\link{aperm}}.
-
       }
       \item{\code{index.cond}:}{
-        
         Whereas \code{perm.cond} permutes the dimensions of the
         multidimensional array of panels, \code{index.cond} can be used
         to subset (or reorder) margins of that array.  \code{index.cond}
@@ -1250,10 +1170,8 @@ bwplot(x, data, \dots)
         without re-calculating the data subsets that go into each panel.
         In the \code{\link{update.trellis}} method, both can be set to
         \code{NULL}, which reverts these back to their defaults.
-
       }
       \item{\code{par.settings}:}{
-
         A list that could be supplied to \code{\link{trellis.par.set}}.
         When the resulting object is plotted, these options are applied
         temporarily for the duration of the plotting, after which the
@@ -1262,17 +1180,14 @@ bwplot(x, data, \dots)
         itself rather than change the settings globally.  See also the
         \code{lattice.options} argument described above for a similar
         treatment of non-graphical options.
-
       }
       \item{\code{plot.args}:}{
-
         A list containing possible arguments to
         \code{\link{plot.trellis}}, which will be used by the
         \code{plot} or \code{print} methods when drawing the object,
         unless overridden explicitly.  This enables the user to attach
         such arguments to the trellis object itself.  Partial matching
         is not performed.
-
       }
     }
   }
@@ -1280,18 +1195,15 @@ bwplot(x, data, \dots)
 
 
 \value{
-
   The high-level functions documented here, as well as other high-level
   Lattice functions, return an object of class \code{"trellis"}.  The
   \code{\link[lattice:update.trellis]{update}} method can be used to
   subsequently update components of the object, and the
   \code{\link[lattice:print.trellis]{print}} method (usually called by
   default) will plot it on an appropriate plotting device.
-
 }
 
 \details{
-
   The high-level functions documented here, as well as other high-level
   Lattice functions, are generic, with the \code{formula} method usually
   doing the most substantial work.  The structure of the plot that is
@@ -1330,11 +1242,9 @@ bwplot(x, data, \dots)
   \code{index.cond} and \code{perm.cond} arguments, possibly using the
   \code{\link[lattice:update.trellis]{update}} (and other related)
   method(s).
-
 }
 
 \note{
-
   Most of the arguments documented here are also applicable for the
   other high-level functions in the \pkg{lattice} package. These are not
   described in any detail elsewhere unless relevant, and this should be
@@ -1345,14 +1255,11 @@ bwplot(x, data, \dots)
   have arguments that customize its output. These arguments are
   described only in the help pages for these panel functions, but can
   usually be supplied as arguments to the high-level plot.
-
 }
 
 \references{
-
   Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization
     with R}, Springer.  \url{http://lmdvr.r-forge.r-project.org/}
-
 }
 
 \seealso{
@@ -1378,7 +1285,6 @@ bwplot(x, data, \dots)
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 
 \examples{
-
 require(stats)
 
 ## Tonga Trench Earthquakes
@@ -1466,7 +1372,6 @@ bwplot(decrease ~ treatment, OrchardSprays, groups = rowpos,
                   text = list(lab = as.character(unique(OrchardSprays$rowpos))),
                   columns = 4, title = "Row position"))
 }
-
 
 }
 \keyword{hplot}
