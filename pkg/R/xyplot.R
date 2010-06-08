@@ -89,7 +89,16 @@ panel.xyplot <-
         if (missing(col.symbol)) col.symbol <- col
     }
     if (missing(grid) && ("g" %in% type)) grid <- TRUE ## FIXME: what if list?
-    if (grid) panel.grid(h = -1, v = -1, x = x, y = y)
+    if (!identical(grid, FALSE))
+    {
+        if (!is.list(grid))
+            grid <- switch(as.character(grid),
+                           "TRUE" = list(h = -1, v = -1, x = x, y = y),
+                           "h" = list(h = -1, v = 0, y = y),
+                           "v" = list(h = 0, v = -1, x = x),
+                           list(h = 0, v = 0))
+        do.call(panel.grid, grid)
+    }
     if (!is.null(abline))
     {
         if (is.numeric(abline)) abline <- as.list(abline)
