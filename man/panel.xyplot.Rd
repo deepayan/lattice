@@ -61,22 +61,33 @@ panel.qq(\dots)
     other graphical parameters.  \code{fill} serves the purpose of
     \code{bg} in \code{\link{points}} for certain values of \code{pch}
   }
-  \item{horizontal}{ logical. Controls orientation for certain
-    \code{type}'s, e.g., \code{"h"}, \code{"s"}, ans \code{"S"}}.
-  \item{\dots}{ extra arguments, if any, for \code{panel.xyplot}. In
-    most cases \code{panel.xyplot} ignores these. For types "r" and
-    "smooth", these are passed on to \code{panel.lmline} and
-    \code{panel.loess} respectively.
+  \item{horizontal}{
+    A logical flag controlling the orientation for certain
+    \code{type}'s, e.g., \code{"h"}, \code{"s"}, ans \code{"S"}.
+  }
+  \item{\dots}{
+    Extra arguments, if any, for \code{panel.xyplot}.  In most cases
+    \code{panel.xyplot} ignores these.  For types "r" and "smooth",
+    these are passed on to \code{panel.lmline} and \code{panel.loess}
+    respectively.
   }
   \item{grid}{
-    A logical flag specifying whether a background grid should be drawn.
+    A logical flag, character string, or list specifying whether and how
+    a background grid should be drawn.  This provides the same
+    functionality as \code{type="g"}, but is the preferred alternative
+    as the effect \code{type="g"} is conceptually different from that of
+    other \code{type} values (which are all data-dependent).  Using the
+    \code{grid} argument also allows more flexibility.
 
-    This provides the same functionality as \code{type="g"}, but is the
-    preferred alternative as the effect \code{type="g"} is conceptually
-    different from that of other \code{type} values (which are all
-    data-dependent).
-
-    Use \code{\link{panel.grid}} for finer control.
+    Most generally, \code{grid} can be a list of arguments to be
+    supplied to \code{\link{panel.grid}}, which is called with those
+    arguments.  Three shortcuts are available:
+    \describe{
+      \item{\code{TRUE}:}{ roughly equivalent to \code{list(h = -1, v = -1)} }
+      \item{\code{"h"}:}{ roughly equivalent to \code{list(h = -1, v = 0)} }
+      \item{\code{"v"}:}{ roughly equivalent to \code{list(h = 0, v = -1)} }
+    }
+    No grid is drawn if \code{grid = FALSE}.
   }
   \item{abline}{
     A numeric vector or list, specifying arguments arguments for
