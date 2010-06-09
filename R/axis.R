@@ -811,7 +811,6 @@ panel.axis <-
 
 #    if (missing(at) || is.null(at))
 #    {
-#        
 #        warning("nothing to draw if at not specified")
 #        return()
 #    }
