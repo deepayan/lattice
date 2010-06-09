@@ -781,6 +781,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     font <- axis.text$font
     fontfamily <- axis.text$fontfamily
     fontface <- axis.text$fontface
+    lineheight <- axis.text$lineheight
     rot <- 0
 
     if (is.null(key$lab))
@@ -808,7 +809,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         if (!is.null(key$lab$font)) font <- key$lab$font
         if (!is.null(key$lab$fontface)) fontface <- key$lab$fontface
         if (!is.null(key$lab$fontfamily)) fontfamily <- key$lab$fontfamily
+        if (!is.null(key$lab$lineheight)) lineheight <- key$lab$lineheight
         if (!is.null(key$lab$rot)) rot <- key$lab$rot
+        
     }
     else stop("malformed colorkey")
 
@@ -829,7 +832,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      gpar(col = col,
                           cex = cex,
                           fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font)))
+                          fontface = chooseFace(fontface, font),
+                          lineheight = lineheight))
 
         heights.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         heights.units <- rep("null", 3)
@@ -904,7 +908,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      gpar(col = col,
                           cex = cex,
                           fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font)))
+                          fontface = chooseFace(fontface, font),
+                          lineheight = lineheight))
 
         heights.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         heights.units <- rep("null", 3)
@@ -976,7 +981,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      gpar(col = col,
                           cex = cex,
                           fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font)))
+                          fontface = chooseFace(fontface, font),
+                          lineheight = lineheight))
 
         widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         widths.units <- rep("null", 3)
@@ -1049,7 +1055,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                      gpar(col = col,
                           cex = cex,
                           fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font)))
+                          fontface = chooseFace(fontface, font),
+                          lineheight = lineheight))
 
         widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         widths.units <- rep("null", 3)

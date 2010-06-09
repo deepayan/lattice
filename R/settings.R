@@ -103,9 +103,13 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
               "#0A0A0A", "#0D0D0D", "#0F0F0F", "#121212", "#151515",
               "#AAAAAA", "transparent")
 
-    ## The following definition is the basis for what elements are
+    ## The following is the canonical definition of what elements are
     ## valid in any setting. Adding something here should be necessary
     ## and sufficient.
+
+    ## Note: For any component with a $font entry, more general
+    ## specifications using $fontfamily and $fontface is also allowed
+    ## (see ?grid::gpar for details).
 
     ## color settings, modified later if postscript or color = FALSE
     ans <-
@@ -141,7 +145,7 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
                  hsv(h = height, s = 1 - saturation * (1 - (1-ref)^0.5), v = irr)
              }),
              axis.line        = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
-             axis.text        = list(alpha = 1, cex = .8, col = can.col[1], font = 1),
+             axis.text        = list(alpha = 1, cex = .8, col = can.col[1], font = 1, lineheight = 1),
 
              ## NEW: controls widths of tick marks and padding of labels
              axis.components  = list(left = list(tck = 1, pad1 = 1, pad2 = 1),

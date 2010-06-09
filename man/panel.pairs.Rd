@@ -6,7 +6,6 @@
   This is the default superpanel function for \code{splom}.
 }
 \usage{
-
 panel.pairs(z,
             panel = lattice.getOption("panel.splom"),
             lower.panel = panel,
@@ -25,6 +24,7 @@ panel.pairs(z,
             varname.fontfamily, varname.fontface,
             axis.text.col, axis.text.cex, axis.text.font,
             axis.text.fontfamily, axis.text.fontface,
+            axis.text.lineheight,
             axis.line.col, axis.line.lty, axis.line.lwd,
             axis.line.alpha, axis.line.tck,
             \dots)
@@ -37,6 +37,7 @@ diag.panel.splom(x = NULL,
                  axis.text.col, axis.text.alpha,
                  axis.text.cex, axis.text.font, 
                  axis.text.fontfamily, axis.text.fontface,
+                 axis.text.lineheight, 
                  axis.line.col, axis.line.alpha,
                  axis.line.lty, axis.line.lwd,
                  axis.line.tck,
@@ -111,21 +112,38 @@ diag.panel.splom(x = NULL,
     logical, specifying whether to draw the tick marks and labels. If
     \code{FALSE}, only variable names are written
   }
-%   \item{panel.number, packet.number}{ integer indices for panel and
-%     packet number (see \code{\link{xyplot}}).  Passed on to
-%     \code{panel}, \code{lower.panel}, \code{upper.panel} and
-%     \code{diag.panel}. }
-  \item{varname.col, varname.cex, varname.lineheight, varname.font,
-    varname.fontfamily, varname.fontface}{ graphical parameters for the
-    variable name in each diagonal panel }
-  \item{axis.text.col, axis.text.cex, axis.text.font,
-    axis.text.fontfamily, axis.text.fontface, axis.line.col,
-    axis.line.lty, axis.line.lwd, axis.text.alpha, axis.line.alpha}{
-    graphical parameters for axis tick marks and labels }
-  \item{axis.line.tck}{ length of tick marks in diagonal panels }
-  \item{\dots}{ extra arguments passed on to \code{panel},
-    \code{lower.panel}, \code{upper.panel} and \code{diag.panel} from
-    \code{panel.pairs}.  Currently ignored by \code{diag.panel.splom}. }
+  \item{varname.col}{ Color for the variable name in each diagonal
+    panel.  See \code{\link[grid]{gpar}} for details on this and the
+    other graphical parameters listed below. }
+  \item{varname.cex}{
+    Size multiplier for the variable name in each diagonal panel.
+  } 
+  \item{varname.lineheight}{
+    Line height for the variable name in each diagonal panel.
+  }
+  \item{varname.font, varname.fontfamily, varname.fontface}{
+    Font specification for the variable name in each diagonal panel.
+  }
+  \item{axis.text.col}{ Color for axis label text. } 
+  \item{axis.text.cex}{ Size multiplier for axis label text. } 
+  \item{axis.text.font, axis.text.fontfamily, axis.text.fontface}{
+    Font specification for axis label text.
+  } 
+  \item{axis.text.lineheight}{ Line height for axis label text. } 
+  \item{axis.text.alpha}{ Alpha-transparency for axis label text. } 
+  \item{axis.line.col}{ Color for the axes. } 
+  \item{axis.line.lty}{ Line type for the axes. } 
+  \item{axis.line.lwd}{ Line width for the axes. } 
+  \item{axis.line.alpha}{ Alpha-transparency for the axes. } 
+  \item{axis.line.tck}{
+    A numeric multiplier for the length of tick marks in diagonal
+    panels.
+  }
+  \item{\dots}{
+    Further arguments, passed on to \code{panel}, \code{lower.panel},
+    \code{upper.panel}, and \code{diag.panel} from \code{panel.pairs}.
+    Currently ignored by \code{diag.panel.splom}.
+  }
 
 }
 
@@ -136,7 +154,6 @@ diag.panel.splom(x = NULL,
 
   Note that the axis labeling does not support date-time classes at
   present.
-
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

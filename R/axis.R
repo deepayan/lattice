@@ -788,6 +788,7 @@ panel.axis <-
              text.font = axis.text$font,
              text.fontfamily = axis.text$fontfamily,
              text.fontface = axis.text$fontface,
+             text.lineheight = axis.text$lineheight,
 
              line.col = axis.line$col,
              line.lty = axis.line$lty,
@@ -861,7 +862,7 @@ panel.axis <-
                     lty = line.lty, lwd = line.lwd)
     gp.text <- gpar(col = text.col, cex = text.cex, alpha = text.alpha,
                     fontface = chooseFace(text.fontface, text.font),
-                    fontfamily = text.fontfamily)
+                    fontfamily = text.fontfamily, lineheight = text.lineheight)
 
     ## We now compute some spacing information based on settings
     ## (combining trellis settings and the (newer) lattice.options).

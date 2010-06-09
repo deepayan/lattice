@@ -626,6 +626,11 @@ bwplot(x, data, \dots)
       \item{\code{font}, \code{fontface}, \code{fontfamily}}{
         Specifies the font to be used for axis labels.
       }
+      \item{\code{lineheight}}{
+	Specifies the line height parameter (height of line as a
+	multiple of the size of text); relevant for multi-line labels.
+	(This is currently ignored for \code{\link{cloud}}.)
+      }
       \item{\code{tck}}{
         Usually a numeric scalar controlling the length of tick marks.
         Can also be a vector of length 2, to control the length of

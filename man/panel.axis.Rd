@@ -22,7 +22,7 @@ panel.axis(side = c("bottom", "left", "top", "right"),
            tck = as.numeric(ticks),
            rot = if (is.logical(labels)) 0 else c(90, 0),
            text.col, text.alpha, text.cex, text.font,
-           text.fontfamily, text.fontface,
+           text.fontfamily, text.fontface, text.lineheight,
            line.col, line.lty, line.lwd, line.alpha)
 
 current.panel.limits(unit = "native")
@@ -69,9 +69,19 @@ current.panel.limits(unit = "native")
     rotation angles for labels in degrees. Can be a vector of length 2
     for x- and y-axes respectively
   }
-  \item{text.col, text.alpha, text.cex, text.font, text.fontfamily,
-    text.fontface, line.col, line.lty, line.lwd, line.alpha}{ graphical
-    parameters }
+  \item{text.col}{
+    Color for the axis label text.  See \code{\link[grid]{gpar}} for
+    more details on this and the other graphical parameters listed
+    below.
+  }
+  \item{text.alpha}{ Alpha-transparency value for the axis label text. }
+  \item{text.cex}{ Size multiplier for the axis label text. }
+  \item{text.font, text.fontfamily, text.fontface}{ Font for the axis label text. }
+  \item{text.lineheight}{ Line height for the axis label text. }
+  \item{line.col}{ for the axis label text. }
+  \item{line.lty}{ for the axis. }
+  \item{line.lwd}{ for the axis. }
+  \item{line.alpha}{ for the axis. }
   \item{unit}{ which grid \code{\link[grid:unit]{unit}} the values
     should be in }
 }
@@ -102,7 +112,4 @@ current.panel.limits(unit = "native")
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
-
-
-
 
