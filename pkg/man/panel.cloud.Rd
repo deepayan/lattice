@@ -31,15 +31,17 @@ panel.cloud(x, y, subscripts, z,
 panel.wireframe(\dots)
 panel.3dscatter(x, y, z, rot.mat, distance,
                 groups, type = "p",
+                xlim, ylim, zlim,
                 xlim.scaled, ylim.scaled, zlim.scaled,
                 zero.scaled,
                 col, col.point, col.line,
                 lty, lwd, cex, pch,
-                cross, \dots, subscripts)
+                cross, \dots, .scale = FALSE, subscripts)
 panel.3dwire(x, y, z, rot.mat = diag(4), distance,
              shade = FALSE,
              shade.colors.palette = trellis.par.get("shade.colors")$palette,
              light.source = c(0, 0, 1000),
+             xlim, ylim, zlim, 
              xlim.scaled,
              ylim.scaled,
              zlim.scaled,
@@ -49,6 +51,7 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
              col.groups = superpose.polygon$col,
              polynum = 100,
              \dots,
+             .scale = FALSE,
              drape = FALSE,
              at,
              col.regions = regions$col,
@@ -178,15 +181,13 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     arguments to \code{\link{panel.cloud}}
   }
   \item{type}{
-
-    character vector, specifying type of cloud plot. Can include one or
+    Character vector, specifying type of cloud plot. Can include one or
     more of \code{"p"}, \code{"l"}, \code{"h"} or \code{"b"}. \code{"p"}
     and \code{"l"} mean \sQuote{points} and \sQuote{lines} respectively,
     and \code{"b"} means \sQuote{both}.  \code{"h"} stands for
     \sQuote{histogram}, and causes a line to be drawn from each point to
     the X-Y plane (i.e., the plane representing \code{z = 0}), or the
     lower (or upper) bounding box face, whichever is closer.
-
   }
   \item{xlim.scaled, ylim.scaled, zlim.scaled}{
      axis limits (after being scaled to the bounding box) 
@@ -245,6 +246,14 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     graphical parameters
   }
   \item{\dots}{ other parameters, passed down when appropriate}
+  \item{.scale}{
+    Logical flag, indicating whether \code{x}, \code{y}, and \code{z}
+    should be assumed to be in the original data scale and hence scaled
+    before being plotted.  \code{x}, \code{y}, and \code{z} are usually
+    already scaled.  However, setting \code{.scale=TRUE} may be helpful
+    for calls to \code{panel.3dscatter} and \code{panel.3dwire} in
+    user-supplied panel functions.
+  }
 }
 \details{
   These functions together are responsible for the content drawn inside
