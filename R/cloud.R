@@ -120,6 +120,7 @@ panel.3dscatter <-
     function(x, y, z, rot.mat = diag(4), distance,
              groups = NULL,
              type = "p",
+             xlim, ylim, zlim,
              xlim.scaled,
              ylim.scaled,
              zlim.scaled,
@@ -134,8 +135,19 @@ panel.3dscatter <-
              pch = if (is.null(groups)) "+" else superpose.symbol$pch,
              cross,
              ...,
+             .scale = FALSE,
              subscripts = TRUE)
 {
+    if (.scale)
+    {
+        ## x, y, z, are usually already scaled to lie within a
+        ## bounding box.  However, setting .scale=TRUE will do the
+        ## scaling here; this may be helpful for calls to
+        ## panel.3dscatter() in user-supplied panel functions.
+        x <- xlim.scaled[1] + diff(xlim.scaled) * (x-xlim[1])/diff(xlim)
+        y <- ylim.scaled[1] + diff(ylim.scaled) * (y-ylim[1])/diff(ylim)
+        z <- zlim.scaled[1] + diff(zlim.scaled) * (z-zlim[1])/diff(zlim)
+    }
 
     ##cloud.3d <- list(col=1, cex=1, lty=1, lwd=1, pch=1)
     plot.symbol <- trellis.par.get("plot.symbol")
@@ -302,6 +314,7 @@ panel.3dwire <-
              shade = FALSE,
              shade.colors.palette = trellis.par.get("shade.colors")$palette,
              light.source = c(0, 0, 1000),
+             xlim, ylim, zlim,
              xlim.scaled,
              ylim.scaled,
              zlim.scaled,
@@ -311,6 +324,7 @@ panel.3dwire <-
              col.groups = superpose.polygon$col,
              polynum = 100,
              ...,
+             .scale = FALSE,
              drape = FALSE,
              at,
              col.regions = regions$col,
@@ -337,6 +351,16 @@ panel.3dwire <-
     ## time. The difference is mostly in C code, but some distinctions
     ## need to be made here as well
 
+    if (.scale)
+    {
+        ## x, y, z, are usually already scaled to lie within a
+        ## bounding box.  However, setting .scale=TRUE will do the
+        ## scaling here; this may be helpful for calls to
+        ## panel.3dscatter() in user-supplied panel functions.
+        x[] <- xlim.scaled[1] + diff(xlim.scaled) * (x-xlim[1])/diff(xlim)
+        y[] <- ylim.scaled[1] + diff(ylim.scaled) * (y-ylim[1])/diff(ylim)
+        z[] <- zlim.scaled[1] + diff(zlim.scaled) * (z-zlim[1])/diff(zlim)
+    }
 
 
 
