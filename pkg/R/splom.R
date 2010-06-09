@@ -55,6 +55,7 @@ diag.panel.splom <-
              axis.text.font = axis.text$font,
              axis.text.fontfamily = axis.text$fontfamily,
              axis.text.fontface = axis.text$fontface,
+             axis.text.lineheight = axis.text$lineheight,
 
              axis.line.col = axis.line$col,
              axis.line.alpha = axis.line$alpha,
@@ -110,6 +111,7 @@ diag.panel.splom <-
                        text.font = axis.text.font,
                        text.fontfamily = axis.text.fontfamily,
                        text.fontface = axis.text.fontface,
+                       text.lineheight = axis.text.lineheight,
 
                        line.col = axis.line.col,
                        line.alpha = axis.line.alpha,
@@ -155,6 +157,7 @@ panel.pairs <-
              axis.text.font = axis.text$font,
              axis.text.fontfamily = axis.text$fontfamily,
              axis.text.fontface = axis.text$fontface,
+             axis.text.lineheight = axis.text$lineheight,
 
              axis.line.col = axis.line$col,
              axis.line.lty = axis.line$lty,
@@ -269,6 +272,7 @@ panel.pairs <-
                                axis.text.font = axis.text.font,
                                axis.text.fontfamily = axis.text.fontfamily,
                                axis.text.fontface = axis.text.fontface,
+                               axis.text.lineheight = axis.text.lineheight,
 
                                axis.line.col = axis.line.col,
                                axis.line.lty = axis.line.lty,

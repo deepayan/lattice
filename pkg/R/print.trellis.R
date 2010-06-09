@@ -523,6 +523,9 @@ plot.trellis <-
     xaxis.fontfamily <-
         if (is.logical(x$x.scales$fontfamily)) axis.text$fontfamily
         else x$x.scales$fontfamily
+    xaxis.lineheight <-
+        if (is.logical(x$x.scales$lineheight)) axis.text$lineheight
+        else x$x.scales$lineheight
     xaxis.cex <-
         if (is.logical(x$x.scales$cex)) rep(axis.text$cex, length.out = 2)
         else x$x.scales$cex
@@ -559,6 +562,9 @@ plot.trellis <-
     yaxis.fontfamily <-
         if (is.logical(x$y.scales$fontfamily)) axis.text$fontfamily
         else x$y.scales$fontfamily
+    yaxis.lineheight <-
+        if (is.logical(x$y.scales$lineheight)) axis.text$lineheight
+        else x$y.scales$lineheight
     yaxis.cex <-
         if (is.logical(x$y.scales$cex)) rep(axis.text$cex, length.out = 2)
         else x$y.scales$cex
@@ -671,6 +677,7 @@ plot.trellis <-
                             x.relation.same, y.relation.same,
                             xaxis.rot, yaxis.rot,
                             xaxis.cex, yaxis.cex,
+                            xaxis.lineheight, yaxis.lineheight,
                             par.strip.text,
                             legend)
     lattice.setStatus(layout.details = layoutCalculations, prefix = prefix)
@@ -1002,6 +1009,7 @@ plot.trellis <-
                                text.font = xaxis.font,
                                text.fontfamily = xaxis.fontfamily,
                                text.fontface = xaxis.fontface,
+                               text.lineheight = xaxis.lineheight,
                                line.col = xaxis.col.line,
                                line.lty = xaxis.lty,
                                line.lwd = xaxis.lwd,
@@ -1031,6 +1039,7 @@ plot.trellis <-
                                text.font = yaxis.font,
                                text.fontfamily = yaxis.fontfamily,
                                text.fontface = yaxis.fontface,
+                               text.lineheight = yaxis.lineheight,
                                line.col = yaxis.col.line,
                                line.lty = yaxis.lty,
                                line.lwd = yaxis.lwd,
@@ -1064,6 +1073,7 @@ plot.trellis <-
                                text.font = xaxis.font,
                                text.fontfamily = xaxis.fontfamily,
                                text.fontface = xaxis.fontface,
+                               text.lineheight = xaxis.lineheight,
                                line.col = xaxis.col.line,
                                line.lty = xaxis.lty,
                                line.lwd = xaxis.lwd,
@@ -1081,6 +1091,7 @@ plot.trellis <-
                                text.font = yaxis.font,
                                text.fontfamily = yaxis.fontfamily,
                                text.fontface = yaxis.fontface,
+                               text.lineheight = yaxis.lineheight,
                                line.col = yaxis.col.line,
                                line.lty = yaxis.lty,
                                line.lwd = yaxis.lwd,

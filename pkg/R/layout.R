@@ -62,6 +62,7 @@ calculateGridLayout <-
 
              xaxis.rot, yaxis.rot,
              xaxis.cex, yaxis.cex,
+             xaxis.lineheight, yaxis.lineheight,
 
              par.strip.text,
 
@@ -386,7 +387,8 @@ calculateGridLayout <-
                                  x = rep(0.5, length(lab)),
                                  y = rep(0.5, length(lab)),
                                  rot = xaxis.rot[2],
-                                 gp = gpar(cex = xaxis.cex[2]))
+                                 gp = gpar(cex = xaxis.cex[2],
+                                           lineheight = xaxis.lineheight))
                     else textGrob("")
 
                 ## FIXME: this is slightly inefficient (refer to email
@@ -422,7 +424,8 @@ calculateGridLayout <-
                              x = rep(0.5, length(lab)),
                              y = rep(0.5, length(lab)),
                              rot = xaxis.rot[1],
-                             gp = gpar(cex = xaxis.cex[1]))
+                             gp = gpar(cex = xaxis.cex[1],
+                                       lineheight = xaxis.lineheight))
                 else textGrob("")
 
             axis.bottom.unit <- heights.settings[["axis.bottom"]] *
@@ -496,7 +499,8 @@ calculateGridLayout <-
                                  x = rep(0.5, length(lab)),
                                  y = rep(0.5, length(lab)),
                                  rot = xaxis.rot[1],
-                                 gp = gpar(cex = xaxis.cex[1]))
+                                 gp = gpar(cex = xaxis.cex[1],
+                                           lineheight = xaxis.lineheight))
                     else textGrob("")
             }
             xaxis.panel.unit <-
@@ -576,7 +580,8 @@ calculateGridLayout <-
                                  x = rep(0.5, length(lab)),
                                  y = rep(0.5, length(lab)),
                                  rot = yaxis.rot[2],
-                                 gp = gpar(cex = yaxis.cex[2]))
+                                 gp = gpar(cex = yaxis.cex[2],
+                                           lineheight = yaxis.lineheight))
                     else textGrob("")
 
                 axis.right.unit <- widths.settings[["axis.right"]] *
@@ -607,7 +612,8 @@ calculateGridLayout <-
                              x = rep(0.5, length(lab)),
                              y = rep(0.5, length(lab)),
                              rot = yaxis.rot[1],
-                             gp = gpar(cex = yaxis.cex[1]))
+                             gp = gpar(cex = yaxis.cex[1],
+                                       lineheight = yaxis.lineheight))
                 else textGrob("")
 
             axis.left.unit <- widths.settings[["axis.left"]] *
@@ -680,7 +686,8 @@ calculateGridLayout <-
                                  x = rep(0.5, length(lab)),
                                  y = rep(0.5, length(lab)),
                                  rot = yaxis.rot[1],
-                                 gp = gpar(cex = yaxis.cex[1]))
+                                 gp = gpar(cex = yaxis.cex[1],
+                                           lineheight = yaxis.lineheight))
                     else textGrob("")
             }
             yaxis.panel.unit <-

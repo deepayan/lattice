@@ -1139,7 +1139,8 @@ panel.cloud <-
                   lty = par.box.final$lty,
                   lwd = par.box.final$lwd)
 
-        ## Next part for axes
+        ## Next part for axes. FIXME: ignoring axis.text$lineheight
+        ## because seems overkill, but could add that too.
 
         axis.text <- trellis.par.get("axis.text")
         axis.line <- trellis.par.get("axis.line")
