@@ -146,6 +146,7 @@ panel.pairs <-
              prepanel.limits = function(x) if (is.factor(x)) levels(x) else
              extend.limits(range(as.numeric(x), finite = TRUE)),
 
+             varnames = colnames(z),
              varname.col = add.text$col,
              varname.cex = add.text$cex,
              varname.font = add.text$font,
@@ -254,7 +255,7 @@ panel.pairs <-
                         
 
                     diag.panel(x = z[subscripts, j],
-                               varname = colnames(z)[i],
+                               varname = varnames[i],
                                limits = lim[[i]],
                                at = axls, lab = labels,
                                draw = draw,
@@ -372,7 +373,7 @@ splom.formula <-
              ylim,
              superpanel = lattice.getOption("panel.pairs"),
              pscales = 5,
-             varnames,
+             varnames = NULL,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              lattice.options = NULL,
@@ -429,8 +430,12 @@ splom.formula <-
         cond <- list(as.factor(rep(1, nrow(x))))
     }
 
-    if (!missing(varnames)) colnames(x) <-
-        eval(substitute(varnames), data, environment(formula))
+    varnames <-
+        if (is.null(varnames)) colnames(x)
+        else varnames
+    ## WAS eval(substitute(varnames), data, environment(formula)), but
+    ## not sure why non-standard evaluation would be useful here
+    if (length(varnames) != ncol(x)) stop("'varnames' has wrong length.")
 
     ## create a skeleton trellis object with the
     ## less complicated components:
@@ -496,6 +501,7 @@ splom.formula <-
                panel = panel,
                panel.subscripts = TRUE,
                groups = groups, # xscales = foo$x.scales, yscales = foo$y.scales,
+               varnames = varnames,
                pscales = pscales),
           dots)
 

@@ -707,12 +707,11 @@ bwplot(x, data, \dots)
     vector.  Like \code{groups}, it is evaluated in \code{data}.  Only
     the resulting rows of \code{data} are used for the plot.  If
     \code{subscripts} is \code{TRUE}, the subscripts provided to the
-    panel function will be indices to the rows of \code{data} prior to
-    the subsetting.  Whether levels of factors in the data frame that
-    are unused after the subsetting will be dropped depends on the
-    \code{drop.unused.levels} argument.
+    panel function will be indices referring to the rows of \code{data}
+    prior to the subsetting.  Whether levels of factors in the data
+    frame that are unused after the subsetting will be dropped depends
+    on the \code{drop.unused.levels} argument.
   }
-
   \item{xlim}{
     Normally a numeric vector (or a DateTime object) of length 2 giving
     left and right limits for the x-axis, or a character vector,
@@ -728,9 +727,7 @@ bwplot(x, data, \dots)
     treated as if they were the corresponding limit components returned
     by prepanel calculations.
   }
-
   \item{ylim}{ Similar to \code{xlim}, applied to the y-axis. }
-  
   \item{drop.unused.levels}{
     A logical flag indicating whether the unused levels of factors will
     be dropped, usually relevant with a subsetting operation is
@@ -751,7 +748,6 @@ bwplot(x, data, \dots)
     but may be helpful when defining other functions that act as a
     wrapper to one of the high-level Lattice functions.
   }
-
   \item{lattice.options}{
     A list that could be supplied to \code{\link{lattice.options}}.
     These options are applied temporarily for the duration of the call,
@@ -762,7 +758,6 @@ bwplot(x, data, \dots)
     also the \code{par.settings} argument described below for a similar
     treatment of graphical settings.
   }
-
   \item{\dots}{
     Further arguments, usually not directly processed by the high-level
     functions documented here, but instead passed on to other

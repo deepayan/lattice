@@ -12,7 +12,6 @@
 splom(x, data, \dots)
 parallel(x, data, \dots)
 
-
 \method{splom}{formula}(x,
       data,
       auto.key = FALSE,
@@ -29,7 +28,7 @@ parallel(x, data, \dots)
       ylim,
       superpanel = lattice.getOption("panel.pairs"),
       pscales = 5,
-      varnames,
+      varnames = NULL,
       drop.unused.levels,
       \dots,
       lattice.options = NULL,
@@ -49,7 +48,7 @@ parallel(x, data, \dots)
          xlim,
          ylab = NULL,
          ylim,
-         varnames,
+         varnames = NULL,
          horizontal.axis = TRUE,
          drop.unused.levels,
          \dots,
@@ -117,8 +116,8 @@ parallel(x, data, \dots)
     the latter documents this argument in more detail.
   }
   \item{varnames}{ 
-    character vector giving the names of the p variables in x. By
-    default, the column names of x.
+    A character or expression vector or giving names to be used for the
+    variables in \code{x}. By default, the column names of \code{x}.
   }
   \item{horizontal.axis}{logical indicating whether the parallel axes should
     be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).

@@ -254,7 +254,7 @@ parallel.formula <-
              xlim,
              ylab = NULL,
              ylim,
-             varnames,
+             varnames = NULL,
              horizontal.axis = TRUE,
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
@@ -304,17 +304,19 @@ parallel.formula <-
 
 
     cond <- form$condition
-    ## number.of.cond <- length(cond)
     x <- as.data.frame(form$right)
 
     if (length(cond) == 0) {
         strip <- FALSE
         cond <- list(as.factor(rep(1, nrow(x))))
-        ## number.of.cond <- 1
     }
 
-    if (!missing(varnames)) colnames(x) <-
-        eval(substitute(varnames), data, environment(formula))
+    varnames <-
+        if (is.null(varnames)) colnames(x)
+        else varnames
+    ## WAS eval(substitute(varnames), data, environment(formula)), but
+    ## not sure why non-standard evaluation would be useful here
+    if (length(varnames) != ncol(x)) stop("'varnames' has wrong length.")
 
     ## create a skeleton trellis object with the
     ## less complicated components:
@@ -348,7 +350,7 @@ parallel.formula <-
             list(x = list(at = c(0, 1), labels = c("Min", "Max")),
                  y =
                  list(alternating = FALSE, axs = "i", tck = 0,
-                      at = seq_len(ncol(x)), labels = colnames(x)))
+                      at = seq_len(ncol(x)), labels = varnames))
         if (!horizontal.axis) names(default.scales) <- c("y", "x")
     }
     
@@ -400,7 +402,7 @@ parallel.formula <-
     ## Step 6: Determine packets
 
     foo$panel.args.common <-
-        c(list(z = x, groups = groups), dots)
+        c(list(z = x, groups = groups, varnames = varnames), dots)
 
 
     npackets <- prod(cond.max.level)
