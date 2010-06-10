@@ -16,10 +16,9 @@ panel.pairs(z,
             panel.subscripts,
             subscripts,
             pscales = 5,
-%             packet.number, panel.number,
             prepanel.limits = function(x) if (is.factor(x)) levels(x) else
-            extend.limits(range(as.numeric(x), finite = TRUE)),
-
+                         extend.limits(range(as.numeric(x), finite = TRUE)),
+            varnames,
             varname.col, varname.cex, varname.font,
             varname.fontfamily, varname.fontface,
             axis.text.col, axis.text.cex, axis.text.font,
@@ -111,6 +110,10 @@ diag.panel.splom(x = NULL,
   \item{draw}{
     logical, specifying whether to draw the tick marks and labels. If
     \code{FALSE}, only variable names are written
+  }
+  \item{varnames}{ 
+    A character or expression vector or giving names to be used for the
+    variables in \code{x}. By default, the column names of \code{x}.
   }
   \item{varname.col}{ Color for the variable name in each diagonal
     panel.  See \code{\link[grid]{gpar}} for details on this and the
