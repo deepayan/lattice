@@ -559,6 +559,9 @@ trellis.skeleton <-
              ylab.default = NULL,
              xlab = NULL, # argument in xyplot
              ylab = NULL, # argument in xyplot
+             xlab.top = NULL,
+             ylab.right = NULL,
+
              panel,       # argument in xyplot
 
              xscale.components = default.args$xscale.components,
@@ -597,6 +600,8 @@ trellis.skeleton <-
              ylab = ylab,
              xlab.default = xlab.default,
              ylab.default = ylab.default,
+             xlab.top = xlab.top,
+             ylab.right = ylab.right,
              main = main,
              sub = sub,
              x.between = 0,

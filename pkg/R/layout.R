@@ -55,7 +55,7 @@ calculateGridLayout <-
              panel.height = NULL, panel.width = NULL,
 
              main, sub,
-             xlab, ylab,
+             xlab, ylab, xlab.top, ylab.right,
 
              x.alternating, y.alternating,
              x.relation.same, y.relation.same,
@@ -108,7 +108,7 @@ calculateGridLayout <-
 
     ## list giving positions (for indexing) of various components
 
-    last.panel <- (rows.per.page - 1) * 4 + 9
+    last.panel <- (rows.per.page - 1) * 4 + 10
     between.seq <- seq_len(rows.per.page-1)
     panel.seq <- seq_len(rows.per.page)
 
@@ -122,12 +122,13 @@ calculateGridLayout <-
              main              = 2,
              main.key.padding  = 3,
              key.top           = 4,
-             key.axis.padding  = 5,
-             axis.top          = 6,
-             strip             = (panel.seq - 1) * 4 + 7,
-             panel             = (panel.seq - 1) * 4 + 8,
-             axis.panel        = (panel.seq - 1) * 4 + 9,
-             between           = (between.seq - 1) * 4 + 10,
+             xlab.top          = 5, #new
+             key.axis.padding  = 6,
+             axis.top          = 7,
+             strip             = (panel.seq - 1) * 4 + 8,
+             panel             = (panel.seq - 1) * 4 + 9,
+             axis.panel        = (panel.seq - 1) * 4 + 10,
+             between           = (between.seq - 1) * 4 + 11,
              axis.bottom       = last.panel + 1,
              axis.xlab.padding = last.panel + 2,
              xlab              = last.panel + 3,
@@ -136,7 +137,6 @@ calculateGridLayout <-
              key.sub.padding   = last.panel + 6,
              sub               = last.panel + 7,
              bottom.padding    = last.panel + 8)
-
 
     last.panel <- (cols.per.page - 1) * 4 + 9
     pos.widths <-
@@ -152,8 +152,9 @@ calculateGridLayout <-
              between           = (seq_len(cols.per.page-1) - 1) * 4 + 10,
              axis.right        = last.panel + 1,
              axis.key.padding  = last.panel + 2,
-             key.right         = last.panel + 3,
-             right.padding     = last.panel + 4)
+             ylab.right        = last.panel + 3, # new
+             key.right         = last.panel + 4,
+             right.padding     = last.panel + 5)
 
     n.row <- sum(sapply(pos.heights, length))
     n.col <- sum(sapply(pos.widths, length))
@@ -269,6 +270,16 @@ calculateGridLayout <-
     {
         widths.x[pos.widths[["ylab"]]] <- widths.settings[["ylab"]]
         widths.data[[ pos.widths[["ylab"]]  ]] <- ylab
+    }
+    if (!is.null(xlab.top))
+    {
+        heights.x[pos.heights[["xlab.top"]]] <- heights.settings[["xlab.top"]]
+        heights.data[[ pos.heights[["xlab.top"]]  ]] <- xlab.top
+    }
+    if (!is.null(ylab.right))
+    {
+        widths.x[pos.widths[["ylab.right"]]] <- widths.settings[["ylab.right"]]
+        widths.data[[ pos.widths[["ylab.right"]]  ]] <- ylab.right
     }
 
     if (!is.null(legend))

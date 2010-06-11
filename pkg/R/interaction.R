@@ -292,7 +292,7 @@ trellis.vpname <-
     function(name = 
              c("position", "split", "split.location", "toplevel", "figure",
                "panel", "strip", "strip.left", "legend", "main", "sub",
-               "xlab", "ylab", "page"),
+               "xlab", "ylab", "xlab.top", "ylab.right", "page"),
              column = lattice.getStatus("current.focus.column", prefix = prefix),
              row = lattice.getStatus("current.focus.row", prefix = prefix),
              side = c("left", "top", "right", "bottom", "inside"),
@@ -315,6 +315,8 @@ trellis.vpname <-
                  ylab = "ylab.vp",
                  main = "main.vp",
                  sub  = "sub.vp",
+                 xlab.top = "xlab.top.vp",
+                 ylab.right = "ylab.right.vp",
 
                  panel =
                  if (clip.off) paste("panel", column, row, "off", "vp",  sep = ".")

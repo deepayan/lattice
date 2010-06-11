@@ -998,7 +998,10 @@ bwplot(x, data, \dots)
         \sQuote{grid-compliant}, and is called with the whole display
         area as the default viewport.
       }
-
+      \item{\code{xlab.top}, \code{ylab.right}:}{
+	Labels for the x-axis on top, and y-axis on the right.  Similar
+	to \code{xlab} and \code{ylab}, but less commonly used.
+      }
       \item{\code{main}:}{
         Typically a character string or expression describing the main
         title to be placed on top of each page.  Defaults to
@@ -1025,8 +1028,9 @@ bwplot(x, data, \dots)
         and \code{font} (see \code{\link[grid:gpar]{gpar}} for a full
         list).
 
-        \code{main}, \code{xlab}, \code{ylab} and \code{sub} can also be
-        an arbitrary \code{"grob"} (grid graphical object).
+        \code{main}, \code{sub}, \code{xlab}, \code{ylab},
+        \code{xlab.top}, and \code{ylab.right} can also be arbitrary
+        \code{"grob"}s (grid graphical objects).
       }
       \item{\code{sub}:}{
         Character string or expression (or a list or \code{"grob"}) for
