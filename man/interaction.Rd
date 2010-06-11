@@ -49,8 +49,9 @@ panel.brush.splom(threshold = 18, verbose = getOption("verbose"), \dots)
 
 
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
-               "figure", "panel", "strip", "strip.left", "legend",
-               "main", "sub", "xlab", "ylab", "page"),
+                        "figure", "panel", "strip", "strip.left",
+                        "legend", "main", "sub", "xlab", "ylab",
+                        "xlab.top", "ylab.right", "page"),
                column, row,
                side = c("left", "top", "right", "bottom", "inside"),
                clip.off = FALSE, prefix)
@@ -111,10 +112,11 @@ trellis.panelArgs(x, packet.number)
     used.
   }
   \item{name}{
-    character string indicating which viewport or grob we are looking
+
+    A character string indicating which viewport or grob we are looking
     for.  Although these do not necessarily provide access to all
-    viewports and grobs created by a lattice plot, they cover most that
-    users might find interesting.
+    viewports and grobs created by a lattice plot, they cover most of
+    the ones that end-users may find interesting.
 
     \code{trellis.vpname} and \code{trellis.focus} deal with viewport
     names only, and only accept the values explicitly listed above.

@@ -650,6 +650,14 @@ plot.trellis <-
                                        trellis.par.get("par.ylab.text"),
                                        x$ylab.default),
                           name = trellis.grobname("ylab"), orient = 90)
+    xlab.top <-
+        grobFromLabelList(getLabelList(x$xlab.top,
+                                       trellis.par.get("par.xlab.text")),
+                          name = trellis.grobname("xlab.top"))
+    ylab.right <-
+        grobFromLabelList(getLabelList(x$ylab.right,
+                                       trellis.par.get("par.ylab.text")),
+                          name = trellis.grobname("ylab.right"), orient = 90)
 
 
     ## get par.strip.text
@@ -672,7 +680,7 @@ plot.trellis <-
                             number.of.cond,
                             panel.height, panel.width,
                             main, sub,
-                            xlab, ylab,
+                            xlab, ylab, xlab.top, ylab.right, 
                             x.alternating, y.alternating,
                             x.relation.same, y.relation.same,
                             xaxis.rot, yaxis.rot,
@@ -719,7 +727,7 @@ plot.trellis <-
     ## FIXME: what happens when number of pages is 0?
     ## message("no of pages: ", number.of.pages)
 
-    for(page.number in seq_len(number.of.pages))
+    for (page.number in seq_len(number.of.pages))
     {
         ##if (!any(cond.max.levels - which.packet < 0))
         if (TRUE) ## FIXME: remove this after a few versions and reformat
@@ -760,6 +768,20 @@ plot.trellis <-
                                viewport(layout.pos.col = pos.widths$ylab,
                                         layout.pos.row = pos.heights$panel,
                                         name= trellis.vpname("ylab", prefix = prefix)))
+            }
+            if (!is.null(xlab.top))
+            {
+                drawInViewport(xlab.top,
+                               viewport(layout.pos.row = pos.heights$xlab.top,
+                                        layout.pos.col = pos.widths$panel,
+                                        name= trellis.vpname("xlab.top", prefix = prefix)))
+            }
+            if (!is.null(ylab.right))
+            {
+                drawInViewport(ylab.right,
+                               viewport(layout.pos.col = pos.widths$ylab.right,
+                                        layout.pos.row = pos.heights$panel,
+                                        name= trellis.vpname("ylab.right", prefix = prefix)))
             }
 
             last.panel <- prod(sapply(x$index.cond, length))
