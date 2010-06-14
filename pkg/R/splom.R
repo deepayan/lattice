@@ -83,7 +83,6 @@ diag.panel.splom <-
                                     labels = if (is.null(labels)) TRUE else labels,
                                     logsc = FALSE,
                                     ..., n = tick.number)
-        str(axis.details)
         for (side in c("left", "top", "right", "bottom"))
             panel.axis(side = side,
                        at = axis.details$at,
@@ -289,17 +288,15 @@ panel.pairs <-
                         if (!panel.subscripts)
                             c(list(x = z[subscripts, j],
                                    y = z[subscripts, i]),
-##                                    panel.number = panel.number,
-##                                    packet.number = packet.number),
-                              list(...))
+                              list(...),
+                              list(i = i, j = j))
                         else
                             c(list(x = z[subscripts, j],
                                    y = z[subscripts, i],
                                    groups = groups,
                                    subscripts = subscripts),
-##                                    panel.number = panel.number,
-##                                    packet.number = packet.number),
-                              list(...))
+                              list(...),
+                              list(i = i, j = j))
 
                     if (!("..." %in% names(formals(panel))))
                         pargs <- pargs[intersect(names(pargs), names(formals(panel)))]
