@@ -324,7 +324,7 @@ formattedTicksAndLabels.default <-
              num.limit = NULL,
              abbreviate = NULL,
              minlength = 4,
-             format.posixt)
+             format.posixt = NULL)
     ## meant for when x is numeric
 {
     rng <-
@@ -373,7 +373,7 @@ formattedTicksAndLabels.date <-
              logsc = FALSE,
              abbreviate = NULL,
              minlength = 4,
-             format.posixt)
+             format.posixt = NULL)
 {
     ## handle log scales (not very meaningful, though)
 
@@ -414,14 +414,16 @@ formattedTicksAndLabels.date <-
 
 
 formattedTicksAndLabels.character <-
-    function (x, at = FALSE,
+    function (x,
+              at = FALSE,
               used.at = NULL,
-              num.limit = NULL,
               labels = FALSE,
               logsc = FALSE,
+              ...,
+              num.limit = NULL,
               abbreviate = NULL,
               minlength = 4,
-              format.posixt, ...)
+              format.posixt = NULL)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
     ans <- list(at = if (is.logical(at)) seq_along(x)[retain] else at,
@@ -434,14 +436,16 @@ formattedTicksAndLabels.character <-
 }
 
 formattedTicksAndLabels.expression <-
-    function(x, at = FALSE,
+    function(x,
+             at = FALSE,
              used.at = NULL,
-             num.limit = NULL,
              labels = FALSE,
              logsc = FALSE,
+             ...,
+             num.limit = NULL,
              abbreviate = NULL,
              minlength = 4,
-             format.posixt, ...)
+             format.posixt = NULL)
 {
     retain <- if (is.null(used.at) || any(is.na(used.at))) TRUE else used.at
     ans <- list(at = if (is.logical(at)) seq_along(x)[retain] else at,
@@ -618,10 +622,16 @@ trunc_POSIXt_TMP <-
 ## and POXIXct (using pretty.POSIXt)
 formattedTicksAndLabels.Date <-
 formattedTicksAndLabels.POSIXct <-
-    function(x, at = FALSE, used.at = NULL,
-             num.limit = NULL, labels = FALSE, logsc = FALSE, 
-             abbreviate = NULL, minlength = 4,
-             format.posixt = NULL, ...) 
+    function(x,
+             at = FALSE,
+             used.at = NULL,
+             labels = FALSE,
+             logsc = FALSE,
+             ...,
+             num.limit = NULL,
+             abbreviate = NULL,
+             minlength = 4,
+             format.posixt = NULL)
 {
     num.lim <- 
         if (length(x) == 2) as.numeric(x)
@@ -689,7 +699,7 @@ formattedTicksAndLabels.dates <-
 ## chron 'times' objects: only times (no dates here because caught by 'dates' method)
 
 formattedTicksAndLabels.times <-
-    function(x, labels = FALSE, format.posixt = NULL, ..., simplify = TRUE) 
+    function(x, labels = FALSE, ..., format.posixt = NULL, simplify = TRUE) 
 {
     ans <- formattedTicksAndLabels(chron::chron(dates = x), labels = labels,
                                    format.posixt = format.posixt, ...)

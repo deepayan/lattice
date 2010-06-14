@@ -157,13 +157,11 @@ parallel(x, data, \dots)
   detailed usage.
 }
 \value{
-
   An object of class \code{"trellis"}. The
   \code{\link[lattice:update.trellis]{update}} method can be used to
   update components of the object and the
   \code{\link[lattice:print.trellis]{print}} method (usually called by
   default) will plot it on an appropriate plotting device.
-
 }
 
 \seealso{
