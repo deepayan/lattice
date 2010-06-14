@@ -16,9 +16,8 @@ panel.pairs(z,
             panel.subscripts,
             subscripts,
             pscales = 5,
-            prepanel.limits = function(x) if (is.factor(x)) levels(x) else
-                         extend.limits(range(as.numeric(x), finite = TRUE)),
-            varnames,
+            prepanel.limits = scale.limits,
+            varnames = colnames(z),
             varname.col, varname.cex, varname.font,
             varname.fontfamily, varname.fontface,
             axis.text.col, axis.text.cex, axis.text.font,
@@ -28,8 +27,8 @@ panel.pairs(z,
             axis.line.alpha, axis.line.tck,
             \dots)
 diag.panel.splom(x = NULL,
-                 varname = NULL, limits, at = NULL, lab = NULL,
-                 draw = TRUE,
+                 varname = NULL, limits, at = NULL, labels = NULL,
+                 draw = TRUE, tick.number = 5,
                  varname.col, varname.cex,
                  varname.lineheight, varname.font,
                  varname.fontfamily, varname.fontface,
@@ -87,12 +86,19 @@ diag.panel.splom(x = NULL,
     variables are labelled with the factor names.  Use \code{pscales=0}
     to supress the axes entirely.
   }
-  \item{prepanel.limits}{ The \sQuote{regular} high level lattice plots
-    such as \code{xyplot} use the \code{prepanel} function for deciding
-    on axis limits from data.  This function serves a similar function,
-    and works on a per-variable basis, by calculating the limits, which
-    can be overridden by the corresponding \code{limits} component in
-    the \code{pscales} list.
+  \item{prepanel.limits}{
+    A function to calculate suitable axis limits given a single argument
+    \code{x} containing a data vector. The return value of the function
+    should be similar to the \code{xlim} or \code{ylim} argument
+    documented in \code{\link{xyplot}}; that is, it should be a numeric
+    or DateTime vector of length 2 defining a range, or a character
+    vector representing levels of a factor.
+
+    Most high-level lattice plots (such as \code{xyplot}) use the
+    \code{prepanel} function for deciding on axis limits from data.
+    This function serves a similar function by calculating the
+    per-variable limits.  These limits can be overridden by the
+    corresponding \code{limits} component in the \code{pscales} list.
   }
   \item{x}{
     data vector corresponding to that row / column (which will be the
@@ -106,10 +112,14 @@ diag.panel.splom(x = NULL,
     for that panel (used to calculate tick locations when missing)
   }
   \item{at}{ locations of tick marks}
-  \item{lab}{ optional labels for tick marks}
+  \item{labels}{ optional labels for tick marks}
   \item{draw}{
-    logical, specifying whether to draw the tick marks and labels. If
-    \code{FALSE}, only variable names are written
+    A logical flag specifying whether to draw the tick marks and labels.
+    If \code{FALSE}, variable names are shown but axis annotation is
+    omitted. 
+  }
+  \item{tick.number}{
+    A Numeric scalar giving the suggested number of tick marks.
   }
   \item{varnames}{ 
     A character or expression vector or giving names to be used for the
@@ -154,9 +164,6 @@ diag.panel.splom(x = NULL,
   \code{panel.pairs} is the function that is actually passed in as the
   \code{panel} function in a trellis object produced by splom (taking
   the \code{panel} function as its argument).
-
-  Note that the axis labeling does not support date-time classes at
-  present.
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
