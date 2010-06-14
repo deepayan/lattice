@@ -47,6 +47,11 @@ diag.panel.splom(x = NULL,
     The panel function used to display each pair of variables. If
     specified, \code{lower.panel} and \code{upper.panel} are used for
     panels below and above the diagonal respectively.
+
+    In addition to extra arguments not recognized by \code{panel.pairs},
+    the list of arguments passed to the panel function also includes
+    arguments named \code{i} and \code{j}, with values indicating the
+    row and column of the scatterplot matrix being plotted.
   }
   \item{diag.panel}{
     The panel function used for the diagonals. See arguments to
@@ -161,9 +166,21 @@ diag.panel.splom(x = NULL,
 }
 
 \details{
-  \code{panel.pairs} is the function that is actually passed in as the
-  \code{panel} function in a trellis object produced by splom (taking
-  the \code{panel} function as its argument).
+  \code{panel.pairs} is the function that is actually used as the panel
+  function in a \code{"trellis"} object produced by \code{splom}.
+}
+
+\examples{
+
+Cmat <- outer(1:6,1:6,
+              function(i,j) rainbow(11, start=.12, end=.5)[i+j-1])
+
+splom(~diag(6), as.matrix = TRUE,
+      panel = function(x, y, i, j, ...) {
+          panel.fill(Cmat[i,j])
+          panel.text(.5,.5, paste("(",i,",",j,")",sep=""))
+      })
+
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
