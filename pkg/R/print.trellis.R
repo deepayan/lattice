@@ -171,10 +171,7 @@ evaluate.legend <- function(legend)
     for (i in seq_along(legend))
     {
         fun <- legend[[i]]$fun
-        fun <- 
-            if (is.function(fun)) fun 
-            else if (is.character(fun)) get(fun)
-            else eval(fun)  ## in case fun is a grob (is this OK?)
+        fun <- getFunctionOrName(fun) ## OK in case fun is a grob?
         if (is.function(fun)) fun <- do.call("fun", legend[[i]]$args)
         legend[[i]]$obj <- fun
         legend[[i]]$args <- NULL
@@ -270,11 +267,7 @@ plot.trellis <-
         if ("prefix"       %in% supplied && missing(prefix))       prefix       <- x$plot.args$prefix
     }
 
-    panel.error <-
-        if (is.function(panel.error)) panel.error 
-        else if (is.character(panel.error)) get(panel.error)
-        else eval(panel.error)
-
+    panel.error <- getFunctionOrName(panel.error)
     bg <- trellis.par.get("background")$col
     new <-  newpage && !lattice.getStatus("print.more") && is.null(draw.in)
     if (!is.null(draw.in))
@@ -461,23 +454,12 @@ plot.trellis <-
     panel.layout <-
         compute.layout(x$layout, cond.max.levels, skip = x$skip)
 
-    panel <- # shall use "panel" in do.call
-        if (is.function(x$panel)) x$panel 
-        else if (is.character(x$panel)) get(x$panel)
-        else eval(x$panel)
-
-    strip <- 
-        if (is.function(x$strip)) x$strip 
-        else if (is.character(x$strip)) get(x$strip)
-        else eval(x$strip)
-    strip.left <- 
-        if (is.function(x$strip.left)) x$strip.left 
-        else if (is.character(x$strip.left)) get(x$strip.left)
-        else eval(x$strip.left)
+    panel <- getFunctionOrName(x$panel) # shall use "panel" in do.call
+    strip <- getFunctionOrName(x$strip)
+    strip.left <- getFunctionOrName(x$strip.left)
 
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
-
 
     ## make sure aspect ratio is preserved for aspect != "fill" but
     ## this may not always be what's expected. In fact, aspect should

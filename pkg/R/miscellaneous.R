@@ -19,6 +19,23 @@
 
 
 
+## For historical reasons (i.e., S-compatibility) there are several
+## places in lattice where an argument that is supposed to be a
+## function may be specified as a character string.  It is not
+## entirely clear how namespace ambiguity is resolved, but it appears
+## that bindings in the lattice namespace are preferred over the
+## global environment.
+
+
+getFunctionOrName <- function(FUN)
+     ## Try lattice namespace first? Does that happens automatically?
+{
+    if (is.function(FUN)) FUN
+    else if (is.character(FUN)) get(FUN)
+    else eval(FUN)
+}
+
+
 logLimits <- function(lim, base)
 {
     if (is.list(lim))

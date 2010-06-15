@@ -239,10 +239,7 @@ update.trellis <-
     }
     if (!missing(panel))
     {
-        panel <- 
-            if (is.function(panel)) panel 
-            else if (is.character(panel)) get(panel)
-            else eval(panel)
+        panel <- getFunctionOrName(panel)
         if (as.character(object$call[[1]]) == "splom")
             object$panel.args.common$panel <- panel
         else object$panel <- panel
@@ -410,10 +407,7 @@ update.trellis <-
     if (!missing(prepanel))
     {
         recalculateLimits <- TRUE
-        prepanel <-
-            if (is.function(prepanel)) prepanel 
-            else if (is.character(prepanel)) get(prepanel)
-            else eval(prepanel)
+        prepanel <- getFunctionOrName(prepanel)
     }
     else prepanel <- object$prepanel
 

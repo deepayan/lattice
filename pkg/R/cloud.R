@@ -427,11 +427,7 @@ panel.3dwire <-
 
     if (shade)
     {
-
-        shade.colors.palette <-
-            if (is.character(shade.colors.palette)) get(shade.colors.palette)
-            else eval(shade.colors.palette)
-
+        shade.colors.palette <- getFunctionOrName(shade.colors.palette)
         pol.x <- numeric(polynum * 3)
         pol.y <- numeric(polynum * 3)
 
@@ -1097,12 +1093,8 @@ panel.cloud <-
                 x <- sort(unique(x))
                 y <- sort(unique(y))
             }
-
             z <- list(NULL) ## hopefully becomes garbage, collected if necessary
-
-            panel.3d.wireframe <-
-                if (is.character(panel.3d.wireframe)) get(panel.3d.wireframe)
-                else eval(panel.3d.wireframe)
+            panel.3d.wireframe <- getFunctionOrName(panel.3d.wireframe)
 
             pargs <- list(x = x, y = y, z = tmp,
                           rot.mat = rot.mat,
@@ -1118,18 +1110,13 @@ panel.cloud <-
                           zero.scaled = zero.scaled,
                           ...)
 
-
             if (!("..." %in% names(formals(panel.3d.wireframe))))
                 pargs <- pargs[intersect(names(pargs), names(formals(panel.3d.wireframe)))]
             do.call("panel.3d.wireframe", pargs)
-
         }
-        else {
-
-            panel.3d.cloud <-
-                if (is.character(panel.3d.cloud)) get(panel.3d.cloud)
-                else eval(panel.3d.cloud)
-
+        else
+        {
+            panel.3d.cloud <- getFunctionOrName(panel.3d.cloud)
             pargs <- list(x = x, y = y, z = z,
                           rot.mat = rot.mat,
                           distance = distance,
@@ -1143,7 +1130,6 @@ panel.cloud <-
                           zlim.scaled = zlim.scaled,
                           zero.scaled = zero.scaled,
                           ...)
-
             if (!("..." %in% names(formals(panel.3d.cloud))))
                 pargs <- pargs[intersect(names(pargs), names(formals(panel.3d.cloud)))]
             do.call("panel.3d.cloud", pargs)
@@ -1590,11 +1576,7 @@ cloud.formula <-
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
 
-    prepanel <-
-        if (is.function(prepanel)) prepanel
-        else if (is.character(prepanel)) get(prepanel)
-        else eval(prepanel)
-
+    prepanel <- getFunctionOrName(prepanel)
 
     cond <- form$condition
     z <- form$left

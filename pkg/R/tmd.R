@@ -41,10 +41,7 @@ prepanel.tmd.qqmath <-
              subscripts, ...)
 {
     if (!is.numeric(x)) x <- as.numeric(x)
-    distribution <-
-        if (is.function(distribution)) distribution 
-        else if (is.character(distribution)) get(distribution)
-        else eval(distribution)
+    distribution <- getFunctionOrName(distribution)
     nobs <- sum(!is.na(x))
     getxx <- function(x, f.value = NULL,
                       nobs = sum(!is.na(x)))
@@ -126,10 +123,7 @@ panel.tmd.qqmath <-
 {
     panel.abline(h=0)
     if (!is.numeric(x)) x <- as.numeric(x)
-    distribution <-
-        if (is.function(distribution)) distribution 
-        else if (is.character(distribution)) get(distribution)
-        else eval(distribution)
+    distribution <- getFunctionOrName(distribution)
     nobs <- sum(!is.na(x))
     getxx <- function(x, f.value = NULL,
                       nobs = sum(!is.na(x)))
