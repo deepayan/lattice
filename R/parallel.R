@@ -296,9 +296,6 @@ parallel.formula <-
 
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
-
-    prepanel <- getFunctionOrName(prepanel)
-
     cond <- form$condition
     x <- as.data.frame(form$right)
 

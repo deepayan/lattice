@@ -400,7 +400,7 @@ limitsFromLimitlist <-
 
 
 limits.and.aspect <-
-    function(prepanel.default.function,
+    function(prepanel.default,
              prepanel = NULL,
              have.xlim = FALSE, xlim = NULL,
              have.ylim = FALSE, ylim = NULL,
@@ -413,6 +413,8 @@ limits.and.aspect <-
              x.axs = "r", y.axs = "r",
              ...)  ## extra arguments for prepanel (for qqmathline)
 {
+    prepanel.default.function <- getFunctionOrName(prepanel.default)
+    prepanel <- getFunctionOrName(prepanel)
     if (npackets<1) stop("need at least one panel")
     x.limits <- vector("list", npackets)
     y.limits <- vector("list", npackets)
@@ -525,7 +527,7 @@ limits.and.aspect <-
          x.num.limit = x.limits$numlimitlist,
          y.num.limit = y.limits$numlimitlist,
          aspect.ratio = aspect,
-         prepanel.default = prepanel.default.function,
+         prepanel.default = prepanel.default,
          prepanel = prepanel)
 }
 

@@ -1309,8 +1309,9 @@ bwplot.formula <-
              ...,
              lattice.options = NULL,
              default.scales =
-             if (horizontal) list(y = list(tck = 0, alternating = FALSE, rot = 0))
-             else list(x = list(tck = 0, alternating = FALSE)),
+                 if (horizontal) list(y = list(tck = 0, alternating = FALSE, rot = 0))
+                 else list(x = list(tck = 0, alternating = FALSE)),
+             ## default.prepanel = lattice.getOption("prepanel.default.bwplot"),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -1345,9 +1346,6 @@ bwplot.formula <-
 
     if ("subscripts" %in% names(formals(panel))) subscripts <- TRUE
     if (subscripts) subscr <- form$subscr
-
-    prepanel <- getFunctionOrName(prepanel)
-
     cond <- form$condition
     x <- form$right
     y <- form$left

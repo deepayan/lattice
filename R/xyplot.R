@@ -244,6 +244,7 @@ xyplot.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(),
+             ## default.prepanel = lattice.getOption("prepanel.default.xyplot"),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -271,9 +272,6 @@ xyplot.formula <-
     
     if ("subscripts" %in% names(formals(panel))) subscripts <- TRUE
     if (subscripts) subscr <- form$subscr
-
-    prepanel <- getFunctionOrName(prepanel)
-
     cond <- form$condition
     y <- form$left
     x <- form$right

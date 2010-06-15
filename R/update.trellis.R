@@ -407,14 +407,14 @@ update.trellis <-
     if (!missing(prepanel))
     {
         recalculateLimits <- TRUE
-        prepanel <- getFunctionOrName(prepanel)
+        ## prepanel <- getFunctionOrName(prepanel)
     }
     else prepanel <- object$prepanel
 
     if (recalculateLimits)
     {
         prepanel.def <- object$prepanel.default
-        laa <- limits.and.aspect(prepanel.default.function = prepanel.def,
+        laa <- limits.and.aspect(prepanel.def,
                                  prepanel = prepanel,
                                  have.xlim = have.xlim,
                                  xlim = xlim,
