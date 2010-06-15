@@ -637,10 +637,7 @@ panel.identify.qqmath <-
     if (length(labels) > length(subscripts))
         labels <- labels[subscripts]
     if (!is.null(panel.args$f.value)) warning("'f.value' not supported; ignoring")
-    distribution <-
-        if (is.function(distribution)) distribution 
-        else if (is.character(distribution)) get(distribution)
-        else eval(distribution)
+    distribution <- getFunctionOrName(distribution)
     ## compute quantiles corresponding to given vector, possibly
     ## containing NA's.  The return value must correspond to the
     ## original order

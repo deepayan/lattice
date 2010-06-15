@@ -99,10 +99,7 @@ qq.formula <-
     if ("subscripts" %in% names(formals(panel))) subscripts <- TRUE
     if(subscripts) subscr <- form$subscr
 
-    prepanel <-
-        if (is.function(prepanel)) prepanel 
-        else if (is.character(prepanel)) get(prepanel)
-        else eval(prepanel)
+    prepanel <- getFunctionOrName(prepanel)
 
     cond <- form$condition
     y <- form$left

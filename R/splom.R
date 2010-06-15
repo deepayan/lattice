@@ -154,27 +154,13 @@ panel.pairs <-
              axis.line.tck = 1,
              ...)
 {
-    lower.panel <- 
-        if (is.function(lower.panel)) lower.panel 
-        else if (is.character(lower.panel)) get(lower.panel)
-        else eval(lower.panel)
-
-    upper.panel <- 
-        if (is.function(upper.panel)) upper.panel 
-        else if (is.character(upper.panel)) get(upper.panel)
-        else eval(upper.panel)
-
-    diag.panel <- 
-        if (is.function(diag.panel)) diag.panel 
-        else if (is.character(diag.panel)) get(diag.panel)
-        else eval(diag.panel)
-
+    lower.panel <- getFunctionOrName(lower.panel)
+    upper.panel <- getFunctionOrName(upper.panel)
+    diag.panel <- getFunctionOrName(diag.panel)
     add.text <- trellis.par.get("add.text")
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
-
     n.var <- ncol(z)
-
     if (n.var == 0) return()
 
     lim <- vector("list", length = n.var)
@@ -406,10 +392,7 @@ splom.formula <-
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
 
-    prepanel <-
-        if (is.function(prepanel)) prepanel
-        else if (is.character(prepanel)) get(prepanel)
-        else eval(prepanel)
+    prepanel <- getFunctionOrName(prepanel)
 
     cond <- form$condition
     x <- as.data.frame(form$right)

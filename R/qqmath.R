@@ -115,10 +115,7 @@ prepanel.default.qqmath <-
              tails.n = 0)
 {
     if (!is.numeric(x)) x <- as.numeric(x) # FIXME: dates?
-    distribution <-
-        if (is.function(distribution)) distribution 
-        else if (is.character(distribution)) get(distribution)
-        else eval(distribution)
+    distribution <- getFunctionOrName(distribution)
     nobs <- sum(!is.na(x))
     ## if plotting tails, do prepanel as for raw data:
     if (tails.n > 0)
@@ -185,10 +182,7 @@ panel.qqmath <-
              tails.n = 0)
 {
     x <- as.numeric(x)
-    distribution <-
-        if (is.function(distribution)) distribution 
-        else if (is.character(distribution)) get(distribution)
-        else eval(distribution)
+    distribution <- getFunctionOrName(distribution)
     nobs <- sum(!is.na(x))
     if (!is.null(groups))
         panel.superpose(x, y = NULL,
@@ -308,10 +302,7 @@ qqmath.formula <-
     if ("subscripts" %in% names(formals(panel))) subscripts <- TRUE
     if (subscripts) subscr <- form$subscr
 
-    prepanel <-
-        if (is.function(prepanel)) prepanel 
-        else if (is.character(prepanel)) get(prepanel)
-        else eval(prepanel)
+    prepanel <- getFunctionOrName(prepanel)
 
     cond <- form$condition
     ## number.of.cond <- length(cond)
@@ -507,10 +498,7 @@ panel.qqmathline <-
 {
     y <- as.numeric(y)
     stopifnot(length(probs) == 2)
-    distribution <-
-        if (is.function(distribution)) distribution 
-        else if (is.character(distribution)) get(distribution)
-        else eval(distribution)
+    distribution <- getFunctionOrName(distribution)
     nobs <- sum(!is.na(y))
     if (!is.null(groups))
         panel.superpose(x = y, y = NULL,
@@ -550,10 +538,7 @@ prepanel.qqmathline <-
                                 ...)
     y <- as.numeric(y)
     stopifnot(length(probs) == 2)
-    distribution <-
-        if (is.function(distribution)) distribution 
-        else if (is.character(distribution)) get(distribution)
-        else eval(distribution)
+    distribution <- getFunctionOrName(distribution)
     getdy <- function(x)
     {
         diff(quantile(x, probs, names = FALSE, # was fast.quantile 

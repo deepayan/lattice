@@ -545,10 +545,7 @@ panel.superpose <-
         fontfamily <- rep(fontfamily, length.out = nvals)
         type <- rep(type, length.out = nvals)
 
-        panel.groups <-
-            if (is.function(panel.groups)) panel.groups
-            else if (is.character(panel.groups)) get(panel.groups)
-            else eval(panel.groups)
+        panel.groups <- getFunctionOrName(panel.groups)
 
         subg <- groups[subscripts]
         ok <- !is.na(subg)
