@@ -194,6 +194,7 @@ histogram.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(),
+             default.prepanel = lattice.getOption("prepanel.default.histogram"),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -372,7 +373,7 @@ histogram.formula <-
                     cond.max.level)
     }
 
-    more.comp <- c(limits.and.aspect(prepanel.default.histogram,
+    more.comp <- c(limits.and.aspect(default.prepanel,
                                      prepanel = prepanel, 
                                      have.xlim = have.xlim, xlim = xlim, 
                                      have.ylim = have.ylim, ylim = ylim, 

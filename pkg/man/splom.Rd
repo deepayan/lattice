@@ -33,6 +33,7 @@ parallel(x, data, \dots)
       \dots,
       lattice.options = NULL,
       default.scales,
+      default.prepanel = lattice.getOption("prepanel.default.splom"),
       subset = TRUE)
 \method{parallel}{formula}(x,
          data,
@@ -54,6 +55,7 @@ parallel(x, data, \dots)
          \dots,
          lattice.options = NULL,
          default.scales,
+         default.prepanel = lattice.getOption("prepanel.default.parallel"),
          subset = TRUE)
 
 \method{splom}{data.frame}(x, data = NULL, \dots, groups = NULL, subset = TRUE)
@@ -125,6 +127,9 @@ parallel(x, data, \dots)
   \item{auto.key, prepanel, scales,
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
     lattice.options, default.scales, subset}{ See \code{\link{xyplot}} }
+  \item{default.prepanel}{
+    Fallback prepanel function.  See \code{\link{xyplot}}.
+  }
   \item{\dots}{ Further arguments.  See corresponding entry in
     \code{\link{xyplot}} for non-trivial details.  }
 }

@@ -1129,12 +1129,14 @@ dotplot.formula <-
     function(x,
              data = NULL,
              panel = lattice.getOption("panel.dotplot"),
+             default.prepanel = lattice.getOption("prepanel.default.dotplot"),
              ...)
 {
     ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(dotplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
+    ccall$default.prepanel <- default.prepanel
     ccall[[1]] <- quote(lattice::bwplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
@@ -1207,6 +1209,7 @@ barchart.formula <-
     function(x,
              data = NULL,
              panel = lattice.getOption("panel.barchart"),
+             default.prepanel = lattice.getOption("prepanel.default.barchart"),
              box.ratio = 2, 
              ...)
 {
@@ -1214,6 +1217,7 @@ barchart.formula <-
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
+    ccall$default.prepanel <- default.prepanel
     ccall$box.ratio <- box.ratio
     ccall[[1]] <- quote(lattice::bwplot)
     ans <- eval.parent(ccall)
@@ -1247,12 +1251,14 @@ stripplot.formula <-
     function(x,
              data = NULL,
              panel = lattice.getOption("panel.stripplot"),
+             default.prepanel = lattice.getOption("prepanel.default.stripplot"),
              ...)
 {
     ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(stripplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
+    ccall$default.prepanel <- default.prepanel
     ccall[[1]] <- quote(lattice::bwplot)
     ans <- eval.parent(ccall)
     ans$call <- ocall
@@ -1285,8 +1291,6 @@ bwplot.numeric <-
 }
 
 
-
-
 bwplot.formula <-
     function(x,
              data = NULL,
@@ -1311,7 +1315,7 @@ bwplot.formula <-
              default.scales =
                  if (horizontal) list(y = list(tck = 0, alternating = FALSE, rot = 0))
                  else list(x = list(tck = 0, alternating = FALSE)),
-             ## default.prepanel = lattice.getOption("prepanel.default.bwplot"),
+             default.prepanel = lattice.getOption("prepanel.default.bwplot"),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -1569,7 +1573,7 @@ bwplot.formula <-
     }
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.bwplot,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel, 
                             have.xlim = have.xlim, xlim = xlim, 
                             have.ylim = have.ylim, ylim = ylim, 

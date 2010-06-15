@@ -42,23 +42,27 @@ bwplot(x, data, \dots)
        \dots,
        lattice.options = NULL,
        default.scales,
+       default.prepanel = lattice.getOption("prepanel.default.xyplot"),
        subscripts = !is.null(groups),
        subset = TRUE)
 
 \method{dotplot}{formula}(x,
         data,
         panel = lattice.getOption("panel.dotplot"),
+        default.prepanel = lattice.getOption("prepanel.default.dotplot"),
         \dots)
 
 \method{barchart}{formula}(x,
          data,
          panel = lattice.getOption("panel.barchart"),
+         default.prepanel = lattice.getOption("prepanel.default.barchart"),
          box.ratio = 2,
          \dots)
 
 \method{stripplot}{formula}(x,
           data,
           panel = lattice.getOption("panel.stripplot"),
+          default.prepanel = lattice.getOption("prepanel.default.stripplot"),
           \dots)
 
 \method{bwplot}{formula}(x,
@@ -82,6 +86,7 @@ bwplot(x, data, \dots)
        \dots,
        lattice.options = NULL,
        default.scales,
+       default.prepanel = lattice.getOption("prepanel.default.bwplot"),
        subscripts = !is.null(groups),
        subset = TRUE)
 
@@ -742,11 +747,19 @@ bwplot(x, data, \dots)
     that this argument does not control dropping of levels of the
     \code{groups} argument.
   }
-  \item{ default.scales }{
+  \item{default.scales}{
     A list giving the default values of \code{scales} for a particular
     high-level function.  This is rarely of interest to the end-user,
     but may be helpful when defining other functions that act as a
     wrapper to one of the high-level Lattice functions.
+  }
+  \item{default.prepanel}{
+    A function or character string giving the name of a function that
+    serves as the (component-wise) fallback prepanel function when the
+    \code{prepanel} argument is not specified, or does not return all
+    necessary components.  The main purpose of this argument is to
+    enable the defaults to be overridden through the use of
+    \code{\link{lattice.options}}.
   }
   \item{lattice.options}{
     A list that could be supplied to \code{\link{lattice.options}}.

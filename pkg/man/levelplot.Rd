@@ -36,6 +36,7 @@ contourplot(x, data, \dots)
           \dots,
           lattice.options = NULL,
           default.scales = list(),
+          default.prepanel = lattice.getOption("prepanel.default.levelplot"),
           colorkey = region,
           col.regions,
           alpha.regions,
@@ -44,6 +45,7 @@ contourplot(x, data, \dots)
 \method{contourplot}{formula}(x,
             data,
             panel = lattice.getOption("panel.contourplot"),
+            default.prepanel = lattice.getOption("prepanel.default.contourplot"),
             cuts = 7,
             labels = TRUE,
             contour = TRUE,
@@ -209,6 +211,9 @@ contourplot(x, data, \dots)
     default.scales, subset}{
     these arguments are described in the help page for
     \code{\link{xyplot}}.
+  }
+  \item{default.prepanel}{
+    Fallback prepanel function.  See \code{\link{xyplot}}.
   }
   \item{\dots}{ other arguments.  Some are processed by \code{levelplot}
     or \code{contourplot}, and those unrecognized are passed on to the

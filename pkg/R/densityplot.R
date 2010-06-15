@@ -227,6 +227,7 @@ densityplot.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(),
+             default.prepanel = lattice.getOption("prepanel.default.densityplot"),
              subscripts = !is.null(groups) || !is.null(weights),
              subset = TRUE)
 {
@@ -387,7 +388,7 @@ densityplot.formula <-
     }
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.densityplot,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel, 
                             have.xlim = have.xlim, xlim = xlim, 
                             have.ylim = have.ylim, ylim = ylim, 

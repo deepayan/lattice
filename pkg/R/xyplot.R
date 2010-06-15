@@ -244,7 +244,7 @@ xyplot.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(),
-             ## default.prepanel = lattice.getOption("prepanel.default.xyplot"),
+             default.prepanel = lattice.getOption("prepanel.default.xyplot"),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -402,7 +402,7 @@ xyplot.formula <-
     ## FIXME: make this adjustment everywhere else
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.xyplot,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel, 
                             have.xlim = have.xlim, xlim = xlim, 
                             have.ylim = have.ylim, ylim = ylim, 

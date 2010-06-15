@@ -29,12 +29,12 @@ densityplot(x, data, \dots)
           \dots,
           lattice.options = NULL,
           default.scales = list(),
+          default.prepanel = lattice.getOption("prepanel.default.histogram"),
           subscripts,
           subset)
 
 \method{histogram}{numeric}(x, data = NULL, xlab, \dots)
 \method{histogram}{factor}(x, data = NULL, xlab, \dots)
-
 
 \method{densityplot}{formula}(x,
             data,
@@ -51,6 +51,7 @@ densityplot(x, data, \dots)
             \dots,
             lattice.options = NULL,
             default.scales = list(),
+            default.prepanel = lattice.getOption("prepanel.default.densityplot"),
             subscripts,
             subset)
 \method{densityplot}{numeric}(x, data = NULL, xlab, \dots)
@@ -156,6 +157,9 @@ do.breaks(endpoints, nint)
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
     lattice.options, default.scales, subscripts, subset}{ See
     \code{\link{xyplot}} }
+  \item{default.prepanel}{
+    Fallback prepanel function.  See \code{\link{xyplot}}.
+  }
   \item{weights}{ numeric vector of weights for the density
     calculations, evaluated in the non-standard manner used for
     \code{groups} and terms in the formula, if any.  If this is
