@@ -451,6 +451,7 @@ contourplot.formula <-
     function(x,
              data = NULL,
              panel = lattice.getOption("panel.contourplot"),
+             default.prepanel = lattice.getOption("prepanel.default.contourplot"),
              cuts = 7,
              labels = TRUE,
              contour = TRUE,
@@ -582,6 +583,7 @@ levelplot.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(),
+             default.prepanel = lattice.getOption("prepanel.default.levelplot"),
              colorkey = region,
              col.regions,
              alpha.regions,
@@ -828,7 +830,7 @@ levelplot.formula <-
     }
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.levelplot,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel, 
                             have.xlim = have.xlim, xlim = xlim, 
                             have.ylim = have.ylim, ylim = ylim, 

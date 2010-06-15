@@ -39,6 +39,7 @@ wireframe(x, data, \dots)
       list(distance = c(1, 1, 1),
            arrows = TRUE,
            axs = axs.default),
+      default.prepanel = lattice.getOption("prepanel.default.cloud"),
       colorkey,
       col.regions,
       alpha.regions,
@@ -49,6 +50,7 @@ wireframe(x, data, \dots)
 \method{wireframe}{formula}(x,
           data,
           panel = lattice.getOption("panel.wireframe"),
+          default.prepanel = lattice.getOption("prepanel.default.wireframe"),
           \dots)
 
 \method{cloud}{matrix}(x, data = NULL, type = "h", 
@@ -124,7 +126,7 @@ wireframe(x, data, \dots)
     for details).  Defaults to \code{"h"} for the \code{matrix} method.
   }
   \item{aspect, panel.aspect}{
-    unlike other high level functions, \code{aspect} is taken to be a
+    Unlike other high level functions, \code{aspect} is taken to be a
     numeric vector of length 2, giving the relative aspects of the
     y-size/x-size and z-size/x-size of the enclosing cube.  The usual
     role of the \code{aspect} argument in determining the aspect ratio
@@ -138,6 +140,9 @@ wireframe(x, data, \dots)
   \item{panel}{
     panel function used to create the display.  See
     \code{\link{panel.cloud}} for (non-trivial) details.
+  }
+  \item{default.prepanel}{
+    Fallback prepanel function.  See \code{\link{xyplot}}.
   }
   \item{scales}{
     a list describing the scales.  As with other high level functions

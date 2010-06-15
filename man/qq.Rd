@@ -17,6 +17,7 @@ qq(x, data, \dots)
     lattice.options = NULL,
     qtype = 7,
     default.scales = list(),
+    default.prepanel = lattice.getOption("prepanel.default.qq"),
     subscripts,
     subset)
 }
@@ -64,6 +65,9 @@ qq(x, data, \dots)
     strip, groups, xlab, xlim, ylab, ylim, drop.unused.levels,
     lattice.options, default.scales, subscripts, subset}{ See
     \code{\link{xyplot}} }
+  \item{default.prepanel}{
+    Fallback prepanel function.  See \code{\link{xyplot}}.
+  }
   \item{\dots}{
     Further arguments.  See corresponding entry in \code{\link{xyplot}}
     for non-trivial details.

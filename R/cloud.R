@@ -1404,12 +1404,14 @@ wireframe.formula <-
     function(x,
              data = NULL,
              panel = lattice.getOption("panel.wireframe"),
+             default.prepanel = lattice.getOption("prepanel.default.wireframe"),
              ...)
 {
     ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(wireframe)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
+    ccall$default.prepanel <- default.prepanel
     ccall[[1]] <- quote(lattice::cloud)
     ans <- eval.parent(ccall)
     ans$call <- ocall
@@ -1526,6 +1528,7 @@ cloud.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(distance = c(1, 1, 1), arrows = TRUE, axs = axs.default),
+             default.prepanel = lattice.getOption("prepanel.default.cloud"),
              colorkey = any(drape),
              col.regions,
              alpha.regions,
@@ -1832,7 +1835,7 @@ cloud.formula <-
 
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.cloud,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel,
                             have.xlim = have.xlim, xlim = xlim,
                             have.ylim = have.ylim, ylim = ylim,

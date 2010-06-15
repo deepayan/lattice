@@ -274,6 +274,7 @@ qqmath.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(),
+             default.prepanel = lattice.getOption("prepanel.default.qqmath"),
              subscripts = !is.null(groups),
              subset = TRUE)
 {
@@ -428,7 +429,7 @@ qqmath.formula <-
     }
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.qqmath,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel, 
                             have.xlim = have.xlim, xlim = xlim, 
                             have.ylim = have.ylim, ylim = ylim, 

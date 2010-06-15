@@ -259,7 +259,8 @@ parallel.formula <-
              drop.unused.levels = lattice.getOption("drop.unused.levels"),
              ...,
              lattice.options = NULL,
-             default.scales,
+             default.scales = list(),
+             default.prepanel = lattice.getOption("prepanel.default.parallel"),
              subset = TRUE)
 {
     formula <- x
@@ -428,7 +429,7 @@ parallel.formula <-
     }
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.parallel,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel, 
                             have.xlim = have.xlim, xlim = xlim, 
                             have.ylim = have.ylim, ylim = ylim, 

@@ -354,6 +354,7 @@ splom.formula <-
              ...,
              lattice.options = NULL,
              default.scales = list(draw = FALSE, relation = "same", axs = "i"),
+             default.prepanel = lattice.getOption("prepanel.default.splom"),
              subset = TRUE)
 {
     formula <- x
@@ -505,7 +506,7 @@ splom.formula <-
     }
 
     more.comp <-
-        c(limits.and.aspect(prepanel.default.splom,
+        c(limits.and.aspect(default.prepanel,
                             prepanel = prepanel, 
                             have.xlim = have.xlim, xlim = xlim, 
                             have.ylim = have.ylim, ylim = ylim, 

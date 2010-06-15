@@ -831,8 +831,27 @@ lattice.options <- function(...)
          panel.cloud = "panel.cloud",
          panel.pairs = "panel.pairs",
 
+         ## default prepanel functions
 
-         ## axis units.  Usually not a good idea for users to manipulate
+         prepanel.default.bwplot = "prepanel.default.bwplot",
+         prepanel.default.cloud = "prepanel.default.cloud",
+         prepanel.default.densityplot = "prepanel.default.densityplot",
+         prepanel.default.histogram = "prepanel.default.histogram",
+         prepanel.default.levelplot = "prepanel.default.levelplot",
+         prepanel.default.parallel = "prepanel.default.parallel",
+         prepanel.default.qq = "prepanel.default.qq",
+         prepanel.default.qqmath = "prepanel.default.qqmath",
+         prepanel.default.splom = "prepanel.default.splom",
+         prepanel.default.xyplot = "prepanel.default.xyplot",
+
+         prepanel.default.dotplot = "prepanel.default.bwplot",
+         prepanel.default.barchart = "prepanel.default.bwplot",
+         prepanel.default.wireframe = "prepanel.default.cloud",
+         prepanel.default.contourplot = "prepanel.default.levelplot",
+         
+         ## Axis units.  Rather than messing with these, end-users
+         ## should manipulate corresponding settings via
+         ## trellis.par.set()
 
          axis.units =
          list(outer =
