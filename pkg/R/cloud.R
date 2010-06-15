@@ -1575,9 +1575,6 @@ cloud.formula <-
 
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
-
-    prepanel <- getFunctionOrName(prepanel)
-
     cond <- form$condition
     z <- form$left
     x <- form$right.x

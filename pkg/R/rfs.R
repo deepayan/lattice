@@ -11,7 +11,6 @@ rfs <-
 {
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
-    prepanel <- getFunctionOrName(prepanel)
     fitval <- fitted.values(model) - mean(fitted.values(model))
     resids <- residuals(model)
     nf <- length(fitval)

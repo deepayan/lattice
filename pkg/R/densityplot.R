@@ -270,9 +270,6 @@ densityplot.formula <-
 
     if ("subscripts" %in% names(formals(panel))) subscripts <- TRUE
     if (subscripts) subscr <- form$subscr
-
-    prepanel <- getFunctionOrName(prepanel)
-
     cond <- form$condition
     x <- form$right
     if (length(cond) == 0) {
