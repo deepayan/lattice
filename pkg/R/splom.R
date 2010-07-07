@@ -259,6 +259,7 @@ panel.pairs <-
                                axis.line.alpha = axis.line.alpha,
                                axis.line.tck = axis.line.tck,
 
+                               i = i, j= j,
                                ...)
 
                     grid.rect(gp =
