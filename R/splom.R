@@ -285,16 +285,21 @@ panel.pairs <-
                               list(...),
                               list(i = i, j = j))
 
-                    if (!("..." %in% names(formals(panel))))
-                        pargs <- pargs[intersect(names(pargs), names(formals(panel)))]
+                    ## if (!("..." %in% names(formals(panel))))
+                    ##     pargs <- pargs[intersect(names(pargs), names(formals(panel)))]
+
+                    ## if (as.matrix)
+                    ##     do.call(if (i > j) lower.panel else upper.panel,
+                    ##             pargs)
+                    ## else
+                    ##     do.call(if (i < j) lower.panel else upper.panel,
+                    ##             pargs)
 
                     if (as.matrix)
-                        do.call(if (i > j) "lower.panel" else "upper.panel",
-                                pargs)
+                        checkArgsAndCall(if (i > j) lower.panel else upper.panel, pargs)
                     else
-                        do.call(if (i < j) "lower.panel" else "upper.panel",
-                                pargs)
-
+                        checkArgsAndCall(if (i < j) lower.panel else upper.panel, pargs)
+                    
                     grid.rect(gp =
                               gpar(col = axis.line.col,
                                    lty = axis.line.lty,

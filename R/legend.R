@@ -528,7 +528,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         for (i in 1:number.of.components)
         {
             cur <- components[[i]]
-            for (j in 1:cur$length)
+            for (j in seq_len(cur$length))
             {
                 colblck <- ceiling(j / rows.per.block)
                 xx <- (colblck - 1) *

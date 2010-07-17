@@ -36,6 +36,16 @@ getFunctionOrName <- function(FUN)
 }
 
 
+checkArgsAndCall <- function(FUN, args) ## unnames arguments not allowed
+{
+    if (!("..." %in% names(formals(FUN))))
+        args <- args[intersect(names(args), names(formals(FUN)))]
+    do.call(FUN, args)
+}
+
+
+    
+
 logLimits <- function(lim, base)
 {
     if (is.list(lim))
