@@ -350,7 +350,7 @@ formattedTicksAndLabels.default <-
         
     if (is.logical(at)) ## at not explicitly specified
     {
-        at <- pretty(x[is.finite(x)], ...)
+        at <- checkArgsAndCall(pretty, list(x = x[is.finite(x)], ...))
     }
     else if (have.log)  ## and at specified
     {
