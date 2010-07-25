@@ -60,7 +60,7 @@ set.seed(0)
 xx <- rt(10000, df = 10)
 qqmath(~ xx, pch = "+", distribution = qnorm,
        grid = TRUE, abline = c(0, 1),
-       main = c("raw", "ppoints(100)", "tails.n = 50"),
+       xlab.top = c("raw", "ppoints(100)", "tails.n = 50"),
        panel = function(..., f.value) {
            switch(panel.number(),
                   panel.qqmath(..., f.value = NULL),

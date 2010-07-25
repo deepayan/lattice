@@ -74,22 +74,35 @@ getLabelList <- function(label, text.settings, default.label = NULL)
     if (!is.null(label))
     {
         if (inherits(label, "grob")) return(label)
+        ## ans <-
+        ##     list(label = 
+        ##          if (is.characterOrExpression(label)) label
+        ##          else if (is.list(label) && (is.null(names(label)) ||
+        ##                                      names(label)[1] == "")) label[[1]]
+        ##          else default.label,
+        ##          col = text.settings$col, cex = text.settings$cex,
+        ##          fontfamily = text.settings$fontfamily,
+        ##          fontface = text.settings$fontface,
+        ##          font = text.settings$font,
+        ##          alpha = text.settings$alpha,
+        ##          lineheight = text.settings$lineheight)
+        ## if (is.list(label) && !is.null(names(label)))
+        ## {
+        ##     if (names(label)[1] == "") label <- label[-1]
+        ##     ans[names(label)] <- label
+        ## }
         ans <-
             list(label = 
                  if (is.characterOrExpression(label)) label
                  else if (is.list(label) && (is.null(names(label)) ||
                                              names(label)[1] == "")) label[[1]]
-                 else default.label,
-                 col = text.settings$col, cex = text.settings$cex,
-                 fontfamily = text.settings$fontfamily,
-                 fontface = text.settings$fontface,
-                 font = text.settings$font,
-                 alpha = text.settings$alpha,
-                 lineheight = text.settings$lineheight)
+                 else default.label)
+        if ("label" %in% names(text.settings)) text.settings$label <- NULL
+        ans <- updateList(ans, text.settings)
         if (is.list(label) && !is.null(names(label)))
         {
             if (names(label)[1] == "") label <- label[-1]
-            ans[names(label)] <- label
+            ans <- updateList(ans, label)
         }
     }
     else ans <- NULL

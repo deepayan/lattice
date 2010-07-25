@@ -256,7 +256,9 @@ panel.3dscatter <-
             ord <- sort.list(pmax(m0[3,], m1[3,]))
             lsegments(x0 = m0[1, ord], y0 = m0[2, ord],
                       x1 = m1[1, ord], y1 = m1[2, ord],
-                      col = tmpcol0[ord])
+                      col = tmpcol0[ord],
+                      lwd = lwd[ord],
+                      lty = lty[ord])
         }
 
 
@@ -705,47 +707,47 @@ panel.cloud <-
 
         xlabelinfo <-
             calculateAxisComponents(xlim,
-                                    at = scales.3d$x$at,
+                                    at = scales.3d$x.scales$at,
                                     num.limit = NULL,
-                                    labels = scales.3d$x$labels,
-                                    logsc = scales.3d$x$log,
-                                    abbreviate = scales.3d$x$abbreviate,
-                                    minlength = scales.3d$x$minlength,
-                                    format.posixt = scales.3d$x$format,
-                                    n = scales.3d$x$tick.number)
+                                    labels = scales.3d$x.scales$labels,
+                                    logsc = scales.3d$x.scales$log,
+                                    abbreviate = scales.3d$x.scales$abbreviate,
+                                    minlength = scales.3d$x.scales$minlength,
+                                    format.posixt = scales.3d$x.scales$format,
+                                    n = scales.3d$x.scales$tick.number)
 
 
         ylabelinfo <-
             calculateAxisComponents(ylim,
-                                    at = scales.3d$y$at,
+                                    at = scales.3d$y.scales$at,
                                     num.limit = NULL,
-                                    labels = scales.3d$y$labels,
-                                    logsc = scales.3d$y$log,
-                                    abbreviate = scales.3d$y$abbreviate,
-                                    minlength = scales.3d$y$minlength,
-                                    format.posixt = scales.3d$y$format,
-                                    n = scales.3d$y$tick.number)
+                                    labels = scales.3d$y.scales$labels,
+                                    logsc = scales.3d$y.scales$log,
+                                    abbreviate = scales.3d$y.scales$abbreviate,
+                                    minlength = scales.3d$y.scales$minlength,
+                                    format.posixt = scales.3d$y.scales$format,
+                                    n = scales.3d$y.scales$tick.number)
 
 
         zlabelinfo <-
             calculateAxisComponents(zlim,
-                                    at = scales.3d$z$at,
+                                    at = scales.3d$z.scales$at,
                                     num.limit = NULL,
-                                    labels = scales.3d$z$labels,
-                                    logsc = scales.3d$z$log,
-                                    abbreviate = scales.3d$z$abbreviate,
-                                    minlength = scales.3d$z$minlength,
-                                    format.posixt = scales.3d$z$format,
-                                    n = scales.3d$z$tick.number)
+                                    labels = scales.3d$z.scales$labels,
+                                    logsc = scales.3d$z.scales$log,
+                                    abbreviate = scales.3d$z.scales$abbreviate,
+                                    minlength = scales.3d$z.scales$minlength,
+                                    format.posixt = scales.3d$z.scales$format,
+                                    n = scales.3d$z.scales$tick.number)
 
 
         x.at <- xlabelinfo$at
         y.at <- ylabelinfo$at
         z.at <- zlabelinfo$at
 
-        x.at.lab <- xlabelinfo$lab
-        y.at.lab <- ylabelinfo$lab
-        z.at.lab <- zlabelinfo$lab
+        x.at.lab <- xlabelinfo$labels
+        y.at.lab <- ylabelinfo$labels
+        z.at.lab <- zlabelinfo$labels
 
         xlim <- xlabelinfo$num.limit
         ylim <- ylabelinfo$num.limit
