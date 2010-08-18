@@ -966,6 +966,12 @@ bwplot(x, data, \dots)
             Logical flag, whether legend should have a transparent
             background.
           }
+          \item{\code{just}}{
+            A character or numeric vector of length one or two giving
+            horizontal and vertical justification for the placement of
+            the legend.  See \code{\link[grid:grid.layout]{grid.layout}}
+            for more precise details.
+          }
           \item{\code{columns}}{
             The number of column-blocks (drawn side by side) the legend
             is to be divided into.

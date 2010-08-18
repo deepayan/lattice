@@ -499,7 +499,8 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
             grid.layout(nrow = n.row, ncol = n.col,
                         widths = layout.widths,
                         heights = layout.heights,
-                        respect = FALSE)
+                        respect = FALSE,
+                        just = if (is.null(key$just)) "center" else key$just)
 
         ## OK, layout set up, now to draw the key - no
         key.gf <- frameGrob(layout = key.layout, vp = vp)
