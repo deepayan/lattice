@@ -240,7 +240,8 @@ update.trellis <-
     if (!missing(panel))
     {
         panel <- getFunctionOrName(panel)
-        if (as.character(object$call[[1]]) == "splom")
+        ## if (as.character(object$call[[1]]) == "splom")
+        if ("panel" %in% names(object$panel.args.common))
             object$panel.args.common$panel <- panel
         else object$panel <- panel
     }
