@@ -103,9 +103,13 @@ bwplot(x, data, \dots)
   layout, aspect ratio, legends, axis annotation, and many other details
   in a consistent manner.  These arguments are described extensively in
   this help page, and should be used as the reference for other
-  high-level functions as well.  For control and customization of the
-  actual display in each panel, the help page of the respective default
-  panel function will often be more informative.
+  high-level functions as well.
+
+  For control and customization of the actual display in each panel, the
+  help page of the respective default panel function will often be more
+  informative.  In particular, these help pages describe many arguments
+  commonly used when calling the corresponding high-level function but
+  are specific to them.
 }
 
 % designed mainly for two continuous variates (though factors can be
