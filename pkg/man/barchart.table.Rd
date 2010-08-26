@@ -62,7 +62,7 @@
   The last dimension is optionally used as a grouping variable (to
   produce stacked barcharts by default).  All other dimensions are used
   as conditioning variables.  The order of these variables cannot be
-  altered (except by permuting the original argument using
+  altered (except by permuting the original argument beforehand using
   \code{\link{t}} or \code{\link{aperm}}).  For more flexibility, use
   the formula method after converting the table to a data frame using
   the relevant \code{\link[base:table]{as.data.frame}} method.
