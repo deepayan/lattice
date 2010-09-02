@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.5.0 / Lattice 0.17.23\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2010-05-19 19:27\n"
+"POT-Creation-Date: 2010-09-02 05:05\n"
 "PO-Revision-Date: 2009-09-24 08:38+0100\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -130,13 +131,19 @@ msgstr "Zeile muss angegeben werden"
 msgid "panel position unspecified or invalid"
 msgstr "Position des Bedienfeldes nicht angegeben oder ungültig"
 
-msgid "plot spans multiple pages, only last page can be updated"
-msgstr "Ausdruck umfasst mehrere Seiten. Nur die letzte Seite kann aktualisiert werden"
+msgid "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
+msgstr ""
 
-msgid "current plot was not saved, can't retrieve panel data"
+#, fuzzy
+msgid "Plot object was not saved, cannot retrieve panel data"
 msgstr "Aktueller Ausdruck wurde nicht gespeichert. Daten des Bedienfeldes können nicht abgefragt werden."
 
-msgid "you have to first select a panel using trellis.focus()"
+#, fuzzy
+msgid "Plot spans multiple pages, only last page can be updated"
+msgstr "Ausdruck umfasst mehrere Seiten. Nur die letzte Seite kann aktualisiert werden"
+
+#, fuzzy
+msgid "You have to first select a panel using trellis.focus()"
 msgstr "Sie müssen zuerst ein Bedienfeld auswählen, das trellis.focus() benutzt."
 
 msgid "Selecting panel at position (%g, %g)"
@@ -232,6 +239,10 @@ msgstr "»a« und »b« wurden mit »coef« überschrieben"
 msgid "'expr' must be a function or an expression containing 'x'"
 msgstr "»expr« muss eine Funktion oder ein Ausdruck sein, der »x« enthält"
 
+#, fuzzy
+msgid "'varnames' has wrong length."
+msgstr "angegebene »dimnames« haben falsche Längen"
+
 msgid "Parallel Coordinate Plot"
 msgstr "Plot paralleler Koordinaten"
 
@@ -244,9 +255,6 @@ msgid ""
 msgstr ""
 "Fehler beim Benutzen des Paketes %g\n"
 "%s"
-
-msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
-msgstr "»packet.number« und »panel.number« werden nicht länger an die »panel«-Funktion weitergereicht. Siehe ?packet.number"
 
 msgid "y must have exactly 2 levels"
 msgstr "y muss genau 2 Stufen haben"
@@ -266,7 +274,8 @@ msgstr "Angepasste Werte abzüglich Mittelwert"
 msgid "Residuals"
 msgstr "Residuen"
 
-msgid "the at and labels components of scales may not be lists when relation = same"
+#, fuzzy
+msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
 msgstr "die »at«- und »labels«-Komponenten der Skalen sind möglicherweise keine Listen, wenn »relation = same«"
 
 msgid "limits cannot be a list when relation = same"
@@ -341,11 +350,9 @@ msgstr "Mittelwert"
 msgid "difference"
 msgstr "Unterschied"
 
-msgid "No trellis object currently saved"
+#, fuzzy
+msgid "Requested 'trellis' object was not saved"
 msgstr "Derzeit ist kein Trellis-Objekt gespeichert"
-
-msgid "currently saved object is not the last one plotted"
-msgstr "derzeit gespeichertes Objekt ist nicht das zuletzt dargestellte"
 
 msgid "Inappropriate value of 'as.table'"
 msgstr "Unangemessener Wert von »as.table«"
@@ -376,6 +383,9 @@ msgstr ""
 msgid "log scales cannot be changed via 'update'"
 msgstr "logarithmische Skalen können nicht per »update« geändert werden"
 
+msgid "the at and labels components of scales may not be lists when relation = same"
+msgstr "die »at«- und »labels«-Komponenten der Skalen sind möglicherweise keine Listen, wenn »relation = same«"
+
 msgid "Unrecognized value of 'aspect': '%s'"
 msgstr "Nicht erkannter Wert von »aspect«: »%s«"
 
@@ -401,3 +411,9 @@ msgid ""
 msgstr ""
 "Das grid-Paket konnte nicht geladen werden.\n"
 "Bitte prüfen Sie Ihre Installation von R."
+
+#~ msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
+#~ msgstr "»packet.number« und »panel.number« werden nicht länger an die »panel«-Funktion weitergereicht. Siehe ?packet.number"
+
+#~ msgid "currently saved object is not the last one plotted"
+#~ msgstr "derzeit gespeichertes Objekt ist nicht das zuletzt dargestellte"

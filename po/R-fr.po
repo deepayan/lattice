@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2010-05-19 19:27\n"
+"POT-Creation-Date: 2010-09-02 05:05\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -131,13 +132,19 @@ msgstr "'row' doit être spécifié"
 msgid "panel position unspecified or invalid"
 msgstr "la position du panneau n'est pas spécifiée ou est incorrecte"
 
-msgid "plot spans multiple pages, only last page can be updated"
-msgstr "le graph s'étend sur plusieurs pages, seule la dernière peut être mise à jour"
+msgid "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
+msgstr ""
 
-msgid "current plot was not saved, can't retrieve panel data"
+#, fuzzy
+msgid "Plot object was not saved, cannot retrieve panel data"
 msgstr "le graphe actuel n'a pas été souvegardé, impossible de restaurer les données des panneaux"
 
-msgid "you have to first select a panel using trellis.focus()"
+#, fuzzy
+msgid "Plot spans multiple pages, only last page can be updated"
+msgstr "le graph s'étend sur plusieurs pages, seule la dernière peut être mise à jour"
+
+#, fuzzy
+msgid "You have to first select a panel using trellis.focus()"
 msgstr "vous devez d'abord sélectionner un panneau avec trellis.focus()"
 
 msgid "Selecting panel at position (%g, %g)"
@@ -234,6 +241,9 @@ msgstr ""
 msgid "'expr' must be a function or an expression containing 'x'"
 msgstr "'expr' doit être une fonction ou une expression contenant 'x'"
 
+msgid "'varnames' has wrong length."
+msgstr ""
+
 msgid "Parallel Coordinate Plot"
 msgstr ""
 
@@ -244,9 +254,6 @@ msgid ""
 "Error using packet %g\n"
 "%s"
 msgstr ""
-
-msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
-msgstr "'packet.number' et 'panel.number' ne sont plus passés à la fonction panel. Voir ?packet.number"
 
 msgid "y must have exactly 2 levels"
 msgstr "'y' doit avoir exactement 2 niveaux"
@@ -266,7 +273,8 @@ msgstr "Valeurs ajustées moins la moyenne"
 msgid "Residuals"
 msgstr "Résidus"
 
-msgid "the at and labels components of scales may not be lists when relation = same"
+#, fuzzy
+msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
 msgstr "les composantes d'échelles 'at' et 'labels' ne peuvent être des listes lorsque 'relation = same'"
 
 msgid "limits cannot be a list when relation = same"
@@ -341,11 +349,9 @@ msgstr "moyenne"
 msgid "difference"
 msgstr "différence"
 
-msgid "No trellis object currently saved"
+#, fuzzy
+msgid "Requested 'trellis' object was not saved"
 msgstr "Aucun objet trellis n'est actuellement sauvegardé"
-
-msgid "currently saved object is not the last one plotted"
-msgstr "l'objet actuellement sauvegardé n'est pas le dernier qui a été tracé"
 
 msgid "Inappropriate value of 'as.table'"
 msgstr "Valeur de 'as.table' incorrecte"
@@ -377,6 +383,9 @@ msgstr ""
 msgid "log scales cannot be changed via 'update'"
 msgstr "les échelles d'axes logarithmiques ne peuvent être modifiées à l'aide d''update'"
 
+msgid "the at and labels components of scales may not be lists when relation = same"
+msgstr "les composantes d'échelles 'at' et 'labels' ne peuvent être des listes lorsque 'relation = same'"
+
 msgid "Unrecognized value of 'aspect': '%s'"
 msgstr "Valeur inconnue pour 'aspect' : '%s'"
 
@@ -402,3 +411,9 @@ msgid ""
 msgstr ""
 "Le package grid ne peut être chargé.\n"
 "Veuillez vérifier votre installation de R"
+
+#~ msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
+#~ msgstr "'packet.number' et 'panel.number' ne sont plus passés à la fonction panel. Voir ?packet.number"
+
+#~ msgid "currently saved object is not the last one plotted"
+#~ msgstr "l'objet actuellement sauvegardé n'est pas le dernier qui a été tracé"

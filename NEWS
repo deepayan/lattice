@@ -1,5 +1,55 @@
 
 
+Changes in lattice 0.19
+=======================
+
+ o The primary goal of the 0.19 series is to improve documentation and
+   fix some obscure but long-standing bugs, building up to an eventual
+   1.0 release.  Specific major changes are given below.
+
+ o Added new arguments 'grid' and 'abline' in panel.xyplot().
+
+ o Added a "panel.background" setting.
+
+ o Restructured storage of plot-specific information, fixing bug
+   reported in
+   https://stat.ethz.ch/pipermail/r-help/2007-October/143567.html
+
+ o Added a CITATION file.
+
+ o Added a new "axis.text" setting. 
+
+ o Added the option to scale data inside panel.3dscatter() and
+   panel.3dwire() rather than assuming ther are already scaled.  This
+   may be helpful for use in user-written panel functions, with
+   (additional) data specified in the original scale.
+
+ o 'varnames' can now be expressions in splom()/parallel().
+ 
+ o Added support for 'xlab.top' and 'ylab.right' arguments.
+
+ o Improved axis labelling in splom(), including support for date-time
+   data.
+
+ o panel.pairs() now passes arguments i and j to (sub)panel and
+   diag.panel functions.
+
+ o Default prepanel functions are now user-settable through
+   lattice.options()
+
+ o par.[main|sub|xlab|ylab].text parameter settings are more powerful.
+
+ o Added support for 'just' component in draw.key() to allow
+   justification of legend placement.
+
+bug fixes
+---------
+
+ o More realistic check for equispaced grid in
+   panel.levelplot.raster().
+
+
+
 Changes in lattice 0.18
 =======================
 

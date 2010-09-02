@@ -1,4 +1,399 @@
 ------------------------------------------------------------------------
+r630 | deepayan | 2010-08-24 01:14:42 -0700 (Tue, 24 Aug 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/print.trellis.R
+
+fixed default labels for horizontal=FALSE in bwplot() etc
+------------------------------------------------------------------------
+r629 | deepayan | 2010-08-18 03:36:32 -0700 (Wed, 18 Aug 2010) | 1 line
+Changed paths:
+   M /pkg/R/update.trellis.R
+
+slightly better test for detecting splom() output in update.trellis
+------------------------------------------------------------------------
+r628 | deepayan | 2010-08-18 02:08:45 -0700 (Wed, 18 Aug 2010) | 1 line
+Changed paths:
+   M /pkg/R/legend.R
+   M /pkg/man/xyplot.Rd
+
+add support for 'just' component in draw.key() to allow justification
+of legend placement
+------------------------------------------------------------------------
+r627 | deepayan | 2010-07-25 10:16:14 -0700 (Sun, 25 Jul 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/cloud.R
+   M /pkg/R/print.trellis.R
+   M /pkg/man/panel.qqmath.Rd
+
+misc fixes, including making par.[main|sub|*lab].text parameter more
+powerful.
+------------------------------------------------------------------------
+r626 | deepayan | 2010-07-17 09:18:14 -0700 (Sat, 17 Jul 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/axis.R
+   M /pkg/R/legend.R
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/splom.R
+
+refactoring some function calls using new checkArgsAndCall() function;
+should fix call to pretty() from formattedTicksAndLabels.default()
+------------------------------------------------------------------------
+r625 | deepayan | 2010-07-07 09:52:33 -0700 (Wed, 07 Jul 2010) | 1 line
+Changed paths:
+   M /pkg/R/splom.R
+
+pass i and j to diag.panel
+------------------------------------------------------------------------
+r624 | deepayan | 2010-06-15 05:38:12 -0700 (Tue, 15 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
+   M /pkg/R/cloud.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/parallel.R
+   M /pkg/R/qq.R
+   M /pkg/R/qqmath.R
+   M /pkg/R/settings.R
+   M /pkg/R/splom.R
+   M /pkg/R/xyplot.R
+   M /pkg/man/cloud.Rd
+   M /pkg/man/histogram.Rd
+   M /pkg/man/levelplot.Rd
+   M /pkg/man/qq.Rd
+   M /pkg/man/qqmath.Rd
+   M /pkg/man/splom.Rd
+   M /pkg/man/xyplot.Rd
+
+made default prepanel functions user-settable through lattice.options()
+------------------------------------------------------------------------
+r623 | deepayan | 2010-06-15 04:35:25 -0700 (Tue, 15 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
+   M /pkg/R/cloud.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/parallel.R
+   M /pkg/R/qq.R
+   M /pkg/R/qqmath.R
+   M /pkg/R/rfs.R
+   M /pkg/R/scales.R
+   M /pkg/R/splom.R
+   M /pkg/R/update.trellis.R
+   M /pkg/R/xyplot.R
+
+evaluation of prepanel moved to common helper function
+limits.and.aspect instead of top-level functions
+------------------------------------------------------------------------
+r622 | deepayan | 2010-06-15 04:00:58 -0700 (Tue, 15 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
+   M /pkg/R/cloud.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/interaction.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/panels.R
+   M /pkg/R/parallel.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/qq.R
+   M /pkg/R/qqmath.R
+   M /pkg/R/rfs.R
+   M /pkg/R/splom.R
+   M /pkg/R/tmd.R
+   M /pkg/R/update.trellis.R
+   M /pkg/R/xyplot.R
+
+new utility function getFunctionOrName() for cases where an argument
+may be a quoted function name (mostly panel and prepanel)
+------------------------------------------------------------------------
+r621 | deepayan | 2010-06-14 07:20:29 -0700 (Mon, 14 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/man/panel.pairs.Rd
+
+panel.pairs doc update
+------------------------------------------------------------------------
+r620 | deepayan | 2010-06-14 07:10:35 -0700 (Mon, 14 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/splom.R
+
+panel.pairs now passes arguments i and j to (sub)panel function.
+------------------------------------------------------------------------
+r619 | deepayan | 2010-06-14 04:34:37 -0700 (Mon, 14 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+   M /pkg/R/splom.R
+   M /pkg/man/panel.pairs.Rd
+   M /pkg/man/splom.Rd
+
+improved axis labelling in splom(), including support for date-time data
+------------------------------------------------------------------------
+r618 | deepayan | 2010-06-11 03:36:39 -0700 (Fri, 11 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/common.R
+   M /pkg/R/interaction.R
+   M /pkg/R/layout.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/settings.R
+   M /pkg/man/interaction.Rd
+   M /pkg/man/lattice.options.Rd
+   M /pkg/man/xyplot.Rd
+
+added support for xlab.top and ylab.right argments
+------------------------------------------------------------------------
+r617 | deepayan | 2010-06-10 02:26:34 -0700 (Thu, 10 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/parallel.R
+   M /pkg/R/splom.R
+   M /pkg/man/panel.pairs.Rd
+   M /pkg/man/splom.Rd
+   M /pkg/man/xyplot.Rd
+
+allowed varnames to be expressions in splom/parallel (and disabled
+undocumented nonstandard evaluation for them).
+------------------------------------------------------------------------
+r616 | deepayan | 2010-06-09 11:41:25 -0700 (Wed, 09 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/.Rbuildignore
+   M /pkg/DESCRIPTION
+   M /pkg/R/cloud.R
+   M /pkg/man/panel.cloud.Rd
+
+Added the option to scale data in panel.3dscatter() and panel.3dwire()
+rather than assuming ther are already scaled.  This may be helpful for
+use in user-written panel functions, with data specified in the
+original scale.
+------------------------------------------------------------------------
+r615 | deepayan | 2010-06-09 03:28:34 -0700 (Wed, 09 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+   M /pkg/R/scales.R
+
+fix related to axis.text
+------------------------------------------------------------------------
+r614 | deepayan | 2010-06-09 03:15:27 -0700 (Wed, 09 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+   M /pkg/R/cloud.R
+   M /pkg/R/layout.R
+   M /pkg/R/legend.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/settings.R
+   M /pkg/R/splom.R
+   M /pkg/man/panel.axis.Rd
+   M /pkg/man/panel.pairs.Rd
+   M /pkg/man/xyplot.Rd
+
+added new setting: axis.text, and associated changes
+------------------------------------------------------------------------
+r613 | deepayan | 2010-06-08 11:31:49 -0700 (Tue, 08 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/man/xyplot.Rd
+
+remove blank lines with unintended formatting effects
+------------------------------------------------------------------------
+r612 | deepayan | 2010-06-08 04:19:07 -0700 (Tue, 08 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/miscellaneous.R
+
+Allows code=0 [and anything else] without complaining in larrows(),
+because code=0 works in arrows(), although not documented.  Other
+values give errors in arrows(), but we will be more forgiving.
+------------------------------------------------------------------------
+r611 | deepayan | 2010-06-08 01:09:50 -0700 (Tue, 08 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/xyplot.R
+   M /pkg/man/panel.xyplot.Rd
+
+made 'grid' argument in panel.xyplot() more flexible
+------------------------------------------------------------------------
+r610 | deepayan | 2010-06-07 23:56:58 -0700 (Mon, 07 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/print.trellis.R
+   M /pkg/R/shingle.R
+   M /pkg/demo/lattice.R
+
+simplified demo code, intial attempt at as.factor.shingle
+------------------------------------------------------------------------
+r609 | deepayan | 2010-06-07 22:18:08 -0700 (Mon, 07 Jun 2010) | 1 line
+Changed paths:
+   D /pkg/INDEX
+
+removed INDEX file (not used any more?)
+------------------------------------------------------------------------
+r608 | deepayan | 2010-06-04 06:46:47 -0700 (Fri, 04 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/INDEX
+   M /pkg/R/splom.R
+   A /pkg/inst/CITATION
+
+added a CITATION file
+------------------------------------------------------------------------
+r607 | deepayan | 2010-06-04 05:00:38 -0700 (Fri, 04 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/axis.R
+   M /pkg/R/common.R
+   M /pkg/R/interaction.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/settings.R
+   M /pkg/R/update.trellis.R
+   M /pkg/man/axis.default.Rd
+   M /pkg/man/interaction.Rd
+   M /pkg/man/panel.number.Rd
+   M /pkg/man/print.trellis.Rd
+   M /pkg/man/trellis.par.get.Rd
+   M /pkg/man/update.trellis.Rd
+   M /pkg/tests/test.R
+
+Restructured storage of plot-specific information (fixes bug reported
+in https://stat.ethz.ch/pipermail/r-help/2007-October/143567.html);
+also implements a stricter reversion of parameter settings when
+'par.settings' contains parameters not present in the active theme.
+------------------------------------------------------------------------
+r606 | deepayan | 2010-06-04 04:54:51 -0700 (Fri, 04 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
+
+improved 'call' components for table methods
+------------------------------------------------------------------------
+r604 | deepayan | 2010-06-03 04:51:03 -0700 (Thu, 03 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/print.trellis.R
+   M /pkg/R/settings.R
+
+added a panel.background setting
+------------------------------------------------------------------------
+r603 | deepayan | 2010-06-02 04:28:51 -0700 (Wed, 02 Jun 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/INDEX
+   M /pkg/R/panels.R
+   M /pkg/R/xyplot.R
+   M /pkg/man/panel.qqmath.Rd
+   M /pkg/man/panel.superpose.Rd
+   M /pkg/man/panel.xyplot.Rd
+
+new arguments grid and abline in panel.xyplot()
+------------------------------------------------------------------------
+r602 | felix | 2010-05-30 07:10:26 -0700 (Sun, 30 May 2010) | 1 line
+Changed paths:
+   M /pkg/R/panels.R
+   M /pkg/R/xyplot.R
+   M /pkg/man/panel.functions.Rd
+
+use pretty() method in panel.grid based on data classes (arguments x,y).
+------------------------------------------------------------------------
+r600 | deepayan | 2010-05-29 00:57:37 -0700 (Sat, 29 May 2010) | 1 line
+Changed paths:
+   M /pkg/man/xyplot.Rd
+
+xyplot doc update
+------------------------------------------------------------------------
+r596 | deepayan | 2010-05-27 22:59:20 -0700 (Thu, 27 May 2010) | 1 line
+Changed paths:
+   M /pkg/man/Lattice.Rd
+   M /pkg/man/banking.Rd
+   M /pkg/man/barley.Rd
+   M /pkg/man/cloud.Rd
+   M /pkg/man/environmental.Rd
+   M /pkg/man/ethanol.Rd
+   M /pkg/man/histogram.Rd
+   M /pkg/man/levelplot.Rd
+   M /pkg/man/melanoma.Rd
+   M /pkg/man/panel.parallel.Rd
+   M /pkg/man/singer.Rd
+   M /pkg/man/trellis.device.Rd
+   M /pkg/man/xyplot.Rd
+   M /pkg/man/xyplot.ts.Rd
+
+misc updates
+------------------------------------------------------------------------
+r595 | deepayan | 2010-05-27 20:57:32 -0700 (Thu, 27 May 2010) | 1 line
+Changed paths:
+   M /pkg/man/Lattice.Rd
+   M /pkg/man/banking.Rd
+   M /pkg/man/cloud.Rd
+   M /pkg/man/histogram.Rd
+   M /pkg/man/levelplot.Rd
+   M /pkg/man/trellis.device.Rd
+   M /pkg/man/xyplot.Rd
+   M /pkg/man/xyplot.ts.Rd
+
+improved references
+------------------------------------------------------------------------
+r593 | deepayan | 2010-05-27 11:41:51 -0700 (Thu, 27 May 2010) | 1 line
+Changed paths:
+   M /pkg/NAMESPACE
+   M /pkg/R/bwplot.R
+   M /pkg/R/layout.R
+   M /pkg/R/legend.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/qqmath.R
+
+more import and partial matching fixes
+------------------------------------------------------------------------
+r592 | deepayan | 2010-05-27 10:51:38 -0700 (Thu, 27 May 2010) | 1 line
+Changed paths:
+   M /pkg/NAMESPACE
+   M /pkg/R/axis.R
+   M /pkg/R/bwplot.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/parallel.R
+   M /pkg/R/qq.R
+   M /pkg/R/qqmath.R
+   M /pkg/R/scales.R
+   M /pkg/R/settings.R
+   M /pkg/R/splom.R
+   M /pkg/R/xyplot.R
+
+import and partial matching fixes
+------------------------------------------------------------------------
+r591 | deepayan | 2010-05-27 05:40:00 -0700 (Thu, 27 May 2010) | 1 line
+Changed paths:
+   M /pkg/inst/po/de/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/fr/LC_MESSAGES/R-lattice.mo
+   M /pkg/man/Lattice.Rd
+   M /pkg/man/xyplot.Rd
+   M /pkg/po/R-de.po
+   M /pkg/po/R-en@quot.po
+   M /pkg/po/R-fr.po
+   M /pkg/po/R-lattice.pot
+
+more doc updates, plus updated translation
+------------------------------------------------------------------------
+r589 | deepayan | 2010-05-25 23:18:38 -0700 (Tue, 25 May 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/man/Lattice.Rd
+
+start revision of docs
+------------------------------------------------------------------------
+r588 | deepayan | 2010-05-19 06:01:16 -0700 (Wed, 19 May 2010) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/levelplot.R
+
+more realistic check for equispaced grid in panel.levelplot.raster
+
+
+
+
+
+
+------------------------------------------------------------------------
 r586 | felix | 2010-05-12 21:00:17 +1000 (Wed, 12 May 2010) | 1 line
 Changed paths:
    M /pkg/R/axis.R
@@ -38,7 +433,9 @@ Changed paths:
    M /pkg/man/panel.superpose.Rd
    M /pkg/man/xyplot.ts.Rd
 
-improve internals of xyplot.ts (don't clobber styles unless necessary; don't define groups unless relevant) so it works better with layer() etc. New function panel.superpose.plain().
+improve internals of xyplot.ts (don't clobber styles unless necessary;
+don't define groups unless relevant) so it works better with layer()
+etc. New function panel.superpose.plain().
 ------------------------------------------------------------------------
 r580 | felix | 2010-04-15 16:02:51 +1000 (Thu, 15 Apr 2010) | 1 line
 Changed paths:
