@@ -192,8 +192,8 @@ do.breaks(endpoints, nint)
 
   }
   \item{xlab, ylab}{ See \code{\link{xyplot}}. }
-  \item{drop.unused.levels}{ See \code{\link{xyplot}}. }
   \item{xlim, ylim}{ See \code{\link{xyplot}}. }
+  \item{drop.unused.levels}{ See \code{\link{xyplot}}. }
   \item{lattice.options}{ See \code{\link{xyplot}}. }
   \item{default.scales}{ See \code{\link{xyplot}}. }
   \item{subscripts}{ See \code{\link{xyplot}}. }
