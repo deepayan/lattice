@@ -852,10 +852,10 @@ bwplot(x, data, \dots)
 
         \code{x} and \code{y} should be numbers between 0 and 1, giving
         coordinates with respect to the \dQuote{display area}.
-        Depending on the value of
-        \code{lattice.getOption("legend.bbox")}, this can be either the
-        full figure region (\code{"full"}), or just the region that
-        bounds the panels and strips (\code{"panel"}).
+        Depending on the value of the \code{"legend.bbox"} option (see
+        \code{\link{lattice.getOption}}), this can be either the full
+        figure region (\code{"full"}), or just the region that bounds
+        the panels and strips (\code{"panel"}).
 
         The key essentially consists of a number of columns, possibly
         divided into blocks, each containing some rows.  The contents of the

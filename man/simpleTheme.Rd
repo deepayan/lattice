@@ -14,15 +14,15 @@ simpleTheme(col, alpha,
 \arguments{
   \item{col, col.points, col.line}{
     A color specification.  \code{col} is used for components
-    \code{plot.symbol}, \code{plot.line}, \code{plot.polygon},
-    \code{superpose.symbol}, \code{superpose.line}, and
-    \code{superpose.polygon}.  \code{col.points} overrides \code{col},
-    and is used only for \code{plot.symbol} and
-    \code{superpose.symbol}.  Similarly, \code{col.lines} overrides
-    \code{col} for \code{plot.line} and \code{superpose.line}.  The
-    arguments can be vectors, but only the first component is used for
-    scalar targets (i.e., the ones without \code{"superpose"} in their
-    name).
+    \code{"plot.symbol"}, \code{"plot.line"}, \code{"plot.polygon"},
+    \code{"superpose.symbol"}, \code{"superpose.line"}, and
+    \code{"superpose.polygon"}.  \code{"col.points"} overrides
+    \code{"col"}, and is used only for \code{"plot.symbol"} and
+    \code{"superpose.symbol"}.  Similarly, \code{"col.lines"} overrides
+    \code{"col"} for \code{"plot.line"} and \code{"superpose.line"}.
+    The arguments can be vectors, but only the first component is used
+    for scalar targets (i.e., the ones without \code{"superpose"} in
+    their name).
   }
   \item{alpha, alpha.points, alpha.line}{
     A numeric alpha transparency specification.  The same rules as
@@ -46,7 +46,6 @@ simpleTheme(col, alpha,
 
 }
 \details{
-
   The appearance of a lattice display depends partly on the
   \dQuote{theme} active when the display is plotted (see
   \code{\link{trellis.device}} for details).  This theme is used to
