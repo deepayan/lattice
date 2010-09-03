@@ -32,11 +32,13 @@ contourplot(x, data, \dots)
           cuts = 15,
           pretty = FALSE,
           region = TRUE,
-          drop.unused.levels = lattice.getOption("drop.unused.levels"),
+          drop.unused.levels =
+              lattice.getOption("drop.unused.levels"),
           \dots,
           lattice.options = NULL,
           default.scales = list(),
-          default.prepanel = lattice.getOption("prepanel.default.levelplot"),
+          default.prepanel =
+              lattice.getOption("prepanel.default.levelplot"),
           colorkey = region,
           col.regions,
           alpha.regions,
@@ -45,7 +47,8 @@ contourplot(x, data, \dots)
 \method{contourplot}{formula}(x,
             data,
             panel = lattice.getOption("panel.contourplot"),
-            default.prepanel = lattice.getOption("prepanel.default.contourplot"),
+            default.prepanel =
+                lattice.getOption("prepanel.default.contourplot"),
             cuts = 7,
             labels = TRUE,
             contour = TRUE,
