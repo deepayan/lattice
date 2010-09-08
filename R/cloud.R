@@ -535,9 +535,8 @@ panel.3dwire <-
                 else vector(mode(col), polynum)
             pol.alpha <- superpose.polygon$alpha
         }
-        ## FIXME: should alpha override alpha.regions?
-        if (!missing(alpha)) pol.alpha <- alpha
-
+        ## FIXME: should alpha override alpha.regions? NO.
+        ## if (!missing(alpha)) pol.alpha <- alpha
 
         count <- 0 ## counts number of polygons stacked up so far
 
@@ -578,9 +577,9 @@ panel.3dwire <-
                         grid.polygon(x = pol.x, y = pol.y, id.lengths = rep(4, polynum),
                                      default.units = "native",
                                      gp = gpar(fill = pol.fill,
-                                     col = pol.col,
-                                     lty = lty, lwd = lwd,
-                                     alpha = pol.alpha))
+                                               col = pol.col, ## FIXME: should be adjustcolor(col, alpha.f = alpha)
+                                               lty = lty, lwd = lwd,
+                                               alpha = pol.alpha))
                         count <<- 0
                     }
                 }
@@ -1136,10 +1135,6 @@ panel.cloud <-
                 pargs <- pargs[intersect(names(pargs), names(formals(panel.3d.cloud)))]
             do.call("panel.3d.cloud", pargs)
         }
-
-
-
-
 
         ## This draws the front of the bounding box
 
