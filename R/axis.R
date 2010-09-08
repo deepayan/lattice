@@ -352,13 +352,14 @@ formattedTicksAndLabels.default <-
     {
         at <- checkArgsAndCall(pretty, list(x = x[is.finite(x)], ...))
     }
-    else if (have.log)  ## and at specified
+    else if (have.log && (length(at) > 0))  ## 'at' specified but not NULL
     {
         if (is.logical(labels)) labels <- as.character(at)
         at <- log(at, base = logbase)
     }
-    list(at = at, labels = if (is.logical(labels))
-         paste(logpaste, format(at, trim = TRUE), sep = "") else labels,
+    list(at = at,
+         labels = if (is.logical(labels)) paste(logpaste, format(at, trim = TRUE), sep = "")
+                  else labels,
          check.overlap = check.overlap,
          num.limit = rng)
 }
@@ -397,7 +398,7 @@ formattedTicksAndLabels.date <-
         class(at) <- "date"
         datelabels <- as.character(at)
     }
-    else if (have.log) ## and at specified
+    else if (have.log && (length(at) > 0))
     {
         if (is.logical(labels)) labels <- as.character(at)
         at <- log(at, base = logbase)
