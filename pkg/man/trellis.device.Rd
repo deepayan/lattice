@@ -46,7 +46,7 @@ col.whitebg()
     A possible use of this argument is to change the default settings by 
     specifying \code{lattice.options(default.theme = "col.whitebg")}. 
     For back-compatibility, this is initially (when lattice is loaded)
-    set to   \code{options(lattice.theme)}.
+    set to \code{options(lattice.theme)}.
 
     If \code{theme} is a function, it will not be supplied any
     arguments, however, it is guaranteed that a device will already be
