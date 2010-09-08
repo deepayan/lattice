@@ -107,9 +107,15 @@ update.trellis <-
              strip.left,
              sub,
              xlab,
-             xlim,
              ylab,
+             xlab.top,
+             ylab.right,
+             xlim,
              ylim,
+             xscale.components,
+             yscale.components,
+             axis,
+
              par.settings,
              plot.args,
              lattice.options,
@@ -158,7 +164,12 @@ update.trellis <-
     if (!missing(sub)) object$sub <- sub
     if (!missing(xlab)) object$xlab <- xlab
     if (!missing(ylab)) object$ylab <- ylab
+    if (!missing(xlab.top)) object$xlab.top <- xlab.top
+    if (!missing(ylab.right)) object$ylab.right <- ylab.right
     if (!missing(page)) object$page <- page
+    if (!missing(xscale.components)) object$xscale.components <- xscale.components
+    if (!missing(yscale.components)) object$yscale.components <- yscale.components
+    if (!missing(axis)) object$axis <- axis
     if (!missing(par.strip.text))
     {
         ## this only overwrites earlier things, leaves alone those
