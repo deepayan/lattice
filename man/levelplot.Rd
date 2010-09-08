@@ -165,7 +165,10 @@ contourplot(x, data, \dots)
       
       \item{\code{x}, \code{y}:}{ location, currently unused }
 
-      \item{\code{col}:}{ vector of colors }
+      \item{\code{col}:}{
+	A color ramp specification, as in the \code{col.regions}
+	argument in \code{\link{level.colors}}
+      }
       
       \item{\code{at}:}{
         numeric vector specifying where the colors change. must be of
