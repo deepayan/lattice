@@ -602,7 +602,6 @@ plot.trellis <-
         m <- ceiling(plots.per.page/n)
         panel.layout[1] <- n
         panel.layout[2] <- m
-
     }
 
     ## End layout calculations
@@ -720,15 +719,20 @@ plot.trellis <-
     ## packet.number, which is an index to which packet combination is
     ## being used.
 
-
     ## FIXME: what happens when number of pages is 0?
     ## message("no of pages: ", number.of.pages)
 
     for (page.number in seq_len(number.of.pages))
     {
-        ##if (!any(cond.max.levels - which.packet < 0))
         if (TRUE) ## FIXME: remove this after a few versions and reformat
         {
+
+            ## In older versions, we used to decide here whether a new
+            ## page was actually needed, i.e., whether there is
+            ## anything to draw (o.w., why waste a page?).  This is no
+            ## longer possible because we don't know a priori what
+            ## packet.panel() will return.
+
             if (usual)
             {
                 if (new) grid.newpage()
