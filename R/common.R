@@ -719,8 +719,7 @@ compute.layout <-
     if (all(skip)) stop("skip cannot be all TRUE")
     number.of.cond <- length(cond.max.level)
     nplots <- prod(cond.max.level)
-
-    if (!is.numeric(layout))
+    if (is.null(layout))
     {
         layout <- c(0,1,1)
         if (number.of.cond == 1) layout[2] <- nplots
@@ -735,28 +734,27 @@ compute.layout <-
     }
     else if (length(layout) == 1)
         stop("layout must have at least 2 elements")
-    else if (length(layout) == 2)
+    else if (length(layout) == 2 || length(layout) == 3)
     {
-        if (all(is.na(layout)))
-            stop("inadmissible value of layout")
-        else if (all(layout < 1))
-            stop("at least one element of layout must be positive")
-        else if (isTRUE(layout[2] == 0))
-            stop("inadmissible value of layout")
-
+        if (all(is.na(layout[1:2])) || ## stop("Row and column cannot both be NA in layout.")
+            all(layout[1:2] < 1)    || ## stop("At least one of row and column must be positive in layout.")
+            isTRUE(layout[2] < 1)) stop("Inadmissible value of layout.")
         if (is.na(layout[1]))
             layout[1] <- ceiling(nplots / layout[2])
         if (is.na(layout[2]))
             layout[2] <- ceiling(nplots / layout[1])
-
         skip <- rep(skip, length.out = max(layout[1] * layout[2], layout[2]))
         plots.per.page <- length(skip) - length(skip[skip])
-        layout[3] <- ceiling(nplots / plots.per.page) # + 1
-    }
-    else if (length(layout)==3)
-    {
-        if(layout[1] < 0 || layout[2] < 1 || layout[3] < 1)
-            stop("invalid value for layout")
+        min.page <- ceiling(nplots / plots.per.page) # + 1
+        if (length(layout) == 2)
+            layout[3] <- min.page
+        else ## length(layout) == 3
+        {
+            if (layout[3] < 1)
+                stop("invalid value for layout")
+            if (layout[3] > min.page)
+                warning("More pages in layout than seem to be necessary.")
+        }
     }
     layout
 }

@@ -1093,14 +1093,24 @@ bwplot(x, data, \dots)
         vector is 0, the second value is used as the desired number of
         panels per page and the actual layout is computed from this,
         taking into account the aspect ratio of the panels and the
-        device dimensions (via \code{par("din")}).  The number of pages
-        is by default set to as many as is required to plot all the
-        panels.  In general, giving a high value of \code{layout[3]} is
-        not wasteful because blank pages are never created.
+        device dimensions (via \code{\link{par}("din")}).  If \code{NA}
+        is specified for the number of rows or columns (but not both),
+        that dimension will be filled out according to the number of
+        panels.
 
-        If \code{NA} is specified for the number of rows or columns (not
-        both), that dimension will be filled out according to the number
-        of panels.
+	The number of pages is by default set to as many as is required
+        to plot all the panels, and so rarely needs to be specified.
+        However, in certain situations the default calculation may be
+        incorrect, and in that case the number of pages needs to be
+        specified explicitly.
+
+	%% Example: xyplot(yield~year|site, barley, layout = c(0, 5))
+	%% OK with some par("din"), but not others (e.g., square)
+	
+	%% NO LONGER TRUE: In general, giving a high value of
+        %% \code{layout[3]} is not wasteful because blank pages are
+        %% never created.
+
       }
       \item{\code{skip}:}{
         A logical vector (default \code{FALSE}), replicated to be as
