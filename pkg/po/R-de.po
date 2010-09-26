@@ -1,14 +1,14 @@
 # Translation of R-lattice.pot to German
-# Copyright (C) 2007 The R Foundation
+# Copyright (C) 2007-2010 The R Foundation
 # This file is distributed under the same license as the lattice R package.
 # Chris Leick <c.leick@vollbio.de>, 2009.
-#
+# Detlef Steuer <steuer@hsu-hh.de>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: R 2.5.0 / Lattice 0.17.23\n"
+"Project-Id-Version: R 2.12.0 / Lattice 0.19.11\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2010-09-02 05:05\n"
-"PO-Revision-Date: 2009-09-24 08:38+0100\n"
+"POT-Creation-Date: 2010-09-25 23:27\n"
+"PO-Revision-Date: 2010-09-22 16:18+0200\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "range too small for min.n"
-msgstr ""
+msgstr "Spannweite zu klein für min.n"
 
 msgid "'at' missing or incompatible with 'labels'"
 msgstr "»at« fehlt oder ist inkompatibel mit »labels«"
@@ -86,14 +86,15 @@ msgstr "»skip« kann nicht nur TRUE sein"
 msgid "layout must have at least 2 elements"
 msgstr "Layout muss mindestens 2 Elemente haben"
 
-msgid "inadmissible value of layout"
+#, fuzzy
+msgid "Inadmissible value of layout."
 msgstr "unzulässiger Wert des Layouts"
-
-msgid "at least one element of layout must be positive"
-msgstr "mindestens ein Element des Layouts muss positiv sein"
 
 msgid "invalid value for layout"
 msgstr "ungültiger Wert für Layout"
+
+msgid "More pages in layout than seem to be necessary."
+msgstr ""
 
 msgid "Density"
 msgstr "Dichte"
@@ -132,19 +133,16 @@ msgid "panel position unspecified or invalid"
 msgstr "Position des Bedienfeldes nicht angegeben oder ungültig"
 
 msgid "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
-msgstr ""
+msgstr "'trellis.switchFocus' kann nicht benutzt werden, um auf einen anderen 'prefix' zu schalten. Zuerst 'trellis.focus' benutzen"
 
-#, fuzzy
 msgid "Plot object was not saved, cannot retrieve panel data"
-msgstr "Aktueller Ausdruck wurde nicht gespeichert. Daten des Bedienfeldes können nicht abgefragt werden."
+msgstr "Plot-Objekt wurde nicht gespeichert. Panel Daten können nicht abgefragt werden."
 
-#, fuzzy
 msgid "Plot spans multiple pages, only last page can be updated"
-msgstr "Ausdruck umfasst mehrere Seiten. Nur die letzte Seite kann aktualisiert werden"
+msgstr "Plot umfasst mehrere Seiten. Nur die letzte Seite kann aktualisiert werden"
 
-#, fuzzy
 msgid "You have to first select a panel using trellis.focus()"
-msgstr "Sie müssen zuerst ein Bedienfeld auswählen, das trellis.focus() benutzt."
+msgstr "Sie müssen zuerst ein Panel mittels trellis.focus() auswählen."
 
 msgid "Selecting panel at position (%g, %g)"
 msgstr "Bedienfeld an Position (%g, %g) wird ausgewählt."
@@ -195,10 +193,10 @@ msgid "Invalid label.style"
 msgstr "Ungültiger label.style"
 
 msgid "'x' values are not equispaced; output may be wrong"
-msgstr ""
+msgstr "'x' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
 
 msgid "'y' values are not equispaced; output may be wrong"
-msgstr ""
+msgstr "'y' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
 
 msgid "x must be (coercible to be) a factor"
 msgstr "x muss (zwingend) ein Faktor sein"
@@ -239,9 +237,8 @@ msgstr "»a« und »b« wurden mit »coef« überschrieben"
 msgid "'expr' must be a function or an expression containing 'x'"
 msgstr "»expr« muss eine Funktion oder ein Ausdruck sein, der »x« enthält"
 
-#, fuzzy
 msgid "'varnames' has wrong length."
-msgstr "angegebene »dimnames« haben falsche Längen"
+msgstr "'varnames' hat falsche Länge"
 
 msgid "Parallel Coordinate Plot"
 msgstr "Plot paralleler Koordinaten"
@@ -274,9 +271,8 @@ msgstr "Angepasste Werte abzüglich Mittelwert"
 msgid "Residuals"
 msgstr "Residuen"
 
-#, fuzzy
 msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
-msgstr "die »at«- und »labels«-Komponenten der Skalen sind möglicherweise keine Listen, wenn »relation = same«"
+msgstr "die 'at'- und 'labels'-Komponenten der Skalen sind möglicherweise keine Listen, wenn 'relation = \"same\"'"
 
 msgid "limits cannot be a list when relation = same"
 msgstr "Begrenzungen können keine Liste sein, wenn »relation = same«"
@@ -350,9 +346,8 @@ msgstr "Mittelwert"
 msgid "difference"
 msgstr "Unterschied"
 
-#, fuzzy
 msgid "Requested 'trellis' object was not saved"
-msgstr "Derzeit ist kein Trellis-Objekt gespeichert"
+msgstr "Angefordertes Trellis-Objekt wurde nicht gespeichert"
 
 msgid "Inappropriate value of 'as.table'"
 msgstr "Unangemessener Wert von »as.table«"
@@ -411,6 +406,9 @@ msgid ""
 msgstr ""
 "Das grid-Paket konnte nicht geladen werden.\n"
 "Bitte prüfen Sie Ihre Installation von R."
+
+#~ msgid "at least one element of layout must be positive"
+#~ msgstr "mindestens ein Element des Layouts muss positiv sein"
 
 #~ msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
 #~ msgstr "»packet.number« und »panel.number« werden nicht länger an die »panel«-Funktion weitergereicht. Siehe ?packet.number"

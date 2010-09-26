@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2010-09-02 05:05\n"
+"POT-Creation-Date: 2010-09-25 23:26\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -86,14 +86,15 @@ msgstr "les valeurs de 'skip' ne peuvent pas toutes être 'TRUE'"
 msgid "layout must have at least 2 elements"
 msgstr "'layout' doit avoir au moins 2 éléments"
 
-msgid "inadmissible value of layout"
+#, fuzzy
+msgid "Inadmissible value of layout."
 msgstr "valeur impossible pour 'layout'"
-
-msgid "at least one element of layout must be positive"
-msgstr "au moins un des éléments de 'layout' doit être positif"
 
 msgid "invalid value for layout"
 msgstr "valeur incorrecte pour 'layout'"
+
+msgid "More pages in layout than seem to be necessary."
+msgstr ""
 
 msgid "Density"
 msgstr "Densité"
@@ -411,6 +412,9 @@ msgid ""
 msgstr ""
 "Le package grid ne peut être chargé.\n"
 "Veuillez vérifier votre installation de R"
+
+#~ msgid "at least one element of layout must be positive"
+#~ msgstr "au moins un des éléments de 'layout' doit être positif"
 
 #~ msgid "'packet.number' and 'panel.number' are no longer supplied to the panel function.  See ?packet.number"
 #~ msgstr "'packet.number' et 'panel.number' ne sont plus passés à la fonction panel. Voir ?packet.number"
