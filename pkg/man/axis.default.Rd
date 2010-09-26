@@ -113,12 +113,12 @@ axis.default(side = c("top", "bottom", "left", "right"),
 \details{
 
   These functions are part of a new API introduced in lattice 0.14 to
-  provide the user more control over how axis annotation is done.
-  While the API has been designed in anticipation of use that was
-  previously unsupported, the implementation has initially focused on
-  reproducing existing capabilities, rather then test new features.  At
-  the time of writing, several features are unimplemented.  If you
-  require them, please contact the maintainer.
+  provide the user more control over how axis annotation is done.  While
+  the API has been designed in anticipation of use that was previously
+  unsupported, the implementation has initially focused on reproducing
+  existing capabilities, rather than test new features.  At the time of
+  writing, several features are unimplemented.  If you require them,
+  please contact the maintainer.
 
 }
 
