@@ -38,7 +38,7 @@ states <- data.frame(state.x77,
 xyplot(Murder ~ Population | state.region, data = states, 
        groups = state.name,
        panel = function(x, y, subscripts, groups)  
-       ltext(x = x, y = y, label = groups[subscripts],
+       ltext(x = x, y = y, labels = groups[subscripts],
              cex=.9, fontfamily = "HersheySans", fontface = "italic"),
        par.strip.text = list(cex = 1.3, font = 4, col = "brown"),
        xlab = list("Estimated Population, July 1, 1975", font = 2),
@@ -56,7 +56,7 @@ levels(states$state.region) <-
 xyplot(Murder  ~ Population | state.region, data = states,
        groups = as.character(state.name),
        panel = function(x, y, subscripts, groups)
-       ltext(x = x, y = y, label = groups[subscripts], srt = -50, col = "blue",
+       ltext(x = x, y = y, labels = groups[subscripts], srt = -50, col = "blue",
              cex=.9, fontfamily = "HersheySans"),
        par.strip.text = list(cex = 1.3, font = 4, col = "brown", lines = 2),
        xlab = "Estimated Population\nJuly 1, 1975", 
@@ -79,14 +79,14 @@ wireframe(volcano, shade = TRUE,
           aspect = c(61/87, 0.4),
           screen = list(z = -120, x = -45),
           light.source = c(0,0,10), distance = .2,
-          shade.colors = function(irr, ref, height, w = .5)
+          shade.colors.palette = function(irr, ref, height, w = .5)
           grey(w * irr + (1 - w) * (1 - (1-ref)^.4)))
 
 ## 3-D surface parametrized on a 2-D grid
 
 n <- 50
-tx <- matrix(seq(-pi, pi, len = 2*n), 2*n, n)
-ty <- matrix(seq(-pi, pi, len = n) / 2, 2*n, n, byrow = T)
+tx <- matrix(seq(-pi, pi, length.out = 2*n), 2*n, n)
+ty <- matrix(seq(-pi, pi, length.out = n) / 2, 2*n, n, byrow = T)
 xx <- cos(tx) * cos(ty)
 yy <- sin(tx) * cos(ty)
 zz <- sin(ty)

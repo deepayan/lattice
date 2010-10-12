@@ -719,6 +719,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                  width = 2,
                  height = 1,
                  space = "right",
+                 raster = FALSE,
+                 interpolate = FALSE,
                  ...)
         {
             regions <- trellis.par.get("regions")
@@ -729,13 +731,15 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                  width = width,
                  height = height,
                  space = space,
+                 raster = raster,
+                 interpolate = interpolate,
                  ...)
         }
 
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
 
-    key <- do.call("process.key", key)
+    key <- do.call(process.key, key)
 
 ## FIXME: delete later
 #str(key)
@@ -773,6 +777,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     atrange <- range(key$at, finite = TRUE)
     scat <- as.numeric(key$at) ## problems otherwise with DateTime objects (?)
 
+    if (key$raster && !isTRUE(all.equal(diff(range(diff(scat))), 0)))
+        warning("'at' values are not equispaced; output may be wrong")
+
+    
     ## recnum <- length(scat)-1
     reccentre <- (scat[-1] + scat[-length(scat)]) / 2
     recdim <- diff(scat)
@@ -851,17 +859,29 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
 
         key.gf <- frameGrob(layout = key.layout, vp = vp)
 
-        key.gf <- placeGrob(key.gf,
-                            rectGrob(x = rep(.5, length(reccentre)), 
-                                     y = reccentre,
-                                     default.units = "native",
-                                     vp = viewport(yscale = atrange),
-                                     height = recdim, 
-                                     gp =
-                                     gpar(fill = key$col,
-                                          col = "transparent",
-                                          alpha = key$alpha)),
-                            row = 2, col = 1)
+        if (key$raster)
+        {
+            key.gf <- placeGrob(key.gf,
+                                rasterGrob(matrix(rev(key$col), ncol = 1),
+                                           width = 1, height = 1,
+                                           vp = viewport(clip = "on"),
+                                           interpolate = key$interpolate),
+                                row = 2, col = 1)
+        }
+        else
+        {
+            key.gf <- placeGrob(key.gf,
+                                rectGrob(x = rep(.5, length(reccentre)), 
+                                         y = reccentre,
+                                         default.units = "native",
+                                         vp = viewport(yscale = atrange),
+                                         height = recdim, 
+                                         gp =
+                                         gpar(fill = key$col,
+                                              col = "transparent",
+                                              alpha = key$alpha)),
+                                row = 2, col = 1)
+        }
         
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
@@ -927,17 +947,29 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         
         key.gf <- frameGrob(layout = key.layout, vp = vp)
 
-        key.gf <- placeGrob(key.gf,
-                            rectGrob(x = rep(.5, length(reccentre)), 
-                                     y = reccentre,
-                                     default.units = "native",
-                                     vp = viewport(yscale = atrange),
-                                     height = recdim, 
-                                     gp =
-                                     gpar(fill = key$col,
-                                          col = "transparent",
-                                          alpha = key$alpha)),
-                            row = 2, col = 3)
+        if (key$raster)
+        {
+            key.gf <- placeGrob(key.gf,
+                                rasterGrob(matrix(rev(key$col), ncol = 1),
+                                           width = 1, height = 1,
+                                           vp = viewport(clip = "on"),
+                                           interpolate = key$interpolate),
+                                row = 2, col = 3)
+        }
+        else
+        {
+            key.gf <- placeGrob(key.gf,
+                                rectGrob(x = rep(.5, length(reccentre)), 
+                                         y = reccentre,
+                                         default.units = "native",
+                                         vp = viewport(yscale = atrange),
+                                         height = recdim, 
+                                         gp =
+                                         gpar(fill = key$col,
+                                              col = "transparent",
+                                              alpha = key$alpha)),
+                                row = 2, col = 3)
+        }
         
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
@@ -1000,17 +1032,29 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         
         key.gf <- frameGrob(layout = key.layout, vp = vp)
 
-        key.gf <- placeGrob(key.gf,
-                            rectGrob(y = rep(.5, length(reccentre)), 
-                                     x = reccentre,
-                                     default.units = "native",
-                                     vp = viewport(xscale = atrange),
-                                     width = recdim, 
-                                     gp =
-                                     gpar(fill = key$col,
-                                          col = "transparent",
-                                          alpha = key$alpha)),
-                            row = 3, col = 2)
+        if (key$raster)
+        {
+            key.gf <- placeGrob(key.gf,
+                                rasterGrob(matrix(key$col, nrow = 1),
+                                           width = 1, height = 1,
+                                           vp = viewport(clip = "on"),
+                                           interpolate = key$interpolate),
+                                row = 3, col = 2)
+        }
+        else
+        {
+            key.gf <- placeGrob(key.gf,
+                                rectGrob(y = rep(.5, length(reccentre)), 
+                                         x = reccentre,
+                                         default.units = "native",
+                                         vp = viewport(xscale = atrange),
+                                         width = recdim, 
+                                         gp =
+                                         gpar(fill = key$col,
+                                              col = "transparent",
+                                              alpha = key$alpha)),
+                                row = 3, col = 2)
+        }
         
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
@@ -1074,18 +1118,30 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         
         key.gf <- frameGrob(layout = key.layout, vp = vp)
 
-        key.gf <- placeGrob(key.gf,
-                            rectGrob(y = rep(.5, length(reccentre)), 
-                                     x = reccentre,
-                                     default.units = "native",
-                                     vp = viewport(xscale = atrange),
-                                     width = recdim, 
-                                     gp =
-                                     gpar(fill = key$col,
-                                          col = "transparent",
-                                          alpha = key$alpha)),
-                            row = 1, col = 2)
-
+        if (key$raster)
+        {
+            key.gf <- placeGrob(key.gf,
+                                rasterGrob(matrix(key$col, nrow = 1),
+                                           width = 1, height = 1,
+                                           vp = viewport(clip = "on"),
+                                           interpolate = key$interpolate),
+                                row = 1, col = 2)
+        }
+        else
+        {
+            key.gf <- placeGrob(key.gf,
+                                rectGrob(y = rep(.5, length(reccentre)), 
+                                         x = reccentre,
+                                         default.units = "native",
+                                         vp = viewport(xscale = atrange),
+                                         width = recdim, 
+                                         gp =
+                                         gpar(fill = key$col,
+                                              col = "transparent",
+                                              alpha = key$alpha)),
+                                row = 1, col = 2)
+        }
+        
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
