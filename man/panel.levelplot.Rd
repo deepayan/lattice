@@ -121,8 +121,11 @@ panel.levelplot.raster(x, y, z,
 
   \code{panel.levelplot.raster} is an alternative panel function that
   uses the raster drawing abilities in R 2.11.0 and higher (through
-  \code{\link{grid.raster}}).  It has fewer options (e.g., can only render
-  data on an equispaced grid), but can be more efficient. 
+  \code{\link{grid.raster}}).  It has fewer options (e.g., can only
+  render data on an equispaced grid), but can be more efficient.  When
+  using \code{panel.levelplot.raster}, it may be desirable to render the
+  color key in the same way.  This is possible, but must be done
+  separately; see \code{\link{levelplot}} for details.
 
 }
 

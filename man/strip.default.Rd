@@ -5,8 +5,6 @@
 \usage{
 strip.default(which.given,
               which.panel,
-%               packet.number,
-%               panel.number,
               var.name,
               factor.levels,
               shingle.intervals,

@@ -190,6 +190,15 @@ contourplot(x, data, \dots)
       \item{\code{width}:}{ width of the key }
 
       \item{\code{height}:}{ length of key w.r.t side of plot. }
+
+      \item{\code{raster}:}{ Logical flag indicating whether the
+	colorkey should be rendered as a raster image using
+	\code{\link{grid.raster}}.  See also
+	\code{\link{panel.levelplot.raster}}. }
+
+      \item{\code{interpolate}:}{ Logical flag, passed to
+	\code{\link{rasterGrob}} when \code{raster=TRUE}. }
+
     }
   }
   \item{contour}{
