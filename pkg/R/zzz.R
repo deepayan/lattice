@@ -23,7 +23,7 @@
 assign("lattice.status",  list(), envir = .LatticeEnv)
 assign("lattice.theme",   list(), envir = .LatticeEnv)
 assign("lattice.options", list(), envir = .LatticeEnv)
-assign("last.object",     NULL,   envir = .LatticeEnv)
+## assign("last.object",     NULL,   envir = .LatticeEnv)
 
 
 
