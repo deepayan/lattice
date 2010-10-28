@@ -19,11 +19,14 @@
 
 ## Can't think of a way to ensure partial matching except by doing it explicitly
 
-complete_names <- function(x, template)
+complete_names <- function(x, template, allow.invalid = FALSE)
 {
     pid <- pmatch(names(x), names(template), duplicates.ok = TRUE)
-    if (any(is.na(pid))) stop("Invalid or ambiguous component name in 'scales'")
-    if (any(duplicated(pid))) stop("Multiple matches to component name in 'scales'")
+    if (any(is.na(pid))) {
+        if (allow.invalid) pid <- pid[!is.na(pid)]
+        else stop("Invalid or ambiguous component name")
+    }
+    if (any(duplicated(pid))) stop("Multiple matches to component name")
     names(x) <- names(template)[pid]
     x
 }
