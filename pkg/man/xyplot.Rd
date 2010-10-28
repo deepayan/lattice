@@ -866,32 +866,36 @@ bwplot(x, data, \dots)
         list itself can contain graphical parameters, these would be used if
         relevant graphical components are omitted from the other components.
 
-        The length (number of rows) of each such column (except \code{"text"}s)
-        is taken to be the largest of the lengths of the graphical
-        components, including the ones specified outside (see the entry for
-        \code{rep} below for details on this). The \code{"text"} component has to
-        have a character or expression vector as its first component, and
-        the length of this vector determines the number of rows.
+        The length (number of rows) of each such column (except
+        \code{"text"}s) is taken to be the largest of the lengths of the
+        graphical components, including the ones specified outside (see
+        the entry for \code{rep} below for details on this). The
+        \code{"text"} component must have a character or expression
+        vector as its first component, to be used as labels.  The length
+        of this vector determines the number of rows.
 
-        The graphical components that can be included in \code{key} (and
+        The graphical components that can be included in \code{key} and
         also in the components named \code{"text"}, \code{"lines"},
-        \code{"points"} and \code{"rectangles"} as appropriate) are:
+        \code{"points"} and \code{"rectangles"} (as appropriate) are:
 
         \itemize{
-          \item \code{cex=1}
-          \item \code{col="black"}
-          \item \code{alpha=1}
-          \item \code{lty=1}
-          \item \code{lwd=1}
-          \item \code{font=1}
-          \item \code{fontface}
-          \item \code{fontfamily}
-          \item \code{pch=8}
-          \item \code{adj=0}
-          \item \code{type="l"}
-          \item \code{size=5}
-          \item \code{angle=0}
-          \item \code{density=-1}
+          \item \code{cex=1} (text, lines, points)
+          \item \code{col="black"} (text, rectangles, lines, points)
+          \item \code{alpha=1} (text, rectangles, lines, points)
+          \item \code{fill="transparent"} (lines, points)
+          \item \code{lty=1} (lines)
+          \item \code{lwd=1} (lines, points)
+          \item \code{font=1} (text, points)
+          \item \code{fontface} (text, points)
+          \item \code{fontfamily} (text, points)
+          \item \code{pch=8} (lines, points)
+          \item \code{adj=0} (text)
+          \item \code{type="l"} (lines)
+          \item \code{size=5} (rectangles, lines)
+          \item \code{height=1} (rectangles)
+	  \item \code{lineheight=1} (text)
+          \item \code{angle=0} (rectangles, but ignored)
+          \item \code{density=-1} (rectangles, but ignored)
         }
 
         In addition, the component \code{border} can be included inside
@@ -903,7 +907,8 @@ bwplot(x, data, \dots)
         determines the width of columns of rectangles and lines in
         character widths. \code{type} is relevant for lines; \code{"l"}
         denotes a line, \code{"p"} denotes a point, and \code{"b"} and
-        \code{"o"} both denote both together.
+        \code{"o"} both denote both together. \code{height} gives
+        heights of rectangles as a fraction of the default.
 
         Other possible components of \code{key} are:
 

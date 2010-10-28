@@ -166,10 +166,10 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  fill = "transparent",
                  adj = 0,
                  type = "l", 
-                 size = 5, 
+                 size = 5,
+                 height = 1,
                  angle = 0, 
                  density = -1,
-                 ...,
                  reverse.rows = FALSE, ## invert rows (e.g. for barchart, stack = FALSE)
                  between = 2,
                  between.columns = 3,
@@ -180,7 +180,8 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  padding.text = 1,
                  lineheight = 1,
                  fontface = NULL, 
-                 fontfamily = NULL)
+                 fontfamily = NULL,
+                 ...)
         {
             list(reverse.rows = reverse.rows,
                  between = between,
@@ -209,7 +210,8 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  pch = pch,
                  adj = adj,
                  type = type, 
-                 size = size, 
+                 size = size,
+                 height = height,
                  angle = angle, 
                  density = density,
                  ...)
@@ -238,7 +240,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         else if (curname == 1) # "text"
         {
             if (!(is.characterOrExpression(key[[i]][[1]])))
-                stop("first component of text has to be vector of labels")
+                stop("first component of text must be vector of labels")
             pars <-
                 list(labels = key[[i]][[1]],
                      col = key$col,
@@ -250,6 +252,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                      fontface = key$fontface,
                      fontfamily = key$fontfamily)
             key[[i]][[1]] <- NULL
+            key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
             tmplen <- length(pars$labels)
             for (j in 1:length(pars))
@@ -266,8 +269,10 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                      border = "black",
                      alpha = key$alpha,
                      size = key$size,
+                     height = key$height,
                      angle = key$angle,
                      density = key$density)
+            key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
             tmplen <- max(unlist(lapply(pars,length)))
             max.length <- max(max.length, tmplen)
@@ -286,6 +291,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                      fill = key$fill,
                      lwd = key$lwd,
                      type = key$type)
+            key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
             tmplen <- max(unlist(lapply(pars,length)))
             max.length <- max(max.length, tmplen)
@@ -298,10 +304,12 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                          alpha = key$alpha,
                          cex = key$cex,
                          pch = key$pch,
+                         lwd = key$lwd,
                          fill = key$fill,
                          font = key$font,
                          fontface = key$fontface,
                          fontfamily = key$fontfamily)
+            key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
             tmplen <- max(unlist(lapply(pars,length)))
             max.length <- max(max.length, tmplen)
@@ -310,8 +318,6 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         }
     }
 
-
-    
     number.of.components <- length(components)
     ## number of components named one of "text",
     ## "lines", "rectangles" or "points"
@@ -329,7 +335,6 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
     ## argument to the key list, which controls whether each column
     ## will be repeated as necessary to have the same length.
 
-    
     for (i in seq_len(number.of.components))
     {
         if (key$rep && (components[[i]]$type != "text"))
@@ -564,7 +569,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                 {
                     key.gf <-
                         placeGrob(key.gf, 
-                                  rectGrob(width = cur$pars$size[j] / max(cur$pars$size),
+                                  rectGrob(height = cur$pars$height[j],
+                                           width = cur$pars$size[j] / max(cur$pars$size),
+                                           default.units = "npc",
                                            ## centred, unlike S-PLUS, due to aesthetic reasons !
                                            gp = gpar(alpha = cur$pars$alpha[j],
                                                      fill = cur$pars$col[j],
@@ -684,6 +691,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                              gpar(col = cur$pars$col[j],
                                                   alpha = cur$pars$alpha[j],
                                                   cex = cur$pars$cex[j],
+                                                  lwd = cur$pars$lwd[j],
                                                   fill = cur$pars$fill[j],
                                                   fontfamily = cur$pars$fontfamily[j],
                                                   fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
@@ -694,7 +702,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
             }
         }
     }
-    else stop("sorry, align=F not supported (yet ?)")
+    else stop("Sorry, align=FALSE is not supported")
     if (draw) grid.draw(key.gf)
     key.gf
 }

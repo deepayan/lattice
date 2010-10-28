@@ -758,7 +758,7 @@ panel.average <-
              type = "l", ## ignored
              ...)
 {
-    ## FIXME: pretty sure this can be made more readable using tapply
+    ## FIXME: pretty sure this can be made more readable using tapply (or aggregate)
     x <- as.numeric(x)
     y <- as.numeric(y)
 
