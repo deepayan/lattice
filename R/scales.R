@@ -17,83 +17,75 @@
 ### MA 02110-1301, USA
 
 
+## Can't think of a way to ensure partial matching except by doing it explicitly
 
-
-construct.scales <-
-    function(draw = TRUE,
-             axs = "r",
-             tck = 1,
-             tick.number = 5,
-             lty = FALSE, lwd = FALSE,
-             cex = FALSE,
-             rot = FALSE,
-             at = FALSE,
-             labels = FALSE,
-             col = FALSE,
-             col.line = col,
-             alpha = FALSE,
-             alpha.line = alpha,
-             log = FALSE,
-             font = FALSE,
-             fontfamily = FALSE,
-             fontface = FALSE,
-             lineheight = FALSE,
-             alternating = TRUE,
-             relation = "same",
-             abbreviate = FALSE,
-             minlength = 4,
-             limits = NULL,
-             format = NULL,
-             x = NULL,
-             y = NULL,
-             ...)   ## FIXME: how to handle ...
+complete_names <- function(x, template)
 {
-    xfoo <- list(draw = draw, axs = axs, tck = tck,
-                 tick.number = tick.number,
-                 lty = lty, lwd = lwd,
-                 cex = cex,
-                 rot = rot,
-                 font = font,
-                 fontfamily = fontfamily, fontface = fontface,
-                 lineheight = lineheight,
-                 at = at, labels = labels,
-                 col = col, col.line = col.line,
-                 alpha = alpha, alpha.line = alpha.line,
-                 log = log,
-                 alternating = alternating,
-                 relation = relation,
-                 abbreviate = abbreviate,
-                 minlength = minlength,
-                 limits = limits,
-                 format = format)
-    yfoo <- xfoo
-    if (!is.null(x)) {
-        if (is.character(x)) x <- list(relation = x)
-        xfoo[names(x)] <- x
-    }
-    if (is.logical(xfoo$alternating))
-        xfoo$alternating <-
-            if (xfoo$alternating) c(1,2)
-            else 1
-    if (!is.null(y)) {
-        if (is.character(y)) y <- list(relation = y)
-        yfoo[names(y)] <- y
-    }
-    if (is.logical(yfoo$alternating))
-        yfoo$alternating <-
-            if (yfoo$alternating) c(1,2)
-            else 1
-    for (nm in c("tck", "cex", "rot")) {
-        xfoo[[nm]] <- rep(xfoo[[nm]], length.out = 2)
-        yfoo[[nm]] <- rep(yfoo[[nm]], length.out = 2)
-    }
-    if (xfoo$relation == "same" && (is.list(xfoo$at) || is.list(xfoo$labels)))
-        stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
-    if (yfoo$relation == "same" && (is.list(yfoo$at) || is.list(yfoo$labels)))
-        stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
-    list(x.scales = xfoo, y.scales = yfoo)
+    pid <- pmatch(names(x), names(template), duplicates.ok = TRUE)
+    if (any(is.na(pid))) stop("Invalid or ambiguous component name in 'scales'")
+    if (any(duplicated(pid))) stop("Multiple matches to component name in 'scales'")
+    names(x) <- names(template)[pid]
+    x
 }
 
+    
+## FIXME: how should we handle unrecognized arguments?
+
+construct.scales <-
+    function(draw = TRUE, axs = "r", tck = 1, tick.number = 5,
+             at = FALSE, labels = FALSE, log = FALSE,
+             alternating = TRUE, relation = "same",
+             abbreviate = FALSE, minlength = 4,
+             limits = NULL, format = NULL, 
+
+             lty = FALSE, lwd = FALSE, cex = FALSE, rot = FALSE,
+             col = FALSE, col.line = col, alpha = FALSE, alpha.line = alpha,
+             font = FALSE, fontfamily = FALSE, fontface = FALSE, lineheight = FALSE,
+
+             ...,  ## NOTE: ... is currently ignored
+             x = NULL, y = NULL)
+{
+    ## top-level values
+    x.scales <- y.scales <-
+        list(draw = draw, axs = axs, tck = tck, tick.number = tick.number,
+             at = at, labels = labels, log = log,
+             alternating = alternating, relation = relation,
+             abbreviate = abbreviate, minlength = minlength,
+             limits = limits, format = format, 
+             lty = lty, lwd = lwd, cex = cex, rot = rot,
+             col = col, col.line = col.line, alpha = alpha, alpha.line = alpha.line,
+             font = font, fontfamily = fontfamily, fontface = fontface, lineheight = lineheight)
+    ## override by component-specific values
+    if (!is.null(x))
+    {
+        if (is.character(x)) x <- list(relation = x)
+        x <- complete_names(x, x.scales)
+        x.scales[names(x)] <- x
+    }
+    if (!is.null(y))
+    {
+        if (is.character(y)) y <- list(relation = y)
+        y <- complete_names(y, y.scales)
+        y.scales[names(y)] <- y
+    }
+    if (is.logical(x.scales$alternating))
+        x.scales$alternating <-
+            if (x.scales$alternating) c(1,2)
+            else 1
+    if (is.logical(y.scales$alternating))
+        y.scales$alternating <-
+            if (y.scales$alternating) c(1,2)
+            else 1
+    for (nm in c("tck", "cex", "rot")) {
+        x.scales[[nm]] <- rep(x.scales[[nm]], length.out = 2)
+        y.scales[[nm]] <- rep(y.scales[[nm]], length.out = 2)
+    }
+    if (x.scales$relation == "same" && (is.list(x.scales$at) || is.list(x.scales$labels)))
+        stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
+    if (y.scales$relation == "same" && (is.list(y.scales$at) || is.list(y.scales$labels)))
+        stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
+    list(x.scales = x.scales, y.scales = y.scales)
+}
 
 
 
@@ -122,42 +114,47 @@ construct.3d.scales <-
              format = NULL,
              abbreviate = FALSE,
              minlength = 4,
+             ...,
              x = NULL,
              y = NULL,
-             z = NULL,
-             ...)
+             z = NULL)
 {
-    xfoo <- list(draw = draw, axs = axs, tck = tck,
-                 lty = lty, lwd = lwd,
-                 tick.number = tick.number,
-                 cex = cex, rot = rot, font = font,
-                 fontfamily = fontfamily, fontface = fontface,
-                 lineheight = lineheight,
-                 at = at, labels = labels,
-                 col = col, col.line = col.line,
-                 alpha = alpha, alpha.line = alpha.line,
-                 log = log, arrows = arrows,
-                 relation = relation, format = format,
-                 abbreviate = abbreviate, minlength = minlength)
-    yfoo <- xfoo
-    zfoo <- xfoo
+    x.scales <- y.scales <- z.scales <- 
+        list(draw = draw, axs = axs, tck = tck,
+             lty = lty, lwd = lwd,
+             tick.number = tick.number,
+             cex = cex, rot = rot, font = font,
+             fontfamily = fontfamily, fontface = fontface,
+             lineheight = lineheight,
+             at = at, labels = labels,
+             col = col, col.line = col.line,
+             alpha = alpha, alpha.line = alpha.line,
+             log = log, arrows = arrows,
+             relation = relation, format = format,
+             abbreviate = abbreviate, minlength = minlength)
     distance <- rep(distance, length.out = 3)
-    xfoo$distance <- distance[1]
-    yfoo$distance <- distance[2]
-    zfoo$distance <- distance[3]
-    if (!is.null(x)) {
+    x.scales$distance <- distance[1]
+    y.scales$distance <- distance[2]
+    z.scales$distance <- distance[3]
+    if (!is.null(x))
+    {
         if (is.character(x)) x <- list(relation = x)
-        xfoo[names(x)] <- x
+        x <- complete_names(x, x.scales)
+        x.scales[names(x)] <- x
     }
-    if (!is.null(y)) {
+    if (!is.null(y))
+    {
         if (is.character(y)) y <- list(relation = y)
-        yfoo[names(y)] <- y
+        y <- complete_names(y, y.scales)
+        y.scales[names(y)] <- y
     }
-    if (!is.null(z)) {
+    if (!is.null(z))
+    {
         if (is.character(z)) z <- list(relation = z)
-        zfoo[names(z)] <- z
+        z <- complete_names(z, z.scales)
+        z.scales[names(z)] <- z
     }
-    list(x.scales = xfoo, y.scales = yfoo, z.scales = zfoo)
+    list(x.scales = x.scales, y.scales = y.scales, z.scales = z.scales)
 }
 
 
