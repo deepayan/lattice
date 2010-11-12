@@ -175,13 +175,17 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  between.columns = 3,
                  columns = 1,
                  cex = 1,
-                 cex.title = 1.5 * max(cex),
-                 lines.title = 2,
+                 cex.title = 1.5 * max(cex),                 
                  padding.text = 1,
                  lineheight = 1,
                  fontface = NULL, 
                  fontfamily = NULL,
-                 ...)
+                 
+                 ## to avoid partial matching, anything starting with
+                 ## lines, points, rect, text must come after ...
+
+                 ...,
+                 lines.title = 2)
         {
             list(reverse.rows = reverse.rows,
                  between = between,
@@ -197,7 +201,6 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  between.columns = between.columns,
                  cex = cex,
                  cex.title = cex.title,
-                 lines.title = lines.title,
                  padding.text = padding.text,
                  col = col,
                  alpha = alpha,
@@ -214,6 +217,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  height = height,
                  angle = angle, 
                  density = density,
+                 lines.title = lines.title,
                  ...)
         }
 
