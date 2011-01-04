@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: R 2.12.0\n"
+"Project-Id-Version: R 2.13.0\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2010-09-25 23:32\n"
+"POT-Creation-Date: 2010-12-18 21:29\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -164,7 +164,7 @@ msgstr ""
 msgid "key must be a list"
 msgstr ""
 
-msgid "first component of text has to be vector of labels"
+msgid "first component of text must be vector of labels"
 msgstr ""
 
 msgid "Invalid key, need at least one component named lines, text, rect or points"
@@ -173,7 +173,10 @@ msgstr ""
 msgid "not enough rows for columns"
 msgstr ""
 
-msgid "sorry, align=F not supported (yet ?)"
+msgid "Sorry, align=FALSE is not supported"
+msgstr ""
+
+msgid "'at' values are not equispaced; output may be wrong"
 msgstr ""
 
 msgid "malformed colorkey"
@@ -258,6 +261,15 @@ msgid "Fitted Values minus Mean"
 msgstr ""
 
 msgid "Residuals"
+msgstr ""
+
+msgid "Invalid or ambiguous component names:"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "Multiple matches to component name"
 msgstr ""
 
 msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
