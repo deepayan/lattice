@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2010-09-25 23:26\n"
+"POT-Creation-Date: 2010-12-18 21:29\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -176,7 +176,8 @@ msgstr "la composante '%s' est redondante dans 'key' et 'legend'"
 msgid "key must be a list"
 msgstr "'key' doit être une liste"
 
-msgid "first component of text has to be vector of labels"
+#, fuzzy
+msgid "first component of text must be vector of labels"
 msgstr "la première composante de 'text' doit être un vecteur d'étiquettes"
 
 msgid "Invalid key, need at least one component named lines, text, rect or points"
@@ -185,8 +186,12 @@ msgstr "'key' incorrecte, besoin d'une composante parmi 'lines', 'text', 'rect' 
 msgid "not enough rows for columns"
 msgstr "trop peu de lignes pour le nombre de colonnes"
 
-msgid "sorry, align=F not supported (yet ?)"
+#, fuzzy
+msgid "Sorry, align=FALSE is not supported"
 msgstr "désolé, 'align=FALSE' n'est pas (encore ?) disponible"
+
+msgid "'at' values are not equispaced; output may be wrong"
+msgstr ""
 
 msgid "malformed colorkey"
 msgstr "'colorkey' inadéquat"
@@ -273,6 +278,15 @@ msgstr "Valeurs ajustées moins la moyenne"
 
 msgid "Residuals"
 msgstr "Résidus"
+
+msgid "Invalid or ambiguous component names:"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "Multiple matches to component name"
+msgstr ""
 
 #, fuzzy
 msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"

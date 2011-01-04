@@ -737,12 +737,16 @@ panel.bwplot <-
                       ybot + notch.frac * blist.height / 2,
                       ybot, ybot, ytop, ytop,
                       ytop - notch.frac * blist.height / 2)
-        xs <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        ys <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        xs[seq(along.with = levels.fos, by = 2), ] <- xbnd[seq(along.with = levels.fos), ]
-        ys[seq(along.with = levels.fos, by = 2), ] <- ybnd[seq(along.with = levels.fos), ]
+        ## xs <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        ## ys <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        ## xs[seq(along.with = levels.fos, by = 2), ] <- xbnd[seq(along.with = levels.fos), ]
+        ## ys[seq(along.with = levels.fos, by = 2), ] <- ybnd[seq(along.with = levels.fos), ]
 
         ## box
+
+        ## append NA-s to demarcate between boxes
+        xs <- cbind(xbnd, NA_real_)
+        ys <- cbind(ybnd, NA_real_)
 
         panel.polygon(t(xs), t(ys),
                       lwd = box.rectangle$lwd,
@@ -845,12 +849,16 @@ panel.bwplot <-
                       xright - notch.frac * blist.height / 2,
                       xright, xright, xleft, xleft,
                       xleft + notch.frac * blist.height / 2)
-        xs <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        ys <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
-        xs[seq(along.with = levels.fos, by = 2), ] <- xbnd[seq(along.with = levels.fos), ]
-        ys[seq(along.with = levels.fos, by = 2), ] <- ybnd[seq(along.with = levels.fos), ]
+        ## xs <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        ## ys <- matrix(NA_real_, nrow = nrow(xbnd) * 2, ncol = ncol(xbnd))
+        ## xs[seq(along.with = levels.fos, by = 2), ] <- xbnd[seq(along.with = levels.fos), ]
+        ## ys[seq(along.with = levels.fos, by = 2), ] <- ybnd[seq(along.with = levels.fos), ]
 
         ## box
+
+        ## append NA-s to demarcate between boxes
+        xs <- cbind(xbnd, NA_real_)
+        ys <- cbind(ybnd, NA_real_)
 
         panel.polygon(t(xs), t(ys),
                       lwd = box.rectangle$lwd,

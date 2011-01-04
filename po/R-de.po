@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.12.0 / Lattice 0.19.11\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2010-09-25 23:27\n"
+"POT-Creation-Date: 2010-12-18 21:29\n"
 "PO-Revision-Date: 2010-09-22 16:18+0200\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -171,7 +171,8 @@ msgstr "Komponente »%s« doppelt in Schlüssel und Beschriftung"
 msgid "key must be a list"
 msgstr "Schlüssel muss eine Liste sein"
 
-msgid "first component of text has to be vector of labels"
+#, fuzzy
+msgid "first component of text must be vector of labels"
 msgstr "erste Komponente des Textes muss ein Vektor aus Bezeichnungen sein"
 
 msgid "Invalid key, need at least one component named lines, text, rect or points"
@@ -180,8 +181,13 @@ msgstr "Ungültiger Schlüssel. Es wird mindestens eine Komponente mit Namen »l
 msgid "not enough rows for columns"
 msgstr "nicht genug Zeilen für Spalten"
 
-msgid "sorry, align=F not supported (yet ?)"
+#, fuzzy
+msgid "Sorry, align=FALSE is not supported"
 msgstr "Entschuldigung. align=F wird (noch?) nicht unterstützt."
+
+#, fuzzy
+msgid "'at' values are not equispaced; output may be wrong"
+msgstr "'x' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
 
 msgid "malformed colorkey"
 msgstr "missgestalteter Farbschlüssel"
@@ -270,6 +276,15 @@ msgstr "Angepasste Werte abzüglich Mittelwert"
 
 msgid "Residuals"
 msgstr "Residuen"
+
+msgid "Invalid or ambiguous component names:"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "Multiple matches to component name"
+msgstr ""
 
 msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
 msgstr "die 'at'- und 'labels'-Komponenten der Skalen sind möglicherweise keine Listen, wenn 'relation = \"same\"'"
