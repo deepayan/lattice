@@ -230,6 +230,7 @@ panel.rug <-
              x.units = rep("npc", 2),
              y.units = rep("npc", 2),
              col = plot.line$col,
+             col.line = col,
              lty = plot.line$lty,
              lwd = plot.line$lwd,
              alpha = plot.line$alpha,
@@ -245,7 +246,7 @@ panel.rug <-
         grid.segments(x0 = unit(x, "native"), x1 = unit(x, "native"),
                       y0 = unit(start, x.units[1]), y1 = unit(end, x.units[2]),
                       gp =
-                      gpar(col = col, lty = lty,
+                      gpar(col = col.line, lty = lty,
                            lwd = lwd, alpha = alpha))
     }
     if (!is.null(y))
@@ -253,11 +254,10 @@ panel.rug <-
         grid.segments(y0 = unit(y, "native"), y1 = unit(y, "native"),
                       x0 = unit(start, y.units[1]), x1 = unit(end, y.units[2]),
                       gp =
-                      gpar(col = col, lty = lty,
+                      gpar(col = col.line, lty = lty,
                            lwd = lwd, alpha = alpha))
     }
 }
-
 
 
 
