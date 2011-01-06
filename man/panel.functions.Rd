@@ -1,20 +1,22 @@
 \name{F_2_panel.functions}
 \alias{panel.functions}
+%% Not data-dependent
 \alias{panel.abline}
 \alias{panel.refline}
 \alias{panel.curve}
-\alias{panel.rug}
 \alias{panel.fill}
 \alias{panel.grid}
+\alias{panel.mathdensity}
+%% Data-dependent
+\alias{panel.rug}
 \alias{panel.lmline}
 \alias{panel.loess}
 \alias{panel.average}
 \alias{panel.linejoin}
-\alias{panel.mathdensity}
-\title{Useful Panel Functions}
+\title{Useful Panel Function Components}
 \description{
   These are predefined panel functions available in lattice for use in
-  constructing new panel functions (usually on-the-fly).
+  constructing new panel functions (often on-the-fly).
 }
 \usage{
 
@@ -36,7 +38,7 @@ panel.rug(x = NULL, y = NULL,
           end = if (regular) 0.03 else 1,
           x.units = rep("npc", 2),
           y.units = rep("npc", 2),
-          col, lty, lwd, alpha,
+          col, col.line, lty, lwd, alpha,
           \dots)
 panel.average(x, y, fun = mean, horizontal = TRUE,
               lwd, lty, col, col.line, type,
