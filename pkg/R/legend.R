@@ -837,29 +837,32 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     else stop("malformed colorkey")
 
     labscat <- at
+    do.labels <- (length(labscat) > 0)
 
-    if (key$space == "right") {
-
+    if (key$space == "right")
+    {
         labelsGrob <-
-            textGrob(label = labels,
-                     x = rep(0, length(labscat)),
-                     y = labscat,
-                     vp = viewport(yscale = atrange),
-                     default.units = "native",
-                     check.overlap = check.overlap,
-                     just = if (rot == -90) c("center", "bottom") else c("left", "center"),
-                     rot = rot,
-                     gp =
-                     gpar(col = col,
-                          cex = cex,
-                          fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font),
-                          lineheight = lineheight))
+            if (do.labels)
+                textGrob(label = labels,
+                         x = rep(0, length(labscat)),
+                         y = labscat,
+                         vp = viewport(yscale = atrange),
+                         default.units = "native",
+                         check.overlap = check.overlap,
+                         just = if (rot == -90) c("center", "bottom") else c("left", "center"),
+                         rot = rot,
+                         gp =
+                         gpar(col = col,
+                              cex = cex,
+                              fontfamily = fontfamily,
+                              fontface = chooseFace(fontface, font),
+                              lineheight = lineheight))
+            else nullGrob()
 
         heights.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         heights.units <- rep("null", 3)
 
-        widths.x <- c(.6 * key$width, .6, 1)
+        widths.x <- c(0.6 * key$width, do.labels * 0.6, do.labels * 1)
         widths.units <- c("lines", "lines", "grobwidth")
         widths.data <- list(NULL, NULL, labelsGrob)
         
@@ -870,7 +873,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         respect = TRUE)
 
         key.gf <- frameGrob(layout = key.layout, vp = vp)
-
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
@@ -894,7 +896,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                               alpha = key$alpha)),
                                 row = 2, col = 1)
         }
-        
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
@@ -903,51 +904,49 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                           alpha = axis.line$alpha,
                                           fill = "transparent")),
                             row = 2, col = 1)
-
-
-        key.gf <- placeGrob(frame = key.gf, 
-                            segmentsGrob(x0 = rep(0, length(labscat)),
-                                         y0 = labscat,
-                                         x1 = rep(.4, length(labscat)),
-                                         y1 = labscat,
-                                         vp = viewport(yscale = atrange),
-                                         default.units = "native",
-                                         gp =
-                                         gpar(col = axis.line$col,
-                                              lty = axis.line$lty,
-                                              lwd = axis.line$lwd)),
-                            row = 2, col = 2)
-        
-        key.gf <- placeGrob(key.gf,
-                            labelsGrob, 
-                            row = 2, col = 3)
-#        key.gf <- placeGrob(key.gf,
-#                            rectGrob(), 
-#                            row = 2, col = 3)
-
+        if (do.labels)
+        {
+            key.gf <- placeGrob(frame = key.gf, 
+                                segmentsGrob(x0 = rep(0, length(labscat)),
+                                             y0 = labscat,
+                                             x1 = rep(.4, length(labscat)),
+                                             y1 = labscat,
+                                             vp = viewport(yscale = atrange),
+                                             default.units = "native",
+                                             gp =
+                                             gpar(col = axis.line$col,
+                                                  lty = axis.line$lty,
+                                                  lwd = axis.line$lwd)),
+                                row = 2, col = 2)
+            key.gf <- placeGrob(key.gf,
+                                labelsGrob, 
+                                row = 2, col = 3)
+        }
     }
-    else if (key$space == "left") {
-
+    else if (key$space == "left")
+    {
         labelsGrob <-
-            textGrob(label = labels,
-                     x = rep(1, length(labscat)),
-                     y = labscat,
-                     vp = viewport(yscale = atrange),
-                     default.units = "native",
-                     check.overlap = check.overlap,
-                     just = if (rot == 90) c("center", "bottom") else c("right", "center"),
-                     rot = rot,
-                     gp =
-                     gpar(col = col,
-                          cex = cex,
-                          fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font),
-                          lineheight = lineheight))
+            if (do.labels)
+                textGrob(label = labels,
+                         x = rep(1, length(labscat)),
+                         y = labscat,
+                         vp = viewport(yscale = atrange),
+                         default.units = "native",
+                         check.overlap = check.overlap,
+                         just = if (rot == 90) c("center", "bottom") else c("right", "center"),
+                         rot = rot,
+                         gp =
+                         gpar(col = col,
+                              cex = cex,
+                              fontfamily = fontfamily,
+                              fontface = chooseFace(fontface, font),
+                              lineheight = lineheight))
+            else nullGrob()
 
         heights.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         heights.units <- rep("null", 3)
 
-        widths.x <- c(1, .6, .6 * key$width)
+        widths.x <- c(do.labels * 1, do.labels * 0.6, 0.6 * key$width)
         widths.units <- c("grobwidth", "lines", "lines")
         widths.data <- list(labelsGrob, NULL, NULL)
         
@@ -956,9 +955,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         heights = unit(heights.x, heights.units),
                         widths = unit(widths.x, widths.units, data = widths.data),
                         respect = TRUE)
-        
-        key.gf <- frameGrob(layout = key.layout, vp = vp)
 
+        key.gf <- frameGrob(layout = key.layout, vp = vp)
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
@@ -982,7 +980,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                               alpha = key$alpha)),
                                 row = 2, col = 3)
         }
-        
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
@@ -991,48 +988,49 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                           alpha = axis.line$alpha,
                                           fill = "transparent")),
                             row = 2, col = 3)
-
-
-        key.gf <- placeGrob(frame = key.gf, 
-                            segmentsGrob(x0 = rep(1, length(labscat)),
-                                         y0 = labscat,
-                                         x1 = rep(.6, length(labscat)),
-                                         y1 = labscat,
-                                         vp = viewport(yscale = atrange),
-                                         default.units = "native",
-                                         gp =
-                                         gpar(col = axis.line$col,
-                                              lty = axis.line$lty,
-                                              lwd = axis.line$lwd)),
-                            row = 2, col = 2)
-        
-        key.gf <- placeGrob(key.gf,
-                            labelsGrob, 
-                            row = 2, col = 1)
-
+        if (do.labels)
+        {
+            key.gf <- placeGrob(frame = key.gf, 
+                                segmentsGrob(x0 = rep(1, length(labscat)),
+                                             y0 = labscat,
+                                             x1 = rep(.6, length(labscat)),
+                                             y1 = labscat,
+                                             vp = viewport(yscale = atrange),
+                                             default.units = "native",
+                                             gp =
+                                             gpar(col = axis.line$col,
+                                                  lty = axis.line$lty,
+                                                  lwd = axis.line$lwd)),
+                                row = 2, col = 2)
+            key.gf <- placeGrob(key.gf,
+                                labelsGrob, 
+                                row = 2, col = 1)
+        }
     }
-    else if (key$space == "top") {
-
+    else if (key$space == "top")
+    {
         labelsGrob <-
-            textGrob(label = labels,
-                     y = rep(0, length(labscat)),
-                     x = labscat,
-                     vp = viewport(xscale = atrange),
-                     default.units = "native",
-                     check.overlap = check.overlap,
-                     just = if (rot == 0) c("center","bottom") else c("left", "center"),
-                     rot = rot,
-                     gp =
-                     gpar(col = col,
-                          cex = cex,
-                          fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font),
-                          lineheight = lineheight))
+            if (do.labels)
+                textGrob(label = labels,
+                         y = rep(0, length(labscat)),
+                         x = labscat,
+                         vp = viewport(xscale = atrange),
+                         default.units = "native",
+                         check.overlap = check.overlap,
+                         just = if (rot == 0) c("center","bottom") else c("left", "center"),
+                         rot = rot,
+                         gp =
+                         gpar(col = col,
+                              cex = cex,
+                              fontfamily = fontfamily,
+                              fontface = chooseFace(fontface, font),
+                              lineheight = lineheight))
+            else nullGrob()
 
         widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         widths.units <- rep("null", 3)
 
-        heights.x <- c(1, .6, .6 * key$width)
+        heights.x <- c(do.labels * 1, do.labels * 0.6, 0.6 * key$width)
         heights.units <- c("grobheight", "lines", "lines")
         heights.data <- list(labelsGrob, NULL, NULL)
         
@@ -1043,7 +1041,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         respect = TRUE)
         
         key.gf <- frameGrob(layout = key.layout, vp = vp)
-
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
@@ -1067,7 +1064,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                               alpha = key$alpha)),
                                 row = 3, col = 2)
         }
-        
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
@@ -1076,49 +1072,49 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                           alpha = axis.line$alpha,
                                           fill = "transparent")),
                             row = 3, col = 2)
-
-
-        key.gf <- placeGrob(frame = key.gf, 
-                            segmentsGrob(y0 = rep(0, length(labscat)),
-                                         x0 = labscat,
-                                         y1 = rep(.4, length(labscat)),
-                                         x1 = labscat,
-                                         vp = viewport(xscale = atrange),
-                                         default.units = "native",
-                                         gp =
-                                         gpar(col = axis.line$col,
-                                              lty = axis.line$lty,
-                                              lwd = axis.line$lwd)),
-                            row = 2, col = 2)
-        
-        key.gf <- placeGrob(key.gf,
-                            labelsGrob, 
-                            row = 1, col = 2)
-
+        if (do.labels)
+        {
+            key.gf <- placeGrob(frame = key.gf, 
+                                segmentsGrob(y0 = rep(0, length(labscat)),
+                                             x0 = labscat,
+                                             y1 = rep(.4, length(labscat)),
+                                             x1 = labscat,
+                                             vp = viewport(xscale = atrange),
+                                             default.units = "native",
+                                             gp =
+                                             gpar(col = axis.line$col,
+                                                  lty = axis.line$lty,
+                                                  lwd = axis.line$lwd)),
+                                row = 2, col = 2)
+            key.gf <- placeGrob(key.gf,
+                                labelsGrob, 
+                                row = 1, col = 2)
+        }
     }
-    else if (key$space == "bottom") {
-
-
+    else if (key$space == "bottom")
+    {
         labelsGrob <-
-            textGrob(label = labels,
-                     y = rep(1, length(labscat)),
-                     x = labscat,
-                     vp = viewport(xscale = atrange),
-                     default.units = "native",
-                     check.overlap = check.overlap,
-                     just = if (rot == 0) c("center", "top") else c("right", "center"),
-                     rot = rot,
-                     gp =
-                     gpar(col = col,
-                          cex = cex,
-                          fontfamily = fontfamily,
-                          fontface = chooseFace(fontface, font),
-                          lineheight = lineheight))
+            if (do.labels)
+                textGrob(label = labels,
+                         y = rep(1, length(labscat)),
+                         x = labscat,
+                         vp = viewport(xscale = atrange),
+                         default.units = "native",
+                         check.overlap = check.overlap,
+                         just = if (rot == 0) c("center", "top") else c("right", "center"),
+                         rot = rot,
+                         gp =
+                         gpar(col = col,
+                              cex = cex,
+                              fontfamily = fontfamily,
+                              fontface = chooseFace(fontface, font),
+                              lineheight = lineheight))
+            else nullGrob()
 
         widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         widths.units <- rep("null", 3)
 
-        heights.x <- c(.6 * key$width, .6, 1)
+        heights.x <- c(0.6 * key$width, do.labels * 0.6, do.labels * 1)
         heights.units <- c("lines", "lines", "grobheight")
         heights.data <- list(NULL, NULL, labelsGrob)
         
@@ -1129,7 +1125,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         respect = TRUE)
         
         key.gf <- frameGrob(layout = key.layout, vp = vp)
-
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
@@ -1153,7 +1148,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                               alpha = key$alpha)),
                                 row = 1, col = 2)
         }
-        
         key.gf <- placeGrob(frame = key.gf, 
                             rectGrob(gp =
                                      gpar(col = axis.line$col,
@@ -1162,34 +1156,28 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                           alpha = axis.line$alpha,
                                           fill = "transparent")),
                             row = 1, col = 2)
-
-        key.gf <- placeGrob(frame = key.gf, 
-                            segmentsGrob(y0 = rep(1, length(labscat)),
-                                         x0 = labscat,
-                                         y1 = rep(.6, length(labscat)),
-                                         x1 = labscat,
-                                         vp = viewport(xscale = atrange),
-                                         default.units = "native",
-                                         gp =
-                                         gpar(col = axis.line$col,
-                                              lty = axis.line$lty,
-                                              lwd = axis.line$lwd)),
-                            row = 2, col = 2)
-        
-        key.gf <- placeGrob(key.gf,
-                            labelsGrob, 
-                            row = 3, col = 2)
-
+        if (do.labels)
+        {
+            key.gf <- placeGrob(frame = key.gf, 
+                                segmentsGrob(y0 = rep(1, length(labscat)),
+                                             x0 = labscat,
+                                             y1 = rep(.6, length(labscat)),
+                                             x1 = labscat,
+                                             vp = viewport(xscale = atrange),
+                                             default.units = "native",
+                                             gp =
+                                             gpar(col = axis.line$col,
+                                                  lty = axis.line$lty,
+                                                  lwd = axis.line$lwd)),
+                                row = 2, col = 2)
+            key.gf <- placeGrob(key.gf,
+                                labelsGrob, 
+                                row = 3, col = 2)
+        }
     }
-
-
     if (draw)
         grid.draw(key.gf)
-    
     key.gf
 }
-
-
-
 
 
