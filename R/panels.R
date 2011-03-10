@@ -80,40 +80,90 @@ panel.abline <-
         cpl <- current.panel.limits()
         xx <- cpl$xlim
         yy <- cpl$ylim
-        x <- numeric(0)
-        y <- numeric(0)
-        ll <- function(i, j, k, l)
-            (yy[j]-coeff[1]-coeff[2]*xx[i]) *
-                (yy[l]-coeff[1]-coeff[2]*xx[k])
-        if (ll(1,1,2,1)<=0) {
-            y <- c(y, yy[1])
-            x <- c(x, (yy[1]-coeff[1])/coeff[2])
+
+        if (FALSE) ## wrong when ll() == 0
+        {
+          x <- numeric(0)
+          y <- numeric(0)
+          ll <- function(i, j, k, l)
+              (yy[j] - coeff[1] - coeff[2] * xx[i]) *
+                  (yy[l] - coeff[1] - coeff[2] * xx[k])
+          if (ll(1,1,2,1) <= 0) {
+              y <- c(y, yy[1])
+              x <- c(x, (yy[1] - coeff[1]) / coeff[2])
+          }
+          if (ll(2,1,2,2) <= 0) {
+              x <- c(x, xx[2])
+              y <- c(y, coeff[1] + coeff[2] * xx[2])
+          }
+          if (ll(2,2,1,2) <= 0) {
+              y <- c(y, yy[2])
+              x <- c(x, (yy[2]-coeff[1])/coeff[2])
+          }
+          if (ll(1,2,1,1) <= 0) {
+              x <- c(x, xx[1])
+              y <- c(y, coeff[1] + coeff[2] * xx[1])
+          }
+          str(list(x = x, y = y))
+          panel.lines(x = x, y = y,
+                      col = col.line,
+                      lty = lty,
+                      lwd = lwd,
+                      alpha = alpha,
+                      ...)
         }
-        if (ll(2,1,2,2)<=0) {
-            x <- c(x, xx[2])
-            y <- c(y, coeff[1] + coeff[2] * xx[2])
+
+        ## There are four possibilities (plus edge cases):
+        ##      I           II           III          IV
+        ## 4----C----3  4---------3  4---------3  4---------3
+        ## |         |  | /       |  |         |  |  \      |
+        ## |      ---|  |/        |  |         |  |   \     |
+        ## D   ---   B  |         |  |        /|  |    \    |
+        ## |---      |  |         |  |       / |  |     \   |
+        ## |         |  |         |  |      /  |  |      \  |
+        ## 1----A----2  1---------2  1---------2  1---------2
+
+        sign.dist.from.line <- function(x, y)
+        {
+            as.integer(sign(y - coeff[1] - coeff[2] * x)) ## / sqrt(1 + coeff[2]^2)
         }
-        if (ll(2,2,1,2)<=0) {
-            y <- c(y, yy[2])
-            x <- c(x, (yy[2]-coeff[1])/coeff[2])
+        sign.corners <-
+            with(cpl,
+                 sign.dist.from.line(c(xlim[1], xlim[2], xlim[2], xlim[1]),
+                                     c(ylim[1], ylim[1], ylim[2], ylim[2])))
+        A <- prod(sign.corners[c(1, 2)]) <= 0
+        B <- prod(sign.corners[c(2, 3)]) <= 0
+        C <- prod(sign.corners[c(3, 4)]) <= 0
+        D <- prod(sign.corners[c(4, 1)]) <= 0
+
+        yfun <- function(x) coeff[1] + coeff[2] * x
+        xfun <- function(y) (y - coeff[1]) / coeff[2]
+        drawfun <- function(x0, y0, x1, y1, ...)
+        {
+            panel.segments(x0, y0, x1, y1, 
+                           col = col.line,
+                           lty = lty,
+                           lwd = lwd,
+                           alpha = alpha,
+                           ...)
         }
-        if (ll(1,2,1,1)<=0) {
-            x <- c(x, xx[1])
-            y <- c(y, coeff[1] + coeff[2] * xx[1])
-        }
-        panel.lines(x = x, y = y, 
-                    col = col.line,
-                    lty = lty,
-                    lwd = lwd,
-                    alpha = alpha,
-                    ...)
+        if (D && B) # Case I
+            drawfun(xx[1], yfun(xx[1]), xx[2], yfun(xx[2]), ...)
+        else if (D && C) # Case II
+            drawfun(xx[1], yfun(xx[1]), xfun(yy[2]), yy[2], ...)
+        else if (A && B) # Case III
+            drawfun(xfun(yy[1]), yy[1], xx[2], yfun(xx[2]), ...)
+        else if (A && C) # Case IV
+            drawfun(xfun(yy[1]), yy[1], xfun(yy[2]), yy[2], ...)
     }
     if (length(h <- as.numeric(h)) > 0)
         grid.segments(y0 = h, y1 = h, default.units="native",
-                      gp = gpar(col = col.line, lty = lty, lwd = lwd, alpha = alpha))
+                      gp = gpar(col = col.line, lty = lty,
+                                lwd = lwd, alpha = alpha))
     if (length(as.numeric(v)) > 0)
         grid.segments(x0 = v, x1 = v, default.units="native",
-                      gp = gpar(col = col.line, lty = lty, lwd = lwd, alpha = alpha))
+                      gp = gpar(col = col.line, lty = lty,
+                                lwd = lwd, alpha = alpha))
     invisible()
 }
 
@@ -123,7 +173,7 @@ panel.abline <-
 
 ### old version of panel.abline
 
-## panel.abline <- 
+## panel.abline <-
 ## function (a, b = NULL, h = numeric(0), v = numeric(0), col, col.line = add.line$col,
 ##     lty = add.line$lty, lwd = add.line$lwd, type, ...)
 ## {
@@ -181,7 +231,7 @@ panel.abline <-
 
 
 
-    
+
 
 panel.curve <-
     function (expr, from, to, n = 101,
@@ -598,10 +648,10 @@ panel.superpose.2 <-
 ##              col.line = superpose.line$col,
 ##              col.symbol = superpose.symbol$col,
 ##              pch = superpose.symbol$pch,
-##              cex = superpose.symbol$cex, 
-##              font = superpose.symbol$font, 
-##              fontface = superpose.symbol$fontface, 
-##              fontfamily = superpose.symbol$fontfamily, 
+##              cex = superpose.symbol$cex,
+##              font = superpose.symbol$font,
+##              fontface = superpose.symbol$fontface,
+##              fontfamily = superpose.symbol$fontfamily,
 ##              lty = superpose.line$lty,
 ##              lwd = superpose.line$lwd,
 ##              alpha = superpose.symbol$alpha,
@@ -649,7 +699,7 @@ panel.superpose.2 <-
 ##         fontfamily <- rep(fontfamily, length.out = nvals)
 ##         type <- rep(type, length.out = nvals)
 
-##         panel.groups <- 
+##         panel.groups <-
 ##             if (is.function(panel.groups)) panel.groups
 ##             else if (is.character(panel.groups)) get(panel.groups)
 ##             else eval(panel.groups)
@@ -687,7 +737,7 @@ panel.superpose.2 <-
 
 
 
-# panel.superpose.2 <- 
+# panel.superpose.2 <-
 #     function(x, y, subscripts, groups,
 #              col, col.line = superpose.line$col,
 #              col.symbol = superpose.symbol$col,
@@ -696,7 +746,7 @@ panel.superpose.2 <-
 #              lty = superpose.line$lty,
 #              lwd = superpose.line$lwd, type="p", ...)
 # {
-    
+
 #     ## `panel.superpose.2' : This is a version of the
 #     ## 'panel.superpose' Trellis panel function that allows the plot
 #     ## `type' to change between superimposed (overlayed) data sets.
@@ -705,7 +755,7 @@ panel.superpose.2 <-
 #     ## character vector with each element specifying the plot style of
 #     ## each subsequently-overlayed plot.  --- Neil Klepeis,
 #     ## 26-Dec-2001
-    
+
 #     x <- as.numeric(x)
 #     y <- as.numeric(y)
 
