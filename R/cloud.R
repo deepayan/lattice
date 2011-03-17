@@ -219,14 +219,15 @@ panel.3dscatter <-
 
                 lsegments(x0 = m0[1,], y0 = m0[2,],
                           x1 = m1[1,], y1 = m1[2,],
-                          col = rep(col.line[ord], each = 3))
+                          col = rep(col.line[ord], each = 3),
+                          ...)
             }
             else
             {
                 lpoints(x = m[1, ord], y = m[2, ord],
                         col = col.point[ord],
                         pch = pch[ord],
-                        cex = cex[ord])
+                        cex = cex[ord], ...)
             }
         }
 
@@ -258,7 +259,7 @@ panel.3dscatter <-
                       x1 = m1[1, ord], y1 = m1[2, ord],
                       col = tmpcol0[ord],
                       lwd = lwd[ord],
-                      lty = lty[ord])
+                      lty = lty[ord], ...)
         }
 
 
@@ -281,7 +282,7 @@ panel.3dscatter <-
                       other.end[1,ord], other.end[2,ord],
                       col = col.line[ord],
                       lty = lty[ord],
-                      lwd = lwd[ord])
+                      lwd = lwd[ord], ...)
         }
         if (any(!(type %in% c("p", "h", "l", "b", "o"))))
         {

@@ -116,7 +116,7 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
   }
   \item{par.box}{
     graphical parameters for box, namely, col, lty and lwd. By default
-    obtained from the parameter \code{box.3d}
+    obtained from the parameter \code{box.3d}.
   }
 
   \item{xlim, ylim, zlim}{
@@ -243,7 +243,8 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
   }
   \item{col.groups}{colors for different groups}
   \item{col, col.point, col.line, lty, lwd, cex, pch, alpha}{
-    graphical parameters
+    Graphical parameters.  Some other arguments (such as \code{lex} for
+    line width) may also be passed through the \code{\dots} argument.
   }
   \item{\dots}{ other parameters, passed down when appropriate}
   \item{.scale}{
