@@ -5,10 +5,10 @@
 # Detlef Steuer <steuer@hsu-hh.de>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: R 2.12.0 / Lattice 0.19.11\n"
+"Project-Id-Version: R 2.13.0 / Lattice 0.19.17\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
 "POT-Creation-Date: 2010-12-18 21:29\n"
-"PO-Revision-Date: 2010-09-22 16:18+0200\n"
+"PO-Revision-Date: 2011-03-24 13:43+0100\n"
 "Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -86,15 +86,14 @@ msgstr "»skip« kann nicht nur TRUE sein"
 msgid "layout must have at least 2 elements"
 msgstr "Layout muss mindestens 2 Elemente haben"
 
-#, fuzzy
 msgid "Inadmissible value of layout."
-msgstr "unzulässiger Wert des Layouts"
+msgstr "unzulässiger Wert für layout"
 
 msgid "invalid value for layout"
 msgstr "ungültiger Wert für Layout"
 
 msgid "More pages in layout than seem to be necessary."
-msgstr ""
+msgstr "Mehr Seiten im Layout als anscheinend nötig"
 
 msgid "Density"
 msgstr "Dichte"
@@ -171,7 +170,6 @@ msgstr "Komponente »%s« doppelt in Schlüssel und Beschriftung"
 msgid "key must be a list"
 msgstr "Schlüssel muss eine Liste sein"
 
-#, fuzzy
 msgid "first component of text must be vector of labels"
 msgstr "erste Komponente des Textes muss ein Vektor aus Bezeichnungen sein"
 
@@ -181,13 +179,11 @@ msgstr "Ungültiger Schlüssel. Es wird mindestens eine Komponente mit Namen »l
 msgid "not enough rows for columns"
 msgstr "nicht genug Zeilen für Spalten"
 
-#, fuzzy
 msgid "Sorry, align=FALSE is not supported"
-msgstr "Entschuldigung. align=F wird (noch?) nicht unterstützt."
+msgstr "Entschuldigung. align=FALSE wird nicht unterstützt."
 
-#, fuzzy
 msgid "'at' values are not equispaced; output may be wrong"
-msgstr "'x' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
+msgstr "'at' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
 
 msgid "malformed colorkey"
 msgstr "missgestalteter Farbschlüssel"
@@ -278,13 +274,13 @@ msgid "Residuals"
 msgstr "Residuen"
 
 msgid "Invalid or ambiguous component names:"
-msgstr ""
+msgstr "Unzulässige oder zweideutige Komponentennamen:"
 
 msgid ","
-msgstr ""
+msgstr ","
 
 msgid "Multiple matches to component name"
-msgstr ""
+msgstr "Mehrere Übereinstimmungen mit dem Komponentennamen"
 
 msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
 msgstr "die 'at'- und 'labels'-Komponenten der Skalen sind möglicherweise keine Listen, wenn 'relation = \"same\"'"
