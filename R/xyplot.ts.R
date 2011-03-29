@@ -169,30 +169,33 @@ xyplot.ts <-
     }
     plot.line <- trellis.par.get("plot.line")
     plot.symbol <- trellis.par.get("plot.symbol")
+
+    unlistIfSimple <- function(z)
+        if (all(sapply(z, length) == 1)) unlist(z) else z
     
     if (!is.null(col)) {
-        col <- unlist(make.par.list(cn, col, NROW(x), NCOL(x), plot.line$col))
-        tmpcall$col <- col
+        col <- make.par.list(cn, col, NROW(x), NCOL(x), plot.line$col)
+        tmpcall$col <- unlistIfSimple(col)
     }
     if (!is.null(lty)) {
-        lty <- unlist(make.par.list(cn, lty, NROW(x), NCOL(x), plot.line$lty))
-        tmpcall$lty <- lty
+        lty <- make.par.list(cn, lty, NROW(x), NCOL(x), plot.line$lty)
+        tmpcall$lty <- unlistIfSimple(lty)
     }
     if (!is.null(lwd)) {
-        lwd <- unlist(make.par.list(cn, lwd, NROW(x), NCOL(x), plot.line$lwd))
-        tmpcall$lwd <- lwd
+        lwd <- make.par.list(cn, lwd, NROW(x), NCOL(x), plot.line$lwd)
+        tmpcall$lwd <- unlistIfSimple(lwd)
     }
     if (!is.null(pch)) {
         pch <- unlist(make.par.list(cn, pch, NROW(x), NCOL(x), plot.symbol$pch))
-        tmpcall$pch <- pch
+        tmpcall$pch <- unlistIfSimple(pch)
     }
     if (!is.null(cex)) {
         cex <- unlist(make.par.list(cn, cex, NROW(x), NCOL(x), plot.symbol$cex))
-        tmpcall$cex <- cex
+        tmpcall$cex <- unlistIfSimple(cex)
     }
     if (!is.null(fill)) {
         fill <- unlist(make.par.list(cn, fill, NROW(x), NCOL(x), plot.symbol$fill))
-        tmpcall$fill <- fill
+        tmpcall$fill <- unlistIfSimple(fill)
     }
 
     if (needStyles) {
@@ -209,33 +212,33 @@ xyplot.ts <-
         }
         if (!is.null(col)) {
             par.settings <-
-                modifyList(list(superpose.line = list(col = col),
-                                superpose.symbol = list(col = col)),
+                modifyList(list(superpose.line = list(col = unlist(col)),
+                                superpose.symbol = list(col = unlist(col))),
                            par.settings)
         }
         if (!is.null(lty)) {
             par.settings <-
-                modifyList(list(superpose.line = list(lty = lty)),
+                modifyList(list(superpose.line = list(lty = unlist(lty))),
                            par.settings)
         }
         if (!is.null(lwd)) {
             par.settings <-
-                modifyList(list(superpose.line = list(lwd = lwd)),
+                modifyList(list(superpose.line = list(lwd = unlist(lwd))),
                            par.settings)
         }
         if (!is.null(pch)) {
             par.settings <-
-                modifyList(list(superpose.symbol = list(pch = pch)),
+                modifyList(list(superpose.symbol = list(pch = unlist(pch))),
                            par.settings)
         }
         if (!is.null(cex)) {
             par.settings <-
-                modifyList(list(superpose.symbol = list(cex = cex)),
+                modifyList(list(superpose.symbol = list(cex = unlist(cex))),
                            par.settings)
         }
         if (!is.null(fill)) {
             par.settings <-
-                modifyList(list(superpose.symbol = list(fill = fill)),
+                modifyList(list(superpose.symbol = list(fill = unlist(fill))),
                            par.settings)
         }
     }
