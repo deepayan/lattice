@@ -48,6 +48,9 @@ bug fixes
  o More realistic check for equispaced grid in
    panel.levelplot.raster().
 
+ o xyplot.ts() now allows graphical parameters to be given as vectors 
+   (inside a list) for each series. Passes lists to panel.superpose.
+
 
 
 Changes in lattice 0.18
