@@ -186,15 +186,15 @@ xyplot.ts <-
         tmpcall$lwd <- unlistIfSimple(lwd)
     }
     if (!is.null(pch)) {
-        pch <- unlist(make.par.list(cn, pch, NROW(x), NCOL(x), plot.symbol$pch))
+        pch <- make.par.list(cn, pch, NROW(x), NCOL(x), plot.symbol$pch)
         tmpcall$pch <- unlistIfSimple(pch)
     }
     if (!is.null(cex)) {
-        cex <- unlist(make.par.list(cn, cex, NROW(x), NCOL(x), plot.symbol$cex))
+        cex <- make.par.list(cn, cex, NROW(x), NCOL(x), plot.symbol$cex)
         tmpcall$cex <- unlistIfSimple(cex)
     }
     if (!is.null(fill)) {
-        fill <- unlist(make.par.list(cn, fill, NROW(x), NCOL(x), plot.symbol$fill))
+        fill <- make.par.list(cn, fill, NROW(x), NCOL(x), plot.symbol$fill)
         tmpcall$fill <- unlistIfSimple(fill)
     }
 
