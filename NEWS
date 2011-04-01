@@ -42,11 +42,21 @@ Changes in lattice 0.19
  o Added support for 'just' component in draw.key() to allow
    justification of legend placement.
 
+ o Graphical arguments in panel.superpose can now be lists.
+
+ o Added support for raster colorkeys.
+
+ o Added new 'height' component for keys.
+
+ o Improved vectorization of graphical parameters in panel.bwplot.
+
 bug fixes
 ---------
 
  o More realistic check for equispaced grid in
    panel.levelplot.raster().
+
+ o Improved partial matching of component names in 'key' and 'scales'.
 
  o xyplot.ts() now allows graphical parameters to be given as vectors 
    (inside a list) for each series. Passes lists to panel.superpose.
