@@ -387,9 +387,6 @@ panel.3dwire <-
         else col.regions[floor(1+(1:numcol-1)*(numcol.r-1)/(numcol-1))]
 
 
-
-
-
     ## 2004-03-12 new experimental stuff: when x, y, z are all
     ## matrices of the same dimension, they represent a 3-D surface
     ## parametrized on a 2-D grid (the details of the parametrizing
