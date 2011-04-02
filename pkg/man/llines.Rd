@@ -50,7 +50,8 @@ ltext(x, ...)
       adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots)  
 
 lsegments(x0, y0, x1, y1, x2, y2,
-          col, alpha, lty, lwd, \dots)
+          col, alpha, lty, lwd,
+          font, fontface, \dots)
 lrect(xleft, ybottom, xright, ytop,
       x = (xleft + xright) / 2,
       y = (ybottom + ytop) / 2,
@@ -110,9 +111,11 @@ panel.polygon(\dots)
     \code{alpha} between 0 and 1 can controls transparency.  Be careful
     with this, since for devices that do not support alpha-transparency,
     nothing will be drawn at all if this is set to anything other than
-    0.  \code{fill}, \code{font} and \code{fontface} are included in
-    \code{lpolygon} only to ensure that they are not passed down (as
-    \code{\link{gpar}} doesn't like them).
+    0.
+
+    \code{fill}, \code{font} and \code{fontface} are included in
+    \code{lpolygon} and \code{lsegments} only to ensure that they are
+    not passed down (as \code{\link{gpar}} does not like them).
   }
   \item{origin}{ for \code{type="h"} or \code{type="H"}, the value to
     which lines drop down. }
