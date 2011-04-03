@@ -293,9 +293,6 @@ lsegments <-
                   default.units = "native")
 }
 
-FONT FIXME
-
-
 
 lrect <-
     function(xleft, ybottom, xright, ytop,
