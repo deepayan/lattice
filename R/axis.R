@@ -230,15 +230,38 @@ axis.default <-
                    right = ,
                    top = scales$tck[2])
         if (!is.logical(comp.list)) ## must be FALSE if it is
-            panel.axis(side = side,
-                       at = comp.list$ticks$at,
-                       labels = comp.list$labels$labels,
-                       draw.labels = do.labels, 
-                       check.overlap = comp.list$labels$check.overlap,
-                       outside = TRUE,
-                       ticks = do.ticks,
-                       tck = scales.tck * comp.list$ticks$tck,
-                       ...)
+        {
+            ## WAS: (but did not allow ticks$at and labels$at to be different)
+            ## panel.axis(side = side,
+            ##            at = comp.list$ticks$at,
+            ##            labels = comp.list$labels$labels,
+            ##            draw.labels = do.labels, 
+            ##            check.overlap = comp.list$labels$check.overlap,
+            ##            outside = TRUE,
+            ##            ticks = do.ticks,
+            ##            tck = scales.tck * comp.list$ticks$tck,
+            ##            ...)
+            if (do.ticks)
+                panel.axis(side = side,
+                           at = comp.list$ticks$at,
+                           labels = FALSE,
+                           draw.labels = FALSE, 
+                           check.overlap = FALSE,
+                           outside = TRUE,
+                           ticks = TRUE,
+                           tck = scales.tck * comp.list$ticks$tck,
+                           ...)
+            if (do.labels)
+                panel.axis(side = side,
+                           at = comp.list$labels$at,
+                           labels = comp.list$labels$labels,
+                           draw.labels = TRUE, 
+                           check.overlap = comp.list$labels$check.overlap,
+                           outside = TRUE,
+                           ticks = FALSE,
+                           tck = scales.tck * comp.list$ticks$tck,
+                           ...)
+        }
     }
 }
 
