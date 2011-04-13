@@ -121,7 +121,8 @@ panel.levelplot <-
              border = "transparent",
              ...,
              col.regions = regions$col,
-             alpha.regions = regions$alpha)
+             alpha.regions = regions$alpha,
+             identifier = "levelplot")
 {
     if (length(subscripts) == 0) return()
     regions <- trellis.par.get("regions")
@@ -150,6 +151,11 @@ panel.levelplot <-
     fullZrange <- range(as.numeric(z), finite = TRUE) # for shrinking
     z <- z[subscripts]
     zcol <- zcol[subscripts]
+
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
 
     ## Do we need a zlim-like argument ?
 
@@ -234,6 +240,8 @@ panel.levelplot <-
                   width = lx[idx] * scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
                   height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
                   default.units = "native",
+                  name = trellis.grobname(paste(identifier, "rect", sep="."),
+                    type = "panel", group = group),
                   gp =
                   gpar(fill = zcol,
                        lwd = 0.00001,
@@ -291,8 +299,9 @@ panel.levelplot <-
             ## we don't know how to leave gap in lines for labels.
 
             llines(val, ## hopefully $levels won't matter
-                   col = col, lty = lty, lwd = lwd)
-
+                   col = col, lty = lty, lwd = lwd,
+                   identifier = paste(identifier, "lines",
+                     sep = "."))
 
             ## if too small, don't add label. How small is small ?
             ## Should depend on resolution. How ?
@@ -360,7 +369,9 @@ panel.levelplot <-
                           fontfamily = labels$fontfamily,
                           fontface = labels$fontface,
                           x = .5 * (val$x[textloc]+val$x[textloc + 1]),
-                          y = .5 * (val$y[textloc]+val$y[textloc + 1]))
+                          y = .5 * (val$y[textloc]+val$y[textloc + 1]),
+                          identifier = paste(identifier, "labels",
+                            sep = "."))
                 }
             }
         }
@@ -859,7 +870,8 @@ panel.levelplot.raster <-
              ...,
              col.regions = regions$col,
              alpha.regions = regions$alpha,
-             interpolate = FALSE)
+             interpolate = FALSE,
+             identifier = "levelplot")
 {
     if (length(subscripts) == 0) return()
     regions <- trellis.par.get("regions")
@@ -873,6 +885,11 @@ panel.levelplot.raster <-
     y <- y[subscripts]
     z <- z[subscripts]
     zcol <- zcol[subscripts]
+
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
 
     if (x.is.factor)
     {
@@ -920,7 +937,9 @@ panel.levelplot.raster <-
                 x = xlow, y = ylow,
                 width = xhigh - xlow, height = yhigh - ylow,
                 just = c("left", "bottom"),
-                default.units = "native")
+                default.units = "native",
+                name = trellis.grobname(paste(identifier, "raster", sep="."),
+                  type = "panel", group = group))
 }
 
 

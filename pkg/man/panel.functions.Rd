@@ -25,13 +25,15 @@ panel.abline(a = NULL, b = 0,
              reg = NULL, coef = NULL,
              col, col.line, lty, lwd, alpha, type,
              \dots,
-             reference = FALSE)
+             reference = FALSE,
+             identifier = "abline")
 panel.refline(\dots) 
 
 panel.curve(expr, from, to, n = 101,
             curve.type = "l",
             col, lty, lwd, type,
-            \dots)
+            \dots,
+            identifier = "curve")
 panel.rug(x = NULL, y = NULL,
           regular = TRUE, 
           start = if (regular) 0 else 0.97,
@@ -39,30 +41,33 @@ panel.rug(x = NULL, y = NULL,
           x.units = rep("npc", 2),
           y.units = rep("npc", 2),
           col, col.line, lty, lwd, alpha,
-          \dots)
+          \dots,
+          identifier = "rug")
 panel.average(x, y, fun = mean, horizontal = TRUE,
               lwd, lty, col, col.line, type,
-              \dots)
+              \dots,
+              identifier = "linejoin")
 panel.linejoin(x, y, fun = mean, horizontal = TRUE,
                lwd, lty, col, col.line, type,
-               \dots)
+               \dots,
+               identifier = "linejoin")
 
 % panel.abline(a, b, \dots)
 % panel.abline(coef, \dots)
 % panel.abline(reg, \dots)
 % panel.abline(h= ,v= , \dots)
-panel.fill(col, border, \dots)
-panel.grid(h=3, v=3, col, col.line, lty, lwd, x, y, \dots)
-panel.lmline(x, y, \dots)
+panel.fill(col, border, \dots, identifier = "fill")
+panel.grid(h=3, v=3, col, col.line, lty, lwd, x, y, \dots, identifier = "grid")
+panel.lmline(x, y, \dots, identifier = "lmline")
 panel.loess(x, y, span = 2/3, degree = 1,
             family = c("symmetric", "gaussian"),
             evaluation = 50,
             lwd, lty, col, col.line, type,
             horizontal = FALSE,
-            \dots)
+            \dots, identifier = "loess")
 panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
                   n = 50, col, col.line, lwd, lty, type,
-                  \dots)
+                  \dots, identifier = "mathdensity")
 }
 \arguments{
   \item{x, y}{ variables defining the contents of the panel.
@@ -154,6 +159,10 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
     definition for details. Color can usually be specified by
     \code{col}, \code{col.line} and \code{col.symbol}, the last two
     overriding the first for lines and points respectively.
+  }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
   }
 }
 \details{

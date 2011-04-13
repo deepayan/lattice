@@ -17,9 +17,10 @@ panel.xyplot(x, y, type = "p",
              horizontal = FALSE, \dots,
              grid = FALSE, abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
-             factor = 0.5, amount = NULL)
-panel.splom(\dots)
-panel.qq(\dots)
+             factor = 0.5, amount = NULL,
+             identifier = "xyplot")
+panel.splom(\dots, identifier = "splom")
+panel.qq(\dots, identifier = "qq")
 }
 \arguments{
   \item{x,y}{ variables to be plotted in the scatterplot}
@@ -104,6 +105,10 @@ panel.qq(\dots)
   \item{jitter.x, jitter.y}{ logical, whether the data should be
     jittered before being plotted. }
   \item{factor, amount}{ controls amount of jittering. }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 
 

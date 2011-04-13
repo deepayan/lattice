@@ -9,7 +9,8 @@ panel.qqmath(x, f.value = NULL,
              distribution = qnorm,
              qtype = 7,
              groups = NULL, \dots,
-             tails.n = 0)
+             tails.n = 0,
+             identifier = "qqmath")
 }
 \arguments{
   \item{x}{
@@ -39,6 +40,10 @@ panel.qqmath(x, f.value = NULL,
     for the extreme data values, while approximating the remaining
     data. It has no effect if \code{f.value = NULL}.
     If \code{tails.n} is given, \code{qtype} is forced to be 1.
+  }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
   }
 }
 

@@ -36,8 +36,10 @@ panel.tmd.qqmath(x,
              distribution = qnorm,
              qtype = 7,
              groups = NULL, 
-             subscripts, \dots)
-panel.tmd.default(x, y, groups = NULL, \dots)
+             subscripts, \dots,
+             identifier = "tmd")
+panel.tmd.default(x, y, groups = NULL, \dots,
+                  identifier = "tmd")
 prepanel.tmd.default(x, y, \dots)
 }
 \arguments{
@@ -51,6 +53,10 @@ prepanel.tmd.default(x, y, \dots)
   \item{groups, subscripts}{see \code{\link{xyplot}}.  }
   \item{x, y}{ data as passed to panel functions in original call.  }
   \item{\dots}{ other arguments}
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 \details{
   The Tukey Mean-difference plot is produced by modifying the (x,y)

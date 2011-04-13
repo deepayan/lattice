@@ -12,7 +12,8 @@ panel.qqmathline(x, y = x,
                  probs = c(0.25, 0.75),
                  qtype = 7,
                  groups = NULL, 
-                 \dots)
+                 \dots,
+                 identifier = "qqmathline")
 }
 \arguments{
   \item{x}{ The original sample, possibly reduced to a fewer number of
@@ -38,6 +39,10 @@ panel.qqmathline(x, y = x,
     each group.
   }
   \item{\dots}{other arguments.}
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 \author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{

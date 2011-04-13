@@ -12,7 +12,8 @@ panel.parallel(x, y, z, subscripts,
                lower,
                upper,
                \dots,
-               horizontal.axis = TRUE)
+               horizontal.axis = TRUE,
+               identifier = "parallel")
 }
 \arguments{
   \item{x, y}{ dummy variables, ignored. }
@@ -53,6 +54,10 @@ panel.parallel(x, y, z, subscripts,
   \item{\dots}{ other arguments (ignored) }
   \item{horizontal.axis}{logical indicating whether the parallel axes should
     be laid out horizontally (\code{TRUE}) or vertically (\code{FALSE}).
+  }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
   }
 }
 

@@ -50,6 +50,8 @@ Changes in lattice 0.19
 
  o Improved vectorization of graphical parameters in panel.bwplot.
 
+ o Expanded trellis.grobname() and used it to provide a name for all grobs.
+
 bug fixes
 ---------
 

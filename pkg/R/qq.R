@@ -36,14 +36,17 @@ prepanel.default.qq <-
 
 
 panel.qq <-
-    function(...)
+    function(...,
+             identifier = "qq")
 {
     reference.line <- trellis.par.get("reference.line")
     panel.abline(0,1,
                  col = reference.line$col,
                  lty = reference.line$lty,
-                 lwd = reference.line$lwd)
-    panel.xyplot(...)
+                 lwd = reference.line$lwd,
+                 identifier = paste(identifier, "abline", sep = "."))
+    panel.xyplot(...,
+                 identifier = identifier)
 
 }
 

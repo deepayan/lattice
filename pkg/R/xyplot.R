@@ -76,7 +76,8 @@ panel.xyplot <-
              ...,
              grid = FALSE, abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
-             factor = 0.5, amount = NULL)
+             factor = 0.5, amount = NULL,
+             identifier = "xyplot")
 {
     if (all(is.na(x) | is.na(y))) return()
     plot.symbol <- trellis.par.get("plot.symbol")
@@ -130,6 +131,7 @@ panel.xyplot <-
     {
         x <- as.numeric(x)
         y <- as.numeric(y)
+        id <- identifier
         if ("o" %in% type || "b" %in% type) type <- c(type, "p", "l")
         if ("p" %in% type)
             panel.points(x = if (jitter.x) jitter(x, factor = factor, amount = amount) else x,
@@ -140,19 +142,21 @@ panel.xyplot <-
                          fontfamily = fontfamily,
                          fontface = fontface,
                          col = col.symbol,
-                         pch = pch, ...)
+                         pch = pch, ...,
+                         identifier = id)
         if ("l" %in% type)
-            panel.lines(x = x, y = y, lty = lty, col = col.line, lwd = lwd, ...)
+            panel.lines(x = x, y = y, lty = lty, col = col.line, lwd = lwd,
+                        ..., identifier = id)
         if ("h" %in% type)
         {
             if (horizontal)
                 panel.lines(x = x, y = y, type = "H",
                             lty = lty, col = col.line, lwd = lwd,
-                            ...)
+                            ..., identifier = id)
             else
                 panel.lines(x = x, y = y, type = "h",
                             lty = lty, col = col.line, lwd = lwd,
-                            ...)
+                            ..., identifier = id)
         }
 
         ## FIXME: should this be delegated to llines with type='s'?
@@ -168,7 +172,8 @@ panel.xyplot <-
             xx[2*1:(n-1)] <- x[ord][-1]
             yy[2*1:(n-1)] <- y[ord][-n]
             panel.lines(x = xx, y = yy,
-                        lty = lty, col = col.line, lwd = lwd, ...)
+                        lty = lty, col = col.line, lwd = lwd, ...,
+                        identifier = id)
         }
         if ("S" %in% type)
         {
@@ -182,7 +187,8 @@ panel.xyplot <-
             xx[2*1:(n-1)] <- x[ord][-n]
             yy[2*1:(n-1)] <- y[ord][-1]
             panel.lines(x = xx, y = yy,
-                        lty = lty, col = col.line, lwd = lwd, ...)
+                        lty = lty, col = col.line, lwd = lwd,
+                        ..., identifier = id)
         }
         if ("r" %in% type) panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
         if ("smooth" %in% type)

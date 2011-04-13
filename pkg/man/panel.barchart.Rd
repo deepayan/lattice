@@ -18,7 +18,7 @@ panel.barchart(x, y, box.ratio = 1, box.width,
                      else superpose.polygon$lty, 
                lwd = if (is.null(groups)) plot.polygon$lwd
                      else superpose.polygon$lwd,
-               \dots)
+               \dots, identifier = "barchart")
 }
 \arguments{
   \item{x}{ Extent of Bars. By default, bars start at left of panel,
@@ -64,6 +64,10 @@ panel.barchart(x, y, box.ratio = 1, box.width,
     line type and width of the borders.
   }
   \item{\dots}{ extra arguments will be accepted but ignored }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 
 \details{

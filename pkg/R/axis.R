@@ -937,31 +937,39 @@ panel.axis <-
         else unit(x = axis.settings$pad1 * axis.units$pad1$x, units = axis.units$pad1$units)
     orient.factor <- if (outside) -1 else 1
 
-    if (any(tck.unit.x != 0))
+    if (ticks && any(tck.unit.x != 0))
         switch(side, 
                bottom = 
                grid.segments(x0 = unit(at[axid], "native"),
                              x1 = unit(at[axid], "native"),
                              y0 = unit(0, "npc"),
                              y1 = orient.factor * tck.unit,
+                             name = trellis.grobname("ticks.bottom",
+                               type="panel"),
                              gp = gp.line),
                top = 
                grid.segments(x0 = unit(at[axid], "native"),
                              x1 = unit(at[axid], "native"),
                              y0 = unit(1, "npc"),
                              y1 = unit(1, "npc") - orient.factor * tck.unit,
+                             name = trellis.grobname("ticks.top",
+                               type="panel"),
                              gp = gp.line),
                left = 
                grid.segments(y0 = unit(at[axid], "native"),
                              y1 = unit(at[axid], "native"),
                              x0 = unit(0, "npc"),
                              x1 = orient.factor * tck.unit,
+                             name = trellis.grobname("ticks.left",
+                               type="panel"),
                              gp = gp.line),
                right =
                grid.segments(y0 = unit(at[axid], "native"),
                              y1 = unit(at[axid], "native"),
                              x0 = unit(1, "npc"),
                              x1 = unit(1, "npc") - orient.factor * tck.unit,
+                             name = trellis.grobname("ticks.right",
+                               type="panel"),
                              gp = gp.line))
 
     if (draw.labels && !is.null(labels))
@@ -990,6 +998,8 @@ panel.axis <-
                          rot = rot[1],
                          check.overlap = check.overlap,
                          just = just,
+                         name = trellis.grobname("ticklabels.bottom",
+                           type="panel"),
                          gp = gp.text),
                top =
                grid.text(label = labels[axid & keep.labels],
@@ -998,6 +1008,8 @@ panel.axis <-
                          rot = rot[1],
                          check.overlap = check.overlap,
                          just = just,
+                         name = trellis.grobname("ticklabels.top",
+                           type="panel"),
                          gp = gp.text),
                left =
                grid.text(label = labels[axid & keep.labels],
@@ -1006,6 +1018,8 @@ panel.axis <-
                          rot = rot[2],
                          check.overlap = check.overlap,
                          just = just,
+                         name = trellis.grobname("ticklabels.left",
+                           type="panel"),
                          gp = gp.text),
                right =
                grid.text(label = labels[axid & keep.labels],
@@ -1014,6 +1028,8 @@ panel.axis <-
                          rot = rot[2],
                          check.overlap = check.overlap,
                          just = just,
+                         name = trellis.grobname("ticklabels.right",
+                           type="panel"),
                          gp = gp.text))
     }
     invisible()

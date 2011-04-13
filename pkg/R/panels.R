@@ -35,7 +35,8 @@ panel.abline <-
              lwd = add.line$lwd,
              alpha = add.line$alpha,
              type, ...,
-             reference = FALSE)
+             reference = FALSE,
+             identifier = "abline")
 {
     add.line <- if (reference) trellis.par.get("reference.line") else trellis.par.get("add.line")
     if (!missing(col) && missing(col.line)) col.line <- col
@@ -73,6 +74,11 @@ panel.abline <-
         a <- coef[1]
         b <- coef[2]
     }
+    id <- identifier
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
     ## draw y = a + bx if appropriate
     if (!is.null(a))
     {
@@ -110,7 +116,8 @@ panel.abline <-
                       lty = lty,
                       lwd = lwd,
                       alpha = alpha,
-                      ...)
+                      ...,
+                      identifier = id)
         }
 
         ## There are four possibilities (plus edge cases):
@@ -145,7 +152,8 @@ panel.abline <-
                            lty = lty,
                            lwd = lwd,
                            alpha = alpha,
-                           ...)
+                           ...,
+                           identifier = id)
         }
         if (D && B) # Case I
             drawfun(xx[1], yfun(xx[1]), xx[2], yfun(xx[2]), ...)
@@ -158,10 +166,14 @@ panel.abline <-
     }
     if (length(h <- as.numeric(h)) > 0)
         grid.segments(y0 = h, y1 = h, default.units="native",
+                      name = trellis.grobname(paste(identifier, "h", sep="."),
+                        type = "panel", group = group),
                       gp = gpar(col = col.line, lty = lty,
                                 lwd = lwd, alpha = alpha))
     if (length(as.numeric(v)) > 0)
         grid.segments(x0 = v, x1 = v, default.units="native",
+                      name = trellis.grobname(paste(identifier, "v", sep="."),
+                        type = "panel", group = group),
                       gp = gpar(col = col.line, lty = lty,
                                 lwd = lwd, alpha = alpha))
     invisible()
@@ -240,7 +252,8 @@ panel.curve <-
               lty = add.line$lty,
               lwd = add.line$lwd,
               type, ## ignored, to avoid type meant for panel.xyplot etc
-              ...)
+              ...,
+              identifier = "curve")
     ## curve has a log option. Unfortunately there is no easy way to
     ## read in the lattice log options (specified via scales) into the
     ## panel function. Maybe some day if grid natively supports log
@@ -264,7 +277,12 @@ panel.curve <-
     if (missing(to)) to <- max(lims)
     x <- seq(from, to, length.out = n)
     y <- eval(expr, envir = list(x = x), enclos = parent.frame())
-    panel.lines(x, y, type = curve.type, col = col, lty = lty, lwd = lwd, ...)
+    if (hasArg(group.number))
+        id <- paste(identifier, "group", list(...)$group.number, sep=".")
+    else
+        id <- identifier
+    panel.lines(x, y, type = curve.type, col = col, lty = lty, lwd = lwd, ...,
+                identifier = id)
 }
 
 
@@ -284,17 +302,25 @@ panel.rug <-
              lty = plot.line$lty,
              lwd = plot.line$lwd,
              alpha = plot.line$alpha,
-             ...)
+             ...,
+             identifier = "rug")
 {
     if (!any(is.finite(x))) x <- NULL
     if (!any(is.finite(y))) y <- NULL
     plot.line <- trellis.par.get("plot.line")
     x.units <- rep(x.units, length.out = 2)
     y.units <- rep(y.units, length.out = 2)
+    id <- identifier
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
     if (!is.null(x))
     {
         grid.segments(x0 = unit(x, "native"), x1 = unit(x, "native"),
                       y0 = unit(start, x.units[1]), y1 = unit(end, x.units[2]),
+                      name = trellis.grobname(paste(id, "x", sep="."),
+                        type = "panel", group = group),
                       gp =
                       gpar(col = col.line, lty = lty,
                            lwd = lwd, alpha = alpha))
@@ -303,6 +329,8 @@ panel.rug <-
     {
         grid.segments(y0 = unit(y, "native"), y1 = unit(y, "native"),
                       x0 = unit(start, y.units[1]), x1 = unit(end, y.units[2]),
+                      name = trellis.grobname(paste(id, "y", sep="."),
+                        type = "panel", group = group),
                       gp =
                       gpar(col = col.line, lty = lty,
                            lwd = lwd, alpha = alpha))
@@ -314,9 +342,16 @@ panel.rug <-
 
 panel.fill <-
     function(col = trellis.par.get("background")$col,
-             border = "transparent", ...)
+             border = "transparent", ...,
+             identifier = "fill")
 {
-    grid.rect(gp =
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
+    grid.rect(name = trellis.grobname(identifier,
+                type = "panel", group = group),
+              gp =
               gpar(fill = col,
                    col = border,
                    ...))
@@ -333,26 +368,33 @@ panel.grid <-
              col.line = reference.line$col,
              lty = reference.line$lty,
              lwd = reference.line$lwd,
-             x = NULL, y = NULL, ...)
+             x = NULL, y = NULL, ...,
+             identifier = "grid")
 {
     reference.line <- trellis.par.get("reference.line")
     if (!missing(col) && missing(col.line)) col.line <- col
     h <- as.integer(h)
     v <- as.integer(v)
 
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
     if (h > 0)
         grid.segments(y0 = 1:h / (h+1),
                       y1 = 1:h / (h+1),
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
                       default.units = "npc",
-                      name = trellis.grobname("panel.grid.h"))
+                      name = trellis.grobname(paste(identifier, "h", sep="."),
+                        type = "panel", group = group))
 
     if (v > 0)
         grid.segments(x0 = 1:v / (v+1),
                       x1 = 1:v / (v+1),
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
                       default.units = "npc",
-                      name = trellis.grobname("panel.grid.v"))
+                      name = trellis.grobname(paste(identifier, "v", sep="."),
+                        type = "panel", group = group))
 
     ## Cheating here a bit for h=-1, v=-1. Can't think of any neat way to
     ## get the actual `at' values of the panel
@@ -376,7 +418,8 @@ panel.grid <-
                       y1 = at,
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
                       default.units = "native",
-                      name = trellis.grobname("panel.grid.h"))
+                      name = trellis.grobname(paste(identifier, "h", sep="."),
+                        type = "panel", group = group))
     }
     if (v < 0)
     {
@@ -395,7 +438,8 @@ panel.grid <-
                       x1 = at,
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
                       default.units = "native",
-                      name = trellis.grobname("panel.grid.v"))
+                      name = trellis.grobname(paste(identifier, "v", sep="."),
+                        type = "panel", group = group))
     }
 }
 
@@ -404,9 +448,12 @@ panel.grid <-
 
 
 panel.lmline <-
-    function(x, y, ...)
+    function(x, y, ...,
+             identifier = "lmline")
 {
-    if (length(x) > 1) panel.abline(lm(as.numeric(y) ~ as.numeric(x)), ...)
+    if (length(x) > 1)
+        panel.abline(lm(as.numeric(y) ~ as.numeric(x)), ...,
+                     identifier = identifier)
 }
 
 
@@ -440,7 +487,8 @@ panel.loess <-
              col.line = plot.line$col,
              type, ## ignored
              horizontal = FALSE,
-             ...)
+             ...,
+             identifier = "loess")
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
@@ -458,7 +506,8 @@ panel.loess <-
             loess.smooth(y[ok], x[ok], span = span, family = family,
                          degree = degree, evaluation = evaluation)
         panel.lines(x = smooth$y, y = smooth$x,
-                    col = col.line, lty = lty, lwd = lwd, ...)
+                    col = col.line, lty = lty, lwd = lwd, ...,
+                    identifier = identifier)
     }
     else
     {
@@ -466,7 +515,8 @@ panel.loess <-
             loess.smooth(x[ok], y[ok], span = span, family = family,
                          degree = degree, evaluation = evaluation)
         panel.lines(x = smooth$x, y = smooth$y,
-                    col = col.line, lty = lty, lwd = lwd, ...)
+                    col = col.line, lty = lty, lwd = lwd, ...,
+                    identifier = identifier)
     }
 }
 
@@ -806,7 +856,8 @@ panel.average <-
              col,
              col.line = reference.line$col,
              type = "l", ## ignored
-             ...)
+             ...,
+             identifier = "linejoin")
 {
     ## FIXME: pretty sure this can be made more readable using tapply (or aggregate)
     x <- as.numeric(x)
@@ -824,7 +875,8 @@ panel.average <-
         xx <- numeric(length(yy))
         for (i in yy)
             xx[i] <- fun(x[y == vals[i]])
-        panel.lines(xx, vals[yy], col = col.line, lty = lty, lwd = lwd, ...)
+        panel.lines(xx, vals[yy], col = col.line, lty = lty, lwd = lwd, ...,
+                    identifier = identifier)
     }
     else
     {
@@ -833,7 +885,8 @@ panel.average <-
         yy <- numeric(length(xx))
         for (i in xx)
             yy[i] <- fun(y[x == vals[i]])
-        panel.lines(vals[xx], yy, col = col.line, lty = lty, lwd = lwd, ...)
+        panel.lines(vals[xx], yy, col = col.line, lty = lty, lwd = lwd, ...,
+                    identifier = identifier)
      }
 }
 
@@ -848,12 +901,14 @@ panel.mathdensity <-
              lwd = reference.line$lwd,
              lty = reference.line$lty,
              type,
-             ...)
+             ...,
+             identifier = "mathdensity")
 {
     reference.line <- trellis.par.get("reference.line")
     if (!missing(col) && missing(col.line)) col.line <- col
     x <- do.breaks(endpoints = current.panel.limits()$xlim, nint = n)
     y <- do.call("dmath", c(list(x = x), args))
-    panel.lines(x = x, y = y, col = col.line, lwd = lwd, lty = lty, ...)
+    panel.lines(x = x, y = y, col = col.line, lwd = lwd, lty = lty, ...,
+                identifier = identifier)
 }
 

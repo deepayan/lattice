@@ -136,7 +136,8 @@ panel.3dscatter <-
              cross,
              ...,
              .scale = FALSE,
-             subscripts = TRUE)
+             subscripts = TRUE,
+             identifier = "3dscatter")
 {
     if (.scale)
     {
@@ -220,14 +221,16 @@ panel.3dscatter <-
                 lsegments(x0 = m0[1,], y0 = m0[2,],
                           x1 = m1[1,], y1 = m1[2,],
                           col = rep(col.line[ord], each = 3),
-                          ...)
+                          ...,
+                          identifier = paste(identifier, "points", sep = "."))
             }
             else
             {
                 lpoints(x = m[1, ord], y = m[2, ord],
                         col = col.point[ord],
                         pch = pch[ord],
-                        cex = cex[ord], ...)
+                        cex = cex[ord], ...,
+                        identifier = identifier)
             }
         }
 
@@ -259,7 +262,8 @@ panel.3dscatter <-
                       x1 = m1[1, ord], y1 = m1[2, ord],
                       col = tmpcol0[ord],
                       lwd = lwd[ord],
-                      lty = lty[ord], ...)
+                      lty = lty[ord], ...,
+                      identifier = paste(identifier, "lines", sep = "."))
         }
 
 
@@ -282,7 +286,8 @@ panel.3dscatter <-
                       other.end[1,ord], other.end[2,ord],
                       col = col.line[ord],
                       lty = lty[ord],
-                      lwd = lwd[ord], ...)
+                      lwd = lwd[ord], ...,
+                      identifier = paste(identifier, "hist", sep = "."))
         }
         if (any(!(type %in% c("p", "h", "l", "b", "o"))))
         {
@@ -331,7 +336,8 @@ panel.3dwire <-
              drape = FALSE,
              at,
              col.regions = regions$col,
-             alpha.regions = regions$alpha)
+             alpha.regions = regions$alpha,
+             identifier = "3dwire")
 {
 
     ## a faster version of panel.3dwire that takes advantage of grid
@@ -466,6 +472,8 @@ panel.3dwire <-
                     {
                         grid.polygon(x = pol.x, y = pol.y, id.lengths = rep(3, polynum),
                                      default.units = "native",
+                                     name = trellis.grobname(paste(identifier,
+                                       "polygons", sep = "."), type = "panel"),
                                      gp = gpar(fill = pol.fill,
                                      col = pol.col,
                                      lty = lty, lwd = lwd,
@@ -498,6 +506,8 @@ panel.3dwire <-
         {
             grid.polygon(x = pol.x[1:(count * 3)], y = pol.y[1:(count * 3)],
                          default.units = "native", id.lengths = rep(3, count),
+                         name = trellis.grobname(paste(identifier,
+                           "polygons", sep = "."), type = "panel"),
                          gp = gpar(fill = rep(pol.fill, length.out = count),
                          col = rep(pol.col, length.out = count),
                          lty = lty, lwd = lwd,
@@ -574,6 +584,8 @@ panel.3dwire <-
 
                         grid.polygon(x = pol.x, y = pol.y, id.lengths = rep(4, polynum),
                                      default.units = "native",
+                                     name = trellis.grobname(paste(identifier,
+                                       "polygons", sep = "."), type = "panel"),
                                      gp = gpar(fill = pol.fill,
                                                col = pol.col, ## FIXME: should be adjustcolor(col, alpha.f = alpha)
                                                lty = lty, lwd = lwd,
@@ -603,6 +615,8 @@ panel.3dwire <-
         {
             grid.polygon(x = pol.x[1:(count * 4)], y = pol.y[1:(count * 4)],
                          default.units = "native", id.lengths = rep(4, count),
+                         name = trellis.grobname(paste(identifier,
+                           "polygons", sep = "."), type = "panel"),
                          gp = gpar(fill = rep(pol.fill, length.out = count),
                          col = rep(pol.col, length.out = count),
                          lty = lty, lwd = lwd,
@@ -651,8 +665,8 @@ panel.cloud <-
 
              scpos,
              ...,
-             at)    ## this is same as 'at' in wireframe
-
+             at,    ## this is same as 'at' in wireframe
+             identifier = "cloud")
 {
 
     ## x, y, z can be matrices and we want to retain them as matrices.
@@ -1012,7 +1026,8 @@ panel.cloud <-
                   corners[2, nxt[!mark]],
                   col = par.box.final$col,
                   lwd = par.box.final$lwd,
-                  lty = 2)
+                  lty = 2,
+                  identifier = paste(identifier, "back.box", sep = "."))
 
 
         ## The following portion of code is responsible for drawing
@@ -1142,7 +1157,8 @@ panel.cloud <-
                   corners[2, nxt[mark]],
                   col = par.box.final$col,
                   lty = par.box.final$lty,
-                  lwd = par.box.final$lwd)
+                  lwd = par.box.final$lwd,
+                  identifier = paste(identifier, "front.box", sep = "."))
 
         ## Next part for axes. FIXME: ignoring axis.text$lineheight
         ## because seems overkill, but could add that too.
@@ -1244,20 +1260,26 @@ panel.cloud <-
                         length = 0.02, unit = "npc",
                         lty = xaxis.lty,
                         lwd = xaxis.lwd,
-                        col = xaxis.col.line)
+                        col = xaxis.col.line,
+                        identifier = paste(identifier, "x.axis.arrow",
+                          sep = "."))
             }
             else {
                 lsegments(x0 = x.at[1,], y0 = x.at[2,], x1 = x.at.end[1,], y1 = x.at.end[2,],
                           lty = xaxis.lty,
                           col = xaxis.col.line,
-                          lwd = xaxis.lwd)
+                          lwd = xaxis.lwd,
+                          identifier = paste(identifier, "x.axis.ticks",
+                            sep = "."))
                 ltext(x.at.lab, x = x.labs[1,], y = x.labs[2,],
                       cex = xaxis.cex,
                       srt = xaxis.rot,
                       font = xaxis.font,
                       fontfamily = xaxis.fontfamily,
                       fontface = xaxis.fontface,
-                      col = xaxis.col.text)
+                      col = xaxis.col.text,
+                      identifier = paste(identifier, "x.axis.labels",
+                        sep = "."))
             }
         }
 
@@ -1268,20 +1290,29 @@ panel.cloud <-
                         length = 0.02, unit = "npc",
                         lty = yaxis.lty,
                         lwd = yaxis.lwd,
-                        col = yaxis.col.line)
+                        col = yaxis.col.line,
+                        identifier = paste(identifier, "y.axis.arrow",
+                            sep = "."))
+
             }
             else {
                 lsegments(x0 = y.at[1,], y0 = y.at[2,], x1 = y.at.end[1,], y1 = y.at.end[2,],
                           lty = yaxis.lty,
                           col = yaxis.col.line,
-                          lwd = yaxis.lwd)
+                          lwd = yaxis.lwd,
+                          identifier = paste(identifier, "y.axis.ticks",
+                            sep = "."))
+
                 ltext(y.at.lab, x = y.labs[1,], y = y.labs[2,],
                       cex = yaxis.cex,
                       srt = yaxis.rot,
                       font = yaxis.font,
                       fontfamily = yaxis.fontfamily,
                       fontface = yaxis.fontface,
-                      col = yaxis.col.text)
+                      col = yaxis.col.text,
+                      identifier = paste(identifier, "y.axis.labels",
+                        sep = "."))
+
             }
         }
         if (scales.3d$z.scales$draw) {
@@ -1291,20 +1322,29 @@ panel.cloud <-
                         length = 0.02, unit = "npc",
                         lty = zaxis.lty,
                         lwd = zaxis.lwd,
-                        col = zaxis.col.line)
+                        col = zaxis.col.line,
+                        identifier = paste(identifier, "z.axis.arrow",
+                          sep = "."))
+
             }
             else {
                 lsegments(x0 = z.at[1,], y0 = z.at[2,], x1 = z.at.end[1,], y1 = z.at.end[2,],
                           lty = zaxis.lty,
                           col = zaxis.col.line,
-                          lwd = zaxis.lwd)
+                          lwd = zaxis.lwd,
+                          identifier = paste(identifier, "z.axis.ticks",
+                            sep = "."))
+
                 ltext(z.at.lab, x = z.labs[1,], y = z.labs[2,],
                       cex = zaxis.cex,
                       srt = zaxis.rot,
                       font = zaxis.font,
                       fontfamily = zaxis.fontfamily,
                       fontface = zaxis.fontface,
-                      col = zaxis.col.text)
+                      col = zaxis.col.text,
+                      identifier = paste(identifier, "z.axis.labels",
+                        sep = "."))
+
             }
         }
 
@@ -1316,13 +1356,13 @@ panel.cloud <-
         ## supplied in the *lab lists
 
         xlab <-
-            grobFromLabelList(xlab, name = trellis.grobname("xlab"))
+            grobFromLabelList(xlab, name = trellis.grobname("xlab", type=""))
 #                              rot = if (is.null(xlab$rot)) 0 else xlab$rot)
         ylab <-
-            grobFromLabelList(ylab, name = trellis.grobname("ylab"))
+            grobFromLabelList(ylab, name = trellis.grobname("ylab", type=""))
 #                              rot = if (is.null(ylab$rot)) 0 else ylab$rot)
         zlab <-
-            grobFromLabelList(zlab, name = trellis.grobname("zlab"))
+            grobFromLabelList(zlab, name = trellis.grobname("zlab", type=""))
 #                              rot = if (is.null(zlab$rot)) 0 else zlab$rot)
 
         if (!is.null(xlab))

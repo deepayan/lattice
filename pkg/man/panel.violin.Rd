@@ -13,7 +13,8 @@ panel.violin(x, y, box.ratio = 1, box.width,
              varwidth = FALSE,
              bw, adjust, kernel, window, 
              width, n = 50, from, to, cut,
-             na.rm, \dots)
+             na.rm, \dots,
+             identifier = "violin")
 }
 \arguments{
   \item{x, y}{
@@ -49,6 +50,10 @@ panel.violin(x, y, box.ratio = 1, box.width,
     arguments to \code{\link{density}}, passed on as appropriate }
   \item{\dots}{
     arguments passed on to \code{density}.
+  }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
   }
 }
 

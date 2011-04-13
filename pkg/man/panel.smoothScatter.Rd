@@ -17,7 +17,8 @@ panel.smoothScatter(x, y = NULL,
                     range.x,
                     ...,
                     raster = FALSE,
-                    subscripts)
+                    subscripts,
+                    identifier = "smoothScatter")
 }
 \arguments{
   \item{x}{Numeric vector containing x-values or n by 2 matrix containing x
@@ -51,6 +52,10 @@ panel.smoothScatter(x, y = NULL,
     smaller output files. }
   \item{subscripts}{ ignored, but necessary for handling of \dots in
     certain situations.  Likely to be removed in future. }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 
 \details{

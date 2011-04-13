@@ -55,7 +55,14 @@ trellis.vpname(name = c("position", "split", "split.location", "toplevel",
                column, row,
                side = c("left", "top", "right", "bottom", "inside"),
                clip.off = FALSE, prefix)
-trellis.grobname(name, prefix)
+trellis.grobname(name,
+                 type = c("", "panel", "strip", "strip.left"),
+                 group = 0,
+                 column = lattice.getStatus("current.focus.column",
+                                            prefix = prefix),
+                 row = lattice.getStatus("current.focus.row",
+                                         prefix = prefix),
+                 prefix = lattice.getStatus("current.prefix"))
 trellis.focus(name, column, row, side, clip.off,
               highlight = interactive(), \dots, prefix,
               guess = TRUE, verbose = getOption("verbose"))
@@ -158,6 +165,21 @@ trellis.panelArgs(x, packet.number)
     \code{clip.off=FALSE} does not necessarily mean that clipping is on;
     that is determined by conditions in effect during printing.
 
+  }
+  \item{type}{
+    A character string specifying whether the grob is specific to
+    a particular panel or strip.
+
+    When \code{type} is \code{"panel"}, \code{"strip"}, or
+    \code{"strip.left"}, information about the panel is added to the
+    grob name.
+  }
+  \item{group}{
+    An integer specifying whether the grob is specific to a particular
+    group within the plot.
+
+    When \code{group} is greater than zero, information about the
+    group is added to the grob name.
   }
   \item{prefix}{
     A character string acting as a prefix identifying the plot of a

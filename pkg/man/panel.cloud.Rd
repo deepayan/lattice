@@ -27,7 +27,8 @@ panel.cloud(x, y, subscripts, z,
             wireframe = FALSE,
             scpos,
             \dots,
-            at)
+            at,
+            identifier = "cloud")
 panel.wireframe(\dots)
 panel.3dscatter(x, y, z, rot.mat, distance,
                 groups, type = "p",
@@ -36,7 +37,8 @@ panel.3dscatter(x, y, z, rot.mat, distance,
                 zero.scaled,
                 col, col.point, col.line,
                 lty, lwd, cex, pch,
-                cross, \dots, .scale = FALSE, subscripts)
+                cross, \dots, .scale = FALSE, subscripts,
+                identifier = "3dscatter")
 panel.3dwire(x, y, z, rot.mat = diag(4), distance,
              shade = FALSE,
              shade.colors.palette = trellis.par.get("shade.colors")$palette,
@@ -55,7 +57,8 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
              drape = FALSE,
              at,
              col.regions = regions$col,
-             alpha.regions = regions$alpha)
+             alpha.regions = regions$alpha,
+             identifier = "3dwire")
 }
 \arguments{
   \item{x, y, z}{
@@ -254,6 +257,10 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     already scaled.  However, setting \code{.scale=TRUE} may be helpful
     for calls to \code{panel.3dscatter} and \code{panel.3dwire} in
     user-supplied panel functions.
+  }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
   }
 }
 \details{

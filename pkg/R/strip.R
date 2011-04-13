@@ -68,15 +68,27 @@ paste.and.draw <-
                         (if (showr) unit(0.5 * showr, "strwidth", list(right)) else unit(0, "mm"))
         if (horizontal)
         {
-            if (shows) grid.text(sep, x = offset, gp = gp)
-            if (showl) grid.text(left, x = offset - wsep, gp = gp, just = "right")
-            if (showr) grid.text(right, x = offset + wsep, gp = gp, just = "left")
+            if (shows) grid.text(sep, x = offset,
+                                 name = trellis.grobname("sep", type="strip"),
+                                 gp = gp)
+            if (showl) grid.text(left, x = offset - wsep,
+                                 name = trellis.grobname("textl", type="strip"),
+                                 gp = gp, just = "right")
+            if (showr) grid.text(right, x = offset + wsep,
+                                 name = trellis.grobname("textr", type="strip"),
+                                 gp = gp, just = "left")
         }
         else
         {
-            if (shows) grid.text(sep, y = offset, gp = gp, rot = 90)
-            if (showl) grid.text(left, y = offset - wsep, gp = gp, just = "right", rot = 90)
-            if (showr) grid.text(right, y = offset + wsep, gp = gp, just = "left", rot = 90)
+            if (shows) grid.text(sep, y = offset,
+                                 name = trellis.grobname("sep", type="strip.left"),
+                                 gp = gp, rot = 90)
+            if (showl) grid.text(left, y = offset - wsep,
+                                 name = trellis.grobname("textl", type="strip.left"),
+                                 gp = gp, just = "right", rot = 90)
+            if (showr) grid.text(right, y = offset + wsep,
+                                 name = trellis.grobname("textr", type="strip.left"),
+                                 gp = gp, just = "left", rot = 90)
         }
     }
 }
@@ -148,17 +160,20 @@ strip.default <-
         ## 'style' will be completely ignored, and shingle.intervals
         ## encoded using bg and fg.  Names and levels are both game.
 
-        grid.rect(gp = gpar(fill = bg, col = bg))
+        grid.rect(name = trellis.grobname("bg", type="strip"),
+                  gp = gpar(fill = bg, col = bg))
 
         t <- range(shingle.intervals)
         r <- (range(shingle.intervals[level,]) - t[1]) / diff(t)
         if (horizontal)
             grid.rect(x = unit(r %*% c(.5,.5),"npc"),
                       width = max(unit(c(diff(r), 1), c("npc", "mm"))),
+                      name = trellis.grobname("fg", type="strip"),
                       gp = gpar(col = fg, fill = fg))
         else 
             grid.rect(y = unit(r %*% c(.5,.5),"npc"),
                       height = max(unit( c(diff(r), 1), c("npc", "mm"))),
+                      name = trellis.grobname("fg", type="strip.left"),
                       gp = gpar(col = fg, fill = fg))
 
         paste.and.draw(name, factor.levels[level],
@@ -178,7 +193,9 @@ strip.default <-
         ## coloring:
 
         ## background: all except style = 2
-        if (style != 2) grid.rect(gp = gpar(fill = bg, col = bg))
+        if (style != 2)
+            grid.rect(name = trellis.grobname("bg", type="strip"),
+                      gp = gpar(fill = bg, col = bg))
 
         ## foreground: needed only for style = 2, 3 and 4
 
@@ -188,12 +205,14 @@ strip.default <-
             {
                 grid.rect(x = unit((2*level-1)/(2*num), "npc"),
                           width = unit(1/num, "npc"),
+                          name = trellis.grobname("fg", type = "strip"),
                           gp = gpar(fill = fg, col = fg))
             }
             else
             {
                 grid.rect(y = unit((2*level-1)/(2*num), "npc"),
                           height = unit(1/num, "npc"),
+                          name = trellis.grobname("fg", type = "strip.left"),
                           gp = gpar(fill = fg, col = fg))
             }
         }
@@ -218,6 +237,7 @@ strip.default <-
             {
                 grid.text(label = factor.levels[lid],
                           x = (2 * lid - 1) / (2 * num),
+                          name = trellis.grobname("fg", type = "strip"),
                           gp = gp.text)
             }
             else
@@ -225,6 +245,7 @@ strip.default <-
                 grid.text(label = factor.levels[lid],
                           y = (2 * lid - 1) / (2 * num),
                           rot = 90,
+                          name = trellis.grobname("fg", type = "strip.left"),
                           gp = gp.text)
             }
         }
@@ -246,7 +267,8 @@ strip.default <-
 
     strip.border <- trellis.par.get("strip.border")
     ## draw border for strip
-    grid.rect(gp =
+    grid.rect(name = trellis.grobname("border", type="strip"),
+              gp =
               gpar(col = rep(strip.border$col, length.out = which.given)[which.given],
                    lty = rep(strip.border$lty, length.out = which.given)[which.given],
                    lwd = rep(strip.border$lwd, length.out = which.given)[which.given],

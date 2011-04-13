@@ -23,7 +23,8 @@ panel.levelplot(x, y, z,
                 border = "transparent",
                 \dots,
                 col.regions = regions$col,
-                alpha.regions = regions$alpha)
+                alpha.regions = regions$alpha,
+                identifier = "levelplot")
 panel.contourplot(\dots)
 
 panel.levelplot.raster(x, y, z, 
@@ -32,7 +33,8 @@ panel.levelplot.raster(x, y, z,
                        ...,
                        col.regions = regions$col,
                        alpha.regions = regions$alpha,
-                       interpolate = FALSE)
+                       interpolate = FALSE,
+                       identifier = "levelplot")
 
 
 
@@ -108,6 +110,10 @@ panel.levelplot.raster(x, y, z,
     numeric scalar controlling transparency of facets
   }
   \item{interpolate}{ logical, passed to \code{\link{grid.raster}}. }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 
 \details{

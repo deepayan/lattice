@@ -179,7 +179,8 @@ panel.qqmath <-
              distribution = qnorm,
              qtype = 7,
              groups = NULL, ...,
-             tails.n = 0)
+             tails.n = 0,
+             identifier = "qqmath")
 {
     x <- as.numeric(x)
     distribution <- getFunctionOrName(distribution)
@@ -199,7 +200,8 @@ panel.qqmath <-
         {
             panel.xyplot(x = distribution(ppoints(nobs)),
                          y = sort(x),
-                         ...)
+                         ...,
+                         identifier = identifier)
         }
         else
         {
@@ -222,7 +224,8 @@ panel.qqmath <-
                                   names = FALSE,
                                   type = qtype,
                                   na.rm = TRUE)
-            panel.xyplot(x = xx, y = yy, ...)
+            panel.xyplot(x = xx, y = yy, ...,
+                         identifier = identifier)
         }
     }
 }
@@ -492,7 +495,8 @@ panel.qqmathline <-
              probs = c(0.25, 0.75),
              qtype = 7,
              groups = NULL, 
-             ...)
+             ...,
+             identifier = "qqmathline")
 {
     y <- as.numeric(y)
     stopifnot(length(probs) == 2)
@@ -513,7 +517,8 @@ panel.qqmathline <-
                      type = qtype, na.rm = TRUE)
         xx <- distribution(probs)
         r <- diff(yy)/diff(xx)
-        panel.abline(c( yy[1]-xx[1]*r , r), ...)
+        panel.abline(c( yy[1]-xx[1]*r , r), ...,
+                     identifier = identifier)
     }
 }
 
