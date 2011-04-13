@@ -32,8 +32,9 @@ prepanel.default.splom <-
 }
 
 panel.splom <-
-    function(...)
-    panel.xyplot(...)
+    function(...,
+             identifier = "splom")
+    panel.xyplot(..., identifier = identifier)
 
 
 diag.panel.splom <-
@@ -68,6 +69,7 @@ diag.panel.splom <-
     axis.text <- trellis.par.get("axis.text")
     if (!is.null(varname))
         grid.text(varname,
+                  name = trellis.grobname("diag.text", type="panel"),
                   gp =
                   gpar(col = varname.col,
                        cex = varname.cex,
@@ -262,7 +264,9 @@ panel.pairs <-
                                i = i, j= j,
                                ...)
 
-                    grid.rect(gp =
+                    grid.rect(name = trellis.grobname("pairs.border",
+                                type="panel"),
+                              gp =
                               gpar(col = axis.line.col,
                                    lty = axis.line.lty,
                                    lwd = axis.line.lwd,
@@ -300,7 +304,9 @@ panel.pairs <-
                     else
                         checkArgsAndCall(if (i < j) lower.panel else upper.panel, pargs)
                     
-                    grid.rect(gp =
+                    grid.rect(name = trellis.grobname("pairs.border",
+                                type="panel"),
+                              gp =
                               gpar(col = axis.line.col,
                                    lty = axis.line.lty,
                                    lwd = axis.line.lwd,

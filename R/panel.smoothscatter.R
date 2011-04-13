@@ -48,7 +48,8 @@ panel.smoothScatter <-
               range.x,
               ...,
               raster = FALSE,
-              subscripts)
+              subscripts,
+              identifier = "smoothScatter")
 
     ## subscripts is ignored (and recomputed), but the formal argument
     ## is necessary to catch another version passed in as ...
@@ -85,7 +86,8 @@ panel.smoothScatter <-
          subscripts = TRUE,
          at = seq(from = 0, to = 1.01 * max(dens), length = cuts + 2),
          col.regions = colramp(cuts + 1),
-         ...)
+         ...,
+         identifier = identifier)
     if (nrpoints != 0)
     {
         stopifnot(length(xm) == nrow(dens), length(ym) == ncol(dens))
@@ -96,7 +98,8 @@ panel.smoothScatter <-
         idens <- dens[1 + iym * length(xm) + ixm]
         nrpoints <- min(nrow(x), ceiling(nrpoints))
         sel <- order(idens, decreasing = FALSE)[1:nrpoints]
-        panel.points(x[sel, 1:2], pch = pch, cex = cex, col = col)
+        panel.points(x[sel, 1:2], pch = pch, cex = cex, col = col,
+                     identifier = identifier)
     }
 }
 

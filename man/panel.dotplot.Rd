@@ -9,7 +9,8 @@ panel.dotplot(x, y, horizontal = TRUE,
               pch, col, lty, lwd, 
               col.line, levels.fos,
               groups = NULL,
-              \dots)
+              \dots,
+              identifier = "dotplot")
 }
 \arguments{
   \item{x,y}{ variables to be plotted in the panel. Typically y is the
@@ -27,6 +28,10 @@ panel.dotplot(x, y, horizontal = TRUE,
     extra parameters, passed to \code{panel.xyplot} which is responsible
     for drawing the foreground points (\code{panel.dotplot} only draws
     the background reference lines).
+  }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
   }
 }
 \details{

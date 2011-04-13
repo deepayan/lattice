@@ -346,7 +346,8 @@ plot.trellis <-
         if (new)
         {
             grid.newpage()
-            grid.rect(gp = gpar(fill = bg, col = "transparent"))
+            grid.rect(name=trellis.grobname("background", type=""),
+                      gp = gpar(fill = bg, col = "transparent"))
         }
         pushViewport(viewport(x = position[1], y = position[2],
                               width = position[3] - position[1],
@@ -371,7 +372,8 @@ plot.trellis <-
         if (new)
         {
             grid.newpage()
-            grid.rect(gp = gpar(fill = bg, col = "transparent"))
+            grid.rect(name = trellis.grobname("background", type=""),
+                      gp = gpar(fill = bg, col = "transparent"))
         }
         pushViewport(viewport(layout = grid.layout(nrow = split[4], ncol = split[3]),
                               name = trellis.vpname("split", prefix = prefix) ))
@@ -631,29 +633,31 @@ plot.trellis <-
     main <-
         grobFromLabelList(getLabelList(x$main,
                                        trellis.par.get("par.main.text")),
-                          name = trellis.grobname("main"))
+                          name = trellis.grobname("main", type=""))
     sub <-
         grobFromLabelList(getLabelList(x$sub,
                                        trellis.par.get("par.sub.text")),
-                          name = trellis.grobname("sub"))
+                          name = trellis.grobname("sub", type=""))
     xlab <-
         grobFromLabelList(getLabelList(x$xlab,
                                        trellis.par.get("par.xlab.text"),
                                        x$xlab.default),
-                          name = trellis.grobname("xlab"))
+                          name = trellis.grobname("xlab", type=""))
     ylab <-
         grobFromLabelList(getLabelList(x$ylab,
                                        trellis.par.get("par.ylab.text"),
                                        x$ylab.default),
-                          name = trellis.grobname("ylab"), orient = 90)
+                          name = trellis.grobname("ylab", type=""),
+                          orient = 90)
     xlab.top <-
         grobFromLabelList(getLabelList(x$xlab.top,
                                        trellis.par.get("par.xlab.text")),
-                          name = trellis.grobname("xlab.top"))
+                          name = trellis.grobname("xlab.top", type=""))
     ylab.right <-
         grobFromLabelList(getLabelList(x$ylab.right,
                                        trellis.par.get("par.ylab.text")),
-                          name = trellis.grobname("ylab.right"), orient = 90)
+                          name = trellis.grobname("ylab.right", type=""),
+                          orient = 90)
 
 
     ## get par.strip.text
@@ -736,7 +740,8 @@ plot.trellis <-
             if (usual)
             {
                 if (new) grid.newpage()
-                grid.rect(gp = gpar(fill = bg, col = "transparent"))
+                grid.rect(name = trellis.grobname("background", type=""),
+                          gp = gpar(fill = bg, col = "transparent"))
                 new <- TRUE
             }
 
@@ -1203,7 +1208,9 @@ plot.trellis <-
                                                     row = row,
                                                     prefix = prefix,
                                                     clip.off = TRUE))
-                        grid.rect(gp =
+                        grid.rect(name = trellis.grobname("border",
+                                    type="panel"),
+                                  gp =
                                   gpar(col = axis.line$col,
                                        lty = axis.line$lty,
                                        lwd = axis.line$lwd,

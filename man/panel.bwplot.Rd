@@ -16,7 +16,8 @@ panel.bwplot(x, y, box.ratio = 1,
              levels.fos,
              stats = boxplot.stats,
              coef = 1.5,
-             do.out = TRUE)
+             do.out = TRUE,
+             identifier = "bwplot")
 }
 \arguments{
   \item{x, y}{ numeric vector or factor. Boxplots drawn for each unique value of
@@ -59,6 +60,10 @@ panel.bwplot(x, y, box.ratio = 1,
     factor or shingle variable.  For internal use. }
   \item{\dots}{
     further arguments, ignored.
+  }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
   }
 }
 \details{

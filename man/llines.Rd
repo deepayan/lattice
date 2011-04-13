@@ -34,24 +34,24 @@
 lplot.xy(xy, type, pch, lty, col, cex, lwd,
          font, fontfamily, fontface,
          col.line, col.symbol, alpha, fill,
-         origin = 0, \dots)
+         origin = 0, \dots, identifier, panel)
 
 llines(x, ...)
 lpoints(x, ...)
 ltext(x, ...)
 
 \method{llines}{default}(x, y = NULL, type = "l",
-       col, alpha, lty, lwd, \dots)
+       col, alpha, lty, lwd, \dots, identifier, panel)
 \method{lpoints}{default}(x, y = NULL, type = "p", col, pch, alpha, fill,
-        font, fontfamily, fontface, cex, \dots)  
+        font, fontfamily, fontface, cex, \dots, identifier, panel)  
 \method{ltext}{default}(x, y = NULL, labels = seq_along(x),
       col, alpha, cex, srt = 0,
       lineheight, font, fontfamily, fontface,
-      adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots)  
+      adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots, identifier, panel)  
 
 lsegments(x0, y0, x1, y1, x2, y2,
           col, alpha, lty, lwd,
-          font, fontface, \dots)
+          font, fontface, \dots, identifier, panel)
 lrect(xleft, ybottom, xright, ytop,
       x = (xleft + xright) / 2,
       y = (ybottom + ytop) / 2,
@@ -62,7 +62,7 @@ lrect(xleft, ybottom, xright, ytop,
       lty = 1, lwd = 1, alpha = 1,
       just = "center",
       hjust = NULL, vjust = NULL,
-      \dots)
+      \dots, identifier, panel)
 larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         angle = 30, code = 2, length = 0.25, unit = "inches",
         ends = switch(code, "first", "last", "both"),
@@ -71,10 +71,10 @@ larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         alpha = add.line$alpha,
         lty = add.line$lty,
         lwd = add.line$lwd,
-        fill = NULL, \dots)
+        fill = NULL, \dots, identifier, panel)
 lpolygon(x, y = NULL,
          border = "black", col = "transparent", fill = NULL, 
-         font, fontface, \dots)
+         font, fontface, \dots, identifier, panel)
 
 panel.lines(\dots)
 panel.points(\dots)
@@ -124,6 +124,14 @@ panel.polygon(\dots)
     rectangles, see \code{\link[grid:grid.rect]{grid.rect}} }
   \item{\dots}{ extra arguments, passed on to lower level functions as
     appropriate.  }
+  \item{identifier}{
+    A character string that is prepended to the name of the grob
+    that is created.
+  }
+  \item{panel}{
+    A logical value indicating whether the grob is specific to
+    a particular panel.
+  }
 }
 
 

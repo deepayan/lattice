@@ -11,7 +11,8 @@ panel.histogram(x,
                 type = "density",
                 nint = round(log2(length(x)) + 1), 
                 alpha, col, border, lty, lwd,
-                \dots)
+                \dots,
+                identifier = "histogram")
 }
 \arguments{
   \item{x}{ The data points for which the histogram is to be drawn} 
@@ -26,6 +27,10 @@ panel.histogram(x,
   }
   \item{\dots}{ other arguments, passed to \code{\link{hist}} when
     deemed appropriate }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

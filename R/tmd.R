@@ -99,13 +99,15 @@ prepanel.tmd.qqmath <-
 
 
 panel.tmd.default <-
-    function(x, y, groups = NULL, ...)
+    function(x, y, groups = NULL, ...,
+             identifier = "tmd")
 {
     panel.abline(h=0)
     if (is.null(groups))
         panel.xyplot(x = (as.numeric(x) + as.numeric(y)) / 2,
                      y = (as.numeric(y) - as.numeric(x)),
-                     ...)
+                     ...,
+                     identifier = identifier)
     else
         panel.superpose(x = (as.numeric(x) + as.numeric(y)) / 2,
                         y = (as.numeric(y) - as.numeric(x)),
@@ -119,7 +121,8 @@ panel.tmd.qqmath <-
              distribution = qnorm,
              qtype = 7,
              groups = NULL, 
-             subscripts, ...)
+             subscripts, ...,
+             identifier = "tmd")
 {
     panel.abline(h=0)
     if (!is.numeric(x)) x <- as.numeric(x)
@@ -171,7 +174,8 @@ panel.tmd.qqmath <-
         yy <- getyy(x, f.value, nobs)
         tmd.mean <- (xx + yy) / 2
         tmd.diff <- (yy - xx)
-        panel.xyplot(x = tmd.mean, y = tmd.diff, ...)
+        panel.xyplot(x = tmd.mean, y = tmd.diff, ...,
+                     identifier = identifier)
     }
 }
 

@@ -87,7 +87,8 @@ panel.identify <-
             if (unmarked[w])
             {
                 pos <- getTextPosition(x = lx - px[w], y = ly - py[w])
-                ltext(x[w], y[w], labels[w], pos = pos, offset = offset, ...)
+                ltext(x[w], y[w], labels[w], pos = pos, offset = offset, ...,
+                      identifier = "identify")
                 unmarked[w] <- FALSE
                 count <- count + 1
             }
@@ -337,9 +338,23 @@ trellis.vpname <-
 
 
 trellis.grobname <-
-    function(name, prefix = lattice.getStatus("current.prefix"))
+    function(name, type = c("", "panel", "strip", "strip.left"),
+             group = 0,
+             column = lattice.getStatus("current.focus.column",
+               prefix = prefix),
+             row = lattice.getStatus("current.focus.row",
+               prefix = prefix),
+             prefix = lattice.getStatus("current.prefix"))
 {
-    paste(prefix, name, sep = ".")
+    if (group > 0)
+        name <- paste(name, "group", group, sep=".")
+    paste(prefix,
+          switch(type,
+                 panel=paste(name, "panel", column, row, sep="."),
+                 strip=paste(name, "strip", column, row, sep="."),
+                 strip.left=paste(name, "strip.left", column, row, sep="."),
+                 name),
+          sep = ".")
 }
 
 
@@ -739,7 +754,8 @@ splom.linkPoint <-
                 panel.points(x = pargs$z[w, column],
                              y = pargs$z[w, row],
                              pch = pch, col = col, cex = cex,
-                             ...)
+                             ...,
+                             identifier = "link")
                 upViewport(depth)
             }
         return(w)

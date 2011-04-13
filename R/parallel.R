@@ -48,7 +48,8 @@ panel.parallel <-
              common.scale = FALSE,
              lower = sapply(z, function(x) min(as.numeric(x), na.rm = TRUE)),
              upper = sapply(z, function(x) max(as.numeric(x), na.rm = TRUE)),
-             ..., horizontal.axis = TRUE)
+             ..., horizontal.axis = TRUE,
+             identifier = "parallel")
 {
     superpose.line <- trellis.par.get("superpose.line")
     reference.line <- trellis.par.get("reference.line")
@@ -91,14 +92,18 @@ panel.parallel <-
                            y1 = seq_len(n.r),
                            col = reference.line$col,
                            lwd = reference.line$lwd,
-                           lty = reference.line$lty)
+                           lty = reference.line$lty,
+                           identifier = paste(identifier, "reference",
+                             sep = "."))
         else
             panel.segments(x0 = seq_len(n.r),
                            x1 = seq_len(n.r),
                            y0 = 0, y1 = 1,
                            col = reference.line$col,
                            lwd = reference.line$lwd,
-                           lty = reference.line$lty)
+                           lty = reference.line$lty,
+                           identifier = paste(identifier, "reference",
+                             sep = "."))
     else return(invisible())
 
     for (i in seq_len(n.r-1))
@@ -111,14 +116,16 @@ panel.parallel <-
                            lty = lty,
                            lwd = lwd,
                            alpha = alpha,
-                           ...)
+                           ...,
+                           identifier = paste(identifier, i, sep = "."))
         else
             panel.segments(x0 = i, y0 = z0, x1 = i + 1, y1 = z1,
                            col = col,
                            lty = lty,
                            lwd = lwd,
                            alpha = alpha,
-                           ...)
+                           ...,
+                           identifier = paste(identifier, i, sep = "."))
     }
 
 ##     if (is.null(groups))

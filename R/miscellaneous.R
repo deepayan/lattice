@@ -197,7 +197,12 @@ panel.polygon <- function(...) lpolygon(...)
 
 
 
-
+primName <- function(name, identifier = NULL, panel = TRUE, group = 0) {
+    trellis.grobname(name = ifelse(is.null(identifier), name,
+                       paste(identifier, name, sep=".")),
+                     type = ifelse(panel, "panel", ""),
+                     group = group)
+}
 
 
 
@@ -217,7 +222,9 @@ lpolygon <-
              fill = NULL, # capture so that doesn't overload 'fill=col' in gpar()
 
              font, fontface, ## gpar() doesn't like these
-             ...) 
+             ...,
+             identifier = NULL,
+             panel = TRUE) 
 {
     if (sum(!is.na(x)) < 1) return()
     border <- 
@@ -246,6 +253,11 @@ lpolygon <-
 
     ## new version (uses grid.polygon concept of id)
 
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
+
     with(xy,
      {
          n <- length(x)
@@ -255,6 +267,7 @@ lpolygon <-
                       y = y,
                       id.lengths = id.lengths,
                       default.units = "native",
+                      name = primName("polygon", identifier, panel, group),
                       gp =
                       gpar(fill = col,
                            col = border,
@@ -275,7 +288,9 @@ lsegments <-
 
              font, fontface, ## gpar() doesn't like these
 
-             ...)
+             ...,
+             identifier = NULL,
+             panel = TRUE)
 {
     if (missing(x0)) x0 <- x2
     if (missing(y0)) y0 <- y2
@@ -285,8 +300,13 @@ lsegments <-
     x1 <- rep(x1, length.out = ml)
     y0 <- rep(y0, length.out = ml)
     y1 <- rep(y1, length.out = ml)
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
     grid.segments(x0 = x0, x1 = x1,
                   y0 = y0, y1 = y1,
+                  name = primName("segments", identifier, panel, group),
                   gp =
                   gpar(lty=lty, col = col, lwd = lwd,
                        alpha = alpha, ...),
@@ -305,7 +325,9 @@ lrect <-
              lty = 1, lwd = 1, alpha = 1,
              just = "center",
              hjust = NULL, vjust = NULL,
-             ...)
+             ...,
+             identifier = NULL,
+             panel = TRUE)
 {
     border <- 
         if (all(is.na(border)))
@@ -316,10 +338,15 @@ lrect <-
             else "transparent"
         }
         else border
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
     grid.rect(x = x, y = y,
               width = width, height = height,
               default.units = "native",
               just = just, hjust = hjust, vjust = vjust,
+              name = primName("rect", identifier, panel, group),
               gp =
               gpar(fill = col, col = border,
                    lty = lty, lwd = lwd,
@@ -338,7 +365,9 @@ larrows <-
              alpha = add.line$alpha,
              lty = add.line$lty,
              lwd = add.line$lwd,
-             fill = NULL, ...)
+             fill = NULL, ...,
+             identifier = NULL,
+             panel = TRUE)
 {
     if (missing(x0)) x0 <- x2
     if (missing(y0)) y0 <- y2
@@ -349,8 +378,13 @@ larrows <-
     y0 <- rep(y0, length.out = ml)
     y1 <- rep(y1, length.out = ml)
     gp <- gpar(col = col, lty=lty, lwd = lwd, alpha = alpha, fill = fill, ...)
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
     grid.segments(x0 = x0, x1 = x1,
                   y0 = y0, y1 = y1,
+                  name = primName("arrows", identifier, panel, group),
                   gp = gp,
                   arrow = if (is.null(ends)) NULL else 
                   arrow(angle = angle,
@@ -378,7 +412,9 @@ ltext.default <-
              adj = c(.5, .5),
              pos = NULL,
              offset = 0.5,
-             ...)
+             ...,
+             identifier = NULL,
+             panel = TRUE)
 {
     add.text <- trellis.par.get("add.text")
     xy <- xy.coords(x, y, recycle = TRUE)
@@ -409,7 +445,12 @@ ltext.default <-
     if (length(adj) == 1) adj <- c(adj, .5)
     ## replace non-finite srt by 0
     srt[!is.finite(srt)] <- 0
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
     grid.text(label = labels, x = ux, y = uy,
+              name = primName("text", identifier, panel, group),
               gp =
               gpar(col = col, alpha = alpha,
                    lineheight = lineheight,
@@ -436,11 +477,14 @@ llines.default <-
              col = plot.line$col,
              alpha = plot.line$alpha,
              lty = plot.line$lty,
-             lwd = plot.line$lwd, ...)
+             lwd = plot.line$lwd, ...,
+             identifier = NULL,
+             panel = TRUE)
 {
     plot.line <- trellis.par.get("plot.line")
     lplot.xy(xy.coords(x, y, recycle = TRUE), type = type,
-             col = col, lty = lty, lwd = lwd, alpha = alpha, ...)
+             col = col, lty = lty, lwd = lwd, alpha = alpha, ...,
+             identifier = identifier, panel = panel)
 }
 
 
@@ -455,7 +499,9 @@ lpoints.default <-
              font = plot.symbol$font,
              fontfamily = plot.symbol$fontfamily,
              fontface = plot.symbol$fontface,
-             cex = plot.symbol$cex, ...)
+             cex = plot.symbol$cex, ...,
+             identifier = NULL,
+             panel = TRUE)
 {
     plot.symbol <- trellis.par.get("plot.symbol")
     lplot.xy(xy.coords(x, y, recycle = TRUE),
@@ -468,7 +514,9 @@ lpoints.default <-
              fontfamily = fontfamily,
              fontface = fontface,
              cex = cex,
-             ...)
+             ...,
+             identifier = identifier,
+             panel = panel)
 }
 
 
@@ -483,7 +531,9 @@ lplot.xy <-
              font = 1, fontfamily = NULL, fontface = NULL,
              col.line = col, col.symbol = col, alpha = 1, fill = NULL,
              origin = 0,
-             ...)
+             ...,
+             identifier = NULL,
+             panel = TRUE)
 {
     x <- xy$x
     y <- xy$y
@@ -493,10 +543,16 @@ lplot.xy <-
     ## the main difference between this and panel.xyplot is that the
     ## latter allows vector 'type', this doesn't
 
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
+
     type <- match.arg(type)
     switch(type,
            p = {
                grid.points(x = x, y = y, 
+                           name = primName("points", identifier, panel, group),
                            gp =
                            gpar(col = col.symbol, cex = cex, lwd = lwd,
                                 alpha = alpha, fill = fill,
@@ -509,12 +565,14 @@ lplot.xy <-
            c = ,
            l = {
                grid.lines(x = x, y = y,
+                          name = primName("lines", identifier, panel, group),
                           gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
                           default.units = "native")
            },
            o = ,
            b = {
                grid.points(x = x, y = y, 
+                           name = primName("points", identifier, panel, group),
                            gp =
                            gpar(col = col.symbol, cex = cex, lwd = lwd,
                                 alpha = alpha, fill = fill,
@@ -524,6 +582,7 @@ lplot.xy <-
                            pch = pch, 
                            default.units = "native")
                grid.lines(x = x, y = y,
+                          name = primName("lines", identifier, panel, group),
                           gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
                           default.units = "native")
            },
@@ -539,6 +598,7 @@ lplot.xy <-
                    xx[2*1:(n-1)] <- x[ord][if (type=="s") -1 else -n]
                    yy[2*1:(n-1)] <- y[ord][if (type=="s") -n else -1]
                    grid.lines(x = xx, y = yy,
+                              name = primName("lines", identifier, panel, group),
                               gp = gpar(lty = lty, col = col.line, lwd = lwd, alpha = alpha, ...),
                               default.units="native")
                }
@@ -551,6 +611,7 @@ lplot.xy <-
                    else origin
                grid.segments(x0 = x, x1 = x,
                              y0 = y, y1 = zero,
+                             name = primName("segments", identifier, panel, group),
                              gp =
                              gpar(lty = lty, col = col.line,
                                   lwd = lwd, alpha = alpha, ...),
@@ -564,6 +625,7 @@ lplot.xy <-
                    else origin
                grid.segments(x0 = x, x1 = zero,
                              y0 = y, y1 = y,
+                             name = primName("segments", identifier, panel, group),
                              gp =
                              gpar(lty = lty, col = col.line,
                                   lwd = lwd, alpha = alpha, ...),

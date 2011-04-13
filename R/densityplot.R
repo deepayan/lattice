@@ -110,7 +110,8 @@ panel.densityplot <-
 ##              col.line = if (is.null(groups)) plot.line$col else superpose.line$col,
              jitter.amount = 0.01 * diff(current.panel.limits()$ylim),
              type = "p",
-             ...)
+             ...,
+             identifier = "density")
 {
     if (ref)
     {
@@ -118,7 +119,8 @@ panel.densityplot <-
         panel.abline(h = 0,
                      col = reference.line$col,
                      lty = reference.line$lty,
-                     lwd = reference.line$lwd)
+                     lwd = reference.line$lwd,
+                     identifier = paste(identifier, "abline"))
     }
     ## plot.line <- trellis.par.get("plot.line")
     ## superpose.line <- trellis.par.get("superpose.line")
@@ -137,18 +139,21 @@ panel.densityplot <-
     {
         switch(as.character(plot.points),
                "TRUE" =
-               panel.xyplot(x = x, y = rep(0, length(x)), type = type, ...),
+               panel.xyplot(x = x, y = rep(0, length(x)), type = type, ...,
+                            identifier = identifier),
                "rug" =
                panel.rug(x = x, 
                          start = 0, end = 0,
                          x.units = c("npc", "native"),
                          type = type,
-                         ...),
+                         ...,
+                         identifier = paste(identifier, "rug")),
                "jitter" =
                panel.xyplot(x = x,
                             y = jitter(rep(0, length(x)), amount = jitter.amount),
                             type = type,
-                            ...))
+                            ...,
+                            identifier = identifier))
         density.fun <- function(x, weights, subscripts = TRUE, darg, ...)
             ## wrapper to handle 'subscripts' without actually making
             ## it a formal argument to panel.densityplot
@@ -163,7 +168,8 @@ panel.densityplot <-
             h <- density.fun(x = x, weights = weights, ..., darg = darg)
             lim <- current.panel.limits()$xlim
             id <- h$x > min(lim) & h$x < max(lim)
-            panel.lines(x = h$x[id], y = h$y[id], ...)
+            panel.lines(x = h$x[id], y = h$y[id], ...,
+                        identifier = identifier)
         }
     }
 }

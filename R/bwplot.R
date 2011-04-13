@@ -107,7 +107,8 @@ panel.barchart <-
              border = if (is.null(groups)) plot.polygon$border else superpose.polygon$border,
              lty = if (is.null(groups)) plot.polygon$lty else superpose.polygon$lty,
              lwd = if (is.null(groups)) plot.polygon$lwd else superpose.polygon$lwd,
-             ...)
+             ...,
+             identifier = "barchart")
 {
     plot.polygon <- trellis.par.get("plot.polygon")
     superpose.polygon <- trellis.par.get("superpose.polygon")
@@ -161,7 +162,9 @@ panel.barchart <-
                 panel.abline(v = origin,
                              col = reference.line$col,
                              lty = reference.line$lty,
-                             lwd = reference.line$lwd)
+                             lwd = reference.line$lwd,
+                             identifier = paste(identifier, "abline",
+                               sep = "."))
 
             panel.rect(x = rep(origin, length(y)),
                        y = y,
@@ -169,7 +172,8 @@ panel.barchart <-
                        width = x - origin,
                        border = border, col = col,
                        lty = lty, lwd = lwd,
-                       just = c("left", "centre"))
+                       just = c("left", "centre"),
+                       identifier = identifier)
         }
 
         ## grouped, with stacked bars
@@ -195,7 +199,9 @@ panel.barchart <-
                 panel.abline(v = origin,
                              col = reference.line$col,
                              lty = reference.line$lty,
-                             lwd = reference.line$lwd)
+                             lwd = reference.line$lwd,
+                             identifier = paste(identifier, "abline",
+                               sep = "."))
 
             for (i in unique(y))
             {
@@ -212,7 +218,9 @@ panel.barchart <-
                                lwd = lwd[groups[ok][ord][pos]],
                                height = rep(height, nok),
                                width = x[ok][ord][pos],
-                               just = c("left", "centre"))
+                               just = c("left", "centre"),
+                               identifier = paste(identifier, "pos", i,
+                                 sep = "."))
                 neg <- x[ok][ord] < 0
                 nok <- sum(neg, na.rm = TRUE)
                 if (nok > 0)
@@ -224,7 +232,9 @@ panel.barchart <-
                                lwd = lwd[groups[ok][ord][neg]],
                                height = rep(height, nok),
                                width = x[ok][ord][neg],
-                               just = c("left", "centre"))
+                               just = c("left", "centre"),
+                               identifier = paste(identifier, "neg", i,
+                                 sep = "."))
             }
         }
 
@@ -252,7 +262,9 @@ panel.barchart <-
                 panel.abline(v = origin,
                              col = reference.line$col,
                              lty = reference.line$lty,
-                             lwd = reference.line$lwd)
+                             lwd = reference.line$lwd,
+                             identifier = paste(identifier, "abline",
+                               sep = "."))
             for (i in unique(y))
             {
                 ok <- y == i
@@ -265,7 +277,8 @@ panel.barchart <-
                            lwd = lwd[groups[ok]],
                            height = rep(height, nok),
                            width = x[ok] - origin,
-                           just = c("left", "centre"))
+                           just = c("left", "centre"),
+                           identifier = identifier)
             }
         }
     }
@@ -287,7 +300,9 @@ panel.barchart <-
                 panel.abline(h = origin,
                              col = reference.line$col,
                              lty = reference.line$lty,
-                             lwd = reference.line$lwd)
+                             lwd = reference.line$lwd,
+                             identifier = paste(identifier, "abline",
+                               sep = "."))
 
             panel.rect(x = x,
                        y = rep(origin, length(x)),
@@ -295,7 +310,8 @@ panel.barchart <-
                        lty = lty, lwd = lwd,
                        width = rep(width, length(x)),
                        height = y - origin,
-                       just = c("centre", "bottom"))
+                       just = c("centre", "bottom"),
+                       identifier = identifier)
         }
         else if (stack)
         {
@@ -319,7 +335,9 @@ panel.barchart <-
                 panel.abline(h = origin,
                              col = reference.line$col,
                              lty = reference.line$lty,
-                             lwd = reference.line$lwd)
+                             lwd = reference.line$lwd,
+                             identifier = paste(identifier, "abline",
+                               sep = "."))
 
             for (i in unique(x))
             {
@@ -336,7 +354,9 @@ panel.barchart <-
                                lwd = lwd[groups[ok][ord][pos]],
                                width = rep(width, nok),
                                height = y[ok][ord][pos],
-                               just = c("centre", "bottom"))
+                               just = c("centre", "bottom"),
+                               identifier = paste(identifier, "pos", i,
+                                 sep = "."))
                 neg <- y[ok][ord] < 0
                 nok <- sum(neg, na.rm = TRUE)
                 if (nok > 0)
@@ -348,7 +368,9 @@ panel.barchart <-
                                lwd = lwd[groups[ok][ord][neg]],
                                width = rep(width, nok),
                                height = y[ok][ord][neg],
-                               just = c("centre", "bottom"))
+                               just = c("centre", "bottom"),
+                               identifier = paste(identifier, "neg", i,
+                                 sep = "."))
             }
         }
         else
@@ -373,7 +395,9 @@ panel.barchart <-
                 panel.abline(h = origin,
                              col = reference.line$col,
                              lty = reference.line$lty,
-                             lwd = reference.line$lwd)
+                             lwd = reference.line$lwd,
+                             identifier = paste(identifier, "abline",
+                               sep = "."))
             for (i in unique(x))
             {
                 ok <- x == i
@@ -386,7 +410,8 @@ panel.barchart <-
                            lwd = lwd[groups[ok]],
                            width = rep(width, nok),
                            height = y[ok] - origin,
-                           just = c("centre", "bottom"))
+                           just = c("centre", "bottom"),
+                           identifier = identifier)
             }
         }
     }
@@ -403,7 +428,8 @@ panel.dotplot <-
              col.line = dot.line$col,
              levels.fos = if (horizontal) unique(y) else unique(x),
              groups = NULL,
-             ...)
+             ...,
+             identifier = "dotplot")
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
@@ -415,22 +441,26 @@ panel.dotplot <-
     if (horizontal)
     {
         panel.abline(h = levels.fos,
-                     col = col.line, lty = lty, lwd = lwd)
+                     col = col.line, lty = lty, lwd = lwd,
+                     identifier = paste(identifier, "abline", sep="."))
         panel.xyplot(x = x, y = y,
                      col = col, pch = pch,
                      ## lty = lty, lwd = lwd,
                      groups = groups,
-                     horizontal = horizontal, ...)
+                     horizontal = horizontal, ...,
+                     identifier = identifier)
     }
     else
     {
         panel.abline(v = levels.fos,
-                     col = col.line, lty = lty, lwd = lwd)
+                     col = col.line, lty = lty, lwd = lwd,
+                     identifier = paste(identifier, "abline", sep="."))
         panel.xyplot(x = x, y = y,
                      col = col, pch = pch,
                      ## lty = lty, lwd = lwd,
                      groups = groups,
-                     horizontal = horizontal, ...)
+                     horizontal = horizontal, ...,
+                     identifier = identifier)
     }
 }
 
@@ -441,7 +471,8 @@ panel.dotplot <-
 panel.stripplot <-
     function(x, y, jitter.data = FALSE,
              factor = 0.5, amount = NULL,
-             horizontal = TRUE, groups = NULL, ...)
+             horizontal = TRUE, groups = NULL, ...,
+             identifier = "stripplot")
 {
     if (!any(is.finite(x) & is.finite(y))) return()
     panel.xyplot(x = x,
@@ -450,7 +481,8 @@ panel.stripplot <-
                  jitter.y = jitter.data &&  horizontal,
                  factor = factor, amount = amount,
                  groups = groups,
-                 horizontal = horizontal, ...)
+                 horizontal = horizontal, ...,
+                 identifier = identifier)
 }
 
 
@@ -682,7 +714,8 @@ panel.bwplot <-
              ...,
              levels.fos = if (horizontal) sort(unique(y)) else sort(unique(x)),
              stats = boxplot.stats,
-             coef = 1.5, do.out = TRUE)
+             coef = 1.5, do.out = TRUE,
+             identifier = "bwplot")
 {
     if (all(is.na(x) | is.na(y))) return()
     x <- as.numeric(x)
@@ -753,7 +786,8 @@ panel.bwplot <-
                       lty = box.rectangle$lty,
                       col = fill,
                       alpha = box.rectangle$alpha,
-                      border = box.rectangle$col)
+                      border = box.rectangle$col,
+                      identifier = paste(identifier, "box", sep="."))
         ## end of major changes to support notches
 
 
@@ -766,7 +800,8 @@ panel.bwplot <-
                        col = box.umbrella$col,
                        alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
-                       lty = box.umbrella$lty)
+                       lty = box.umbrella$lty,
+                       identifier = paste(identifier, "whisker", sep="."))
         panel.segments(c(blist.stats[, 1], blist.stats[, 5]),
                        levels.fos - blist.height / 2,
                        c(blist.stats[, 1], blist.stats[, 5]),
@@ -774,7 +809,8 @@ panel.bwplot <-
                        col = box.umbrella$col,
                        alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
-                       lty = box.umbrella$lty)
+                       lty = box.umbrella$lty,
+                       identifier = paste(identifier, "cap", sep="."))
 
         ## dot
 
@@ -788,7 +824,8 @@ panel.bwplot <-
                            lwd = box.rectangle$lwd,
                            lty = box.rectangle$lty,
                            col = box.rectangle$col,
-                           alpha = alpha)
+                           alpha = alpha,
+                           identifier = paste(identifier, "dot", sep="."))
         }
         else
         {
@@ -798,7 +835,8 @@ panel.bwplot <-
                          col = col, alpha = alpha, cex = cex,
                          fontfamily = fontfamily,
                          fontface = chooseFace(fontface, font),
-                         fontsize = fontsize.points)
+                         fontsize = fontsize.points,
+                         identifier = paste(identifier, "dot", sep="."))
         }
 
         ## outliers
@@ -811,7 +849,9 @@ panel.bwplot <-
                      cex = plot.symbol$cex,
                      fontfamily = plot.symbol$fontfamily,
                      fontface = chooseFace(plot.symbol$fontface, plot.symbol$font),
-                     fontsize = fontsize.points)
+                     fontsize = fontsize.points,
+                     identifier = paste(identifier, "outlier", sep="."))
+                     
     }
     else
     {
@@ -865,7 +905,8 @@ panel.bwplot <-
                       lty = box.rectangle$lty,
                       col = fill,
                       alpha = box.rectangle$alpha,
-                      border = box.rectangle$col)
+                      border = box.rectangle$col,
+                      identifier = paste(identifier, "box", sep="."))
 
         ## whiskers
 
@@ -876,7 +917,9 @@ panel.bwplot <-
                        col = box.umbrella$col,
                        alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
-                       lty = box.umbrella$lty)
+                       lty = box.umbrella$lty,
+                       identifier = paste(identifier, "whisker", sep="."))
+
         panel.segments(levels.fos - blist.height / 2,
                        c(blist.stats[, 1], blist.stats[, 5]),
                        levels.fos + blist.height / 2,
@@ -884,7 +927,9 @@ panel.bwplot <-
                        col = box.umbrella$col,
                        alpha = box.umbrella$alpha,
                        lwd = box.umbrella$lwd,
-                       lty = box.umbrella$lty)
+                       lty = box.umbrella$lty,
+                       identifier = paste(identifier, "cap", sep="."))
+
 
         ## dot
 
@@ -898,7 +943,8 @@ panel.bwplot <-
                            lwd = box.rectangle$lwd,
                            lty = box.rectangle$lty,
                            col = box.rectangle$col,
-                           alpha = alpha)
+                           alpha = alpha,
+                           identifier = paste(identifier, "dot", sep="."))
         }
         else
         {
@@ -908,7 +954,8 @@ panel.bwplot <-
                          col = col, alpha = alpha, cex = cex,
                          fontfamily = fontfamily,
                          fontface = chooseFace(fontface, font),
-                         fontsize = fontsize.points)
+                         fontsize = fontsize.points,
+                         identifier = paste(identifier, "dot", sep="."))
         }
 
         ## outliers
@@ -921,7 +968,8 @@ panel.bwplot <-
                      cex = plot.symbol$cex,
                      fontfamily = plot.symbol$fontfamily,
                      fontface = chooseFace(plot.symbol$fontface, plot.symbol$font),
-                     fontsize = fontsize.points)
+                     fontsize = fontsize.points,
+                     identifier = paste(identifier, "outlier", sep="."))
     }
 }
 
@@ -961,7 +1009,8 @@ panel.violin <-
              cut = NULL,
              na.rm = TRUE,
              
-             ...)
+             ...,
+             identifier = "violin")
 {
     if (all(is.na(x) | is.na(y))) return()
     x <- as.numeric(x)
@@ -1011,6 +1060,11 @@ panel.violin <-
     yscale <- current.panel.limits()$ylim
     height <- box.width # box.ratio / (1 + box.ratio)
 
+    if (hasArg(group.number))
+        group <- list(...)$group.number
+    else
+        group <- 0
+
     if (horizontal)
     {
         for (i in seq_along(levels.fos))
@@ -1024,6 +1078,8 @@ panel.violin <-
                 grid.polygon(x = c(dx.list[[i]], rev(dx.list[[i]])),
                              y = c(dy.list[[i]], -rev(dy.list[[i]])),
                              default.units = "native",
+                             name = trellis.grobname(identifier,
+                               type = "panel", group = group),
                              gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
                 popViewport()
             }
@@ -1042,6 +1098,8 @@ panel.violin <-
                 grid.polygon(y = c(dx.list[[i]], rev(dx.list[[i]])),
                              x = c(dy.list[[i]], -rev(dy.list[[i]])),
                              default.units = "native",
+                             name = trellis.grobname(identifier,
+                               type = "panel", group = group),
                              gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
                 popViewport()
             }

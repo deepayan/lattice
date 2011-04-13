@@ -7,7 +7,8 @@
 \usage{
 panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
                   groups = NULL, weights = NULL,
-                  jitter.amount, type, \dots)
+                  jitter.amount, type, \dots,
+                  identifier = "density")
 }
 \arguments{
   \item{x}{ data points for which density is to be estimated }
@@ -47,6 +48,10 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
   \item{\dots}{ extra graphical parameters.  Note that additional
     arguments to \code{\link{panel.rug}} cannot be passed on through
     \code{panel.densityplot}. }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{

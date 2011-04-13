@@ -89,14 +89,16 @@ panel.histogram <-
              border = plot.polygon$border,
              lty = plot.polygon$lty,
              lwd = plot.polygon$lwd,
-             ...)
+             ...,
+             identifier = "histogram")
 {
     plot.polygon  <- trellis.par.get("plot.polygon")
 
     xscale <- current.panel.limits()$xlim
     panel.lines(x = xscale[1] + diff(xscale) * c(0.05, 0.95),
                 y = c(0,0),
-                col = border, lty = lty, lwd = lwd, alpha = alpha)
+                col = border, lty = lty, lwd = lwd, alpha = alpha,
+                identifier = paste(identifier, "baseline", sep = "."))
 ##     grid.lines(x = c(0.05, 0.95),
 ##                y = unit(c(0,0), "native"),
 ##                gp = gpar(col = border, lty = lty, lwd = lwd, alpha = alpha),
@@ -137,7 +139,8 @@ panel.histogram <-
                        col = col, alpha = alpha,
                        border = border, lty = lty,
                        lwd = lwd,
-                       just = c("left", "bottom"))
+                       just = c("left", "bottom"),
+                       identifier = identifier)
         }
     }
 }

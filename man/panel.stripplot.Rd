@@ -9,7 +9,8 @@
 panel.stripplot(x, y, jitter.data = FALSE,
                 factor = 0.5, amount = NULL,
                 horizontal = TRUE, groups = NULL,
-                \dots)
+                \dots,
+                identifier = "stripplot")
 }
 \arguments{
   \item{x,y}{ coordinates of points to be plotted}
@@ -29,6 +30,10 @@ panel.stripplot(x, y, jitter.data = FALSE,
 
   \item{\dots}{ additional arguments, passed on to
     \code{\link{panel.xyplot}} }
+  \item{identifier}{
+    A character string that is prepended to the names of grobs
+    that are created by this panel function.
+  }
 }
 
 \details{ Creates stripplot (one dimensional scatterplot) of \code{x}
