@@ -63,6 +63,7 @@ bug fixes
  o xyplot.ts() now allows graphical parameters to be given as vectors 
    (inside a list) for each series. Passes lists to panel.superpose.
 
+ o panel.axis() now does NOT draw tick marks if 'ticks = FALSE'.
 
 
 Changes in lattice 0.18
