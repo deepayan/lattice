@@ -120,15 +120,15 @@ panel.abline <-
                       identifier = id)
         }
 
-        ## There are four possibilities (plus edge cases):
-        ##      I           II           III          IV
-        ## 4----C----3  4---------3  4---------3  4---------3
-        ## |         |  | /       |  |         |  |  \      |
-        ## |      ---|  |/        |  |         |  |   \     |
-        ## D   ---   B  |         |  |        /|  |    \    |
-        ## |---      |  |         |  |       / |  |     \   |
-        ## |         |  |         |  |      /  |  |      \  |
-        ## 1----A----2  1---------2  1---------2  1---------2
+        ## There are six = choose(4, 2) possibilities (plus edge cases):
+        ##      I           II           III          IV            V           VI
+        ## 4----C----3  4---------3  4---------3  4---------3  4---------3  4---------3
+        ## |         |  | /       |  |         |  |  \      |  |     \   |  |         |
+        ## |      ---|  |/        |  |         |  |   \     |  |      \  |  |         |
+        ## D   ---   B  |         |  |        /|  |    \    |  |       \ |  |         |
+        ## |---      |  |         |  |       / |  |     \   |  |        \|  |\        |
+        ## |         |  |         |  |      /  |  |      \  |  |         |  | \       |
+        ## 1----A----2  1---------2  1---------2  1---------2  1---------2  1---------2
 
         sign.dist.from.line <- function(x, y)
         {
@@ -147,7 +147,7 @@ panel.abline <-
         xfun <- function(y) (y - coeff[1]) / coeff[2]
         drawfun <- function(x0, y0, x1, y1, ...)
         {
-            panel.segments(x0, y0, x1, y1, 
+            panel.segments(x0, y0, x1, y1,
                            col = col.line,
                            lty = lty,
                            lwd = lwd,
@@ -163,6 +163,10 @@ panel.abline <-
             drawfun(xfun(yy[1]), yy[1], xx[2], yfun(xx[2]), ...)
         else if (A && C) # Case IV
             drawfun(xfun(yy[1]), yy[1], xfun(yy[2]), yy[2], ...)
+        else if (B && C) # Case  V
+            drawfun(xfun(yy[1]), yy[1], xfun(yy[2]), yy[2], ...)
+        else if (A && D) # Case VI
+            drawfun(xx[1], yfun(xx[1]), xfun(yy[1]), yy[1], ...)
     }
     if (length(h <- as.numeric(h)) > 0)
         grid.segments(y0 = h, y1 = h, default.units="native",
