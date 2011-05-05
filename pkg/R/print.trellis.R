@@ -1243,8 +1243,17 @@ plot.trellis <-
                                 ## in the original order, not the
                                 ## permuted order
 
-                                strip(which.given = x$perm.cond[i],
-                                      which.panel = which.packet,
+                                which.given <- x$perm.cond[i]
+                                which.panel <- which.packet
+                                
+                                lattice.setStatus(current.which.given =
+                                                  which.given,
+                                                  current.which.panel =
+                                                  which.panel,
+                                                  prefix = prefix)
+                                
+                                strip(which.given = which.given,
+                                      which.panel = which.panel,
 ##                                       panel.number = panel.number,
 ##                                       packet.number = packet.number,
 
@@ -1289,8 +1298,17 @@ plot.trellis <-
                                 ## in the original packet order, not
                                 ## the permuted order
 
-                                strip.left(which.given = x$perm.cond[i],
-                                           which.panel = which.packet,
+                                which.given <- x$perm.cond[i]
+                                which.panel <- which.packet
+                                
+                                lattice.setStatus(current.which.given =
+                                                  which.given,
+                                                  current.which.panel =
+                                                  which.panel,
+                                                  prefix = prefix)
+                                
+                                strip.left(which.given = which.given,
+                                           which.panel = which.panel,
 ##                                            panel.number = panel.number,
 ##                                            packet.number = packet.number,
 

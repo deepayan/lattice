@@ -443,6 +443,8 @@ panel.3dwire <-
         if (!missing(alpha)) pol.alpha <- alpha
 
         count <- 0 ## counts number of polygons stacked up so far
+        ## counts number of times grid.polygon has been called
+        gridpolycount <- 0 
 
         wirePolygon <-
 
@@ -470,10 +472,12 @@ panel.3dwire <-
 
                     if (count == polynum)
                     {
+                        gridpolycount <<- gridpolycount + 1
                         grid.polygon(x = pol.x, y = pol.y, id.lengths = rep(3, polynum),
                                      default.units = "native",
                                      name = trellis.grobname(paste(identifier,
-                                       "polygons", sep = "."), type = "panel"),
+                                       "polygons", gridpolycount, sep = "."),
+                                       type = "panel"),
                                      gp = gpar(fill = pol.fill,
                                      col = pol.col,
                                      lty = lty, lwd = lwd,
@@ -507,7 +511,8 @@ panel.3dwire <-
             grid.polygon(x = pol.x[1:(count * 3)], y = pol.y[1:(count * 3)],
                          default.units = "native", id.lengths = rep(3, count),
                          name = trellis.grobname(paste(identifier,
-                           "polygons", sep = "."), type = "panel"),
+                           "polygons", gridpolycount + 1, sep = "."),
+                           type = "panel"),
                          gp = gpar(fill = rep(pol.fill, length.out = count),
                          col = rep(pol.col, length.out = count),
                          lty = lty, lwd = lwd,
@@ -547,6 +552,8 @@ panel.3dwire <-
         ## if (!missing(alpha)) pol.alpha <- alpha
 
         count <- 0 ## counts number of polygons stacked up so far
+        ## counts number of times grid.polygon has been called
+        gridpolycount <- 0 
 
         wirePolygon <-
 
@@ -582,10 +589,12 @@ panel.3dwire <-
 
                     if (count == polynum) {
 
+                        gridpolycount <<- gridpolycount + 1
                         grid.polygon(x = pol.x, y = pol.y, id.lengths = rep(4, polynum),
                                      default.units = "native",
                                      name = trellis.grobname(paste(identifier,
-                                       "polygons", sep = "."), type = "panel"),
+                                       "polygons", gridpolycount, sep = "."),
+                                       type = "panel"),
                                      gp = gpar(fill = pol.fill,
                                                col = pol.col, ## FIXME: should be adjustcolor(col, alpha.f = alpha)
                                                lty = lty, lwd = lwd,
@@ -616,7 +625,8 @@ panel.3dwire <-
             grid.polygon(x = pol.x[1:(count * 4)], y = pol.y[1:(count * 4)],
                          default.units = "native", id.lengths = rep(4, count),
                          name = trellis.grobname(paste(identifier,
-                           "polygons", sep = "."), type = "panel"),
+                           "polygons", gridpolycount + 1, sep = "."),
+                           type = "panel"),
                          gp = gpar(fill = rep(pol.fill, length.out = count),
                          col = rep(pol.col, length.out = count),
                          lty = lty, lwd = lwd,
