@@ -127,23 +127,29 @@ barchart(variety ~ yield | year * site, barley, origin = 0,
                   bg = trellis.par.get("strip.background")$col[which.given],
                   ...) {
              axis.line <- trellis.par.get("axis.line")
-             pushViewport(viewport(clip = trellis.par.get("clip")$strip))
+             pushViewport(viewport(clip = trellis.par.get("clip")$strip,
+                                   name = trellis.vpname("strip")))
              if (which.given == 1)
              {
                  grid.rect(x = .26, just = "right",
+                           name = trellis.grobname("fill", type="strip"),
                            gp = gpar(fill = bg, col = "transparent"))
                  ltext(factor.levels[which.panel[which.given]],
-                       x = .24, y = .5, adj = 1)
+                       x = .24, y = .5, adj = 1,
+                       name.type = "strip")
              }
              if (which.given == 2)
              {
                  grid.rect(x = .26, just = "left",
+                           name = trellis.grobname("fill", type="strip"),
                            gp = gpar(fill = bg, col = "transparent"))
                  ltext(factor.levels[which.panel[which.given]],
-                       x = .28, y = .5, adj = 0)
+                       x = .28, y = .5, adj = 0,
+                       name.type = "strip")
              }
              upViewport()
-             grid.rect(gp =
+             grid.rect(name = trellis.grobname("border", type="strip"),
+                       gp =
                        gpar(col = axis.line$col,
                             lty = axis.line$lty,
                             lwd = axis.line$lwd,

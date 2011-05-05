@@ -340,19 +340,34 @@ trellis.vpname <-
 trellis.grobname <-
     function(name, type = c("", "panel", "strip", "strip.left"),
              group = 0,
+             which.given = lattice.getStatus("current.which.given",
+               prefix = prefix),
+             which.panel = lattice.getStatus("current.which.panel",
+               prefix = prefix),
              column = lattice.getStatus("current.focus.column",
                prefix = prefix),
              row = lattice.getStatus("current.focus.row",
                prefix = prefix),
              prefix = lattice.getStatus("current.prefix"))
 {
+    stripname <- function(striplab,
+                          name, column, row, which.given, which.panel) {
+        if (length(which.panel) > 1) {
+            paste(name, "given", which.given, striplab, 
+                  column, row, sep=".")            
+        } else {
+            paste(name, striplab, column, row, sep=".")
+        }
+    }
     if (group > 0)
         name <- paste(name, "group", group, sep=".")
     paste(prefix,
           switch(type,
                  panel=paste(name, "panel", column, row, sep="."),
-                 strip=paste(name, "strip", column, row, sep="."),
-                 strip.left=paste(name, "strip.left", column, row, sep="."),
+                 strip=stripname("strip", name, column, row,
+                   which.given, which.panel),
+                 strip.left=stripname("strip.left", name, column, row,
+                   which.given, which.panel),
                  name),
           sep = ".")
 }
