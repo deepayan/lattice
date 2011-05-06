@@ -129,7 +129,9 @@ simpleKey <-
              
 
 
-
+componentName <- function(name, x, y) {
+    trellis.grobname(paste(name, x, y, sep="."), type="key")
+}
 
 
 draw.key <- function(key, draw = FALSE, vp = NULL, ...)
@@ -512,19 +514,24 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                         just = if (is.null(key$just)) "center" else key$just)
 
         ## OK, layout set up, now to draw the key - no
-        key.gf <- frameGrob(layout = key.layout, vp = vp)
+        key.gf <- frameGrob(layout = key.layout, vp = vp,
+                            name = trellis.grobname("frame", type="key"))
         if (!key$transparent)
             key.gf <-
                 placeGrob(key.gf,
                           rectGrob(gp =
                                    gpar(fill = key$background,
                                         alpha = key$alpha.background,
-                                        col = key$border)),
+                                        col = key$border),
+                                   name = trellis.grobname("background",
+                                     type="key")),
                           row = NULL, col = NULL)
         else
             key.gf <-
                 placeGrob(key.gf,
-                          rectGrob(gp=gpar(col=key$border)),
+                          rectGrob(gp=gpar(col=key$border),
+                                   name = trellis.grobname("background",
+                                     type="key")),
                           row = NULL, col = NULL)
 
         ## Title (FIXME: allow color, font, alpha-transparency here? 
@@ -532,7 +539,10 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
             key.gf <-
                 placeGrob(key.gf, 
                           textGrob(label = key$title,
-                                   gp = gpar(cex = key$cex.title, lineheight = key$lineheight)),
+                                   gp = gpar(cex = key$cex.title,
+                                     lineheight = key$lineheight),
+                                   name = trellis.grobname("title",
+                                     type="key")),
                           row = 1, col = NULL)
         
         for (i in 1:number.of.components)
@@ -545,6 +555,8 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                     (number.of.components*3 + 1) + i*3 - 1
                 yy <- j %% rows.per.block + 1
                 if (yy == 1) yy <- rows.per.block + 1
+                componentx <- (colblck - 1)*(number.of.components) + i 
+                componenty <- (j - 1) %% rows.per.block + 1
                 if (cur$type == "text")
                 {
                     key.gf <-
@@ -566,7 +578,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                 lineheight = cur$pars$lineheight[j],
                                                 fontfamily = cur$pars$fontfamily[j],
                                                 fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
-                                                cex = cur$pars$cex[j])),
+                                                cex = cur$pars$cex[j]),
+                                           name = componentName("text",
+                                             componentx, componenty)),
                                   row = yy, col = xx)
                 }
                 else if (cur$type == "rectangles")
@@ -579,7 +593,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                            ## centred, unlike S-PLUS, due to aesthetic reasons !
                                            gp = gpar(alpha = cur$pars$alpha[j],
                                                      fill = cur$pars$col[j],
-                                                     col = cur$pars$border[j])),
+                                                     col = cur$pars$border[j]),
+                                           name = componentName("rect",
+                                             componentx, componenty)),
                                   row = yy, col = xx)
                     ## FIXME: Need to make changes to support angle/density
                 }
@@ -607,7 +623,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                 gpar(col = cur$pars$col[j],
                                                      alpha = cur$pars$alpha[j],
                                                      lty = cur$pars$lty[j],
-                                                     lwd = cur$pars$lwd[j])),
+                                                     lwd = cur$pars$lwd[j]),
+                                                name = componentName("lines",
+                                                  componentx, componenty)),
                                       row = yy, col = xx)
                     }
                     else if (cur$pars$type[j] == "p")
@@ -623,7 +641,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                       fontfamily = cur$pars$fontfamily[j],
                                                       fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
                                                       fontsize = fontsize.points),
-                                                 pch = cur$pars$pch[j]),
+                                                 pch = cur$pars$pch[j],
+                                                 name = componentName("points",
+                                                   componentx, componenty)),
                                       row = yy, col = xx)
                     }
                     else # if (cur$pars$type[j] == "b" or "o") -- not differentiating
@@ -648,7 +668,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                 gpar(col = cur$pars$col[j],
                                                      alpha = cur$pars$alpha[j],
                                                      lty = cur$pars$lty[j],
-                                                     lwd = cur$pars$lwd[j])),
+                                                     lwd = cur$pars$lwd[j]),
+                                                name = componentName("lines",
+                                                  componentx, componenty)),
                                       row = yy, col = xx)
                         if (key$divide > 1)
                         {
@@ -664,7 +686,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                           fontfamily = cur$pars$fontfamily[j],
                                                           fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
                                                           fontsize = fontsize.points),
-                                                     pch = cur$pars$pch[j]),
+                                                     pch = cur$pars$pch[j],
+                                                     name = componentName("points",
+                                                       componentx, componenty)),
                                           row = yy, col = xx)
                         }
                         else if (key$divide == 1)
@@ -681,7 +705,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                           fontfamily = cur$pars$fontfamily[j],
                                                           fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
                                                           fontsize = fontsize.points),
-                                                     pch = cur$pars$pch[j]),
+                                                     pch = cur$pars$pch[j],
+                                                     name = componentName("points",
+                                                       componentx, componenty)),
                                           row = yy, col = xx)
                         }
                     }
@@ -700,7 +726,9 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                   fontfamily = cur$pars$fontfamily[j],
                                                   fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
                                                   fontsize = fontsize.points),
-                                             pch = cur$pars$pch[j]),
+                                             pch = cur$pars$pch[j],
+                                             name = componentName("points",
+                                               componentx, componenty)),
                                   row = yy, col = xx)
                 }
             }
@@ -851,6 +879,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                          check.overlap = check.overlap,
                          just = if (rot == -90) c("center", "bottom") else c("left", "center"),
                          rot = rot,
+                         name = trellis.grobname("labels", type="colorkey"),
                          gp =
                          gpar(col = col,
                               cex = cex,
@@ -872,13 +901,17 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         widths = unit(widths.x, widths.units, data = widths.data),
                         respect = TRUE)
 
-        key.gf <- frameGrob(layout = key.layout, vp = vp)
+        key.gf <- frameGrob(layout = key.layout, vp = vp,
+                            name = trellis.grobname("frame",
+                              type="colorkey"))
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
                                 rasterGrob(matrix(rev(key$col), ncol = 1),
                                            width = 1, height = 1,
                                            vp = viewport(clip = "on"),
+                                           name = trellis.grobname("raster",
+                                             type="colorkey"),
                                            interpolate = key$interpolate),
                                 row = 2, col = 1)
         }
@@ -890,6 +923,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          default.units = "native",
                                          vp = viewport(yscale = atrange),
                                          height = recdim, 
+                                         name = trellis.grobname("image",
+                                           type="colorkey"),
                                          gp =
                                          gpar(fill = key$col,
                                               col = "transparent",
@@ -897,7 +932,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                 row = 2, col = 1)
         }
         key.gf <- placeGrob(frame = key.gf, 
-                            rectGrob(gp =
+                            rectGrob(name = trellis.grobname("border",
+                                       type="colorkey"),
+                                     gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
                                           lwd = axis.line$lwd,
@@ -913,6 +950,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                              y1 = labscat,
                                              vp = viewport(yscale = atrange),
                                              default.units = "native",
+                                             name = trellis.grobname("ticks",
+                                               type="colorkey"),
                                              gp =
                                              gpar(col = axis.line$col,
                                                   lty = axis.line$lty,
@@ -935,6 +974,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                          check.overlap = check.overlap,
                          just = if (rot == 90) c("center", "bottom") else c("right", "center"),
                          rot = rot,
+                         name = trellis.grobname("labels", type="colorkey"),
                          gp =
                          gpar(col = col,
                               cex = cex,
@@ -956,13 +996,17 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         widths = unit(widths.x, widths.units, data = widths.data),
                         respect = TRUE)
 
-        key.gf <- frameGrob(layout = key.layout, vp = vp)
+        key.gf <- frameGrob(layout = key.layout, vp = vp,
+                            name = trellis.grobname("frame",
+                              type="colorkey"))
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
                                 rasterGrob(matrix(rev(key$col), ncol = 1),
                                            width = 1, height = 1,
                                            vp = viewport(clip = "on"),
+                                           name = trellis.grobname("raster",
+                                             type="colorkey"),
                                            interpolate = key$interpolate),
                                 row = 2, col = 3)
         }
@@ -974,6 +1018,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          default.units = "native",
                                          vp = viewport(yscale = atrange),
                                          height = recdim, 
+                                         name = trellis.grobname("image",
+                                           type="colorkey"),
                                          gp =
                                          gpar(fill = key$col,
                                               col = "transparent",
@@ -981,7 +1027,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                 row = 2, col = 3)
         }
         key.gf <- placeGrob(frame = key.gf, 
-                            rectGrob(gp =
+                            rectGrob(name = trellis.grobname("border",
+                                             type="colorkey"),
+                                     gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
                                           lwd = axis.line$lwd,
@@ -997,6 +1045,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                              y1 = labscat,
                                              vp = viewport(yscale = atrange),
                                              default.units = "native",
+                                             name = trellis.grobname("ticks",
+                                               type="colorkey"),
                                              gp =
                                              gpar(col = axis.line$col,
                                                   lty = axis.line$lty,
@@ -1019,6 +1069,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                          check.overlap = check.overlap,
                          just = if (rot == 0) c("center","bottom") else c("left", "center"),
                          rot = rot,
+                         name = trellis.grobname("labels", type="colorkey"),
                          gp =
                          gpar(col = col,
                               cex = cex,
@@ -1040,13 +1091,17 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         widths = unit(widths.x, widths.units),
                         respect = TRUE)
         
-        key.gf <- frameGrob(layout = key.layout, vp = vp)
+        key.gf <- frameGrob(layout = key.layout, vp = vp,
+                            name = trellis.grobname("frame",
+                              type="colorkey"))
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
                                 rasterGrob(matrix(key$col, nrow = 1),
                                            width = 1, height = 1,
                                            vp = viewport(clip = "on"),
+                                           name = trellis.grobname("raster",
+                                             type="colorkey"),
                                            interpolate = key$interpolate),
                                 row = 3, col = 2)
         }
@@ -1058,6 +1113,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          default.units = "native",
                                          vp = viewport(xscale = atrange),
                                          width = recdim, 
+                                         name = trellis.grobname("image",
+                                           type="colorkey"),
                                          gp =
                                          gpar(fill = key$col,
                                               col = "transparent",
@@ -1065,7 +1122,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                 row = 3, col = 2)
         }
         key.gf <- placeGrob(frame = key.gf, 
-                            rectGrob(gp =
+                            rectGrob(name = trellis.grobname("border",
+                                             type="colorkey"),
+                                     gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
                                           lwd = axis.line$lwd,
@@ -1081,6 +1140,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                              x1 = labscat,
                                              vp = viewport(xscale = atrange),
                                              default.units = "native",
+                                             name = trellis.grobname("ticks",
+                                               type="colorkey"),
                                              gp =
                                              gpar(col = axis.line$col,
                                                   lty = axis.line$lty,
@@ -1103,6 +1164,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                          check.overlap = check.overlap,
                          just = if (rot == 0) c("center", "top") else c("right", "center"),
                          rot = rot,
+                         name = trellis.grobname("labels", type="colorkey"),
                          gp =
                          gpar(col = col,
                               cex = cex,
@@ -1124,13 +1186,17 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                         widths = unit(widths.x, widths.units),
                         respect = TRUE)
         
-        key.gf <- frameGrob(layout = key.layout, vp = vp)
+        key.gf <- frameGrob(layout = key.layout, vp = vp,
+                            name = trellis.grobname("frame",
+                              type="colorkey"))
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
                                 rasterGrob(matrix(key$col, nrow = 1),
                                            width = 1, height = 1,
                                            vp = viewport(clip = "on"),
+                                           name = trellis.grobname("raster",
+                                             type="colorkey"),
                                            interpolate = key$interpolate),
                                 row = 1, col = 2)
         }
@@ -1142,6 +1208,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          default.units = "native",
                                          vp = viewport(xscale = atrange),
                                          width = recdim, 
+                                         name = trellis.grobname("image",
+                                           type="colorkey"),
                                          gp =
                                          gpar(fill = key$col,
                                               col = "transparent",
@@ -1149,7 +1217,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                 row = 1, col = 2)
         }
         key.gf <- placeGrob(frame = key.gf, 
-                            rectGrob(gp =
+                            rectGrob(name = trellis.grobname("image",
+                                       type="colorkey"),
+                                     gp =
                                      gpar(col = axis.line$col,
                                           lty = axis.line$lty,
                                           lwd = axis.line$lwd,
@@ -1165,6 +1235,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                              x1 = labscat,
                                              vp = viewport(xscale = atrange),
                                              default.units = "native",
+                                             name = trellis.grobname("ticks",
+                                               type="colorkey"),
                                              gp =
                                              gpar(col = axis.line$col,
                                                   lty = axis.line$lty,

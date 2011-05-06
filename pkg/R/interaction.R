@@ -338,7 +338,8 @@ trellis.vpname <-
 
 
 trellis.grobname <-
-    function(name, type = c("", "panel", "strip", "strip.left"),
+    function(name,
+             type = c("", "panel", "strip", "strip.left", "key", "colorkey"),
              group = 0,
              which.given = lattice.getStatus("current.which.given",
                prefix = prefix),
@@ -363,11 +364,12 @@ trellis.grobname <-
         name <- paste(name, "group", group, sep=".")
     paste(prefix,
           switch(type,
-                 panel=paste(name, "panel", column, row, sep="."),
-                 strip=stripname("strip", name, column, row,
+                 panel=paste(name, type, column, row, sep="."),
+                 strip=,
+                 strip.left=stripname(type, name, column, row,
                    which.given, which.panel),
-                 strip.left=stripname("strip.left", name, column, row,
-                   which.given, which.panel),
+                 key=,
+                 colorkey=paste(type, name, sep="."),
                  name),
           sep = ".")
 }
