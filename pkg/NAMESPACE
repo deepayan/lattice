@@ -3,6 +3,8 @@ useDynLib(lattice, .registration = TRUE)
 
 import(grid)
 
+importFrom(methods, hasArg)
+
 importFrom(grDevices,
 
            dev.list, cm.colors, gray, col2rgb, rgb,
