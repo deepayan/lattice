@@ -50,8 +50,8 @@ panel.brush.splom(threshold = 18, verbose = getOption("verbose"), \dots)
 
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
                         "figure", "panel", "strip", "strip.left",
-                        "legend", "main", "sub", "xlab", "ylab",
-                        "xlab.top", "ylab.right", "page"),
+                        "legend", "legend.region", "main", "sub",
+                        "xlab", "ylab", "xlab.top", "ylab.right", "page"),
                column, row,
                side = c("left", "top", "right", "bottom", "inside"),
                clip.off = FALSE, prefix)

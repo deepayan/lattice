@@ -292,8 +292,9 @@ panel.identify.cloud <-
 trellis.vpname <-
     function(name = 
              c("position", "split", "split.location", "toplevel", "figure",
-               "panel", "strip", "strip.left", "legend", "main", "sub",
-               "xlab", "ylab", "xlab.top", "ylab.right", "page"),
+               "panel", "strip", "strip.left", "legend", "legend.region",
+               "main", "sub", "xlab", "ylab", "xlab.top", "ylab.right",
+               "page"),
              column = lattice.getStatus("current.focus.column", prefix = prefix),
              row = lattice.getStatus("current.focus.row", prefix = prefix),
              side = c("left", "top", "right", "bottom", "inside"),
@@ -331,7 +332,8 @@ trellis.vpname <-
                  if (clip.off) paste("strip.left", column, row, "off", "vp", sep = ".")
                  else paste("strip.left", column, row, "vp", sep = "."), 
 
-                 legend = paste("legend", side, "vp", sep = ".")),
+                 legend = paste("legend", side, "vp", sep = "."),
+                 legend.region = "legend.region.vp"),
           sep = ".")
 }
 

@@ -1374,11 +1374,11 @@ plot.trellis <-
                                       full = 
                                       pushViewport(viewport(layout.pos.row = c(1, n.row),
                                                             layout.pos.col = c(1, n.col),
-                                                            name = trellis.vpname("legend", side = "inside", prefix = prefix))),
+                                                            name = trellis.vpname("legend.region", prefix = prefix))),
                                       panel =
                                       pushViewport(viewport(layout.pos.row = range(pos.heights$panel, pos.heights$strip),
                                                             layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
-                                                            name = trellis.vpname("legend", side = "inside", prefix = prefix))))
+                                                            name = trellis.vpname("legend.region", prefix = prefix))))
                                key.corner <-
                                    if (is.null(legend[[i]]$corner)) c(0,1)
                                    else legend[[i]]$corner
@@ -1390,7 +1390,8 @@ plot.trellis <-
                                    else legend[[i]]$y
                                drawInViewport(key.gf,
                                               viewport(x = unit(key.x, "npc") + unit(0.5 - key.corner[1], "grobwidth", list(key.gf)),
-                                                       y = unit(key.y, "npc") + unit(0.5 - key.corner[2], "grobheight", list(key.gf))))
+                                                       y = unit(key.y, "npc") + unit(0.5 - key.corner[2], "grobheight", list(key.gf)),
+                                                       name = trellis.vpname("legend", side = "inside", prefix = prefix)))
                                upViewport(1)
                            })
                        }
