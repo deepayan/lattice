@@ -123,7 +123,7 @@ strip.default <-
         pushViewport(viewport(x = 1 - (which.given-0.5)/length(which.panel),
                               width = 1/length(which.panel),
                               clip = trellis.par.get("clip")$strip,
-                              name = paste("strip.default", which.given, sep = ".")))
+                              name = paste("strip.left.default", which.given, sep = ".")))
 
     gp.text <- 
         gpar(col = par.strip.text$col,
@@ -160,7 +160,11 @@ strip.default <-
         ## 'style' will be completely ignored, and shingle.intervals
         ## encoded using bg and fg.  Names and levels are both game.
 
-        grid.rect(name = trellis.grobname("bg", type="strip"),
+        if (horizontal)
+            type <- "strip"
+        else
+            type <- "strip.left"
+        grid.rect(name = trellis.grobname("bg", type = type),
                   gp = gpar(fill = bg, col = bg))
 
         t <- range(shingle.intervals)
@@ -193,9 +197,14 @@ strip.default <-
         ## coloring:
 
         ## background: all except style = 2
-        if (style != 2)
-            grid.rect(name = trellis.grobname("bg", type="strip"),
+        if (style != 2) {
+            if (horizontal)
+                type <- "strip"
+            else
+                type <- "strip.left"
+            grid.rect(name = trellis.grobname("bg", type = type),
                       gp = gpar(fill = bg, col = bg))
+        }
 
         ## foreground: needed only for style = 2, 3 and 4
 
@@ -262,12 +271,16 @@ strip.default <-
         pushViewport(viewport(x = 1 - (which.given-0.5)/length(which.panel),
                               width = 1/length(which.panel),
                               clip = "off",
-                              name = paste("strip.default.off", which.given, sep = ".")))
+                              name = paste("strip.left.default.off", which.given, sep = ".")))
 
 
     strip.border <- trellis.par.get("strip.border")
     ## draw border for strip
-    grid.rect(name = trellis.grobname("border", type="strip"),
+    if (horizontal)
+        type <- "strip"
+    else
+        type <- "strip.left"
+    grid.rect(name = trellis.grobname("border", type = type),
               gp =
               gpar(col = rep(strip.border$col, length.out = which.given)[which.given],
                    lty = rep(strip.border$lty, length.out = which.given)[which.given],
