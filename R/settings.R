@@ -444,15 +444,7 @@ trellis.device <-
 
 lset <- function(theme = col.whitebg())
 {
-    .Deprecated("trellis.par.set")
-    trellis.par.set(theme = theme)
-#     for (item in names(theme))
-#     {
-#         foo <- trellis.par.get(item)
-#         bar <- theme[[item]]
-#         foo[names(bar)] <- bar
-#         trellis.par.set(item, foo)
-#     }
+    .Defunct("trellis.par.set")
 }
 
 
@@ -991,6 +983,7 @@ lattice.options <- function(...)
               key.sub.padding = list(x = 0.01, units = "snpc", data = NULL),
               sub = list(x = 0, units = "grobheight", data = textGrob(label="")),
               bottom.padding = list(x = 0.01, units = "snpc", data = NULL)),
+
          layout.widths =
          list(left.padding = list(x = 0.01, units = "snpc", data = NULL),
               key.left = list(x = 0, units = "grobwidth", data = textGrob(label="")),

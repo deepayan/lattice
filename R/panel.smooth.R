@@ -120,4 +120,47 @@ prepanel.loess <-
 
 
 
+panel.spline <-
+    function(x, y, npoints = 101,
+             lwd = plot.line$lwd,
+             lty = plot.line$lty,
+             col, col.line = plot.line$col,
+             type, horizontal = FALSE, ...)
+{
+    x <- as.numeric(x)
+    y <- as.numeric(y)
+    ok <- is.finite(x) & is.finite(y)
+    if (sum(ok) < 1) 
+        return()
+    if (!missing(col)) {
+        if (missing(col.line)) 
+            col.line <- col
+    }
+    plot.line <- trellis.par.get("plot.line")
+    spline.args <- as.list(formals(smooth.spline))
+    new.args <- list(...)
+    matched <- names(new.args)[names(new.args) %in% names(spline.args)]
+    if (length(matched)) spline.args[matched] <- new.args[matched]
+    if (horizontal)
+    {
+        spline.args$x <- y[ok]
+        spline.args$y <- x[ok]
+        fit <- do.call("smooth.spline",spline.args)
+        yy <- seq(min(y[ok]),max(y[ok]), len=npoints)
+        p <- predict(fit, x=yy)
+        panel.lines(x=p$y, y=p$x, col=col.line, lty=lty, lwd=lwd, ...)
+    }
+    else
+    {
+        spline.args$x <- x[ok]
+        spline.args$y <- y[ok]
+        fit <- do.call("smooth.spline",spline.args)
+        xx <- seq(min(x[ok]),max(x[ok]), len=npoints)
+        p <- predict(fit, x=xx)
+        panel.lines(x=p$x, y = p$y, col=col.line, lty=lty, lwd=lwd, ...)
+    }
+}
+
+
+
 
