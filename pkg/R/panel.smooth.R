@@ -61,6 +61,7 @@ panel.loess <-
                     col = col.line, lty = lty, lwd = lwd, ...,
                     identifier = identifier)
     }
+    smooth
 }
 
 
@@ -69,12 +70,24 @@ prepanel.loess <-
     function(x, y, span = 2/3, degree = 1,
              family = c("symmetric", "gaussian"),
              evaluation = 50,
+             horizontal = FALSE,
              ...)
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
     ok <- is.finite(x) & is.finite(y)
-    if (sum(ok) > 0)
+    if (sum(ok) < 1) return(prepanel.null())
+    if (horizontal)
+    {
+        smooth <-
+            loess.smooth(y[ok], x[ok], span = span, family = family,
+                         degree = degree, evaluation = evaluation)
+        list(xlim = range(x, smooth$y, finite = TRUE),
+             ylim = range(y, smooth$x, finite = TRUE),
+             dx = diff(smooth$y),
+             dy = diff(smooth$x))
+    }
+    else 
     {
         smooth <-
             loess.smooth(x[ok], y[ok], span = span, family = family,
@@ -84,7 +97,6 @@ prepanel.loess <-
              dx = diff(smooth$x),
              dy = diff(smooth$y))
     }
-    else prepanel.null()
 }
 
 
@@ -125,42 +137,73 @@ panel.spline <-
              lwd = plot.line$lwd,
              lty = plot.line$lty,
              col, col.line = plot.line$col,
-             type, horizontal = FALSE, ...)
+             type, # ignored
+             horizontal = FALSE, ...,
+             keep.data = FALSE,
+             identifier = "spline")
 {
     x <- as.numeric(x)
     y <- as.numeric(y)
     ok <- is.finite(x) & is.finite(y)
-    if (sum(ok) < 1) 
-        return()
-    if (!missing(col)) {
-        if (missing(col.line)) 
-            col.line <- col
+    if (sum(ok) < 1) return()
+    if (!missing(col))
+    {
+        if (missing(col.line)) col.line <- col
     }
     plot.line <- trellis.par.get("plot.line")
-    spline.args <- as.list(formals(smooth.spline))
-    new.args <- list(...)
-    matched <- names(new.args)[names(new.args) %in% names(spline.args)]
-    if (length(matched)) spline.args[matched] <- new.args[matched]
     if (horizontal)
     {
-        spline.args$x <- y[ok]
-        spline.args$y <- x[ok]
-        fit <- do.call("smooth.spline",spline.args)
-        yy <- seq(min(y[ok]),max(y[ok]), len=npoints)
-        p <- predict(fit, x=yy)
-        panel.lines(x=p$y, y=p$x, col=col.line, lty=lty, lwd=lwd, ...)
+        args <- list(x = y[ok], y = x[ok], ..., keep.data = keep.data)
+        smooth <- checkArgsAndCall(smooth.spline, args)
+        yy <- do.breaks(range(y[ok]), npoints)
+        p <- predict(smooth, x = yy)
+        panel.lines(p$y, p$x, col = col.line, lty = lty, lwd = lwd,
+                    ..., identifier = identifier)
     }
     else
     {
-        spline.args$x <- x[ok]
-        spline.args$y <- y[ok]
-        fit <- do.call("smooth.spline",spline.args)
-        xx <- seq(min(x[ok]),max(x[ok]), len=npoints)
-        p <- predict(fit, x=xx)
-        panel.lines(x=p$x, y = p$y, col=col.line, lty=lty, lwd=lwd, ...)
+        args <- list(x = x[ok], y = y[ok], ..., keep.data = keep.data)
+        smooth <- checkArgsAndCall(smooth.spline, args)
+        xx <- do.breaks(range(x[ok]), npoints)
+        p <- predict(smooth, x = xx)
+        panel.lines(p$x, p$y, col = col.line, lty = lty, lwd = lwd,
+                    ..., identifier = identifier)
     }
+    smooth
 }
 
+prepanel.spline <-
+    function(x, y, npoints = 101, 
+             horizontal = FALSE, ...,
+             keep.data = FALSE)
+{
+    x <- as.numeric(x)
+    y <- as.numeric(y)
+    ok <- is.finite(x) & is.finite(y)
+    if (sum(ok) < 1) return(prepanel.null())
+    if (horizontal)
+    {
+        args <- list(x = y[ok], y = x[ok], ..., keep.data = keep.data)
+        smooth <- checkArgsAndCall(smooth.spline, args)
+        yy <- do.breaks(range(y[ok]), npoints)
+        p <- predict(smooth, x = yy)
+        list(xlim = range(x, p$y, finite = TRUE),
+             ylim = range(y, p$x, finite = TRUE),
+             dx = diff(p$y),
+             dy = diff(p$x))
+    }
+    else
+    {
+        args <- list(x = x[ok], y = y[ok], ..., keep.data = FALSE)
+        smooth <- checkArgsAndCall(smooth.spline, args)
+        xx <- do.breaks(range(x[ok]), npoints)
+        p <- predict(smooth, x = xx)
+        list(xlim = range(x, p$x, finite = TRUE),
+             ylim = range(y, p$y, finite = TRUE),
+             dx = diff(p$x),
+             dy = diff(p$y))
+    }
+}
 
 
 
