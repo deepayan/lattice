@@ -36,7 +36,7 @@ getFunctionOrName <- function(FUN)
 }
 
 
-checkArgsAndCall <- function(FUN, args) ## unnames arguments not allowed
+checkArgsAndCall <- function(FUN, args) ## unnamed arguments not allowed
 {
     if (!("..." %in% names(formals(FUN))))
         args <- args[intersect(names(args), names(formals(FUN)))]
