@@ -33,13 +33,15 @@ panel.qq(\dots, identifier = "qq")
     The behaviour if any of the first six are included in \code{type} is
     similar to the effect of \code{type} in \code{\link{plot}} (type
     \code{"b"} is actually the same as \code{"o"}).  \code{"r"} adds a
-    regression line (same as \code{\link{panel.lmline}}, except for
-    default graphical parameters), and \code{"smooth"} adds a lowess fit
-    (same as \code{\link{panel.loess}}).  \code{"g"} adds a reference
-    grid using \code{\link{panel.grid}} in the background.  \code{"a"}
-    has the effect of calling \code{\link{panel.average}}, which can be
-    useful for creating interaction plots.  The effect of several of
-    these specifications depend on the value of \code{horizontal}.
+    linear regression line (same as \code{\link{panel.lmline}}, except
+    for default graphical parameters), and \code{"smooth"} adds a loess
+    fit (same as \code{\link{panel.loess}}).  \code{"g"} adds a
+    reference grid using \code{\link{panel.grid}} in the background (but
+    using the \code{grid} argument is now the preferred way to do so).
+    \code{"a"} has the effect of calling \code{\link{panel.average}},
+    which can be useful for creating interaction plots.  The effect of
+    several of these specifications depend on the value of
+    \code{horizontal}.
 
     Type \code{"s"} (and \code{"S"}) sorts the values along one of the
     axes (depending on \code{horizontal}); this is unlike the behavior
@@ -125,7 +127,6 @@ panel.qq(\dots, identifier = "qq")
 }
 
 \examples{
-
 
 types.plain <- c("p", "l", "o", "r", "g", "s", "S", "h", "a", "smooth")
 types.horiz <- c("s", "S", "h", "a", "smooth")

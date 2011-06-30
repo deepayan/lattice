@@ -1,4 +1,168 @@
 ------------------------------------------------------------------------
+r679 | deepayan | 2011-06-26 15:27:13 +0530 (Sun, 26 Jun 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/NAMESPACE
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/panel.smooth.R
+   M /pkg/man/panel.functions.Rd
+   A /pkg/man/panel.loess.Rd
+   A /pkg/man/panel.spline.Rd
+   M /pkg/man/prepanel.functions.Rd
+
+Cleaned up (pre)panel.spline and related documentation
+------------------------------------------------------------------------
+r678 | deepayan | 2011-06-24 18:38:55 +0530 (Fri, 24 Jun 2011) | 1 line
+Changed paths:
+   M /pkg/NAMESPACE
+   M /pkg/R/panel.smooth.R
+   M /pkg/R/settings.R
+
+new panel.spline() function
+------------------------------------------------------------------------
+r677 | deepayan | 2011-06-03 15:16:34 +0530 (Fri, 03 Jun 2011) | 1 line
+Changed paths:
+   A /pkg/R/panel.smooth.R
+   A /pkg/R/panel.superpose.R
+   M /pkg/R/panels.R
+
+split off new files from panels.R
+------------------------------------------------------------------------
+r676 | paul | 2011-05-24 09:05:29 +0530 (Tue, 24 May 2011) | 1 line
+Changed paths:
+   M /pkg/R/strip.R
+
+fixes to naming of strip viewports and grobs when strip.left=TRUE
+------------------------------------------------------------------------
+r675 | paul | 2011-05-13 03:11:04 +0530 (Fri, 13 May 2011) | 1 line
+Changed paths:
+   M /pkg/R/interaction.R
+   M /pkg/R/print.trellis.R
+   M /pkg/man/interaction.Rd
+
+small modification to names of viewports when legend is located "inside" the plot
+------------------------------------------------------------------------
+r674 | deepayan | 2011-05-11 17:35:32 +0530 (Wed, 11 May 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/NAMESPACE
+
+Explicitly indicated import of methods::hasArg()
+------------------------------------------------------------------------
+r671 | paul | 2011-05-06 08:32:50 +0530 (Fri, 06 May 2011) | 1 line
+Changed paths:
+   M /pkg/R/interaction.R
+   M /pkg/R/legend.R
+   M /pkg/man/interaction.Rd
+
+improved naming scheme for grobs: naming added for draw.key() and draw.colorkey()
+------------------------------------------------------------------------
+r670 | paul | 2011-05-06 02:25:28 +0530 (Fri, 06 May 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/cloud.R
+   M /pkg/R/interaction.R
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/print.trellis.R
+   M /pkg/demo/lattice.R
+   M /pkg/man/interaction.Rd
+   M /pkg/man/llines.Rd
+
+improvements to grob naming scheme:  can now cope with multiple conditioning variables (hence multiple strips per panel);  better naming of multiple polygon grobs produced by panel.3dwire;  better naming of grobs in custom strip example in demo(lattice) #10
+------------------------------------------------------------------------
+r669 | deepayan | 2011-04-19 10:19:11 +0530 (Tue, 19 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/panels.R
+
+fix bug in recent panel.abline() bugfix
+------------------------------------------------------------------------
+r668 | paul | 2011-04-14 04:43:43 +0530 (Thu, 14 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/NEWS
+
+forgot mention of bug fix in last commit
+------------------------------------------------------------------------
+r667 | paul | 2011-04-14 04:41:00 +0530 (Thu, 14 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/NEWS
+   M /pkg/R/axis.R
+   M /pkg/R/bwplot.R
+   M /pkg/R/cloud.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/interaction.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/panel.smoothscatter.R
+   M /pkg/R/panels.R
+   M /pkg/R/parallel.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/qq.R
+   M /pkg/R/qqmath.R
+   M /pkg/R/splom.R
+   M /pkg/R/strip.R
+   M /pkg/R/tmd.R
+   M /pkg/R/xyplot.R
+   M /pkg/man/interaction.Rd
+   M /pkg/man/llines.Rd
+   M /pkg/man/panel.barchart.Rd
+   M /pkg/man/panel.bwplot.Rd
+   M /pkg/man/panel.cloud.Rd
+   M /pkg/man/panel.densityplot.Rd
+   M /pkg/man/panel.dotplot.Rd
+   M /pkg/man/panel.functions.Rd
+   M /pkg/man/panel.histogram.Rd
+   M /pkg/man/panel.levelplot.Rd
+   M /pkg/man/panel.parallel.Rd
+   M /pkg/man/panel.qqmath.Rd
+   M /pkg/man/panel.qqmathline.Rd
+   M /pkg/man/panel.smoothScatter.Rd
+   M /pkg/man/panel.stripplot.Rd
+   M /pkg/man/panel.violin.Rd
+   M /pkg/man/panel.xyplot.Rd
+   M /pkg/man/tmd.Rd
+
+naming scheme for grobs (first hack)
+------------------------------------------------------------------------
+r665 | deepayan | 2011-04-09 14:29:13 +0530 (Sat, 09 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/man/simpleTheme.Rd
+
+fixed doc typo
+------------------------------------------------------------------------
+r664 | deepayan | 2011-04-05 18:47:24 +0530 (Tue, 05 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/axis.R
+
+Added support for different ticks and labels in return value of scale.components()
+------------------------------------------------------------------------
+r663 | deepayan | 2011-04-03 17:27:22 +0530 (Sun, 03 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/R/miscellaneous.R
+
+removed (uncommented) FIXME
+------------------------------------------------------------------------
+r662 | deepayan | 2011-04-02 11:50:26 +0530 (Sat, 02 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/miscellaneous.R
+   M /pkg/man/llines.Rd
+
+captured font arguments in lsegments (was causing errors)
+------------------------------------------------------------------------
+r661 | deepayan | 2011-04-01 20:44:33 +0530 (Fri, 01 Apr 2011) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/NEWS
+   M /pkg/R/cloud.R
+   M /pkg/SvnLog
+   M /pkg/po/R-lattice.pot
+
+final touches before release
+------------------------------------------------------------------------
 r660 | felix | 2011-03-29 17:34:24 +0530 (Tue, 29 Mar 2011) | 1 line
 Changed paths:
    M /pkg/R/xyplot.ts.R

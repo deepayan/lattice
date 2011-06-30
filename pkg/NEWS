@@ -52,6 +52,8 @@ Changes in lattice 0.19
 
  o Expanded trellis.grobname() and used it to provide a name for all grobs.
 
+ o New panel.spline() function.
+
 bug fixes
 ---------
 
