@@ -5,12 +5,11 @@ of the License, or (at your option) any later version.
 
 As of writing, this essentially boils down to two possible licenses,
 GPL version 2 and version 3.  Copies of these licenses are available
-in files GPL-2 and GPL-3 in the sources of this package, and are also
-available at
+in files GPL-2 and GPL-3 in the sources of this package, as well as at
 
 http://www.r-project.org/Licenses/
 
-The can also be viewed from within R using 
+They can also be viewed from within R using 
 
 RShowDoc("GPL-2")
 RShowDoc("GPL-3")
