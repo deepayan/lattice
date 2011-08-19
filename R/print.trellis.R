@@ -726,10 +726,21 @@ plot.trellis <-
     ## FIXME: what happens when number of pages is 0?
     ## message("no of pages: ", number.of.pages)
 
+    
+
+
     for (page.number in seq_len(number.of.pages))
     {
         if (TRUE) ## FIXME: remove this after a few versions and reformat
         {
+
+            ## dev.hold/dev.flush.  FIXME: Eventually get rid of the
+            ## :: and conditional code.  NOTE: This ignores the
+            ## possibility of erroring out before dev.flush() is
+            ## called, but using on.exit() will be complicated.  Not
+            ## sure what to do.
+
+            if (getRversion() >= "2.14") grDevices::dev.hold()
 
             ## In older versions, we used to decide here whether a new
             ## page was actually needed, i.e., whether there is
@@ -1329,6 +1340,7 @@ plot.trellis <-
                 }
 
 
+
             ## legend / key plotting
 
             if (!is.null(legend))
@@ -1394,30 +1406,36 @@ plot.trellis <-
                                                        name = trellis.vpname("legend", side = "inside", prefix = prefix)))
                                upViewport(1)
                            })
-                       }
                 }
-                pushViewport(viewport(layout.pos.row = c(1, n.row),
-                                      layout.pos.col = c(1, n.col),
-                                      name = trellis.vpname("page", prefix = prefix)))
-                if (!is.null(x$page)) x$page(page.number)                
-                upViewport()
-                upViewport()
             }
+            pushViewport(viewport(layout.pos.row = c(1, n.row),
+                                  layout.pos.col = c(1, n.col),
+                                  name = trellis.vpname("page", prefix = prefix)))
+            if (!is.null(x$page)) x$page(page.number)                
+            upViewport()
+            upViewport()
+
+
+            ## dev.hold/dev.flush.  FIXME: Eventually get rid of the
+            ## :: and conditional code.  
+            if (getRversion() >= "2.14") grDevices::dev.flush()
         }
-        if (!is.null(position))
+    }
+    
+    if (!is.null(position))
+    {
+        if (!is.null(split))
         {
-            if (!is.null(split))
-            {
-                upViewport()
-                upViewport()
-            }
-            upViewport()
-        }
-        else if (!is.null(split))
-        {
             upViewport()
             upViewport()
         }
+        upViewport()
+    }
+    else if (!is.null(split))
+    {
+        upViewport()
+        upViewport()
+    }
 
     lattice.setStatus(current.focus.row = 0,
                       current.focus.column = 0,
@@ -1425,6 +1443,7 @@ plot.trellis <-
                       vp.depth = 0, prefix = prefix)
     invisible()
 }
+
 
 
 
