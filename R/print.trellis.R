@@ -723,24 +723,27 @@ plot.trellis <-
     ## packet.number, which is an index to which packet combination is
     ## being used.
 
+
+    ## dev.hold/dev.flush.  There's no clean way to deal with
+    ## the possibility of erroring out before dev.flush() is
+    ## called, because using on.exit() will be complicated
+    ## unless we separate out each page into a separate
+    ## function call.  Instead, we keep track using a flag.
+
+    dev.held <- FALSE # is dev.hold() turned on?
+    on.exit(if(dev.held) dev.flush(), add = TRUE)
+
+
     ## FIXME: what happens when number of pages is 0?
     ## message("no of pages: ", number.of.pages)
-
-    
-
 
     for (page.number in seq_len(number.of.pages))
     {
         if (TRUE) ## FIXME: remove this after a few versions and reformat
         {
 
-            ## dev.hold/dev.flush.  FIXME: Eventually get rid of the
-            ## :: and conditional code.  NOTE: This ignores the
-            ## possibility of erroring out before dev.flush() is
-            ## called, but using on.exit() will be complicated.  Not
-            ## sure what to do.
-
-            if (getRversion() >= "2.14") grDevices::dev.hold()
+            dev.hold()
+            dev.held <- TRUE
 
             ## In older versions, we used to decide here whether a new
             ## page was actually needed, i.e., whether there is
@@ -1416,11 +1419,12 @@ plot.trellis <-
             upViewport()
 
 
-            ## dev.hold/dev.flush.  FIXME: Eventually get rid of the
-            ## :: and conditional code.  
-            if (getRversion() >= "2.14") grDevices::dev.flush()
+            ## dev.hold/dev.flush.
+            dev.flush()
+            dev.held <- FALSE
         }
     }
+    
     
     if (!is.null(position))
     {
