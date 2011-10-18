@@ -201,6 +201,14 @@ contourplot(x, data, \dots)
       \item{\code{interpolate}:}{ Logical flag, passed to
 	\code{\link{rasterGrob}} when \code{raster=TRUE}. }
 
+      \item{\code{axis.line}:}{ A list giving graphical parameters for
+	the color key boundary and tick marks.  Defaults to
+	\code{trellis.par.get("axis.line")}.  }
+
+      \item{\code{axis.text}:}{ A list giving graphical parameters for
+	the tick mark labels on the color key.  Defaults to
+	\code{trellis.par.get("axis.text")}.  }
+
     }
   }
   \item{contour}{
