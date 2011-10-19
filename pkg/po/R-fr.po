@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs@r-project.org\n"
-"POT-Creation-Date: 2011-08-17 20:39\n"
+"POT-Creation-Date: 2011-10-19 09:42\n"
 "PO-Revision-Date: 2007-03-23 10:18+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -202,6 +202,15 @@ msgstr "'shrink' incorrect et ignoré"
 msgid "Invalid label.style"
 msgstr "'label.style' incorrect"
 
+msgid "device support for raster images unknown, ignoring 'raster=TRUE'"
+msgstr ""
+
+msgid "device has no raster support, ignoring 'raster=TRUE'"
+msgstr ""
+
+msgid "device does not support raster images with NA, ignoring 'raster=TRUE'"
+msgstr ""
+
 msgid "'x' values are not equispaced; output may be wrong"
 msgstr ""
 
@@ -214,7 +223,8 @@ msgstr "'x' doit être un facteur (ou doit être convertible automatiquement en fa
 msgid "error"
 msgstr "erreur"
 
-msgid "Invalid value of 'pos'"
+#, fuzzy
+msgid "Invalid value of 'pos' ignored."
 msgstr "Valeur de 'pos' incorrecte"
 
 msgid "(loaded the KernSmooth namespace)"
