@@ -42,7 +42,8 @@ export(
        cloud,
        wireframe,
        splom,
-       parallel,
+       parallel, # deprecated
+       parallelplot,
        tmd,
 
        rfs,
