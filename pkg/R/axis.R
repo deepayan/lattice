@@ -347,20 +347,24 @@ formattedTicksAndLabels.default <-
              num.limit = NULL,
              abbreviate = NULL,
              minlength = 4,
-             format.posixt = NULL)
+             format.posixt = NULL,
+             equispaced.log = TRUE)
     ## meant for when x is numeric
 {
     rng <-
         if (length(x) == 2) as.numeric(x)
         else range(as.numeric(x))
 
+    str(list(num.limit = num.limit, rng = rng))
+
     ## handle log scale (most other methods ignore logsc)
     if (is.logical(logsc) && logsc) logsc <- 10
-    have.log <- !is.logical(logsc) || logsc
+    have.log <- !is.logical(logsc)
 
     logbase <-
         if (is.numeric(logsc)) logsc
-        else exp(1)
+        else if (logsc == "e") exp(1)
+        else stop("Invalid value of 'log'")
     logpaste <-
         if (have.log) paste(as.character(logsc), "^", sep = "")
         else ""
@@ -373,16 +377,27 @@ formattedTicksAndLabels.default <-
         
     if (is.logical(at)) ## at not explicitly specified
     {
-        at <- checkArgsAndCall(pretty, list(x = x[is.finite(x)], ...))
+        at <-
+            if (have.log && !equispaced.log) # FIXME: num.limit instead of rng?
+                checkArgsAndCall(axisTicks, list(usr = log10(logbase^rng), log = TRUE, axp = NULL, ...))
+            else
+                checkArgsAndCall(pretty, list(x = x[is.finite(x)], ...))
     }
     else if (have.log && (length(at) > 0))  ## 'at' specified but not NULL
     {
         if (is.logical(labels)) labels <- as.character(at)
         at <- log(at, base = logbase)
     }
-    list(at = at,
-         labels = if (is.logical(labels)) paste(logpaste, format(at, trim = TRUE), sep = "")
-                  else labels,
+    if (is.logical(labels))
+    {
+        if (have.log && !equispaced.log)
+        {
+            labels <- as.character(at)
+            at <- log(at, logbase)
+        }
+        else labels <- paste(logpaste, format(at, trim = TRUE), sep = "")
+    }
+    list(at = at, labels = labels,
          check.overlap = check.overlap,
          num.limit = rng)
 }
