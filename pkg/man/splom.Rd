@@ -1,6 +1,7 @@
 \name{B_08_splom}
 \title{Scatter Plot Matrices}
 \alias{splom}
+\alias{parallel}
 \alias{parallelplot}
 \alias{splom.matrix}
 \alias{splom.data.frame}

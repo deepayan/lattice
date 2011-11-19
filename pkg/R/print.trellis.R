@@ -914,7 +914,8 @@ plot.trellis <-
                                                     abbreviate = x$x.scales$abbreviate,
                                                     minlength = x$x.scales$minlength,
                                                     n = x$x.scales$tick.number, # for pretty()
-                                                    nint = x$x.scales$tick.number, # for axisTicks() (FIXME?)
+                                                    nint = x$x.scales$tick.number, # for axisTicks() (log)
+                                                    equispaced.log = x$x.scales$equispaced.log,
                                                     format.posixt = x$x.scales$format)
                             else 
                                 x$xscale.components(lim = x$x.limits[[packet.number]], 
@@ -940,6 +941,7 @@ plot.trellis <-
                                                     minlength = x$x.scales$minlength,
                                                     n = x$x.scales$tick.number,
                                                     nint = x$x.scales$tick.number,
+                                                    equispaced.log = x$x.scales$equispaced.log,
                                                     format.posixt = x$x.scales$format)
 
 
@@ -962,6 +964,7 @@ plot.trellis <-
                                                     minlength = x$y.scales$minlength,
                                                     n = x$y.scales$tick.number,
                                                     nint = x$y.scales$tick.number,
+                                                    equispaced.log = x$y.scales$equispaced.log,
                                                     format.posixt = x$y.scales$format)
                             else 
                                 x$yscale.components(lim = x$y.limits[[packet.number]], 
@@ -987,6 +990,7 @@ plot.trellis <-
                                                     minlength = x$y.scales$minlength,
                                                     n = x$y.scales$tick.number,
                                                     nint = x$y.scales$tick.number,
+                                                    equispaced.log = x$y.scales$equispaced.log,
                                                     format.posixt = x$y.scales$format)
 
 
