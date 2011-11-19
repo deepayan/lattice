@@ -355,16 +355,18 @@ formattedTicksAndLabels.default <-
         if (length(x) == 2) as.numeric(x)
         else range(as.numeric(x))
 
-    str(list(num.limit = num.limit, rng = rng))
+    ## str(list(x = x, num.limit = num.limit,
+    ##          rng = rng, equispaced.log = equispaced.log))
 
     ## handle log scale (most other methods ignore logsc)
     if (is.logical(logsc) && logsc) logsc <- 10
     have.log <- !is.logical(logsc)
 
-    logbase <-
-        if (is.numeric(logsc)) logsc
-        else if (logsc == "e") exp(1)
-        else stop("Invalid value of 'log'")
+    if (have.log)
+        logbase <-
+            if (is.numeric(logsc)) logsc
+            else if (logsc == "e") exp(1)
+            else stop("Invalid value of 'log'")
     logpaste <-
         if (have.log) paste(as.character(logsc), "^", sep = "")
         else ""
