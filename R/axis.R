@@ -157,7 +157,6 @@ axis.default <-
     side <- match.arg(side)
     labels <- match.arg(labels)
     ticks <- match.arg(ticks)
-
     row <- lattice.getStatus("current.focus.row", prefix = prefix)
     column <- lattice.getStatus("current.focus.column", prefix = prefix)
     panel.layout <- trellis.currentLayout("panel", prefix = prefix)
