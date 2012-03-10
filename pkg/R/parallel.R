@@ -130,16 +130,6 @@ panel.parallel <-
     invisible()
 }
 
-parallel <- function(x, data, ...)
-{
-    .Deprecated("parallelplot")
-    ccall <- match.call()
-    ccall[[1]] <- quote(lattice::parallelplot)
-    eval.parent(ccall)
-}
-
-
-
 
 parallelplot <- function(x, data, ...) UseMethod("parallelplot")
 
@@ -408,5 +398,21 @@ parallelplot.formula <-
     foo
 }
 
+
+
+
+parallel <- function(x, data, ...)
+{
+    .Deprecated("parallelplot")
+    ## ccall <- match.call()
+    ## ccall[[1]] <- quote(lattice::parallelplot)
+    ## eval.parent(ccall)
+    UseMethod("parallel")
+}
+
+
+parallel.formula <- parallelplot.formula
+parallel.matrix <- parallelplot.matrix
+parallel.data.frame <- parallelplot.data.frame
 
 
