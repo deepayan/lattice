@@ -210,8 +210,7 @@ axis.default <-
                           left   = rep(scales$alternating, length.out = row)[row] %in% c(1, 3),
                           right  = rep(scales$alternating, length.out = row)[row] %in% c(2, 3))
 
-               } else TRUE)) 
-
+               } else TRUE))
     if (do.ticks || do.labels)
     {
         comp.list <-
@@ -230,16 +229,6 @@ axis.default <-
                    top = scales$tck[2])
         if (!is.logical(comp.list)) ## must be FALSE if it is
         {
-            ## WAS: (but did not allow ticks$at and labels$at to be different)
-            ## panel.axis(side = side,
-            ##            at = comp.list$ticks$at,
-            ##            labels = comp.list$labels$labels,
-            ##            draw.labels = do.labels, 
-            ##            check.overlap = comp.list$labels$check.overlap,
-            ##            outside = TRUE,
-            ##            ticks = do.ticks,
-            ##            tck = scales.tck * comp.list$ticks$tck,
-            ##            ...)
             if (do.ticks)
                 panel.axis(side = side,
                            at = comp.list$ticks$at,
@@ -821,20 +810,6 @@ OLD_formattedTicksAndLabels.times <-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 panel.axis <-
     function(side = c("bottom", "left", "top", "right"),
              at = pretty(scale.range),
@@ -875,12 +850,6 @@ panel.axis <-
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
     rot <- rep(rot, length.out = 2) ## for x- and y-axes respectively
-
-#    if (missing(at) || is.null(at))
-#    {
-#        warning("nothing to draw if at not specified")
-#        return()
-#    }
 
     if (is.null(at) || length(at) == 0) return()
 
