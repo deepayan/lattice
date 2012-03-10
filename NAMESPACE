@@ -285,9 +285,15 @@ S3method(wireframe,     matrix)
 S3method(splom,         formula)
 S3method(splom,         matrix)
 S3method(splom,         data.frame)
+
 S3method(parallelplot,  formula)
 S3method(parallelplot,  matrix)
 S3method(parallelplot,  data.frame)
+
+# deprecated
+S3method(parallel,  formula)
+S3method(parallel,  matrix)
+S3method(parallel,  data.frame)
 
 S3method(tmd,           formula)
 S3method(tmd,           trellis)
