@@ -1193,13 +1193,18 @@ lattice.getStatus <- function(name, prefix = NULL)
         get("lattice.status", envir = .LatticeEnv)[[prefix]][[name]]
 }
 
-lattice.setStatus <- function (..., prefix = NULL)
+lattice.setStatus <- function (..., prefix = NULL, clean.first = FALSE)
 {
+    ## if clean.first = TRUE, remove previously existing things.  This
+    ## is done whenever a new page is started, as otherwise crud from
+    ## previous calls may keep piling up.
     dots <- list(...)
     if (is.null(names(dots)) && length(dots) == 1 && is.list(dots[[1]]))
         dots <- dots[[1]]
     if (length(dots) == 0) return()
-    lattice.status <- get("lattice.status", envir = .LatticeEnv)
+    lattice.status <-
+        if (clean.first) list()
+        else get("lattice.status", envir = .LatticeEnv)
     if (is.null(prefix))
         lattice.status[names(dots)] <- dots
     else
