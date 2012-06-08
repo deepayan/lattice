@@ -260,7 +260,6 @@ plot.trellis <-
         on.exit(lattice.options(oopt), add = TRUE)
     }
 
-
     ## We'll also allow arguments to print.trellis (or plot.trellis)
     ## to be included within a trellis object.  Partial matching is
     ## not done.
@@ -294,8 +293,14 @@ plot.trellis <-
     on.exit(lattice.setStatus(print.more = more), add = TRUE)
     usual  <- (is.null(position) && is.null(split))
 
-    ## This means this plot will be the first one on a new page, so reset counter
-    if (new) lattice.setStatus(plot.index = 0L)
+    ## This means this plot will be the first one on a new page, so
+    ## delete all previously recorded information and reset counter
+    if (new)
+    {
+        lattice.setStatus(.defaultLatticeStatus(), clean.first = TRUE)
+        ## .LatticeEnv$lattice.status <- .defaultLatticeStatus()
+        lattice.setStatus(plot.index = 0L)
+    }
 
     ## get default prefix for grid viewport/object names
     pindex <- 1L + lattice.getStatus("plot.index")
