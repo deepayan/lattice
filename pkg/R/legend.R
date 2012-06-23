@@ -837,6 +837,23 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     lineheight <- axis.text$lineheight
     rot <- 0
 
+    ## The following code assumes names key$lab and key$lab$lab (which
+    ## may have been used in user code), whereas documentation says
+    ## key$labels and key$labels$labels.  To make both work without
+    ## 'partial matching' warnings, we rename key$labels to key$lab
+    ## etc.
+
+    if (!is.null(key[["labels"]])) 
+    {
+        key[["lab"]] <- key[["labels"]]
+        key[["labels"]] <- NULL
+        if (is.list(key[["lab"]]) && !is.null(key[["lab"]][["labels"]])) 
+        {
+            key[["lab"]][["lab"]] <- key[["lab"]][["labels"]]
+            key[["lab"]][["labels"]] <- NULL
+        }
+    }
+    
     if (is.null(key$lab))
     {
         at <- lpretty(atrange, key$tick.number)
