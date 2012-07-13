@@ -756,6 +756,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                  alpha = regions$alpha,
                  at,
                  tick.number = 7,
+                 tck = 1,
                  width = 2,
                  height = 1,
                  space = "right",
@@ -770,6 +771,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                  alpha = alpha,
                  at = at,
                  tick.number = tick.number,
+                 tck = tck,
                  width = width,
                  height = height,
                  space = space,
@@ -795,7 +797,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     ## the breakpoints of the rectangles, and the other is key$lab$at
     ## (optional) which is the positions of the ticks. We will use the
     ## 'at' variable for the latter, 'atrange' for the range of the
-    ## former, and keyat explicitly when needed
+    ## former, and key$at explicitly when needed
 
 
 
@@ -912,7 +914,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         heights.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         heights.units <- rep("null", 3)
 
-        widths.x <- c(0.6 * key$width, do.labels * 0.6, do.labels * 1)
+        widths.x <- c(0.6 * key$width, do.labels * (0.3 + key$tck * 0.3), do.labels * 1)
         widths.units <- c("lines", "lines", "grobwidth")
         widths.data <- list(NULL, NULL, labelsGrob)
         
@@ -932,7 +934,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                            width = 1, height = 1,
                                            vp = viewport(clip = "on"),
                                            name = trellis.grobname("raster",
-                                             type="colorkey"),
+                                                                   type="colorkey"),
                                            interpolate = key$interpolate),
                                 row = 2, col = 1)
         }
@@ -945,7 +947,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          vp = viewport(yscale = atrange),
                                          height = recdim, 
                                          name = trellis.grobname("image",
-                                           type="colorkey"),
+                                                                 type="colorkey"),
                                          gp =
                                          gpar(fill = key$col,
                                               col = "transparent",
@@ -964,20 +966,21 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             row = 2, col = 1)
         if (do.labels)
         {
-            key.gf <- placeGrob(frame = key.gf, 
-                                segmentsGrob(x0 = rep(0, length(labscat)),
-                                             y0 = labscat,
-                                             x1 = rep(.4, length(labscat)),
-                                             y1 = labscat,
-                                             vp = viewport(yscale = atrange),
-                                             default.units = "native",
-                                             name = trellis.grobname("ticks",
-                                               type="colorkey"),
-                                             gp =
-                                             gpar(col = axis.line$col,
-                                                  lty = axis.line$lty,
-                                                  lwd = axis.line$lwd)),
-                                row = 2, col = 2)
+            if (key$tck != 0)
+                key.gf <- placeGrob(frame = key.gf, 
+                                    segmentsGrob(x0 = rep(0, length(labscat)),
+                                                 y0 = labscat,
+                                                 x1 = rep(key$tck / (1 + key$tck), length(labscat)),
+                                                 y1 = labscat,
+                                                 vp = viewport(yscale = atrange),
+                                                 default.units = "native",
+                                                 name = trellis.grobname("ticks",
+                                                                         type="colorkey"),
+                                                 gp =
+                                                 gpar(col = axis.line$col,
+                                                      lty = axis.line$lty,
+                                                      lwd = axis.line$lwd)),
+                                    row = 2, col = 2)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
                                 row = 2, col = 3)
@@ -1007,7 +1010,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         heights.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         heights.units <- rep("null", 3)
 
-        widths.x <- c(do.labels * 1, do.labels * 0.6, 0.6 * key$width)
+
+        widths.x <- c(do.labels * 1, do.labels * (0.3 + key$tck * 0.3), 0.6 * key$width)
         widths.units <- c("grobwidth", "lines", "lines")
         widths.data <- list(labelsGrob, NULL, NULL)
         
@@ -1059,20 +1063,21 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             row = 2, col = 3)
         if (do.labels)
         {
-            key.gf <- placeGrob(frame = key.gf, 
-                                segmentsGrob(x0 = rep(1, length(labscat)),
-                                             y0 = labscat,
-                                             x1 = rep(.6, length(labscat)),
-                                             y1 = labscat,
-                                             vp = viewport(yscale = atrange),
-                                             default.units = "native",
-                                             name = trellis.grobname("ticks",
-                                               type="colorkey"),
-                                             gp =
-                                             gpar(col = axis.line$col,
-                                                  lty = axis.line$lty,
-                                                  lwd = axis.line$lwd)),
-                                row = 2, col = 2)
+            if (key$tck != 0)
+                key.gf <- placeGrob(frame = key.gf, 
+                                    segmentsGrob(x0 = rep(1, length(labscat)),
+                                                 y0 = labscat,
+                                                 x1 = rep(1 - key$tck / (1 + key$tck), length(labscat)),
+                                                 y1 = labscat,
+                                                 vp = viewport(yscale = atrange),
+                                                 default.units = "native",
+                                                 name = trellis.grobname("ticks",
+                                                                         type="colorkey"),
+                                                 gp =
+                                                 gpar(col = axis.line$col,
+                                                      lty = axis.line$lty,
+                                                      lwd = axis.line$lwd)),
+                                    row = 2, col = 2)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
                                 row = 2, col = 1)
@@ -1102,7 +1107,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         widths.units <- rep("null", 3)
 
-        heights.x <- c(do.labels * 1, do.labels * 0.6, 0.6 * key$width)
+        heights.x <- c(do.labels * 1, do.labels * (0.3 + key$tck * 0.3), 0.6 * key$width)
         heights.units <- c("grobheight", "lines", "lines")
         heights.data <- list(labelsGrob, NULL, NULL)
         
@@ -1154,20 +1159,21 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             row = 3, col = 2)
         if (do.labels)
         {
-            key.gf <- placeGrob(frame = key.gf, 
-                                segmentsGrob(y0 = rep(0, length(labscat)),
-                                             x0 = labscat,
-                                             y1 = rep(.4, length(labscat)),
-                                             x1 = labscat,
-                                             vp = viewport(xscale = atrange),
-                                             default.units = "native",
-                                             name = trellis.grobname("ticks",
-                                               type="colorkey"),
-                                             gp =
-                                             gpar(col = axis.line$col,
-                                                  lty = axis.line$lty,
-                                                  lwd = axis.line$lwd)),
-                                row = 2, col = 2)
+            if (key$tck != 0)
+                key.gf <- placeGrob(frame = key.gf, 
+                                    segmentsGrob(y0 = rep(0, length(labscat)),
+                                                 x0 = labscat,
+                                                 y1 = rep(key$tck / (1 + key$tck), length(labscat)),
+                                                 x1 = labscat,
+                                                 vp = viewport(xscale = atrange),
+                                                 default.units = "native",
+                                                 name = trellis.grobname("ticks",
+                                                                         type="colorkey"),
+                                                 gp =
+                                                 gpar(col = axis.line$col,
+                                                      lty = axis.line$lty,
+                                                      lwd = axis.line$lwd)),
+                                    row = 2, col = 2)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
                                 row = 1, col = 2)
@@ -1197,7 +1203,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
         widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
         widths.units <- rep("null", 3)
 
-        heights.x <- c(0.6 * key$width, do.labels * 0.6, do.labels * 1)
+        heights.x <- c(0.6 * key$width, do.labels * (0.3 + key$tck * 0.3), do.labels * 1)
         heights.units <- c("lines", "lines", "grobheight")
         heights.data <- list(NULL, NULL, labelsGrob)
         
@@ -1249,20 +1255,21 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                             row = 1, col = 2)
         if (do.labels)
         {
-            key.gf <- placeGrob(frame = key.gf, 
-                                segmentsGrob(y0 = rep(1, length(labscat)),
-                                             x0 = labscat,
-                                             y1 = rep(.6, length(labscat)),
-                                             x1 = labscat,
-                                             vp = viewport(xscale = atrange),
-                                             default.units = "native",
-                                             name = trellis.grobname("ticks",
-                                               type="colorkey"),
-                                             gp =
-                                             gpar(col = axis.line$col,
-                                                  lty = axis.line$lty,
-                                                  lwd = axis.line$lwd)),
-                                row = 2, col = 2)
+            if (key$tck != 0)
+                key.gf <- placeGrob(frame = key.gf, 
+                                    segmentsGrob(y0 = rep(1, length(labscat)),
+                                                 x0 = labscat,
+                                                 y1 = rep(1 - key$tck / (1 + key$tck), length(labscat)),
+                                                 x1 = labscat,
+                                                 vp = viewport(xscale = atrange),
+                                                 default.units = "native",
+                                                 name = trellis.grobname("ticks",
+                                                                         type="colorkey"),
+                                                 gp =
+                                                 gpar(col = axis.line$col,
+                                                      lty = axis.line$lty,
+                                                      lwd = axis.line$lwd)),
+                                    row = 2, col = 2)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
                                 row = 3, col = 2)
