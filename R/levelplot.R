@@ -290,8 +290,12 @@ panel.levelplot <-
                          nlevels = length(at), ## necessary ?
                          levels = at)
 
+        ccount <- 0
+        
         for (val in clines) {
 
+            ccount <- ccount + 1
+            
             ## each val looks like:
 
             ## $ :List of 3
@@ -303,7 +307,7 @@ panel.levelplot <-
 
             llines(val, ## hopefully $levels won't matter
                    col = col, lty = lty, lwd = lwd,
-                   identifier = paste(identifier, "lines",
+                   identifier = paste(identifier, "line", ccount,
                      sep = "."))
 
             ## if too small, don't add label. How small is small ?
@@ -373,7 +377,7 @@ panel.levelplot <-
                           fontface = labels$fontface,
                           x = .5 * (val$x[textloc]+val$x[textloc + 1]),
                           y = .5 * (val$y[textloc]+val$y[textloc + 1]),
-                          identifier = paste(identifier, "labels",
+                          identifier = paste(identifier, "label", ccount,
                             sep = "."))
                 }
             }
