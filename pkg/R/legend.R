@@ -257,6 +257,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                      font = key$font,
                      fontface = key$fontface,
                      fontfamily = key$fontfamily)
+            pars <- pars[!sapply(pars, is.null)] # remove NULL components
             key[[i]][[1]] <- NULL
             key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
@@ -278,6 +279,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                      height = key$height,
                      angle = key$angle,
                      density = key$density)
+            pars <- pars[!sapply(pars, is.null)] # remove NULL components
             key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
             tmplen <- max(unlist(lapply(pars,length)))
@@ -297,6 +299,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                      fill = key$fill,
                      lwd = key$lwd,
                      type = key$type)
+            pars <- pars[!sapply(pars, is.null)] # remove NULL components
             key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
             tmplen <- max(unlist(lapply(pars,length)))
@@ -306,15 +309,17 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         }
         else if (curname == 4) # "points"
         {
-            pars <- list(col = key$col,
-                         alpha = key$alpha,
-                         cex = key$cex,
-                         pch = key$pch,
-                         lwd = key$lwd,
-                         fill = key$fill,
-                         font = key$font,
-                         fontface = key$fontface,
-                         fontfamily = key$fontfamily)
+            pars <-
+                list(col = key$col,
+                     alpha = key$alpha,
+                     cex = key$cex,
+                     pch = key$pch,
+                     lwd = key$lwd,
+                     fill = key$fill,
+                     font = key$font,
+                     fontface = key$fontface,
+                     fontfamily = key$fontfamily)
+            pars <- pars[!sapply(pars, is.null)] # remove NULL components
             key[[i]] <- complete_names(key[[i]], pars, allow.invalid = TRUE)
             pars[names(key[[i]])] <- key[[i]]
             tmplen <- max(unlist(lapply(pars,length)))
