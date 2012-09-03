@@ -1,6 +1,6 @@
 Package: lattice
-Version: 0.20-9
-Date: 2012/07/13
+Version: 0.20-11
+Date: 2012/08/23
 Priority: recommended
 Title: Lattice Graphics
 Author: Deepayan Sarkar <deepayan.sarkar@r-project.org>
@@ -10,7 +10,7 @@ Description: Lattice is a powerful and elegant high-level data
   sufficient for typical graphics needs, and is also flexible enough
   to handle most nonstandard requirements.  See ?Lattice for an
   introduction.
-Depends: R (>= 2.14.0)
+Depends: R (>= 2.15.1)
 Suggests: grid, KernSmooth, MASS
 Imports: grid, grDevices, graphics, stats, utils, methods
 Enhances: chron
