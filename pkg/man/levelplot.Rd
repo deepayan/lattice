@@ -138,6 +138,8 @@ contourplot(x, data, \dots)
     for.  However, this also means that when supplying \code{at}
     explicitly, one has to be careful to include values outside the
     range of \code{z} to ensure that all the data are shown.
+
+    \code{at} can have length one only if \code{region=FALSE}.  
   }
   \item{col.regions}{ color vector to be used if regions is TRUE. The
     general idea is that this should be a color vector of moderately
