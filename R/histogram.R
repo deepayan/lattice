@@ -62,9 +62,14 @@ prepanel.default.histogram <-
         h <-
             hist.constructor(x, breaks = breaks, ...)
         y <-
-            if (type == "count") h$counts
-            else if (type == "percent") 100 * h$counts / length(x)
-            else h$intensities
+            switch(type,
+                   count = h$counts,
+                   percent = 100 * h$counts/length(x),
+                   density = h$density)
+        ## y <-
+        ##     if (type == "count") h$counts
+        ##     else if (type == "percent") 100 * h$counts / length(x)
+        ##     else h$density
         list(xlim =
              if (is.factor(x)) levels(x)
              else scale.limits(c(x, h$breaks)),
@@ -114,17 +119,15 @@ panel.histogram <-
                 else quantile(x, 0:nint/nint, na.rm = TRUE)
         }
         h <- hist.constructor(x, breaks = breaks, ...)
-        ## FIXME: change to this after 2.5.0:
-
-        ##         y <-
-        ##             switch(type,
-        ##                    count = h$counts,
-        ##                    percent = 100 * h$counts/length(x),
-        ##                    density = h$intensities)
         y <-
-            if (type == "count") h$counts
-            else if (type == "percent") 100 * h$counts/length(x)
-            else h$intensities
+            switch(type,
+                   count = h$counts,
+                   percent = 100 * h$counts/length(x),
+                   density = h$density)
+        ## y <-
+        ##     if (type == "count") h$counts
+        ##     else if (type == "percent") 100 * h$counts/length(x)
+        ##     else h$density
         breaks <- h$breaks
 
         nb <- length(breaks)
