@@ -9,6 +9,7 @@
 ##   (2) run msgmerge on existing translation catalogs
 ##   (2) update SvnLog [actually create a file with latest entries]
 
+
 R_PROG=R
 PKG=lattice
 
