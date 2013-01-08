@@ -12,7 +12,7 @@ Description: Lattice is a powerful and elegant high-level data
   introduction.
 Depends: R (>= 2.15.1)
 Suggests: grid, KernSmooth, MASS
-Imports: grid, grDevices, graphics, stats, utils, methods
+Imports: grid, grDevices, graphics, stats, utils
 Enhances: chron
 LazyLoad: yes
 LazyData: yes

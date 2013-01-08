@@ -852,7 +852,7 @@ panel.violin <-
     yscale <- current.panel.limits()$ylim
     height <- box.width # box.ratio / (1 + box.ratio)
 
-    if (hasArg(group.number))
+    if (hasGroupNumber())
         group <- list(...)$group.number
     else
         group <- 0
