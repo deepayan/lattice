@@ -156,7 +156,7 @@ panel.levelplot <-
     z <- z[subscripts]
     if (region) zcol <- zcol[subscripts]
 
-    if (hasArg(group.number))
+    if (hasGroupNumber())
         group <- list(...)$group.number
     else
         group <- 0
@@ -922,7 +922,7 @@ panel.levelplot.raster <-
     z <- z[subscripts]
     zcol <- zcol[subscripts]
 
-    if (hasArg(group.number))
+    if (hasGroupNumber())
         group <- list(...)$group.number
     else
         group <- 0
