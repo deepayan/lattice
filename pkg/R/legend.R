@@ -151,20 +151,24 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
     ## if it is)
     
     process.key <-
-        function(align = TRUE,
+        function(reverse.rows = FALSE, ## invert rows (e.g. for barchart, stack = FALSE)
+                 between = 2,
+                 align = TRUE,
                  title = NULL,
                  rep = TRUE,
                  background = trellis.par.get("background")$col,
                  alpha.background = 1,
                  border = FALSE,
                  transparent = FALSE, 
-                 divide = 3,
                  col = "black",
                  alpha = 1,
                  lty = 1,
                  lwd = 1,
                  font = 1, 
+                 fontface = NULL, 
+                 fontfamily = NULL,
                  pch = 8,
+                 cex = 1,
                  fill = "transparent",
                  adj = 0,
                  type = "l", 
@@ -172,20 +176,16 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  height = 1,
                  angle = 0, 
                  density = -1,
-                 reverse.rows = FALSE, ## invert rows (e.g. for barchart, stack = FALSE)
-                 between = 2,
-                 between.columns = 3,
-                 columns = 1,
-                 cex = 1,
                  cex.title = 1.5 * max(cex),                 
                  padding.text = 1,
                  lineheight = 1,
-                 fontface = NULL, 
-                 fontfamily = NULL,
-                 
+                 columns = 1,
+                 divide = 3,
+                 between.columns = 3,
+
                  ## to avoid partial matching, anything starting with
                  ## lines, points, rect, text must come after ...
-
+                 
                  ...,
                  lines.title = 2)
         {
@@ -198,27 +198,28 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                  alpha.background = alpha.background,
                  border = border,
                  transparent = transparent, 
-                 columns = columns,
-                 divide = divide,
-                 between.columns = between.columns,
-                 cex = cex,
-                 cex.title = cex.title,
-                 padding.text = padding.text,
                  col = col,
                  alpha = alpha,
                  lty = lty,
                  lwd = lwd,
-                 lineheight = lineheight,
                  font = font,
                  fontface = fontface,
                  fontfamily = fontfamily,
                  pch = pch,
+                 cex = cex,
+                 fill = fill,
                  adj = adj,
                  type = type, 
                  size = size,
                  height = height,
                  angle = angle, 
                  density = density,
+                 cex.title = cex.title,
+                 padding.text = padding.text,
+                 lineheight = lineheight,
+                 columns = columns,
+                 divide = divide,
+                 between.columns = between.columns,
                  lines.title = lines.title,
                  ...)
         }
@@ -792,8 +793,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     axis.line <- updateList(trellis.par.get("axis.line"), key$axis.line)
     axis.text <- updateList(trellis.par.get("axis.text"), key$axis.text)
 
-## FIXME: delete later
-#str(key)
     ## made FALSE later if labels explicitly specified
     check.overlap <- TRUE
     
