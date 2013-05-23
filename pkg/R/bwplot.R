@@ -278,7 +278,8 @@ panel.barchart <-
                            height = rep(height, nok),
                            width = x[ok] - origin,
                            just = c("left", "centre"),
-                           identifier = identifier)
+                           identifier = paste(identifier, "y", i,
+                               sep = "."))
             }
         }
     }
@@ -411,7 +412,8 @@ panel.barchart <-
                            width = rep(width, nok),
                            height = y[ok] - origin,
                            just = c("centre", "bottom"),
-                           identifier = identifier)
+                           identifier = paste(identifier, "x", i,
+                               sep = "."))
             }
         }
     }
