@@ -1,4 +1,8 @@
 ------------------------------------------------------------------------
+r742 | paul | 2013-05-23 14:49:05 +1200 (Thu, 23 May 2013) | 1 line
+
+improved naming of rect grobs in barchart when there is grouping
+------------------------------------------------------------------------
 r740 | deepayan | 2013-03-24 19:33:09 +0530 (Sun, 24 Mar 2013) | 1 line
 Changed paths:
    M /pkg/DESCRIPTION
