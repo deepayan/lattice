@@ -109,12 +109,14 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
 
     ## Note: For any component with a $font entry, more general
     ## specifications using $fontfamily and $fontface is also allowed
-    ## (see ?grid::gpar for details).
+    ## (see ?grid::gpar for details).  If set, fontsize$text will
+    ## override get.gpar("fontsize") (which in turn usually defaults
+    ## to the device pointsize).
 
     ## color settings, modified later if postscript or color = FALSE
     ans <-
         list(grid.pars        = list(), ## set globally at the beginning
-             fontsize         = list(text = 12, points = 8),
+             fontsize         = list(text = NULL, points = 8),
              background       = list(alpha = 1, col = can.col[17]),
              panel.background = list(col = "transparent"),
              clip             = list(panel = "on", strip = "on"),

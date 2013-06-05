@@ -340,10 +340,16 @@ plot.trellis <-
     else
         lattice.setStatus(current.plot.saved = FALSE, prefix = prefix)
 
+    ## Use general grid parameters in 'grid.pars', but for historical
+    ## reasons, override by 'trellis.par.get("fontsize")$text' if set
+    tp.fontsize <- trellis.par.get("fontsize")$text
     global.gpar <-
-        do.call(gpar,
-                updateList(trellis.par.get("grid.pars"),
-                           list(fontsize = trellis.par.get("fontsize")$text)))
+        if (is.null(tp.fontsize))
+            do.call(gpar, trellis.par.get("grid.pars"))
+        else 
+            do.call(gpar,
+                    updateList(trellis.par.get("grid.pars"),
+                               list(fontsize = tp.fontsize)))
 
     if (!is.null(position))
     {
