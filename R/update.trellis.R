@@ -331,12 +331,16 @@ update.trellis <-
         if (is.logical(yscales$alternating)) yscales$alternating <- if (yscales$alternating) c(1,2) else 1
         ## cannot possibly make sense for z
 
+        rep2IfNotNULL <- function(x) 
+        {
+            if (is.null(x)) NULL else rep(x, length.out = 2)
+        }
         for (nm in c("tck", "cex", "rot"))
         {
-            scales[[nm]] <- rep(scales[[nm]], length.out = 2)
-            xscales[[nm]] <- rep(xscales[[nm]], length.out = 2)
-            yscales[[nm]] <- rep(yscales[[nm]], length.out = 2)
-            zscales[[nm]] <- rep(zscales[[nm]], length.out = 2)
+            scales[[nm]] <- rep2IfNotNULL(scales[[nm]])
+            xscales[[nm]] <- rep2IfNotNULL(xscales[[nm]])
+            yscales[[nm]] <- rep2IfNotNULL(yscales[[nm]])
+            zscales[[nm]] <- rep2IfNotNULL(zscales[[nm]])
         }
 
         if (!is.null(scales$limits))
@@ -371,9 +375,9 @@ update.trellis <-
         object$y.scales[names(yscales)] <- yscales
         object$z.scales[names(zscales)] <- zscales
 
-        if (object$x.scales$relation == "same" && (is.list(object$x.scales$at) || is.list(object$x.scales$lab)))
+        if (object$x.scales$relation == "same" && (is.list(object$x.scales$at) || is.list(object$x.scales$labels)))
             stop("the at and labels components of scales may not be lists when relation = same")
-        if (object$y.scales$relation == "same" && (is.list(object$y.scales$at) || is.list(object$y.scales$lab)))
+        if (object$y.scales$relation == "same" && (is.list(object$y.scales$at) || is.list(object$y.scales$labels)))
             stop("the at and labels components of scales may not be lists when relation = same")
     }
 
