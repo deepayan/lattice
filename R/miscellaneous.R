@@ -28,7 +28,7 @@
 
 
 getFunctionOrName <- function(FUN)
-     ## Try lattice namespace first? Does that happens automatically?
+     ## Try lattice namespace first? Does that happen automatically?
 {
     if (is.function(FUN)) FUN
     else if (is.character(FUN)) get(FUN)
