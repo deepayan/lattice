@@ -262,7 +262,36 @@ update.trellis <-
     if (!missing(legend))
     {
         if (is.null(legend)) object$legend <- NULL
-        else object$legend <- updateList(object$legend, legend)
+        else
+        {
+            ## Used to be:
+            ## object$legend <- updateList(object$legend, legend)
+            ## but that does not handle multiple components with same
+            ## name, which can happen when there are multiple 'inside'
+            ## components (lattice bug #2587).
+
+            ## What should happen in that case?  If there is one or
+            ## more 'inside' in old, but none in new, retain all in
+            ## the old.  If there is one in the replacement, and one
+            ## in the original, then the new should replace the old.
+            ## If there are multiple, remove all in the old and retain
+            ## all in the new. [One might argue that there should be
+            ## the option of retaining the old, but in that case the
+            ## user could add that manually to the new 'legend'. ]
+
+            winside <- which(names(legend) == "inside")
+            if (length(winside) ==  0L) # none in new
+                object$legend <- updateList(object$legend, legend)
+            else 
+            {
+                object$legend <- object$legend[ names(object$legend) != "inside" ]
+                new.insides <- legend[winside]
+                legend <- legend[-winside]
+                object$legend <- updateList(object$legend, legend)
+                object$legend <- c(object$legend, new.insides)
+            }
+        }
+        
     }
     if (!missing(key))
     {
