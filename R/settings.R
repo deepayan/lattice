@@ -943,6 +943,8 @@ lattice.options <- function(...)
 
          banking = banking,
 
+         histogram.breaks = NULL,
+
          default.args =
          list(as.table = FALSE,
               aspect = "fill",
