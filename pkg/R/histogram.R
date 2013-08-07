@@ -310,9 +310,13 @@ histogram.formula <-
     ## frequency histogram is going to be misleading.
 
     if (missing(breaks)) # explicit NULL, or function, or character is fine
-        breaks <- # use nint and endpoints
-            if (is.factor(x)) seq_len(1 + nlevels(x)) - 0.5
-            else do.breaks(as.numeric(endpoints), nint)
+    {
+        breaks <- lattice.getOption("histogram.breaks")
+        if (is.null(breaks)) # nothing specified
+            breaks <- # use nint and endpoints
+                if (is.factor(x)) seq_len(1 + nlevels(x)) - 0.5
+                else do.breaks(as.numeric(endpoints), nint)
+    }
 
     prefer.density <- 
         (is.function(breaks) || 
