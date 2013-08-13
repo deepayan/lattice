@@ -321,7 +321,7 @@ histogram.formula <-
     prefer.density <- 
         (is.function(breaks) || 
          (is.null(breaks) && !equal.widths) ||
-         (is.numeric(breaks) && !isTRUE(all.equal(diff(range(diff(breaks))), 0)))
+         (is.numeric(breaks) && (length(breaks) > 1) && !isTRUE(all.equal(diff(range(diff(breaks))), 0)))
          )
     if (missing(type) && prefer.density)
         type <- "density"
