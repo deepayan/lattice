@@ -116,7 +116,7 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
     ## color settings, modified later if postscript or color = FALSE
     ans <-
         list(grid.pars        = list(), ## set globally at the beginning
-             fontsize         = list(text = NULL, points = 8),
+             fontsize         = list(text = 12, points = 8),
              background       = list(alpha = 1, col = can.col[17]),
              panel.background = list(col = "transparent"),
              clip             = list(panel = "on", strip = "on"),
