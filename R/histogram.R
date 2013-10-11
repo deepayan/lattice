@@ -40,6 +40,10 @@ hist.constructor <-
         hist(as.numeric(x), breaks = breaks, right = right, plot = FALSE)
 }
 
+    ## if (prefer.density && type != "density" && !is.function(breaks))
+    ##     warning(gettextf("type='%s' can be misleading in this context", type))
+
+
 
 prepanel.default.histogram <-
     function(x,
@@ -61,6 +65,12 @@ prepanel.default.histogram <-
         }
         h <-
             hist.constructor(x, breaks = breaks, ...)
+        if (type != "density" && is.function(breaks))
+        {
+            ## warn if not equispaced breaks
+            if (!isTRUE(all.equal(diff(range(diff(h$breaks))), 0)))
+                warning(gettextf("type='%s' can be misleading in this context", type))
+        }
         y <-
             switch(type,
                    count = h$counts,
@@ -318,6 +328,20 @@ histogram.formula <-
                 else do.breaks(as.numeric(endpoints), nint)
     }
 
+    ## We would like to issue a warning if type!="density" but breaks
+    ## are not equispaced.  This is done here: BUT there is a problem
+    ## if 'breaks' is a function, because then we cannot know if the
+    ## breaks are equispaced here.  On the other hand, we can issue
+    ## the warning in the prepanel/panel function, but that could
+    ## cause unnecessary repititions.
+
+    ## The compromise is that we only issue a warning when 'breaks' is
+    ## not a function (even though we still prefer type=density in
+    ## that case because we don't want to impose a default of
+    ## equispaced breaks in that case).  Ideally, the prepanel
+    ## function should check if type!=density and warn if necessary
+    ## when breaks is a function.
+    
     prefer.density <- 
         (is.function(breaks) || 
          (is.null(breaks) && !equal.widths) ||
@@ -326,7 +350,7 @@ histogram.formula <-
     if (missing(type) && prefer.density)
         type <- "density"
     type <- match.arg(type)
-    if (prefer.density && type != "density")
+    if (prefer.density && type != "density" && !is.function(breaks))
         warning(gettextf("type='%s' can be misleading in this context", type))
 
     ## this is normally done earlier (in trellis.skeleton), but in

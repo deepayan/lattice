@@ -106,8 +106,8 @@ do.breaks(endpoints, nint)
     density histogram.
 
     \code{type} defaults to \code{"density"} when the breakpoints are
-    unequally spaced or \code{breaks = NULL}, and to \code{"percent"}
-    otherwise.
+    unequally spaced, and when \code{breaks} is \code{NULL} or a
+    function, and to \code{"percent"} otherwise.
   }
   \item{nint}{
     An integer specifying the number of histogram bins, applicable only
