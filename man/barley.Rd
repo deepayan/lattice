@@ -43,13 +43,15 @@
 
   Cleveland (1993) suggests that the data for the Morris site may have
   had the years switched.
-  
 }
 
 \source{
   Immer, R. F., H. K. Hayes, and LeRoy Powers. (1934).  Statistical
   Determination of Barley Varietal Adaptation.  \emph{Journal of the
     American Society of Agronomy}, \bold{26}, 403--419.
+
+  Wright, Kevin (2013). Revisiting Immer's Barley Data. \emph{The
+    American Statistician}, \bold{67(3)}, 129--133.
 }
 
 \author{
