@@ -641,14 +641,6 @@ panel.3dwire <-
 
 
 
-
-
-
-
-
-
-
-
 panel.cloud <-
     function(x, y, subscripts, z,
              groups = NULL,
@@ -1180,10 +1172,10 @@ panel.cloud <-
             if (is.logical(scales.3d$x.scales$col.line)) axis.line$col
             else scales.3d$x.scales$col.line
         xaxis.lty <-
-            if (is.logical(scales.3d$x.scales$lty)) axis.line$lwd
+            if (is.logical(scales.3d$x.scales$lty)) axis.line$lty
             else scales.3d$x.scales$lty
         xaxis.lwd <-
-            if (is.logical(scales.3d$x.scales$lwd)) axis.line$lty
+            if (is.logical(scales.3d$x.scales$lwd)) axis.line$lwd
             else scales.3d$x.scales$lwd
         xaxis.col.text <-
             if (is.logical(scales.3d$x.scales$col)) axis.text$col
@@ -1209,10 +1201,10 @@ panel.cloud <-
             if (is.logical(scales.3d$y.scales$col.line)) axis.line$col
             else scales.3d$y.scales$col.line
         yaxis.lty <-
-            if (is.logical(scales.3d$y.scales$lty)) axis.line$lwd
+            if (is.logical(scales.3d$y.scales$lty)) axis.line$lty
             else scales.3d$y.scales$lty
         yaxis.lwd <-
-            if (is.logical(scales.3d$y.scales$lwd)) axis.line$lty
+            if (is.logical(scales.3d$y.scales$lwd)) axis.line$lwd
             else scales.3d$y.scales$lwd
         yaxis.col.text <-
             if (is.logical(scales.3d$y.scales$col)) axis.text$col
@@ -1238,10 +1230,10 @@ panel.cloud <-
             if (is.logical(scales.3d$z.scales$col.line)) axis.line$col
             else scales.3d$z.scales$col.line
         zaxis.lty <-
-            if (is.logical(scales.3d$z.scales$lty)) axis.line$lwd
+            if (is.logical(scales.3d$z.scales$lty)) axis.line$lty
             else scales.3d$z.scales$lty
         zaxis.lwd <-
-            if (is.logical(scales.3d$z.scales$lwd)) axis.line$lty
+            if (is.logical(scales.3d$z.scales$lwd)) axis.line$lwd
             else scales.3d$z.scales$lwd
         zaxis.col.text <-
             if (is.logical(scales.3d$z.scales$col)) axis.text$col
