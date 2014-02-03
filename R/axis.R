@@ -869,18 +869,6 @@ panel.axis <-
     keep.at <- at >= scale.range[1] & at <= scale.range[2]
     at <- at[keep.at]
     labels <- labels[keep.at]
-    keep.labels <- TRUE
-
-    ## could possibly treat ticks and labels separately, but that
-    ## wasn't liked much.   I'll still keep 'keep.labels' around for now,
-    ## but it's currently redundant
-
-    ## if (check.overlap)
-    ## {
-    ##     pad <- lattice.getOption("something else")
-    ##     scale.range <- extend.limits(scale.range, prop = -pad)
-    ##     keep.labels <- at >= scale.range[1] & at <= scale.range[2]
-    ## }
 
     nal <- length(at) / 2 + 0.5
     all.id <- seq_along(at)
@@ -892,6 +880,7 @@ panel.axis <-
             if (which.half == "lower") lower.id else upper.id
         }
         else rep(TRUE, length(all.id))
+    if (!any(axid)) return(invisible())
 
     gp.line <- gpar(col = line.col, alpha = line.alpha,
                     lty = line.lty, lwd = line.lwd)
@@ -976,8 +965,8 @@ panel.axis <-
         }
         switch(side,
                bottom =
-               grid.text(label = labels[axid & keep.labels],
-                         x = unit(at[axid & keep.labels], "native"),
+               grid.text(label = labels[axid],
+                         x = unit(at[axid], "native"),
                          y = orient.factor * lab.unit,
                          rot = rot[1],
                          check.overlap = check.overlap,
@@ -986,8 +975,8 @@ panel.axis <-
                                                  type="panel"),
                          gp = gp.text),
                top =
-               grid.text(label = labels[axid & keep.labels],
-                         x = unit(at[axid & keep.labels], "native"),
+               grid.text(label = labels[axid],
+                         x = unit(at[axid], "native"),
                          y = unit(1, "npc") - orient.factor * lab.unit,
                          rot = rot[1],
                          check.overlap = check.overlap,
@@ -996,8 +985,8 @@ panel.axis <-
                                                  type="panel"),
                          gp = gp.text),
                left =
-               grid.text(label = labels[axid & keep.labels],
-                         y = unit(at[axid & keep.labels], "native"),
+               grid.text(label = labels[axid],
+                         y = unit(at[axid], "native"),
                          x = orient.factor * lab.unit,
                          rot = rot[2],
                          check.overlap = check.overlap,
@@ -1006,8 +995,8 @@ panel.axis <-
                                                  type="panel"),
                          gp = gp.text),
                right =
-               grid.text(label = labels[axid & keep.labels],
-                         y = unit(at[axid & keep.labels], "native"),
+               grid.text(label = labels[axid],
+                         y = unit(at[axid], "native"),
                          x = unit(1, "npc") - orient.factor * lab.unit,
                          rot = rot[2],
                          check.overlap = check.overlap,
