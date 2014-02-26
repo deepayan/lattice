@@ -36,7 +36,7 @@ export(
        dotplot,
        barchart,
        stripplot,
-       xyplot,
+       xyplot, xyplot.ts, # needed by zoo
        contourplot,
        levelplot,
        cloud,
