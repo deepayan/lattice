@@ -16,7 +16,9 @@
   documented here attempt to provide a consistent interface to access
   relevant information from within these user specified functions,
   namely those specified as the \code{panel}, \code{strip} and
-  \code{axis} functions.
+  \code{axis} functions.  Note that this information is not available to
+  the \code{prepanel} function, which is executed prior to the actual
+  plotting.
 
 }
 \usage{
