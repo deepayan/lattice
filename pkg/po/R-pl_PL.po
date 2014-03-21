@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-10\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2013-08-21 12:30\n"
+"POT-Creation-Date: 2014-02-27 11:54\n"
 "PO-Revision-Date: 2012-08-31 16:36+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -230,15 +230,15 @@ msgstr "Gęstość"
 msgid "Can't have log Y-scale"
 msgstr "Nie można mieć logarytmicznej skali Y"
 
-# Recommended/lattice/R/histogram.R: 131
-# warning("problem with 'hist' computations")
-msgid "problem with 'hist' computations"
-msgstr "problem z obliczeniami 'hist'"
-
 # Recommended/lattice/R/histogram.R: 323
 # warning(gettextf("type='%s' can be misleading in this context", type))
 msgid "type='%s' can be misleading in this context"
 msgstr "type='%s' może być mylący w tym kontekście"
+
+# Recommended/lattice/R/histogram.R: 131
+# warning("problem with 'hist' computations")
+msgid "problem with 'hist' computations"
+msgstr "problem z obliczeniami 'hist'"
 
 # Recommended/lattice/R/histogram.R: 330
 # gettext("Count")
