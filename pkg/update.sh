@@ -16,7 +16,7 @@ PKG=lattice
 export LC_ALL=C
 echo "library(tools); xgettext2pot('.', 'po/R-${PKG}.pot')" | ${R_PROG} --vanilla --silent
 
-LANGUAGES="en@quot fr de ko pl_PL"
+LANGUAGES="en@quot fr de ko pl"
 
 for LANG in ${LANGUAGES}; do 
     echo "Updating translations for ${LANG}"
