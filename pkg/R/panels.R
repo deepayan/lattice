@@ -51,7 +51,7 @@ panel.abline <-
     {
         p <- length(coefa <- as.vector(coef(a)))
         if (p > 2)
-            warning("only using the first two of ", p, "regression coefficients")
+            warning(gettextf("only using the first two of %d regression coefficients", p))
         islm <- inherits(a, "lm")
         noInt <- if (islm)
             !as.logical(attr(stats::terms(a), "intercept"))
