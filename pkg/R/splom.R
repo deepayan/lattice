@@ -434,8 +434,8 @@ splom.formula <-
                        xlab = xlab,
                        ylab = ylab,
                        xlab.default = gettext("Scatter Plot Matrix"),
-                       lattice.options = lattice.options),
-                  dots))
+                       lattice.options = lattice.options), dots),
+                quote = TRUE)
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
