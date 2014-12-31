@@ -1268,7 +1268,8 @@ bwplot.formula <-
                        ylab = ylab,
                        xlab.default = form$right.name,
                        ylab.default = form$left.name,
-                       lattice.options = lattice.options), dots))
+                       lattice.options = lattice.options), dots),
+                quote = TRUE)
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo

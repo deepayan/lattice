@@ -74,23 +74,6 @@ getLabelList <- function(label, text.settings, default.label = NULL)
     if (!is.null(label))
     {
         if (inherits(label, "grob")) return(label)
-        ## ans <-
-        ##     list(label = 
-        ##          if (is.characterOrExpression(label)) label
-        ##          else if (is.list(label) && (is.null(names(label)) ||
-        ##                                      names(label)[1] == "")) label[[1]]
-        ##          else default.label,
-        ##          col = text.settings$col, cex = text.settings$cex,
-        ##          fontfamily = text.settings$fontfamily,
-        ##          fontface = text.settings$fontface,
-        ##          font = text.settings$font,
-        ##          alpha = text.settings$alpha,
-        ##          lineheight = text.settings$lineheight)
-        ## if (is.list(label) && !is.null(names(label)))
-        ## {
-        ##     if (names(label)[1] == "") label <- label[-1]
-        ##     ans[names(label)] <- label
-        ## }
         ans <-
             list(label = 
                  if (is.characterOrExpression(label)) label
@@ -106,8 +89,8 @@ getLabelList <- function(label, text.settings, default.label = NULL)
         }
     }
     else ans <- NULL
-    if (is.null(ans$label) ||
-        (is.character(ans) && ans$label == "")) ans <- NULL
+    if (is.null(ans$label) || (is.character(ans) && ans$label == "")) ans <- NULL
+    else if (is.call(ans$label) || is.symbol(ans$label)) ans$label <- as.expression(ans$label)
     ans
 }
 
@@ -187,7 +170,7 @@ evaluate.legend <- function(legend)
     {
         fun <- legend[[i]]$fun
         fun <- getFunctionOrName(fun) ## OK in case fun is a grob?
-        if (is.function(fun)) fun <- do.call("fun", legend[[i]]$args)
+        if (is.function(fun)) fun <- do.call("fun", legend[[i]]$args, quote = TRUE)
         legend[[i]]$obj <- fun
         legend[[i]]$args <- NULL
         legend[[i]]$fun <- NULL

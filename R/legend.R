@@ -225,7 +225,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         }
 
     fontsize.points <- trellis.par.get("fontsize")$points
-    key <- do.call("process.key", key)
+    key <- do.call("process.key", key, quote = TRUE)
 
     key.length <- length(key)
     key.names <- names(key)    # Need to update

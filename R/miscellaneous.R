@@ -120,7 +120,7 @@ oneway <-
 
 
 is.characterOrExpression <- function(x)
-    is.character(x) || is.expression(x)
+    is.character(x) || is.expression(x) || is.call(x) || is.symbol(x)
 
 
 

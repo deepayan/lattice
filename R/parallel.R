@@ -254,8 +254,8 @@ parallelplot.formula <-
                        ylab = ylab,
                        xlab.default = gettext("Parallel Coordinate Plot"),
                        lattice.options = lattice.options,
-                       horizontal.axis = horizontal.axis),
-                  dots))
+                       horizontal.axis = horizontal.axis), dots),
+                quote = TRUE)
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
