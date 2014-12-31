@@ -458,8 +458,9 @@ bwplot(x, data, \dots)
     \code{\link{trellis.par.get}}) to determine the graphical parameters
     in the key, so the resulting legend will be meaningful only if the
     same settings are used in the plot as well.  The \code{par.settings}
-    argument may be useful to temporarily modify the default settings
-    for this purpose.
+    argument, possibly in conjunction with \code{\link{simpleTheme}},
+    may be useful to temporarily modify the default settings for this
+    purpose.
 
     One disadvantage to using \code{key} (or even \code{simpleKey})
     directly is that the graphical parameters used in the key are
