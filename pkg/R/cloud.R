@@ -246,7 +246,7 @@ panel.3dscatter <-
             tmpz0 <- z[ord][-1]
             tmpz1 <- z[ord][-tmplen]
             tmpcol0 <- col.line[ord][-1]
-            tmpcol1 <- col.line[ord][-tmplen]
+            ## tmpcol1 <- col.line[ord][-tmplen]
 
             ## segments shouldn't join points in different groups 
             tmpcol0[ groups[ord][-1] != groups[ord][-tmplen] ] <- "transparent"
@@ -923,7 +923,7 @@ panel.cloud <-
 
         ## box ranges and lengths
         cmin <- lapply(corners, min)
-        cmax <- lapply(corners, max)
+        ## cmax <- lapply(corners, max)
         clen <- lapply(corners, function(x) diff(range(x, finite = TRUE)))
 
 
@@ -1095,7 +1095,7 @@ panel.cloud <-
                 ## can be NA. Needs a lot of change otherwise
 
                 vals <- sort(unique(groups))
-                nvals <- length(vals)
+                ## nvals <- length(vals)
                 tmp <- numeric(0)
 
                 for (i in seq_along(vals)) {

@@ -822,7 +822,7 @@ packet.panel.default <-
 
     panels.per.page <- layout[1] * layout[2]
     panels.per.row <- layout[1]
-    panels.per.column <- layout[2]
+    ## panels.per.column <- layout[2] # unused
 
     packet.order <- do.call(expand.grid, condlevels)
 

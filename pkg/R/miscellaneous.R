@@ -44,24 +44,23 @@ checkArgsAndCall <- function(FUN, args) ## unnamed arguments not allowed
 }
 
 
-## Modified from methods::hasArg.  According to docs, name must be an
-## 'unquoted name', but a quoted string also seems to work.
+## Modified from methods::hasArg.
 hasGroupNumber <- function()
 {
-    aname <- name <- "group.number"
+    aname <- "group.number"
     fnames <- names(formals(sys.function(sys.parent())))
-    if(is.na(match(aname, fnames))) {
-        if(is.na(match("...", fnames)))
+    if (is.na(match(aname, fnames))) {
+        if (is.na(match("...", fnames)))
             FALSE
         else {
             dotsCall <- eval(quote(substitute(list(...))), sys.parent())
             !is.na(match(aname, names(dotsCall)))
         }
     }
-    else
-        eval(substitute(!missing(name)), sys.frame(sys.parent()))
+    else FALSE
 }
-    
+
+
 
 logLimits <- function(lim, base)
 {
