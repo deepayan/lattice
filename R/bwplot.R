@@ -521,9 +521,9 @@ panel.bwplot <-
     plot.symbol <- trellis.par.get("plot.symbol")
 
     fontsize.points <- trellis.par.get("fontsize")$points
-    cur.limits <- current.panel.limits()
-    xscale <- cur.limits$xlim
-    yscale <- cur.limits$ylim
+    ## cur.limits <- current.panel.limits()
+    ## xscale <- cur.limits$xlim
+    ## yscale <- cur.limits$ylim
 
     if (!notch) notch.frac <- 0
 
@@ -849,9 +849,10 @@ panel.violin <-
     if (varwidth) max.d[] <- max(max.d)
 
     ##str(max.d)
-    
-    xscale <- current.panel.limits()$xlim
-    yscale <- current.panel.limits()$ylim
+
+    cur.limits <- current.panel.limits()
+    xscale <- cur.limits$xlim
+    yscale <- cur.limits$ylim
     height <- box.width # box.ratio / (1 + box.ratio)
 
     if (hasGroupNumber())

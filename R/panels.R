@@ -87,39 +87,6 @@ panel.abline <-
         xx <- cpl$xlim
         yy <- cpl$ylim
 
-        if (FALSE) ## wrong when ll() == 0
-        {
-          x <- numeric(0)
-          y <- numeric(0)
-          ll <- function(i, j, k, l)
-              (yy[j] - coeff[1] - coeff[2] * xx[i]) *
-                  (yy[l] - coeff[1] - coeff[2] * xx[k])
-          if (ll(1,1,2,1) <= 0) {
-              y <- c(y, yy[1])
-              x <- c(x, (yy[1] - coeff[1]) / coeff[2])
-          }
-          if (ll(2,1,2,2) <= 0) {
-              x <- c(x, xx[2])
-              y <- c(y, coeff[1] + coeff[2] * xx[2])
-          }
-          if (ll(2,2,1,2) <= 0) {
-              y <- c(y, yy[2])
-              x <- c(x, (yy[2]-coeff[1])/coeff[2])
-          }
-          if (ll(1,2,1,1) <= 0) {
-              x <- c(x, xx[1])
-              y <- c(y, coeff[1] + coeff[2] * xx[1])
-          }
-          str(list(x = x, y = y))
-          panel.lines(x = x, y = y,
-                      col = col.line,
-                      lty = lty,
-                      lwd = lwd,
-                      alpha = alpha,
-                      ...,
-                      identifier = id)
-        }
-
         ## There are six = choose(4, 2) possibilities (plus edge cases):
         ##      I           II           III          IV            V           VI
         ## 4----C----3  4---------3  4---------3  4---------3  4---------3  4---------3

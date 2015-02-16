@@ -434,7 +434,7 @@ limits.and.aspect <-
         if (is.list(panel.args[[count]]))
         {
             pargs <- c(panel.args.common, panel.args[[count]], list(...))
-            tem <- do.call("prepanel.default.function", pargs)
+            tem <- do.call(prepanel.default.function, pargs)
             if (is.function(prepanel)) ## results will 'overwrite' defaults
             {
                 prenames <- names(formals(prepanel))

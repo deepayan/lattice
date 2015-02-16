@@ -62,7 +62,7 @@ prepanel.default.densityplot <-
     else
     {
         vals <- sort(unique(groups))
-        nvals <- length(vals)
+        ## nvals <- length(vals)
         xl <- range(x, finite = TRUE)
         yl <- 0
         dxl <- numeric(0) # bad names !!

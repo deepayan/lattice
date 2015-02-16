@@ -267,7 +267,7 @@ panel.identify.cloud <-
     zlim.scaled <- range(corners$z)
     ## box ranges and lengths
     cmin <- lapply(corners, min)
-    cmax <- lapply(corners, max)
+    ## cmax <- lapply(corners, max)
     clen <- lapply(corners, function(x) diff(range(x, finite = TRUE)))
     ## scaled (to bounding box) data
     x <- cmin$x + clen$x * (x-xlim[1])/diff(xlim)
