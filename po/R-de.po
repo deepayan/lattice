@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 2.15.2 / Lattice 0.20.10\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2014-02-27 11:54\n"
+"POT-Creation-Date: 2015-02-20 19:16\n"
 "PO-Revision-Date: 2012-09-10 15:20+0200\n"
 "Last-Translator: Detlef Steuer <steuer@hsu-hh.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -239,11 +239,9 @@ msgstr "'nrpoints' sollte numerisch skalar mit Wert >= 0 sein."
 msgid "'a' is overridden by 'reg'"
 msgstr "'a' wurde mit 'reg' überschrieben"
 
-msgid "only using the first two of"
+#, fuzzy
+msgid "only using the first two of %d regression coefficients"
 msgstr "benutze nur die ersten beiden von"
-
-msgid "regression coefficients"
-msgstr "Regressionskoeffizienten"
 
 msgid "'a' and 'b' are overridden by 'coef'"
 msgstr "'a' und 'b' wurden mit 'coef' überschrieben"
@@ -415,6 +413,9 @@ msgstr "'drop=TRUE' ignoriert"
 
 msgid "Invalid indices"
 msgstr "Falsche Indizes"
+
+#~ msgid "regression coefficients"
+#~ msgstr "Regressionskoeffizienten"
 
 #~ msgid ""
 #~ "Note: you shouldn't be seeing this message unless\n"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2014-04-02 00:39\n"
+"POT-Creation-Date: 2015-02-20 19:16\n"
 "PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -466,13 +466,9 @@ msgstr "'a' jest nadpisane przez 'reg'"
 
 # lattice/R/panels.R: 54
 # warning("only using the first two of ", p, "regression coefficients")
-msgid "only using the first two of"
+#, fuzzy
+msgid "only using the first two of %d regression coefficients"
 msgstr "używanie jedynie pierwszych dwóch z "
-
-# lattice/R/panels.R: 54
-# warning("only using the first two of ", p, "regression coefficients")
-msgid "regression coefficients"
-msgstr "współczynników regresji"
 
 # lattice/R/panels.R: 73
 # warning("'a' and 'b' are overridden by 'coef'")
@@ -775,3 +771,8 @@ msgstr "'drop=TRUE' zostało zignorowane"
 # stop("Invalid indices")
 msgid "Invalid indices"
 msgstr "niepoprawne indeksy"
+
+# lattice/R/panels.R: 54
+# warning("only using the first two of ", p, "regression coefficients")
+#~ msgid "regression coefficients"
+#~ msgstr "współczynników regresji"
