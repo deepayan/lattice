@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: R 3.1.0\n"
+"Project-Id-Version: R 3.2.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2014-04-02 17:50\n"
+"POT-Creation-Date: 2015-02-20 19:16\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -233,10 +233,7 @@ msgstr ""
 msgid "'a' is overridden by 'reg'"
 msgstr ""
 
-msgid "only using the first two of"
-msgstr ""
-
-msgid "regression coefficients"
+msgid "only using the first two of %d regression coefficients"
 msgstr ""
 
 msgid "'a' and 'b' are overridden by 'coef'"
