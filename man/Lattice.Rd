@@ -52,13 +52,12 @@
   The online documentation accompanying the package is complete, and
   effort has been made to present the help pages in a logical sequence,
   so that one can learn how to use lattice by reading the PDF reference
-  manual available at
-  \url{http://cran.r-project.org/web/packages/lattice/}.  However, the
-  format in which the online documentation is written and the breadth of
-  topics covered necessarily makes it somewhat terse and less than ideal
-  as a first introduction.  For a more gentle introduction, a book on
-  lattice is available as part of Springer's \sQuote{Use R} series; see
-  the \dQuote{References} section below.
+  manual available at \url{http://cran.r-project.org/package=lattice}.
+  However, the format in which the online documentation is written and
+  the breadth of topics covered necessarily makes it somewhat terse and
+  less than ideal as a first introduction.  For a more gentle
+  introduction, a book on lattice is available as part of Springer's
+  \sQuote{Use R} series; see the \dQuote{References} section below.
 
   % Furthermore, short vignettes focusing on particular topics are
   % available from the Lattice website at
