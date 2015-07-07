@@ -7,21 +7,21 @@ import(grid)
 
 importFrom(grDevices,
 
-           dev.hold, dev.flush,
-           dev.list, cm.colors, gray, col2rgb, rgb,
-           heat.colors, grey, hsv, xy.coords,
+           dev.hold, dev.flush, dev.capabilities,
+           dev.list, cm.colors, gray, col2rgb, rgb, adjustcolor,
+           heat.colors, grey, hsv, xy.coords, axisTicks,
            boxplot.stats, contourLines, colorRampPalette, as.raster)
 
 importFrom(graphics, par, plot, co.intervals, hist)
 
-importFrom(utils, head, modifyList)
+importFrom(utils, head, tail, modifyList)
 
 
 importFrom(stats,
 
            as.formula, density, fitted.values, loess.smooth, median,
            ppoints, qnorm, residuals, update, var, coef, quantile, lm,
-           dnorm, qunif, uniroot, smooth.spline)
+           dnorm, qunif, uniroot, smooth.spline, predict)
 
 
 export(
