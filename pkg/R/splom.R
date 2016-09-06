@@ -234,35 +234,36 @@ panel.pairs <-
                     ##     labels <- labels[axid]
                     ## }
 
-                    diag.panel(x = z[subscripts, j],
-                               varname = varnames[i],
-                               limits = lim[[i]],
-                               at = if (is.list(pscales)) pscales[[i]]$at else NULL, 
-                               labels = if (is.list(pscales)) pscales[[i]]$lab else NULL,
-                               draw = draw,
-                               tick.number = if (is.numeric(pscales)) pscales else 5,
+                    if (is.function(diag.panel)) # else ignore
+                        diag.panel(x = z[subscripts, j],
+                                   varname = varnames[i],
+                                   limits = lim[[i]],
+                                   at = if (is.list(pscales)) pscales[[i]]$at else NULL, 
+                                   labels = if (is.list(pscales)) pscales[[i]]$lab else NULL,
+                                   draw = draw,
+                                   tick.number = if (is.numeric(pscales)) pscales else 5,
 
-                               varname.col = varname.col,
-                               varname.cex = varname.cex,
-                               varname.font = varname.font,
-                               varname.fontfamily = varname.fontfamily,
-                               varname.fontface = varname.fontface,
+                                   varname.col = varname.col,
+                                   varname.cex = varname.cex,
+                                   varname.font = varname.font,
+                                   varname.fontfamily = varname.fontfamily,
+                                   varname.fontface = varname.fontface,
 
-                               axis.text.col = axis.text.col,
-                               axis.text.cex = axis.text.cex,
-                               axis.text.font = axis.text.font,
-                               axis.text.fontfamily = axis.text.fontfamily,
-                               axis.text.fontface = axis.text.fontface,
-                               axis.text.lineheight = axis.text.lineheight,
+                                   axis.text.col = axis.text.col,
+                                   axis.text.cex = axis.text.cex,
+                                   axis.text.font = axis.text.font,
+                                   axis.text.fontfamily = axis.text.fontfamily,
+                                   axis.text.fontface = axis.text.fontface,
+                                   axis.text.lineheight = axis.text.lineheight,
 
-                               axis.line.col = axis.line.col,
-                               axis.line.lty = axis.line.lty,
-                               axis.line.lwd = axis.line.lwd,
-                               axis.line.alpha = axis.line.alpha,
-                               axis.line.tck = axis.line.tck,
+                                   axis.line.col = axis.line.col,
+                                   axis.line.lty = axis.line.lty,
+                                   axis.line.lwd = axis.line.lwd,
+                                   axis.line.alpha = axis.line.alpha,
+                                   axis.line.tck = axis.line.tck,
 
-                               i = i, j= j,
-                               ...)
+                                   i = i, j= j,
+                                   ...)
 
                     grid.rect(name = trellis.grobname("pairs.border",
                                 type="panel"),
