@@ -56,7 +56,8 @@ diag.panel.splom(x = NULL,
   \item{diag.panel}{
     The panel function used for the diagonals. See arguments to
     \code{diag.panel.splom} to know what arguments this function is
-    passed when called.
+    passed when called. Use \code{diag.panel=NULL} to suppress plotting
+    on the diagonal panels.
   }
   \item{as.matrix}{
     logical. If \code{TRUE}, the layout of the panels will have origin
