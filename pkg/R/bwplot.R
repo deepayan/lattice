@@ -163,8 +163,7 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd,
-                             identifier = paste(identifier, "abline",
-                               sep = "."))
+                             identifier = paste(identifier, "abline", sep = "."))
 
             panel.rect(x = rep(origin, length(y)),
                        y = y,
@@ -200,8 +199,7 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd,
-                             identifier = paste(identifier, "abline",
-                               sep = "."))
+                             identifier = paste(identifier, "abline", sep = "."))
 
             for (i in unique(y))
             {
@@ -216,11 +214,10 @@ panel.barchart <-
                                border = border[groups[ok][ord][pos]],
                                lty = lty[groups[ok][ord][pos]],
                                lwd = lwd[groups[ok][ord][pos]],
-                               height = rep(height, nok),
+                               height = rep(height, nok), # rep(height[i], nok),
                                width = x[ok][ord][pos],
                                just = c("left", "centre"),
-                               identifier = paste(identifier, "pos", i,
-                                 sep = "."))
+                               identifier = paste(identifier, "pos", i, sep = "."))
                 neg <- x[ok][ord] < 0
                 nok <- sum(neg, na.rm = TRUE)
                 if (nok > 0)
@@ -230,11 +227,10 @@ panel.barchart <-
                                border = border[groups[ok][ord][neg]],
                                lty = lty[groups[ok][ord][neg]],
                                lwd = lwd[groups[ok][ord][neg]],
-                               height = rep(height, nok),
+                               height = rep(height, nok), # rep(height[i], nok),
                                width = x[ok][ord][neg],
                                just = c("left", "centre"),
-                               identifier = paste(identifier, "neg", i,
-                                 sep = "."))
+                               identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
 
@@ -263,8 +259,7 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd,
-                             identifier = paste(identifier, "abline",
-                               sep = "."))
+                             identifier = paste(identifier, "abline", sep = "."))
             for (i in unique(y))
             {
                 ok <- y == i
@@ -275,11 +270,10 @@ panel.barchart <-
                            border = border[groups[ok]],
                            lty = lty[groups[ok]],
                            lwd = lwd[groups[ok]],
-                           height = rep(height, nok),
+                           height = rep(height, nok), # rep(height[i], nok),
                            width = x[ok] - origin,
                            just = c("left", "centre"),
-                           identifier = paste(identifier, "y", i,
-                               sep = "."))
+                           identifier = paste(identifier, "y", i, sep = "."))
             }
         }
     }
@@ -302,8 +296,7 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd,
-                             identifier = paste(identifier, "abline",
-                               sep = "."))
+                             identifier = paste(identifier, "abline", sep = "."))
 
             panel.rect(x = x,
                        y = rep(origin, length(x)),
@@ -337,8 +330,7 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd,
-                             identifier = paste(identifier, "abline",
-                               sep = "."))
+                             identifier = paste(identifier, "abline", sep = "."))
 
             for (i in unique(x))
             {
@@ -356,8 +348,7 @@ panel.barchart <-
                                width = rep(width, nok),
                                height = y[ok][ord][pos],
                                just = c("centre", "bottom"),
-                               identifier = paste(identifier, "pos", i,
-                                 sep = "."))
+                               identifier = paste(identifier, "pos", i, sep = "."))
                 neg <- y[ok][ord] < 0
                 nok <- sum(neg, na.rm = TRUE)
                 if (nok > 0)
@@ -370,8 +361,7 @@ panel.barchart <-
                                width = rep(width, nok),
                                height = y[ok][ord][neg],
                                just = c("centre", "bottom"),
-                               identifier = paste(identifier, "neg", i,
-                                 sep = "."))
+                               identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
         else
@@ -397,8 +387,7 @@ panel.barchart <-
                              col = reference.line$col,
                              lty = reference.line$lty,
                              lwd = reference.line$lwd,
-                             identifier = paste(identifier, "abline",
-                               sep = "."))
+                             identifier = paste(identifier, "abline", sep = "."))
             for (i in unique(x))
             {
                 ok <- x == i
@@ -412,8 +401,7 @@ panel.barchart <-
                            width = rep(width, nok),
                            height = y[ok] - origin,
                            just = c("centre", "bottom"),
-                           identifier = paste(identifier, "x", i,
-                               sep = "."))
+                           identifier = paste(identifier, "x", i, sep = "."))
             }
         }
     }
