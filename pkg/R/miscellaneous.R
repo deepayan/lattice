@@ -41,7 +41,7 @@ checkArgsAndCall <- function(FUN, args) ## unnamed arguments not allowed
     if (!is.null(FUN)) {
         if (!("..." %in% names(formals(FUN))))
             args <- args[intersect(names(args), names(formals(FUN)))]
-        do.call(FUN, args)
+        do.call(FUN, args, quote = TRUE) ## FIXME: Is this risky?
     }
 }
 
