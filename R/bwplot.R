@@ -819,7 +819,7 @@ panel.violin <-
     darg$na.rm <- na.rm
     my.density <- function(x)
     {
-        ans <- try(do.call("density", c(list(x = x), darg)), silent = TRUE)
+        ans <- try(do.call(stats::density, c(list(x = x), darg)), silent = TRUE)
         ## if (inherits(ans, "try-error")) list(x = numeric(0), y = numeric(0)) else ans
         if (inherits(ans, "try-error"))
             list(x = rep(x[1], 3),
@@ -1247,7 +1247,7 @@ bwplot.formula <-
     ## less complicated components:
 
     foo <-
-        do.call("trellis.skeleton",
+        do.call(trellis.skeleton,
                 c(list(formula = formula,
                        cond = cond,
                        aspect = aspect,
@@ -1268,7 +1268,7 @@ bwplot.formula <-
 
     if (is.character(scales)) scales <- list(relation = scales)
     scales <- updateList(default.scales, scales)
-    foo <- c(foo, do.call("construct.scales", scales))
+    foo <- c(foo, do.call(construct.scales, scales))
 
     ## Step 3: Decide if limits were specified in call:
 

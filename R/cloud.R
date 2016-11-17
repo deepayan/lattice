@@ -1128,7 +1128,7 @@ panel.cloud <-
 
             if (!("..." %in% names(formals(panel.3d.wireframe))))
                 pargs <- pargs[intersect(names(pargs), names(formals(panel.3d.wireframe)))]
-            do.call("panel.3d.wireframe", pargs)
+            do.call(panel.3d.wireframe, pargs, quote = TRUE)
         }
         else
         {
@@ -1148,7 +1148,7 @@ panel.cloud <-
                           ...)
             if (!("..." %in% names(formals(panel.3d.cloud))))
                 pargs <- pargs[intersect(names(pargs), names(formals(panel.3d.cloud)))]
-            do.call("panel.3d.cloud", pargs)
+            do.call(panel.3d.cloud, pargs, quote = TRUE)
         }
 
         ## This draws the front of the bounding box
@@ -1658,7 +1658,7 @@ cloud.formula <-
     ## less complicated components:
 
     foo <-
-        do.call("trellis.skeleton",
+        do.call(trellis.skeleton,
                 c(list(formula = formula, 
                        cond = cond,
                        aspect = panel.aspect,
@@ -1666,7 +1666,8 @@ cloud.formula <-
                        panel = panel,
                        xlab = NULL,
                        ylab = NULL,
-                       lattice.options = lattice.options), dots))
+                       lattice.options = lattice.options), dots),
+                quote = TRUE)
 
     ##----------------------------------------------------------------+
     ## xlab, ylab, zlab have special meaning in cloud / wireframe, and|
@@ -1680,7 +1681,7 @@ cloud.formula <-
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
-    foo <- c(foo, do.call("construct.scales", list(draw=FALSE)))
+    foo <- c(foo, do.call(construct.scales, list(draw=FALSE)))
 
     ## scales has to be interpreted differently. Nothing needs to be
     ## done for the usual scales, but need a scales for panel.cloud
@@ -1688,7 +1689,7 @@ cloud.formula <-
     ## no reason not to allow that (will not allow limits, though)
 
     scales <- updateList(default.scales, scales)
-    scales.3d <- do.call("construct.3d.scales", scales)
+    scales.3d <- do.call(construct.3d.scales, scales)
 
 
     ## Step 3: Decide if limits were specified in call
