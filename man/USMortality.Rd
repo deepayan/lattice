@@ -35,54 +35,63 @@ USRegionalMortality
 }
 
 
-\details{
-  The region-wise data give estimated rates separately for each of 10
-  HHS regions. The location of the regional offices and their coverage
-  area is given below.
+\details{ The region-wise data give estimated rates separately for each
+  of 10 HHS regions. The location of the regional offices and their
+  coverage area, available from
+  \url{https://www.hhs.gov/about/agencies/iea/regional-offices/index.html},
+  is given below.
 
   \describe{
 
-    \item{HHS Region 01 - Boston }{ Connecticut, Maine, Massachusetts,
+    \item{HHS Region 01 - Boston: }{ Connecticut, Maine, Massachusetts,
       New Hampshire, Rhode Island, and Vermont }
 
-    \item{ HHS Region 02 - New York }{ New Jersey, New York, Puerto
+    \item{ HHS Region 02 - New York: }{ New Jersey, New York, Puerto
       Rico, and the Virgin Islands }
 
-    \item{HHS Region 03 - Philadelphia }{ Delaware, District of
+    \item{HHS Region 03 - Philadelphia: }{ Delaware, District of
       Columbia, Maryland, Pennsylvania, Virginia, and West Virginia}
 
-    \item{HHS Region 04 - Atlanta }{ Alabama, Florida, Georgia, Kentucky,
+    \item{HHS Region 04 - Atlanta: }{ Alabama, Florida, Georgia, Kentucky,
       Mississippi, North Carolina, South Carolina, and Tennessee}
 
-    \item{HHS Region 05 - Chicago }{ Illinois, Indiana, Michigan,
+    \item{HHS Region 05 - Chicago: }{ Illinois, Indiana, Michigan,
       Minnesota, Ohio, and Wisconsin}
 
-    \item{HHS Region 06 - Dallas }{ Arkansas, Louisiana, New Mexico,
+    \item{HHS Region 06 - Dallas: }{ Arkansas, Louisiana, New Mexico,
       Oklahoma, and Texas }
 
-    \item{HHS Region 07 - Kansas City }{ Iowa, Kansas, Missouri, and
+    \item{HHS Region 07 - Kansas City: }{ Iowa, Kansas, Missouri, and
       Nebraska}
 
-    \item{HHS Region 08 - Denver }{ Colorado, Montana, North Dakota,
+    \item{HHS Region 08 - Denver: }{ Colorado, Montana, North Dakota,
       South Dakota, Utah, and Wyoming}
 
-    \item{HHS Region 09 - San Francisco }{ Arizona, California, Hawaii,
+    \item{HHS Region 09 - San Francisco: }{ Arizona, California, Hawaii,
       Nevada, American Samoa, Commonwealth of the Northern Mariana
       Islands, Federated States of Micronesia, Guam, Marshall Islands,
       and Republic of Palau}
 
-    \item{HHS Region 10 - Seattle }{ Alaska, Idaho, Oregon, and
+    \item{HHS Region 10 - Seattle: }{ Alaska, Idaho, Oregon, and
       Washington} } }
 
 \references{
 
-  Rural Health Reform Policy Research Center.  _Exploring Rural and Urban
+  Rural Health Reform Policy Research Center. _Exploring Rural and Urban
   Mortality Differences_, August 2015 Bethesda, MD. 
   \url{https://ruralhealth.und.edu/projects/health-reform-policy-research-center/rural-urban-mortality}
+
+  
 }
 
 \examples{
-dotplot(Cause ~ Rate | Sex + Status, data = USRegionalMortality)
+dotplot(reorder(Cause, Rate) ~ Rate | Status,
+        data = USMortality, groups = Sex,
+        par.settings = simpleTheme(pch = 16), auto.key = list(columns = 2),
+        scales = list(x = list(log = TRUE, equispaced.log = FALSE)))
+dotplot(reorder(Cause, Rate):Sex ~ Rate | Status,
+        data = USRegionalMortality, groups = Sex,
+        scales = list(x = list(log = TRUE, equispaced.log = FALSE)))
 }
 
 \keyword{datasets}
