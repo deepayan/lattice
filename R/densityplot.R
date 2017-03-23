@@ -18,14 +18,6 @@
 ### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 ### MA 02110-1301, USA
 
-
-
-
-
-
-
-
-
 prepanel.default.densityplot <-
     function(x,
              darg,
@@ -98,7 +90,7 @@ prepanel.default.densityplot <-
 
 panel.densityplot <-
     function(x,
-             darg = list(n = 30),
+             darg = list(n = 512),
              plot.points = "jitter",
              ref = FALSE,
              groups = NULL,
@@ -224,7 +216,7 @@ densityplot.formula <-
              window = NULL,
              width = NULL,
              give.Rkern = FALSE,
-             n = 50,
+             n = 512,
              from = NULL,
              to = NULL,
              cut = NULL,

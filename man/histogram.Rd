@@ -49,7 +49,7 @@ densityplot(x, data, \dots)
             prepanel, scales, strip, groups, weights,
             xlab, xlim, ylab, ylim,
             bw, adjust, kernel, window, width, give.Rkern,
-            n = 50, from, to, cut, na.rm,
+            n = 512, from, to, cut, na.rm,
             drop.unused.levels =
                 lattice.getOption("drop.unused.levels"),
             \dots,
@@ -238,9 +238,7 @@ do.breaks(endpoints, nint)
   uses the \code{\link{density}} function to compute the density
   estimate, and all arguments accepted by \code{density} can be
   specified in the call to \code{densityplot} to control the output.
-  See documentation of \code{density} for details.  Note that the
-  default value of the argument \code{n} of \code{density} is changed to
-  50.
+  See documentation of \code{density} for details.
   
   These and all other high level Trellis functions have several
   arguments in common. These are extensively documented only in the
