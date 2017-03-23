@@ -30,7 +30,7 @@ done
 
 
 
-## Note: -o is relatively new in grep
-LASTLOG=`grep -o -m 1 "r[0-9]* |" SvnLog | sed -e 's/[^0-9]//g'`
-svn log -v -r HEAD:${LASTLOG} > SvnLog.update
+# ## Note: -o is relatively new in grep
+# LASTLOG=`grep -o -m 1 "r[0-9]* |" SvnLog | sed -e 's/[^0-9]//g'`
+# svn log -v -r HEAD:${LASTLOG} > SvnLog.update
 

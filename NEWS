@@ -30,6 +30,11 @@ Changes in lattice 0.20
  o The internal lattice.status list is cleaned up whenever new page
    starts.  This should fix lattice bug #1629.
 
+ o There is a new option to provide a custom rule for computing
+   default breakpoints in histogram(). See ?histogram for details.
+
+ o New datasets USMortality and USRegionalMortality.
+
 Changes in lattice 0.19
 =======================
 

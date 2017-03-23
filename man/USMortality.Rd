@@ -7,7 +7,8 @@
   These datasets record mortality rates across all ages in the USA by
   cause of death, sex, and rural/urban status, 2011--2013. The two
   datasets represent the national aggregate rates and the region-wise
-  rates for each administrative region under the Department of HHS.
+  rates for each administrative region under the Department of Health
+  and Human Services (HHS).
 }
 \usage{
 USMortality

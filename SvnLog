@@ -1,5 +1,327 @@
+
+commit f43160cacf03e8b99813260ce8f5f279ab2b7fec
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Feb 16 14:50:40 2017 +0530
+
+    Added URL and examples
+
+commit 2a83edec80bc2b6089aa44f724f7e5c95a0afdb1
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Feb 15 19:48:08 2017 +0530
+
+    bugfix: catch font parameters in larrows()
+
+commit 7a96ded29e454b1c581f70cc20d15647675d57f5
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Feb 15 19:45:56 2017 +0530
+
+    new dataset
+
+commit ca32327b014c7e6f20665f73a1482fc5d791d3ed
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Dec 9 15:57:03 2016 +0530
+
+    Create README.md
+
 ------------------------------------------------------------------------
-r742 | paul | 2013-05-23 14:49:05 +1200 (Thu, 23 May 2013) | 1 line
+
+Moved to GitHub
+
+------------------------------------------------------------------------
+r776 | deepayan | 2016-11-17 16:30:41 +0530 (Thu, 17 Nov 2016) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/bwplot.R
+   M /pkg/R/cloud.R
+   M /pkg/R/miscellaneous.R
+
+Support quote()-d labels in more places (see exchange with Martin
+Maechler ~Nov 17). Not sure about possible side-effects.
+------------------------------------------------------------------------
+r775 | deepayan | 2016-09-06 17:44:25 +0530 (Tue, 06 Sep 2016) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/bwplot.R
+   M /pkg/man/Lattice.Rd
+   M /pkg/po/R-lattice.pot
+
+minor fixes
+------------------------------------------------------------------------
+r774 | deepayan | 2016-09-06 16:44:14 +0530 (Tue, 06 Sep 2016) | 1 line
+Changed paths:
+   M /pkg/R/miscellaneous.R
+
+misc fixes
+------------------------------------------------------------------------
+r773 | deepayan | 2016-09-06 16:39:39 +0530 (Tue, 06 Sep 2016) | 1 line
+Changed paths:
+   M /pkg/man/panel.pairs.Rd
+
+allow diag.panel to be NULL (doc)
+------------------------------------------------------------------------
+r772 | deepayan | 2016-09-06 16:35:43 +0530 (Tue, 06 Sep 2016) | 1 line
+Changed paths:
+   M /pkg/R/splom.R
+
+allow diag.panel to be NULL (actually any non-function) to suppress it
+------------------------------------------------------------------------
+r771 | deepayan | 2016-09-06 16:30:18 +0530 (Tue, 06 Sep 2016) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+
+updated description
+------------------------------------------------------------------------
+r770 | deepayan | 2015-07-07 18:52:53 +0530 (Tue, 07 Jul 2015) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/NAMESPACE
+   M /pkg/man/Lattice.Rd
+
+Fixes to make CMD check happier
+------------------------------------------------------------------------
+r769 | deepayan | 2015-06-01 10:59:09 +0530 (Mon, 01 Jun 2015) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/man/Lattice.Rd
+
+updated CRAN URL
+------------------------------------------------------------------------
+r768 | deepayan | 2015-03-30 12:39:09 +0530 (Mon, 30 Mar 2015) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/inst/po/de/LC_MESSAGES/R-lattice.mo
+   M /pkg/po/R-de.po
+   M /pkg/po/R-lattice.pot
+
+updated german translation
+------------------------------------------------------------------------
+r767 | deepayan | 2015-02-20 19:23:14 +0530 (Fri, 20 Feb 2015) | 1 line
+Changed paths:
+   M /pkg/inst/po/de/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/fr/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/ko/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/pl/LC_MESSAGES/R-lattice.mo
+   M /pkg/po/R-de.po
+   M /pkg/po/R-en@quot.po
+   M /pkg/po/R-fr.po
+   M /pkg/po/R-ko.po
+   M /pkg/po/R-lattice.pot
+   M /pkg/po/R-pl.po
+
+Korean translation update
+------------------------------------------------------------------------
+r766 | deepayan | 2015-02-17 01:20:30 +0530 (Tue, 17 Feb 2015) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
+   M /pkg/R/cloud.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/interaction.R
+   M /pkg/R/layout.R
+   M /pkg/R/legend.R
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/panels.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/scales.R
+   M /pkg/R/settings.R
+
+clean up CMD check notes with suppressLocalUnused=FALSE
+------------------------------------------------------------------------
+r765 | deepayan | 2014-12-31 10:09:55 +0530 (Wed, 31 Dec 2014) | 1 line
+Changed paths:
+   M /pkg/man/xyplot.Rd
+
+mention simpleTheme() in documentation for 'auto.key'
+------------------------------------------------------------------------
+r764 | deepayan | 2014-12-31 10:09:27 +0530 (Wed, 31 Dec 2014) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
+   M /pkg/R/densityplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/legend.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/parallel.R
+   M /pkg/R/print.trellis.R
+   M /pkg/R/qq.R
+   M /pkg/R/qqmath.R
+   M /pkg/R/splom.R
+   M /pkg/R/xyplot.R
+
+some support for call and symbol objects for plotmath
+------------------------------------------------------------------------
+r763 | deepayan | 2014-04-08 21:35:52 +0530 (Tue, 08 Apr 2014) | 1 line
+Changed paths:
+   M /pkg/R/panels.R
+
+improved translatability of warning
+------------------------------------------------------------------------
+r762 | deepayan | 2014-04-02 17:50:47 +0530 (Wed, 02 Apr 2014) | 1 line
+Changed paths:
+   A /pkg/inst/po/pl
+   A /pkg/inst/po/pl/LC_MESSAGES
+   A /pkg/inst/po/pl/LC_MESSAGES/R-lattice.mo
+   D /pkg/inst/po/pl_PL
+   M /pkg/po/R-lattice.pot
+   M /pkg/update.sh
+
+Renamed processed translations as well
+------------------------------------------------------------------------
+r761 | deepayan | 2014-04-02 17:47:03 +0530 (Wed, 02 Apr 2014) | 1 line
+Changed paths:
+   A /pkg/po/R-pl.po (from /pkg/po/R-pl_PL.po:760)
+   D /pkg/po/R-pl_PL.po
+
+Renaming Polish translation file
+------------------------------------------------------------------------
+r760 | deepayan | 2014-04-02 00:41:30 +0530 (Wed, 02 Apr 2014) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/inst/po/pl_PL/LC_MESSAGES/R-lattice.mo
+   M /pkg/po/R-lattice.pot
+   M /pkg/po/R-pl_PL.po
+
+updated Polish translations
+------------------------------------------------------------------------
+r759 | deepayan | 2014-03-21 15:53:12 +0530 (Fri, 21 Mar 2014) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/inst/po/de/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/fr/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/ko/LC_MESSAGES/R-lattice.mo
+   M /pkg/inst/po/pl_PL/LC_MESSAGES/R-lattice.mo
+   M /pkg/po/R-de.po
+   M /pkg/po/R-en@quot.po
+   M /pkg/po/R-fr.po
+   M /pkg/po/R-ko.po
+   M /pkg/po/R-lattice.pot
+   M /pkg/po/R-pl_PL.po
+
+Updated French translations
+------------------------------------------------------------------------
+r758 | deepayan | 2014-02-27 11:42:24 +0530 (Thu, 27 Feb 2014) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+
+update version
+------------------------------------------------------------------------
+r757 | deepayan | 2014-02-27 11:42:00 +0530 (Thu, 27 Feb 2014) | 1 line
+Changed paths:
+   M /pkg/man/panel.number.Rd
+
+doc clarification
+------------------------------------------------------------------------
+r756 | deepayan | 2014-02-26 12:49:51 +0530 (Wed, 26 Feb 2014) | 1 line
+Changed paths:
+   M /pkg/NAMESPACE
+
+export xyplot.ts for use by zoo
+------------------------------------------------------------------------
+r755 | deepayan | 2014-02-03 17:23:55 +0530 (Mon, 03 Feb 2014) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/axis.R
+
+quietly handle ticks outside range in panel.axis, instead of giving errors
+------------------------------------------------------------------------
+r754 | deepayan | 2013-10-22 14:21:41 +0530 (Tue, 22 Oct 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/cloud.R
+
+fixed bug with axis.line|lty in cloud bounding box axes
+------------------------------------------------------------------------
+r753 | deepayan | 2013-10-11 16:52:13 +0530 (Fri, 11 Oct 2013) | 1 line
+Changed paths:
+   M /pkg/man/barley.Rd
+
+add Wright (2013) as barley reference
+------------------------------------------------------------------------
+r752 | deepayan | 2013-10-11 16:34:12 +0530 (Fri, 11 Oct 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/histogram.R
+   M /pkg/man/histogram.Rd
+
+not warn about density!=type in histogram() just because 'breaks' is a function
+------------------------------------------------------------------------
+r751 | deepayan | 2013-08-21 17:09:51 +0530 (Wed, 21 Aug 2013) | 1 line
+Changed paths:
+   M /pkg/.Rbuildignore
+   M /pkg/DESCRIPTION
+   A /pkg/inst/po/ko
+   A /pkg/inst/po/ko/LC_MESSAGES
+   A /pkg/inst/po/ko/LC_MESSAGES/R-lattice.mo
+   A /pkg/inst/po/pl_PL
+   A /pkg/inst/po/pl_PL/LC_MESSAGES
+   A /pkg/inst/po/pl_PL/LC_MESSAGES/R-lattice.mo
+   A /pkg/po/R-ko.po
+   M /pkg/po/R-lattice.pot
+   M /pkg/po/R-pl_PL.po
+   M /pkg/update.sh
+
+added korean translation, updated translation processing
+------------------------------------------------------------------------
+r750 | deepayan | 2013-08-19 14:26:29 +0530 (Mon, 19 Aug 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/settings.R
+   M /pkg/po/R-lattice.pot
+
+reverted default fontsize to be 12
+------------------------------------------------------------------------
+r749 | deepayan | 2013-08-13 15:54:15 +0530 (Tue, 13 Aug 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/histogram.R
+
+histogram: fixed spurious warnings when breaks was a single integer
+------------------------------------------------------------------------
+r748 | deepayan | 2013-08-07 14:43:40 +0530 (Wed, 07 Aug 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/histogram.R
+   M /pkg/R/settings.R
+   M /pkg/man/histogram.Rd
+
+Added a new option 'histogram.breaks' for setting default breaks rule
+------------------------------------------------------------------------
+r746 | deepayan | 2013-07-19 13:29:08 +0530 (Fri, 19 Jul 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/miscellaneous.R
+   M /pkg/R/update.trellis.R
+   M /pkg/man/panel.cloud.Rd
+
+update.trellis fix to allow multiple 'inside' legends
+------------------------------------------------------------------------
+r745 | deepayan | 2013-07-16 09:52:28 +0530 (Tue, 16 Jul 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/update.trellis.R
+
+Fix some more invalid uses of rep(NULL)
+------------------------------------------------------------------------
+r744 | deepayan | 2013-06-05 19:35:09 +0530 (Wed, 05 Jun 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/print.trellis.R
+   M /pkg/R/settings.R
+   A /pkg/tests/fontsize.R
+
+Modify default text fontsize (see
+https://stat.ethz.ch/pipermail/r-help/2013-May/354139.html)
+------------------------------------------------------------------------
+r743 | paul | 2013-05-23 08:20:04 +0530 (Thu, 23 May 2013) | 1 line
+Changed paths:
+   M /pkg/SvnLog
+
+updated SvnLog
+------------------------------------------------------------------------
+r742 | paul | 2013-05-23 08:19:05 +0530 (Thu, 23 May 2013) | 1 line
+Changed paths:
+   M /pkg/R/bwplot.R
 
 improved naming of rect grobs in barchart when there is grouping
 ------------------------------------------------------------------------

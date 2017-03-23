@@ -1,6 +1,6 @@
 Package: lattice
 Version: 0.20-35
-Date: 2016-11-17
+Date: 2017-03-23
 Priority: recommended
 Title: Trellis Graphics for R
 Author: Deepayan Sarkar <deepayan.sarkar@r-project.org>
@@ -18,4 +18,4 @@ LazyLoad: yes
 LazyData: yes
 License: GPL (>= 2)
 URL: http://lattice.r-forge.r-project.org/
-BugReports: http://r-forge.r-project.org/projects/lattice/
+BugReports: https://github.com/deepayan/lattice/issues

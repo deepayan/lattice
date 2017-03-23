@@ -25,7 +25,7 @@
 
   The S-PLUS 6.2 help for the melanoma data says that the incidence rate is
   per \emph{million}, but this is not consistent with data found at the
-  National Cancer Institute (\url{http://www.nci.nih.gov}).
+  National Cancer Institute (\url{https://www.cancer.gov/}).
 }
 
 \source{
