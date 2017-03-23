@@ -62,6 +62,7 @@ lrect(xleft, ybottom, xright, ytop,
       lty = 1, lwd = 1, alpha = 1,
       just = "center",
       hjust = NULL, vjust = NULL,
+      font, fontface,
       \dots, identifier, name.type)
 larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         angle = 30, code = 2, length = 0.25, unit = "inches",
@@ -71,7 +72,9 @@ larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         alpha = add.line$alpha,
         lty = add.line$lty,
         lwd = add.line$lwd,
-        fill = NULL, \dots, identifier, name.type)
+        fill = NULL, 
+        font, fontface,
+        \dots, identifier, name.type)
 lpolygon(x, y = NULL,
          border = "black", col = "transparent", fill = NULL, 
          font, fontface, \dots, identifier, name.type)
@@ -114,8 +117,9 @@ panel.polygon(\dots)
     0.
 
     \code{fill}, \code{font} and \code{fontface} are included in
-    \code{lpolygon} and \code{lsegments} only to ensure that they are
-    not passed down (as \code{\link{gpar}} does not like them).
+    \code{lrect}, \code{larrows}, \code{lpolygon}, and \code{lsegments}
+    only to ensure that they are not passed down (as \code{\link{gpar}}
+    does not like them).
   }
   \item{origin}{ for \code{type="h"} or \code{type="H"}, the value to
     which lines drop down. }

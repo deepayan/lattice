@@ -149,14 +149,18 @@ xyplot.ts <-
     if (is.list(type))
         type <- make.par.list(cn, type, NROW(x), NCOL(x), "l")
 
+    ## To make R CMD check happy
+    force(tt)
+    force(fo)
+    force(groups)
     tmpcall <-
         quote(xyplot(fo, groups = groups,
-               ..., panel = panel,
-               type = type, distribute.type = is.list(type),
-               auto.key = auto.key, par.settings = par.settings,
-               layout = layout, as.table = as.table,
-               xlab = xlab, ylab = ylab,
-               default.scales = default.scales))
+                     ..., panel = panel,
+                     type = type, distribute.type = is.list(type),
+                     auto.key = auto.key, par.settings = par.settings,
+                     layout = layout, as.table = as.table,
+                     xlab = xlab, ylab = ylab,
+                     default.scales = default.scales))
 
     ## Include style arguments (col, lty, etc) in the call only if specified.
     ## (Originally they were not, and were picked up only from par.settings)

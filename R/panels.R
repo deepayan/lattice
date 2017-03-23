@@ -101,6 +101,7 @@ panel.abline <-
         {
             as.integer(sign(y - coeff[1] - coeff[2] * x)) ## / sqrt(1 + coeff[2]^2)
         }
+        force(sign.dist.from.line)
         sign.corners <-
             with(cpl,
                  sign.dist.from.line(c(xlim[1], xlim[2], xlim[2], xlim[1]),

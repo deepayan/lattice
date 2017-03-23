@@ -447,7 +447,6 @@ panel.3dwire <-
         gridpolycount <- 0 
 
         wirePolygon <-
-
             function(xx, yy, misc)
             {
 
@@ -487,7 +486,7 @@ panel.3dwire <-
                 }
             }
 
-
+        force(wirePolygon)
         .Call(wireframePanelCalculations,
               as.double(x),
               as.double(y),
@@ -556,7 +555,6 @@ panel.3dwire <-
         gridpolycount <- 0 
 
         wirePolygon <-
-
             function(xx, yy, misc)
             {
                 ## misc:
@@ -605,6 +603,7 @@ panel.3dwire <-
             }
 
 
+        force(wirePolygon)
         .Call(wireframePanelCalculations,
               as.double(x),
               as.double(y),
