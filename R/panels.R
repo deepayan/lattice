@@ -99,7 +99,7 @@ panel.abline <-
 
         sign.dist.from.line <- function(x, y)
         {
-            as.integer(sign(y - coeff[1] - coeff[2] * x)) ## / sqrt(1 + coeff[2]^2)
+            as.integer(sign(zapsmall(y - coeff[1] - coeff[2] * x)))
         }
         force(sign.dist.from.line)
         sign.corners <-
@@ -123,14 +123,16 @@ panel.abline <-
                            ...,
                            identifier = id)
         }
+        ## Do opposite sides first to make sure diagonal edge cases
+        ## proceed along the correct branch
         if (D && B) # Case I
             drawfun(xx[1], yfun(xx[1]), xx[2], yfun(xx[2]), ...)
+        else if (A && C) # Case IV
+            drawfun(xfun(yy[1]), yy[1], xfun(yy[2]), yy[2], ...)
         else if (D && C) # Case II
             drawfun(xx[1], yfun(xx[1]), xfun(yy[2]), yy[2], ...)
         else if (A && B) # Case III
             drawfun(xfun(yy[1]), yy[1], xx[2], yfun(xx[2]), ...)
-        else if (A && C) # Case IV
-            drawfun(xfun(yy[1]), yy[1], xfun(yy[2]), yy[2], ...)
         else if (B && C) # Case  V
             drawfun(xfun(yy[1]), yy[1], xfun(yy[2]), yy[2], ...)
         else if (A && D) # Case VI
