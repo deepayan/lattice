@@ -1,3 +1,29 @@
+commit bb21fea78cf0a42b7fa0d810cc54e1d518934f02
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Nov 1 12:46:53 2018 +0530
+
+    deleted no-longer-necessary fast replacement for quantile
+
+M	R/qqmath.R
+
+commit c988bbaf89d08fa6b605d28d451eeba5063bc034
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Mon Jul 9 17:03:14 2018 +0530
+
+    bugfix in panel.abline for #8
+
+M	DESCRIPTION
+M	R/panels.R
+
+commit 1b9c6481fd1df33362d49e101c7bcb8b3429c55d
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Mar 23 20:27:24 2017 +0530
+
+    increased default 'n' in densityplot() to 512
+
+M	R/densityplot.R
+M	man/histogram.Rd
+
 
 commit f43160cacf03e8b99813260ce8f5f279ab2b7fec
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
@@ -5,11 +31,15 @@ Date:   Thu Feb 16 14:50:40 2017 +0530
 
     Added URL and examples
 
+M	man/USMortality.Rd
+
 commit 2a83edec80bc2b6089aa44f724f7e5c95a0afdb1
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Wed Feb 15 19:48:08 2017 +0530
 
     bugfix: catch font parameters in larrows()
+
+M	R/miscellaneous.R
 
 commit 7a96ded29e454b1c581f70cc20d15647675d57f5
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
@@ -17,11 +47,12 @@ Date:   Wed Feb 15 19:45:56 2017 +0530
 
     new dataset
 
-commit ca32327b014c7e6f20665f73a1482fc5d791d3ed
-Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
-Date:   Fri Dec 9 15:57:03 2016 +0530
+M	DESCRIPTION
+A	data/USMortality.rda
+A	data/USRegionalMortality.rda
+A	man/USMortality.Rd
 
-    Create README.md
+
 
 ------------------------------------------------------------------------
 

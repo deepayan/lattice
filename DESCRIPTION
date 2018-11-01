@@ -1,6 +1,6 @@
 Package: lattice
-Version: 0.20-37
-Date: 2018-07-09
+Version: 0.20-38
+Date: 2018-11-01
 Priority: recommended
 Title: Trellis Graphics for R
 Author: Deepayan Sarkar <deepayan.sarkar@r-project.org>

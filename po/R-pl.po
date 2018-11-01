@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2015-02-20 19:16\n"
+"POT-Creation-Date: 2018-11-01 12:50\n"
 "PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -513,16 +513,6 @@ msgstr ""
 msgid "y must have exactly 2 levels"
 msgstr "'y' musi mieć dokładnie 2 poziomy"
 
-# lattice/R/qqmath.R: 35
-# stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
-msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
-msgstr "brakujące wartości oraz wartości NaN nie są dozwolone jeśli 'na.rm' ma wartość FALSE"
-
-# lattice/R/qqmath.R: 37
-# stop("'probs' outside [0,1]")
-msgid "'probs' outside [0,1]"
-msgstr "wartości 'probs' poza przedziałem [0,1]"
-
 # lattice/R/qqmath.R: 372
 # warning("Can't have log X-scale")
 msgid "Can't have log X-scale"
@@ -771,6 +761,16 @@ msgstr "'drop=TRUE' zostało zignorowane"
 # stop("Invalid indices")
 msgid "Invalid indices"
 msgstr "niepoprawne indeksy"
+
+# lattice/R/qqmath.R: 35
+# stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
+#~ msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
+#~ msgstr "brakujące wartości oraz wartości NaN nie są dozwolone jeśli 'na.rm' ma wartość FALSE"
+
+# lattice/R/qqmath.R: 37
+# stop("'probs' outside [0,1]")
+#~ msgid "'probs' outside [0,1]"
+#~ msgstr "wartości 'probs' poza przedziałem [0,1]"
 
 # lattice/R/panels.R: 54
 # warning("only using the first two of ", p, "regression coefficients")

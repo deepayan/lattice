@@ -18,7 +18,6 @@
 ### MA 02110-1301, USA
 
 
-
 ## For historical reasons (i.e., S-compatibility) there are several
 ## places in lattice where an argument that is supposed to be a
 ## function may be specified as a character string.  It is not

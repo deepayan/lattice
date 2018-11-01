@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 3.2.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2015-02-20 19:16\n"
+"POT-Creation-Date: 2018-11-01 12:50\n"
 "PO-Revision-Date: 2015-02-09 00:06-0600\n"
 "Last-Translator:Chel Hee Lee  <chl948@mail.usask.ca>\n"
 "Language-Team: Chel Hee Lee  <chl948@mail.usask.ca>\n"
@@ -275,12 +275,6 @@ msgstr ""
 msgid "y must have exactly 2 levels"
 msgstr "y는 반드시 2개의 수준(levels)을 가지고 있어야 합니다."
 
-msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
-msgstr "'na.rm'가 FALSE이라면 결측값 또는 NaN이 있어서는 안됩니다."
-
-msgid "'probs' outside [0,1]"
-msgstr "'probs'가 [0,1] 범위 밖에 있습니다"
-
 msgid "Can't have log X-scale"
 msgstr "log X-scale을 가질 수 없습니다."
 
@@ -419,6 +413,12 @@ msgstr "'drop=TRUE'이 무시되었습니다"
 
 msgid "Invalid indices"
 msgstr "잘못된 인덱스입니다"
+
+#~ msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
+#~ msgstr "'na.rm'가 FALSE이라면 결측값 또는 NaN이 있어서는 안됩니다."
+
+#~ msgid "'probs' outside [0,1]"
+#~ msgstr "'probs'가 [0,1] 범위 밖에 있습니다"
 
 #~ msgid "regression coefficients"
 #~ msgstr "개의 회귀 계수들 중에서 처음 두개만을 사용합니다."

@@ -108,7 +108,12 @@ drawInViewport <-
 
 grobFromLabelList <- function(lab, name = "label", orient = 0)
 {
-    if (is.null(lab) || (is.character(lab) && (lab == "" || length(lab) == 0))) return (NULL)
+    emptyLabel <- function(lab)
+    {
+        is.null(lab) || length(lab) == 0 || (is.character(lab) && !any(nzchar(lab)))
+        ## NOTE: lab could also be "empty" expression / call / symbol, but we're not checking
+    }
+    if (emptyLabel(lab)) return (NULL)
     if (inherits(lab, "grob")) return(lab)
     process.lab <-
         function(label, rot = orient,
@@ -130,8 +135,7 @@ grobFromLabelList <- function(lab, name = "label", orient = 0)
             ans
         }
     lab <- do.call(process.lab, lab)
-    if (with(lab, is.null(label) || (is.character(label) && (label == "" || length(label) == 0))))
-        return (NULL)
+    if (with(lab, emptyLabel(label))) return (NULL)
     if (is.null(lab$x))
         lab$x <-
             if (orient == 0) ppoints(n = length(lab$label), a = 0.5)

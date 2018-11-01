@@ -319,8 +319,16 @@ xyplot.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
+
+### FIXME: For a long time, lattice has used
     foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(xyplot)
-    ## This is NOT OK: foo$call <- sys.call(); foo$call[[1]] <- quote(xyplot)
+### But this doesn't work in all contexts; e.g., 
+### with(cars, xyplot(speed ~ dist))$call
+
+### This works better, but is NOT OK for other methods that call
+### xyplot.formula(). So EVERY METHOD must include this line of code
+### to get the correct call component
+    ## foo$call <- sys.call(); foo$call[[1]] <- quote(xyplot)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
