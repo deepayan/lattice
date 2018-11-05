@@ -1,3 +1,14 @@
+commit 4d715be5a82934bb09291b9f1bc6701f08c0072f
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Nov 1 14:19:16 2018 +0530
+
+    fix length-1 condition bug, and prepare for release
+
+M	DESCRIPTION
+M	R/miscellaneous.R
+M	R/print.trellis.R
+M	R/xyplot.R
+
 commit bb21fea78cf0a42b7fa0d810cc54e1d518934f02
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Thu Nov 1 12:46:53 2018 +0530
