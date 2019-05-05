@@ -63,7 +63,7 @@ lower.saturation <-
 
 
 
-standard.theme <- 
+standard.theme <-
 canonical.theme <- function(name = .Device, color = name != "postscript")
 {
     ## For the purpose of this function, the only differences in the
@@ -173,7 +173,8 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
                                      key.bottom = 1,
                                      key.sub.padding = 1,
                                      sub = 1,
-                                     bottom.padding = 1),
+                                     bottom.padding = 1,
+                                     colorkey.title.padding = 1),
              layout.widths    = list(left.padding = 1,
                                      key.left = 1,
                                      key.ylab.padding = 0,
@@ -188,7 +189,8 @@ canonical.theme <- function(name = .Device, color = name != "postscript")
                                      axis.key.padding = 1,
                                      ylab.right = 1,
                                      key.right = 1,
-                                     right.padding = 1),
+                                     right.padding = 1,
+                                     colorkey.title.padding = 1),
 
              box.3d           = list(alpha = 1, col = can.col[1], lty = 1, lwd = 1),
              par.xlab.text    = list(alpha = 1, cex = 1, col = can.col[1], font = 1, lineheight = 1),
@@ -484,7 +486,7 @@ show.settings <- function(x = NULL)
                    lty = par.box$lty,
                    lwd = par.box$lwd)
     }
-    
+
     xyplot(d ~ d | d,
            prepanel = function(x, y) {
                list(ylim = c(0, 1),
@@ -1157,7 +1159,8 @@ lattice.options <- function(...)
               key.bottom = list(x = 0, units = "grobheight", data = textGrob(label="")),
               key.sub.padding = list(x = 0.01, units = "snpc", data = NULL),
               sub = list(x = 0, units = "grobheight", data = textGrob(label="")),
-              bottom.padding = list(x = 0.01, units = "snpc", data = NULL)),
+              bottom.padding = list(x = 0.01, units = "snpc", data = NULL),
+              colorkey.title.padding = list(x = 0.4, units = "lines", data = NULL)),
 
          layout.widths =
          list(left.padding = list(x = 0.01, units = "snpc", data = NULL),
@@ -1174,7 +1177,8 @@ lattice.options <- function(...)
               axis.key.padding = list(x = 0.01, units = "snpc", data = NULL),
               ylab.right = list(x = 0, units = "grobwidth", data = textGrob(label="")),
               key.right = list(x = 0, units = "grobwidth", data = textGrob(label="")),
-              right.padding = list(x = 0.01, units = "snpc", data = NULL)),
+              right.padding = list(x = 0.01, units = "snpc", data = NULL),
+              colorkey.title.padding = list(x = 0.4, units = "lines", data = NULL)),
 
          highlight.gpar = list(col = "red", lwd = 2, fill = "transparent")
 

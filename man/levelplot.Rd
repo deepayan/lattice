@@ -215,6 +215,14 @@ contourplot(x, data, \dots)
       \item{\code{axis.text}:}{ A list giving graphical parameters for
 	the tick mark labels on the color key.  Defaults to
 	\code{trellis.par.get("axis.text")}.  }
+	
+	    
+      \item{\code{title}:}{ A character vector providing a title for
+  the colorkey.  Defaults to \code{NULL}, which means no title
+  is drawn.  }
+  
+       \item{\code{cex.title}:}{ A numeric setting the size multiplier for
+  the title of the colorkey (if it is drawn).  }
 
     }
   }

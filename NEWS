@@ -34,6 +34,9 @@ Changes in lattice 0.20
    default breakpoints in histogram(). See ?histogram for details.
 
  o New datasets USMortality and USRegionalMortality.
+ 
+ o 'title' and 'cex.title' added as parameters in 'colorkey', allowing 
+   labeling of the colorkey.
 
 Changes in lattice 0.19
 =======================
