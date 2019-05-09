@@ -34,6 +34,13 @@ Changes in lattice 0.20
    default breakpoints in histogram(). See ?histogram for details.
 
  o New datasets USMortality and USRegionalMortality.
+ 
+ o panel.levelplot() gains a new argument 'region.type', which now,
+   in addition to the default setting "grid", allows the user to specify
+   "filled.contour", which then provides a levelplot grid similar to
+   graphics::filled.contour(). The underlying code for this is a modified
+   version of code from Paul Murrell's gridGraphics package.
+   
 
 Changes in lattice 0.19
 =======================

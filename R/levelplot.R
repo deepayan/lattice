@@ -122,12 +122,14 @@ panel.levelplot <-
              border.lty = 1,
              border.lwd = 0.1,
              ...,
+             region.type = c("grid", "filled.contour"),
              col.regions = regions$col,
              alpha.regions = regions$alpha,
              identifier = "levelplot")
 {
     if (length(subscripts) == 0) return()
     regions <- trellis.par.get("regions")
+    region.type <- match.arg(region.type)
     label.style <- match.arg(label.style)
     x.is.factor <- is.factor(x)
     y.is.factor <- is.factor(y)
@@ -238,20 +240,48 @@ panel.levelplot <-
     idx <- match(x, ux)
     idy <- match(y, uy)
 
-    if (region) 
-        grid.rect(x = cx[idx],
-                  y = cy[idy],
-                  width = lx[idx] * scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
-                  height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
-                  default.units = "native",
-                  name = trellis.grobname(paste(identifier, "rect", sep="."),
-                    type = "panel", group = group),
-                  gp =
-                  gpar(fill = zcol,
-                       col = border,
-                       lwd = border.lwd,
-                       lty = border.lty,
-                       alpha = alpha.regions))
+    if (region)
+    {
+        if (region.type == "grid")
+        {
+            grid.rect(x = cx[idx],
+                      y = cy[idy],
+                      width = lx[idx] * scaleWidth(z, shrinkx[1], shrinkx[2], fullZrange),
+                      height = ly[idy] * scaleWidth(z, shrinky[1], shrinky[2], fullZrange),
+                      default.units = "native",
+                      name = trellis.grobname(paste(identifier, "rect", sep="."),
+                                              type = "panel", group = group),
+                      gp =
+                          gpar(fill = zcol,
+                               col = border,
+                               lwd = border.lwd,
+                               lty = border.lty,
+                               alpha = alpha.regions))
+        }
+        else if (region.type == "filled.contour")
+        {
+            numcol <- length(at) - 1
+            cols <- level.colors(x = seq_len(numcol) - 0.5,
+                                 at = seq_len(numcol + 1) - 1,
+                                 col.regions = col.regions,
+                                 colors = TRUE)
+            
+            filledContour(x = cx,
+                          y = cy,
+                          z = matrix(z, length(cx)), 
+                          s = at, 
+                          cols = cols,
+                          name = trellis.grobname(paste(identifier, 
+                                                        "polygon", 
+                                                        sep = "."),
+                                                  type = "panel", 
+                                                  group = group),
+                          border = border,
+                          lwd = border.lwd,
+                          lty = border.lty,
+                          alpha = alpha.regions)
+        }
+    } 
 
     if (contour)
     {
