@@ -39,7 +39,8 @@ Changes in lattice 0.20
    in addition to the default setting "grid", allows the user to specify
    "filled.contour", which then provides a levelplot grid similar to
    graphics::filled.contour(). The underlying code for this is a modified
-   version of code from Paul Murrell's gridGraphics package.
+   version of code authored by Zhijian (Jason) Wen and taken from
+   Paul Murrell's gridGraphics package.
    
 
 Changes in lattice 0.19

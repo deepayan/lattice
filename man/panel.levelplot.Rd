@@ -165,8 +165,9 @@ levelplot(volcano, panel = panel.levelplot.raster,
 
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org},
-         Paul Murrell (\code{region.type = "filled.contour"} uses code from
-                       Paul Murrell's gridGraphics package.)}
+         Zhijian (Jason) Wen (authored the code used
+         when \code{region.type = "filled.contour"}, which is borrowed from
+         Paul Murrell's gridGraphics package.)}
 \seealso{
   \code{\link{levelplot}},
   \code{\link{level.colors}},
