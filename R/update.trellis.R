@@ -308,10 +308,29 @@ update.trellis <-
             groups <- object$panel.args.common$groups
             if (needAutoKey(auto.key, groups))
             {
+                type <- dots$type
+                
+                if (!is.character(type) || length(type) == 0)
+                    type <- object$panel.args.common$type
+                
+                if (is.character(type) && length(type) > 0)
+                {
+                    points <- any(type %in% c("p", "b", "o"))
+                    lines <- any(type %in% c("l", "b", "o", "h", "s", "S", "a",
+                                             "smooth", "spline", "r"))
+                }
+                else
+                {
+                    points <- TRUE
+                    lines <- FALSE
+                }
+                                
                 object$legend <-
                     list(list(fun = "drawSimpleKey",
                               args =
-                              updateList(list(text = levels(as.factor(groups))), 
+                              updateList(list(text = levels(as.factor(groups)),
+                                              points = points,
+                                              lines = lines), 
                                          if (is.list(auto.key)) auto.key else list())))
                 object$legend[[1]]$x <- object$legend[[1]]$args$x
                 object$legend[[1]]$y <- object$legend[[1]]$args$y
