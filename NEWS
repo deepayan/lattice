@@ -88,6 +88,10 @@ Changes in lattice 0.19
  o Expanded trellis.grobname() and used it to provide a name for all grobs.
 
  o New panel.spline() function.
+ 
+ o xyplot() now uses the 'type' argument (if provided) to set smarter
+   default for the key, so that it, for instance, uses lines when type = "l" and
+   points if type = "p".
 
 bug fixes
 ---------
