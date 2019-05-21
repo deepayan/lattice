@@ -437,13 +437,28 @@ xyplot.formula <-
 
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
+        # provide smart defaults for auto key
+        type <- dots$type
+
+        if (is.character(type) && length(type) > 0)
+        {
+            points <- any(type %in% c("p", "b", "o"))
+            lines <- any(type %in% c("l", "b", "o", "h", "s", "S", "a",
+                                     "smooth", "spline", "r"))
+        }
+        else
+        {
+            points <- TRUE
+            lines <- FALSE
+        }
+        
         foo$legend <-
             list(list(fun = "drawSimpleKey",
                       args =
                       updateList(list(text = levels(as.factor(groups)),
-                                      points = TRUE,
+                                      points = points,
                                       rectangles = FALSE,
-                                      lines = FALSE), 
+                                      lines = lines), 
                                  if (is.list(auto.key)) auto.key else list())))
         foo$legend[[1]]$x <- foo$legend[[1]]$args$x
         foo$legend[[1]]$y <- foo$legend[[1]]$args$y
