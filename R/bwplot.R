@@ -596,7 +596,7 @@ panel.bwplot <-
 
         ## dot
 
-        if (all(pch == "|"))
+        if (all(!is.na(pch) & pch == "|"))
         {
             mult <- if (notch) 1 - notch.frac else 1
             panel.segments(blist.stats[, 3],
@@ -715,7 +715,7 @@ panel.bwplot <-
 
         ## dot
 
-        if (all(pch == "|"))
+        if (all(!is.na(pch) & pch == "|"))
         {
             mult <- if (notch) 1 - notch.frac else 1
             panel.segments(levels.fos - mult * blist.height / 2,
