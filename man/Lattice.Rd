@@ -109,7 +109,7 @@
   Bell Lab's Trellis Page contains several documents outlining the use
   of Trellis graphics; these provide a holistic introduction to
   the Trellis paradigm:
-  \url{http://ect.bell-labs.com/sl/project/trellis/}
+  \url{http://web.archive.org/web/20081020164041/http://cm.bell-labs.com/cm/ms/departments/sia/project/trellis/display.writing.html}
   
 }
 
