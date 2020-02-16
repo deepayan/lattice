@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 3.2.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2020-02-16 11:53\n"
+"POT-Creation-Date: 2018-11-01 12:50\n"
 "PO-Revision-Date: 2015-02-09 00:06-0600\n"
 "Last-Translator:Chel Hee Lee  <chl948@mail.usask.ca>\n"
 "Language-Team: Chel Hee Lee  <chl948@mail.usask.ca>\n"
@@ -197,10 +197,6 @@ msgstr "'at'의 값이 균등(equispaced)하지 않아 출력이 올바르게 �
 
 msgid "malformed colorkey"
 msgstr "잘못된 컬러키(colorkey)입니다."
-
-#, fuzzy
-msgid "Invalid value of 'tri.upper/tri.lower' ignored."
-msgstr "'pos'의 값이 올바르지 않아 무효처리 되었습니다."
 
 msgid "Invalid 'shrink' parameter ignored"
 msgstr "'shrink'의 값이 올바르지 않아 무효처리 되었습니다."
