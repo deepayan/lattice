@@ -23,7 +23,6 @@
 
 
 
-
 construct.legend <-
     function(legend = NULL, key = NULL, fun = "draw.key")
 {
@@ -525,19 +524,18 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
         if (!key$transparent)
             key.gf <-
                 placeGrob(key.gf,
-                          rectGrob(gp =
-                                   gpar(fill = key$background,
-                                        alpha = key$alpha.background,
-                                        col = key$border),
+                          rectGrob(gp = gpar(fill = key$background,
+                                             alpha = key$alpha.background,
+                                             col = key$border),
                                    name = trellis.grobname("background",
-                                     type="key")),
+                                                           type="key")),
                           row = NULL, col = NULL)
         else
             key.gf <-
                 placeGrob(key.gf,
-                          rectGrob(gp=gpar(col=key$border),
+                          rectGrob(gp = gpar(col = key$border),
                                    name = trellis.grobname("background",
-                                     type="key")),
+                                                           type="key")),
                           row = NULL, col = NULL)
 
         ## Title (FIXME: allow color, font, alpha-transparency here? 
@@ -545,10 +543,12 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
             key.gf <-
                 placeGrob(key.gf, 
                           textGrob(label = key$title,
+                                   ## x = 0,
                                    gp = gpar(cex = key$cex.title,
-                                     lineheight = key$lineheight),
+                                             lineheight = key$lineheight),
+                                   ## just = "left",
                                    name = trellis.grobname("title",
-                                     type="key")),
+                                                           type="key")),
                           row = 1, col = NULL)
         
         for (i in 1:number.of.components)
@@ -568,7 +568,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                     key.gf <-
                         placeGrob(key.gf, 
                                   textGrob(x = cur$pars$adj[j],
-
+                                           
                                            hjust = cur$pars$adj[j],
 
 ##                                            just = c(
@@ -578,15 +578,15 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
 ##                                            "center"),
 
                                            label = cur$pars$labels[j],
-                                           gp =
-                                           gpar(col = cur$pars$col[j],
-                                                alpha = cur$pars$alpha[j],
-                                                lineheight = cur$pars$lineheight[j],
-                                                fontfamily = cur$pars$fontfamily[j],
-                                                fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
-                                                cex = cur$pars$cex[j]),
+                                           gp = gpar(col = cur$pars$col[j],
+                                                     alpha = cur$pars$alpha[j],
+                                                     lineheight = cur$pars$lineheight[j],
+                                                     fontfamily = cur$pars$fontfamily[j],
+                                                     fontface = chooseFace(cur$pars$fontface[j],
+                                                                           cur$pars$font[j]),
+                                                     cex = cur$pars$cex[j]),
                                            name = componentName("text",
-                                             componentx, componenty)),
+                                                                componentx, componenty)),
                                   row = yy, col = xx)
                 }
                 else if (cur$type == "rectangles")
@@ -601,7 +601,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                      fill = cur$pars$col[j],
                                                      col = cur$pars$border[j]),
                                            name = componentName("rect",
-                                             componentx, componenty)),
+                                                                componentx, componenty)),
                                   row = yy, col = xx)
                     ## FIXME: Need to make changes to support angle/density
                 }
@@ -611,7 +611,7 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                     {
                         key.gf <-
                             placeGrob(key.gf,
-                                      linesGrob(x = c(0,1) * cur$pars$size[j]/max(cur$pars$size),
+                                      linesGrob(x = c(0,1) * cur$pars$size[j] / max(cur$pars$size),
                                                 
                                                 ## ^^ FIXME: this
                                                 ## should be centered
@@ -620,36 +620,35 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                 ## someone would
                                                 ## actually use this
                                                 ## feature are
-                                                ## astronomical, I'm
-                                                ## leaving that for
-                                                ## later.
+                                                ## astronomically
+                                                ## small, I'm leaving
+                                                ## that for later.
 
                                                 y = c(.5, .5),
-                                                gp =
-                                                gpar(col = cur$pars$col[j],
-                                                     alpha = cur$pars$alpha[j],
-                                                     lty = cur$pars$lty[j],
-                                                     lwd = cur$pars$lwd[j]),
+                                                gp = gpar(col = cur$pars$col[j],
+                                                          alpha = cur$pars$alpha[j],
+                                                          lty = cur$pars$lty[j],
+                                                          lwd = cur$pars$lwd[j]),
                                                 name = componentName("lines",
-                                                  componentx, componenty)),
+                                                                     componentx, componenty)),
                                       row = yy, col = xx)
                     }
                     else if (cur$pars$type[j] == "p")
                     {
                         key.gf <-
                             placeGrob(key.gf,
-                                      pointsGrob(x=.5, y=.5, 
-                                                 gp =
-                                                 gpar(col = cur$pars$col[j],
-                                                      alpha = cur$pars$alpha[j],
-                                                      cex = cur$pars$cex[j],
-                                                      fill = cur$pars$fill[j],
-                                                      fontfamily = cur$pars$fontfamily[j],
-                                                      fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
-                                                      fontsize = fontsize.points),
+                                      pointsGrob(x = 0.5, y = 0.5, 
+                                                 gp = gpar(col = cur$pars$col[j],
+                                                           alpha = cur$pars$alpha[j],
+                                                           cex = cur$pars$cex[j],
+                                                           fill = cur$pars$fill[j],
+                                                           fontfamily = cur$pars$fontfamily[j],
+                                                           fontface = chooseFace(cur$pars$fontface[j],
+                                                                                 cur$pars$font[j]),
+                                                           fontsize = fontsize.points),
                                                  pch = cur$pars$pch[j],
                                                  name = componentName("points",
-                                                   componentx, componenty)),
+                                                                      componentx, componenty)),
                                       row = yy, col = xx)
                     }
                     else # if (cur$pars$type[j] == "b" or "o") -- not differentiating
@@ -670,13 +669,12 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                                 ## later.
 
                                                 y = c(.5, .5),
-                                                gp =
-                                                gpar(col = cur$pars$col[j],
-                                                     alpha = cur$pars$alpha[j],
-                                                     lty = cur$pars$lty[j],
-                                                     lwd = cur$pars$lwd[j]),
+                                                gp = gpar(col = cur$pars$col[j],
+                                                          alpha = cur$pars$alpha[j],
+                                                          lty = cur$pars$lty[j],
+                                                          lwd = cur$pars$lwd[j]),
                                                 name = componentName("lines",
-                                                  componentx, componenty)),
+                                                                     componentx, componenty)),
                                       row = yy, col = xx)
                         if (key$divide > 1)
                         {
@@ -684,17 +682,16 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                 placeGrob(key.gf, 
                                           pointsGrob(x = (1:key$divide-1)/(key$divide-1),
                                                      y = rep(.5, key$divide),
-                                                     gp =
-                                                     gpar(col = cur$pars$col[j],
-                                                          alpha = cur$pars$alpha[j],
-                                                          cex = cur$pars$cex[j],
-                                                          fill = cur$pars$fill[j],
-                                                          fontfamily = cur$pars$fontfamily[j],
-                                                          fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
-                                                          fontsize = fontsize.points),
+                                                     gp = gpar(col = cur$pars$col[j],
+                                                               alpha = cur$pars$alpha[j],
+                                                               cex = cur$pars$cex[j],
+                                                               fill = cur$pars$fill[j],
+                                                               fontfamily = cur$pars$fontfamily[j],
+                                                               fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
+                                                               fontsize = fontsize.points),
                                                      pch = cur$pars$pch[j],
                                                      name = componentName("points",
-                                                       componentx, componenty)),
+                                                                          componentx, componenty)),
                                           row = yy, col = xx)
                         }
                         else if (key$divide == 1)
@@ -703,17 +700,16 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                                 placeGrob(key.gf, 
                                           pointsGrob(x = 0.5, 
                                                      y = 0.5, 
-                                                     gp =
-                                                     gpar(col = cur$pars$col[j],
-                                                          alpha = cur$pars$alpha[j],
-                                                          cex = cur$pars$cex[j],
-                                                          fill = cur$pars$fill[j],
-                                                          fontfamily = cur$pars$fontfamily[j],
-                                                          fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
-                                                          fontsize = fontsize.points),
+                                                     gp = gpar(col = cur$pars$col[j],
+                                                               alpha = cur$pars$alpha[j],
+                                                               cex = cur$pars$cex[j],
+                                                               fill = cur$pars$fill[j],
+                                                               fontfamily = cur$pars$fontfamily[j],
+                                                               fontface = chooseFace(cur$pars$fontface[j], cur$pars$font[j]),
+                                                               fontsize = fontsize.points),
                                                      pch = cur$pars$pch[j],
                                                      name = componentName("points",
-                                                       componentx, componenty)),
+                                                                          componentx, componenty)),
                                           row = yy, col = xx)
                         }
                     }
@@ -722,9 +718,8 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
                 {
                     key.gf <-
                         placeGrob(key.gf,
-                                  pointsGrob(x=.5, y=.5,
-                                             gp =
-                                             gpar(col = cur$pars$col[j],
+                                  pointsGrob(x = 0.5, y = 0.5,
+                                             gp = gpar(col = cur$pars$col[j],
                                                   alpha = cur$pars$alpha[j],
                                                   cex = cur$pars$cex[j],
                                                   lwd = cur$pars$lwd[j],
