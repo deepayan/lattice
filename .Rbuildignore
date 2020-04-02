@@ -1,4 +1,4 @@
 update.sh
 SvnLog
-SvnLog.update
+ChangeLog.update
 man/lattice-internal.Rd.foo

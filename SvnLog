@@ -5420,19 +5420,6 @@ Changed paths:
 
 documentation updates
 ------------------------------------------------------------------------
-
-
-
-This file is an edited version of the subversion logs for lattice
-
-
-
-
-
-
-
-
-------------------------------------------------------------------------
 r507 | deepayan | 2004-09-01 17:10:31 -0500 (Wed, 01 Sep 2004) | 1 line
 Changed paths:
    M /trunk/lattice/tests/scales.R
@@ -5565,9 +5552,6 @@ together. Details can be found in the svn log's of the older
 repository, which have been extracted (and edited) in the new file
 lattice.svnlog (later renamed to SvnLog)
 ------------------------------------------------------------------------
-
-
-
 
 
 
