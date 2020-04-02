@@ -192,9 +192,8 @@ msgstr "les valeurs 'at' ne sont pas équidistantes ; le résultat peut être er
 msgid "malformed colorkey"
 msgstr "'colorkey' inadéquat"
 
-#, fuzzy
 msgid "Invalid value of 'tri.upper/tri.lower' ignored."
-msgstr "Valeur de 'pos' incorrecte et ignorée."
+msgstr "Valeur de 'tri.upper/tri.lower' incorrecte et ignorée."
 
 msgid "Invalid 'shrink' parameter ignored"
 msgstr "'shrink' incorrect et ignoré"

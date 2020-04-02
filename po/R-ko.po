@@ -198,9 +198,8 @@ msgstr "'at'의 값이 균등(equispaced)하지 않아 출력이 올바르게 �
 msgid "malformed colorkey"
 msgstr "잘못된 컬러키(colorkey)입니다."
 
-#, fuzzy
 msgid "Invalid value of 'tri.upper/tri.lower' ignored."
-msgstr "'pos'의 값이 올바르지 않아 무효처리 되었습니다."
+msgstr "'tri.upper/tri.lower'의 값이 올바르지 않아 무효처리 되었습니다."
 
 msgid "Invalid 'shrink' parameter ignored"
 msgstr "'shrink'의 값이 올바르지 않아 무효처리 되었습니다."

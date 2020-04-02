@@ -5,10 +5,10 @@
 # Detlef Steuer <steuer@hsu-hh.de>, 2010-2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: R 3.2.0 / Lattice 0.20.30\n"
+"Project-Id-Version: R 4.0.0 / Lattice 0.20.40\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
 "POT-Creation-Date: 2020-02-16 11:53\n"
-"PO-Revision-Date: 2015-03-20 23:28+0100\n"
+"PO-Revision-Date: 2020-04-01 15:02+0200\n"
 "Last-Translator: Detlef Steuer <steuer@hsu-hh.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -191,9 +191,8 @@ msgstr "'at' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
 msgid "malformed colorkey"
 msgstr "missgestalteter Farbschlüssel"
 
-#, fuzzy
 msgid "Invalid value of 'tri.upper/tri.lower' ignored."
-msgstr "Unzulässiger Wert für 'pos' ignoriert."
+msgstr "Unzulässiger Wert für 'tri.upper/tri.lower' ignoriert."
 
 msgid "Invalid 'shrink' parameter ignored"
 msgstr "Falscher 'shrink'-Parameter ignoriert"

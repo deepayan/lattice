@@ -388,9 +388,8 @@ msgstr "niepoprawnie sformatowane 'colorkey'"
 
 # lattice/R/miscellaneous.R: 465
 # warning("Invalid value of 'pos' ignored.")
-#, fuzzy
 msgid "Invalid value of 'tri.upper/tri.lower' ignored."
-msgstr "Niepoprawna wartość 'pos' została zignorowana."
+msgstr "Niepoprawna wartość 'tri.upper/tri.lower' została zignorowana."
 
 # lattice/R/levelplot.R: 179
 # warning("Invalid 'shrink' parameter ignored")

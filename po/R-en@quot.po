@@ -36,7 +36,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Invalid value of 'log'"
-msgstr "Invalid value of ‘aspect’"
+msgstr "Invalid value of ‘log’"
 
 msgid "range too small for min.n"
 msgstr ""
@@ -107,9 +107,8 @@ msgstr "skip cannot be all TRUE"
 msgid "layout must have at least 2 elements"
 msgstr "layout must have at least 2 elements"
 
-#, fuzzy
 msgid "Inadmissible value of layout."
-msgstr "inadmissible value of layout"
+msgstr "Inadmissible value of layout."
 
 msgid "invalid value for layout"
 msgstr "invalid value for layout"
@@ -154,19 +153,16 @@ msgid "panel position unspecified or invalid"
 msgstr "panel position unspecified or invalid"
 
 msgid "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
-msgstr ""
+msgstr "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
 
-#, fuzzy
 msgid "Plot object was not saved, cannot retrieve panel data"
-msgstr "current plot was not saved, can't retrieve panel data"
+msgstr "Plot object was not saved, cannot retrieve panel data"
 
-#, fuzzy
 msgid "Plot spans multiple pages, only last page can be updated"
-msgstr "plot spans multiple pages, only last page can be updated"
+msgstr "Plot spans multiple pages, only last page can be updated"
 
-#, fuzzy
 msgid "You have to first select a panel using trellis.focus()"
-msgstr "you have to first select a panel using trellis.focus()"
+msgstr "You have to first select a panel using trellis.focus()"
 
 msgid "Selecting panel at position (%g, %g)"
 msgstr "Selecting panel at position (%g, %g)"
@@ -195,9 +191,8 @@ msgstr "component ‘%s’ duplicated in key and legend"
 msgid "key must be a list"
 msgstr "key must be a list"
 
-#, fuzzy
 msgid "first component of text must be vector of labels"
-msgstr "first component of text has to be vector of labels"
+msgstr "first component of text must be vector of labels"
 
 msgid "Invalid key, need at least one component named lines, text, rect or points"
 msgstr "Invalid key, need at least one component named lines, text, rect or points"
@@ -205,19 +200,17 @@ msgstr "Invalid key, need at least one component named lines, text, rect or poin
 msgid "not enough rows for columns"
 msgstr "not enough rows for columns"
 
-#, fuzzy
 msgid "Sorry, align=FALSE is not supported"
-msgstr "sorry, align=F not supported (yet ?)"
+msgstr "Sorry, align=FALSE is not supported"
 
 msgid "'at' values are not equispaced; output may be wrong"
-msgstr ""
+msgstr "‘at’ values are not equispaced; output may be wrong"
 
 msgid "malformed colorkey"
 msgstr "malformed colorkey"
 
-#, fuzzy
 msgid "Invalid value of 'tri.upper/tri.lower' ignored."
-msgstr "Invalid value of ‘pos’"
+msgstr "Invalid value of ‘tri.upper/tri.lower’"
 
 msgid "Invalid 'shrink' parameter ignored"
 msgstr "Invalid ‘shrink’ parameter ignored"
@@ -248,7 +241,7 @@ msgstr "error"
 
 #, fuzzy
 msgid "Invalid value of 'pos' ignored."
-msgstr "Invalid value of ‘pos’"
+msgstr "Invalid value of ‘pos’ ignored."
 
 msgid "(loaded the KernSmooth namespace)"
 msgstr "(loaded the KernSmooth namespace)"
