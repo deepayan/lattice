@@ -179,6 +179,17 @@ contourplot(x, data, \dots)
         length 1 more than the col vector.
       }
 
+      \item{\code{tri.lower}, \code{tri.upper}:}{
+	Logical or numeric controlling whether the first and last
+	intervals should be triangular instead of rectangular. With the
+	default value (\code{NA}), this happens only if the
+	corresponding extreme \code{at} values are \code{-Inf} or
+	\code{Inf} respectively, and the triangles occupy 5\% of the
+	total length of the color key. If numeric and between 0 and
+	0.25, these give the corresponding fraction, which is again 5\%
+	when specified as \code{TRUE}.
+      }
+
       \item{\code{labels}:}{
         a character vector for labelling the \code{at} values, or more
         commonly, a list describing characteristics of the labels.  This
@@ -311,10 +322,12 @@ y <- seq(pi/4, 5 * pi, length.out = 100)
 r <- as.vector(sqrt(outer(x^2, y^2, "+")))
 grid <- expand.grid(x=x, y=y)
 grid$z <- cos(r^2) * exp(-r/(pi^3))
-levelplot(z~x*y, grid, cuts = 50, scales=list(log="e"), xlab="",
+levelplot(z ~ x * y, grid, cuts = 50, scales=list(log="e"), xlab="",
           ylab="", main="Weird Function", sub="with log scales",
           colorkey = FALSE, region = TRUE)
-
+## triangular end-points in color key
+levelplot(z ~ x * y, grid, col.regions = topo.colors(10),
+          at = c(-Inf, seq(-0.8, 0.8, by = 0.2), Inf))
 
 #S-PLUS example
 require(stats)
