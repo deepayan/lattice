@@ -102,7 +102,7 @@ panel.xyplot <-
     }
     if (!is.null(abline))
     {
-        if (is.numeric(abline)) abline <- list(abline)
+        if (is.numeric(abline)) abline <- as.list(abline)
         do.call(panel.abline, abline)
     }
     if (!is.null(groups))
