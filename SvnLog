@@ -1,3 +1,29 @@
+commit 57757a0d68b3bc7a0034d2d09c3c26cf93e245fa
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sun Feb 16 12:37:18 2020 +0530
+
+    update broken trellis project URL to wayback machine archive
+
+M	man/Lattice.Rd
+
+commit 73a7c8c2fb1adb68dc4b7b5b77b4e18e57b28ae0
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sun Feb 16 12:18:09 2020 +0530
+
+    minor bugfix related to vector pch in panel.bwplot
+
+M	R/bwplot.R
+
+
+commit bfb29ec9411edb14c76459c65bc940e6c7885064
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Mon Nov 5 15:08:12 2018 +0530
+
+    preliminary support for open-ended triangular extensions in colorkey (no docs yet)
+
+M	DESCRIPTION
+M	R/legend.R
+
 commit 4d715be5a82934bb09291b9f1bc6701f08c0072f
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Thu Nov 1 14:19:16 2018 +0530
