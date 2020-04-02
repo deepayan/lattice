@@ -2,35 +2,16 @@
 
 ## Usage: ./update.sh 
 ## 
-## has to be run in current directory
+## Must be run in current directory
 ## 
 ## Tasks: 
-##   (1) update translation templates 
-##   (2) run msgmerge on existing translation catalogs
-##   (2) update SvnLog [actually create a file with latest entries]
 
+## (1) update translations
 
-R_PROG=R
-PKG=lattice
+export LC_ALL=en_US.UTF-8
+Rscript --no-init-file -e "tools::update_pkg_po('.')"
 
-export LC_ALL=C
-echo "library(tools); xgettext2pot('.', 'po/R-${PKG}.pot')" | ${R_PROG} --vanilla --silent
+## (2) extract git logs
 
-LANGUAGES="en@quot fr de ko pl"
-
-for LANG in ${LANGUAGES}; do 
-    echo "Updating translations for ${LANG}"
-    POFILE=po/R-${LANG}.po 
-    msgmerge --no-wrap --update ${POFILE} po/R-${PKG}.pot
-    PODIR=inst/po/${LANG}/LC_MESSAGES
-    MOFILE=${PODIR}/R-${PKG}.mo
-    mkdir -p ${PODIR}
-    msgfmt --statistics -c ${POFILE} -o ${MOFILE}
-done
-
-
-
-# ## Note: -o is relatively new in grep
-# LASTLOG=`grep -o -m 1 "r[0-9]* |" SvnLog | sed -e 's/[^0-9]//g'`
-git log --name-status > SvnLog.update
+git log --name-status > ChangeLog.update
 
