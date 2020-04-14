@@ -94,15 +94,17 @@ panel.qq(\dots, identifier = "qq")
     }
     No grid is drawn if \code{grid = FALSE}.
   }
+
   \item{abline}{
-    A numeric vector or list, specifying arguments arguments for
-    \code{\link{panel.abline}}, which is called with those arguments.
-    If specified as a (possibly named) numeric vector, \code{abline} is
-    coerced to a list.  This allows arguments of the form \code{abline =
-    c(0, 1)}, which adds the diagonal line, or \code{abline = c(h = 0, v
-    = 0)}, which adds the x- and y-axes to the plot.  Use the list form
-    for finer control; e.g., \code{abline = list(h = 0, v = 0, col =
-      "grey")}.
+
+    A numeric vector or more generally a list containing arguments that
+    are used to call \code{\link{panel.abline}}. If specified as a
+    numeric vector, \code{abline} is used as the first unnamed argument
+    to \code{\link{panel.abline}}.  This allows arguments of the form
+    \code{abline = c(0, 1)}, which adds the diagonal line, or
+    \code{abline = coef(fm)} to fit the regression line from a fitted
+    mode. Use the list form for finer control; e.g., \code{abline =
+    list(h = 0, v = 0, col = "grey")}.
 
     For more flexibility, use \code{\link{panel.abline}} directly.
   }
