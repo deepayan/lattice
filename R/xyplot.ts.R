@@ -1,4 +1,23 @@
 
+### Copyright (C) 2001-2020  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
+###
+### This file is part of the lattice package for R.
+### It is made available under the terms of the GNU General Public
+### License, version 2, or at your option, any later version,
+### incorporated herein by reference.
+###
+### This program is distributed in the hope that it will be
+### useful, but WITHOUT ANY WARRANTY; without even the implied
+### warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+### PURPOSE.  See the GNU General Public License for more
+### details.
+###
+### You should have received a copy of the GNU General Public
+### License along with this program; if not, write to the Free
+### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+### MA 02110-1301, USA
+
+
 ## overplot groups, but use default plot.* style rather than superpose.* style
 panel.superpose.plain <-
     function(..., col = NA, col.line = plot.line$col, col.symbol = plot.symbol$col, 
@@ -42,6 +61,8 @@ xyplot.ts <-
              default.scales = list(y = list(relation =
                  if (missing(cut)) "free" else "same")))
 {
+    ocall <- sys.call(); ocall[[1]] <- quote(xyplot)
+
     ## fix up some default settings;
     ## these are too obscure to put in as default arguments
     if (NCOL(x) == 1) {
@@ -248,8 +269,7 @@ xyplot.ts <-
     }
 
     obj <- eval(tmpcall)
-
-    obj$call <- sys.call(sys.parent()); obj$call[[1]] <- quote(xyplot)
+    obj$call <- ocall
     obj
 }
 

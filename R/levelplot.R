@@ -394,6 +394,7 @@ contourplot <- function(x, data, ...) UseMethod("contourplot")
 contourplot.table <-
     function(x, data = NULL, aspect = "iso", ..., xlim, ylim)
 {
+    ocall <- sys.call(); ocall[[1]] <- quote(contourplot)
     ## see comments in levelplot.table below
     if (!missing(data)) warning("explicit 'data' specification ignored")
     dn <- dimnames(x)
@@ -413,8 +414,9 @@ contourplot.table <-
     }
     if (missing(xlim)) xlim <- dn[[1]]
     if (missing(ylim)) ylim <- dn[[2]]
-    contourplot(as.formula(form), data,
-                aspect = aspect, xlim = xlim, ylim = ylim, ...)
+    modifyList(contourplot(as.formula(form), data,
+                           aspect = aspect, xlim = xlim, ylim = ylim, ...),
+               list(call = ocall))
 }
 
 
@@ -426,6 +428,7 @@ contourplot.matrix <-
 {
     stopifnot(length(row.values) == nrow(x),
               length(column.values) == ncol(x))
+    ocall <- sys.call(); ocall[[1]] <- quote(contourplot)
     if (!missing(data)) warning("explicit 'data' specification ignored")
     form <- z ~ row * column
     data <- expand.grid(row = row.values, column = column.values)
@@ -439,7 +442,8 @@ contourplot.matrix <-
         ylim <-
             if (!is.null(colnames(x))) colnames(x)
             else range(column.values, finite = TRUE) + c(-0.5, 0.5)
-    contourplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
+    modifyList(contourplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...),
+               list(call = ocall))
 }
 
 
@@ -462,8 +466,9 @@ contourplot.matrix <-
 
 contourplot.array <- function(x, data = NULL, ...)
 {
+    ocall <- sys.call(); ocall[[1]] <- quote(contourplot)
     if (!missing(data)) warning("explicit 'data' specification ignored")
-    contourplot(as.table(x), ...)
+    modifyList(contourplot(as.table(x), ...), list(call = ocall))
 }
 
 
@@ -479,7 +484,7 @@ contourplot.formula <-
              region = FALSE,
              ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(contourplot)
+    ocall <- sys.call(); ocall[[1]] <- quote(contourplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -508,6 +513,7 @@ levelplot.array <- function(x, data = NULL, ...)
 levelplot.table <-
     function(x, data = NULL, aspect = "iso", ..., xlim, ylim)
 {
+    ocall <- sys.call(); ocall[[1]] <- quote(levelplot)
     if (!missing(data)) warning("explicit 'data' specification ignored")
     dn <- dimnames(x) ## cannot be NULL for tables
 
@@ -533,8 +539,9 @@ levelplot.table <-
     ## if rownames/colnames are non-null, use them to label (not the unique versions)
     if (missing(xlim)) xlim <- dn[[1]]
     if (missing(ylim)) ylim <- dn[[2]]
-    levelplot(as.formula(form), data,
-              aspect = aspect, xlim = xlim, ylim = ylim, ...)
+    modifyList(levelplot(as.formula(form), data,
+                         aspect = aspect, xlim = xlim, ylim = ylim, ...),
+               list(call = ocall))
 }
 
 
@@ -546,6 +553,7 @@ levelplot.matrix <-
 {
     stopifnot(length(row.values) == nrow(x),
               length(column.values) == ncol(x))
+    ocall <- sys.call(); ocall[[1]] <- quote(levelplot)
     if (!missing(data)) warning("explicit 'data' specification ignored")
     form <- z ~ row * column
     data <- expand.grid(row = row.values, column = column.values)
@@ -559,7 +567,8 @@ levelplot.matrix <-
         ylim <-
             if (!is.null(colnames(x))) colnames(x)
             else range(column.values, finite = TRUE) + c(-0.5, 0.5)
-    levelplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...)
+    modifyList(levelplot(form, data, aspect = aspect, xlim = xlim, ylim = ylim, ...),
+               list(call = ocall))
 }
 
 ### See FIXME for contourplot.matrix above
@@ -708,7 +717,7 @@ levelplot.formula <-
     
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(levelplot)
+    foo$call <- sys.call(); foo$call[[1]] <- quote(levelplot)
 
     ## Step 2: Compute scales.common (excluding limits)
 

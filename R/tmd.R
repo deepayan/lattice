@@ -184,9 +184,12 @@ panel.tmd.qqmath <-
 
 tmd <- function(object, ...)  UseMethod("tmd")
 
-tmd.formula <-
-    function(object, data = NULL, ...)
-    tmd(xyplot(object, data = data, ...))
+tmd.formula <- function(object, data = NULL, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(tmd)
+    modifyList(tmd(xyplot(object, data = data, ...)),
+               list(call = ocall))
+}
 
 tmd.trellis <-
     function(object,
@@ -202,15 +205,17 @@ tmd.trellis <-
     ## One special case is qqmath, which is treated differently.  May
     ## modify this for others if there's demand.
 
+    ocall <- sys.call(); ocall[[1]] <- quote(tmd)
     qqmath <- object$call[[1]] == quote(qqmath) ## FIXME bad hack (use class(x) = c("trellis", "qqmath") instead?)
     object$xlab.default <- gettext("mean")
     object$ylab.default <- gettext("difference")
+    modifyList(update(object,
+                      xlab = xlab, ylab = ylab,
+                      panel = panel,
+                      prepanel = prepanel,
+                      ...),
+               list(call = ocall))
 
-    update(object,
-           xlab = xlab, ylab = ylab,
-           panel = panel,
-           prepanel = prepanel,
-           ...)
 }
                 
 

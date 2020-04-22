@@ -174,7 +174,7 @@ densityplot <- function(x, data, ...) UseMethod("densityplot")
 densityplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(densityplot)
+    ocall <- sys.call(); ocall[[1]] <- quote(densityplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -301,7 +301,7 @@ densityplot.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(densityplot)
+    foo$call <- sys.call(); foo$call[[1]] <- quote(densityplot)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 

@@ -921,7 +921,7 @@ dotplot <- function(x, data, ...) UseMethod("dotplot")
 dotplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(dotplot)
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -940,7 +940,7 @@ dotplot.table <-
     function(x, data = NULL, groups = TRUE,
              ..., horizontal = TRUE)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
+    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
@@ -969,9 +969,23 @@ dotplot.table <-
 }
 
 
-dotplot.default <- function(x, data = NULL, ...) dotplot(table(x), data, ...)
-dotplot.array <- function(x, data = NULL, ...) dotplot(as.table(x), data, ...)
-dotplot.matrix <- function(x, data = NULL, ...) dotplot(as.table(x), data, ...)
+dotplot.default <- function(x, data = NULL, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
+    modifyList(dotplot(table(x), data, ...), list(call = ocall))
+}
+
+dotplot.array <- function(x, data = NULL, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
+    modifyList(dotplot(as.table(x), data, ...), list(call = ocall))
+}
+
+dotplot.matrix <- function(x, data = NULL, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
+    modifyList(dotplot(as.table(x), data, ...), list(call = ocall))
+}
 
 
 dotplot.formula <-
@@ -981,7 +995,7 @@ dotplot.formula <-
              default.prepanel = lattice.getOption("prepanel.default.dotplot"),
              ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(dotplot)
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -999,7 +1013,7 @@ barchart <- function(x, data, ...) UseMethod("barchart")
 barchart.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
+    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -1019,7 +1033,7 @@ barchart.table <-
     function(x, data = NULL, groups = TRUE,
              origin = 0, stack = TRUE, ..., horizontal = TRUE)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
+    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
@@ -1046,13 +1060,26 @@ barchart.table <-
                         ##groups = groups,
                         origin = origin, stack = stack, 
                         ...),
-               list(ocall = ocall))
+               list(call = ocall))
 }
 
-barchart.default <- function(x, data = NULL, ...) barchart(table(x), data, ...)
-barchart.array <- function(x, data = NULL, ...) barchart(as.table(x), data, ...)
-barchart.matrix <- function(x, data = NULL, ...) barchart(as.table(x), data, ...)
+barchart.default <- function(x, data = NULL, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
+    modifyList(barchart(table(x), data, ...), list(call = ocall))
+}
 
+barchart.array <- function(x, data = NULL, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
+    modifyList(barchart(as.table(x), data, ...), list(call = ocall))
+}
+
+barchart.matrix <- function(x, data = NULL, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
+    modifyList(barchart(as.table(x), data, ...), list(call = ocall))
+}
 
 barchart.formula <-
     function(x,
@@ -1062,7 +1089,7 @@ barchart.formula <-
              box.ratio = 2, 
              ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(barchart)
+    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -1081,7 +1108,7 @@ stripplot <- function(x, data, ...)  UseMethod("stripplot")
 stripplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(stripplot)
+    ocall <- sys.call(); ocall[[1]] <- quote(stripplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -1103,7 +1130,7 @@ stripplot.formula <-
              default.prepanel = lattice.getOption("prepanel.default.stripplot"),
              ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(stripplot)
+    ocall <- sys.call(); ocall[[1]] <- quote(stripplot)
     ccall <- match.call()
     ccall$data <- data
     ccall$panel <- panel
@@ -1126,7 +1153,7 @@ bwplot <- function(x, data, ...) UseMethod("bwplot")
 bwplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
-    ocall <- sys.call(sys.parent()); ocall[[1]] <- quote(bwplot)
+    ocall <- sys.call(); ocall[[1]] <- quote(bwplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -1262,7 +1289,7 @@ bwplot.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(bwplot)
+    foo$call <- sys.call(); foo$call[[1]] <- quote(bwplot)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 

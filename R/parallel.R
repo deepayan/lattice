@@ -134,7 +134,7 @@ panel.parallel <-
 parallelplot <- function(x, data, ...) UseMethod("parallelplot")
 
 ## {
-##     ocall <- sys.call(sys.parent())
+##     ocall <- sys.call()
 ##     formula <- ocall$formula
 ##     if (!is.null(formula))
 ##     {
@@ -152,6 +152,7 @@ parallelplot.matrix <-
 parallelplot.data.frame <-
     function(x, data = NULL, ..., groups = NULL, subset = TRUE)
 {
+    ocall <- sys.call(); ocall[[1]] <- quote(parallelplot)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -162,7 +163,7 @@ parallelplot.data.frame <-
     ##     ccall$groups <- groups
     ##     ccall$subset <- subset
     ccall[[1]] <- quote(lattice::parallelplot)
-    eval.parent(ccall)
+    modifyList(eval.parent(ccall), list(call = ocall))
 }
 
 
@@ -259,7 +260,7 @@ parallelplot.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(parallelplot)
+    foo$call <- sys.call(); foo$call[[1]] <- quote(parallelplot)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 

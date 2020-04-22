@@ -329,6 +329,7 @@ splom.matrix <-
 splom.data.frame <-
     function(x, data = NULL, ..., groups = NULL, subset = TRUE)
 {
+    ocall <- sys.call(); ocall[[1]] <- quote(splom)
     ccall <- match.call()
     if (!is.null(ccall$data)) 
         warning("explicit 'data' specification ignored")
@@ -339,7 +340,7 @@ splom.data.frame <-
     ## ccall$groups <- groups
     ## ccall$subset <- subset
     ccall[[1]] <- quote(lattice::splom)
-    eval.parent(ccall)
+    modifyList(eval.parent(ccall), list(call = ocall))
 }
 
 
@@ -440,7 +441,7 @@ splom.formula <-
 
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
-    foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(splom)
+    foo$call <- sys.call(); foo$call[[1]] <- quote(splom)
 
     ## Step 2: Compute scales.common (leaving out limits for now)
 
