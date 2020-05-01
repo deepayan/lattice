@@ -1,0 +1,440 @@
+# R Italian translation                                                                    
+# Copyright (C) The R Foundation
+# This file is distributed under the same license as the R package.
+# Daniele Medri <dmedri@gmail.com>, 2005-2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: R-lattice\n"
+"Report-Msgid-Bugs-To: bugs.r-project.org\n"
+"POT-Creation-Date: 2020-05-01 12:23\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Daniele Medri <dmedri@gmail.com>\n"
+"Language-Team: Italian https://github.com/dmedri/R-italian-lang\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#, fuzzy
+msgid "Invalid value of 'log'"
+msgstr "Valore di 'aspect' non valido"
+
+msgid "range too small for min.n"
+msgstr ""
+
+msgid "'at' missing or incompatible with 'labels'"
+msgstr "'at' mancante o incompatibile con 'labels'"
+
+msgid "'origin' forced to 0 for stacked bars"
+msgstr "'origin' forzato a 0 per le barre sovrapposte"
+
+msgid "explicit 'data' specification ignored"
+msgstr "ignorata l'esplicita specificazione di 'data'"
+
+msgid "mismatch in number of packets"
+msgstr "mancata corrispondenza nel numero di pacchetti"
+
+msgid "'type' has unsupported values"
+msgstr "'type' ha valori non supportati"
+
+msgid "Inappropriate arguments"
+msgstr "Argomenti inappropriati"
+
+msgid "shingles can not be concatenated"
+msgstr "shingle non concatenabili"
+
+msgid "model must be a formula object"
+msgstr "il modello dev'essere un oggetto formula"
+
+msgid "'multiple=TRUE' ignored ('groups' non-null with 'outer=FALSE')"
+msgstr "'multiple=TRUE' ignorato ('groups' non nulli con 'outer=FALSE')"
+
+msgid "invalid dimension '%s'"
+msgstr "dimensione '%s' non valida"
+
+msgid "invalid model"
+msgstr "modello non valido"
+
+msgid "newFactor cannot be NULL; you have found a bug!"
+msgstr "newFactor non può essere NULL; hai trovato un bug!"
+
+msgid ""
+"newFactor != NULL && groups == NULL does not hold; you have found a bug!"
+msgstr "newFactor != NULL && groups == NULL non regge; hai trovato un bug!"
+
+msgid "Length check mismatch; you have found a bug!"
+msgstr "Il controllo delle lunghezze non corrisponde; hai trovato un bug!"
+
+msgid "Non matching lengths"
+msgstr "Lunghezze non corrispondenti"
+
+msgid "'length' and 'prop' cannot both be specified"
+msgstr "'length' e 'prop' non possono essere entrambi specificati"
+
+msgid "'length' must be positive"
+msgstr "'length' dev'essere positivo"
+
+msgid "improper length of 'lim'"
+msgstr "lunghezza di 'lim' impropria"
+
+msgid "Invalid value of perm.cond"
+msgstr "Valore perm.cond non valido"
+
+msgid "Invalid value of index.cond"
+msgstr "Valore di index.cond non valido"
+
+msgid "skip cannot be all TRUE"
+msgstr "i salti non possono essere tutti TRUE"
+
+msgid "layout must have at least 2 elements"
+msgstr "il layout deve avere almeno 2 elementi"
+
+#, fuzzy
+msgid "Inadmissible value of layout."
+msgstr "valore non valido per il layout"
+
+msgid "invalid value for layout"
+msgstr "valore non valido per il layout"
+
+msgid "More pages in layout than seem to be necessary."
+msgstr ""
+
+msgid "Density"
+msgstr "Densità"
+
+msgid "Can't have log Y-scale"
+msgstr "Non è possibile avere log Y-scale"
+
+msgid "type='%s' can be misleading in this context"
+msgstr "type = '%s' può essere fuorviante in questo contesto"
+
+msgid "problem with 'hist' computations"
+msgstr "problema con le computazioni di 'hist'"
+
+msgid "Count"
+msgstr "Conta"
+
+msgid "Percent of Total"
+msgstr "Percentuale sul totale"
+
+msgid "no observations within"
+msgstr "nessuna osservazione all'interno"
+
+msgid "points"
+msgstr "punti"
+
+msgid "nearest observation already identified"
+msgstr "l'osservazione più vicina è già identificata"
+
+msgid "column must be specified"
+msgstr "la colonna dev'essere specificata"
+
+msgid "row must be specified"
+msgstr "la riga dev'essere specificata"
+
+msgid "panel position unspecified or invalid"
+msgstr "posizione del pannello non specificata o non valida"
+
+msgid ""
+"'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use "
+"'trellis.focus' first"
+msgstr ""
+
+msgid "Plot object was not saved, cannot retrieve panel data"
+msgstr ""
+
+msgid "Plot spans multiple pages, only last page can be updated"
+msgstr ""
+
+msgid "You have to first select a panel using trellis.focus()"
+msgstr ""
+
+msgid "Selecting panel at position (%g, %g)"
+msgstr "Selezione del pannello in posizione (%g,%g)"
+
+msgid "No panels available"
+msgstr "Nessun pannello disponibile"
+
+msgid "Click on panel to focus"
+msgstr "Fai clic sul pannello per il focus"
+
+msgid "'f.value' not supported; ignoring"
+msgstr "'f.value' non supportato; ignorato"
+
+msgid "Click to choose one point to highlight"
+msgstr "Fate clic per scegliere un punto da evidenziare"
+
+msgid "no points within"
+msgstr "nessun punto all'interno"
+
+msgid "points of click"
+msgstr "punti di clic"
+
+msgid "component '%s' duplicated in key and legend"
+msgstr "componente '%s' duplicata nella chiave e nella legenda"
+
+msgid "key must be a list"
+msgstr "key dev'essere una lista"
+
+msgid "first component of text must be vector of labels"
+msgstr ""
+
+msgid ""
+"Invalid key, need at least one component named lines, text, rect or points"
+msgstr ""
+"Chiave non valida, è necessario almeno un componente denominato linee, "
+"testo, rettangolo o punti"
+
+msgid "not enough rows for columns"
+msgstr "non ci sono abbastanza righe per colonne"
+
+msgid "Sorry, align=FALSE is not supported"
+msgstr ""
+
+msgid "'at' values are not equispaced; output may be wrong"
+msgstr ""
+
+msgid "malformed colorkey"
+msgstr "colorkey malformato"
+
+#, fuzzy
+msgid "Invalid value of 'tri.upper/tri.lower' ignored."
+msgstr "Valore di 'perm.cond' non valido"
+
+msgid "Invalid 'shrink' parameter ignored"
+msgstr "Ignorati i parametri 'shrink' non validi"
+
+msgid "Invalid label.style"
+msgstr "label.style non valido"
+
+msgid "device support for raster images unknown, ignoring 'raster=TRUE'"
+msgstr ""
+
+msgid "device has no raster support, ignoring 'raster=TRUE'"
+msgstr ""
+
+msgid "device does not support raster images with NA, ignoring 'raster=TRUE'"
+msgstr ""
+
+msgid "'x' values are not equispaced; output may be wrong"
+msgstr ""
+
+msgid "'y' values are not equispaced; output may be wrong"
+msgstr ""
+
+msgid "x must be (coercible to be) a factor"
+msgstr "x dev'essere (coercibile per essere) un fattore"
+
+msgid "error"
+msgstr "errore"
+
+#, fuzzy
+msgid "Invalid value of 'pos' ignored."
+msgstr "Valore di 'perm.cond' non valido"
+
+msgid "(loaded the KernSmooth namespace)"
+msgstr "(caricato il namespace KernSmooth)"
+
+msgid ""
+"panel.smoothScatter() requires the KernSmooth package, but unable to load "
+"KernSmooth namespace"
+msgstr ""
+"panel.smoothScatter() richiede il pacchetto KernSmooth, ma non possibile "
+"caricarne il namespace"
+
+msgid "'nbin' must be numeric of length 1 or 2"
+msgstr "'nbin' dev'essere numerico di lunghezza 1 o 2"
+
+msgid "'bandwidth' must be numeric"
+msgstr "'bandwidth' dev'essere numerico"
+
+msgid "'nrpoints' should be numeric scalar with value >= 0."
+msgstr "'nrpoints' dovrebbe essere uno scalare numerico con valore >= 0."
+
+msgid "'a' is overridden by 'reg'"
+msgstr "'a' è annullato da'reg'"
+
+msgid "only using the first two of %d regression coefficients"
+msgstr ""
+
+msgid "'a' and 'b' are overridden by 'coef'"
+msgstr "'a' e 'b' sono annullati da 'coef'"
+
+msgid "'expr' must be a function or an expression containing 'x'"
+msgstr "'expr' dev'essere una funzione o un'espressione contenente 'x'"
+
+#, fuzzy
+msgid "'varnames' has wrong length."
+msgstr "il 'dimnames' passato ha lunghezze sbagliate"
+
+msgid "Parallel Coordinate Plot"
+msgstr "Plot delle Coordinate Parallele"
+
+msgid "cannot have log y-scale"
+msgstr "non è possibile avere log y-scale"
+
+msgid ""
+"Error using packet %g\n"
+"%s"
+msgstr ""
+"Errore durante l'utilizzo di packet %g\n"
+"%s"
+
+msgid "y must have exactly 2 levels"
+msgstr "y deve avere esattamente 2 livelli"
+
+msgid "Can't have log X-scale"
+msgstr "Non è possibile avere log X-scale"
+
+msgid "Fitted Values minus Mean"
+msgstr "Valori adattati meno media"
+
+msgid "Residuals"
+msgstr "Residui"
+
+msgid "Invalid or ambiguous component names:"
+msgstr ""
+
+msgid ","
+msgstr ""
+
+msgid "Multiple matches to component name"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"the 'at' and 'labels' components of 'scales' may not be lists when 'relation "
+"= \"same\"'"
+msgstr ""
+"i componenti di scala 'at' e 'labels' potrebbero non essere liste con "
+"relation = same"
+
+msgid "limits cannot be a list when relation = same"
+msgstr "i limiti non possono essere una lista quando relation = same"
+
+msgid "Explicitly specified limits ignored"
+msgstr "Ignorati i limiti specificati esplicitamente"
+
+msgid "need at least one panel"
+msgstr "richiede almeno un pannello"
+
+msgid "'aspect=\"iso\"' approximate since 'relation=\"free\"'"
+msgstr "'aspect=\"iso\"' approssimativo con 'relation=\"free\"'"
+
+msgid ""
+"Note: The default device has been opened to honour attempt to modify trellis "
+"settings"
+msgstr ""
+"Nota: Il dispositivo predefinito è stato aperto per onorare il tentativo di "
+"modificare le impostazioni trellis"
+
+msgid "Invalid 'theme' specified"
+msgstr "Specificato 'theme' non valido"
+
+msgid "Could not find device function '%s'"
+msgstr "Non è possibile trovare la funzione del dispositivo '%s'"
+
+msgid ""
+"'trellis.device' has changed, 'bg' may not be doing what you think it is"
+msgstr ""
+"'trellis.device' è cambiato, 'bg' potrebbe non fare quello che pensi che sia"
+
+msgid "x must be a shingle"
+msgstr "x dev'essere un shingle"
+
+msgid "x must be matrix with 2 columns"
+msgstr "x dev'essere una matrice con 2 colonne"
+
+msgid "bad value of 'intervals'"
+msgstr "valore errato per 'intervals'"
+
+msgid "Data:"
+msgstr "Dati:"
+
+msgid "no intervals"
+msgstr "nessun intervallo"
+
+msgid "Intervals:"
+msgstr "Intervalli:"
+
+msgid "Overlap between adjacent intervals:"
+msgstr "Sovrapposizione tra intervalli adiacenti:"
+
+msgid "Range"
+msgstr "Intervallo"
+
+msgid "Panel"
+msgstr "Pannello"
+
+msgid "Scatter Plot Matrix"
+msgstr "Matrice Scatter Plot"
+
+msgid "Call:"
+msgstr "Chiamata:"
+
+msgid "Number of observations:"
+msgstr "Numero di osservazioni:"
+
+msgid "supplied 'dimnames' have wrong length"
+msgstr "il 'dimnames' passato ha lunghezze sbagliate"
+
+msgid "some components of supplied 'dimnames' have wrong length"
+msgstr "alcune componenti del 'dimnames' passato hanno lunghezze sbagliate"
+
+msgid "mean"
+msgstr "media"
+
+msgid "difference"
+msgstr "differenza"
+
+msgid "Requested 'trellis' object was not saved"
+msgstr ""
+
+msgid "Inappropriate value of 'as.table'"
+msgstr "Valori inappropriati di 'as.table'"
+
+msgid "'par.strip.text' must be a list"
+msgstr "'par.strip.text' dev'essere una lista"
+
+msgid "'par.settings' must be a list"
+msgstr "'par.settings' dev'essere una lista"
+
+msgid "'plot.args' must be a list"
+msgstr "'plot.args' dev'essere una lista"
+
+msgid "'lattice.options' must be a list"
+msgstr "'lattice.options' dev'essere una lista"
+
+msgid "Invalid value of 'perm.cond'"
+msgstr "Valore di 'perm.cond' non valido"
+
+msgid ""
+"Note: 'auto.key' ignored since legend already present.\n"
+"Use 'update(..., legend = NULL)' to remove existing legend(s)"
+msgstr ""
+"Nota: 'auto.key' è ignorato poiché la legenda è già presente.\n"
+"Utilizza 'update (..., legend = NULL)' per rimuovere le legende esistenti"
+
+msgid "log scales cannot be changed via 'update'"
+msgstr "le scale log non possono essere cambiate con 'update'"
+
+msgid ""
+"the at and labels components of scales may not be lists when relation = same"
+msgstr ""
+"i componenti di scala 'at' e 'labels' potrebbero non essere liste con "
+"relation = same"
+
+msgid "Unrecognized value of 'aspect': '%s'"
+msgstr "Valore di 'aspect' non riconosciuto: '%s'"
+
+msgid "Invalid value of 'aspect'"
+msgstr "Valore di 'aspect' non valido"
+
+msgid "'drop=TRUE' ignored"
+msgstr "'drop=TRUE' ignorato"
+
+msgid "Invalid indices"
+msgstr "Indici non validi"
