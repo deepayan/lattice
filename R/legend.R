@@ -912,6 +912,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     open.lower <- convertTri(key$tri.lower, scat[1] == -Inf)
     open.upper <- convertTri(key$tri.upper, scat[length(scat)] == Inf)
     key.rect <- 1 - open.lower - open.upper
+    gp.border <-
+        with(axis.line,
+             gpar(col = col, lty = lty, lwd = lwd, alpha = alpha,
+                  fill = "transparent"))
 
     if (key$space == "right")
     {
@@ -1011,10 +1015,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                 row = 2, col = 1)
         }
         ## borders
-        gp.border <-
-            with(axis.line,
-                 gpar(col = col, lty = lty, lwd = lwd, alpha = alpha,
-                      fill = "transparent"))
         key.gf <- placeGrob(frame = key.gf, 
                             segmentsGrob(c(0, 1), c(0, 0), c(0, 1), c(1, 1),
                                          default.units = "npc",
@@ -1077,23 +1077,24 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                               lineheight = lineheight))
             else nullGrob()
 
-        heights.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
-        heights.units <- rep("null", 3)
-
+        heights.x <- c(0.5 * (1 - key$height),
+                       key$height * c(open.upper, key.rect, open.lower),
+                       0.5 * (1 - key$height))
+        heights.units <- rep("null", 5)
 
         widths.x <- c(do.labels * 1, do.labels * (0.3 + key$tck * 0.3), 0.6 * key$width)
         widths.units <- c("grobwidth", "lines", "lines")
         widths.data <- list(labelsGrob, NULL, NULL)
         
         key.layout <-
-            grid.layout(nrow = 3, ncol = 3,
+            grid.layout(nrow = 5, ncol = 3,
                         heights = unit(heights.x, heights.units),
                         widths = unit(widths.x, widths.units, data = widths.data),
                         respect = TRUE)
 
         key.gf <- frameGrob(layout = key.layout, vp = vp,
                             name = trellis.grobname("frame",
-                              type="colorkey"))
+                                                    type="colorkey"))
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
@@ -1103,7 +1104,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                            name = trellis.grobname("raster",
                                              type="colorkey"),
                                            interpolate = key$interpolate),
-                                row = 2, col = 3)
+                                row = 3, col = 3)
         }
         else
         {
@@ -1119,18 +1120,58 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          gpar(fill = key$col,
                                               col = "transparent",
                                               alpha = key$alpha)),
+                                row = 3, col = 3)
+        }
+        if (open.lower > 0)
+        {
+            key.gf <- placeGrob(key.gf,
+                                polygonGrob(x = c(0, 1, 0.5), 
+                                            y = c(1, 1, 0),
+                                            default.units = "npc",
+                                            ## vp = viewport(yscale = atrange),
+                                            name = trellis.grobname("lower.arrow",
+                                                                    type="colorkey"),
+                                            gp =
+                                                gpar(fill = key$col[1],
+                                                     col = "transparent",
+                                                     alpha = key$alpha)),
+                                row = 4, col = 3)
+        }
+        if (open.upper > 0)
+        {
+            key.gf <- placeGrob(key.gf,
+                                polygonGrob(x = c(0, 1, 0.5), 
+                                            y = c(0, 0, 1),
+                                            default.units = "npc",
+                                            ## vp = viewport(yscale = atrange),
+                                            name = trellis.grobname("upper.arrow",
+                                                                    type="colorkey"),
+                                            gp =
+                                                gpar(fill = key$col[length(key$col)],
+                                                     col = "transparent",
+                                                     alpha = key$alpha)),
                                 row = 2, col = 3)
         }
+        ## borders
         key.gf <- placeGrob(frame = key.gf, 
-                            rectGrob(name = trellis.grobname("border",
-                                             type="colorkey"),
-                                     gp =
-                                     gpar(col = axis.line$col,
-                                          lty = axis.line$lty,
-                                          lwd = axis.line$lwd,
-                                          alpha = axis.line$alpha,
-                                          fill = "transparent")),
+                            segmentsGrob(c(0, 1), c(0, 0), c(0, 1), c(1, 1),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.sides", type="colorkey"),
+                                         gp = gp.border),
+                            row = 3, col = 3)
+        key.gf <- placeGrob(frame = key.gf, 
+                            segmentsGrob(c(0, 1), c(1, 1), c(0.5, 0.5), c(0, 0),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.lower", type="colorkey"),
+                                         gp = gp.border),
+                            row = 4, col = 3)
+        key.gf <- placeGrob(frame = key.gf, 
+                            segmentsGrob(c(0, 1), c(0, 0), c(0.5, 0.5), c(1, 1),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.upper", type="colorkey"),
+                                         gp = gp.border),
                             row = 2, col = 3)
+        ## labels
         if (do.labels)
         {
             if (key$tck != 0)
@@ -1147,10 +1188,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                                  gpar(col = axis.line$col,
                                                       lty = axis.line$lty,
                                                       lwd = axis.line$lwd)),
-                                    row = 2, col = 2)
+                                    row = 3, col = 2)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
-                                row = 2, col = 1)
+                                row = 3, col = 1)
         }
     }
     else if (key$space == "top")
@@ -1174,22 +1215,24 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                               lineheight = lineheight))
             else nullGrob()
 
-        widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
-        widths.units <- rep("null", 3)
+        widths.x <- c(0.5 * (1 - key$height),
+                      key$height * c(open.lower, key.rect, open.upper),
+                      0.5 * (1 - key$height))
+        widths.units <- rep("null", 5)
 
         heights.x <- c(do.labels * 1, do.labels * (0.3 + key$tck * 0.3), 0.6 * key$width)
         heights.units <- c("grobheight", "lines", "lines")
         heights.data <- list(labelsGrob, NULL, NULL)
         
         key.layout <-
-            grid.layout(nrow = 3, ncol = 3,
+            grid.layout(nrow = 3, ncol = 5,
                         heights = unit(heights.x, heights.units, data = heights.data),
                         widths = unit(widths.x, widths.units),
                         respect = TRUE)
         
         key.gf <- frameGrob(layout = key.layout, vp = vp,
                             name = trellis.grobname("frame",
-                              type="colorkey"))
+                                                    type="colorkey"))
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
@@ -1197,9 +1240,9 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                            width = 1, height = 1,
                                            vp = viewport(clip = "on"),
                                            name = trellis.grobname("raster",
-                                             type="colorkey"),
+                                                                   type="colorkey"),
                                            interpolate = key$interpolate),
-                                row = 3, col = 2)
+                                row = 3, col = 3)
         }
         else
         {
@@ -1215,18 +1258,58 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          gpar(fill = key$col,
                                               col = "transparent",
                                               alpha = key$alpha)),
+                                row = 3, col = 3)
+        }
+        if (open.lower > 0)
+        {
+            key.gf <- placeGrob(key.gf,
+                                polygonGrob(y = c(0, 1, 0.5), 
+                                            x = c(1, 1, 0),
+                                            default.units = "npc",
+                                            ## vp = viewport(yscale = atrange),
+                                            name = trellis.grobname("lower.arrow",
+                                                                    type="colorkey"),
+                                            gp =
+                                                gpar(fill = key$col[1],
+                                                     col = "transparent",
+                                                     alpha = key$alpha)),
                                 row = 3, col = 2)
         }
+        if (open.upper > 0)
+        {
+            key.gf <- placeGrob(key.gf,
+                                polygonGrob(y = c(0, 1, 0.5), 
+                                            x = c(0, 0, 1),
+                                            default.units = "npc",
+                                            ## vp = viewport(yscale = atrange),
+                                            name = trellis.grobname("upper.arrow",
+                                                                    type="colorkey"),
+                                            gp =
+                                                gpar(fill = key$col[length(key$col)],
+                                                     col = "transparent",
+                                                     alpha = key$alpha)),
+                                row = 3, col = 4)
+        }
+        ## borders
         key.gf <- placeGrob(frame = key.gf, 
-                            rectGrob(name = trellis.grobname("border",
-                                             type="colorkey"),
-                                     gp =
-                                     gpar(col = axis.line$col,
-                                          lty = axis.line$lty,
-                                          lwd = axis.line$lwd,
-                                          alpha = axis.line$alpha,
-                                          fill = "transparent")),
+                            segmentsGrob(c(0, 0), c(0, 1), c(1, 1), c(0, 1),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.sides", type="colorkey"),
+                                         gp = gp.border),
+                            row = 3, col = 3)
+        key.gf <- placeGrob(frame = key.gf, 
+                            segmentsGrob(c(1, 1), c(0, 1), c(0, 0), c(0.5, 0.5),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.lower", type="colorkey"),
+                                         gp = gp.border),
                             row = 3, col = 2)
+        key.gf <- placeGrob(frame = key.gf, 
+                            segmentsGrob(c(0, 0), c(0, 1), c(1, 1), c(0.5, 0.5),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.upper", type="colorkey"),
+                                         gp = gp.border),
+                            row = 3, col = 4)
+        ## labels
         if (do.labels)
         {
             if (key$tck != 0)
@@ -1243,10 +1326,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                                  gpar(col = axis.line$col,
                                                       lty = axis.line$lty,
                                                       lwd = axis.line$lwd)),
-                                    row = 2, col = 2)
+                                    row = 2, col = 3)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
-                                row = 1, col = 2)
+                                row = 1, col = 3)
         }
     }
     else if (key$space == "bottom")
@@ -1270,22 +1353,24 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                               lineheight = lineheight))
             else nullGrob()
 
-        widths.x <- c((1 - key$height) / 2, key$height, (1 - key$height) / 2)
-        widths.units <- rep("null", 3)
+        widths.x <- c(0.5 * (1 - key$height),
+                      key$height * c(open.lower, key.rect, open.upper),
+                      0.5 * (1 - key$height))
+        widths.units <- rep("null", 5)
 
         heights.x <- c(0.6 * key$width, do.labels * (0.3 + key$tck * 0.3), do.labels * 1)
         heights.units <- c("lines", "lines", "grobheight")
         heights.data <- list(NULL, NULL, labelsGrob)
         
         key.layout <-
-            grid.layout(nrow = 3, ncol = 3,
+            grid.layout(nrow = 3, ncol = 5,
                         heights = unit(heights.x, heights.units, data = heights.data),
                         widths = unit(widths.x, widths.units),
                         respect = TRUE)
         
         key.gf <- frameGrob(layout = key.layout, vp = vp,
                             name = trellis.grobname("frame",
-                              type="colorkey"))
+                                                    type="colorkey"))
         if (key$raster)
         {
             key.gf <- placeGrob(key.gf,
@@ -1295,7 +1380,7 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                            name = trellis.grobname("raster",
                                              type="colorkey"),
                                            interpolate = key$interpolate),
-                                row = 1, col = 2)
+                                row = 1, col = 3)
         }
         else
         {
@@ -1311,18 +1396,58 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                          gpar(fill = key$col,
                                               col = "transparent",
                                               alpha = key$alpha)),
+                                row = 1, col = 3)
+        }
+        if (open.lower > 0)
+        {
+            key.gf <- placeGrob(key.gf,
+                                polygonGrob(y = c(0, 1, 0.5), 
+                                            x = c(1, 1, 0),
+                                            default.units = "npc",
+                                            ## vp = viewport(yscale = atrange),
+                                            name = trellis.grobname("lower.arrow",
+                                                                    type="colorkey"),
+                                            gp =
+                                                gpar(fill = key$col[1],
+                                                     col = "transparent",
+                                                     alpha = key$alpha)),
                                 row = 1, col = 2)
         }
+        if (open.upper > 0)
+        {
+            key.gf <- placeGrob(key.gf,
+                                polygonGrob(y = c(0, 1, 0.5), 
+                                            x = c(0, 0, 1),
+                                            default.units = "npc",
+                                            ## vp = viewport(yscale = atrange),
+                                            name = trellis.grobname("upper.arrow",
+                                                                    type="colorkey"),
+                                            gp =
+                                                gpar(fill = key$col[length(key$col)],
+                                                     col = "transparent",
+                                                     alpha = key$alpha)),
+                                row = 1, col = 4)
+        }
+        ## borders
         key.gf <- placeGrob(frame = key.gf, 
-                            rectGrob(name = trellis.grobname("image",
-                                       type="colorkey"),
-                                     gp =
-                                     gpar(col = axis.line$col,
-                                          lty = axis.line$lty,
-                                          lwd = axis.line$lwd,
-                                          alpha = axis.line$alpha,
-                                          fill = "transparent")),
+                            segmentsGrob(c(0, 0), c(0, 1), c(1, 1), c(0, 1),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.sides", type="colorkey"),
+                                         gp = gp.border),
+                            row = 1, col = 3)
+        key.gf <- placeGrob(frame = key.gf, 
+                            segmentsGrob(c(1, 1), c(0, 1), c(0, 0), c(0.5, 0.5),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.lower", type="colorkey"),
+                                         gp = gp.border),
                             row = 1, col = 2)
+        key.gf <- placeGrob(frame = key.gf, 
+                            segmentsGrob(c(0, 0), c(0, 1), c(1, 1), c(0.5, 0.5),
+                                         default.units = "npc",
+                                         name = trellis.grobname("border.upper", type="colorkey"),
+                                         gp = gp.border),
+                            row = 1, col = 4)
+        ## labels
         if (do.labels)
         {
             if (key$tck != 0)
@@ -1339,10 +1464,10 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                                                  gpar(col = axis.line$col,
                                                       lty = axis.line$lty,
                                                       lwd = axis.line$lwd)),
-                                    row = 2, col = 2)
+                                    row = 2, col = 3)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
-                                row = 3, col = 2)
+                                row = 3, col = 3)
         }
     }
     if (draw)
