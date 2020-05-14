@@ -73,7 +73,7 @@ getLabelList <- function(label, text.settings, default.label = NULL)
 {
     if (!is.null(label))
     {
-        if (inherits(label, "grob")) return(label)
+        if (is.grob(label)) return(label)
         ans <-
             list(label = 
                  if (is.characterOrExpression(label)) label
@@ -114,7 +114,7 @@ grobFromLabelList <- function(lab, name = "label", orient = 0)
         ## NOTE: lab could also be "empty" expression / call / symbol, but we're not checking
     }
     if (emptyLabel(lab)) return (NULL)
-    if (inherits(lab, "grob")) return(lab)
+    if (is.grob(lab)) return(lab)
     process.lab <-
         function(label, rot = orient,
                  x = NULL, y = NULL,

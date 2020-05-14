@@ -757,6 +757,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                  alpha = regions$alpha,
                  at,
                  tick.number = 7,
+                 title = NULL,
+                 title.control = list(padding = 1, side = NULL),
                  tck = 1,
                  width = 2,
                  height = 1,
@@ -775,6 +777,8 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
                  at = at,
                  tick.number = tick.number,
                  tck = tck,
+                 title = title,
+                 title.control = title.control,
                  width = width,
                  height = height,
                  space = space,
@@ -855,7 +859,6 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
             key[["lab"]][["labels"]] <- NULL
         }
     }
-    
     if (is.null(key$lab))
     {
         at <- lpretty(atrange, key$tick.number)
@@ -889,6 +892,22 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
 
     labscat <- at
     do.labels <- (length(labscat) > 0)
+
+    ## title
+    if (!is.null(key$title))
+    {
+        ## can have usual components like xlab etc
+        title <- getLabelList(key$title, trellis.par.get("par.title.text"))
+        title.control <- key$title.control
+        ## title.control has additional parameters 'side' and 'padding'
+        if (is.null(title.control$side)) title.control$side <- key$space
+        if (is.null(title.control$padding)) title.control$padding <- 1
+        if (!is.grob(title) && is.null(title$rot))
+            title$rot <- switch(title.control$side, top=0, bottom=0, left=90, right=90)
+        title.grob <-
+            grobFromLabelList(title,
+                              name = trellis.grobname("title", type="colorkey"))
+    }
 
     ## Setting 'open.lower' and 'open.upper' to non-zero makes
     ## colorkey end with triangular extensions, indicating open-ended
@@ -1468,6 +1487,56 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
             key.gf <- placeGrob(key.gf,
                                 labelsGrob, 
                                 row = 3, col = 3)
+        }
+    }
+    if (!is.null(key$title))
+    {
+        tside <- title.control$side
+        tpadding <- title.control$padding
+        if (getRversion() >= "4.0.1")
+        {
+            ## This is nicer, but only works with grid >= 4.0.1.
+            ## Eventually make unconditional if we depend on R >= 4.0.1
+            ## padding unit is not customizable, but can be controlled
+            ## by title$padding
+            upad <- unit(tpadding * 0.5, "char")
+            key.gf <- 
+                switch(tside,
+                       left = packGrob(packGrob(key.gf, nullGrob(), side = tside, width = upad),
+                                       title.grob, side = tside),
+                       right = packGrob(packGrob(key.gf, nullGrob(), side = tside, width = upad),
+                                        title.grob, side = tside),
+                       top = packGrob(packGrob(key.gf, nullGrob(), side = tside, height = upad),
+                                      title.grob, side = tside),
+                       bottom = packGrob(packGrob(key.gf, nullGrob(), side = tside, height = upad),
+                                         title.grob, side = tside))
+        }
+        else
+        {
+            key.title.layout <-
+                switch(tside,
+                       left = grid.layout(nrow = 1, ncol = 3,
+                                          heights = unit(1, "grobheight", list(key.gf)),
+                                          widths = unit(c(1, 0.5 * tpadding, 1), c("grobwidth", "char", "grobwidth"), list(title.grob, NULL, key.gf))),
+                       right = grid.layout(nrow = 1, ncol = 3,
+                                           heights = unit(1, "grobheight", list(key.gf)),
+                                           widths = unit(c(1, 0.5 * tpadding, 1), c("grobwidth", "char", "grobwidth"), list(key.gf, NULL, title.grob))),
+                       top = grid.layout(nrow = 3, ncol = 1,
+                                         heights = unit(c(1, 0.5 * tpadding, 1), c("grobheight", "char", "grobheight"), list(title.grob, NULL, key.gf)),
+                                         widths = unit(1, "grobwidth", list(key.gf))),
+                       bottom = grid.layout(nrow = 3, ncol = 1,
+                                            heights = unit(c(1, 0.5 * tpadding, 1), c("grobheight", "char", "grobheight"), list(key.gf, NULL, title.grob)),
+                                            widths = unit(1, "grobwidth", list(key.gf))))
+            key.title.gf <- frameGrob(layout = key.title.layout, vp = vp,
+                                      name = trellis.grobname("titleframe", 
+                                                              type="colorkey"))
+            key.title.gf <-
+                switch(tside,
+                       left = placeGrob(placeGrob(key.title.gf, key.gf, row = 1, col = 3), title.grob, row = 1, col = 1),
+                       right = placeGrob(placeGrob(key.title.gf, key.gf, row = 1, col = 1), title.grob, row = 1, col = 3),
+                       top = placeGrob(placeGrob(key.title.gf, key.gf, row = 3, col = 1), title.grob, row = 1, col = 1),
+                       bottom = placeGrob(placeGrob(key.title.gf, key.gf, row = 1, col = 1), title.grob, row = 3, col = 1))
+            key.gf <- key.title.gf
         }
     }
     if (draw)

@@ -153,10 +153,11 @@ contourplot(x, data, \dots)
     documented separately.
   }
   \item{alpha.regions}{
-    numeric, specifying alpha transparency (works only on some devices)
+    Numeric, specifying alpha transparency (works only on some devices)
   }
-  \item{colorkey}{logical specifying whether a color key is to be drawn
-    alongside the plot, or a list describing the color key. The list may
+  \item{colorkey}{
+    A logical flag specifying whether a colorkey is to be drawn
+    alongside the plot, or a list describing the colorkey. The list may
     contain the following components:
 
     \describe{
@@ -175,7 +176,7 @@ contourplot(x, data, \dots)
       }
       
       \item{\code{at}:}{
-        numeric vector specifying where the colors change. must be of
+        A numeric vector specifying where the colors change. must be of
         length 1 more than the col vector.
       }
 
@@ -191,11 +192,41 @@ contourplot(x, data, \dots)
       }
 
       \item{\code{labels}:}{
-        a character vector for labelling the \code{at} values, or more
+        A character vector for labelling the \code{at} values, or more
         commonly, a list describing characteristics of the labels.  This
 	list may include components \code{labels}, \code{at},
 	\code{cex}, \code{col}, \code{rot}, \code{font}, \code{fontface}
 	and \code{fontfamily}.
+      }
+
+      \item{\code{title}:}{
+	Usually a character vector or expression providing a title for
+	the colorkey, or a list controlling the title in further detail,
+	or an arbitrary \code{"grob"}. For details of how the list form
+	is interpreted, see the entry for \code{main} in
+	\code{\link{xyplot}}; generally speaking, the actual label
+	should be specified as the \code{label} component (which may be
+	unnamed if it is the first component), and the remaining
+	arguments are used as appropriate in a call to
+	\code{\link[grid:grid.text]{textGrob}}.
+
+	Further control of the placement of the title is possible
+	through the component \code{title.control}. In particular, if a
+	\code{rot} component is not specified, its default depends on
+	the value of \code{title.control$side} (0 for top or bottom, and
+	90 for left or right).
+
+	\code{title} defaults to \code{NULL}, which means no title is drawn.
+      }
+
+      \item{\code{title}:}{
+	A list providing control over the placement of a title, if
+	specified. Currently two components are honoured: \code{side}
+	can take values \code{"top"}, \code{"bottom"}, \code{"left"},
+	and \code{"right"}, and specifies the side of the colorkey on
+	which the title is to be placed. Defaults to the value of the
+	\code{"space"} component. \code{padding} is a multiplier for the
+	default amount of padding between the title and the colorkey.
       }
 
       \item{\code{tick.number}:}{ The approximate number of ticks desired. }
@@ -325,7 +356,7 @@ grid$z <- cos(r^2) * exp(-r/(pi^3))
 levelplot(z ~ x * y, grid, cuts = 50, scales=list(log="e"), xlab="",
           ylab="", main="Weird Function", sub="with log scales",
           colorkey = FALSE, region = TRUE)
-## triangular end-points in color key
+## triangular end-points in color key, with a title
 levelplot(z ~ x * y, grid, col.regions = topo.colors(10),
           at = c(-Inf, seq(-0.8, 0.8, by = 0.2), Inf))
 

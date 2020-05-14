@@ -11,7 +11,7 @@ draw.colorkey(key, draw = FALSE, vp = NULL)
 }
 \arguments{
   \item{key}{
-    A list determining the key. See documentation for \code{levelplot},
+    A list determining the key. See documentation for \code{\link{levelplot}},
     in particular the section describing the \code{colorkey} argument,
     for details.
   }
@@ -22,6 +22,6 @@ draw.colorkey(key, draw = FALSE, vp = NULL)
   A grid frame object (that inherits from \code{"grob"})
 }
 \author{Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
-\seealso{\code{\link{xyplot}}}
+\seealso{\code{\link{xyplot}}, \code{\link{levelplot}}}
 \keyword{dplot}
 
