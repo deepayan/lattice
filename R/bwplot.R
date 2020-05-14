@@ -19,6 +19,18 @@
 
 
 
+stackedRange <- function(X, INDEX)
+{
+    X[is.na(X)] <- 0 # missing values treated as 0
+    print(data.frame(X, INDEX))
+    pos <- if (any(ID <- (X > 0)))
+               tapply(X[ID], INDEX[ID, drop = TRUE], sum, na.rm = TRUE)
+           else 0
+    neg <- if (any(ID <- (X < 0)))
+               tapply(X[ID], INDEX[ID, drop = TRUE], sum, na.rm = TRUE)
+           else 0
+    range(pos, neg, finite = TRUE)
+}
 
 
 prepanel.default.bwplot <-
@@ -31,7 +43,7 @@ prepanel.default.bwplot <-
     ## bwplot family, namely bwplot, dotplot, stripplot and
     ## barchart. For all but barchart, this is simply a question of
     ## getting the ranges. For stacked barcharts, things are slightly
-    ## complicated.
+    ## complicated: see stackedRange() above.
 
     if (any(!is.na(x) & !is.na(y)))
     {
@@ -42,21 +54,7 @@ prepanel.default.bwplot <-
                 if (missing(nlevels)) nlevels <- length(unique(y))
                 y <- factor(y, levels = 1:nlevels)
             }
-            list(xlim =
-                 if (stack) {
-                     foo1 <-
-                         if (any(x > 0))
-                             range(tapply(x[x > 0], y[x > 0, drop = TRUE], sum, na.rm = TRUE), finite = TRUE) 
-                         else 0
-                     foo2 <-
-                         if (any(x < 0))
-                             range(tapply(x[x < 0], y[x < 0, drop = TRUE], sum, na.rm = TRUE), finite = TRUE) 
-                         else 0
-                     range(foo1, foo2)
-                 }
-                 ## else if (is.numeric(x)) range(x, origin, finite = TRUE)
-                 ## else levels(x),
-                 else scale.limits(c(x, origin)),
+            list(xlim = if (stack) stackedRange(x, y) else scale.limits(c(x, origin)),
                  ylim = levels(y),
                  yat = sort(unique(as.numeric(y))),
                  dx = 1,
@@ -71,21 +69,7 @@ prepanel.default.bwplot <-
             }
             list(xlim = levels(x),
                  xat = sort(unique(as.numeric(x))),
-                 ylim =
-                 if (stack) {
-                     foo1 <-
-                         if (any(y > 0))
-                             range(tapply(y[y > 0], x[y > 0], sum, na.rm = TRUE), finite = TRUE)
-                         else 0
-                     foo2 <-
-                         if (any(y < 0))
-                             range(tapply(y[y < 0], x[y < 0], sum, na.rm = TRUE), finite = TRUE)
-                         else 0
-                     range(foo1, foo2)
-                 }
-                 ## else if (is.numeric(y)) range(y, origin, finite = TRUE)
-                 ## else levels(y),
-                 else scale.limits(c(y, origin)),
+                 ylim = if (stack) stackedRange(y, x) else scale.limits(c(y, origin)),
                  dx = 1,
                  dy = 1)
         }
