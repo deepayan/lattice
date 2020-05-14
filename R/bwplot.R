@@ -22,7 +22,6 @@
 stackedRange <- function(X, INDEX)
 {
     X[is.na(X)] <- 0 # missing values treated as 0
-    print(data.frame(X, INDEX))
     pos <- if (any(ID <- (X > 0)))
                tapply(X[ID], INDEX[ID, drop = TRUE], sum, na.rm = TRUE)
            else 0
