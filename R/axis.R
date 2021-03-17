@@ -838,6 +838,7 @@ panel.axis <-
              line.alpha = axis.line$alpha)
 {
     side <- match.arg(side)
+    at.missing <- missing(at)
     orientation <- if (outside) "outer" else "inner"
     cpl <- current.panel.limits()
     scale.range <-
@@ -858,6 +859,8 @@ panel.axis <-
         labels <-
             if (labels) format(at, trim = TRUE)
             else NULL
+    else if (at.missing)
+        warning("specifying 'labels' but not 'at' may lead to unexpected results")
 
     if (check.overlap) ## remove ticks close to limits
     {
