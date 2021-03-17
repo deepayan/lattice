@@ -32,10 +32,16 @@ current.panel.limits(unit = "native")
     A character string indicating which side axes are to be drawn
     on. Partial specification is allowed.
   }
-  \item{at}{ Numeric vector giving location of labels. }
+  \item{at}{
+    Numeric vector giving location of labels. Can be missing, in which
+    case they are computed from the native coordinates of the active
+    viewport.
+  }
   \item{labels}{
-    The labels to go along with \code{at}.  The labels can be a character
-    vector or a vector of expressions.  Alternatively, \code{at} can be a
+    The labels to go along with \code{at}, as a character vector or a
+    vector of expressions. This only makes sense provided \code{at} is
+    explicitly specified, as otherwise the provided labels may not match
+    the computed \code{at} values. Alternatively, \code{labels} can be a
     logical flag: If \code{TRUE}, the labels are derived from \code{at},
     otherwise, labels are empty.
   }
