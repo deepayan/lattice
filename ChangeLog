@@ -1,3 +1,13 @@
+commit 14620d0c838bbc356b41e647748a34a731518c92
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Apr 24 22:22:33 2021 +0530
+
+    updated French translations (from Philippe Grosjean)
+
+M	ChangeLog
+M	inst/po/fr/LC_MESSAGES/R-lattice.mo
+M	po/R-fr.po
+
 commit 49656355073a9406a50f17fd5ad9c59e803f1e87
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Wed Mar 17 12:53:50 2021 +0530
