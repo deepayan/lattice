@@ -1,3 +1,157 @@
+commit 49656355073a9406a50f17fd5ad9c59e803f1e87
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Mar 17 12:53:50 2021 +0530
+
+	clarify behaviour of panel.axis() when 'labels' specified without
+	'at' (see
+	https://stat.ethz.ch/pipermail/r-help/2021-March/470528.html)
+
+M	man/panel.axis.Rd
+
+commit ddb97c47894c767443241532efe70697f3713691
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 16 11:01:11 2021 +0530
+
+    updated French translations (from Philippe Grosjean)
+
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	inst/po/fr/LC_MESSAGES/R-lattice.mo
+M	po/R-fr.po
+M	po/R-lattice.pot
+
+commit 8dcdd841f476f97ac94ff261c42c2263c45ec965
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 14 17:40:59 2020 +0530
+
+    remove debugging code
+
+M	R/bwplot.R
+
+commit 9cab34848b47158c973a6da5edffc28fb9880575
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 14 17:34:52 2020 +0530
+
+    bugfix: fix prepanel calculations for stacked barchart with missing values
+
+M	R/bwplot.R
+
+commit 74c22f9f45439d485ead6fa580e13aff1fbfb769
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 14 12:45:53 2020 +0530
+
+    added support for title in colorkey
+
+M	DESCRIPTION
+M	R/legend.R
+M	R/print.trellis.R
+M	R/settings.R
+M	man/draw.colorkey.Rd
+M	man/levelplot.Rd
+A	tests/colorkey-title.R
+
+commit 65d1875a5f8efc60b84ade03b3239502c0760c32
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Mon May 11 18:54:02 2020 +0530
+
+	bugfix: make 'open' triangular ends in colorkey work for all
+	values of 'space', not only 'right'
+    
+M	R/legend.R
+
+commit e794266e93ab657d656db77ec13630f0421842df
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri May 1 12:24:23 2020 +0530
+
+    added Italian translation
+
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+A	inst/po/it/LC_MESSAGES/R-lattice.mo
+A	po/R-it.po
+M	po/R-lattice.pot
+
+commit fdeeb4f0f9c3480525ec440e5a41e388040a1a18
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 16:05:59 2020 +0530
+
+    delete SvnLog
+
+D	SvnLog
+
+commit 3f47ebf2f2c98ac38476f4c46b54fa459c5f8889
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 16:05:36 2020 +0530
+
+    merge SvnLog into ChangeLog
+
+M	.Rbuildignore
+M	ChangeLog
+M	DESCRIPTION
+M	SvnLog
+
+commit 3228d8a861c75d2b3375ef708511d0a7ce4f65f4
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:51:24 2020 +0530
+
+    cleanup translation generation and update translations
+
+M	inst/po/de/LC_MESSAGES/R-lattice.mo
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	inst/po/fr/LC_MESSAGES/R-lattice.mo
+M	inst/po/ko/LC_MESSAGES/R-lattice.mo
+M	inst/po/pl/LC_MESSAGES/R-lattice.mo
+D	po/R-en@quot.po
+M	po/R-lattice.pot
+M	update.sh
+
+commit 2654be1ad4e68583615b6066573fdede8568a3ce
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:50:58 2020 +0530
+
+    added test file
+
+A	tests/summary.R
+
+commit 938b5dbfca1f669c239f3cc12cc15b1f54a1e428
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:30:38 2020 +0530
+
+    update translations
+
+M	po/R-de.po
+M	po/R-en@quot.po
+M	po/R-fr.po
+M	po/R-ko.po
+M	po/R-lattice.pot
+M	po/R-pl.po
+
+commit 9ca07fd679cd3876d69f56307af4a27b3c2a58c1
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:12:42 2020 +0530
+
+    housekeeping updates
+
+M	.Rbuildignore
+M	NEWS
+M	SvnLog
+M	po/R-lattice.pot
+
+commit 649bec5d74a576a94d35b8a003de427d43392e53
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:11:37 2020 +0530
+
+    document triangular ends in colorkey, other improvements
+
+M	man/draw.colorkey.Rd
+M	man/levelplot.Rd
+
+commit 96accbfe80285124e46ab6276f36daef58bd8999
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:09:37 2020 +0530
+
+    moved to using Authors@R
+
+M	DESCRIPTION
+
 commit 57757a0d68b3bc7a0034d2d09c3c26cf93e245fa
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Sun Feb 16 12:37:18 2020 +0530

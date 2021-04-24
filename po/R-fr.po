@@ -28,7 +28,7 @@ msgid "'at' missing or incompatible with 'labels'"
 msgstr "'at' manquant ou incompatible avec 'labels'"
 
 msgid "'origin' forced to 0 for stacked bars"
-msgstr "'origin' replacée à 0 pour les diagrammes en barre empilées"
+msgstr "'origin' forcé à 0 pour les diagrammes en barre empilées"
 
 msgid "explicit 'data' specification ignored"
 msgstr "spécification explicite de 'data' ignorée"
@@ -46,7 +46,7 @@ msgid "shingles can not be concatenated"
 msgstr "les lattes ('shingles') ne peuvent être concaténées"
 
 msgid "model must be a formula object"
-msgstr "l'argument 'model' doit être un object formula"
+msgstr "l'argument 'model' doit être un objet formule"
 
 msgid "'multiple=TRUE' ignored ('groups' non-null with 'outer=FALSE')"
 msgstr "'multiple = TRUE' est ignoré ('groups' non nuls avec 'outer = FALSE')"
@@ -58,13 +58,13 @@ msgid "invalid model"
 msgstr "model incorrect"
 
 msgid "newFactor cannot be NULL; you have found a bug!"
-msgstr "'newFactor' ne peut être NULL ; Vous avez découvert une anomalie !"
+msgstr "'newFactor' ne peut être NULL ; vous avez trouvé une anomalie !"
 
 msgid "newFactor != NULL && groups == NULL does not hold; you have found a bug!"
-msgstr "'newFactor != NULL && groups == NULL' est impossible ; Vous trouvé une anomalie !"
+msgstr "'newFactor != NULL && groups == NULL' est impossible ; vous trouvé une anomalie !"
 
 msgid "Length check mismatch; you have found a bug!"
-msgstr "Incohérence lors de la verification de la longueur ; Vous avez trouvé une anomalie !"
+msgstr "Incohérence lors de la vérification de la longueur ; vous avez trouvé une anomalie !"
 
 msgid "Non matching lengths"
 msgstr "Longueurs incohérentes"
@@ -178,7 +178,7 @@ msgid "first component of text must be vector of labels"
 msgstr "la première composante de 'text' doit être un vecteur d'étiquettes"
 
 msgid "Invalid key, need at least one component named lines, text, rect or points"
-msgstr "'key' incorrecte, besoin d'une composante parmi 'lines', 'text', 'rect' ou 'points'"
+msgstr "'key' incorrecte, besoin d'une composante au moins parmi 'lines', 'text', 'rect' ou 'points'"
 
 msgid "not enough rows for columns"
 msgstr "trop peu de lignes pour le nombre de colonnes"
@@ -196,7 +196,7 @@ msgid "Invalid value of 'tri.upper/tri.lower' ignored."
 msgstr "Valeur de 'tri.upper/tri.lower' incorrecte et ignorée."
 
 msgid "Invalid 'shrink' parameter ignored"
-msgstr "'shrink' incorrect et ignoré"
+msgstr "Paramètre 'shrink' incorrect et ignoré"
 
 msgid "Invalid label.style"
 msgstr "'label.style' incorrect"
@@ -226,10 +226,10 @@ msgid "Invalid value of 'pos' ignored."
 msgstr "Valeur de 'pos' incorrecte et ignorée."
 
 msgid "(loaded the KernSmooth namespace)"
-msgstr "(espace de noms de KernSmooth chargé)"
+msgstr "(espace de noms KernSmooth chargé)"
 
 msgid "panel.smoothScatter() requires the KernSmooth package, but unable to load KernSmooth namespace"
-msgstr "panel.smoothScatter() nécessite le package KernSmooth, mais impossible de charger l'espace de nom de ce package"
+msgstr "panel.smoothScatter() nécessite le paquet KernSmooth, mais impossible de charger l'espace de noms de ce paquet"
 
 msgid "'nbin' must be numeric of length 1 or 2"
 msgstr "'nbin' doit être un vecteur numérique de longueur 1 ou 2"
@@ -244,7 +244,7 @@ msgid "'a' is overridden by 'reg'"
 msgstr "'a' est remplacé par 'reg'"
 
 msgid "only using the first two of %d regression coefficients"
-msgstr "utilisation de seulement les deux premiers parmi les %d coefficients de régression"
+msgstr "utilisation seulement des deux premiers coefficients de régression parmi les %d"
 
 msgid "'a' and 'b' are overridden by 'coef'"
 msgstr "'a' et 'b' sont remplacés par les valeurs de 'coef'"
@@ -265,7 +265,7 @@ msgid ""
 "Error using packet %g\n"
 "%s"
 msgstr ""
-"Erreur lors de l'utilisation du package %g\n"
+"Erreur lors de l'utilisation du paquet %g\n"
 "%s"
 
 msgid "y must have exactly 2 levels"
@@ -290,13 +290,13 @@ msgid "Multiple matches to component name"
 msgstr "Correspondances multiples pour les noms des composants"
 
 msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
-msgstr "les composantes d'échelles 'at' et 'labels' ne peuvent être des listes lorsque 'relation = \"same\"'"
+msgstr "les composantes 'at' et 'labels' de 'scales' ne peuvent pas être des listes quand 'relation = \"same\"'"
 
 msgid "limits cannot be a list when relation = same"
-msgstr "'limits' ne peut être une liste lorsque 'relation = same'"
+msgstr "'limits' ne peut pas être une liste lorsque 'relation = same'"
 
 msgid "Explicitly specified limits ignored"
-msgstr "Les limites explicitement spécifiées ont été ignorées"
+msgstr "Les limites spécifiées explicitement ont été ignorées"
 
 msgid "need at least one panel"
 msgstr "besoin d'au moins un panneau"
@@ -305,16 +305,16 @@ msgid "'aspect=\"iso\"' approximate since 'relation=\"free\"'"
 msgstr "'aspect=\"iso\"' approximatif lorsque 'relation=\"free\"'"
 
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
-msgstr "Remarque : le périphérique par défaut a été ouvert afin de permettre la modification des paramètres d'un graphe trellis"
+msgstr "Remarque : le périphérique par défaut a été ouvert pour permettre de modifier les paramètres d'un graphe trellis"
 
 msgid "Invalid 'theme' specified"
-msgstr "Thème spécifié incorrect"
+msgstr "'theme' spécifié incorrect"
 
 msgid "Could not find device function '%s'"
 msgstr "Impossible de trouver la fonction du périphérique '%s'"
 
 msgid "'trellis.device' has changed, 'bg' may not be doing what you think it is"
-msgstr "'trellis.device' a changé, 'bg' peut ne plus faire ce que vous pensez"
+msgstr "'trellis.device' a changé, 'bg' peut ne plus faire ce que vous pensiez"
 
 msgid "x must be a shingle"
 msgstr "'x' soit être une latte ('shingle')"
@@ -356,7 +356,7 @@ msgid "supplied 'dimnames' have wrong length"
 msgstr "le 'dimnames' fourni est de longueur incorrecte"
 
 msgid "some components of supplied 'dimnames' have wrong length"
-msgstr "des composants du 'dimnames' fourni sont de longueur incorrecte"
+msgstr "certains composants du 'dimnames' fourni sont de longueur incorrecte"
 
 msgid "mean"
 msgstr "moyenne"
@@ -389,14 +389,14 @@ msgid ""
 "Note: 'auto.key' ignored since legend already present.\n"
 "Use 'update(..., legend = NULL)' to remove existing legend(s)"
 msgstr ""
-"Remarque : 'auto.key' est ignoré puisque une légende est déjà présente.\n"
+"Remarque : 'auto.key' est ignoré car une légende est déjà présente.\n"
 "Utilisez 'update(…, legend = NULL)' pour retirer le(s) légende(s) existante(s)"
 
 msgid "log scales cannot be changed via 'update'"
-msgstr "les échelles d'axes logarithmiques ne peuvent être modifiées à l'aide d''update'"
+msgstr "l'échelle des axes logarithmiques ne peut être modifiée à l'aide d''update'"
 
 msgid "the at and labels components of scales may not be lists when relation = same"
-msgstr "les composantes d'échelles 'at' et 'labels' ne peuvent être des listes lorsque 'relation = same'"
+msgstr "les composantes d'échelles 'at' et 'labels' ne peuvent pas être des listes quand 'relation = same'"
 
 msgid "Unrecognized value of 'aspect': '%s'"
 msgstr "Valeur inconnue pour 'aspect' : '%s'"
@@ -414,7 +414,7 @@ msgstr "Indices incorrects"
 #~ msgstr "les valeurs manquantes et les NaN's ne sont pas permis lorsque 'na.rm = FALSE'"
 
 #~ msgid "'probs' outside [0,1]"
-#~ msgstr "'probs' en dehors de [0,1]"
+#~ msgstr "'probs' est en dehors de [0,1]"
 
 #~ msgid "regression coefficients"
 #~ msgstr "coefficients de régression"
