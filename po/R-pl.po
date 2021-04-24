@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2020-02-16 11:53\n"
+"POT-Creation-Date: 2021-04-24 22:28\n"
 "PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -10,7 +10,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 "X-Generator: Poedit 1.5.4\n"
 
@@ -28,6 +29,9 @@ msgstr "zakres dla 'min.n' jest zbyt mały"
 # stop("'at' missing or incompatible with 'labels'")
 msgid "'at' missing or incompatible with 'labels'"
 msgstr "brakuje 'at' lub niespójne z 'labels'"
+
+msgid "specifying 'labels' but not 'at' may lead to unexpected results"
+msgstr ""
 
 # lattice/R/bwplot.R: 184
 # warning("'origin' forced to 0 for stacked bars")
@@ -150,7 +154,8 @@ msgstr "'newFactor' nie może mieć wartości NULL; znalazłeś błąd!"
 
 # lattice/R/common.R: 390
 # stop("newFactor != NULL && groups == NULL does not hold; you have found a bug!")
-msgid "newFactor != NULL && groups == NULL does not hold; you have found a bug!"
+msgid ""
+"newFactor != NULL && groups == NULL does not hold; you have found a bug!"
 msgstr "newFactor != NULL && groups == NULL nie trzyma się; znalazłeś błąd!"
 
 # lattice/R/common.R: 401
@@ -285,8 +290,12 @@ msgstr "położenie panelu jest nieokreślone lub jest niepoprawne"
 
 # lattice/R/interaction.R: 467
 # stop("'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first")
-msgid "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
-msgstr "'trellis.switchFocus' nie może być użyte aby przełączyć się na inną wartość 'prefix'.  Użyj najpierw 'trellis.focus'"
+msgid ""
+"'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use "
+"'trellis.focus' first"
+msgstr ""
+"'trellis.switchFocus' nie może być użyte aby przełączyć się na inną wartość "
+"'prefix'.  Użyj najpierw 'trellis.focus'"
 
 # lattice/R/interaction.R: 513
 # stop("Plot object was not saved, cannot retrieve panel data")
@@ -296,7 +305,9 @@ msgstr "Wykres nie został zapisany, nie można przywrócić danych panelu"
 # lattice/R/interaction.R: 516
 # warning("Plot spans multiple pages, only last page can be updated")
 msgid "Plot spans multiple pages, only last page can be updated"
-msgstr "Wykres rozciąga się na wiele stron, tylko ostatnia strona może zostać zaktualizowana"
+msgstr ""
+"Wykres rozciąga się na wiele stron, tylko ostatnia strona może zostać "
+"zaktualizowana"
 
 # lattice/R/interaction.R: 530
 # stop("You have to first select a panel using trellis.focus()")
@@ -363,8 +374,11 @@ msgstr "pierwszy komponent musi być wektorem etykiet"
 
 # lattice/R/legend.R: 337
 # stop("Invalid key, need at least one component named lines, text, rect or points")
-msgid "Invalid key, need at least one component named lines, text, rect or points"
-msgstr "Niepoprawny klucz, potrzeba co najmniej jeden komponent z nazwany 'lines', 'text', 'rect' lub 'points'"
+msgid ""
+"Invalid key, need at least one component named lines, text, rect or points"
+msgstr ""
+"Niepoprawny klucz, potrzeba co najmniej jeden komponent z nazwany 'lines', "
+"'text', 'rect' lub 'points'"
 
 # lattice/R/legend.R: 375
 # warning("not enough rows for columns")
@@ -379,7 +393,8 @@ msgstr "Przykro mi, 'allign = FALSE' nie jest wpierane"
 # lattice/R/legend.R: 831
 # warning("'at' values are not equispaced; output may be wrong")
 msgid "'at' values are not equispaced; output may be wrong"
-msgstr "wartości 'at' nie są równomiernie rozmieszczone; wyjście może być błędne"
+msgstr ""
+"wartości 'at' nie są równomiernie rozmieszczone; wyjście może być błędne"
 
 # lattice/R/legend.R: 892
 # stop("malformed colorkey")
@@ -402,7 +417,9 @@ msgstr "niepoprawna wartość 'label.style'"
 # lattice/R/levelplot.R: 659
 # warning("device support for raster images unknown, ignoring 'raster=TRUE'")
 msgid "device support for raster images unknown, ignoring 'raster=TRUE'"
-msgstr "wspomaganie sprzętowe dla obrazów rastrowych nie jest znane, ignorowanie 'raster=TRUE'"
+msgstr ""
+"wspomaganie sprzętowe dla obrazów rastrowych nie jest znane, ignorowanie "
+"'raster=TRUE'"
 
 # lattice/R/levelplot.R: 664
 # warning("device has no raster support, ignoring 'raster=TRUE'")
@@ -412,7 +429,9 @@ msgstr "urządzenie nie ma wsparcia rastrowego, ignorowanie 'raster=TRUE'"
 # lattice/R/levelplot.R: 669
 # warning("device does not support raster images with NA, ignoring 'raster=TRUE'")
 msgid "device does not support raster images with NA, ignoring 'raster=TRUE'"
-msgstr "urządzenie nie wspiera obrazów rastrowych z wartością NA, ignorowanie 'raster=TRUE'"
+msgstr ""
+"urządzenie nie wspiera obrazów rastrowych z wartością NA, ignorowanie "
+"'raster=TRUE'"
 
 # lattice/R/levelplot.R: 943
 # warning("'x' values are not equispaced; output may be wrong")
@@ -446,8 +465,12 @@ msgstr "(załadowano przestrzeń nazw pakietu 'KernSmooth')"
 
 # lattice/R/panel.smoothscatter.R: 17
 # stop("panel.smoothScatter() requires the KernSmooth package, but unable to load KernSmooth namespace")
-msgid "panel.smoothScatter() requires the KernSmooth package, but unable to load KernSmooth namespace"
-msgstr "'panel.smoothScatter()' wymaga pakietu 'KernSmooth', ale nie można załadować przestrzeni nazw pakietu 'KernSmooth'"
+msgid ""
+"panel.smoothScatter() requires the KernSmooth package, but unable to load "
+"KernSmooth namespace"
+msgstr ""
+"'panel.smoothScatter()' wymaga pakietu 'KernSmooth', ale nie można załadować "
+"przestrzeni nazw pakietu 'KernSmooth'"
 
 # lattice/R/panel.smoothscatter.R: 21
 # stop("'nbin' must be numeric of length 1 or 2")
@@ -550,8 +573,12 @@ msgstr "Wielokrotne dopasowania do nazwy komponentu"
 # stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
 # lattice/R/scales.R: 96
 # stop("the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'")
-msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
-msgstr "komponenty, 'at' oraz 'labels', dla 'scales' nie mogą być listami gdy 'relation = \"same\"'"
+msgid ""
+"the 'at' and 'labels' components of 'scales' may not be lists when 'relation "
+"= \"same\"'"
+msgstr ""
+"komponenty, 'at' oraz 'labels', dla 'scales' nie mogą być listami gdy "
+"'relation = \"same\"'"
 
 # lattice/R/scales.R: 275
 # stop("limits cannot be a list when relation = same")
@@ -575,8 +602,12 @@ msgstr "przybliżenie 'aspect=\"iso\"' ponieważ 'relation=\"free\"'"
 
 # lattice/R/settings.R: 309
 # warning("Note: The default device has been opened to honour attempt to modify trellis settings")
-msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
-msgstr "Uwaga: Domyślne urządzenie zostało otwarte aby umożliwić próbę modyfikacji ustawień 'trellis'"
+msgid ""
+"Note: The default device has been opened to honour attempt to modify trellis "
+"settings"
+msgstr ""
+"Uwaga: Domyślne urządzenie zostało otwarte aby umożliwić próbę modyfikacji "
+"ustawień 'trellis'"
 
 # lattice/R/settings.R: 345
 # warning("Invalid 'theme' specified")
@@ -592,8 +623,10 @@ msgstr "Nie można znaleźć funkcji '%s' urządzenia"
 
 # lattice/R/settings.R: 399
 # warning("'trellis.device' has changed, 'bg' may not be doing what you think it is")
-msgid "'trellis.device' has changed, 'bg' may not be doing what you think it is"
-msgstr "'trellis.device' zmienił się, 'bg' może nie robić tego co ci się wydaje"
+msgid ""
+"'trellis.device' has changed, 'bg' may not be doing what you think it is"
+msgstr ""
+"'trellis.device' zmienił się, 'bg' może nie robić tego co ci się wydaje"
 
 # lattice/R/legend.R: 139
 # stop("key must be a list")
@@ -667,7 +700,8 @@ msgstr "dostarczone 'dimnames' ma niepoprawną długość"
 # lattice/R/summary.trellis.R: 98
 # stop("some components of supplied 'dimnames' have wrong length")
 msgid "some components of supplied 'dimnames' have wrong length"
-msgstr "niektóre komponenty dostarczonego 'dimnames' posiadają niepoprawną długość"
+msgstr ""
+"niektóre komponenty dostarczonego 'dimnames' posiadają niepoprawną długość"
 
 # lattice/R/tmd.R: 206
 # gettext("mean")
@@ -740,8 +774,11 @@ msgstr "skale logarytmiczne nie mogą zostać zmienione poprzez 'update'"
 # stop("the at and labels components of scales may not be lists when relation = same")
 # lattice/R/update.trellis.R: 410
 # stop("the at and labels components of scales may not be lists when relation = same")
-msgid "the at and labels components of scales may not be lists when relation = same"
-msgstr "komponenty, 'at' oraz 'labels', dla 'scales' nie mogą być listami gdy 'relation = \"same\"'"
+msgid ""
+"the at and labels components of scales may not be lists when relation = same"
+msgstr ""
+"komponenty, 'at' oraz 'labels', dla 'scales' nie mogą być listami gdy "
+"'relation = \"same\"'"
 
 # lattice/R/update.trellis.R: 447
 # warning(gettextf("Unrecognized value of 'aspect': '%s'", as.character(aspect)))
@@ -770,7 +807,9 @@ msgstr "niepoprawne indeksy"
 # lattice/R/qqmath.R: 35
 # stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
 #~ msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
-#~ msgstr "brakujące wartości oraz wartości NaN nie są dozwolone jeśli 'na.rm' ma wartość FALSE"
+#~ msgstr ""
+#~ "brakujące wartości oraz wartości NaN nie są dozwolone jeśli 'na.rm' ma "
+#~ "wartość FALSE"
 
 # lattice/R/qqmath.R: 37
 # stop("'probs' outside [0,1]")

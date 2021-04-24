@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.21-2\n"
-"POT-Creation-Date: 2021-03-16 11:02\n"
+"POT-Creation-Date: 2021-04-24 22:28\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,9 @@ msgid "range too small for min.n"
 msgstr ""
 
 msgid "'at' missing or incompatible with 'labels'"
+msgstr ""
+
+msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
 
 msgid "'origin' forced to 0 for stacked bars"

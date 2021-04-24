@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R-lattice\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2020-05-01 12:21\n"
+"POT-Creation-Date: 2021-04-24 22:28\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniele Medri <dmedri@gmail.com>\n"
 "Language-Team: Italian https://github.com/dmedri/R-italian-lang\n"
@@ -27,6 +27,9 @@ msgstr ""
 
 msgid "'at' missing or incompatible with 'labels'"
 msgstr "'at' mancante o incompatibile con 'labels'"
+
+msgid "specifying 'labels' but not 'at' may lead to unexpected results"
+msgstr ""
 
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' forzato a 0 per le barre sovrapposte"
