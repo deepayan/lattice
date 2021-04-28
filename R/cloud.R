@@ -133,6 +133,7 @@ panel.3dscatter <-
              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
              cex = if (is.null(groups)) plot.symbol$cex else superpose.symbol$cex,
              pch = if (is.null(groups)) "+" else superpose.symbol$pch,
+             fill = if (is.null(groups)) plot.symbol$fill else superpose.symbol$fill,
              cross,
              ...,
              .scale = FALSE,
@@ -172,6 +173,7 @@ panel.3dscatter <-
             lwd <- rep(lwd, length.out = n)
             cex <- rep(cex, length.out = n)
             pch <- rep(pch, length.out = n)
+            fill <- rep(fill, length.out = n)
         }
         else
         {
@@ -184,6 +186,7 @@ panel.3dscatter <-
             lwd <- rep(lwd, length.out = nvals)[groups]
             cex <- rep(cex, length.out = nvals)[groups]
             pch <- rep(pch, length.out = nvals)[groups]
+            fill <- rep(fill, length.out = nvals)[groups]
         }
 
 
@@ -229,7 +232,9 @@ panel.3dscatter <-
                 lpoints(x = m[1, ord], y = m[2, ord],
                         col = col.point[ord],
                         pch = pch[ord],
-                        cex = cex[ord], ...,
+                        cex = cex[ord],
+                        fill = fill[ord],
+                        ...,
                         identifier = identifier)
             }
         }

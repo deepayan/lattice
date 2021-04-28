@@ -36,7 +36,7 @@ panel.3dscatter(x, y, z, rot.mat, distance,
                 xlim.scaled, ylim.scaled, zlim.scaled,
                 zero.scaled,
                 col, col.point, col.line,
-                lty, lwd, cex, pch,
+                lty, lwd, cex, pch, fill,
                 cross, \dots, .scale = FALSE, subscripts,
                 identifier = "3dscatter")
 panel.3dwire(x, y, z, rot.mat = diag(4), distance,
@@ -245,7 +245,7 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     intensive. This argument controls the trade-off.
   }
   \item{col.groups}{colors for different groups}
-  \item{col, col.point, col.line, lty, lwd, cex, pch, alpha}{
+  \item{col, col.point, col.line, lty, lwd, cex, pch, fill, alpha}{
     Graphical parameters.  Some other arguments (such as \code{lex} for
     line width) may also be passed through the \code{\dots} argument.
   }
