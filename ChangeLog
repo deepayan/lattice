@@ -1,3 +1,12 @@
+commit 2ab40d6e06b5372412e694bc5a039b77a221f695
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Apr 28 19:35:51 2021 +0530
+
+    add fill argument to panel.3dscatter (https://github.com/deepayan/lattice/issues/20)
+
+M	R/cloud.R
+M	man/panel.cloud.Rd
+
 commit 14620d0c838bbc356b41e647748a34a731518c92
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Sat Apr 24 22:22:33 2021 +0530
