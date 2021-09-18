@@ -20,6 +20,8 @@ make.groups(\dots)
 \value{
   When all the input arguments are vectors, a data frame with two
   columns
+
+  \describe{
   \item{\code{data}}{
     all the vectors supplied, concatenated
   }
@@ -27,6 +29,8 @@ make.groups(\dots)
     factor indicating which vector the corresponding \code{data} value
     came from
   }
+  }
+
   When all the input arguments are data frames, the result of
   \code{\link{rbind}} applied to them, along with an additional
   \code{which} column as described above.

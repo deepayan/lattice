@@ -85,6 +85,7 @@ axis.default(side = c("top", "bottom", "left", "right"),
   of \code{axis.default}.  Valid components in the return value of
   \code{xscale.components.default} are:
 
+  \describe{
   \item{\code{num.limit}}{ A numeric limit for the box. }
   \item{\code{bottom}}{ A list with two elements, \code{ticks} and
     \code{labels}.  \code{ticks} must be a list with components
@@ -101,6 +102,7 @@ axis.default(side = c("top", "bottom", "left", "right"),
     \code{top} is treated as being the same as \code{bottom}; if
     \code{FALSE}, axis annotation for the top axis is omitted.
     Alternatively, \code{top} can be a list like \code{bottom}.
+  }
   }
 
   Valid components in the return value of

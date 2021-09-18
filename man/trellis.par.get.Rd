@@ -156,21 +156,25 @@ show.settings(x = NULL)
   more unusual settings are described here.
   
   \describe{
-    \item{grid.pars}{ Grid graphical parameters that are in effect
+    \item{\code{grid.pars}}{ Grid graphical parameters that are in effect
       globally unless overridden by specific settings.}
-    \item{fontsize}{ A list of two components (each a numeric scalar),
+    \item{\code{fontsize}}{ A list of two components (each a numeric scalar),
       \code{text} and \code{points}, for text and symbols
       respectively.
     } 
-    \item{clip}{ A list of two components (each a character string,
+    \item{\code{clip}}{ A list of two components (each a character string,
       either \code{"on"} or \code{"off"}), \code{panel} and
       \code{strip}.
     } 
-    \item{axis.components}{}
-    \item{layout.heights}{}
-    \item{layout.widths}{}
+    \item{\code{axis.components}}{ A list with four components (\code{left},
+      \code{top}, \code{right}, \code{bottom}), each a list giving numeric
+      mutlipliers named \code{tck}, \code{pad1}, and \code{pad2} for
+      corresponding grid layout units. }
+    \item{\code{layout.heights}}{ A list with numeric multipliers for
+      grid layout heights. }
+    \item{\code{layout.widths}}{ A list with numeric multipliers for
+      grid layout widths. }
   }
-
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \seealso{

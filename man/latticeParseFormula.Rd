@@ -43,10 +43,11 @@ latticeParseFormula(model, data, dimension = 2,
   }
 }
 
-\value{ returns a list with several components, including \code{left,
+\value{
+  Returns a list with several components, including \code{left,
     right, left.name, right.name, condition} for 2-D, and \code{left,
     right.x, right.y, left.name, right.x.name, right.y.name, condition}
-  for 3-D. Other possible components are groups, subscr
+  for 3-D. Other possible components are \code{groups}, \code{subscr}.
 
 }
 
