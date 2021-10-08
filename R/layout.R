@@ -40,14 +40,6 @@ rearrangeUnit <- function(x, pos, u)
 
 
 
-
-
-
-
-
-
-
-
 calculateGridLayout <-
     function(x,
              rows.per.page, cols.per.page,
@@ -519,12 +511,13 @@ calculateGridLayout <-
             }
             xaxis.panel.unit <-
 ### widthDetails(
-                max(unit(rep(1, length(lab.groblist)), "grobheight", data = lab.groblist)) +
-                    tick.unit + pad1.unit + pad2.unit
+                convertHeight(
+                    max(unit(rep(1, length(lab.groblist)), "grobheight", data = lab.groblist)),
+                    "inches") +
+                tick.unit + pad1.unit + pad2.unit
 ### )
         }
     }
-
 
     ## same for y-axes now
 
@@ -708,8 +701,10 @@ calculateGridLayout <-
             }
             yaxis.panel.unit <-
 ### widthDetails(
-                max(unit(rep(1, length(lab.groblist)), "grobwidth", data = lab.groblist)) +
-                    tick.unit + pad1.unit + pad2.unit
+                convertWidth(
+                    max(unit(rep(1, length(lab.groblist)), "grobwidth", data = lab.groblist)),
+                    "inches") +
+                tick.unit + pad1.unit + pad2.unit
 ###)
         }
     }
