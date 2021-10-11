@@ -874,11 +874,17 @@ draw.colorkey <- function(key, draw = FALSE, vp = NULL)
     else if (is.list(key$lab))
     {
         at <- if (!is.null(key$lab$at)) key$lab$at else lpretty(atrange, key$tick.number)
-        at <- at[at >= atrange[1] & at <= atrange[2]]
         labels <- if (!is.null(key$lab$lab)) {
+            if (is.null(key$lab$at))
+                stop("key specifies 'labels$labels' but not 'labels$at'", call. = FALSE)
+            if (length(key$lab$lab) != length(key$lab$at))
+                stop("lengths of key's 'labels$labels' and 'labels$at' differ", call. = FALSE)
             check.overlap <- FALSE
             key$lab$lab
         } else format(at, trim = TRUE)
+        .include <- at >= atrange[1] & at <= atrange[2]
+        at     <- at    [.include]
+        labels <- labels[.include]
         if (!is.null(key$lab$cex)) cex <- key$lab$cex
         if (!is.null(key$lab$col)) col <- key$lab$col
         if (!is.null(key$lab$font)) font <- key$lab$font
