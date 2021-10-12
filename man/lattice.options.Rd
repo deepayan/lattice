@@ -111,6 +111,13 @@ lattice.getOption(name)
       \code{\link{xyplot}}).
     }
 
+    \item{\code{optimize.grid}}{ Logical flag, \code{FALSE} by
+      default. Complicated grid unit calculations can be slow. Sometimes
+      these can be optimized at the cost of potential loss of
+      accuracy. This option controls whether such optimization should be
+      applied.
+    }
+
     \item{\code{axis.units}}{ List determining default units for axis
       components.  Should not be of interest to the end-user.
     }

@@ -894,7 +894,7 @@ lattice.getOption <- function(name)
 ## FIXME: lattice.options(foo == 1) doesn't work?
 lattice.options <- function(...)
 {
-    ## this would have been really simple if only form allowed were
+    ## this would have been really simple if only forms allowed were
     ## lattice.options("foo", "bar") and
     ## lattice.options(foo=1, bar=2). But it could also be
     ## lattice.options(foo=1, "bar"), which makes some juggling necessary
@@ -1017,6 +1017,20 @@ lattice.options <- function(...)
          prepanel.default.wireframe = "prepanel.default.cloud",
          prepanel.default.contourplot = "prepanel.default.levelplot",
          
+         ## Complicated grid unit calculations can be slow. Sometimes
+         ## these can be optimized at the cost of potential loss of
+         ## accuracy. This option controls whether such optimization
+         ## should be applied.
+
+         ## Currently, the only situation where this applies is for
+         ## relation != free (which can be slow for multi-page output
+         ## because the same calculations involving the height of
+         ## multiple strings are repeated). Optimizing converts into
+         ## absolute units, which may give wrong results when the plot
+         ## is replayed on a different device.
+
+         optimize.grid = FALSE,
+
          ## Axis units.  Rather than messing with these, end-users
          ## should manipulate corresponding settings via
          ## trellis.par.set()
