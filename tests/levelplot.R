@@ -19,6 +19,14 @@ levelplot(z ~ x * y, foo, subset = z > 150,
                                         labels = c("below min", 150))))
 ## lattice <= 0.21-5 put the "below min" label at z=150
 
+## This should be an error because 'labels' are specified without 'at':
+
+e <- 
+    try(print(levelplot(z ~ x * y, foo, subset = z > 150,
+                        colorkey = list(labels = list(labels = c("A", "B"))))),
+        silent = TRUE)
+stopifnot(inherits(e, "try-error"))
+
 ## subset group interaction has problems (does it any longer):
 
 cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
