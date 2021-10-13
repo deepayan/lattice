@@ -17,7 +17,7 @@ contourplot(z ~ x * y, foo, subset = z > 150, cuts = 10)
 levelplot(z ~ x * y, foo, subset = z > 150,
           colorkey = list(labels = list(at     = c(145, 150),
                                         labels = c("below min", 150))))
-## lattice <= 0.21-5 put the "below min" label at z=150
+## lattice <= 0.20-45 put the "below min" label at z=150
 
 ## subset group interaction has problems (does it any longer):
 
