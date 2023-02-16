@@ -815,13 +815,20 @@ panel.violin <-
     # Recycle arguments
     # Add index to ensure that arguments are multiple of number of groups
     darg$index <- seq_along(numeric.list)
-    darg.df <- do.call(data.frame, darg)
-    stopifnot(nrow(darg.df) == length(numeric.list))
-    darg.df$index <- NULL
+    darg <- tryCatch({
+      do.call(data.frame, darg)
+      }, error = function(e) {
+        darg$index <- NULL
+        stop(sprintf('%s must be length 1 or a vector of 
+             length multiple of group length (%d)',
+                     paste0(names(darg), collapse = ', '),
+                     length(numeric.list)))
+      })
+    darg$index <- NULL
 
     levels.fos <- as.numeric(names(numeric.list))
     d.list <- lapply(seq_along(numeric.list), function(i) {
-      my.density(numeric.list[[i]], darg.df[i, ])
+      my.density(numeric.list[[i]], darg[i, ])
       })
     ## n.list <- sapply(numeric.list, length)  UNNECESSARY
     dx.list <- lapply(d.list, "[[", "x")
@@ -841,7 +848,16 @@ panel.violin <-
     plot.arg$lwd <- lwd
 
     plot.arg$index <- seq_along(numeric.list)
-    plot.arg <- do.call(data.frame, plot.arg)
+
+    plot.arg <- tryCatch({
+      do.call(data.frame, plot.arg)
+      }, error = function(e) {
+        plot.arg$index <- NULL
+        stop(sprintf('%s must be length 1 or a vector of 
+             length multiple of group length (%d)',
+                     paste0(names(plot.arg), collapse = ', '),
+                     length(numeric.list)))
+      })
     plot.arg$index <- NULL
 
     cur.limits <- current.panel.limits()
