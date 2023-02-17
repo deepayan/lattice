@@ -800,9 +800,10 @@ panel.violin <-
     darg$to <- to
     darg$cut <- cut
     darg$na.rm <- na.rm
-    my.density <- function(x)
+
+    my.density <- function(x, density.args)
     {
-        ans <- try(do.call(stats::density, c(list(x = x), darg)), silent = TRUE)
+        ans <- try(do.call(stats::density, c(list(x = x), density.args)), silent = TRUE)
         ## if (inherits(ans, "try-error")) list(x = numeric(0), y = numeric(0)) else ans
         if (inherits(ans, "try-error"))
             list(x = rep(x[1], 3),
@@ -810,8 +811,25 @@ panel.violin <-
         else ans
     }
     numeric.list <- if (horizontal) split(x, factor(y)) else split(y, factor(x))
+
+    # Recycle arguments
+    # Add index to ensure that arguments are multiple of number of groups
+    darg$index <- seq_along(numeric.list)
+    darg <- tryCatch({
+      do.call(data.frame, darg)
+      }, error = function(e) {
+        darg$index <- NULL
+        stop(sprintf('%s must be length 1 or a vector of 
+             length multiple of group length (%d)',
+                     paste0(names(darg), collapse = ', '),
+                     length(numeric.list)))
+      })
+    darg$index <- NULL
+
     levels.fos <- as.numeric(names(numeric.list))
-    d.list <- lapply(numeric.list, my.density)
+    d.list <- lapply(seq_along(numeric.list), function(i) {
+      my.density(numeric.list[[i]], darg[i, ])
+      })
     ## n.list <- sapply(numeric.list, length)  UNNECESSARY
     dx.list <- lapply(d.list, "[[", "x")
     dy.list <- lapply(d.list, "[[", "y")
@@ -820,6 +838,27 @@ panel.violin <-
     if (varwidth) max.d[] <- max(max.d)
 
     ##str(max.d)
+    # Plot arguments either 1 or multiple of number of groups
+    plot.arg <- list()
+    plot.arg$alpha <- alpha
+    # Map fill = col, col = border for gpar call
+    plot.arg$fill <- col
+    plot.arg$col <- border
+    plot.arg$lty <- lty
+    plot.arg$lwd <- lwd
+
+    plot.arg$index <- seq_along(numeric.list)
+
+    plot.arg <- tryCatch({
+      do.call(data.frame, plot.arg)
+      }, error = function(e) {
+        plot.arg$index <- NULL
+        stop(sprintf('%s must be length 1 or a vector of 
+             length multiple of group length (%d)',
+                     paste0(names(plot.arg), collapse = ', '),
+                     length(numeric.list)))
+      })
+    plot.arg$index <- NULL
 
     cur.limits <- current.panel.limits()
     xscale <- cur.limits$xlim
@@ -846,7 +885,7 @@ panel.violin <-
                              default.units = "native",
                              name = trellis.grobname(identifier,
                                type = "panel", group = group),
-                             gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
+                             gp = do.call(gpar, plot.arg[i, ]))
                 popViewport()
             }
         }
@@ -866,7 +905,7 @@ panel.violin <-
                              default.units = "native",
                              name = trellis.grobname(identifier,
                                type = "panel", group = group),
-                             gp = gpar(fill = col, col = border, lty = lty, lwd = lwd, alpha = alpha))
+                             gp = do.call(gpar, plot.arg[i, ]))
                 popViewport()
             }
         }
