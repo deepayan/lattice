@@ -1,22 +1,27 @@
 \name{F_2_llines}
+\alias{larrows}
 \alias{llines}
 \alias{lpoints}
+\alias{lpolygon}
+\alias{lrect}
+\alias{lsegments}
 \alias{ltext}
+\alias{larrows.default}
 \alias{llines.default}
 \alias{lpoints.default}
+\alias{lpolygon.default}
+\alias{lrect.default}
+\alias{lsegments.default}
 \alias{ltext.default}
 \alias{lplot.xy}
-\alias{larrows}
-\alias{lsegments}
-\alias{lrect}
-\alias{lpolygon}
 \alias{panel.arrows}
 \alias{panel.lines}
 \alias{panel.points}
+\alias{panel.polygon}
+\alias{panel.rect}
 \alias{panel.segments}
 \alias{panel.text}
-\alias{panel.rect}
-\alias{panel.polygon}
+
 \title{Replacements of traditional graphics functions}
 
 \description{
@@ -36,35 +41,15 @@ lplot.xy(xy, type, pch, lty, col, cex, lwd,
          col.line, col.symbol, alpha, fill,
          origin = 0, \dots, identifier, name.type)
 
+larrows(...)
 llines(x, ...)
 lpoints(x, ...)
+lpolygon(x, ...)
+lrect(...)
+lsegments(...)
 ltext(x, ...)
 
-\method{llines}{default}(x, y = NULL, type = "l",
-       col, alpha, lty, lwd, \dots, identifier, name.type)
-\method{lpoints}{default}(x, y = NULL, type = "p", col, pch, alpha, fill,
-        font, fontfamily, fontface, cex, \dots, identifier, name.type)  
-\method{ltext}{default}(x, y = NULL, labels = seq_along(x),
-      col, alpha, cex, srt = 0,
-      lineheight, font, fontfamily, fontface,
-      adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots, identifier, name.type)  
-
-lsegments(x0, y0, x1, y1, x2, y2,
-          col, alpha, lty, lwd,
-          font, fontface, \dots, identifier, name.type)
-lrect(xleft, ybottom, xright, ytop,
-      x = (xleft + xright) / 2,
-      y = (ybottom + ytop) / 2,
-      width = xright - xleft,
-      height = ytop - ybottom,
-      col = "transparent",
-      border = "black",
-      lty = 1, lwd = 1, alpha = 1,
-      just = "center",
-      hjust = NULL, vjust = NULL,
-      font, fontface,
-      \dots, identifier, name.type)
-larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
+\method{larrows}{default}(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         angle = 30, code = 2, length = 0.25, unit = "inches",
         ends = switch(code, "first", "last", "both"),
         type = "open",
@@ -75,17 +60,40 @@ larrows(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
         fill = NULL, 
         font, fontface,
         \dots, identifier, name.type)
-lpolygon(x, y = NULL,
-         border = "black", col = "transparent", fill = NULL, 
-         font, fontface, \dots, identifier, name.type)
+\method{llines}{default}(x, y = NULL, type = "l",
+        col, alpha, lty, lwd, \dots, identifier, name.type)
+\method{lpoints}{default}(x, y = NULL, type = "p", col, pch, alpha, fill,
+        font, fontfamily, fontface, cex, \dots, identifier, name.type) 
+\method{lpolygon}{default}(x, y = NULL,
+        border = "black", col = "transparent", fill = NULL, 
+        font, fontface, \dots, identifier, name.type)        
+\method{ltext}{default}(x, y = NULL, labels = seq_along(x),
+        col, alpha, cex, srt = 0,
+        lineheight, font, fontfamily, fontface,
+        adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots, identifier, name.type)  
+\method{lrect}{default}(xleft, ybottom, xright, ytop,
+        x = (xleft + xright) / 2,
+        y = (ybottom + ytop) / 2,
+        width = xright - xleft,
+        height = ytop - ybottom,
+        col = "transparent",
+        border = "black",
+        lty = 1, lwd = 1, alpha = 1,
+        just = "center",
+        hjust = NULL, vjust = NULL,
+        font, fontface,
+        \dots, identifier, name.type)
+\method{lsegments}{default}(x0, y0, x1, y1, x2, y2,
+        col, alpha, lty, lwd,
+        font, fontface, \dots, identifier, name.type)
 
+panel.arrows(\dots)
 panel.lines(\dots)
 panel.points(\dots)
+panel.polygon(\dots)
+panel.rect(\dots)
 panel.segments(\dots)
 panel.text(\dots)
-panel.rect(\dots)
-panel.arrows(\dots)
-panel.polygon(\dots)
 }
 \arguments{
 

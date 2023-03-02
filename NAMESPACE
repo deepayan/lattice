@@ -299,9 +299,13 @@ S3method(tmd,           formula)
 S3method(tmd,           trellis)
 
 
+S3method(larrows,       default)
 S3method(llines,        default)
-S3method(ltext,         default)
 S3method(lpoints,       default)
+S3method(lpolygon,      default)
+S3method(lrect,         default)
+S3method(lsegments,     default)
+S3method(ltext,         default)
 
 
 ### Local variables:
