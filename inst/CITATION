@@ -1,17 +1,9 @@
-citHeader("To cite the lattice package in publications use:")
-
-citEntry(entry="Book",
+bibentry(bibtype = "Book",
          title = "Lattice: Multivariate Data Visualization with R",
-         author = personList(as.person("Deepayan Sarkar")),
+         author = person("Deepayan", "Sarkar"),
+         year = "2008",
          publisher = "Springer",
-	 ## edition = "First",
-         address      = "New York",
-         year         = 2008,
-         note         = "ISBN 978-0-387-75968-5",
-         url          = "http://lmdvr.r-forge.r-project.org",
-         
-         textVersion = 
-         paste("Sarkar, Deepayan (2008)", 
-               "Lattice: Multivariate Data Visualization with R.",
-               "Springer, New York. ISBN 978-0-387-75968-5"))
+         address = "New York",
+         isbn = "978-0-387-75968-5",
+         url = "http://lmdvr.r-forge.r-project.org")
 

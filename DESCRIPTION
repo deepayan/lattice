@@ -1,6 +1,6 @@
 Package: lattice
-Version: 0.21-6
-Date: 2021-10-12
+Version: 0.21-7
+Date: 2023-03-28
 Priority: recommended
 Title: Trellis Graphics for R
 Authors@R: c(person("Deepayan", "Sarkar", role = c("aut", "cre"),
@@ -9,8 +9,10 @@ Authors@R: c(person("Deepayan", "Sarkar", role = c("aut", "cre"),
               person("Felix", "Andrews", role = "ctb"),
 	      person("Kevin", "Wright", role = "ctb", comment = "documentation"),
 	      person("Neil", "Klepeis", role = "ctb"),
-	      person("Johan", "Larsson", role = "ctb", comment = "colorkey title"),
-              person("Paul", "Murrell", role = "ctb", email = "paul@stat.auckland.ac.nz"))
+	      person("Johan", "Larsson", role = "ctb", comment = "colorkey title, auto.key improvements"),
+              person("Paul", "Murrell", role = "ctb", email = "paul@stat.auckland.ac.nz"),
+	      person("Stefan", "Eng", role = "ctb", comment = "violin plot improvements")
+	      )
 Description: A powerful and elegant high-level data visualization
   system inspired by Trellis graphics, with an emphasis on
   multivariate data. Lattice is sufficient for typical graphics needs,

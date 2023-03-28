@@ -78,8 +78,8 @@ prepanel.default.qqmath <-
     {
         xx <- getxx(x, f.value, nobs)
         yy <- getyy(x, f.value, nobs)
-        list(xlim = scale.limits(xx), # range(xx, finite = TRUE),
-             ylim = scale.limits(yy), # range(yy, finite = TRUE),
+        list(xlim = scale_limits(xx), # range(xx, finite = TRUE),
+             ylim = scale_limits(yy), # range(yy, finite = TRUE),
              dx = diff(xx),
              dy = diff(yy))
     }
@@ -381,7 +381,7 @@ qqmath.formula <-
             if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
                 "inside"
             else
-                "top"
+                "right"
         if (!is.null(foo$legend[[1]]$args$space))
             names(foo$legend) <- foo$legend[[1]]$args$space
     }

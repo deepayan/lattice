@@ -76,15 +76,9 @@ prepanel.default.histogram <-
                    count = h$counts,
                    percent = 100 * h$counts/length(x),
                    density = h$density)
-        ## y <-
-        ##     if (type == "count") h$counts
-        ##     else if (type == "percent") 100 * h$counts / length(x)
-        ##     else h$density
         list(xlim =
-             if (is.factor(x)) levels(x)
-             else scale.limits(c(x, h$breaks)),
-             ## if (is.factor(x)) levels(x)
-             ## else range(x, h$breaks, finite = TRUE),
+             if (is.factor(x)) levels(x) # same as scale_limits(x)
+             else scale_limits(c(x, h$breaks)),
              ylim = range(0, y, finite = TRUE),
              dx = 1,
              dy = 1)
@@ -440,7 +434,7 @@ histogram.formula <-
             if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
                 "inside"
             else
-                "top"
+                "right"
         if (!is.null(foo$legend[[1]]$args$space))
             names(foo$legend) <- foo$legend[[1]]$args$space
     }

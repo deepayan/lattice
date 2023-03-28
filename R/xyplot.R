@@ -48,7 +48,7 @@ prepanel.default.xyplot <-
             dy <- diff(as.numeric(y[ord]))
             ## ok <- TRUE
         }
-        list(xlim = scale.limits(x), ylim = scale.limits(y), dx = dx, dy = dy,
+        list(xlim = scale_limits(x), ylim = scale_limits(y), dx = dx, dy = dy,
              xat = if (is.factor(x)) sort(unique(as.numeric(x))) else NULL,
              yat = if (is.factor(y)) sort(unique(as.numeric(y))) else NULL)
     }
@@ -442,13 +442,29 @@ xyplot.formula <-
 
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
+        # provide smart defaults for auto key based on 'type'
+        type <- dots$type
+        if (is.character(type) && length(type) > 0)
+        {
+            points <- any(type %in% "p")
+            lines <- any(type %in% c("l", "b", "o", "h", "s", "S", "a",
+                                     "smooth", "spline", "r"))
+            keytype <- if (any(type %in% c("b", "o"))) "o" else "l"
+        }
+        else
+        {
+            points <- TRUE
+            lines <- FALSE
+            keytype <- "l"
+        }
         foo$legend <-
             list(list(fun = "drawSimpleKey",
                       args =
                       updateList(list(text = levels(as.factor(groups)),
-                                      points = TRUE,
+                                      points = points,
                                       rectangles = FALSE,
-                                      lines = FALSE), 
+                                      lines = lines,
+                                      type = keytype),
                                  if (is.list(auto.key)) auto.key else list())))
         foo$legend[[1]]$x <- foo$legend[[1]]$args$x
         foo$legend[[1]]$y <- foo$legend[[1]]$args$y
@@ -458,12 +474,10 @@ xyplot.formula <-
             if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
                 "inside"
             else
-                "top"
+                "right"
         if (!is.null(foo$legend[[1]]$args$space))
             names(foo$legend) <- foo$legend[[1]]$args$space
     }
-
-
     class(foo) <- "trellis"
     foo
 }
