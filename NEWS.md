@@ -90,7 +90,7 @@ Changes in lattice 0.19
 
  o New panel.spline() function.
 
-bug fixes
+Bug fixes
 ---------
 
  o More realistic check for equispaced grid in
@@ -132,7 +132,7 @@ Changes in lattice 0.18
 Changes in lattice 0.17
 =======================
 
-new features
+New features
 ------------
 
  o New function simpleTheme() for creating nested lists without
@@ -168,7 +168,7 @@ new features
 
  o reordered documentation to make PDF manual more readable
 
-bug fixes
+Bug fixes
 ---------
 
  o Make translations available (they were never actually installed before)
@@ -177,7 +177,7 @@ bug fixes
 Changes in lattice 0.16
 =======================
 
-changes in behaviour
+Changes in behaviour
 --------------------
 
  o 'x' in dotplot(~x, data) etc now gets names(x) set to
@@ -214,9 +214,7 @@ changes in behaviour
 Changes in lattice 0.15
 =======================
 
-(Some of these are also available in updated 0.14 versions)
-
-new features
+New features
 ------------
 
  o Default panel functions are now settable options
@@ -244,8 +242,10 @@ new features
    default, errors in panel functions no longer stop execution.  See
    ?print.trellis for details.
 
+ o Note: Some of these are also available in updated 0.14 versions
 
-changes in behaviour
+
+Changes in behaviour
 --------------------
 
  o non-numeric data no longer cause warnings in bwplot
@@ -254,12 +254,10 @@ changes in behaviour
    0.5 "chars"
 
 
-
-
 Changes in lattice 0.14
 =======================
 
-new features
+New features
 ------------
 
  o support for custom function that determines packet-panel
@@ -296,7 +294,7 @@ new features
    argument to pretty() when determining line locations
 
 
-changes in behaviour
+Changes in behaviour
 --------------------
 
  o panel function is no longer given arguments panel.number and
@@ -314,12 +312,10 @@ changes in behaviour
    'intuitive'
 
 
-
 Changes in lattice 0.13
 =======================
 
-
-new features
+New features
 ------------
 
  o high level generics like 'xyplot' now have both 'x' and 'data' as
@@ -359,8 +355,7 @@ new features
  o Added wrappers lrect, lpolygon (and panel.rect, panel.polygon)
 
 
-
-changes in behaviour
+Changes in behaviour
 --------------------
 
  o evaluation scope: standard functions with a formula based interface
@@ -385,8 +380,7 @@ changes in behaviour
    ?trellis.device for details
 
 
-
-bug fixes
+Bug fixes
 ---------
 
  o NA-handling
@@ -398,23 +392,17 @@ bug fixes
  o miscellaneous improvements in strip.default
 
 
-
-
-Todo (planned)
---------------
+TODO
+----
 
  o change panel.qq so that most work gets done there
-
-
-
-
 
 
 
 Changes in lattice 0.12
 =======================
 
-improvements
+Improvements
 ------------
 
  o panel.bwplot has a new 'stats' argument, which is a function used to
@@ -433,7 +421,7 @@ improvements
  o panel.superpose handles type='g' itself so that the grid doesn't
    get repeated for every group.
 
-new features
+New features
 ------------
 
  o All high level functions are now generic.  This change should be
@@ -468,7 +456,7 @@ new features
  o 'Date' objects are recognized and axis labels formatted accordingly
    (not heavily tested)
 
-changes in behaviour
+Changes in behaviour
 ---------------------
 
  o qqmath has been considerably revamped, primarily to allow grouped
@@ -491,7 +479,7 @@ changes in behaviour
    standard Trellis jargon.
 
 
-bug fixes
+Bug fixes
 ---------
 
  o identification of when 'type' should default to "density" was buggy
@@ -499,13 +487,10 @@ bug fixes
 
 
 
-
-
-
 Changes in lattice 0.11
 =======================
 
-improvements
+Improvements
 ------------
 
  o panel.superpose.2 (which replicates behaviour of panel.superpose in
@@ -518,7 +503,7 @@ improvements
  o [xyz]lab in cloud / wireframe can now be grobs, and honors a 'rot'
    component for rotation (e.g., zlab = list(rot = 90))
 
-new features
+New features
 ------------
 
  o some finer controls added to parallel (actually panel.parallel)
@@ -533,7 +518,7 @@ new features
    current panel (only in later versions)
 
 
-changes in behaviour
+Changes in behaviour
 ---------------------
 
  o behaviour of auto.key = TRUE now function specific
@@ -549,7 +534,7 @@ changes in behaviour
  o NA-handling (may have undesirable effects)
 
 
-bug fixes
+Bug fixes
 ---------
 
  o several minor fixes
@@ -559,9 +544,8 @@ bug fixes
 Changes in lattice 0.10
 =======================
 
-improvements
+Improvements
 ------------
-
 
  o relation="free" and "sliced" now work for factors (at least, as
    well as can be expected)
@@ -583,7 +567,7 @@ improvements
  o datasets get separate documentation, contributed by Kevin Wright
 
 
-new features
+New features
 ------------
 
  o lattice.options(), similar to options(), to control various aspects
@@ -622,11 +606,7 @@ new features
 
 
 
-
-
-
-
-changes in behaviour
+Changes in behaviour
 ---------------------
 
  o lset has been deprecated, and trellis.par.set has been enhanced
@@ -643,9 +623,7 @@ changes in behaviour
    default colors are obtained, as described above).
 
 
-
-
-bug fixes
+Bug fixes
 ---------
 
  o axes now drawn on last panel even if it doesn't fall on the border
@@ -655,17 +633,11 @@ bug fixes
 
 
 
-
-
-
 Changes in lattice 0.9
 ======================
 
-
-
-improvements
+Improvements
 ------------
-
 
  o Axis labelling code has been rewritten to internally use S3 method
    dispatch, with (unexported) methods for numeric (default),
@@ -692,9 +664,7 @@ improvements
  o setting auto.key = TRUE now computes key at printing time,
    honouring any changes in trellis settings
 
-
-
-new features
+New features
 ------------
 
  o arbitrary reordering of conditioning variables, as well as of
@@ -726,7 +696,7 @@ new features
    in the native coordinate system of that panel.
 
 
-changes in behaviour
+Changes in behaviour
 ---------------------
 
  o allow.multiple now defaults to TRUE (whenever it makes sense),
@@ -738,7 +708,7 @@ changes in behaviour
    to match corresponding base functions qqplot and qqnorm
 
 
-bug fixes
+Bug fixes
 ---------
 
  o Fixed important bug concerning interaction of subscripts and
@@ -746,11 +716,6 @@ bug fixes
 
 
  o lots of other fixes, mostly obscure
-
-
-
-
-
 
 
 
@@ -770,18 +735,13 @@ Changes in lattice 0.8
  o Clipping can now be turned off in panels and strips via the
    trellis.par.get("clip") setting.
 
-See the Changelog for other minor changes.
-
-
-
-
+ o See Changelog for other minor changes.
 
 
 Changes in lattice 0.7
 ======================
 
-
-grouping variables
+Grouping variables
 ------------------
 
  o The handling of Grouped displays has been made more consistent (and
@@ -804,9 +764,7 @@ grouping variables
    TRUE). These are treated as grouped displays.
 
 
-
-
-scales
+Scales
 ------
 
  o Some components of scales, namely tck, rot and cex, can now be
@@ -817,13 +775,10 @@ scales
    appropriate, but use levels of the factor for labelling).
 
 
-
-
-
 Changes in lattice 0.6
 ======================
 
-API change:
+API change
 ----------
 
  o panel functions: In earlier versions, panel functions and prepanel
@@ -859,12 +814,11 @@ API change:
    corresponds to a panel. This is thoroughly untested and not
    guaranteed to work.
 
+ o Some additional API changes associated with cloud and wireframe are
+   discussed below.
 
-There are also some other API changes associated with cloud and
-wireframe, discussed below.
 
-
-New Features and Fixes:
+New Features and Fixes
 ----------------------
 
  o Mathematical Annotation; Following changes in grid 0.7, lattice now
@@ -878,9 +832,10 @@ New Features and Fixes:
    routine currently used is a hack of axis.POSIXt (without the format
    option), but will hopefully improve in future.
 
- o 3-D functions:
+3-D functions
+-------------
 
-   The 3-D functions cloud and wireframe have been greatly improved in
+ o The 3-D functions cloud and wireframe have been greatly improved in
    terms of extensibility. The code is much cleaner, and writing new
    panel functions are much simpler. Earlier versions had a problem
    with the default placement of the labels (x/y/z-lab) and scales
@@ -889,28 +844,27 @@ New Features and Fixes:
    distant face is fully contained inside the projection of the near
    face.]
 
-   Earlier wireframe code used an unnecessarily large amount of
+ o Earlier wireframe code used an unnecessarily large amount of
    memory. This has been fixed, although speed is still not good
    (fixes are in the planing stage, and would involve changes in
    grid). drape=TRUE used to give wrong coloring, which is now fixed.
 
-   The 'group' argument now works with wireframe, resulting in
+ o The 'group' argument now works with wireframe, resulting in
    multiple surfaces. This is mostly satisfactory, but is not
    sophisticated enough to render intersecting surfaces properly
    (might be approximated by a fine enough grid).
 
-   There are also some rudimentary lighting options, which can render
+ o There are also some rudimentary lighting options, which can render
    the surface as being illuminated from a light source. No
    shadows. (Try shade=TRUE in wireframe.)
 
-   Although these changes go a long way towards stabilizing
+ o Although these changes go a long way towards stabilizing
    cloud/wireframe, some further changes, especially in how the panel
    function handles the groups argument, are expected in the future.
 
 
-
-Known bugs:
-==========
+Known bugs
+----------
 
  o Handling of NA values are often inconsistent and buggy. Some of
    these are not easily fixable (particularly one in contourplot), but
@@ -919,19 +873,23 @@ Known bugs:
  o Fonts specified in the new R font specification may not work yet.
 
 
-
-
-
 Changes in lattice 0.5
 ======================
 
-Not many.
+Settings
+--------
 
- o Biggest change in the way settings are handled. Settings are now
-   stored in a global list called lattice.theme, and is truly
+ o The biggest change is in the way settings are handled. Settings are
+   now stored in a global list called lattice.theme, and is truly
    device-specific (i.e., settings for more than one device can be
-   used concurrently). Improved theme management via lset and
-   show.settings. Changed defaults for color postscript/pdf.
+   used concurrently).
+
+ o Improved theme management via lset and show.settings.
+
+ o Changed defaults for color postscript/pdf.
+
+New features
+------------
 
  o bwplot and friends which had to have the grouping factor/shingle on
    the y-axis, can now have it on the x-axis as well. Far from
@@ -957,11 +915,17 @@ Not many.
 Changes in lattice 0.4
 ======================
 
-Some of the implementation details have changed a lot. This might
-cause some old code to fail, though no such instances are known.
+Overview
+--------
 
-No significant new features have been added, but there are several
-bugfixes (notably in levelplot). The important changes are:
+ o Some implementation details have changed substantially. This might
+   cause some old code to fail, though no such instances are known. No
+   significant new features have been added, but there are several
+   bugfixes (notably in levelplot). The important changes are noted
+   below.
+
+Improvements:
+------------
 
  o documentation restructured. There is no topic called `trellis.args'
    any more. The detailed description of the arguments common to all
@@ -989,7 +953,7 @@ bugfixes (notably in levelplot). The important changes are:
  o colorkey (currently used only in levelplot) can now be placed to
    the left, top or bottom as well
 
- o new ``lines'' component in the par.strip.text argument that can be
+ o new "lines" component in the par.strip.text argument that can be
    used to change the height of strips
 
  o xlab, main etc can be double height strings (containing "\n"-s),
@@ -1010,19 +974,20 @@ bugfixes (notably in levelplot). The important changes are:
  o show.settings() added
 
 
-
 Changes in lattice 0.3
 ======================
 
+Overview
+--------
 
-The overall internal structure of the lattice library has changed
-considerably in verion 0.3, in particular making it far more readable
-and debuggable. However, this also means that some code which had
-worked with the earlier version might now fail. (This is just a
-discalimer, there are no known instances.)
+ o The overall internal structure of the lattice package has changed
+   considerably in verion 0.3, in particular making it far more
+   readable and debuggable. However, this also means that some code
+   which had worked with the earlier version might now fail. (This is
+   just a discalimer, there are no known instances.)
 
-New Features:
-============
+New Features
+------------
 
  o (Almost) full support for the `key' argument for drawing legends
 
@@ -1057,33 +1022,35 @@ New Features:
 
 
 Porting S-Plus Trellis code to Lattice
-======================================
+--------------------------------------
 
-One of the basic problems in porting existing Trellis code to R is the
-unusability of the base R functions like lines and points inside panel
-functions. To help make the changes more transparently, lattice now
-includes several wrappers around grid functions that provide an API
-similar to the corresponding base R functions. The list currently
-includes lpoints, llines, ltext and lsegments [update: larrows].
+ o One of the basic problems in porting existing Trellis code to R is
+   the unusability of the base R functions like lines and points
+   inside panel functions. To help make the changes more
+   transparently, lattice now includes several wrappers around grid
+   functions that provide an API similar to the corresponding base R
+   functions. The list currently includes lpoints, llines, ltext and
+   lsegments [update: larrows].
 
-Using Lattice and base R graphics concurrently [OBSOLETE]
-==============================================
+Using Lattice and base R graphics concurrently
+----------------------------------------------
 
-Grid graphics normally do not mix with usual R graphics. However,
-end-users typically might want to use lattice functions concurrently
-with traditional R graphics. To allow this without intermittent calls
-to grid.stop() and grid.start(), print.trellis (which ultimately does
-all the plotting in lattice) now tries to preserve the state of the
-device on which it plots. By default, library(lattice) opens a device
-in grid enabled mode. It can be reverted to non grid mode by
-grid.stop(). Subsequently, both Lattice functions and traditional
-graphics functions can be used. Devices opened by trellis.device()
-start in non-grid mode, unless grid.start() is called.
+ o [OBSOLETE] Grid graphics normally do not mix with usual R
+   graphics. However, end-users typically might want to use lattice
+   functions concurrently with traditional R graphics. To allow this
+   without intermittent calls to grid.stop() and grid.start(),
+   print.trellis (which ultimately does all the plotting in lattice)
+   now tries to preserve the state of the device on which it plots. By
+   default, library(lattice) opens a device in grid enabled mode. It
+   can be reverted to non grid mode by grid.stop(). Subsequently, both
+   Lattice functions and traditional graphics functions can be
+   used. Devices opened by trellis.device() start in non-grid mode,
+   unless grid.start() is called.
 
+Still Missing
+-------------
 
-
-Still Missing [OBSOLETE, except for the parts about piechart and scale]
-=============
+ o [OBSOLETE, except for the parts about piechart and scale]
 
  o contourplot, wireframe, cloud (partially implemented) and of course,
    piechart
