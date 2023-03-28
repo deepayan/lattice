@@ -1096,11 +1096,3 @@ Still Missing [OBSOLETE, except for the parts about piechart and scale]
  o axis labels badly implemented, no checking for overlaps.
 
 
-
-
-
-
-Local variables:
-mode: indented-text
-End:
-
