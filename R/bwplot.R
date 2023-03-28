@@ -53,7 +53,7 @@ prepanel.default.bwplot <-
                 if (missing(nlevels)) nlevels <- length(unique(y))
                 y <- factor(y, levels = 1:nlevels)
             }
-            list(xlim = if (stack) stackedRange(x, y) else scale.limits(c(x, origin)),
+            list(xlim = if (stack) stackedRange(x, y) else scale_limits(c(x, origin)),
                  ylim = levels(y),
                  yat = sort(unique(as.numeric(y))),
                  dx = 1,
@@ -68,7 +68,7 @@ prepanel.default.bwplot <-
             }
             list(xlim = levels(x),
                  xat = sort(unique(as.numeric(x))),
-                 ylim = if (stack) stackedRange(y, x) else scale.limits(c(y, origin)),
+                 ylim = if (stack) stackedRange(y, x) else scale_limits(c(y, origin)),
                  dx = 1,
                  dy = 1)
         }

@@ -48,7 +48,7 @@ prepanel.default.xyplot <-
             dy <- diff(as.numeric(y[ord]))
             ## ok <- TRUE
         }
-        list(xlim = scale.limits(x), ylim = scale.limits(y), dx = dx, dy = dy,
+        list(xlim = scale_limits(x), ylim = scale_limits(y), dx = dx, dy = dy,
              xat = if (is.factor(x)) sort(unique(as.numeric(x))) else NULL,
              yat = if (is.factor(y)) sort(unique(as.numeric(y))) else NULL)
     }

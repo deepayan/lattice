@@ -142,7 +142,7 @@ as.factorOrShingle <- function(x, subset = TRUE, drop = FALSE)
 ## this is a generalization of range(x), used as the xlim/ylim
 ## components of prepanel functions.  It should deals with factors,
 ## numerics, and date-time classes.
-scale.limits <- function(x)
+scale_limits <- function(x)
 {
     if (is.factor(x)) levels(x)
     else if (is.numeric(x)) range(x, finite = TRUE)

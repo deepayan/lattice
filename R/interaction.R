@@ -713,7 +713,7 @@ panel.link.splom <-
 {
     ans <- numeric(0)
     repeat {
-        new <- splom.linkPoint(threshold = threshold, verbose = verbose, ...)
+        new <- splom_linkPoint(threshold = threshold, verbose = verbose, ...)
         if (is.null(new)) break
         else ans[length(ans) + 1] <- new
     }
@@ -723,7 +723,7 @@ panel.link.splom <-
 panel.brush.splom <- panel.link.splom # for back-compatibility
 
 
-splom.linkPoint <-
+splom_linkPoint <-
     function(pargs = trellis.panelArgs(),
              threshold = 18,
              col = 'black', pch = 16, cex = 0.8, ...,

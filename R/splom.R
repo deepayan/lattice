@@ -133,7 +133,7 @@ panel.pairs <-
 
              ## prepanel.limits = function(x) if (is.factor(x)) levels(x) else
              ## extend.limits(range(as.numeric(x), finite = TRUE)),
-             prepanel.limits = scale.limits,
+             prepanel.limits = scale_limits,
 
              varnames = colnames(z),
              varname.col = add.text$col,
