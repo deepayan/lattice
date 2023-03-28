@@ -175,7 +175,8 @@ panel.barchart <-
             lty <- rep(lty, length.out = nvals)
             lwd <- rep(lwd, length.out = nvals)
 
-            height <- box.width # box.ratio / (1 + box.ratio)
+            height <- # box.ratio / (1 + box.ratio) by default
+                rep(box.width, length.out = length(x))
 
             if (reference)
                 panel.abline(v = origin,
@@ -197,7 +198,7 @@ panel.barchart <-
                                border = border[groups[ok][ord][pos]],
                                lty = lty[groups[ok][ord][pos]],
                                lwd = lwd[groups[ok][ord][pos]],
-                               height = rep(height, nok), # rep(height[i], nok),
+                               height = height[ok][ord][pos],
                                width = x[ok][ord][pos],
                                just = c("left", "centre"),
                                identifier = paste(identifier, "pos", i, sep = "."))
@@ -210,7 +211,7 @@ panel.barchart <-
                                border = border[groups[ok][ord][neg]],
                                lty = lty[groups[ok][ord][neg]],
                                lwd = lwd[groups[ok][ord][neg]],
-                               height = rep(height, nok), # rep(height[i], nok),
+                               height = height[ok][ord][neg],
                                width = x[ok][ord][neg],
                                just = c("left", "centre"),
                                identifier = paste(identifier, "neg", i, sep = "."))
@@ -272,7 +273,8 @@ panel.barchart <-
                 origin <- current.panel.limits()$ylim[1]
                 reference <- FALSE
             }
-            width <- box.width # box.ratio/(1+box.ratio)
+            width <- # box.ratio/(1+box.ratio) by default
+                rep(box.width, length.out = length(x))
 
             if (reference)
                 panel.abline(h = origin,
@@ -328,7 +330,7 @@ panel.barchart <-
                                border = border[groups[ok][ord][pos]],
                                lty = lty[groups[ok][ord][pos]],
                                lwd = lwd[groups[ok][ord][pos]],
-                               width = rep(width, nok),
+                               width = width[ok][ord][pos],
                                height = y[ok][ord][pos],
                                just = c("centre", "bottom"),
                                identifier = paste(identifier, "pos", i, sep = "."))
@@ -341,7 +343,7 @@ panel.barchart <-
                                border = border[groups[ok][ord][neg]],
                                lty = lty[groups[ok][ord][neg]],
                                lwd = lwd[groups[ok][ord][neg]],
-                               width = rep(width, nok),
+                               width = width[ok][ord][neg],
                                height = y[ok][ord][neg],
                                just = c("centre", "bottom"),
                                identifier = paste(identifier, "neg", i, sep = "."))
