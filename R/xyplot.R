@@ -74,6 +74,7 @@ panel.xyplot <-
              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
              horizontal = FALSE,
              ...,
+             smooth = NULL,
              grid = FALSE, abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
              factor = 0.5, amount = NULL,
@@ -190,20 +191,23 @@ panel.xyplot <-
                         lty = lty, col = col.line, lwd = lwd,
                         ..., identifier = id)
         }
-        if ("r" %in% type) panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
-        if ("smooth" %in% type)
+        smooth <- if (!is.null(smooth) && isTRUE(smooth)) "loess"
+                  else as.character(smooth)
+        if ("r" %in% type || "lm" %in% smooth)
+            panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
+        if ("smooth" %in% type || "loess" %in% smooth)
             panel.loess(x, y, horizontal = horizontal,
                         col = col.line, lty = lty, lwd = lwd, ...)
-        if ("spline" %in% type)
+        if ("spline" %in% type || "spline" %in% smooth)
             panel.spline(x, y, horizontal = horizontal,
                         col = col.line, lty = lty, lwd = lwd, ...)
-        if ("a" %in% type)
-            panel.linejoin(x, y, 
-                           horizontal = horizontal,
-                           lwd = lwd,
-                           lty = lty,
-                           col.line = col.line,
-                           ...)
+        if ("a" %in% type || "average" %in% smooth)
+            panel.average(x, y,
+                          horizontal = horizontal,
+                          lwd = lwd,
+                          lty = lty,
+                          col.line = col.line,
+                          ...)
     }
 }
 
