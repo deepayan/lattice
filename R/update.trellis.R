@@ -320,7 +320,7 @@ update.trellis <-
                     if (any(c("x", "y", "corner") %in% names(object$legend[[1]]$args)))
                         "inside"
                     else
-                        "top"
+                        "right"
                 if (!is.null(object$legend[[1]]$args$space))
                     names(object$legend) <- object$legend[[1]]$args$space
             }

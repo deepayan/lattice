@@ -553,7 +553,7 @@ splom.formula <-
             if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
                 "inside"
             else
-                "top"
+                "right"
         if (!is.null(foo$legend[[1]]$args$space))
             names(foo$legend) <- foo$legend[[1]]$args$space
     }
