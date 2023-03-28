@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2021-04-24 22:28\n"
+"POT-Creation-Date: 2023-03-28 21:08\n"
 "PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -20,11 +20,6 @@ msgstr ""
 msgid "Invalid value of 'log'"
 msgstr "niepoprawna wartość 'log'"
 
-# lattice/R/axis.R: 596
-# stop("range too small for min.n")
-msgid "range too small for min.n"
-msgstr "zakres dla 'min.n' jest zbyt mały"
-
 # lattice/R/axis.R: 688
 # stop("'at' missing or incompatible with 'labels'")
 msgid "'at' missing or incompatible with 'labels'"
@@ -33,12 +28,25 @@ msgstr "brakuje 'at' lub niespójne z 'labels'"
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
 
+# lattice/R/axis.R: 596
+# stop("range too small for min.n")
+msgid "range too small for min.n"
+msgstr "zakres dla 'min.n' jest zbyt mały"
+
 # lattice/R/bwplot.R: 184
 # warning("'origin' forced to 0 for stacked bars")
 # lattice/R/bwplot.R: 321
 # warning("'origin' forced to 0 for stacked bars")
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' wymuszone aby być zerem dla ułożonych pasków"
+
+msgid ""
+"%s must be length 1 or a vector of \n"
+"             length multiple of group length (%d)"
+msgstr ""
+
+msgid ","
+msgstr ","
 
 # lattice/R/cloud.R: 1427
 # warning("explicit 'data' specification ignored")
@@ -396,6 +404,12 @@ msgid "'at' values are not equispaced; output may be wrong"
 msgstr ""
 "wartości 'at' nie są równomiernie rozmieszczone; wyjście może być błędne"
 
+msgid "key specifies 'labels$labels' but not 'labels$at'"
+msgstr ""
+
+msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
+msgstr ""
+
 # lattice/R/legend.R: 892
 # stop("malformed colorkey")
 msgid "malformed colorkey"
@@ -560,9 +574,6 @@ msgstr "Reszty"
 # warning("Invalid or ambiguous component names: ", tmp_n, sep = "")
 msgid "Invalid or ambiguous component names:"
 msgstr "Niepoprawne lub niejednoznacznie nazwy komponentów"
-
-msgid ","
-msgstr ","
 
 # lattice/R/scales.R: 35
 # stop("Multiple matches to component name")

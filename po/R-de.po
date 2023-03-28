@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 4.0.0 / Lattice 0.20.40\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2021-04-24 22:28\n"
+"POT-Creation-Date: 2023-03-28 21:08\n"
 "PO-Revision-Date: 2020-04-01 15:02+0200\n"
 "Last-Translator: Detlef Steuer <steuer@hsu-hh.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -20,17 +20,25 @@ msgstr ""
 msgid "Invalid value of 'log'"
 msgstr "Ungültiger Wert von 'log'"
 
-msgid "range too small for min.n"
-msgstr "Spannweite zu klein für min.n"
-
 msgid "'at' missing or incompatible with 'labels'"
 msgstr "'at' fehlt oder ist inkompatibel mit 'labels'"
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
 
+msgid "range too small for min.n"
+msgstr "Spannweite zu klein für min.n"
+
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' wurde für gestapelte Balken zwangsweise auf 0 gesetzt"
+
+msgid ""
+"%s must be length 1 or a vector of \n"
+"             length multiple of group length (%d)"
+msgstr ""
+
+msgid ","
+msgstr ","
 
 msgid "explicit 'data' specification ignored"
 msgstr "ausdrückliche 'data'-Spezifikation ignoriert"
@@ -204,6 +212,12 @@ msgstr "Entschuldigung. align=FALSE wird nicht unterstützt."
 msgid "'at' values are not equispaced; output may be wrong"
 msgstr "'at' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
 
+msgid "key specifies 'labels$labels' but not 'labels$at'"
+msgstr ""
+
+msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
+msgstr ""
+
 msgid "malformed colorkey"
 msgstr "missgestalteter Farbschlüssel"
 
@@ -302,9 +316,6 @@ msgstr "Residuen"
 
 msgid "Invalid or ambiguous component names:"
 msgstr "Unzulässige oder zweideutige Komponentennamen:"
-
-msgid ","
-msgstr ","
 
 msgid "Multiple matches to component name"
 msgstr "Mehrere Übereinstimmungen mit dem Komponentennamen"

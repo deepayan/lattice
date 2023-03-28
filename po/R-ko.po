@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 3.2.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2021-04-24 22:28\n"
+"POT-Creation-Date: 2023-03-28 21:08\n"
 "PO-Revision-Date: 2015-02-09 00:06-0600\n"
 "Last-Translator:Chel Hee Lee  <chl948@mail.usask.ca>\n"
 "Language-Team: Chel Hee Lee  <chl948@mail.usask.ca>\n"
@@ -27,19 +27,27 @@ msgstr ""
 msgid "Invalid value of 'log'"
 msgstr "'log' 값이 올바르지 않습니다."
 
-msgid "range too small for min.n"
-msgstr ""
-
 msgid "'at' missing or incompatible with 'labels'"
 msgstr "'at'의 값이 누락되었거나 'labels'의 길이와 일치하지 않습니다."
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
 
+msgid "range too small for min.n"
+msgstr ""
+
 msgid "'origin' forced to 0 for stacked bars"
 msgstr ""
 "분할된 바챠트(stacked bars)의 경우에 'origin'의 값은 자동으로 0으로 변경됩니"
 "다."
+
+msgid ""
+"%s must be length 1 or a vector of \n"
+"             length multiple of group length (%d)"
+msgstr ""
+
+msgid ","
+msgstr ","
 
 msgid "explicit 'data' specification ignored"
 msgstr "'data' 인자에 지정된 이름을 가진 데이터셋을 이용하지 않았습니다."
@@ -217,6 +225,12 @@ msgstr ""
 "'at'의 값이 균등(equispaced)하지 않아 출력이 올바르게 표현되지 않을 수 있습니"
 "다."
 
+msgid "key specifies 'labels$labels' but not 'labels$at'"
+msgstr ""
+
+msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
+msgstr ""
+
 msgid "malformed colorkey"
 msgstr "잘못된 컬러키(colorkey)입니다."
 
@@ -323,9 +337,6 @@ msgstr "잔차(residuals)"
 
 msgid "Invalid or ambiguous component names:"
 msgstr ""
-
-msgid ","
-msgstr ","
 
 msgid "Multiple matches to component name"
 msgstr ""
