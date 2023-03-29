@@ -151,7 +151,7 @@ suppressWarnings(plot(levelplot(rnorm(10) ~ 1:10 + sort(runif(10)),
 levelplot(volcano, panel = panel.levelplot.raster)
 
 levelplot(volcano, panel = panel.levelplot.raster,
-          col.regions = topo.colors, cuts = 30, interpolate = TRUE)
+          col.regions = hcl.colors, cuts = 30, interpolate = TRUE)
 
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

@@ -174,7 +174,7 @@ diag.panel.splom(x = NULL,
 \examples{
 
 Cmat <- outer(1:6,1:6,
-              function(i,j) rainbow(11, start=.12, end=.5)[i+j-1])
+              function(i,j) hcl.colors(11)[i+j-1]) ## rainbow(11, start=.12, end=.5)[i+j-1])
 
 splom(~diag(6), as.matrix = TRUE,
       panel = function(x, y, i, j, ...) {
