@@ -109,14 +109,14 @@ custom_theme <-
 
 ## (v0.21) Extended to make it easy to provide user-supplied
 ## colors. Defaults to hcl palettes reordered to match classic theme,
-## and region = colorspace::deutan(hcl.colors(12, "YlGnBu"))). Old
+## and region = hcl.colors(12, "YlGnBu")). Old
 ## standard.theme() / canonical.theme() renamed to classic.theme()
 
 standard.theme <- 
 canonical.theme <- function(name, color = TRUE,
-                            symbol = hcl.colors(7, "Dark 3")[c(6, 1, 4, 7, 2, 5, 3)],
-                            fill   = hcl.colors(7, "Pastel 1")[c(6, 1, 4, 7, 2, 5, 3)],
-                            region = c("#0C1F5C", "#172F82", "#304AA2", "#4961B2", "#5F71AF", "#7280B0", "#9FA4B4", "#C2C0B9", "#DBD6C3", "#EFE7CE", "#FDF4D8", "#FFFCDE"),
+                            symbol = palette.colors(8, "Okabe-Ito")[c(6, 2, 4, 8, 7, 3, 5)],
+                            fill   = palette.colors(7, "Set 2")[c(3, 6, 1, 4, 2, 5, 7)],
+                            region = hcl.colors(12, "YlGnBu", rev = TRUE),
                             reference = "#e8e8e8",
                             bg = "transparent",
                             fg = "black",
