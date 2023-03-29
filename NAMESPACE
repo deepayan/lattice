@@ -24,11 +24,7 @@ importFrom(stats,
            dnorm, qunif, uniroot, smooth.spline, predict)
 
 
-export(
-
-       ## high level generics:
-
-       histogram,
+export(histogram,     # high level generics:
        densityplot,
        qqmath,
        qq,
@@ -190,6 +186,7 @@ export(
        lattice.options,
        canonical.theme,
        standard.theme,
+       classic.theme,
        col.whitebg,
        simpleTheme,
        

@@ -1,4 +1,7 @@
 
+# Changes in lattice 0.21
+
+* TODO
 
 # Changes in lattice 0.20
 
@@ -697,8 +700,9 @@
 
 * Handling of the formula argument has been extended to allow
   multiple variables on either side of the formula (with
-  allow.multiple = TRUE), e.g. xyplot(y1 + y2 ~ x, data, allow.m =
-  TRUE). These are treated as grouped displays.
+  allow.multiple = TRUE), e.g., 
+  `xyplot(y1 + y2 ~ x, data, allow.m = TRUE)`. 
+  These are treated as grouped displays.
 
 ## Scales
 
@@ -722,14 +726,16 @@
   lpoints, etc.). In practice, the only changes required are (unless
   I have overlooked something) to add calls like
 
+```r
   x <- as.numeric(x)
   y <- as.numeric(y)
+```
 
   at the beginning. prepanel functions can now return, as their xlim
   or ylim components, either a numeric vector of length 2 (possibly a
   DateTime object), or a character vector. The latter implies that
   the elements of this vector should be the respective axis labels,
-  associated with tick marks at 1:length_of_this_vector.
+  associated with tick marks at `1:length_of_this_vector`.
 
 
 * high-level functions: The default panel functions of high level

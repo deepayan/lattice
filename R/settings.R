@@ -62,9 +62,78 @@ lower.saturation <-
 }
 
 
+## Construct a custom theme based on supplied colors (originally in
+## latticeExtra).  
+
+custom_theme <-
+    function(symbol, fill, region,
+             reference = "#e8e8e8", bg = "transparent", fg = "black",
+             strip.bg = "#f2f2f2", strip.fg = "#b2b2b2",
+             ...)
+{
+    theme <-
+        list(plot.polygon      = list(col = fill[1], border = fg[1]),
+             box.rectangle     = list(col= symbol[1]),
+             box.umbrella      = list(col= symbol[1]),
+             dot.line          = list(col = reference),
+             dot.symbol        = list(col = symbol[1]),
+             plot.line         = list(col = symbol[1]),
+             plot.symbol       = list(col= symbol[1]),
+             regions           = list(col = colorRampPalette(region)(100)),
+             reference.line    = list(col = reference),
+             superpose.line    = list(col = symbol),
+             superpose.symbol  = list(col = symbol),
+             superpose.polygon = list(col = fill, border = fg),
+
+             strip.background  = list(col = strip.bg),
+             strip.shingle     = list(col = strip.fg),
+             strip.border      = list(col = fg),
+
+             background        = list(col = bg),
+             add.line          = list(col = fg),
+             add.text          = list(col = fg),
+             box.dot           = list(col = fg),
+             axis.line         = list(col = fg),
+             axis.text         = list(col = fg),
+             strip.border      = list(col = fg),
+             box.3d            = list(col = fg),
+             par.xlab.text     = list(col = fg),
+             par.ylab.text     = list(col = fg),
+             par.zlab.text     = list(col = fg),
+             par.main.text     = list(col = fg),
+             par.sub.text      = list(col = fg))
+    modifyList(modifyList(classic.theme("pdf"), theme),
+               simpleTheme(...))
+}
+
+
+## (v0.21) Extended to make it easy to provide user-supplied
+## colors. Defaults to hcl palettes reordered to match classic theme,
+## and region = colorspace::deutan(hcl.colors(12, "YlGnBu"))). Old
+## standard.theme() / canonical.theme() renamed to classic.theme()
 
 standard.theme <- 
-canonical.theme <- function(name = .Device, color = name != "postscript")
+canonical.theme <- function(name, color = TRUE,
+                            symbol = hcl.colors(7, "Dark 3")[c(6, 1, 4, 7, 2, 5, 3)],
+                            fill   = hcl.colors(7, "Pastel 1")[c(6, 1, 4, 7, 2, 5, 3)],
+                            region = c("#0C1F5C", "#172F82", "#304AA2", "#4961B2", "#5F71AF", "#7280B0", "#9FA4B4", "#C2C0B9", "#DBD6C3", "#EFE7CE", "#FDF4D8", "#FFFCDE"),
+                            reference = "#e8e8e8",
+                            bg = "transparent",
+                            fg = "black",
+                            ...)
+{
+    if (!missing(name))
+        classic.theme(name = name, color = color)
+    else if (!color)
+        classic.theme(color = FALSE)
+    else
+        custom_theme(symbol = symbol, fill = fill, region = region,
+                     reference = reference, bg = bg, fg = fg, ...)
+}
+
+
+
+classic.theme <- function(name = .Device, color = name != "postscript")
 {
     ## For the purpose of this function, the only differences in the
     ## settings/themes arise from the difference in the default
@@ -414,17 +483,21 @@ trellis.device <-
     ## 'lattice.options(default.theme = "canonical.theme")' after
     ## loading lattice.
 
+    ## Update: From lattice 0.21, canonical.theme has been updated to
+    ## use a HCL based color palette by default, and
+    ## 'canonical.theme()' has been renamed to 'classic.theme()'.
+
 
     ## Make sure there's an entry for this device in the theme list
     lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     if (!(.Device %in% names(lattice.theme)))
     {
-        lattice.theme[[.Device]] <- canonical.theme(name = "pdf", color = color)
+        lattice.theme[[.Device]] <- canonical.theme(color = color)
         assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
     }
 
     ## If retain = FALSE, overwrite with default settings for device
-    if (!retain) trellis.par.set(canonical.theme(name = "pdf", color=color))
+    if (!retain) trellis.par.set(canonical.theme(color = color))
 
     ## get theme as list
     if (!is.null(theme) && !is.list(theme))
