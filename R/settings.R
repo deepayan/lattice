@@ -107,10 +107,11 @@ custom_theme <-
 }
 
 
-## (v0.21) Extended to make it easy to provide user-supplied
-## colors. Defaults to hcl palettes reordered to match classic theme,
-## and region = colorspace::deutan(hcl.colors(12, "YlGnBu"))). Old
-## standard.theme() / canonical.theme() renamed to classic.theme()
+## (lattice >= 0.21-7) Extended to make it easy to provide
+## user-supplied colors. Defaults to hcl palettes reordered to match
+## classic theme, and region = colorspace::deutan(hcl.colors(12,
+## "YlGnBu"))). Old standard.theme() / canonical.theme() renamed to
+## classic.theme()
 
 standard.theme <- 
 canonical.theme <- function(name, color = TRUE,
@@ -593,7 +594,7 @@ show.settings <- function(x = NULL)
                           strip.background <- trellis.par.get("strip.background")
                           strip.border <- trellis.par.get("strip.border")
                           len <-
-                              max(sapply(strip.background, length),
+                              max(2, sapply(strip.background, length),
                                   sapply(strip.border, length))
                           panel.rect(y = ppoints(len), height = 0.5 / len,
                                      xleft = cpl$xlim[1], xright = cpl$xlim[2],
@@ -604,7 +605,7 @@ show.settings <- function(x = NULL)
                       },
                       "strip.shingle" = {
                           strip.shingle <- trellis.par.get("strip.shingle")
-                          len <- max(sapply(strip.shingle, length))
+                          len <- max(2, sapply(strip.shingle, length))
                           panel.rect(y = ppoints(len), height = 0.5 / len,
                                      xleft = cpl$xlim[1], xright = cpl$xlim[2],
                                      col = adjustcolor(strip.shingle$col, strip.shingle$alpha),

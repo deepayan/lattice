@@ -308,21 +308,10 @@ update.trellis <-
             groups <- object$panel.args.common$groups
             if (needAutoKey(auto.key, groups))
             {
-                object$legend <-
-                    list(list(fun = "drawSimpleKey",
-                              args =
-                              updateList(list(text = levels(as.factor(groups))), 
-                                         if (is.list(auto.key)) auto.key else list())))
-                object$legend[[1]]$x <- object$legend[[1]]$args$x
-                object$legend[[1]]$y <- object$legend[[1]]$args$y
-                object$legend[[1]]$corner <- object$legend[[1]]$args$corner
-                names(object$legend) <- 
-                    if (any(c("x", "y", "corner") %in% names(object$legend[[1]]$args)))
-                        "inside"
-                    else
-                        "right"
-                if (!is.null(object$legend[[1]]$args$space))
-                    names(object$legend) <- object$legend[[1]]$args$space
+                simpleKeyArgs <-
+                    list(text = levels(as.factor(groups)))
+
+                object$legend <- autoKeyLegend(simpleKeyArgs, auto.key)
             }
         }
     }
