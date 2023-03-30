@@ -68,8 +68,6 @@ if (FALSE)
 ## https://stat.ethz.ch/pipermail/r-devel/2005-September/034544.html
 
 
-library(lattice)
-
 n <- 20
 psteps <- 50
 binomtable <- function(n, psteps)
