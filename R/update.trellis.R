@@ -308,9 +308,40 @@ update.trellis <-
             groups <- object$panel.args.common$groups
             if (needAutoKey(auto.key, groups))
             {
-                simpleKeyArgs <-
-                    list(text = levels(as.factor(groups)))
-
+                ## Default is points = TRUE, lines = FALSE, rectangles
+                ## = FALSE.  Try harder if high-level function is
+                ## xyplot / splom / barchart / histogram
+                simpleKeyArgs <- c(
+                    list(text = levels(as.factor(groups))),
+                    switch(as.character(object$call[[1]]),
+                           barchart = ,
+                           histogram = {
+                               list(points = FALSE, lines = FALSE, rectangles = TRUE)
+                           },
+                           splom = ,
+                           xyplot = {
+                               type <- dots$type
+                               if (is.null(type)) type <- object$panel.args.common$type
+                               if (is.character(type) && length(type) > 0)
+                               {
+                                   points <- any(type %in% "p")
+                                   lines <- any(type %in% c("l", "b", "o", "h", "s", "S", "a",
+                                                            "smooth", "spline", "r"))
+                                   keytype <- if (any(type %in% c("b", "o"))) "o" else "l"
+                               }
+                               else
+                               {
+                                   points <- TRUE
+                                   lines <- FALSE
+                                   keytype <- "l"
+                               }
+                               list(points = points,
+                                    rectangles = FALSE,
+                                    lines = lines,
+                                    type = keytype)
+                           },
+                           list(points = TRUE, lines = FALSE, rectangles = FALSE))
+                )
                 object$legend <- autoKeyLegend(simpleKeyArgs, auto.key)
             }
         }

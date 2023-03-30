@@ -964,7 +964,7 @@ dotplot.table <-
     function(x, data = NULL, groups = TRUE,
              ..., horizontal = TRUE)
 {
-    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)

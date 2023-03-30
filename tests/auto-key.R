@@ -37,12 +37,17 @@ p1 <- xyplot(y ~ x | a, data = d, groups = b, type = "o",
              par.settings = simpleTheme(pch = 16))
 p2 <- dotplot(xtabs(x ~ b + a, data = d),
               par.settings = simpleTheme(pch = 16))
+p3 <- barchart(xtabs(x ~ b + a, data = d),
+               par.settings = simpleTheme(pch = 16))
 
 p1
 update(p1, auto.key = list(columns = 3))
 
 p2
 update(p2, auto.key = list(columns = 2))
+
+p3
+update(p3, auto.key = list(columns = 2))
 
 
 
