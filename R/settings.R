@@ -49,12 +49,30 @@ col.whitebg <- function()
 ## saturated versions of the symbol and line colors
 
 lower.saturation <-
-    function(x, f = 0.2)
+    function(x, f = 0.2, space = c("RGB", "HCL"))
 {
+    ## lower saturation in RGB or HCL space?
+    space <- match.arg(tolower(space), c("rgb", "hcl"))
+    
+    ## for HCL space ideally colorspace::lighten() should be used
+    if((space == "hcl") && requireNamespace("colorspace")) {
+        return(colorspace::lighten(x, amount = 1 - f))
+    }
+    
+    ## for RGB space the old implementation from lattice is used,
+    ## for HCL space (if colorspace is unavailable) an approximation in LUV is used
     RGB <- col2rgb(x)
-    RGB[] <- 255 - RGB
-    RGB[] <- round(f * RGB)
-    RGB[] <- 255 - RGB
+    if(space == "rgb") {
+        RGB[] <- 255 - RGB
+        RGB[] <- round(f * RGB)
+        RGB[] <- 255 - RGB
+    } else {
+        ## adjust L coordinate of HCL/LUV only, chroma is left as it is
+        LUV <- convertColor(t(RGB), from = "sRGB", to = "Luv", scale.in = 255)
+        Lold <- pmin(100, pmax(0, LUV[, "L"]))
+        LUV[, "L"] <- 100 - (100 - Lold) * f
+        RGB[] <- t(convertColor(LUV, from = "Luv", to = "sRGB", scale.out = 255))
+    }
     rgb(RGB["red", ],
         RGB["green", ],
         RGB["blue", ],
