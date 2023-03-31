@@ -130,15 +130,16 @@ custom_theme <-
 ## Default region colors are the sequential HCL palette "YlGnBu" (approximating the one from ColorBrewer).
 ## Old standard.theme() / canonical.theme() renamed to classic.theme()
 
-standard.theme <- 
-canonical.theme <- function(name, color = TRUE,
-                            symbol = palette.colors(palette = "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
-                            fill   = NULL,
-                            region = hcl.colors(14, palette = "YlGnBu", rev = TRUE),
-                            reference = "gray90",
-                            bg = "transparent",
-                            fg = "black",
-                            ...)
+canonical.theme <- function(...) standard.theme(...)
+
+standard.theme <- function(name, color = TRUE,
+                           symbol = palette.colors(palette = "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
+                           fill   = NULL,
+                           region = hcl.colors(14, palette = "YlGnBu", rev = TRUE),
+                           reference = "gray90",
+                           bg = "transparent",
+                           fg = "black",
+                           ...)
 {
     if (is.null(fill)) fill <- lower.saturation(symbol, 0.4, space = "HCL")
     if (!missing(name))
