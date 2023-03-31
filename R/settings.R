@@ -23,7 +23,7 @@ col.whitebg <- function()
          plot.polygon = list(col="#c8ffc8"),
          box.rectangle = list(col="darkgreen"),
          box.umbrella = list(col="darkgreen"),
-         dot.line = list(col="#e8e8e8"),
+         dot.line = list(col="gray90"),
          dot.symbol = list(col="darkgreen"),
          plot.line = list(col="darkgreen"),
          plot.symbol = list(col="darkgreen"),
@@ -34,7 +34,7 @@ col.whitebg <- function()
                                       "#0080ff", "#ff00ff", "#ff0000", "#ffff00")),
          strip.background = list(col = c("#ffe5cc", "#ccffcc", "#ccffff",
                                          "#cce6ff", "#ffccff", "#ffcccc", "#ffffcc")),
-         reference.line = list(col="#e8e8e8"),
+         reference.line = list(col="gray90"),
          superpose.line = list(col = c("darkgreen","red","royalblue",
                                        "brown","orange","turquoise", "orchid"),
                                lty = 1:7),
@@ -85,8 +85,8 @@ lower.saturation <-
 
 custom_theme <-
     function(symbol, fill, region,
-             reference = "#e8e8e8", bg = "transparent", fg = "black",
-             strip.bg = "#f2f2f2", strip.fg = "#b2b2b2",
+             reference = "gray90", bg = "transparent", fg = "black",
+             strip.bg = "gray95", strip.fg = "gray70",
              ...)
 {
     theme <-
