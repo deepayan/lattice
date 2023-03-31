@@ -125,17 +125,17 @@ custom_theme <-
 }
 
 
-## (v0.21) Extended to make it easy to provide user-supplied
-## colors. Defaults to Okabe-Ito reordered to match classic theme somewhat better,
-## and region = hcl.colors(12, "YlGnBu")).
-## Fill colors are by default lightened versions of the symbol colors.
+## (v0.21) Extended to make it easy to provide user-supplied colors.
+## Default symbol colors are from Okabe-Ito, reordered to match classic theme somewhat better.
+## Default fill colors are lightened versions of the symbol colors.
+## Default region colors are the sequential HCL palette "YlGnBu" (approximating the one from ColorBrewer).
 ## Old standard.theme() / canonical.theme() renamed to classic.theme()
 
 standard.theme <- 
 canonical.theme <- function(name, color = TRUE,
-                            symbol = palette.colors(8, "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
+                            symbol = palette.colors(palette = "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
                             fill   = NULL,
-                            region = hcl.colors(12, "YlGnBu", rev = TRUE),
+                            region = hcl.colors(14, palette = "YlGnBu", rev = TRUE),
                             reference = "gray90",
                             bg = "transparent",
                             fg = "black",
