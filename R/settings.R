@@ -126,20 +126,22 @@ custom_theme <-
 
 
 ## (v0.21) Extended to make it easy to provide user-supplied
-## colors. Defaults to hcl palettes reordered to match classic theme,
-## and region = hcl.colors(12, "YlGnBu")). Old
-## standard.theme() / canonical.theme() renamed to classic.theme()
+## colors. Defaults to Okabe-Ito reordered to match classic theme somewhat better,
+## and region = hcl.colors(12, "YlGnBu")).
+## Fill colors are by default lightened versions of the symbol colors.
+## Old standard.theme() / canonical.theme() renamed to classic.theme()
 
 standard.theme <- 
 canonical.theme <- function(name, color = TRUE,
-                            symbol = palette.colors(8, "Okabe-Ito")[c(6, 2, 4, 8, 7, 3, 5)],
-                            fill   = palette.colors(7, "Set 2")[c(3, 6, 1, 4, 2, 5, 7)],
+                            symbol = palette.colors(8, "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
+                            fill   = NULL,
                             region = hcl.colors(12, "YlGnBu", rev = TRUE),
                             reference = "#e8e8e8",
                             bg = "transparent",
                             fg = "black",
                             ...)
 {
+    if (is.null(fill)) fill <- lower.saturation(symbol, 0.4, space = "HCL")
     if (!missing(name))
         classic.theme(name = name, color = color)
     else if (!color)
