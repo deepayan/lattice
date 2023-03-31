@@ -23,7 +23,7 @@ col.whitebg <- function()
          plot.polygon = list(col="#c8ffc8"),
          box.rectangle = list(col="darkgreen"),
          box.umbrella = list(col="darkgreen"),
-         dot.line = list(col="#e8e8e8"),
+         dot.line = list(col="gray90"),
          dot.symbol = list(col="darkgreen"),
          plot.line = list(col="darkgreen"),
          plot.symbol = list(col="darkgreen"),
@@ -34,7 +34,7 @@ col.whitebg <- function()
                                       "#0080ff", "#ff00ff", "#ff0000", "#ffff00")),
          strip.background = list(col = c("#ffe5cc", "#ccffcc", "#ccffff",
                                          "#cce6ff", "#ffccff", "#ffcccc", "#ffffcc")),
-         reference.line = list(col="#e8e8e8"),
+         reference.line = list(col="gray90"),
          superpose.line = list(col = c("darkgreen","red","royalblue",
                                        "brown","orange","turquoise", "orchid"),
                                lty = 1:7),
@@ -49,12 +49,30 @@ col.whitebg <- function()
 ## saturated versions of the symbol and line colors
 
 lower.saturation <-
-    function(x, f = 0.2)
+    function(x, f = 0.2, space = c("RGB", "HCL"))
 {
+    ## lower saturation in RGB or HCL space?
+    space <- match.arg(tolower(space), c("rgb", "hcl"))
+    
+    ## for HCL space ideally colorspace::lighten() should be used
+    if((space == "hcl") && requireNamespace("colorspace")) {
+        return(colorspace::lighten(x, amount = 1 - f))
+    }
+    
+    ## for RGB space the old implementation from lattice is used,
+    ## for HCL space (if colorspace is unavailable) an approximation in LUV is used
     RGB <- col2rgb(x)
-    RGB[] <- 255 - RGB
-    RGB[] <- round(f * RGB)
-    RGB[] <- 255 - RGB
+    if(space == "rgb") {
+        RGB[] <- 255 - RGB
+        RGB[] <- round(f * RGB)
+        RGB[] <- 255 - RGB
+    } else {
+        ## adjust L coordinate of HCL/LUV only, chroma is left as it is
+        LUV <- convertColor(t(RGB), from = "sRGB", to = "Luv", scale.in = 255)
+        Lold <- pmin(100, pmax(0, LUV[, "L"]))
+        LUV[, "L"] <- 100 - (100 - Lold) * f
+        RGB[] <- t(convertColor(LUV, from = "Luv", to = "sRGB", scale.out = 255))
+    }
     rgb(RGB["red", ],
         RGB["green", ],
         RGB["blue", ],
@@ -67,8 +85,8 @@ lower.saturation <-
 
 custom_theme <-
     function(symbol, fill, region,
-             reference = "#e8e8e8", bg = "transparent", fg = "black",
-             strip.bg = "#f2f2f2", strip.fg = "#b2b2b2",
+             reference = "gray90", bg = "transparent", fg = "black",
+             strip.bg = "gray95", strip.fg = "gray70",
              ...)
 {
     theme <-
@@ -106,23 +124,23 @@ custom_theme <-
                simpleTheme(...))
 }
 
-
-## (lattice >= 0.21-7) Extended to make it easy to provide
-## user-supplied colors. Defaults to hcl palettes reordered to match
-## classic theme, and region = colorspace::deutan(hcl.colors(12,
-## "YlGnBu"))). Old standard.theme() / canonical.theme() renamed to
-## classic.theme()
+## (v0.21-7) Extended to make it easy to provide user-supplied colors.
+## Default symbol colors are from Okabe-Ito, reordered to match classic theme somewhat better.
+## Default fill colors are lightened versions of the symbol colors.
+## Default region colors are the sequential HCL palette "YlGnBu" (approximating the one from ColorBrewer).
+## Old standard.theme() / canonical.theme() renamed to classic.theme()
 
 standard.theme <- 
 canonical.theme <- function(name, color = TRUE,
-                            symbol = hcl.colors(7, "Dark 3")[c(6, 1, 4, 7, 2, 5, 3)],
-                            fill   = hcl.colors(7, "Pastel 1")[c(6, 1, 4, 7, 2, 5, 3)],
-                            region = c("#0C1F5C", "#172F82", "#304AA2", "#4961B2", "#5F71AF", "#7280B0", "#9FA4B4", "#C2C0B9", "#DBD6C3", "#EFE7CE", "#FDF4D8", "#FFFCDE"),
-                            reference = "#e8e8e8",
+                            symbol = palette.colors(palette = "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
+                            fill   = NULL,
+                            region = hcl.colors(14, palette = "YlGnBu", rev = TRUE),
+                            reference = "gray90",
                             bg = "transparent",
                             fg = "black",
                             ...)
 {
+    if (is.null(fill)) fill <- lower.saturation(symbol, 0.4, space = "HCL")
     if (!missing(name))
         classic.theme(name = name, color = color)
     else if (!color)
