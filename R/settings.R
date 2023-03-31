@@ -136,7 +136,7 @@ canonical.theme <- function(name, color = TRUE,
                             symbol = palette.colors(8, "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
                             fill   = NULL,
                             region = hcl.colors(12, "YlGnBu", rev = TRUE),
-                            reference = "#e8e8e8",
+                            reference = "gray90",
                             bg = "transparent",
                             fg = "black",
                             ...)
