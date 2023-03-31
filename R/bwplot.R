@@ -157,10 +157,7 @@ panel.barchart <-
                        just = c("left", "centre"),
                        identifier = identifier)
         }
-
-        ## grouped, with stacked bars
-
-        else if (stack)
+        else if (stack) # grouped, with stacked bars
         {
             if (!is.null(origin) && origin != 0)
                 warning("'origin' forced to 0 for stacked bars")
@@ -217,10 +214,7 @@ panel.barchart <-
                                identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
-
-        ## grouped, with side by side bars
-
-        else
+        else # grouped, with side by side bars
         {
             if (is.null(origin))
             {
@@ -261,11 +255,10 @@ panel.barchart <-
             }
         }
     }
-    
-    ## if not horizontal
 
-    else
+    else # if not horizontal
     {
+        ## No grouping
         if (is.null(groups))
         {
             if (is.null(origin))
@@ -273,8 +266,7 @@ panel.barchart <-
                 origin <- current.panel.limits()$ylim[1]
                 reference <- FALSE
             }
-            width <- # box.ratio/(1+box.ratio) by default
-                rep(box.width, length.out = length(x))
+            width <- box.width # box.ratio / (1 + box.ratio)
 
             if (reference)
                 panel.abline(h = origin,
@@ -292,23 +284,17 @@ panel.barchart <-
                        just = c("centre", "bottom"),
                        identifier = identifier)
         }
-        else if (stack)
+        else if (stack) # grouped, with stacked bars
         {
-
             if (!is.null(origin) && origin != 0)
                 warning("'origin' forced to 0 for stacked bars")
-
-##             vals <- seq_len(nlevels(groups))
-##             groups <- as.numeric(groupSub(groups, ...))
-##             ## vals <- sort(unique(groups))
-##             nvals <- length(vals)
-
             col <- rep(col, length.out = nvals)
             border <- rep(border, length.out = nvals)
             lty <- rep(lty, length.out = nvals)
             lwd <- rep(lwd, length.out = nvals)
 
-            width <- box.width # box.ratio/(1 + box.ratio)
+            width <- # box.ratio / (1 + box.ratio) by default
+                rep(box.width, length.out = length(y))
 
             if (reference)
                 panel.abline(h = origin,
@@ -349,18 +335,13 @@ panel.barchart <-
                                identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
-        else
+        else # grouped, with side by side bars
         {
             if (is.null(origin))
             {
                 origin <- current.panel.limits()$ylim[1]
                 reference = FALSE
             }
-##             vals <- seq_len(nlevels(groups))
-##             groups <- as.numeric(groupSub(groups, ...))
-##             ## vals <- sort(unique(groups))
-##             nvals <- length(vals)
-
             col <- rep(col, length.out = nvals)
             border <- rep(border, length.out = nvals)
             lty <- rep(lty, length.out = nvals)
@@ -964,7 +945,7 @@ dotplot.table <-
     function(x, data = NULL, groups = TRUE,
              ..., horizontal = TRUE)
 {
-    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
@@ -1492,26 +1473,12 @@ bwplot.formula <-
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
         foo$legend <-
-            list(list(fun = "drawSimpleKey",
-                      args =
-                      updateList(list(text = levels(as.factor(groups)),
-                                      points = if (is.standard.barchart) FALSE else TRUE,
-                                      rectangles = if (is.standard.barchart) TRUE else FALSE,
-                                      lines = FALSE), 
-                                 if (is.list(auto.key)) auto.key else list())))
-        foo$legend[[1]]$x <- foo$legend[[1]]$args$x
-        foo$legend[[1]]$y <- foo$legend[[1]]$args$y
-        foo$legend[[1]]$corner <- foo$legend[[1]]$args$corner
-
-        names(foo$legend) <- 
-            if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
-                "inside"
-            else
-                "right"
-        if (!is.null(foo$legend[[1]]$args$space))
-            names(foo$legend) <- foo$legend[[1]]$args$space
+            autoKeyLegend(list(text = levels(as.factor(groups)),
+                               points = if (is.standard.barchart) FALSE else TRUE,
+                               rectangles = if (is.standard.barchart) TRUE else FALSE,
+                               lines = FALSE),
+                          auto.key)
     }
-
     class(foo) <- "trellis"
     foo
 }

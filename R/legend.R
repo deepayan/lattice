@@ -83,13 +83,34 @@ needAutoKey <- function(auto.key, groups = NULL)
     ## !is.null(groups) && (is.list(auto.key) || isTRUE(auto.key))
 }
 
+## Pick a position for the legend based on its contents. Mainly used
+## for 'auto.key' via 'drawSimpleKey()'. Explicit 'space' is honored
+## in preference to anything else, otherwise 'right', unless 'columns
+## > 1'.
+
+defaultLegendPosition <- function(x)
+{
+    if (!is.null(x$space)) return(x$space)
+    if (any(c("x", "y", "corner") %in% names(x))) "inside"
+    else if (!is.null(x$columns) && any(x$columns > 1)) "top"
+    else "right"
+}
+
+autoKeyLegend <- function(args, more)
+{
+    if (is.list(more)) args <- updateList(args, more)
+    legend <- list(list(fun = "drawSimpleKey", args = args))
+    ## These should be missing rather than NULL, so assigned separately
+    legend[[1]]$x <- legend[[1]]$args$x
+    legend[[1]]$y <- legend[[1]]$args$y
+    legend[[1]]$corner <- legend[[1]]$args$corner
+    names(legend) <- defaultLegendPosition(legend[[1]]$args)
+    legend
+}
 
 ## convenience function for auto.key
 drawSimpleKey <- function(...)
     draw.key(simpleKey(...), draw = FALSE)
-
-
-
 
 
 ## convenience function for the most common type of key

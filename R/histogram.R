@@ -415,30 +415,15 @@ histogram.formula <-
                    cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
-
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
         foo$legend <-
-            list(list(fun = "drawSimpleKey",
-                      args =
-                      updateList(list(text = levels(as.factor(groups)),
-                                      points = FALSE,
-                                      rectangles = TRUE,
-                                      lines = FALSE),
-                                 if (is.list(auto.key)) auto.key else list())))
-        foo$legend[[1]]$x <- foo$legend[[1]]$args$x
-        foo$legend[[1]]$y <- foo$legend[[1]]$args$y
-        foo$legend[[1]]$corner <- foo$legend[[1]]$args$corner
-
-        names(foo$legend) <- 
-            if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
-                "inside"
-            else
-                "right"
-        if (!is.null(foo$legend[[1]]$args$space))
-            names(foo$legend) <- foo$legend[[1]]$args$space
+            autoKeyLegend(list(text = levels(as.factor(groups)),
+                               points = FALSE,
+                               rectangles = TRUE,
+                               lines = FALSE),
+                          auto.key)
     }
-
     class(foo) <- "trellis"
     foo
 }
