@@ -1,6 +1,6 @@
 
 
-### Copyright (C) 2001-2006  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
+### Copyright (C) 2001-2023  Deepayan Sarkar <Deepayan.Sarkar@R-project.org>
 ###
 ### This file is part of the lattice package for R.
 ### It is made available under the terms of the GNU General Public
@@ -17,8 +17,6 @@
 ### License along with this program; if not, write to the Free
 ### Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 ### MA 02110-1301, USA
-
-
 
 
 level.colors <- function(x, at, col.regions, colors = TRUE, ...)
@@ -122,7 +120,7 @@ panel.levelplot <-
              border.lty = 1,
              border.lwd = 0.1,
              ...,
-             region.type = c("grid", "filled.contour"),
+             region.type = c("grid", "contour"),
              col.regions = regions$col,
              alpha.regions = regions$alpha,
              identifier = "levelplot")
@@ -258,14 +256,13 @@ panel.levelplot <-
                                lty = border.lty,
                                alpha = alpha.regions))
         }
-        else if (region.type == "filled.contour")
+        else if (region.type == "contour")
         {
             numcol <- length(at) - 1
             cols <- level.colors(x = seq_len(numcol) - 0.5,
                                  at = seq_len(numcol + 1) - 1,
                                  col.regions = col.regions,
                                  colors = TRUE)
-            
             filledContour(x = cx,
                           y = cy,
                           z = matrix(z, length(cx)), 

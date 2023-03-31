@@ -1,15 +1,32 @@
 
-postscript("levelplot.ps")
+pdf("levelplot.pdf")
+
 library(lattice)
 
 data(volcano)
 
+
 foo <-
     data.frame(z = as.vector(volcano),
-               x = rep(1:87, 61),
+               x = rep(log1p(1:87), 61),
                y = rep(1:61, each = 87))
 
+system.time(print(levelplot(z ~ x * y, foo, contour = TRUE)))
+
+system.time(print(levelplot(z ~ x * y, foo, contour = TRUE,
+                            panel = panel.levelplot.raster)))
+
+system.time(print(levelplot(z ~ x * y, foo, contour = TRUE,
+                            region.type = "contour")))
+
 levelplot(z ~ x * y, subset(foo, z > 150), contour = T)
+
+## region.type = "contour" does not support missing grid points
+suppressWarnings(plot(levelplot(z ~ x * y, subset(foo, z > 150),
+                                contour = T,
+                                region.type = "contour")))
+
+
 levelplot(z ~ x * y, foo, subset = z > 150, contour = T)
 contourplot(z ~ x * y, foo, subset = z > 150, cuts = 10)
 
@@ -27,7 +44,7 @@ e <-
         silent = TRUE)
 stopifnot(inherits(e, "try-error"))
 
-## subset group interaction has problems (does it any longer):
+## subset group interaction has problems (does it any longer?):
 
 cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
       data = iris, cex = 0.8, groups = Species, subpanel = panel.superpose, 
@@ -42,13 +59,8 @@ levelplot(Sepal.Length ~ Petal.Length * Petal.Width,
           data = iris, groups = Species, 
           subset = 30:60)
 
-
-
-
 cloud(z ~ x * y, foo)
 cloud(z ~ x * y, foo, subset = z > 150)
-
-
 
 ## long format: NA's clipped at the beginning (??)
 
@@ -62,10 +74,9 @@ parallel(~iris[,1:4] | Species, iris, subset = 30:130)
 volna <- volcano
 volna[20:40, 20:40] <- NA
 levelplot(volna)
+levelplot(volna, region.type = "contour")
 cloud(volna)
 wireframe(volna)
-
-
 
 dev.off()
 
