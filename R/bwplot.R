@@ -157,10 +157,7 @@ panel.barchart <-
                        just = c("left", "centre"),
                        identifier = identifier)
         }
-
-        ## grouped, with stacked bars
-
-        else if (stack)
+        else if (stack) # grouped, with stacked bars
         {
             if (!is.null(origin) && origin != 0)
                 warning("'origin' forced to 0 for stacked bars")
@@ -217,10 +214,7 @@ panel.barchart <-
                                identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
-
-        ## grouped, with side by side bars
-
-        else
+        else # grouped, with side by side bars
         {
             if (is.null(origin))
             {
@@ -261,11 +255,10 @@ panel.barchart <-
             }
         }
     }
-    
-    ## if not horizontal
 
-    else
+    else # if not horizontal
     {
+        ## No grouping
         if (is.null(groups))
         {
             if (is.null(origin))
@@ -273,8 +266,7 @@ panel.barchart <-
                 origin <- current.panel.limits()$ylim[1]
                 reference <- FALSE
             }
-            width <- # box.ratio/(1+box.ratio) by default
-                rep(box.width, length.out = length(x))
+            width <- box.width # box.ratio / (1 + box.ratio)
 
             if (reference)
                 panel.abline(h = origin,
@@ -292,23 +284,17 @@ panel.barchart <-
                        just = c("centre", "bottom"),
                        identifier = identifier)
         }
-        else if (stack)
+        else if (stack) # grouped, with stacked bars
         {
-
             if (!is.null(origin) && origin != 0)
                 warning("'origin' forced to 0 for stacked bars")
-
-##             vals <- seq_len(nlevels(groups))
-##             groups <- as.numeric(groupSub(groups, ...))
-##             ## vals <- sort(unique(groups))
-##             nvals <- length(vals)
-
             col <- rep(col, length.out = nvals)
             border <- rep(border, length.out = nvals)
             lty <- rep(lty, length.out = nvals)
             lwd <- rep(lwd, length.out = nvals)
 
-            width <- box.width # box.ratio/(1 + box.ratio)
+            width <- # box.ratio / (1 + box.ratio) by default
+                rep(box.width, length.out = length(y))
 
             if (reference)
                 panel.abline(h = origin,
@@ -349,18 +335,13 @@ panel.barchart <-
                                identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
-        else
+        else # grouped, with side by side bars
         {
             if (is.null(origin))
             {
                 origin <- current.panel.limits()$ylim[1]
                 reference = FALSE
             }
-##             vals <- seq_len(nlevels(groups))
-##             groups <- as.numeric(groupSub(groups, ...))
-##             ## vals <- sort(unique(groups))
-##             nvals <- length(vals)
-
             col <- rep(col, length.out = nvals)
             border <- rep(border, length.out = nvals)
             lty <- rep(lty, length.out = nvals)
