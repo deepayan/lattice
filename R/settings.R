@@ -80,6 +80,25 @@ lower.saturation <-
 }
 
 
+
+## make a 'shading' function from region colors, for use in
+## wireframe(shade = TRUE). 'pref' controls the amount of matte /
+## glossy-ness.
+
+makeShadePalette <- function(col.region, ..., min = 0.05, pref = 0.75)
+{
+    cramp <- colorRamp(col.region, ...)
+    function(irr, ref, height, saturation = .9)
+    {
+        ## all scalars currently
+        RGB <- cramp(height)
+        RGB[] <- (min + (1-min) * irr * ref^pref) * RGB # darken
+        rgb(RGB[, 1], RGB[, 2], RGB[, 3], maxColorValue = 255)
+    }
+}
+
+
+
 ## Construct a custom theme based on supplied colors (originally in
 ## latticeExtra).  
 
@@ -97,11 +116,13 @@ custom_theme <-
              dot.symbol        = list(col = symbol[1]),
              plot.line         = list(col = symbol[1]),
              plot.symbol       = list(col= symbol[1]),
-             regions           = list(col = colorRampPalette(region)(100)),
              reference.line    = list(col = reference),
              superpose.line    = list(col = symbol),
              superpose.symbol  = list(col = symbol),
              superpose.polygon = list(col = fill, border = fg),
+
+             regions           = list(col = colorRampPalette(region)(100)),
+             shade.colors      = list(palette = makeShadePalette(region)),
 
              strip.background  = list(col = strip.bg),
              strip.shingle     = list(col = strip.fg),

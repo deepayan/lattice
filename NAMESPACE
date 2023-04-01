@@ -10,8 +10,8 @@ importFrom(grDevices,
            dev.hold, dev.flush, dev.capabilities,
            dev.list, cm.colors, gray, col2rgb, rgb, adjustcolor,
            heat.colors, grey, hsv, xy.coords, axisTicks,
-           boxplot.stats, contourLines, colorRampPalette, as.raster,
-           hcl.colors, palette.colors, convertColor)
+           boxplot.stats, contourLines, colorRamp, colorRampPalette,
+           as.raster, hcl.colors, palette.colors, convertColor)
 
 importFrom(graphics, par, plot, co.intervals, hist)
 
