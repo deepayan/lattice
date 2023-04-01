@@ -1,7 +1,40 @@
 
 # Changes in lattice 0.21
 
-* TODO
+* The color scheme used in the default graphical settings has been
+  updated to use modern palettes, thanks to Achim Zeileis. It is also
+  easier to customize the color palette in `standard.theme()`, via a
+  new function `custom_theme()`.
+
+* `panel.levelplot()` has a new `region.type = "countour"` argument
+  allowing smooth region boundaries similar to `filled.contour()`.
+  Based on code in the `gridGraphics` package by Zhijian (Jason) Wen
+  and Paul Murrell, ported by Johan Larsson.
+  
+* Improved behaviour of `auto.key`, including better default placement
+  and better handling of the `type` argument in scatterplots. Based on
+  patch by Johan Larsson.
+
+* New `smooth` argument in `panel.xyplot()` as preferred alternative
+  to using `type` to indicate type of smoothing desired.
+
+* Vector argument support in `panel.violinplot()`. Contributed by
+  Stefan Eng.
+  
+* New option to optimize some grid unit calculations via
+  `lattice.options(optimize.grid = FALSE)`. Currently, setting this to
+  `TRUE` may speed up some multi-page plots.
+
+* New "grid" vignette containing examples of using raw grid with
+  lattice. Contributed by Paul Murrell.
+
+* New `fill` argument in `panel.3dscatter()`.
+
+* Improved `call` component in trellis objects, fixing a longstanding
+  [bug](https://stat.ethz.ch/pipermail/r-devel/2017-May/074243.html).
+
+* Miscellaneous bugfixes and improvements.
+
 
 # Changes in lattice 0.20
 
@@ -9,33 +42,41 @@
   documentation, building up to an eventual 1.0 release.  Specific
   major changes are given below.
 
-* Use dev.hold()/dev.flush() introduced in R 2.14.0 for smoother
+* Use `dev.hold()` / `dev.flush()` introduced in R 2.14.0 for smoother
   displays and transition.
 
 * It is now easier to use raster images in levelplot() by specifying
   top-level argument 'useRaster=TRUE'.
 
-* 'pos' can now be a vector in ltext(), just as it can in text().
+* 'pos' can now be a vector in `ltext()`, just as it can in `text()`.
 
-* Explicit components in 'colorkey' (for levelplot()) to specify
-  graphical parameters of boundary and tick marks/labels.
+* Explicit components in 'colorkey' (for `levelplot()`) to specify
+  graphical parameters of boundary and tick marks / labels.
 
-* "spline" added as a possibly 'type' in panel.xyplot(), following a
+* "spline" added as a possibly 'type' in `panel.xyplot()`, following a
   suggestion from Patrick Breheny.
 
 * Support for traditional graphics-like log scale annotation, using
-  'scales=list(equispaced.log = FALSE)'.
+  `scales = list(equispaced.log = FALSE)`.
 
-* parallel() deprecated in favour of parallelplot(), to avoid
+* `parallel()` deprecated in favour of `parallelplot()`, to avoid
   potential confusion with the parallel package.
 
 * The internal lattice.status list is cleaned up whenever new page
   starts.  This should fix lattice bug #1629.
 
-* There is a new option to provide a custom rule for computing
-  default breakpoints in histogram(). See ?histogram for details.
+* New option to provide a custom rule for computing default
+  breakpoints in `histogram()`. See ?histogram for details.
 
-* New datasets USMortality and USRegionalMortality.
+* New datasets `USMortality` and `USRegionalMortality`.
+
+* Support for triangular ("open") endpoints in colorkey.
+
+* Support for title in colorkey. Based on patch by Johan Larsson.
+
+* Improved prepanel calculations for stacked barchart with missing
+  values.
+
 
 
 # Changes in lattice 0.19
