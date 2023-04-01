@@ -219,7 +219,7 @@ contourplot(x, data, \dots)
 	\code{title} defaults to \code{NULL}, which means no title is drawn.
       }
 
-      \item{\code{title}:}{
+      \item{\code{title.control}:}{
 	A list providing control over the placement of a title, if
 	specified. Currently two components are honoured: \code{side}
 	can take values \code{"top"}, \code{"bottom"}, \code{"left"},
