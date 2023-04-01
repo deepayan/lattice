@@ -1,5 +1,6 @@
-\name{C_02_standard.theme}
+\name{C_02a_standard.theme}
 \alias{standard.theme}
+\alias{classic.theme}
 \alias{canonical.theme}
 \alias{custom_theme}
 \alias{col.whitebg}
@@ -21,7 +22,7 @@ standard.theme(name, color = TRUE,
 canonical.theme(...)
 custom_theme(symbol, fill, region,
              reference = "gray90", bg = "transparent", fg = "black",
-             strip.bg = "gray95", strip.fg = "gray70",
+             strip.bg = rep("gray95", 7), strip.fg = rep("gray70", 7),
              ...)
 classic.theme(name, color)
 col.whitebg()
@@ -52,8 +53,13 @@ col.whitebg()
   \item{fg}{ color, to be used for foreground elements such as axes and
     labels. }
   \item{bg}{ color, to be used as background. }
-  \item{\dots}{ additional parameters, passed on to other functions as
-    appropriate.
+  \item{strip.bg}{ color, to be used as strip background. }
+  \item{strip.fg}{ color, to be used as strip foreground. }
+  \item{\dots}{ additional arguments, passed on to other functions as
+    appropriate. In particular, additional arguments provided to
+    \code{standard.theme} will be passed on to \code{custom_theme}, and
+    these may include non-color parameters that will be used to modify
+    the resulting theme via \code{\link{simpleTheme}}.
   }
 }
 \details{

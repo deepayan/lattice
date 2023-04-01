@@ -86,7 +86,7 @@ lower.saturation <-
 custom_theme <-
     function(symbol, fill, region,
              reference = "gray90", bg = "transparent", fg = "black",
-             strip.bg = "gray95", strip.fg = "gray70",
+             strip.bg = rep("gray95", 7), strip.fg = rep("gray70", 7),
              ...)
 {
     theme <-
@@ -512,12 +512,12 @@ trellis.device <-
     lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     if (!(.Device %in% names(lattice.theme)))
     {
-        lattice.theme[[.Device]] <- canonical.theme(color = color)
+        lattice.theme[[.Device]] <- standard.theme(color = color)
         assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
     }
 
     ## If retain = FALSE, overwrite with default settings for device
-    if (!retain) trellis.par.set(canonical.theme(color = color))
+    if (!retain) trellis.par.set(standard.theme(color = color))
 
     ## get theme as list
     if (!is.null(theme) && !is.list(theme))
