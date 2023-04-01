@@ -9,6 +9,7 @@
 panel.smoothScatter(x, y = NULL,
                     nbin = 64, cuts = 255,
                     bandwidth,
+                    col.regions,
                     colramp,
                     nrpoints = 100,
                     transformation = function(x) x^0.25,
@@ -33,8 +34,15 @@ panel.smoothScatter(x, y = NULL,
     these functions come up with a more or less useful guess.  This
     parameter then gets passed on to the function
     \code{\link[KernSmooth:bkde2D]{bkde2D}}.}
-  \item{colramp}{Function accepting an integer \code{n} as an argument and
-    returning \code{n} colors.}
+  \item{col.regions}{ character vector of colors, or a function
+    producing such a vector. Defaults to the \code{col} component of the
+    \code{regions} setting of the current theme. }
+  \item{colramp}{ Function accepting an integer \code{n} as an argument
+    and returning \code{n} colors. If missing, the default is derived
+    from \code{col.regions} with the following modification: if
+    \code{col.regions} is a vector of colors, it is prepended by
+    \code{"white"} before being converted into a function using
+    \code{\link{colorRampPalette}}. }
   \item{nrpoints}{Numeric vector of length 1 giving number of points to
     be superimposed on the density image. The first \code{nrpoints} points
     from those areas of lowest regional densities will be plotted. Adding
@@ -71,10 +79,13 @@ panel.smoothScatter(x, y = NULL,
 \author{ Deepayan Sarkar \email{deepayan.sarkar@r-project.org} }
 \examples{
 
-ddf <- as.data.frame(matrix(rnorm(40000), ncol = 4) + 3 * rnorm(10000))
+ddf <- as.data.frame(matrix(rnorm(40000), ncol = 4) + 1.5 * rnorm(10000))
 ddf[, c(2,4)] <- (-ddf[, c(2,4)])
 xyplot(V1 ~ V2 + V3, ddf, outer = TRUE,
        panel = panel.smoothScatter, aspect = "iso")
+## argument to panel.levelplot
+xyplot(V1 ~ V2, ddf, panel = panel.smoothScatter, cuts = 10,
+       region.type = "contour")
 splom(ddf, panel = panel.smoothScatter, nbin = 64, raster = TRUE)
 
 }

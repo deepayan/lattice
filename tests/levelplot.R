@@ -24,6 +24,7 @@ levelplot(z ~ x * y, subset(foo, z > 150), contour = T)
 ## region.type = "contour" does not support missing grid points
 suppressWarnings(plot(levelplot(z ~ x * y, subset(foo, z > 150),
                                 contour = T,
+                                main = "Expect warning",
                                 region.type = "contour")))
 
 
