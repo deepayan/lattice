@@ -1,6 +1,8 @@
 
 library(lattice)
 
+pdf("auto-key.pdf", width = 10, height = 7)
+
 d <- data.frame(x = rnorm(100),
                 y = rnorm(100),
                 a = gl(2, 50),
@@ -49,5 +51,5 @@ update(p2, auto.key = list(columns = 2))
 p3
 update(p3, auto.key = list(columns = 2))
 
-
+dev.off()
 

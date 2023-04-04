@@ -3,9 +3,10 @@
 \alias{panel.wireframe}
 \alias{panel.3dscatter}
 \alias{panel.3dwire}
+\alias{makeShadePalette}
 \title{ Default Panel Function for cloud }
 \description{
-  These are default panel functions controlling \code{cloud} and
+  Default panel functions controlling \code{cloud} and
   \code{wireframe} displays.
 }
 
@@ -59,6 +60,7 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
              col.regions = regions$col,
              alpha.regions = regions$alpha,
              identifier = "3dwire")
+makeShadePalette(col.regions, \dots, min = 0.05, pref = 0.75)
 }
 \arguments{
   \item{x, y, z}{
@@ -169,14 +171,23 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
     logical, whether the facets will be colored by height, in a manner
     similar to \code{levelplot}.  This is ignored if \code{shade=TRUE}.
   }
-  \item{at, col.regions, alpha.regions}{
-    deals with specification of colors when \code{drape = TRUE} in
-    \code{\link{wireframe}}.  \code{at} can be a numeric vector,
-    \code{col.regions} a vector of colors, and \code{alpha.regions} a
-    numeric scalar controlling transparency.  The resulting behaviour is
-    similar to \code{\link{levelplot}}, \code{at} giving the breakpoints
-    along the z-axis where colors change, and the other two determining
-    the colors of the facets that fall in between.
+  \item{at}{
+    When \code{drape = TRUE} in \code{\link{wireframe}}, the facets
+    defining the surface are colored as a function of (average) height,
+    similar to \code{\link{levelplot}}.  \code{at} is a numeric vector
+    giving the breakpoints along the z-axis where colors change.
+  }
+  \item{col.regions}{
+    vector of colors to be used in conjunction with \code{at} when
+    \code{drape = TRUE}.
+
+    In \code{makeShadePalette}, which can be used to define a shading
+    palette (see below), \code{col.regions} is an initial vector
+    defining the base color (as a function of height) that is then
+    adjusted according to irradiance and reflectance.
+  }
+  \item{alpha.regions}{ numeric scalar controlling transparency when
+    \code{drape = TRUE}.
   }
   \item{rot.mat}{
     4x4 transformation matrix in homogeneous coordinates. This gives the
@@ -229,7 +240,14 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
 
     All three numbers should be between 0 and 1. The
     \code{shade.colors.palette} function should return a valid
-    color. The default function is obtained from the trellis settings.
+    color. The default function is obtained from the trellis settings
+    using \code{makeShadePalette}.
+  }
+  \item{min}{ numeric, between 0 and 1, giving a minimum saturation in
+    \code{makeShadePalette}
+  }
+  \item{pref}{ numeric, giving a power that is applied to reflectance
+    value before it is used to \sQuote{darken} the colors.
   }
   \item{light.source}{
     a 3-vector representing (in cartesian coordinates) the light
@@ -308,5 +326,17 @@ panel.3dwire(x, y, z, rot.mat = diag(4), distance,
 
 }
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
+\examples{
+wireframe(volcano, shade = TRUE,
+          shade.colors.palette = makeShadePalette(hcl.colors(10, "Inferno"),
+                                                  pref = 0.2))
+wireframe(volcano, shade = TRUE,
+          shade.colors.palette = makeShadePalette(hcl.colors(10, "Dark Mint"),
+                                                  pref = 0.2))
+wireframe(volcano, shade = TRUE,
+          shade.colors.palette = makeShadePalette(hcl.colors(10, "Harmonic"),
+                                                  pref = 0.2))
+}
+
 \seealso{\code{\link{cloud}}, \code{\link{utilities.3d}}}
 \keyword{dplot}

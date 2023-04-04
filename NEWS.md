@@ -14,13 +14,17 @@
 * Improved behaviour of `auto.key`, including better default placement
   and better handling of the `type` argument in scatterplots. Based on
   patch by Johan Larsson.
+  
+* Default values of `auto.key` and `grid` can now be set via `lattice.options()`.
 
 * New `smooth` argument in `panel.xyplot()` as preferred alternative
   to using `type` to indicate type of smoothing desired.
 
-* Vector argument support in `panel.violinplot()`. Contributed by
-  Stefan Eng.
+* Vector argument support in `panel.violin()`. Contributed by Stefan
+  Eng.
   
+* Better handling of degenerate data in `panel.violin()`.
+
 * New option to optimize some grid unit calculations via
   `lattice.options(optimize.grid = FALSE)`. Currently, setting this to
   `TRUE` may speed up some multi-page plots.
@@ -32,6 +36,8 @@
 
 * Improved `call` component in trellis objects, fixing a longstanding
   [bug](https://stat.ethz.ch/pipermail/r-devel/2017-May/074243.html).
+
+* `draw.key()` now considers title in width calculations.
 
 * Miscellaneous bugfixes and improvements.
 

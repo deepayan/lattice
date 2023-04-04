@@ -85,12 +85,13 @@ lower.saturation <-
 ## wireframe(shade = TRUE). 'pref' controls the amount of matte /
 ## glossy-ness.
 
-makeShadePalette <- function(col.region, ..., min = 0.05, pref = 0.75)
+makeShadePalette <- function(col.regions, ..., min = 0.05, pref = 0.75)
 {
-    cramp <- colorRamp(col.region, ...)
-    function(irr, ref, height, saturation = .9)
+    cramp <- colorRamp(col.regions, ...)
+    function(irr, ref, height)
     {
-        ## all scalars currently
+        ## All arguments will be scalars currently.
+        ## Better alternative: use colorspace::darken()
         RGB <- cramp(height)
         RGB[] <- (min + (1-min) * irr * ref^pref) * RGB # darken
         rgb(RGB[, 1], RGB[, 2], RGB[, 3], maxColorValue = 255)

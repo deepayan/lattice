@@ -190,7 +190,7 @@ export(histogram,     # high level generics:
        classic.theme,
        col.whitebg,
        simpleTheme,
-       
+       makeShadePalette,       
 
 
        ## interaction etc

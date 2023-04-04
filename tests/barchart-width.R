@@ -2,6 +2,8 @@
 ## Allow custom widths for barcharts? Currently allowed (without NSE),
 ## but could be improved.
 
+pdf("barchart-width.pdf")
+
 library(lattice)
 x <- 1:10
 names(x) <- sample(LETTERS, 10)
@@ -24,3 +26,4 @@ barchart(b ~ x, data = d, groups = a, box.width = d$w)
 barchart(b ~ x, data = d, groups = a, stack = TRUE, box.width = d$w)
 barchart(x ~ b, data = d, groups = a, stack = TRUE, box.width = d$w)
 
+dev.off()

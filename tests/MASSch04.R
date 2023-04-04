@@ -6,7 +6,7 @@
 
 library(MASS)
 library(lattice)
-trellis.device(postscript, file="ch04.ps", width=8, height=6,
+trellis.device(postscript, file="MASS-ch04.ps", width=8, height=6,
                pointsize=9)
 options(echo=T, width=65, digits=5)
 

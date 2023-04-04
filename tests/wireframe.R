@@ -1,5 +1,8 @@
 
 library(lattice)
+
+pdf("wireframe.pdf")
+
 data(volcano)
 
 foo <-
@@ -109,3 +112,4 @@ wireframe(F ~ x * p | factor(x0), bt,
 ## group's support is disjoint from that of the others.  In example 1,
 ## both groups have the same support, they are just not the full grid.
 
+dev.off()
