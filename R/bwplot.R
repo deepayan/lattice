@@ -804,7 +804,7 @@ panel.violin <-
     darg$na.rm <- na.rm
 
     .density <- function(x, density.args) {
-        if (sd(x) > 0)
+        if (stats::sd(x, na.rm = TRUE) > 0)
             do.call(stats::density, c(list(x = x), density.args))
         else
             list(x = rep(x[1], 3), y = c(0, 1, 0))
