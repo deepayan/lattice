@@ -27,7 +27,7 @@ bwplot(x, data, \dots)
        data,
        allow.multiple = is.null(groups) || outer,
        outer = !is.null(groups),
-       auto.key = FALSE,
+       auto.key = lattice.getOption("default.args")$auto.key,
        aspect = "fill",
        panel = lattice.getOption("panel.xyplot"),
        prepanel = NULL,
@@ -69,7 +69,7 @@ bwplot(x, data, \dots)
        data,
        allow.multiple = is.null(groups) || outer,
        outer = FALSE,
-       auto.key = FALSE,
+       auto.key = lattice.getOption("default.args")$auto.key,
        aspect = "fill",
        panel = lattice.getOption("panel.bwplot"),
        prepanel = NULL,
@@ -426,17 +426,19 @@ bwplot(x, data, \dots)
 
   \item{auto.key}{
     A logical, or a list containing components to be used as arguments
-    to \code{\link{simpleKey}}.  \code{auto.key=TRUE} is equivalent to
-    \code{auto.key=list()}, in which case \code{\link{simpleKey}} is
-    called with a set of default arguments (which may depend on the
-    relevant high-level function).  Most valid components to the
-    \code{key} argument can be specified in this manner, as
-    \code{\link{simpleKey}} will simply add unrecognized arguments to
-    the list it produces.
+    to \code{\link{simpleKey}}. The default can be set using
+    \code{\link{lattice.options}}.
+
+    \code{auto.key = TRUE} is equivalent to \code{auto.key = list()}, in
+    which case \code{\link{simpleKey}} is called with a set of default
+    arguments (which may depend on the relevant high-level function).
+    Most valid components to the \code{key} argument can be specified in
+    this manner, as \code{\link{simpleKey}} will simply add unrecognized
+    arguments to the list it produces.
 
     \code{auto.key} is typically used to automatically produce a
     suitable legend in conjunction with a grouping variable.  If
-    \code{auto.key=TRUE}, a suitable legend will be drawn if a
+    \code{auto.key = TRUE}, a suitable legend will be drawn if a
     \code{groups} argument is also provided, and not otherwise.  In list
     form, \code{auto.key} will modify the default legend thus produced.
     For example, \code{auto.key=list(columns = 2)} will create a legend
@@ -1355,28 +1357,11 @@ update(trellis.last.object(),
        par.strip.text = list(cex = 0.75),
        aspect = "iso")
 
-## Examples with data from `Visualizing Data' (Cleveland, 1993) obtained
-## from http://cm.bell-labs.com/cm/ms/departments/sia/wsc/
-
-EE <- equal.count(ethanol$E, number=9, overlap=1/4)
-
-## Constructing panel functions on the fly; prepanel
-xyplot(NOx ~ C | EE, data = ethanol,
-       prepanel = function(x, y) prepanel.loess(x, y, span = 1),
-       xlab = "Compression Ratio", ylab = "NOx (micrograms/J)",
-       panel = function(x, y) {
-           panel.grid(h = -1, v = 2)
-           panel.xyplot(x, y)
-           panel.loess(x, y, span=1)
-       },
-       aspect = "xy")
-
 ## Extended formula interface 
 
 xyplot(Sepal.Length + Sepal.Width ~ Petal.Length + Petal.Width | Species,
        data = iris, scales = "free", layout = c(2, 2),
-       auto.key = list(x = .6, y = .7, corner = c(0, 0)))
-
+       auto.key = list(x = .75, y = .75, corner = c(0.5, 0.5)))
 
 ## user defined panel functions
 
@@ -1384,10 +1369,10 @@ states <- data.frame(state.x77,
                      state.name = dimnames(state.x77)[[1]],
                      state.region = state.region)
 xyplot(Murder ~ Population | state.region, data = states,
-       groups = state.name,
-       panel = function(x, y, subscripts, groups) {
-           ltext(x = x, y = y, labels = groups[subscripts], cex=1,
-                 fontfamily = "HersheySans")
+       snames = states$state.name,
+       panel = function(x, y, subscripts, snames) {
+           panel.text(x = x, y = y, labels = snames[subscripts], cex = 1,
+                      fontfamily = "HersheySans")
        })
 
 ## Stacked bar chart
@@ -1398,7 +1383,7 @@ barchart(yield ~ variety | site, data = barley,
          ylab = "Barley Yield (bushels/acre)",
          scales = list(x = list(rot = 45)))
 
-bwplot(voice.part ~ height, data=singer, xlab="Height (inches)")
+bwplot(voice.part ~ height, data = singer, xlab = "Height (inches)")
 
 dotplot(variety ~ yield | year * site, data=barley)
 

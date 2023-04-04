@@ -348,7 +348,7 @@ splom.data.frame <-
 splom.formula <-
     function(x,
              data = NULL,
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = 1,
              between = list(x = 0.5, y = 0.5),
              panel = lattice.getOption("panel.splom"),

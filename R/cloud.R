@@ -1551,7 +1551,7 @@ cloud.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = c(1,1),
              panel.aspect = 1,
              panel = lattice.getOption("panel.cloud"),

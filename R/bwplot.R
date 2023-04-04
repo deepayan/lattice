@@ -385,6 +385,7 @@ panel.dotplot <-
              levels.fos = if (horizontal) unique(y) else unique(x),
              groups = NULL,
              ...,
+             grid = lattice.getOption("default.args")$grid,
              identifier = "dotplot")
 {
     x <- as.numeric(x)
@@ -396,6 +397,13 @@ panel.dotplot <-
 
     if (horizontal)
     {
+        if (!isFALSE(grid))
+        {
+            if (!is.list(grid))
+                grid <- if (isTRUE(grid)) list(h = 0, v = -1, x = x)
+                        else list(h = 0, v = 0)
+            do.call(panel.grid, grid)
+        }
         panel.abline(h = levels.fos,
                      col = col.line, lty = lty, lwd = lwd,
                      identifier = paste(identifier, "abline", sep="."))
@@ -404,10 +412,18 @@ panel.dotplot <-
                      ## lty = lty, lwd = lwd,
                      groups = groups,
                      horizontal = horizontal, ...,
+                     grid = FALSE,
                      identifier = identifier)
     }
     else
     {
+        if (!isFALSE(grid))
+        {
+            if (!is.list(grid))
+                grid <- if (isTRUE(grid)) list(h = -1, v = 0, y = y)
+                        else list(h = 0, v = 0)
+            do.call(panel.grid, grid)
+        }
         panel.abline(v = levels.fos,
                      col = col.line, lty = lty, lwd = lwd,
                      identifier = paste(identifier, "abline", sep="."))
@@ -416,6 +432,7 @@ panel.dotplot <-
                      ## lty = lty, lwd = lwd,
                      groups = groups,
                      horizontal = horizontal, ...,
+                     grid = FALSE,
                      identifier = identifier)
     }
 }
@@ -428,8 +445,19 @@ panel.stripplot <-
     function(x, y, jitter.data = FALSE,
              factor = 0.5, amount = NULL,
              horizontal = TRUE, groups = NULL, ...,
+             grid = lattice.getOption("default.args")$grid,
              identifier = "stripplot")
 {
+    if (!isFALSE(grid))
+    {
+        if (!is.list(grid))
+            grid <- switch(as.character(grid),
+                           "TRUE" = list(h = -1, v = -1, x = x, y = y),
+                           "h" = list(h = -1, v = 0, y = y),
+                           "v" = list(h = 0, v = -1, x = x),
+                           list(h = 0, v = 0))
+        do.call(panel.grid, grid)
+    }
     if (!any(is.finite(x) & is.finite(y))) return()
     panel.xyplot(x = x,
                  y = y,
@@ -438,6 +466,7 @@ panel.stripplot <-
                  factor = factor, amount = amount,
                  groups = groups,
                  horizontal = horizontal, ...,
+                 grid = FALSE,
                  identifier = identifier)
 }
 
@@ -1177,7 +1206,7 @@ bwplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.bwplot"),
              prepanel = NULL,

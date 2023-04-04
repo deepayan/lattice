@@ -6,10 +6,11 @@
 }
 \usage{
 panel.dotplot(x, y, horizontal = TRUE,
-              pch, col, lty, lwd, 
-              col.line, levels.fos,
+              pch, col, lty, lwd, col.line,
+              levels.fos,
               groups = NULL,
               \dots,
+              grid = lattice.getOption("default.args")$grid,
               identifier = "dotplot")
 }
 \arguments{
@@ -28,6 +29,17 @@ panel.dotplot(x, y, horizontal = TRUE,
     extra parameters, passed to \code{panel.xyplot} which is responsible
     for drawing the foreground points (\code{panel.dotplot} only draws
     the background reference lines).
+  }
+  \item{grid}{
+    A logical flag, or list specifying whether and how a background grid
+    should be drawn.  In its general form \code{grid} can be a list of
+    arguments to be supplied to \code{\link{panel.grid}}, which is
+    called with those arguments. If \code{FALSE}, no grid lines are
+    drawn. \code{grid = TRUE} is roughly equivalent to \code{list(h = 0,
+    v = -1)} if \code{horizontal = TRUE} and \code{list(h = -1, v = 0)}
+    if \code{horizontal = FALSE}. In other words, grid lines are drawn
+    only for the numeric axis, as reference lines for the categorical
+    axis are drawn regardless of the value of \code{grid}.
   }
   \item{identifier}{
     A character string that is prepended to the names of grobs

@@ -75,12 +75,12 @@ panel.xyplot <-
              horizontal = FALSE,
              ...,
              smooth = NULL,
-             grid = FALSE, abline = NULL,
+             grid = lattice.getOption("default.args")$grid,
+             abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
              factor = 0.5, amount = NULL,
              identifier = "xyplot")
 {
-    if (all(is.na(x) | is.na(y))) return()
     plot.symbol <- trellis.par.get("plot.symbol")
     plot.line <- trellis.par.get("plot.line")
     superpose.symbol <- trellis.par.get("superpose.symbol")
@@ -91,7 +91,7 @@ panel.xyplot <-
         if (missing(col.symbol)) col.symbol <- col
     }
     if (missing(grid) && ("g" %in% type)) grid <- TRUE ## FIXME: what if list?
-    if (!identical(grid, FALSE))
+    if (!isFALSE(grid))
     {
         if (!is.list(grid))
             grid <- switch(as.character(grid),
@@ -106,6 +106,7 @@ panel.xyplot <-
         if (is.numeric(abline)) abline <- list(abline)
         do.call(panel.abline, abline)
     }
+    if (all(is.na(x) | is.na(y))) return()
     if (!is.null(groups))
         panel.superpose(x, y,
                         type = type,
@@ -242,7 +243,7 @@ xyplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.xyplot"),
              prepanel = NULL,

@@ -87,11 +87,11 @@ USRegionalMortality
 
 \examples{
 dotplot(reorder(Cause, Rate) ~ Rate | Status,
-        data = USMortality, groups = Sex,
+        data = USMortality, groups = Sex, grid = FALSE,
         par.settings = simpleTheme(pch = 16), auto.key = list(columns = 2),
         scales = list(x = list(log = TRUE, equispaced.log = FALSE)))
 dotplot(reorder(Cause, Rate):Sex ~ Rate | Status,
-        data = USRegionalMortality, groups = Sex,
+        data = USRegionalMortality, groups = Sex, auto.key = FALSE,
         scales = list(x = list(log = TRUE, equispaced.log = FALSE)))
 }
 

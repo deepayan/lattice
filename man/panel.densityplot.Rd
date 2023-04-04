@@ -2,18 +2,22 @@
 \alias{panel.densityplot}
 \title{ Default Panel Function for densityplot }
 \description{
-  This is the default panel function for \code{densityplot}.
+  This is the default panel function for \code{\link{densityplot}}.
 }
 \usage{
-panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
-                  groups = NULL, weights = NULL,
-                  jitter.amount, type, \dots,
+panel.densityplot(x, darg, plot.points = "jitter",
+                  ref = FALSE,
+                  groups = NULL,
+                  weights = NULL,
+                  jitter.amount,
+                  type, \dots,
+                  grid = lattice.getOption("default.args")$grid,
                   identifier = "density")
 }
 \arguments{
   \item{x}{ data points for which density is to be estimated }
   \item{darg}{
-    list of arguments to be passed to the \code{density}
+    list of arguments to be passed to the \code{\link{density}}
     function. Typically, this should be a list with zero or more of the
     following components : \code{bw}, \code{adjust}, \code{kernel},
     \code{window}, \code{width}, \code{give.Rkern}, \code{n},
@@ -48,6 +52,19 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
   \item{\dots}{ extra graphical parameters.  Note that additional
     arguments to \code{\link{panel.rug}} cannot be passed on through
     \code{panel.densityplot}. }
+  \item{grid}{
+    A logical flag, character string, or list specifying whether and how
+    a background grid should be drawn.  In its general form, \code{grid}
+    can be a list of arguments to be supplied to
+    \code{\link{panel.grid}}, which is called with those arguments.
+    Three shortcuts are available:
+    \describe{
+      \item{\code{TRUE}:}{ roughly equivalent to \code{list(h = -1, v = -1)} }
+      \item{\code{"h"}:}{ roughly equivalent to \code{list(h = -1, v = 0)} }
+      \item{\code{"v"}:}{ roughly equivalent to \code{list(h = 0, v = -1)} }
+    }
+    No grid is drawn if \code{grid = FALSE}.
+  }
   \item{identifier}{
     A character string that is prepended to the names of grobs
     that are created by this panel function.
@@ -59,19 +76,3 @@ panel.densityplot(x, darg, plot.points = "jitter", ref = FALSE,
   \code{\link{jitter}}
 }
 \keyword{dplot}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

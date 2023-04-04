@@ -178,7 +178,7 @@ qqmath.formula <-
              outer = !is.null(groups),
              distribution = qnorm,
              f.value = NULL,
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.qqmath"),
              prepanel = NULL,

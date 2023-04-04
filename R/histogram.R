@@ -183,7 +183,7 @@ histogram.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = TRUE,
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.histogram"),
              prepanel = NULL,

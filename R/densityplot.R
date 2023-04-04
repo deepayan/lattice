@@ -103,8 +103,19 @@ panel.densityplot <-
              jitter.amount = 0.01 * diff(current.panel.limits()$ylim),
              type = "p",
              ...,
+             grid = lattice.getOption("default.args")$grid,
              identifier = "density")
 {
+    if (!isFALSE(grid))
+    {
+        if (!is.list(grid))
+            grid <- switch(as.character(grid),
+                           "TRUE" = list(h = -1, v = -1, x = x),
+                           "h" = list(h = -1, v = 0),
+                           "v" = list(h = 0, v = -1, x = x),
+                           list(h = 0, v = 0))
+        do.call(panel.grid, grid)
+    }
     if (ref)
     {
         reference.line <- trellis.par.get("reference.line")
@@ -198,7 +209,7 @@ densityplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.densityplot"),
              prepanel = NULL,

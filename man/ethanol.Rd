@@ -45,8 +45,8 @@ xyplot(NOx ~ C | EE, data = ethanol,
        xlab = "Compression ratio", ylab = "NOx (micrograms/J)",
        panel = function(x, y) {
            panel.grid(h=-1, v= 2)
-           panel.xyplot(x, y)
-           panel.loess(x,y, span=1)
+           panel.xyplot(x, y, grid = FALSE)
+           panel.loess(x, y, span = 1)
        },
        aspect = "xy")
 

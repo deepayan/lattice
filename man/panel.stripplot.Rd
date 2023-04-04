@@ -10,6 +10,7 @@ panel.stripplot(x, y, jitter.data = FALSE,
                 factor = 0.5, amount = NULL,
                 horizontal = TRUE, groups = NULL,
                 \dots,
+                grid = lattice.getOption("default.args")$grid,
                 identifier = "stripplot")
 }
 \arguments{
@@ -30,6 +31,19 @@ panel.stripplot(x, y, jitter.data = FALSE,
 
   \item{\dots}{ additional arguments, passed on to
     \code{\link{panel.xyplot}} }
+  \item{grid}{
+    A logical flag, character string, or list specifying whether and how
+    a background grid should be drawn.  In its general form, \code{grid}
+    can be a list of arguments to be supplied to
+    \code{\link{panel.grid}}, which is called with those arguments.
+    Three shortcuts are available:
+    \describe{
+      \item{\code{TRUE}:}{ roughly equivalent to \code{list(h = -1, v = -1)} }
+      \item{\code{"h"}:}{ roughly equivalent to \code{list(h = -1, v = 0)} }
+      \item{\code{"v"}:}{ roughly equivalent to \code{list(h = 0, v = -1)} }
+    }
+    No grid is drawn if \code{grid = FALSE}.
+  }
   \item{identifier}{
     A character string that is prepended to the names of grobs
     that are created by this panel function.
