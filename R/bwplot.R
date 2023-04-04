@@ -753,16 +753,6 @@ panel.bwplot <-
 
 
 
-
-
-
-
-
-
-
-
-
-
 panel.violin <-
     function(x, y, box.ratio = 1, box.width = box.ratio / (1 + box.ratio),
              horizontal = TRUE,
@@ -813,35 +803,30 @@ panel.violin <-
     darg$cut <- cut
     darg$na.rm <- na.rm
 
-    my.density <- function(x, density.args)
-    {
-        ans <- try(do.call(stats::density, c(list(x = x), density.args)), silent = TRUE)
-        ## if (inherits(ans, "try-error")) list(x = numeric(0), y = numeric(0)) else ans
-        if (inherits(ans, "try-error"))
-            list(x = rep(x[1], 3),
-                 y = c(0, 1, 0))
-        else ans
+    .density <- function(x, density.args) {
+        if (sd(x) > 0)
+            do.call(stats::density, c(list(x = x), density.args))
+        else
+            list(x = rep(x[1], 3), y = c(0, 1, 0))
     }
     numeric.list <- if (horizontal) split(x, factor(y)) else split(y, factor(x))
-
     # Recycle arguments
     # Add index to ensure that arguments are multiple of number of groups
     darg$index <- seq_along(numeric.list)
     darg <- tryCatch({
-      do.call(data.frame, darg)
-      }, error = function(e) {
+        do.call(data.frame, darg)
+    }, error = function(e) {
         darg$index <- NULL
-        stop(sprintf('%s must be length 1 or a vector of 
-             length multiple of group length (%d)',
-                     paste0(names(darg), collapse = ', '),
-                     length(numeric.list)))
-      })
+        stop(gettextf("length of '%s' must be  1 or multiple of group length (%d)",
+                      paste0(names(darg), collapse = ', '),
+                      length(numeric.list)))
+    })
     darg$index <- NULL
 
     levels.fos <- as.numeric(names(numeric.list))
     d.list <- lapply(seq_along(numeric.list), function(i) {
-      my.density(numeric.list[[i]], darg[i, ])
-      })
+        .density(numeric.list[[i]], darg[i, ])
+    })
     ## n.list <- sapply(numeric.list, length)  UNNECESSARY
     dx.list <- lapply(d.list, "[[", "x")
     dy.list <- lapply(d.list, "[[", "y")
