@@ -279,9 +279,14 @@ update.trellis <-
             ## the option of retaining the old, but in that case the
             ## user could add that manually to the new 'legend'. ]
 
+            ## other components (left, right, top, bottom) are simply replaced
+
             winside <- which(names(legend) == "inside")
             if (length(winside) ==  0L) # none in new
-                object$legend <- updateList(object$legend, legend)
+            {
+                for (space in names(legend))
+                    object$legend[[space]] <- legend[[space]]
+            }
             else 
             {
                 object$legend <- object$legend[ names(object$legend) != "inside" ]
