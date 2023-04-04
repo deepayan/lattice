@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.21-7\n"
-"POT-Creation-Date: 2023-03-28 21:08\n"
+"POT-Creation-Date: 2023-04-04 17:05\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,6 +23,9 @@ msgid "range too small for min.n"
 msgstr ""
 
 msgid "'origin' forced to 0 for stacked bars"
+msgstr ""
+
+msgid "length of '%s' must be  1 or multiple of group length (%d)"
 msgstr ""
 
 msgid "%s must be length 1 or a vector of \n             length multiple of group length (%d)"

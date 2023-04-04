@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2023-03-28 21:08\n"
+"POT-Creation-Date: 2023-04-04 17:05\n"
 "PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -39,6 +39,9 @@ msgstr "zakres dla 'min.n' jest zbyt mały"
 # warning("'origin' forced to 0 for stacked bars")
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' wymuszone aby być zerem dla ułożonych pasków"
+
+msgid "length of '%s' must be  1 or multiple of group length (%d)"
+msgstr ""
 
 msgid ""
 "%s must be length 1 or a vector of \n"
