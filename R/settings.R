@@ -162,7 +162,9 @@ standard.theme <- function(name, color = TRUE,
                            fg = "black",
                            ...)
 {
-    if (is.null(fill)) fill <- lower.saturation(symbol, 0.4, space = "HCL")
+    if (is.null(fill))
+        fill <- if (!missing(symbol)) lower.saturation(symbol, 0.4, space = "HCL")
+                else c("#94C6FF", "#FFD6AD", "#76E3B8", "#FFBBA9", "#BCE1FF", "#FFF691", "#FFC1E1")
     if (!missing(name))
         classic.theme(name = name, color = color)
     else if (!color)
@@ -1063,7 +1065,9 @@ lattice.options <- function(...)
          default.args =
          list(as.table = FALSE,
               aspect = "fill",
+              auto.key = FALSE,
               between = list(x=0, y=0),
+              grid = FALSE,
               ##page = NULL,
               ##main = NULL,
               ##sub = NULL,
