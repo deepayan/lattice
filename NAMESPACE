@@ -213,7 +213,7 @@ export(histogram,     # high level generics:
 
        )
 
-S3method(widthDetails, key)
+S3method(widthDetails, latticeKey)
 
 
 ## methods related to shingles

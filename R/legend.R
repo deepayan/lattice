@@ -769,12 +769,12 @@ draw.key <- function(key, draw = FALSE, vp = NULL, ...)
     }
     else stop("Sorry, align=FALSE is not supported")
     attr(key.gf, "titleWidth") <- titleWidth
-    class(key.gf) <- c("key", class(key.gf))
+    class(key.gf) <- c("latticeKey", class(key.gf))
     if (draw) grid.draw(key.gf)
     key.gf
 }
 
-widthDetails.key <- function(x) {
+widthDetails.latticeKey <- function(x) {
     max(NextMethod("widthDetails"),
         attr(x, "titleWidth"))
 }
