@@ -87,7 +87,7 @@ panel.smoothScatter <-
          y = rep(ym, each = length(xm)),
          z = as.numeric(dens),
          subscripts = TRUE,
-         at = seq(from = 0, to = 1.01 * max(dens), length = cuts + 2),
+         at = seq(from = 0, to = 1.01 * max(dens), length.out = cuts + 2),
          col.regions = colramp(cuts + 1),
          ...,
          identifier = identifier)

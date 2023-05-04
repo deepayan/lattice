@@ -196,7 +196,7 @@ unames <- sort(unique(unlist(names.tp)))
 ans <- matrix(0, nrow = length(names.tp), ncol = length(unames))
 rownames(ans) <- names(names.tp)
 colnames(ans) <- unames
-for (i in seq(along = names.tp))
+for (i in seq_along(names.tp))
     ans[i, ] <- as.numeric(unames \%in\% names.tp[[i]])
 ans <- ans[, order(-colSums(ans))]
 ans <- ans[order(rowSums(ans)), ]
