@@ -1,3 +1,798 @@
+commit e2f44f54c40204737e6e7689904801fbea5df67d
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 18 18:07:18 2023 +0530
+
+    update version
+
+M	DESCRIPTION
+
+commit d3dc7116a6d9e9457e5a2b0e1c5c8c11d70cd60a
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 4 13:47:06 2023 +0530
+
+    fix instances of partially matched argument names
+
+M	R/panel.smoothscatter.R
+M	R/xyplot.ts.R
+M	man/trellis.par.get.Rd
+
+commit b5026367e98e25be50a398d76edf3c9e05034e46
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Apr 5 21:45:30 2023 +0530
+
+    more specific className to avoid conflicts
+
+M	DESCRIPTION
+M	NAMESPACE
+M	R/legend.R
+
+commit e89a8293a479531fe1f4ab355243387bc45ca2df
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 19:41:29 2023 +0530
+
+    wireframe examples + misc cleanup
+
+M	DESCRIPTION
+M	NAMESPACE
+M	NEWS.md
+M	R/settings.R
+M	man/panel.cloud.Rd
+M	tests/MASSch04.R
+M	tests/auto-key.R
+M	tests/barchart-width.R
+M	tests/fontsize.R
+M	tests/levelplot.R
+M	tests/shade-wireframe.R
+M	tests/wireframe.R
+
+commit 7150755c4e0f433acd366edcc70fb1be01bbbfbb
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 17:20:37 2023 +0530
+
+    specify namespace
+
+M	R/bwplot.R
+
+commit 653b3c9598aa07308d1f089e4ef48b4a4c18b041
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 17:06:15 2023 +0530
+
+    translation message updates
+
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	po/R-de.po
+M	po/R-fr.po
+M	po/R-it.po
+M	po/R-ko.po
+M	po/R-lattice.pot
+M	po/R-pl.po
+
+commit 130b7cdab1e2facfd5e1cbb93b76ef6b605af3f1
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 17:05:14 2023 +0530
+
+    better handling of degenerate data in panel.violin (https://github.com/deepayan/lattice/issues/27)
+
+M	R/bwplot.R
+
+commit b9c47693d11d9f93529d1d23cf5da74e8de480f9
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 16:30:08 2023 +0530
+
+    allow defaults of 'auto.key' and 'grid' to be set using lattice.options()
+
+M	R/bwplot.R
+M	R/cloud.R
+M	R/densityplot.R
+M	R/histogram.R
+M	R/panel.superpose.R
+M	R/parallel.R
+M	R/qqmath.R
+M	R/splom.R
+M	R/xyplot.R
+M	man/USMortality.Rd
+M	man/cloud.Rd
+M	man/ethanol.Rd
+M	man/histogram.Rd
+M	man/lattice.options.Rd
+M	man/panel.densityplot.Rd
+M	man/panel.dotplot.Rd
+M	man/panel.functions.Rd
+M	man/panel.stripplot.Rd
+M	man/panel.superpose.Rd
+M	man/panel.xyplot.Rd
+M	man/qqmath.Rd
+M	man/singer.Rd
+M	man/splom.Rd
+M	man/xyplot.Rd
+
+commit e687211913d4b49c018bcc9294d93b8f81a600a6
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 16:28:52 2023 +0530
+
+    bugfix: properly replace legend components in update.trellis() instead of trying to combine
+
+M	R/update.trellis.R
+
+commit 0fe353f4560582c91efe5a4e1216febebf4289b2
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 16:27:03 2023 +0530
+
+    hard-code fill for default theme to bypass colorspace (breaks tests for a couple of revdeps)
+
+M	R/settings.R
+
+commit fb2a990b22a41301754b8e484da95a14c3e09f8d
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 4 11:33:53 2023 +0530
+
+    include title when calculating key width in draw.key
+
+M	NAMESPACE
+M	R/legend.R
+
+commit 5cd2d22369d4ec96f13a27794eff0ebdd2217d60
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Apr 1 16:58:14 2023 +0530
+
+    use region colors from settings in panel.smoothScatter
+
+M	R/panel.smoothscatter.R
+M	man/panel.smoothScatter.Rd
+M	tests/levelplot.R
+
+commit b403f3ef31b63bc4c93193b72a3ee7ea35859279
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Apr 1 16:22:29 2023 +0530
+
+    change default wireframe shade colors to depend on region colors
+
+M	NAMESPACE
+M	R/settings.R
+
+commit f59e060a25bc4ce0242ec97eb2914cc81b1b03b6
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Apr 1 13:08:31 2023 +0530
+
+    updated NEWS
+
+M	NEWS.md
+
+commit 3cf19a8be2cbf063e7563e27859985d8f31bded0
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Apr 1 13:08:17 2023 +0530
+
+    fix typo in docs
+
+M	man/levelplot.Rd
+
+commit dcb5dc835607d0188bccb7fbb7ac49ce314addf6
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Apr 1 11:53:29 2023 +0530
+
+    finish doc updates for settings changes
+
+M	R/settings.R
+M	man/standard.theme.Rd
+M	man/trellis.par.get.Rd
+
+commit 5e91497ee4c1fdac79f60d53d56e11282a984948
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 16:27:05 2023 +0530
+
+    doc updates (incomplete) for new theme settings
+
+M	R/settings.R
+A	man/standard.theme.Rd
+M	man/trellis.device.Rd
+
+commit 111a69b7e5bebddd1f8e1ba5abbcdd2763677e27
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 13:08:09 2023 +0530
+
+    levelplot(region.type='contour') refinements
+
+M	DESCRIPTION
+M	R/levelplot.R
+M	man/panel.levelplot.Rd
+M	tests/levelplot.R
+
+commit 11a93a6de80a3e2a646bd34e66051284e1e7b9bb
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 12:32:52 2023 +0530
+
+    remove unneeded file
+
+D	inst/COPYRIGHTS
+
+commit 1cd2faf3c9fcf88b740550f2b84fc46c97f57bf7
+Merge: 5f98e3c 7287855
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 12:31:42 2023 +0530
+
+    Merge branch 'jolars-filled-contour'
+
+commit 72878555527e870438b3d79a0d7233b25d94ff2a
+Merge: 5f98e3c f60d57c
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 12:30:34 2023 +0530
+
+    merge jolars:filled-contour (https://github.com/deepayan/lattice/pull/14) with some reformatting
+
+commit 5f98e3c6da2277ed946163626f0da9b8860c55b7
+Merge: 65527f4 c368aca
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 12:06:14 2023 +0530
+
+    Merge pull request #31 from zeileis/hcl-theme
+    
+    New color defaults
+
+commit c368acacb242e1916df7d3637fbc6b7bd067e30a
+Merge: 3229981 65527f4
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 12:05:48 2023 +0530
+
+    Merge branch 'master' into hcl-theme
+
+commit 32299819c9ed4fae64a996e5babe38fa39d73659
+Author: Achim Zeileis <Achim.Zeileis@uibk.ac.at>
+Date:   Fri Mar 31 08:21:53 2023 +0200
+
+    14 instead of 12 YlGnBu colors for region
+
+M	R/settings.R
+
+commit 65527f4b6d7f63da36d1fe2dd579e43a1c7206e2
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Mar 31 11:50:06 2023 +0530
+
+    barchart width bugfix
+
+M	R/bwplot.R
+
+commit 0220063112f978b9426ac5501812c339715b719e
+Author: Achim Zeileis <Achim.Zeileis@uibk.ac.at>
+Date:   Fri Mar 31 02:57:21 2023 +0200
+
+    replace gray hex codes more intelligible named gray colors: #e8e8e8 -> gray90 / #f2f2f2 -> gray95 / #b2b2b2 -> gray70
+
+M	R/settings.R
+
+commit e2dfba164fbd6d9dc4772458920cf8013fb131ac
+Author: Achim Zeileis <Achim.Zeileis@uibk.ac.at>
+Date:   Fri Mar 31 02:08:57 2023 +0200
+
+    use named 'gray90' for reference instead of less accessible '#e8e8e8'
+
+M	R/settings.R
+
+commit 998171614c4a1aff858ac774dc7077f09108cb59
+Author: Achim Zeileis <Achim.Zeileis@uibk.ac.at>
+Date:   Fri Mar 31 02:05:45 2023 +0200
+
+    Symbol colors are still Okabe-Ito ordered slightly differently,
+    less exact match to old palette but hopefully somewhat more contrast
+    within palette.
+    
+    Fill colors are set to NULL which defaults to using symbol colors
+    lightened with factor 0.4 (in HCL space).
+
+M	R/settings.R
+
+commit 7f3e0566222870e60f06e48f1e4f907edf810d5d
+Author: Achim Zeileis <Achim.Zeileis@uibk.ac.at>
+Date:   Fri Mar 31 01:05:18 2023 +0200
+
+    Import required functionality from grDevices (e.g., palette.colors)
+    from grDevices and hence make sure that at least R 4.0.0 is used.
+    
+    Extend internal lower.saturation() function by space = "RGB" vs.
+    "HCL" argument. For HCL ideally colorspace::lighten() is used in
+    case colorspace is available (hence now in DESCRIPTION/Suggests).
+    In case colorspace is not available, for space = "HCL" an approximation
+    is used via grDevices::convertColor(..., to = "Luv") which only lowers
+    the "L" (luminance) coordinate but does not make sure that "C" (chroma)
+    is reduced to the maximum possible.
+
+M	DESCRIPTION
+M	NAMESPACE
+M	R/settings.R
+
+commit f934cfe6e3d5ffb32a3d6a3624224816ebee1b17
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Mar 30 16:26:28 2023 +0530
+
+    smarter auto.key in update.trellis
+
+M	R/bwplot.R
+M	R/update.trellis.R
+M	tests/auto-key.R
+
+commit 169c8fd516b5fce910157dec557fc8ac56eb58e1
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Mar 30 14:48:19 2023 +0530
+
+    auto.key and wireframe shade=TRUE tests
+
+A	tests/auto-key.R
+A	tests/shade-wireframe.R
+M	tests/wireframe.R
+
+commit 2088637fc9fce5455bc626b4edbc75812b6feba5
+Author: Achim Zeileis <Achim.Zeileis@uibk.ac.at>
+Date:   Wed Mar 29 13:05:28 2023 +0200
+
+    use hcl.colors - defaulting to viridis - instead of old-style RGB topo.colors/terrain.colors/rainbow
+
+M	man/level.colors.Rd
+M	man/levelplot.Rd
+M	man/panel.levelplot.Rd
+M	man/panel.pairs.Rd
+
+commit efce0dec9e022485347fabb6b8181e5bc0c19d1d
+Author: Achim Zeileis <Achim.Zeileis@uibk.ac.at>
+Date:   Wed Mar 29 13:04:14 2023 +0200
+
+    use palette.colors() rather than hcl.colors() for qualitative palette; avoid deutan() emulation in region colors
+
+M	R/settings.R
+
+commit e57b70b07869a6bd7b97bc978b621074e2427e88
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Mar 29 13:23:06 2023 +0530
+
+    refactor auto.key handling, smarter defaults for splom(), better default placement
+
+M	R/bwplot.R
+M	R/cloud.R
+M	R/densityplot.R
+M	R/histogram.R
+M	R/legend.R
+M	R/parallel.R
+M	R/qqmath.R
+M	R/settings.R
+M	R/splom.R
+M	R/update.trellis.R
+M	R/xyplot.R
+
+commit 85c2e409fc447d251180d8399fdf6dc0049b9d72
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Mar 29 10:47:24 2023 +0530
+
+    updated default theme with hcl-based palette
+
+M	NAMESPACE
+M	NEWS.md
+M	R/settings.R
+
+commit 9ea4be13e392552f174849f32f29dfc42225d754
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 21:34:59 2023 +0530
+
+    translation file updates
+
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	po/R-de.po
+M	po/R-fr.po
+M	po/R-it.po
+M	po/R-ko.po
+M	po/R-lattice.pot
+M	po/R-pl.po
+
+commit 26893d5da7ac9c1969fac720ad4a61df87122bae
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 21:02:37 2023 +0530
+
+    Explicit markdown formatting for NEWS
+
+M	NEWS.md
+
+commit 38ac50fa8e851b290e8c2e13cfa5ccb51673e306
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 20:52:35 2023 +0530
+
+    Improve NEWS entry language
+
+M	NEWS.md
+
+commit d8d9d23d6f231ca7523515a83d536e50919c1f13
+Merge: 9dd2a5c 1de2bb1
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 20:44:07 2023 +0530
+
+    Merge branch 'master' of github.com:deepayan/lattice
+
+commit 9dd2a5c2c2f5087b92e509af8831fdc020892fa7
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 20:43:00 2023 +0530
+
+    added new 'smooth' argument in panel.xyplot() as a preferred alternative to using 'type'
+
+M	R/xyplot.R
+M	man/panel.xyplot.Rd
+
+commit 1de2bb1537a9303c826df691504aacfe46aa34e9
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 18:08:27 2023 +0530
+
+    better auto.key behaviour for xyplot, change default placement
+
+M	DESCRIPTION
+M	R/bwplot.R
+M	R/cloud.R
+M	R/densityplot.R
+M	R/histogram.R
+M	R/parallel.R
+M	R/qqmath.R
+M	R/splom.R
+M	R/update.trellis.R
+M	R/xyplot.R
+
+commit 28e1b2a2aedbc9ad85d2831b1eea6927ab1b9b3f
+Merge: 4e77c57 81081e7
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 16:51:12 2023 +0530
+
+    Merge branch 'master' of github.com:deepayan/lattice
+
+commit 4e77c57d4a2ae91930312c9e907c459f0488bd7b
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 16:50:52 2023 +0530
+
+    update NEWS and CITATION
+
+R099	NEWS	NEWS.md
+M	inst/CITATION
+
+commit 59fe587cf2d5d2439d5c7942f640f9b7ad1455f3
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 16:07:16 2023 +0530
+
+    update version and date
+
+M	DESCRIPTION
+M	NEWS
+
+commit e84f0e0b993a9d93f94d8c539f5ff587c5467df8
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 15:46:07 2023 +0530
+
+    rename private functions that looked like methods
+
+M	R/bwplot.R
+M	R/histogram.R
+M	R/interaction.R
+M	R/miscellaneous.R
+M	R/qq.R
+M	R/qqmath.R
+M	R/splom.R
+M	R/xyplot.R
+M	man/panel.pairs.Rd
+
+commit f2555c4a6b813e2b6556a142af3b240d10a0871f
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 28 14:25:57 2023 +0530
+
+    (very) slightly better custom barchart widths
+
+M	R/bwplot.R
+A	tests/barchart-width.R
+
+commit 81081e73ec3f5a5b8f0bf423ea1623c42964b732
+Merge: 880dfb0 047b3bb
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Feb 17 11:28:00 2023 +0530
+
+    Merge pull request #28 from stefaneng/stefaneng-vector-args-violinplot.
+    Add vector argument support to panel.violinplot
+
+commit 047b3bb7873069e73c821178d89e4e0b69492b12
+Author: Stefan Eng <stefaneng@mednet.ucla.edu>
+Date:   Thu Feb 16 09:47:44 2023 -0800
+
+    Better error handling
+
+M	R/bwplot.R
+
+commit d73258e5cb2fccdd48c60845c96c2749bbaf53f3
+Author: Stefan Eng <stefaneng@mednet.ucla.edu>
+Date:   Thu Feb 16 09:21:07 2023 -0800
+
+    Allow vector arguments for each group in violinplot
+
+M	R/bwplot.R
+
+commit 880dfb08b145ef193318eda06deb19397d2497f6
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Oct 12 20:50:41 2021 +0530
+
+    make grid unit optimization optional (through lattice.options())
+
+M	DESCRIPTION
+M	R/layout.R
+M	R/settings.R
+M	man/lattice.options.Rd
+
+commit 7a50e25c6276af10875ffe1aa742070222e7f798
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Oct 12 20:15:01 2021 +0530
+
+    added regression test for levelplot colorkey
+
+M	tests/levelplot.R
+
+commit d495acd3b5436af699b64f0252fa306e35324f2a
+Merge: d30c3d6 cef06b5
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Oct 12 18:57:19 2021 +0530
+
+    Merge pull request #22 from bastistician/fix_colorkey_labels.
+    Ensure that colorkey labels are in sync with 'labels$at'
+
+commit cef06b50aa1c5e4111e91f10ffa398c201c29f21
+Author: Sebastian Meyer <seb.meyer@fau.de>
+Date:   Mon Oct 11 18:11:12 2021 +0200
+
+    ensure that colorkey labels are in sync with 'labels$at'
+
+M	R/legend.R
+M	tests/levelplot.R
+
+commit d30c3d692ffe92b4115f946e8eb0e883da2eb9a1
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Oct 8 21:47:59 2021 +0530
+
+    improve speed of multipage plots with relation != 'same'
+
+M	DESCRIPTION
+M	R/layout.R
+
+commit aa265adae89e9abf5cbd4ea5c9f160afa6a7c0ba
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Sep 18 15:04:01 2021 +0530
+
+    fix item formatting errors in Rd
+
+M	DESCRIPTION
+M	man/axis.default.Rd
+M	man/make.groups.Rd
+M	man/oneway.Rd
+M	man/trellis.par.get.Rd
+
+commit 1920eb4700c5590ba2b94796e55d16aed11d05b1
+Author: Paul Murrell <paul@stat.auckland.ac.nz>
+Date:   Mon May 17 11:02:23 2021 +1200
+
+    added "grid" vignette containing examples of using raw grid with lattice
+
+A	vignettes/grid.Rnw
+
+commit 7963aa428e8aa0941bc432e216ccc76cf270f394
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Apr 28 19:50:31 2021 +0530
+
+    bump version
+
+M	DESCRIPTION
+
+commit 2ae6b17d0d405e812a05098e17c2644243a25f0e
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Apr 28 19:35:51 2021 +0530
+
+    add fill argument to panel.3dscatter (https://github.com/deepayan/lattice/issues/20)
+
+M	R/cloud.R
+M	man/panel.cloud.Rd
+
+commit 9c44bc47637586391342c29b8352d72a4f29dd83
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Apr 24 22:29:23 2021 +0530
+
+    updated French translations (from Philippe Grosjean)
+
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	inst/po/fr/LC_MESSAGES/R-lattice.mo
+M	po/R-de.po
+M	po/R-fr.po
+M	po/R-it.po
+M	po/R-ko.po
+M	po/R-lattice.pot
+M	po/R-pl.po
+
+commit 21894257e9bdcc94370de328307503b557eed71e
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Mar 17 12:52:07 2021 +0530
+
+    clarify behaviour of panel.axis() when 'labels' specified without
+    'at', and issue a warning (see
+    https://stat.ethz.ch/pipermail/r-help/2021-March/470528.html)
+
+M	R/axis.R
+M	man/panel.axis.Rd
+
+commit f62ea761b03e89ac0d2d5b98ff9efd9392d88f51
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Mar 16 11:02:29 2021 +0530
+
+    updated French translations (from Philippe Grosjean)
+
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	inst/po/fr/LC_MESSAGES/R-lattice.mo
+M	po/R-fr.po
+M	po/R-lattice.pot
+
+commit d425f4c9f141298dfb521ccb86907a4c3538158b
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 14 17:40:17 2020 +0530
+
+    remove debugging code
+
+M	R/bwplot.R
+
+commit 1288848770d9ea27ca7616696fa28925c2a4f503
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 14 17:34:52 2020 +0530
+
+    bugfix: fix prepanel calculations for stacked barchart with missing values
+
+M	R/bwplot.R
+
+commit bb2202cd370b1c7e8c66dbd901a8de390644acf6
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu May 14 12:45:53 2020 +0530
+
+    added support for title in colorkey
+
+M	DESCRIPTION
+M	R/legend.R
+M	R/print.trellis.R
+M	R/settings.R
+M	man/draw.colorkey.Rd
+M	man/levelplot.Rd
+A	tests/colorkey-title.R
+
+commit 78a868a5d1ee540176fc63a1089fb67836dec1c0
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Mon May 11 18:54:02 2020 +0530
+
+    bugfix: make 'open' triangular ends in colorkey work for all values of 'space', not only 'right'
+
+M	R/legend.R
+
+commit f4f809f2c1fec845f99b72f7c7c970099869b422
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri May 1 12:22:38 2020 +0530
+
+    added Italian translation
+
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+A	inst/po/it/LC_MESSAGES/R-lattice.mo
+A	po/R-it.po
+M	po/R-lattice.pot
+
+commit cda4f8b48e55442eeec1a658e16b7b2cd7e4de81
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Wed Apr 22 14:45:52 2020 +0530
+
+    improved call component of trellis objects
+
+M	R/bwplot.R
+M	R/cloud.R
+M	R/densityplot.R
+M	R/histogram.R
+M	R/levelplot.R
+M	R/parallel.R
+M	R/qq.R
+M	R/qqmath.R
+M	R/rfs.R
+M	R/shingle.R
+M	R/splom.R
+M	R/tmd.R
+M	R/xyplot.R
+M	R/xyplot.ts.R
+A	tests/call.R
+
+commit d3d4ca2832cd253dac0168cd8d28bce4ec8e226d
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Apr 14 17:48:32 2020 +0530
+
+    updated minor version, fixed behaviour of abline argument in panel.xyplot() (in a backwards-incompatible way)
+
+M	DESCRIPTION
+M	R/xyplot.R
+M	man/panel.xyplot.Rd
+
+commit f4af1fccf2e4114257a12db521fac6038c36758a
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 16:25:15 2020 +0530
+
+    revert abline change as it might break current usage; leave for major update
+
+M	.Rbuildignore
+M	R/xyplot.R
+
+commit fdeeb4f0f9c3480525ec440e5a41e388040a1a18
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 16:05:59 2020 +0530
+
+    delete SvnLog
+
+D	SvnLog
+
+commit 3f47ebf2f2c98ac38476f4c46b54fa459c5f8889
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 16:05:36 2020 +0530
+
+    merge SvnLog into ChangeLog
+
+M	.Rbuildignore
+M	ChangeLog
+M	DESCRIPTION
+M	SvnLog
+
+commit 3228d8a861c75d2b3375ef708511d0a7ce4f65f4
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:51:24 2020 +0530
+
+    cleanup translation generation and update translations
+
+M	inst/po/de/LC_MESSAGES/R-lattice.mo
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	inst/po/fr/LC_MESSAGES/R-lattice.mo
+M	inst/po/ko/LC_MESSAGES/R-lattice.mo
+M	inst/po/pl/LC_MESSAGES/R-lattice.mo
+D	po/R-en@quot.po
+M	po/R-lattice.pot
+M	update.sh
+
+commit 2654be1ad4e68583615b6066573fdede8568a3ce
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:50:58 2020 +0530
+
+    added test file
+
+A	tests/summary.R
+
+commit 2d852c7b94cd61fce8a4d38d7658f71a5097a02a
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:49:25 2020 +0530
+
+    bugfix - named vector now works for panel.xyplot(abline = )
+
+M	R/xyplot.R
+
+commit 938b5dbfca1f669c239f3cc12cc15b1f54a1e428
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:30:38 2020 +0530
+
+    update translations
+
+M	po/R-de.po
+M	po/R-en@quot.po
+M	po/R-fr.po
+M	po/R-ko.po
+M	po/R-lattice.pot
+M	po/R-pl.po
+
+commit 649bec5d74a576a94d35b8a003de427d43392e53
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:11:37 2020 +0530
+
+    document triangular ends in colorkey, other improvements
+
+M	man/draw.colorkey.Rd
+M	man/levelplot.Rd
+
+commit 96accbfe80285124e46ab6276f36daef58bd8999
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Thu Apr 2 15:09:37 2020 +0530
+
+    moved to using Authors@R
+
+M	DESCRIPTION
+
+
 commit 57757a0d68b3bc7a0034d2d09c3c26cf93e245fa
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Sun Feb 16 12:37:18 2020 +0530
