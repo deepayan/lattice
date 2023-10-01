@@ -1,4 +1,10 @@
 
+
+# Changes in lattice 0.22
+
+* TODO: data.frame methods
+
+
 # Changes in lattice 0.21
 
 * The color scheme used in the default graphical settings has been
