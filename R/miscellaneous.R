@@ -203,13 +203,13 @@ Rows <- function(x, which)
 
 ## panel functions corresponding to standard base functions
 
-panel.points <- function(...) lpoints(...)
+panel.arrows <- function(...) larrows(...)
 panel.lines <- function(...) llines(...)
+panel.points <- function(...) lpoints(...)
+panel.polygon <- function(...) lpolygon(...)
+panel.rect <- function(...) lrect(...)
 panel.segments <- function(...) lsegments(...)
 panel.text <- function(...) ltext(...)
-panel.arrows <- function(...) larrows(...)
-panel.rect <- function(...) lrect(...)
-panel.polygon <- function(...) lpolygon(...)
 
 
 
@@ -228,8 +228,9 @@ primName <- function(name, identifier = NULL, name.type = "panel", group = 0) {
 ## panel.points, panel.lines, etc.
 
 
+lpolygon <- function(x, ...) UseMethod("lpolygon")
 
-lpolygon <-
+lpolygon.default <-
     function(x, y = NULL,
              ## density = NULL,
              ## angle = 45,
@@ -281,8 +282,9 @@ lpolygon <-
 
 
 
+lsegments <- function(...) UseMethod("lsegments")
 
-lsegments <-
+lsegments.default <-
     function(x0 = NULL, y0 = NULL, x1, y1,
              x2 = NULL, y2 = NULL,
              col = add.line$col,
@@ -318,7 +320,10 @@ lsegments <-
 }
 
 
-lrect <-
+
+lrect <- function(...) UseMethod("lrect")
+
+lrect.default <-
     function(xleft, ybottom, xright, ytop,
              x = (xleft + xright) / 2,
              y = (ybottom + ytop) / 2,
@@ -362,8 +367,9 @@ lrect <-
 
 
 
+larrows <- function(...) UseMethod("larrows")
 
-larrows <-
+larrows.default <-
     function(x0 = NULL, y0 = NULL, x1, y1, x2 = NULL, y2 = NULL,
              angle = 30, code = 2, length = 0.25, unit = "inches",
              ends = switch(code, "first", "last", "both"),

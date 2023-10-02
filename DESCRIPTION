@@ -13,7 +13,8 @@ Authors@R: c(person("Deepayan", "Sarkar", role = c("aut", "cre"),
               person("Zhijian (Jason)", "Wen", role = "cph", comment = "filled contour code"),
               person("Paul", "Murrell", role = "ctb", email = "paul@stat.auckland.ac.nz"),
 	      person("Stefan", "Eng", role = "ctb", comment = "violin plot improvements"),
-	      person("Achim", "Zeileis", role = "ctb", comment = "modern colors")
+	      person("Achim", "Zeileis", role = "ctb", comment = "modern colors"),
+        person("Alexandre", "Courtiol", role = "ctb", comment = "generics for larrows, lpolygon, lrect and lsegments")
 	      )
 Description: A powerful and elegant high-level data visualization
   system inspired by Trellis graphics, with an emphasis on

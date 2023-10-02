@@ -4,6 +4,8 @@
 
 * TODO: data.frame methods
 
+* `larrows()`, `lpolygon()`, `lrect()` and `lsegments()` are now generic functions.
+
 
 # Changes in lattice 0.21
 
