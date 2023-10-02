@@ -219,7 +219,7 @@ contourplot(x, data, \dots)
 	\code{title} defaults to \code{NULL}, which means no title is drawn.
       }
 
-      \item{\code{title}:}{
+      \item{\code{title.control}:}{
 	A list providing control over the placement of a title, if
 	specified. Currently two components are honoured: \code{side}
 	can take values \code{"top"}, \code{"bottom"}, \code{"left"},
@@ -357,7 +357,7 @@ levelplot(z ~ x * y, grid, cuts = 50, scales=list(log="e"), xlab="",
           ylab="", main="Weird Function", sub="with log scales",
           colorkey = FALSE, region = TRUE)
 ## triangular end-points in color key, with a title
-levelplot(z ~ x * y, grid, col.regions = topo.colors(10),
+levelplot(z ~ x * y, grid, col.regions = hcl.colors(10),
           at = c(-Inf, seq(-0.8, 0.8, by = 0.2), Inf))
 
 #S-PLUS example

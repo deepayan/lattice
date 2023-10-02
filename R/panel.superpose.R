@@ -36,7 +36,8 @@ panel.superpose <-
              lty = superpose.line$lty,
              lwd = superpose.line$lwd,
              alpha = superpose.symbol$alpha,
-             type = "p", grid = FALSE,
+             type = "p",
+             grid = lattice.getOption("default.args")$grid,
              distribute.type = FALSE)
 {
     if (distribute.type)
@@ -130,6 +131,7 @@ panel.superpose <-
                          type = type[[i]],
                          group.number = i,
                          group.value = vals[i],
+                         grid = FALSE,
                          ...)
                 ## if (have.type) args$type <- type
                 if (!is.null(y)) args$y <- y[id]

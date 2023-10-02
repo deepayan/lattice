@@ -23,7 +23,7 @@ col.whitebg <- function()
          plot.polygon = list(col="#c8ffc8"),
          box.rectangle = list(col="darkgreen"),
          box.umbrella = list(col="darkgreen"),
-         dot.line = list(col="#e8e8e8"),
+         dot.line = list(col="gray90"),
          dot.symbol = list(col="darkgreen"),
          plot.line = list(col="darkgreen"),
          plot.symbol = list(col="darkgreen"),
@@ -34,7 +34,7 @@ col.whitebg <- function()
                                       "#0080ff", "#ff00ff", "#ff0000", "#ffff00")),
          strip.background = list(col = c("#ffe5cc", "#ccffcc", "#ccffff",
                                          "#cce6ff", "#ffccff", "#ffcccc", "#ffffcc")),
-         reference.line = list(col="#e8e8e8"),
+         reference.line = list(col="gray90"),
          superpose.line = list(col = c("darkgreen","red","royalblue",
                                        "brown","orange","turquoise", "orchid"),
                                lty = 1:7),
@@ -49,12 +49,30 @@ col.whitebg <- function()
 ## saturated versions of the symbol and line colors
 
 lower.saturation <-
-    function(x, f = 0.2)
+    function(x, f = 0.2, space = c("RGB", "HCL"))
 {
+    ## lower saturation in RGB or HCL space?
+    space <- match.arg(tolower(space), c("rgb", "hcl"))
+    
+    ## for HCL space ideally colorspace::lighten() should be used
+    if((space == "hcl") && requireNamespace("colorspace")) {
+        return(colorspace::lighten(x, amount = 1 - f))
+    }
+    
+    ## for RGB space the old implementation from lattice is used,
+    ## for HCL space (if colorspace is unavailable) an approximation in LUV is used
     RGB <- col2rgb(x)
-    RGB[] <- 255 - RGB
-    RGB[] <- round(f * RGB)
-    RGB[] <- 255 - RGB
+    if(space == "rgb") {
+        RGB[] <- 255 - RGB
+        RGB[] <- round(f * RGB)
+        RGB[] <- 255 - RGB
+    } else {
+        ## adjust L coordinate of HCL/LUV only, chroma is left as it is
+        LUV <- convertColor(t(RGB), from = "sRGB", to = "Luv", scale.in = 255)
+        Lold <- pmin(100, pmax(0, LUV[, "L"]))
+        LUV[, "L"] <- 100 - (100 - Lold) * f
+        RGB[] <- t(convertColor(LUV, from = "Luv", to = "sRGB", scale.out = 255))
+    }
     rgb(RGB["red", ],
         RGB["green", ],
         RGB["blue", ],
@@ -63,8 +81,103 @@ lower.saturation <-
 
 
 
-standard.theme <- 
-canonical.theme <- function(name = .Device, color = name != "postscript")
+## make a 'shading' function from region colors, for use in
+## wireframe(shade = TRUE). 'pref' controls the amount of matte /
+## glossy-ness.
+
+makeShadePalette <- function(col.regions, ..., min = 0.05, pref = 0.75)
+{
+    cramp <- colorRamp(col.regions, ...)
+    function(irr, ref, height)
+    {
+        ## All arguments will be scalars currently.
+        ## Better alternative: use colorspace::darken()
+        RGB <- cramp(height)
+        RGB[] <- (min + (1-min) * irr * ref^pref) * RGB # darken
+        rgb(RGB[, 1], RGB[, 2], RGB[, 3], maxColorValue = 255)
+    }
+}
+
+
+
+## Construct a custom theme based on supplied colors (originally in
+## latticeExtra).  
+
+custom_theme <-
+    function(symbol, fill, region,
+             reference = "gray90", bg = "transparent", fg = "black",
+             strip.bg = rep("gray95", 7), strip.fg = rep("gray70", 7),
+             ...)
+{
+    theme <-
+        list(plot.polygon      = list(col = fill[1], border = fg[1]),
+             box.rectangle     = list(col= symbol[1]),
+             box.umbrella      = list(col= symbol[1]),
+             dot.line          = list(col = reference),
+             dot.symbol        = list(col = symbol[1]),
+             plot.line         = list(col = symbol[1]),
+             plot.symbol       = list(col= symbol[1]),
+             reference.line    = list(col = reference),
+             superpose.line    = list(col = symbol),
+             superpose.symbol  = list(col = symbol),
+             superpose.polygon = list(col = fill, border = fg),
+
+             regions           = list(col = colorRampPalette(region)(100)),
+             shade.colors      = list(palette = makeShadePalette(region)),
+
+             strip.background  = list(col = strip.bg),
+             strip.shingle     = list(col = strip.fg),
+             strip.border      = list(col = fg),
+
+             background        = list(col = bg),
+             add.line          = list(col = fg),
+             add.text          = list(col = fg),
+             box.dot           = list(col = fg),
+             axis.line         = list(col = fg),
+             axis.text         = list(col = fg),
+             strip.border      = list(col = fg),
+             box.3d            = list(col = fg),
+             par.xlab.text     = list(col = fg),
+             par.ylab.text     = list(col = fg),
+             par.zlab.text     = list(col = fg),
+             par.main.text     = list(col = fg),
+             par.sub.text      = list(col = fg))
+    modifyList(modifyList(classic.theme("pdf"), theme),
+               simpleTheme(...))
+}
+
+## (v0.21-7) Extended to make it easy to provide user-supplied colors.
+## Default symbol colors are from Okabe-Ito, reordered to match classic theme somewhat better.
+## Default fill colors are lightened versions of the symbol colors.
+## Default region colors are the sequential HCL palette "YlGnBu" (approximating the one from ColorBrewer).
+## Old standard.theme() / canonical.theme() renamed to classic.theme()
+
+canonical.theme <- function(...) standard.theme(...)
+
+standard.theme <- function(name, color = TRUE,
+                           symbol = palette.colors(palette = "Okabe-Ito")[c(6, 2, 4, 7, 3, 5, 8)],
+                           fill   = NULL,
+                           region = hcl.colors(14, palette = "YlGnBu", rev = TRUE),
+                           reference = "gray90",
+                           bg = "transparent",
+                           fg = "black",
+                           ...)
+{
+    if (is.null(fill))
+        fill <- if (!missing(symbol)) lower.saturation(symbol, 0.4, space = "HCL")
+                else c("#94C6FF", "#FFD6AD", "#76E3B8", "#FFBBA9", "#BCE1FF", "#FFF691", "#FFC1E1")
+    if (!missing(name))
+        classic.theme(name = name, color = color)
+    else if (!color)
+        classic.theme(color = FALSE)
+    else
+        custom_theme(symbol = symbol, fill = fill, region = region,
+                     reference = reference, bg = bg, fg = fg, ...)
+}
+
+
+
+classic.theme <- function(name = .Device, color = name != "postscript")
 {
     ## For the purpose of this function, the only differences in the
     ## settings/themes arise from the difference in the default
@@ -414,17 +527,21 @@ trellis.device <-
     ## 'lattice.options(default.theme = "canonical.theme")' after
     ## loading lattice.
 
+    ## Update: From lattice 0.21, canonical.theme has been updated to
+    ## use a HCL based color palette by default, and
+    ## 'canonical.theme()' has been renamed to 'classic.theme()'.
+
 
     ## Make sure there's an entry for this device in the theme list
     lattice.theme <- get("lattice.theme", envir = .LatticeEnv)
     if (!(.Device %in% names(lattice.theme)))
     {
-        lattice.theme[[.Device]] <- canonical.theme(name = "pdf", color = color)
+        lattice.theme[[.Device]] <- standard.theme(color = color)
         assign("lattice.theme", lattice.theme, envir = .LatticeEnv)
     }
 
     ## If retain = FALSE, overwrite with default settings for device
-    if (!retain) trellis.par.set(canonical.theme(name = "pdf", color=color))
+    if (!retain) trellis.par.set(standard.theme(color = color))
 
     ## get theme as list
     if (!is.null(theme) && !is.list(theme))
@@ -520,7 +637,7 @@ show.settings <- function(x = NULL)
                           strip.background <- trellis.par.get("strip.background")
                           strip.border <- trellis.par.get("strip.border")
                           len <-
-                              max(sapply(strip.background, length),
+                              max(2, sapply(strip.background, length),
                                   sapply(strip.border, length))
                           panel.rect(y = ppoints(len), height = 0.5 / len,
                                      xleft = cpl$xlim[1], xright = cpl$xlim[2],
@@ -531,7 +648,7 @@ show.settings <- function(x = NULL)
                       },
                       "strip.shingle" = {
                           strip.shingle <- trellis.par.get("strip.shingle")
-                          len <- max(sapply(strip.shingle, length))
+                          len <- max(2, sapply(strip.shingle, length))
                           panel.rect(y = ppoints(len), height = 0.5 / len,
                                      xleft = cpl$xlim[1], xright = cpl$xlim[2],
                                      col = adjustcolor(strip.shingle$col, strip.shingle$alpha),
@@ -949,7 +1066,9 @@ lattice.options <- function(...)
          default.args =
          list(as.table = FALSE,
               aspect = "fill",
+              auto.key = FALSE,
               between = list(x=0, y=0),
+              grid = FALSE,
               ##page = NULL,
               ##main = NULL,
               ##sub = NULL,

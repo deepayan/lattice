@@ -1,19 +1,16 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: lattice 0.21-2\n"
-"POT-Creation-Date: 2021-04-24 22:28\n"
+"Project-Id-Version: lattice 0.21-9\n"
+"POT-Creation-Date: 2023-09-30 18:19\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-
 msgid "Invalid value of 'log'"
-msgstr ""
-
-msgid "range too small for min.n"
 msgstr ""
 
 msgid "'at' missing or incompatible with 'labels'"
@@ -22,7 +19,19 @@ msgstr ""
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
 
+msgid "range too small for min.n"
+msgstr ""
+
 msgid "'origin' forced to 0 for stacked bars"
+msgstr ""
+
+msgid "length of '%s' must be  1 or multiple of group length (%d)"
+msgstr ""
+
+msgid "%s must be length 1 or a vector of \n             length multiple of group length (%d)"
+msgstr ""
+
+msgid ","
 msgstr ""
 
 msgid "explicit 'data' specification ignored"
@@ -184,6 +193,12 @@ msgstr ""
 msgid "'at' values are not equispaced; output may be wrong"
 msgstr ""
 
+msgid "key specifies 'labels$labels' but not 'labels$at'"
+msgstr ""
+
+msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
+msgstr ""
+
 msgid "malformed colorkey"
 msgstr ""
 
@@ -272,9 +287,6 @@ msgid "Residuals"
 msgstr ""
 
 msgid "Invalid or ambiguous component names:"
-msgstr ""
-
-msgid ","
 msgstr ""
 
 msgid "Multiple matches to component name"

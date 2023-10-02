@@ -40,6 +40,7 @@ panel.smoothScatter <-
               nbin = 64,
               cuts = 255,
               bandwidth,
+              col.regions,
               colramp,
               nrpoints = 100,
               transformation = function(x) x^0.25,
@@ -62,11 +63,13 @@ panel.smoothScatter <-
     ## place for that anyway.
 
 {
+    if (missing(col.regions)) col.regions <- trellis.par.get("regions")$col
     if (missing(colramp))
-        colramp <- colorRampPalette(c("white", "#F7FBFF", "#DEEBF7",
-                                      "#C6DBEF", "#9ECAE1", "#6BAED6",
-                                      "#4292C6", "#2171B5", "#08519C",
-                                      "#08306B"))
+    {
+        colramp <- 
+            if (is.function(col.regions)) col.regions
+            else colorRampPalette(c("white", col.regions))
+    }
     x <- as.numeric(x)
     y <- as.numeric(y)
     if (!is.numeric(nrpoints) | (nrpoints < 0) | (length(nrpoints) != 1))
@@ -84,7 +87,7 @@ panel.smoothScatter <-
          y = rep(ym, each = length(xm)),
          z = as.numeric(dens),
          subscripts = TRUE,
-         at = seq(from = 0, to = 1.01 * max(dens), length = cuts + 2),
+         at = seq(from = 0, to = 1.01 * max(dens), length.out = cuts + 2),
          col.regions = colramp(cuts + 1),
          ...,
          identifier = identifier)

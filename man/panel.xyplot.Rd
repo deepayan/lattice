@@ -15,7 +15,9 @@ panel.xyplot(x, y, type = "p",
              font, fontfamily, fontface,
              lty, cex, fill, lwd,
              horizontal = FALSE, \dots,
-             grid = FALSE, abline = NULL,
+             smooth = NULL,
+             grid = lattice.getOption("default.args")$grid,
+             abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
              factor = 0.5, amount = NULL,
              identifier = "xyplot")
@@ -23,32 +25,48 @@ panel.splom(\dots, identifier = "splom")
 panel.qq(\dots, identifier = "qq")
 }
 \arguments{
-  \item{x,y}{ variables to be plotted in the scatterplot}
-  \item{type}{ character vector consisting of one or more of the
-    following: \code{"p"}, \code{"l"}, \code{"h"}, \code{"b"},
-    \code{"o"}, \code{"s"}, \code{"S"}, \code{"r"}, \code{"a"},
-    \code{"g"}, \code{"smooth"}, and \code{"spline"}.  If \code{type}
-    has more than one element, an attempt is made to combine the effect
-    of each of the components.
+  \item{x,y}{ variables to be plotted in the scatterplot }
 
-    The behaviour if any of the first six are included in \code{type} is
-    similar to the effect of \code{type} in \code{\link{plot}} (type
-    \code{"b"} is actually the same as \code{"o"}).  \code{"r"} adds a
-    linear regression line (same as \code{\link{panel.lmline}}, except
-    for default graphical parameters). \code{"smooth"} adds a loess fit
-    (same as \code{\link{panel.loess}}).  \code{"spline"} adds a cubic
-    smoothing spline fit (same as \code{\link{panel.spline}}).
-    \code{"g"} adds a reference grid using \code{\link{panel.grid}} in
-    the background (but using the \code{grid} argument is now the
-    preferred way to do so).  \code{"a"} has the effect of calling
-    \code{\link{panel.average}}, which can be useful for creating
-    interaction plots.  The effect of several of these specifications
-    depend on the value of \code{horizontal}.
+  \item{type}{ character vector controlling how \code{x} and \code{y}
+    are to be plotted. Can consist of one or more of the following:
+    \code{"p"}, \code{"l"}, \code{"h"}, \code{"b"}, \code{"o"},
+    \code{"s"}, \code{"S"}, \code{"g"}, \code{"r"}, \code{"a"}, 
+    \code{"smooth"}, and \code{"spline"}.  If \code{type} has more than
+    one element, an attempt is made to combine the effect of each of the
+    components.
 
-    Type \code{"s"} (and \code{"S"}) sorts the values along one of the
-    axes (depending on \code{horizontal}); this is unlike the behavior
-    in \code{plot}.  For the latter behavior, use \code{type = "s"} with
-    \code{panel = panel.points}.
+    The behaviour if any of the first five are included in \code{type}
+    is similar to the effect of the corresponding \code{type} in
+    \code{\link{plot}}: \code{"p"} and \code{"l"} stand for points and
+    lines respectively; \code{"b"} and \code{"o"} (for \sQuote{overlay})
+    plot both; \code{"h"} draws vertical (or horizontal if
+    \code{horizontal = TRUE}) line segments from the points to the
+    origin.  Types \code{"s"} and \code{"S"} are like \code{"l"} in the
+    sense that they join consecutive points, but instead of being joined
+    by a straight line, points are connected by a vertical and a
+    horizontal segment forming a \sQuote{step}, with the vertical
+    segment coming first for \code{"s"}, and the horizontal segment
+    coming first for \code{"S"}.  Types \code{"s"} and \code{"S"} sort
+    the values along one of the axes (depending on \code{horizontal});
+    this is unlike the behavior in \code{plot}. For the latter behavior,
+    use \code{type = "s"} with \code{panel = panel.points}.
+
+    Type \code{"g"} adds a reference grid using \code{\link{panel.grid}}
+    in the background, but using the \code{grid} argument is now the
+    preferred way to do so.
+
+    The remaining values of \code{type} lead to various types of
+    smoothing. This can also be achieved using the \code{smooth}
+    argument, or by calling the relevant panel functions directly. The
+    panel functions provide finer control over graphical and other
+    parameters, but using \code{smooth} or \code{type} is convenient for
+    simple usage. Using \code{smooth} is recommended, but \code{type} is
+    also supported for backwards compatibility.
+
+    Type \code{"r"} adds a linear regression line, \code{"smooth"} adds
+    a loess fit, \code{"spline"} adds a cubic smoothing spline fit, and
+    \code{"a"} draws line segments joining the average \code{y} value
+    for each distinct \code{x} value. See \code{smooth} for details.
 
     See \code{example(xyplot)} and \code{demo(lattice)} for examples.
   }
@@ -68,14 +86,37 @@ panel.qq(\dots, identifier = "qq")
   }
   \item{horizontal}{
     A logical flag controlling the orientation for certain
-    \code{type}'s, e.g., \code{"h"}, \code{"s"}, ans \code{"S"}.
+    \code{type}'s, e.g., \code{"h"}, \code{"s"}, ans \code{"S"} and the
+    result of smoothing.
   }
   \item{\dots}{
-    Extra arguments, if any, for \code{panel.xyplot}.  In most cases
-    \code{panel.xyplot} ignores these.  For types "r" and "smooth",
-    these are passed on to \code{panel.lmline} and \code{panel.loess}
-    respectively.
+    Extra arguments, if any, for \code{panel.xyplot}.  Usually passed on
+    as graphical parameters to low level plotting functions, or to the
+    panel functions performing smoothing, if applicable.
   }
+  \item{smooth}{ If specificied, indicates the type of smooth to be
+    added. Can be a character vector containing one or more values from
+    \code{"lm"}, \code{"loess"}, \code{"spline"}, and
+    \code{"average"}. Can also be a logical flag; \code{TRUE} is
+    interpreted as \code{"loess"}. Each of these result in calling a
+    corresponding panel function as described below; the \code{smooth}
+    argument simply provides a convenient shortcut.
+
+    \code{"lm"} adds a linear regression line (same as
+    \code{\link{panel.lmline}}, except for default graphical
+    parameters). \code{"loess"} adds a loess fit (same as
+    \code{\link{panel.loess}}).  \code{"spline"} adds a cubic smoothing
+    spline fit (same as \code{\link{panel.spline}}).  \code{"average"}
+    has the effect of calling \code{\link{panel.average}}, which in
+    conjunction with a \code{groups} argument can be useful for creating
+    interaction plots.
+
+    Normally, smoothing is performed with the \code{y} variable as the
+    response and the \code{x} variable as the predictor.  However, the
+    roles of \code{x} and \code{y} are reversed if \code{horizontal =
+    TRUE}.
+  }
+
   \item{grid}{
     A logical flag, character string, or list specifying whether and how
     a background grid should be drawn.  This provides the same
@@ -96,7 +137,6 @@ panel.qq(\dots, identifier = "qq")
   }
 
   \item{abline}{
-
     A numeric vector or more generally a list containing arguments that
     are used to call \code{\link{panel.abline}}. If specified as a
     numeric vector, \code{abline} is used as the first unnamed argument

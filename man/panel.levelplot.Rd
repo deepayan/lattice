@@ -24,6 +24,7 @@ panel.levelplot(x, y, z,
                 border.lty = 1,
                 border.lwd = 0.1,
                 \dots,
+                region.type = c("grid", "contour"),
                 col.regions = regions$col,
                 alpha.regions = regions$alpha,
                 identifier = "levelplot")
@@ -37,9 +38,6 @@ panel.levelplot.raster(x, y, z,
                        alpha.regions = regions$alpha,
                        interpolate = FALSE,
                        identifier = "levelplot")
-
-
-
 }
 \arguments{
   \item{x, y, z}{ Variables defining the plot. }
@@ -102,6 +100,18 @@ panel.levelplot.raster(x, y, z,
   \item{border.lty, border.lwd}{ Graphical parameters for the border}
 %   \item{cex, col.text, font, fontfamily, fontface}{ graphical parameters for contour labels}
   \item{\dots}{ Extra parameters. }
+  \item{region.type}{
+    A character string, one of \code{"grid"} and \code{"contour"}. The
+    former (the default) uses a grid of rectangles to display the
+    colors for the level plot; the latter uses a grid of polygons, mimicking
+    the behavior of \code{\link{filled.contour}}, which gives a smoother
+    appearance at the cost of increased processing time.
+
+    The \code{"contour"} option requires \code{x} and \code{y} to be
+    complete, in the sense that it must include all possible
+    combinations in the underlying grid. However, \code{z} values are
+    allowed to be missing.
+  }
   \item{col.regions}{
     A vector of colors, or a function to produce a vecor of colors, to
     be used if \code{region=TRUE}.  Each interval defined by \code{at}
@@ -151,13 +161,20 @@ suppressWarnings(plot(levelplot(rnorm(10) ~ 1:10 + sort(runif(10)),
 levelplot(volcano, panel = panel.levelplot.raster)
 
 levelplot(volcano, panel = panel.levelplot.raster,
-          col.regions = topo.colors, cuts = 30, interpolate = TRUE)
+          col.regions = hcl.colors, cuts = 30, interpolate = TRUE)
 
 }
-\author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
+\author{
+  Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}.
+
+  The functionality of \code{region.type = "contour"} is based on code
+  borrowed from the \pkg{gridGraphics} package, written by Zhijian
+  (Jason) Wen and Paul Murrell and ported to lattice by Johan Larsson.
+}
 \seealso{
   \code{\link{levelplot}},
   \code{\link{level.colors}},
-  \code{\link{contourLines}}
+  \code{\link{contourLines}},
+  \code{\link{filled.contour}}
 }
 \keyword{dplot}

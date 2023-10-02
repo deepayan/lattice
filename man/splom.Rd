@@ -15,7 +15,7 @@ parallelplot(x, data, \dots)
 
 \method{splom}{formula}(x,
       data,
-      auto.key = FALSE,
+      auto.key = lattice.getOption("default.args")$auto.key,
       aspect = 1,
       between = list(x = 0.5, y = 0.5),
       panel = lattice.getOption("panel.splom"),
@@ -38,7 +38,7 @@ parallelplot(x, data, \dots)
       subset = TRUE)
 \method{parallelplot}{formula}(x,
          data,
-         auto.key = FALSE,
+         auto.key = lattice.getOption("default.args")$auto.key,
          aspect = "fill",
          between = list(x = 0.5, y = 0.5),
          panel = lattice.getOption("panel.parallel"),

@@ -16,7 +16,7 @@ panel.pairs(z,
             panel.subscripts,
             subscripts,
             pscales = 5,
-            prepanel.limits = scale.limits,
+            prepanel.limits = scale_limits,
             varnames = colnames(z),
             varname.col, varname.cex, varname.font,
             varname.fontfamily, varname.fontface,
@@ -174,7 +174,7 @@ diag.panel.splom(x = NULL,
 \examples{
 
 Cmat <- outer(1:6,1:6,
-              function(i,j) rainbow(11, start=.12, end=.5)[i+j-1])
+              function(i,j) hcl.colors(11)[i+j-1]) ## rainbow(11, start=.12, end=.5)[i+j-1])
 
 splom(~diag(6), as.matrix = TRUE,
       panel = function(x, y, i, j, ...) {

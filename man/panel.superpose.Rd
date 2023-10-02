@@ -17,7 +17,8 @@ panel.superpose(x, y = NULL, subscripts, groups,
                 pch, cex, fill, font,
                 fontface, fontfamily,
                 lty, lwd, alpha,
-                type = "p", grid = FALSE,
+                type = "p",
+                grid = lattice.getOption("default.args")$grid,
                 distribute.type = FALSE)
 panel.superpose.2(\dots, distribute.type = TRUE)
 

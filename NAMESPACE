@@ -10,7 +10,8 @@ importFrom(grDevices,
            dev.hold, dev.flush, dev.capabilities,
            dev.list, cm.colors, gray, col2rgb, rgb, adjustcolor,
            heat.colors, grey, hsv, xy.coords, axisTicks,
-           boxplot.stats, contourLines, colorRampPalette, as.raster)
+           boxplot.stats, contourLines, colorRamp, colorRampPalette,
+           as.raster, hcl.colors, palette.colors, convertColor)
 
 importFrom(graphics, par, plot, co.intervals, hist)
 
@@ -24,11 +25,7 @@ importFrom(stats,
            dnorm, qunif, uniroot, smooth.spline, predict)
 
 
-export(
-
-       ## high level generics:
-
-       histogram,
+export(histogram,     # high level generics:
        densityplot,
        qqmath,
        qq,
@@ -190,9 +187,10 @@ export(
        lattice.options,
        canonical.theme,
        standard.theme,
+       classic.theme,
        col.whitebg,
        simpleTheme,
-       
+       makeShadePalette,       
 
 
        ## interaction etc
@@ -214,6 +212,8 @@ export(
 
 
        )
+
+S3method(widthDetails, latticeKey)
 
 
 ## methods related to shingles

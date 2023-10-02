@@ -103,8 +103,19 @@ panel.densityplot <-
              jitter.amount = 0.01 * diff(current.panel.limits()$ylim),
              type = "p",
              ...,
+             grid = lattice.getOption("default.args")$grid,
              identifier = "density")
 {
+    if (!isFALSE(grid))
+    {
+        if (!is.list(grid))
+            grid <- switch(as.character(grid),
+                           "TRUE" = list(h = -1, v = -1, x = x),
+                           "h" = list(h = -1, v = 0),
+                           "v" = list(h = 0, v = -1, x = x),
+                           list(h = 0, v = 0))
+        do.call(panel.grid, grid)
+    }
     if (ref)
     {
         reference.line <- trellis.par.get("reference.line")
@@ -198,7 +209,7 @@ densityplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.densityplot"),
              prepanel = NULL,
@@ -402,30 +413,15 @@ densityplot.formula <-
           cond.orders(foo))
     foo[names(more.comp)] <- more.comp
 
-
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
         foo$legend <-
-            list(list(fun = "drawSimpleKey",
-                      args =
-                      updateList(list(text = levels(as.factor(groups)),
-                                      points = FALSE,
-                                      rectangles = FALSE,
-                                      lines = TRUE),
-                                 if (is.list(auto.key)) auto.key else list())))
-        foo$legend[[1]]$x <- foo$legend[[1]]$args$x
-        foo$legend[[1]]$y <- foo$legend[[1]]$args$y
-        foo$legend[[1]]$corner <- foo$legend[[1]]$args$corner
-
-        names(foo$legend) <- 
-            if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
-                "inside"
-            else
-                "top"
-        if (!is.null(foo$legend[[1]]$args$space))
-            names(foo$legend) <- foo$legend[[1]]$args$space
+            autoKeyLegend(list(text = levels(as.factor(groups)),
+                               points = FALSE,
+                               rectangles = FALSE,
+                               lines = TRUE),
+                          auto.key)
     }
-
     class(foo) <- "trellis"
     foo
 }

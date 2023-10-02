@@ -48,7 +48,7 @@ prepanel.default.xyplot <-
             dy <- diff(as.numeric(y[ord]))
             ## ok <- TRUE
         }
-        list(xlim = scale.limits(x), ylim = scale.limits(y), dx = dx, dy = dy,
+        list(xlim = scale_limits(x), ylim = scale_limits(y), dx = dx, dy = dy,
              xat = if (is.factor(x)) sort(unique(as.numeric(x))) else NULL,
              yat = if (is.factor(y)) sort(unique(as.numeric(y))) else NULL)
     }
@@ -74,12 +74,13 @@ panel.xyplot <-
              lwd = if (is.null(groups)) plot.line$lwd else superpose.line$lwd,
              horizontal = FALSE,
              ...,
-             grid = FALSE, abline = NULL,
+             smooth = NULL,
+             grid = lattice.getOption("default.args")$grid,
+             abline = NULL,
              jitter.x = FALSE, jitter.y = FALSE,
              factor = 0.5, amount = NULL,
              identifier = "xyplot")
 {
-    if (all(is.na(x) | is.na(y))) return()
     plot.symbol <- trellis.par.get("plot.symbol")
     plot.line <- trellis.par.get("plot.line")
     superpose.symbol <- trellis.par.get("superpose.symbol")
@@ -90,7 +91,7 @@ panel.xyplot <-
         if (missing(col.symbol)) col.symbol <- col
     }
     if (missing(grid) && ("g" %in% type)) grid <- TRUE ## FIXME: what if list?
-    if (!identical(grid, FALSE))
+    if (!isFALSE(grid))
     {
         if (!is.list(grid))
             grid <- switch(as.character(grid),
@@ -105,6 +106,7 @@ panel.xyplot <-
         if (is.numeric(abline)) abline <- list(abline)
         do.call(panel.abline, abline)
     }
+    if (all(is.na(x) | is.na(y))) return()
     if (!is.null(groups))
         panel.superpose(x, y,
                         type = type,
@@ -190,20 +192,23 @@ panel.xyplot <-
                         lty = lty, col = col.line, lwd = lwd,
                         ..., identifier = id)
         }
-        if ("r" %in% type) panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
-        if ("smooth" %in% type)
+        smooth <- if (!is.null(smooth) && isTRUE(smooth)) "loess"
+                  else as.character(smooth)
+        if ("r" %in% type || "lm" %in% smooth)
+            panel.lmline(x, y, col = col.line, lty = lty, lwd = lwd, ...)
+        if ("smooth" %in% type || "loess" %in% smooth)
             panel.loess(x, y, horizontal = horizontal,
                         col = col.line, lty = lty, lwd = lwd, ...)
-        if ("spline" %in% type)
+        if ("spline" %in% type || "spline" %in% smooth)
             panel.spline(x, y, horizontal = horizontal,
                         col = col.line, lty = lty, lwd = lwd, ...)
-        if ("a" %in% type)
-            panel.linejoin(x, y, 
-                           horizontal = horizontal,
-                           lwd = lwd,
-                           lty = lty,
-                           col.line = col.line,
-                           ...)
+        if ("a" %in% type || "average" %in% smooth)
+            panel.average(x, y,
+                          horizontal = horizontal,
+                          lwd = lwd,
+                          lty = lty,
+                          col.line = col.line,
+                          ...)
     }
 }
 
@@ -238,7 +243,7 @@ xyplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = !is.null(groups),
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.xyplot"),
              prepanel = NULL,
@@ -438,28 +443,29 @@ xyplot.formula <-
 
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
+        # provide smart defaults for auto key based on 'type'
+        type <- dots$type
+        if (is.character(type) && length(type) > 0)
+        {
+            points <- any(type %in% "p")
+            lines <- any(type %in% c("l", "b", "o", "h", "s", "S", "a",
+                                     "smooth", "spline", "r"))
+            keytype <- if (any(type %in% c("b", "o"))) "o" else "l"
+        }
+        else
+        {
+            points <- TRUE
+            lines <- FALSE
+            keytype <- "l"
+        }
         foo$legend <-
-            list(list(fun = "drawSimpleKey",
-                      args =
-                      updateList(list(text = levels(as.factor(groups)),
-                                      points = TRUE,
-                                      rectangles = FALSE,
-                                      lines = FALSE), 
-                                 if (is.list(auto.key)) auto.key else list())))
-        foo$legend[[1]]$x <- foo$legend[[1]]$args$x
-        foo$legend[[1]]$y <- foo$legend[[1]]$args$y
-        foo$legend[[1]]$corner <- foo$legend[[1]]$args$corner
-
-        names(foo$legend) <- 
-            if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
-                "inside"
-            else
-                "top"
-        if (!is.null(foo$legend[[1]]$args$space))
-            names(foo$legend) <- foo$legend[[1]]$args$space
+            autoKeyLegend(list(text = levels(as.factor(groups)),
+                               points = points,
+                               rectangles = FALSE,
+                               lines = lines,
+                               type = keytype),
+                          auto.key)
     }
-
-
     class(foo) <- "trellis"
     foo
 }

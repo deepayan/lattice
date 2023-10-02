@@ -53,7 +53,7 @@ prepanel.default.bwplot <-
                 if (missing(nlevels)) nlevels <- length(unique(y))
                 y <- factor(y, levels = 1:nlevels)
             }
-            list(xlim = if (stack) stackedRange(x, y) else scale.limits(c(x, origin)),
+            list(xlim = if (stack) stackedRange(x, y) else scale_limits(c(x, origin)),
                  ylim = levels(y),
                  yat = sort(unique(as.numeric(y))),
                  dx = 1,
@@ -68,7 +68,7 @@ prepanel.default.bwplot <-
             }
             list(xlim = levels(x),
                  xat = sort(unique(as.numeric(x))),
-                 ylim = if (stack) stackedRange(y, x) else scale.limits(c(y, origin)),
+                 ylim = if (stack) stackedRange(y, x) else scale_limits(c(y, origin)),
                  dx = 1,
                  dy = 1)
         }
@@ -157,10 +157,7 @@ panel.barchart <-
                        just = c("left", "centre"),
                        identifier = identifier)
         }
-
-        ## grouped, with stacked bars
-
-        else if (stack)
+        else if (stack) # grouped, with stacked bars
         {
             if (!is.null(origin) && origin != 0)
                 warning("'origin' forced to 0 for stacked bars")
@@ -175,7 +172,8 @@ panel.barchart <-
             lty <- rep(lty, length.out = nvals)
             lwd <- rep(lwd, length.out = nvals)
 
-            height <- box.width # box.ratio / (1 + box.ratio)
+            height <- # box.ratio / (1 + box.ratio) by default
+                rep(box.width, length.out = length(x))
 
             if (reference)
                 panel.abline(v = origin,
@@ -197,7 +195,7 @@ panel.barchart <-
                                border = border[groups[ok][ord][pos]],
                                lty = lty[groups[ok][ord][pos]],
                                lwd = lwd[groups[ok][ord][pos]],
-                               height = rep(height, nok), # rep(height[i], nok),
+                               height = height[ok][ord][pos],
                                width = x[ok][ord][pos],
                                just = c("left", "centre"),
                                identifier = paste(identifier, "pos", i, sep = "."))
@@ -210,16 +208,13 @@ panel.barchart <-
                                border = border[groups[ok][ord][neg]],
                                lty = lty[groups[ok][ord][neg]],
                                lwd = lwd[groups[ok][ord][neg]],
-                               height = rep(height, nok), # rep(height[i], nok),
+                               height = height[ok][ord][neg],
                                width = x[ok][ord][neg],
                                just = c("left", "centre"),
                                identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
-
-        ## grouped, with side by side bars
-
-        else
+        else # grouped, with side by side bars
         {
             if (is.null(origin))
             {
@@ -260,11 +255,10 @@ panel.barchart <-
             }
         }
     }
-    
-    ## if not horizontal
 
-    else
+    else # if not horizontal
     {
+        ## No grouping
         if (is.null(groups))
         {
             if (is.null(origin))
@@ -272,7 +266,7 @@ panel.barchart <-
                 origin <- current.panel.limits()$ylim[1]
                 reference <- FALSE
             }
-            width <- box.width # box.ratio/(1+box.ratio)
+            width <- box.width # box.ratio / (1 + box.ratio)
 
             if (reference)
                 panel.abline(h = origin,
@@ -290,23 +284,17 @@ panel.barchart <-
                        just = c("centre", "bottom"),
                        identifier = identifier)
         }
-        else if (stack)
+        else if (stack) # grouped, with stacked bars
         {
-
             if (!is.null(origin) && origin != 0)
                 warning("'origin' forced to 0 for stacked bars")
-
-##             vals <- seq_len(nlevels(groups))
-##             groups <- as.numeric(groupSub(groups, ...))
-##             ## vals <- sort(unique(groups))
-##             nvals <- length(vals)
-
             col <- rep(col, length.out = nvals)
             border <- rep(border, length.out = nvals)
             lty <- rep(lty, length.out = nvals)
             lwd <- rep(lwd, length.out = nvals)
 
-            width <- box.width # box.ratio/(1 + box.ratio)
+            width <- # box.ratio / (1 + box.ratio) by default
+                rep(box.width, length.out = length(y))
 
             if (reference)
                 panel.abline(h = origin,
@@ -328,7 +316,7 @@ panel.barchart <-
                                border = border[groups[ok][ord][pos]],
                                lty = lty[groups[ok][ord][pos]],
                                lwd = lwd[groups[ok][ord][pos]],
-                               width = rep(width, nok),
+                               width = width[ok][ord][pos],
                                height = y[ok][ord][pos],
                                just = c("centre", "bottom"),
                                identifier = paste(identifier, "pos", i, sep = "."))
@@ -341,24 +329,19 @@ panel.barchart <-
                                border = border[groups[ok][ord][neg]],
                                lty = lty[groups[ok][ord][neg]],
                                lwd = lwd[groups[ok][ord][neg]],
-                               width = rep(width, nok),
+                               width = width[ok][ord][neg],
                                height = y[ok][ord][neg],
                                just = c("centre", "bottom"),
                                identifier = paste(identifier, "neg", i, sep = "."))
             }
         }
-        else
+        else # grouped, with side by side bars
         {
             if (is.null(origin))
             {
                 origin <- current.panel.limits()$ylim[1]
                 reference = FALSE
             }
-##             vals <- seq_len(nlevels(groups))
-##             groups <- as.numeric(groupSub(groups, ...))
-##             ## vals <- sort(unique(groups))
-##             nvals <- length(vals)
-
             col <- rep(col, length.out = nvals)
             border <- rep(border, length.out = nvals)
             lty <- rep(lty, length.out = nvals)
@@ -402,6 +385,7 @@ panel.dotplot <-
              levels.fos = if (horizontal) unique(y) else unique(x),
              groups = NULL,
              ...,
+             grid = lattice.getOption("default.args")$grid,
              identifier = "dotplot")
 {
     x <- as.numeric(x)
@@ -413,6 +397,13 @@ panel.dotplot <-
 
     if (horizontal)
     {
+        if (!isFALSE(grid))
+        {
+            if (!is.list(grid))
+                grid <- if (isTRUE(grid)) list(h = 0, v = -1, x = x)
+                        else list(h = 0, v = 0)
+            do.call(panel.grid, grid)
+        }
         panel.abline(h = levels.fos,
                      col = col.line, lty = lty, lwd = lwd,
                      identifier = paste(identifier, "abline", sep="."))
@@ -421,10 +412,18 @@ panel.dotplot <-
                      ## lty = lty, lwd = lwd,
                      groups = groups,
                      horizontal = horizontal, ...,
+                     grid = FALSE,
                      identifier = identifier)
     }
     else
     {
+        if (!isFALSE(grid))
+        {
+            if (!is.list(grid))
+                grid <- if (isTRUE(grid)) list(h = -1, v = 0, y = y)
+                        else list(h = 0, v = 0)
+            do.call(panel.grid, grid)
+        }
         panel.abline(v = levels.fos,
                      col = col.line, lty = lty, lwd = lwd,
                      identifier = paste(identifier, "abline", sep="."))
@@ -433,6 +432,7 @@ panel.dotplot <-
                      ## lty = lty, lwd = lwd,
                      groups = groups,
                      horizontal = horizontal, ...,
+                     grid = FALSE,
                      identifier = identifier)
     }
 }
@@ -445,8 +445,19 @@ panel.stripplot <-
     function(x, y, jitter.data = FALSE,
              factor = 0.5, amount = NULL,
              horizontal = TRUE, groups = NULL, ...,
+             grid = lattice.getOption("default.args")$grid,
              identifier = "stripplot")
 {
+    if (!isFALSE(grid))
+    {
+        if (!is.list(grid))
+            grid <- switch(as.character(grid),
+                           "TRUE" = list(h = -1, v = -1, x = x, y = y),
+                           "h" = list(h = -1, v = 0, y = y),
+                           "v" = list(h = 0, v = -1, x = x),
+                           list(h = 0, v = 0))
+        do.call(panel.grid, grid)
+    }
     if (!any(is.finite(x) & is.finite(y))) return()
     panel.xyplot(x = x,
                  y = y,
@@ -455,6 +466,7 @@ panel.stripplot <-
                  factor = factor, amount = amount,
                  groups = groups,
                  horizontal = horizontal, ...,
+                 grid = FALSE,
                  identifier = identifier)
 }
 
@@ -741,16 +753,6 @@ panel.bwplot <-
 
 
 
-
-
-
-
-
-
-
-
-
-
 panel.violin <-
     function(x, y, box.ratio = 1, box.width = box.ratio / (1 + box.ratio),
              horizontal = TRUE,
@@ -801,35 +803,30 @@ panel.violin <-
     darg$cut <- cut
     darg$na.rm <- na.rm
 
-    my.density <- function(x, density.args)
-    {
-        ans <- try(do.call(stats::density, c(list(x = x), density.args)), silent = TRUE)
-        ## if (inherits(ans, "try-error")) list(x = numeric(0), y = numeric(0)) else ans
-        if (inherits(ans, "try-error"))
-            list(x = rep(x[1], 3),
-                 y = c(0, 1, 0))
-        else ans
+    .density <- function(x, density.args) {
+        if (stats::sd(x, na.rm = TRUE) > 0)
+            do.call(stats::density, c(list(x = x), density.args))
+        else
+            list(x = rep(x[1], 3), y = c(0, 1, 0))
     }
     numeric.list <- if (horizontal) split(x, factor(y)) else split(y, factor(x))
-
     # Recycle arguments
     # Add index to ensure that arguments are multiple of number of groups
     darg$index <- seq_along(numeric.list)
     darg <- tryCatch({
-      do.call(data.frame, darg)
-      }, error = function(e) {
+        do.call(data.frame, darg)
+    }, error = function(e) {
         darg$index <- NULL
-        stop(sprintf('%s must be length 1 or a vector of 
-             length multiple of group length (%d)',
-                     paste0(names(darg), collapse = ', '),
-                     length(numeric.list)))
-      })
+        stop(gettextf("length of '%s' must be  1 or multiple of group length (%d)",
+                      paste0(names(darg), collapse = ', '),
+                      length(numeric.list)))
+    })
     darg$index <- NULL
 
     levels.fos <- as.numeric(names(numeric.list))
     d.list <- lapply(seq_along(numeric.list), function(i) {
-      my.density(numeric.list[[i]], darg[i, ])
-      })
+        .density(numeric.list[[i]], darg[i, ])
+    })
     ## n.list <- sapply(numeric.list, length)  UNNECESSARY
     dx.list <- lapply(d.list, "[[", "x")
     dy.list <- lapply(d.list, "[[", "y")
@@ -962,7 +959,7 @@ dotplot.table <-
     function(x, data = NULL, groups = TRUE,
              ..., horizontal = TRUE)
 {
-    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
+    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
     if (!is.null(data)) warning("explicit 'data' specification ignored")
     data <- as.data.frame(x)
     nms <- names(data)
@@ -1194,7 +1191,7 @@ bwplot.formula <-
              data = NULL,
              allow.multiple = is.null(groups) || outer,
              outer = FALSE,
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = "fill",
              panel = lattice.getOption("panel.bwplot"),
              prepanel = NULL,
@@ -1490,26 +1487,12 @@ bwplot.formula <-
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
         foo$legend <-
-            list(list(fun = "drawSimpleKey",
-                      args =
-                      updateList(list(text = levels(as.factor(groups)),
-                                      points = if (is.standard.barchart) FALSE else TRUE,
-                                      rectangles = if (is.standard.barchart) TRUE else FALSE,
-                                      lines = FALSE), 
-                                 if (is.list(auto.key)) auto.key else list())))
-        foo$legend[[1]]$x <- foo$legend[[1]]$args$x
-        foo$legend[[1]]$y <- foo$legend[[1]]$args$y
-        foo$legend[[1]]$corner <- foo$legend[[1]]$args$corner
-
-        names(foo$legend) <- 
-            if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
-                "inside"
-            else
-                "top"
-        if (!is.null(foo$legend[[1]]$args$space))
-            names(foo$legend) <- foo$legend[[1]]$args$space
+            autoKeyLegend(list(text = levels(as.factor(groups)),
+                               points = if (is.standard.barchart) FALSE else TRUE,
+                               rectangles = if (is.standard.barchart) TRUE else FALSE,
+                               lines = FALSE),
+                          auto.key)
     }
-
     class(foo) <- "trellis"
     foo
 }

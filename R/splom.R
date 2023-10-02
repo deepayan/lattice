@@ -133,7 +133,7 @@ panel.pairs <-
 
              ## prepanel.limits = function(x) if (is.factor(x)) levels(x) else
              ## extend.limits(range(as.numeric(x), finite = TRUE)),
-             prepanel.limits = scale.limits,
+             prepanel.limits = scale_limits,
 
              varnames = colnames(z),
              varname.col = add.text$col,
@@ -348,7 +348,7 @@ splom.data.frame <-
 splom.formula <-
     function(x,
              data = NULL,
-             auto.key = FALSE,
+             auto.key = lattice.getOption("default.args")$auto.key,
              aspect = 1,
              between = list(x = 0.5, y = 0.5),
              panel = lattice.getOption("panel.splom"),
@@ -537,27 +537,29 @@ splom.formula <-
 
     if (is.null(foo$legend) && needAutoKey(auto.key, groups))
     {
+        # provide smart defaults for auto key based on 'type'
+        type <- dots$type
+        if (is.character(type) && length(type) > 0)
+        {
+            points <- any(type %in% "p")
+            lines <- any(type %in% c("l", "b", "o", "h", "s", "S", "a",
+                                     "smooth", "spline", "r"))
+            keytype <- if (any(type %in% c("b", "o"))) "o" else "l"
+        }
+        else
+        {
+            points <- TRUE
+            lines <- FALSE
+            keytype <- "l"
+        }
         foo$legend <-
-            list(list(fun = "drawSimpleKey",
-                      args =
-                      updateList(list(text = levels(as.factor(groups)),
-                                      points = TRUE,
-                                      rectangles = FALSE,
-                                      lines = FALSE), 
-                                 if (is.list(auto.key)) auto.key else list())))
-        foo$legend[[1]]$x <- foo$legend[[1]]$args$x
-        foo$legend[[1]]$y <- foo$legend[[1]]$args$y
-        foo$legend[[1]]$corner <- foo$legend[[1]]$args$corner
-
-        names(foo$legend) <- 
-            if (any(c("x", "y", "corner") %in% names(foo$legend[[1]]$args)))
-                "inside"
-            else
-                "top"
-        if (!is.null(foo$legend[[1]]$args$space))
-            names(foo$legend) <- foo$legend[[1]]$args$space
+            autoKeyLegend(list(text = levels(as.factor(groups)),
+                               points = points,
+                               rectangles = FALSE,
+                               lines = lines,
+                               type = keytype),
+                          auto.key)
     }
-
     class(foo) <- "trellis"
     foo
 }

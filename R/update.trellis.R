@@ -279,9 +279,14 @@ update.trellis <-
             ## the option of retaining the old, but in that case the
             ## user could add that manually to the new 'legend'. ]
 
+            ## other components (left, right, top, bottom) are simply replaced
+
             winside <- which(names(legend) == "inside")
             if (length(winside) ==  0L) # none in new
-                object$legend <- updateList(object$legend, legend)
+            {
+                for (space in names(legend))
+                    object$legend[[space]] <- legend[[space]]
+            }
             else 
             {
                 object$legend <- object$legend[ names(object$legend) != "inside" ]
@@ -308,21 +313,41 @@ update.trellis <-
             groups <- object$panel.args.common$groups
             if (needAutoKey(auto.key, groups))
             {
-                object$legend <-
-                    list(list(fun = "drawSimpleKey",
-                              args =
-                              updateList(list(text = levels(as.factor(groups))), 
-                                         if (is.list(auto.key)) auto.key else list())))
-                object$legend[[1]]$x <- object$legend[[1]]$args$x
-                object$legend[[1]]$y <- object$legend[[1]]$args$y
-                object$legend[[1]]$corner <- object$legend[[1]]$args$corner
-                names(object$legend) <- 
-                    if (any(c("x", "y", "corner") %in% names(object$legend[[1]]$args)))
-                        "inside"
-                    else
-                        "top"
-                if (!is.null(object$legend[[1]]$args$space))
-                    names(object$legend) <- object$legend[[1]]$args$space
+                ## Default is points = TRUE, lines = FALSE, rectangles
+                ## = FALSE.  Try harder if high-level function is
+                ## xyplot / splom / barchart / histogram
+                simpleKeyArgs <- c(
+                    list(text = levels(as.factor(groups))),
+                    switch(as.character(object$call[[1]]),
+                           barchart = ,
+                           histogram = {
+                               list(points = FALSE, lines = FALSE, rectangles = TRUE)
+                           },
+                           splom = ,
+                           xyplot = {
+                               type <- dots$type
+                               if (is.null(type)) type <- object$panel.args.common$type
+                               if (is.character(type) && length(type) > 0)
+                               {
+                                   points <- any(type %in% "p")
+                                   lines <- any(type %in% c("l", "b", "o", "h", "s", "S", "a",
+                                                            "smooth", "spline", "r"))
+                                   keytype <- if (any(type %in% c("b", "o"))) "o" else "l"
+                               }
+                               else
+                               {
+                                   points <- TRUE
+                                   lines <- FALSE
+                                   keytype <- "l"
+                               }
+                               list(points = points,
+                                    rectangles = FALSE,
+                                    lines = lines,
+                                    type = keytype)
+                           },
+                           list(points = TRUE, lines = FALSE, rectangles = FALSE))
+                )
+                object$legend <- autoKeyLegend(simpleKeyArgs, auto.key)
             }
         }
     }

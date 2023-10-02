@@ -111,7 +111,7 @@ xyplot.ts <-
     screens <- make.par.list(cn, screens, NROW(x), NCOL(x), 1)
     screens <- unlist(screens, use.names = FALSE)
     screens <- factor(screens, levels = unique(screens))
-    screens <- rep(screens, length = NCOL(x))
+    screens <- rep(screens, length.out = NCOL(x))
     fac <- factor(rep(screens, each = NROW(x)))
 
     ## formula

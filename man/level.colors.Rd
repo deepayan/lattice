@@ -60,7 +60,7 @@ level.colors(x, at, col.regions, colors = TRUE, ...)
 depth.col <-
     with(quakes, 
          level.colors(depth, at = do.breaks(range(depth), 30),
-                      col.regions = terrain.colors))
+                      col.regions = hcl.colors))
 
 
 xyplot(lat ~ long | equal.count(stations), quakes,

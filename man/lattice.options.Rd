@@ -81,11 +81,10 @@ lattice.getOption(name)
     }
 
     \item{\code{default.args}}{ A list giving default values for various
-      standard arguments: \code{as.table}, \code{aspect},
-      \code{between}, \code{skip}, \code{strip},
-      \code{xscale.components}, \code{yscale.components}, and
-      \code{axis}.
-    }
+      standard arguments: \code{as.table}, \code{auto.key},
+      \code{aspect}, \code{between}, \code{grid}, \code{skip},
+      \code{strip}, \code{xscale.components}, \code{yscale.components},
+      and \code{axis}.  }
 
     \item{\code{highlight.gpar}}{ A list giving arguments to
       \code{\link{gpar}} used to highlight a viewport chosen using
@@ -149,6 +148,14 @@ lattice.getOption(name)
 \examples{
 names(lattice.options())
 str(lattice.getOption("layout.widths"), max.level = 2)
+
+\dontrun{
+## change default settings for subsequent plots
+lattice.options(default.args = list(as.table = TRUE,
+                                    grid = TRUE,
+                                    auto.key = TRUE))
+}
+
 }
 \keyword{dplot}
 

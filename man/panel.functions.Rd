@@ -229,13 +229,12 @@ panel.mathdensity(dmath = dnorm, args = list(mean=0, sd=1),
 bwplot(yield ~ site, barley, groups = year,
        panel = function(x, y, groups, subscripts, ...) {
            panel.grid(h = -1, v = 0)
-           panel.stripplot(x, y, ..., jitter.data = TRUE,
+           panel.stripplot(x, y, ..., jitter.data = TRUE, grid = FALSE,
                            groups = groups, subscripts = subscripts)
-           panel.superpose(x, y, ..., panel.groups = panel.average,
+           panel.superpose(x, y, ..., panel.groups = panel.average, grid = FALSE,
                            groups = groups, subscripts = subscripts)
        },
-       auto.key =
-       list(points = FALSE, lines = TRUE, columns = 2))
+       auto.key = list(points = FALSE, lines = TRUE, columns = 2))
 
 ## Superposing a fitted normal density on a Histogram
 
@@ -246,7 +245,7 @@ histogram( ~ height | voice.part, data = singer, layout = c(2, 4),
           panel = function(x, ...) {
               panel.histogram(x, ...)
               panel.mathdensity(dmath = dnorm,
-                                args = list(mean=mean(x),sd=sd(x)), ...)
+                                args = list(mean = mean(x), sd = sd(x)), ...)
           } )
 
 

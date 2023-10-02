@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2021-04-24 22:28\n"
+"POT-Creation-Date: 2023-04-04 17:05\n"
 "PO-Revision-Date: 2021-02-06 16:15+0100\n"
 "Last-Translator: Philippe Grosjean <phgrosjean@sciviews.org>\n"
 "Language-Team: French <R-core@r-project.org>\n"
@@ -21,17 +21,28 @@ msgstr ""
 msgid "Invalid value of 'log'"
 msgstr "Valeur incorrecte pour 'log'"
 
-msgid "range too small for min.n"
-msgstr "étendue trop étroite pour min.n"
-
 msgid "'at' missing or incompatible with 'labels'"
 msgstr "'at' manquant ou incompatible avec 'labels'"
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
 
+msgid "range too small for min.n"
+msgstr "étendue trop étroite pour min.n"
+
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' forcé à 0 pour les diagrammes en barre empilées"
+
+msgid "length of '%s' must be  1 or multiple of group length (%d)"
+msgstr ""
+
+msgid ""
+"%s must be length 1 or a vector of \n"
+"             length multiple of group length (%d)"
+msgstr ""
+
+msgid ","
+msgstr ","
 
 msgid "explicit 'data' specification ignored"
 msgstr "spécification explicite de 'data' ignorée"
@@ -209,6 +220,12 @@ msgid "'at' values are not equispaced; output may be wrong"
 msgstr ""
 "les valeurs 'at' ne sont pas équidistantes ; le résultat peut être erroné"
 
+msgid "key specifies 'labels$labels' but not 'labels$at'"
+msgstr ""
+
+msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
+msgstr ""
+
 msgid "malformed colorkey"
 msgstr "'colorkey' inadéquat"
 
@@ -319,9 +336,6 @@ msgstr "Résidus"
 
 msgid "Invalid or ambiguous component names:"
 msgstr "Noms de composants incorrects ou ambigus :"
-
-msgid ","
-msgstr ","
 
 msgid "Multiple matches to component name"
 msgstr "Correspondances multiples pour les noms des composants"
