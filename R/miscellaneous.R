@@ -241,10 +241,12 @@ lpolygon.default <-
 
              font, fontface, ## gpar() doesn't like these
              ...,
+             rule = c("none", "winding", "evenodd"),
              identifier = NULL,
              name.type = "panel") 
 {
     if (sum(!is.na(x)) < 1) return()
+    rule <- match.arg(rule)
     border <- 
         if (all(is.na(border))) "transparent"
         else if (is.logical(border))
@@ -257,27 +259,32 @@ lpolygon.default <-
         group <- list(...)$group.number
     else
         group <- 0
-    ## with(xy,  # CMD check complains
-    ##  {
-    ##      n <- length(x)
-    ##      w <- which(is.na(x) | is.na(y))
-    ##      id.lengths <- diff(c(0, w, n))
-    ##      grid.polygon(x = x,
-    ##                   y = y,
-    ##                   id.lengths = id.lengths,
-    ##                   default.units = "native",
-    ##                   name = primName("polygon", identifier, name.type, group),
-    ##                   gp = gpar(fill = col, col = border, ...))
-    ##  })
     n <- length(xy$x)
-    w <- which(is.na(xy$x) | is.na(xy$y))
-    id.lengths <- diff(c(0, w, n))
-    grid.polygon(x = xy$x,
-                 y = xy$y,
-                 id.lengths = id.lengths,
-                 default.units = "native",
-                 name = primName("polygon", identifier, name.type, group),
-                 gp = gpar(fill = col, col = border, ...))
+    breaks <- which(is.na(xy$x) | is.na(xy$y))
+    nb <- length(breaks)
+    id.lengths <- diff(c(0, breaks, n))
+    if (rule == "none" || nb == 0)
+        grid.polygon(x = xy$x,
+                     y = xy$y,
+                     id.lengths = id.lengths,
+                     default.units = "native",
+                     name = primName("polygon", identifier, name.type, group),
+                     gp = gpar(fill = col, col = border, ...))
+    else {
+        ## grid.polygon() can handle NAs but grid.path() cannot. So we
+        ## use a strategy copied from polypath(). This should work
+        ## equally well with grid.polygon(), so eventually we should
+        ## change that too.
+        ## if (nb == 0) { any difference between grid.polygon() and grid.path() ? } 
+        lengths <- c(breaks[1] - 1, diff(breaks) - 1, n - breaks[nb])
+        grid.path(x = xy$x[-breaks],
+                  y = xy$y[-breaks],
+                  id.lengths = lengths,
+                  rule = rule,
+                  default.units = "native",
+                  name = primName("path", identifier, name.type, group),
+                  gp = gpar(fill = col, col = border, ...))
+    }
 }
 
 

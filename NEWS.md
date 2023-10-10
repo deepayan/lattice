@@ -6,6 +6,9 @@
 
 * `larrows()`, `lpolygon()`, `lrect()` and `lsegments()` are now generic functions.
 
+* Support for paths (via `grid.path()`, which supports holes) in
+  `lpolygon.default()` using new `rule` argument.
+
 
 # Changes in lattice 0.21
 

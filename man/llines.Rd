@@ -66,7 +66,10 @@ ltext(x, ...)
         font, fontfamily, fontface, cex, \dots, identifier, name.type) 
 \method{lpolygon}{default}(x, y = NULL,
         border = "black", col = "transparent", fill = NULL, 
-        font, fontface, \dots, identifier, name.type)        
+        font, fontface,
+        rule = c("none", "winding", "evenodd"),
+        \dots,
+        identifier, name.type)        
 \method{ltext}{default}(x, y = NULL, labels = seq_along(x),
         col, alpha, cex, srt = 0,
         lineheight, font, fontfamily, fontface,
@@ -136,6 +139,14 @@ panel.text(\dots)
     rectangles, see \code{\link[grid:grid.rect]{grid.rect}} }
   \item{\dots}{ extra arguments, passed on to lower level functions as
     appropriate.  }
+  \item{rule}{ character string specifying how \code{NA} values are
+    interpreted for polygons. The default rule (\code{"none"})
+    treats \code{NA}-separated segments as separate polygons. For the
+    other rules (\code{"winding"} or \code{"evenodd"}) these segments
+    are interpreted as subpaths, possibly representing holes, of a
+    single path, and are rendered using \code{\link{grid.path}}. Support
+    and redering speed may depend on the device being used.
+  }
   \item{identifier}{
     A character string that is prepended to the name of the grob
     that is created.
@@ -172,6 +183,28 @@ panel.text(\dots)
   \code{\link{text}}, \code{\link{segments}}, \code{\link{arrows}},
   \code{\link{Lattice}}
 }
+
+\examples{
+
+SD <- 0.1
+t <- seq(0, 2*pi, length.out = 50) + rnorm(50, sd = SD)
+d <- list(x = c(cos(t), NA, rev(0.5 * cos(t))) + rnorm(101, sd = SD),
+          y = c(sin(t), NA, rev(0.5 * sin(t))) + rnorm(101, sd = SD))
+
+## polygons and paths (with holes)
+xyplot(y ~ x, d, panel = panel.polygon, col = 4, alpha = 0.5, rule = "none")
+xyplot(y ~ x, d, panel = panel.polygon, col = 4, alpha = 0.5, rule = "winding")
+xyplot(y ~ x, d, panel = panel.polygon, col = 4, alpha = 0.5, rule = "evenodd")
+
+## rectangles
+xyplot(y ~ x, d, panel = panel.rect, col = 4, alpha = 0.5, width = 0.1, height = 0.1)
+
+## points and lines
+xyplot(y ~ x, d, panel = panel.lines, col = 4, alpha = 0.5,
+       type = "o", pch = 16)
+
+}
+
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
 \keyword{dplot}
