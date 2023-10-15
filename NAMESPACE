@@ -117,6 +117,7 @@ export(histogram,     # high level generics:
        lrect,     panel.text,
        larrows,   panel.rect,
        lpolygon,  panel.polygon,
+       lpolypath, panel.polypath,
 
 
        ## useful prepanel functions
@@ -303,6 +304,7 @@ S3method(larrows,       default)
 S3method(llines,        default)
 S3method(lpoints,       default)
 S3method(lpolygon,      default)
+S3method(lpolypath,     default)
 S3method(lrect,         default)
 S3method(lsegments,     default)
 S3method(ltext,         default)

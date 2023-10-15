@@ -39,12 +39,13 @@
 lplot.xy(xy, type, pch, lty, col, cex, lwd,
          font, fontfamily, fontface,
          col.line, col.symbol, alpha, fill,
-         origin = 0, \dots, identifier, name.type)
+         origin = 0, ..., identifier, name.type)
 
 larrows(...)
 llines(x, ...)
 lpoints(x, ...)
 lpolygon(x, ...)
+lpolypath(x, ...)
 lrect(...)
 lsegments(...)
 ltext(x, ...)
@@ -59,21 +60,27 @@ ltext(x, ...)
         lwd = add.line$lwd,
         fill = NULL, 
         font, fontface,
-        \dots, identifier, name.type)
+        ..., identifier, name.type)
 \method{llines}{default}(x, y = NULL, type = "l",
-        col, alpha, lty, lwd, \dots, identifier, name.type)
+        col, alpha, lty, lwd, ..., identifier, name.type)
 \method{lpoints}{default}(x, y = NULL, type = "p", col, pch, alpha, fill,
-        font, fontfamily, fontface, cex, \dots, identifier, name.type) 
+        font, fontfamily, fontface, cex, ..., identifier, name.type) 
 \method{lpolygon}{default}(x, y = NULL,
         border = "black", col = "transparent", fill = NULL, 
         font, fontface,
         rule = c("none", "winding", "evenodd"),
-        \dots,
+        ...,
         identifier, name.type)        
+\method{lpolypath}{default}(x, y = NULL,
+         border = "black", col = "transparent", fill = NULL, 
+         font, fontface,
+         rule = c("winding", "evenodd"),
+         ...,
+         identifier, name.type)        
 \method{ltext}{default}(x, y = NULL, labels = seq_along(x),
         col, alpha, cex, srt = 0,
         lineheight, font, fontfamily, fontface,
-        adj = c(0.5, 0.5), pos = NULL, offset = 0.5, \dots, identifier, name.type)  
+        adj = c(0.5, 0.5), pos = NULL, offset = 0.5, ..., identifier, name.type)  
 \method{lrect}{default}(xleft, ybottom, xright, ytop,
         x = (xleft + xright) / 2,
         y = (ybottom + ytop) / 2,
@@ -85,18 +92,18 @@ ltext(x, ...)
         just = "center",
         hjust = NULL, vjust = NULL,
         font, fontface,
-        \dots, identifier, name.type)
+        ..., identifier, name.type)
 \method{lsegments}{default}(x0, y0, x1, y1, x2, y2,
         col, alpha, lty, lwd,
-        font, fontface, \dots, identifier, name.type)
+        font, fontface, ..., identifier, name.type)
 
-panel.arrows(\dots)
-panel.lines(\dots)
-panel.points(\dots)
-panel.polygon(\dots)
-panel.rect(\dots)
-panel.segments(\dots)
-panel.text(\dots)
+panel.arrows(...)
+panel.lines(...)
+panel.points(...)
+panel.polygon(...)
+panel.rect(...)
+panel.segments(...)
+panel.text(...)
 }
 \arguments{
 
@@ -137,16 +144,23 @@ panel.text(\dots)
   \item{xleft, ybottom, xright, ytop}{ see \code{\link{rect}}}
   \item{width, height, just, hjust, vjust}{ finer control over
     rectangles, see \code{\link[grid:grid.rect]{grid.rect}} }
-  \item{\dots}{ extra arguments, passed on to lower level functions as
+  \item{...}{ extra arguments, passed on to lower level functions as
     appropriate.  }
+
   \item{rule}{ character string specifying how \code{NA} values are
-    interpreted for polygons. The default rule (\code{"none"})
-    treats \code{NA}-separated segments as separate polygons. For the
-    other rules (\code{"winding"} or \code{"evenodd"}) these segments
-    are interpreted as subpaths, possibly representing holes, of a
-    single path, and are rendered using \code{\link{grid.path}}. Support
-    and redering speed may depend on the device being used.
+    interpreted for polygons and paths. This is mainly intended for
+    paths (via \code{\link{grid.path}}), but can also be specified for
+    polygons for convenience.
+
+    For polygons, the default rule is \code{"none"}, which treats
+    \code{NA}-separated segments as separate polygons. This value is
+    only valid for polygons. For the other rules (\code{"winding"} or
+    \code{"evenodd"}) these segments are interpreted as subpaths,
+    possibly representing holes, of a single path, and are rendered
+    using \code{\link{grid.path}}. Support and rendering speed may
+    depend on the device being used.
   }
+
   \item{identifier}{
     A character string that is prepended to the name of the grob
     that is created.

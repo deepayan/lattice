@@ -207,6 +207,7 @@ panel.arrows <- function(...) larrows(...)
 panel.lines <- function(...) llines(...)
 panel.points <- function(...) lpoints(...)
 panel.polygon <- function(...) lpolygon(...)
+panel.polypath <- function(...) lpolypath(...)
 panel.rect <- function(...) lrect(...)
 panel.segments <- function(...) lsegments(...)
 panel.text <- function(...) ltext(...)
@@ -272,10 +273,13 @@ lpolygon.default <-
                      gp = gpar(fill = col, col = border, ...))
     else {
         ## grid.polygon() can handle NAs but grid.path() cannot. So we
-        ## use a strategy copied from polypath(). This should work
-        ## equally well with grid.polygon(), so eventually we should
-        ## change that too.
-        ## if (nb == 0) { any difference between grid.polygon() and grid.path() ? } 
+        ## use a strategy copied from polypath() in lpolypath(). This
+        ## should work equally well with grid.polygon(), so eventually
+        ## we should change that too.
+
+        ## if (nb == 0) {
+        ##      any difference between grid.polygon() and grid.path() ?
+        ## }
         lengths <- c(breaks[1] - 1, diff(breaks) - 1, n - breaks[nb])
         grid.path(x = xy$x[-breaks],
                   y = xy$y[-breaks],
@@ -284,6 +288,50 @@ lpolygon.default <-
                   default.units = "native",
                   name = primName("path", identifier, name.type, group),
                   gp = gpar(fill = col, col = border, ...))
+    }
+}
+
+
+lpolypath <- function(x, ...) UseMethod("lpolypath")
+
+lpolypath.default <-
+    function(x, y = NULL,
+             border = "black",
+             col = "transparent",
+             ## lty = NULL,
+             fill = NULL, # capture so that doesn't overload 'fill=col' in gpar()
+
+             font, fontface, ## gpar() doesn't like these
+             ...,
+             rule = c("winding", "evenodd"),
+             identifier = NULL,
+             name.type = "panel") 
+{
+    if (sum(!is.na(x)) < 1) return()
+    rule <- match.arg(rule)
+    border <- 
+        if (all(is.na(border))) "transparent"
+        else if (is.logical(border))
+        {
+            if (border) "black" else "transparent"
+        }
+        else border
+    xy <- xy.coords(x, y, recycle = TRUE)
+    if (hasGroupNumber())
+        group <- list(...)$group.number
+    else
+        group <- 0
+    n <- length(xy$x)
+    breaks <- which(is.na(xy$x) | is.na(xy$y))
+    nb <- length(breaks)
+    lengths <- c(breaks[1] - 1, diff(breaks) - 1, n - breaks[nb])
+    grid.path(x = xy$x[-breaks],
+              y = xy$y[-breaks],
+              id.lengths = lengths,
+              rule = rule,
+              default.units = "native",
+              name = primName("path", identifier, name.type, group),
+              gp = gpar(fill = col, col = border, ...))
     }
 }
 
