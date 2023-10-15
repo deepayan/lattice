@@ -208,10 +208,6 @@ t <- seq(0, 2*pi, length.out = 50) + rnorm(50, sd = SD)
 d <- list(x = c(cos(t), NA, rev(0.5 * cos(t))) + rnorm(101, sd = SD),
           y = c(sin(t), NA, rev(0.5 * sin(t))) + rnorm(101, sd = SD))
 
-## polygons and paths (with holes)
-xyplot(y ~ x, d, panel = panel.polygon, col = 4, alpha = 0.5, rule = "none")
-xyplot(y ~ x, d, panel = panel.polygon, col = 4, alpha = 0.5, rule = "winding")
-xyplot(y ~ x, d, panel = panel.polygon, col = 4, alpha = 0.5, rule = "evenodd")
 
 ## rectangles
 xyplot(y ~ x, d, panel = panel.rect, col = 4, alpha = 0.5, width = 0.1, height = 0.1)
@@ -220,7 +216,19 @@ xyplot(y ~ x, d, panel = panel.rect, col = 4, alpha = 0.5, width = 0.1, height =
 xyplot(y ~ x, d, panel = panel.lines, col = 4, alpha = 0.5,
        type = "o", pch = 16)
 
+## polygons and paths (with holes)
+xyplot(y ~ x, d, panel = panel.polygon, col = 4, alpha = 0.5, rule = "evenodd")
+
+## Example adapted from https://journal.r-project.org/articles/RJ-2012-017/
+x <- c(.1, .5, .9, NA, .4, .5, .6, NA, .4, .6, .5)
+y <- c(.1, .8, .1, NA, .5, .4, .5, NA, .3, .3, .2)
+d <- data.frame(x = x, y = y)
+xyplot(y ~ x, data = d, panel = panel.polygon,  rule = "none", col = "grey")
+xyplot(y ~ x, data = d, panel = panel.polypath, rule = "winding", col = "grey")
+xyplot(y ~ x, data = d, panel = panel.polypath, rule = "evenodd", col = "grey")
+
 }
+
 
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
