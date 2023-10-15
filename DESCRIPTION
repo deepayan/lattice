@@ -1,6 +1,6 @@
 Package: lattice
-Version: 0.22-2
-Date: 2023-10-10
+Version: 0.22-3
+Date: 2023-10-14
 Priority: recommended
 Title: Trellis Graphics for R
 Authors@R: c(person("Deepayan", "Sarkar", role = c("aut", "cre"),

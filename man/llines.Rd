@@ -3,6 +3,7 @@
 \alias{llines}
 \alias{lpoints}
 \alias{lpolygon}
+\alias{lpolypath}
 \alias{lrect}
 \alias{lsegments}
 \alias{ltext}
@@ -10,6 +11,7 @@
 \alias{llines.default}
 \alias{lpoints.default}
 \alias{lpolygon.default}
+\alias{lpolypath.default}
 \alias{lrect.default}
 \alias{lsegments.default}
 \alias{ltext.default}
@@ -18,6 +20,7 @@
 \alias{panel.lines}
 \alias{panel.points}
 \alias{panel.polygon}
+\alias{panel.polypath}
 \alias{panel.rect}
 \alias{panel.segments}
 \alias{panel.text}
@@ -68,14 +71,14 @@ ltext(x, ...)
 \method{lpolygon}{default}(x, y = NULL,
         border = "black", col = "transparent", fill = NULL, 
         font, fontface,
-        rule = c("none", "winding", "evenodd"),
         ...,
+        rule = c("none", "winding", "evenodd"),
         identifier, name.type)        
 \method{lpolypath}{default}(x, y = NULL,
          border = "black", col = "transparent", fill = NULL, 
          font, fontface,
-         rule = c("winding", "evenodd"),
          ...,
+         rule = c("winding", "evenodd"),
          identifier, name.type)        
 \method{ltext}{default}(x, y = NULL, labels = seq_along(x),
         col, alpha, cex, srt = 0,

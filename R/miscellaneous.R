@@ -201,7 +201,7 @@ Rows <- function(x, which)
 
 
 
-## panel functions corresponding to standard base functions
+## panel functions corresponding to standard low-level graphics functions
 
 panel.arrows <- function(...) larrows(...)
 panel.lines <- function(...) llines(...)
@@ -332,7 +332,6 @@ lpolypath.default <-
               default.units = "native",
               name = primName("path", identifier, name.type, group),
               gp = gpar(fill = col, col = border, ...))
-    }
 }
 
 
