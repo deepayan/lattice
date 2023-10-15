@@ -80,7 +80,7 @@ col.whitebg()
   or \code{\link{trellis.par.set}}.
 
   \code{classic.theme} and \code{col.whitebg} produce predefined themes
-  that are not recommended for routine use but retained for
+  that are not recommended for routine use but are retained for
   compatibility.
 
   The \code{classic.theme} function was intended to provide device
@@ -91,16 +91,16 @@ col.whitebg()
   hardware settings on which \R is used, as well as the fact that a plot
   created on a particular device may be subsequently used in many
   different ways.  For this reason, common device-agnostic defaults were
-  used for all devices from \R 2.3.0 onwards. The earlier behaviour can
-  be reinstated by setting \code{classic.theme} as the default
-  \code{theme} argument, e.g. by putting
-  \code{lattice.options(default.theme = "classic.theme")} in a startup
-  script (see the entry for \code{theme} in \code{\link{trellis.device}}
-  for details).
+  used for all devices from \R 2.3.0 onwards.
 
-  Since \R 2.4.3, a new set of defaults given by \code{standard.theme}
+  Since \R 4.3.0, a new set of defaults given by \code{standard.theme}
   is used. The defaults are based on HCL palettes, but customization of
-  the palettes is allowed. 
+  the palettes is allowed.  Earlier behaviour can be reinstated by
+  setting \code{classic.theme} as the default \code{theme} argument,
+  e.g., by putting
+  \code{lattice.options(default.theme = classic.theme("pdf"))}
+  in a startup script (see the entry for \code{theme} in
+  \code{\link{trellis.device}} for details).
   
   \code{custom_theme} is the workhorse function called by
   \code{standard.theme}. \code{canonical.theme} is an alias for

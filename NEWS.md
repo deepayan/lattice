@@ -15,7 +15,9 @@
 * The color scheme used in the default graphical settings has been
   updated to use modern palettes, thanks to Achim Zeileis. It is also
   easier to customize the color palette in `standard.theme()`, via a
-  new function `custom_theme()`.
+  new function `custom_theme()`. The earlier behaviour can be
+  reinstated by setting `classic.theme("pdf")` as the theme; see
+  `help(classic.theme)` for details.
 
 * `panel.levelplot()` has a new `region.type = "countour"` argument
   allowing smooth region boundaries similar to `filled.contour()`.
