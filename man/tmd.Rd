@@ -1,6 +1,7 @@
 \name{B_09_tmd}
 \alias{tmd}
 \alias{tmd.formula}
+\alias{tmd.data.frame}
 \alias{tmd.trellis}
 \alias{prepanel.tmd.default}
 \alias{prepanel.tmd.qqmath}
@@ -10,10 +11,10 @@
 \description{
   \code{tmd} Creates Tukey Mean-Difference Plots from a trellis object
   returned by \code{xyplot}, \code{qq} or \code{qqmath}.  The prepanel
-  and panel functions are used as appropriate.  The \code{formula}
-  method for \code{tmd} is provided for convenience, and simply calls
-  \code{tmd} on the object created by calling \code{xyplot} on that
-  formula.
+  and panel functions are used as appropriate.  The \code{formula} and
+  \code{data.frame} methods for \code{tmd} are provided for convenience,
+  and simply call \code{tmd} on the object created by the corresponding
+  \code{xyplot} methods.
 }
 \usage{
 tmd(object, \dots)

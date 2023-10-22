@@ -1409,6 +1409,13 @@ panel.wireframe <- function(...)
 
 wireframe <- function(x, data, ...) UseMethod("wireframe")
 
+wireframe.data.frame <- function(x, data = NULL, formula = data, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(wireframe)
+    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
+    modifyList(wireframe(formula, x, ...), list(call = ocall))
+}
+
 
 wireframe.matrix <-
     function(x, data = NULL,
@@ -1467,6 +1474,13 @@ wireframe.formula <-
 
 
 cloud <- function(x, data, ...) UseMethod("cloud")
+
+cloud.data.frame <- function(x, data = NULL, formula = data, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(cloud)
+    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
+    modifyList(cloud(formula, x, ...), list(call = ocall))
+}
 
 
 ## FIXME: made xlim/ylim similar to levelplot.matrix? What about

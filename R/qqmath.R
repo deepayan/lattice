@@ -151,6 +151,13 @@ panel.qqmath <-
 
 qqmath <- function(x, data, ...) UseMethod("qqmath")
 
+qqmath.data.frame <- function(x, data = NULL, formula = data, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(qqmath)
+    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
+    modifyList(qqmath(formula, x, ...), list(call = ocall))
+}
+
 
 
 qqmath.numeric <-

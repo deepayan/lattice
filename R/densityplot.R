@@ -181,6 +181,13 @@ panel.densityplot <-
 
 densityplot <- function(x, data, ...) UseMethod("densityplot")
 
+densityplot.data.frame <- function(x, data = NULL, formula = data, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(densityplot)
+    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
+    modifyList(densityplot(formula, x, ...), list(call = ocall))
+}
+
 
 densityplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)

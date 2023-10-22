@@ -3,14 +3,18 @@
 \alias{histogram.factor}
 \alias{histogram.numeric}
 \alias{histogram.formula}
+\alias{histogram.data.frame}
 \alias{densityplot}
 \alias{densityplot.numeric}
 \alias{densityplot.formula}
+\alias{densityplot.data.frame}
 \alias{do.breaks}
 \title{Histograms and Kernel Density Plots}
 \usage{
+
 histogram(x, data, \dots)
 densityplot(x, data, \dots)
+
 \method{histogram}{formula}(x,
           data,
           allow.multiple, outer = TRUE,
@@ -36,7 +40,10 @@ densityplot(x, data, \dots)
           subscripts,
           subset)
 
+\method{histogram}{data.frame}(x, data = NULL, formula = data, ...)
+
 \method{histogram}{numeric}(x, data = NULL, xlab, \dots)
+
 \method{histogram}{factor}(x, data = NULL, xlab, \dots)
 
 \method{densityplot}{formula}(x,
@@ -59,9 +66,13 @@ densityplot(x, data, \dots)
                 lattice.getOption("prepanel.default.densityplot"),
             subscripts,
             subset)
+
+\method{densityplot}{data.frame}(x, data = NULL, formula = data, ...)
+
 \method{densityplot}{numeric}(x, data = NULL, xlab, \dots)
 
 do.breaks(endpoints, nint)
+
 }
 \description{
   Draw Histograms and Kernel Density Plots, possibly conditioned on
@@ -97,6 +108,10 @@ do.breaks(endpoints, nint)
     \code{\link{xyplot}} for details).  \code{data} should not be
     specified for the other methods, and is ignored with a warning if it
     is.
+  }
+  \item{formula}{
+    The formula to be used for the \code{"data.frame"} methods. See
+    documentation for argument \code{x} for details.
   }
   \item{type}{
     A character string indicating the type of histogram that is to be

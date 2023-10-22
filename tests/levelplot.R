@@ -49,11 +49,11 @@ stopifnot(inherits(e, "try-error"))
 
 cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
       data = iris, cex = 0.8, groups = Species, subpanel = panel.superpose, 
-      main = "Stereo", screen = list(z = 20, x = -70, y = 0), subset = 30:60)
+      main = "With subset", screen = list(z = 20, x = -70, y = 0), subset = 30:60)
 
 cloud(Sepal.Length ~ Petal.Length * Petal.Width, 
       data = iris[30:60, ], cex = 0.8, groups = Species, subpanel = panel.superpose, 
-      main = "Stereo", screen = list(z = 20, x = -70, y = 0))
+      main = "Without subset", screen = list(z = 20, x = -70, y = 0))
 
 
 levelplot(Sepal.Length ~ Petal.Length * Petal.Width, 

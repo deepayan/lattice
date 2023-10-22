@@ -2,12 +2,17 @@
 
 # Changes in lattice 0.22
 
-* TODO: data.frame methods
+* All high-level functions such as `xyplot()` now have `"data.frame"`
+  methods, where the formula can be provided either as the unnamed
+  second argument or as the named `formula` argument.
 
-* `larrows()`, `lpolygon()`, `lrect()` and `lsegments()` are now generic functions.
+* `larrows()`, `lpolygon()`, `lrect()` and `lsegments()` are now
+  generic functions.
 
 * Support for paths (via `grid.path()`, which supports holes) in
-  `lpolygon.default()` using new `rule` argument.
+  `lpolypath()`, as well as in `lpolygon()` using new `rule` argument.
+
+* The long-deprecated `parallel()` function is now defunct.
 
 
 # Changes in lattice 0.21

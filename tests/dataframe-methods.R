@@ -1,0 +1,44 @@
+pdf("dataframe-methods.pdf")
+library(lattice)
+
+mtcars <-
+    within(mtcars,
+           am <- factor(am, levels = c(0, 1),
+                        labels = c("automatic", "manual")))
+
+stripplot(mtcars, am ~ mpg)
+bwplot(mtcars, am ~ mpg)
+qq(mtcars, am ~ mpg)
+qqmath(mtcars, ~ mpg | am)
+histogram(mtcars, ~ mpg | am)
+densityplot(mtcars, ~ mpg | am)
+
+xyplot(mtcars, mpg ~ wt, groups = am)
+levelplot(mtcars, mpg ~ wt * disp | am, panel = panel.levelplot.colors)
+cloud(mtcars, mpg ~ wt * disp | am)
+
+splom(mtcars[3:7])
+parallelplot(mtcars[3:7])
+
+tmd(mtcars, mpg ~ wt)
+
+ct.tab <- as.data.frame.table(xtabs(~ cyl + am, mtcars))
+
+barchart(ct.tab, Cyl ~ Freq, groups = am)
+dotplot(ct.tab, Cyl ~ Freq, groups = am, auto.key = TRUE)
+
+g <- expand.grid(a = seq(-1, 1, length.out = 101),
+                 b = seq(-1, 1, length.out = 101),
+                 KEEP.OUT.ATTRS = FALSE)
+g <- within(g, {
+    z <- sinh(complex(real = 2 * pi* a, imaginary = 2 * pi * b))
+    arg <- Arg(z)
+    mod <- Mod(z)
+    re <- Re(z)
+    im <- Im(z)
+})
+
+levelplot(g, arg ~ a * b)
+contourplot(g, re ~ a * b)
+wireframe(g, im ~ a * b, shade = TRUE)
+

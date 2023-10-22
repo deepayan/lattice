@@ -3,9 +3,11 @@
 \alias{cloud}
 \alias{wireframe}
 \alias{cloud.formula}
+\alias{cloud.data.frame}
 \alias{cloud.matrix}
 \alias{cloud.table}
 \alias{wireframe.formula}
+\alias{wireframe.data.frame}
 \alias{wireframe.matrix}
 \usage{
 cloud(x, data, \dots)
@@ -47,11 +49,15 @@ wireframe(x, data, \dots)
       subset = TRUE,
       axs.default = "r")
 
+\method{cloud}{data.frame}(x, data = NULL, formula = data, ...)
+
 \method{wireframe}{formula}(x,
           data,
           panel = lattice.getOption("panel.wireframe"),
           default.prepanel = lattice.getOption("prepanel.default.wireframe"),
           \dots)
+
+\method{wireframe}{data.frame}(x, data = NULL, formula = data, ...)
 
 \method{cloud}{matrix}(x, data = NULL, type = "h", 
       zlab = deparse(substitute(x)), aspect, \dots,
@@ -101,16 +107,21 @@ wireframe(x, data, \dots)
     is similar to the form used in \code{persp}.
   }
   \item{data}{
-    for the \code{"formula"} methods, an optional data frame in which
+    For the \code{"formula"} methods, an optional data frame in which
     variables in the formula (as well as \code{groups} and
     \code{subset}, if any) are to be evaluated.  \code{data} should not
     be specified except when using the \code{"formula"} method.
+  }
+  \item{formula}{
+    The formula to be used for the \code{"data.frame"} methods. See
+    documentation for argument \code{x} for details.
   }
   \item{row.values, column.values}{ Optional vectors of values that
     define the grid when \code{x} is a matrix.  \code{row.values} and
     \code{column.values} must have the same lengths as \code{nrow(x)}
     and \code{ncol(x)} respectively.  By default, row and column
-    numbers. }
+    numbers.
+  }
   \item{allow.multiple, outer, auto.key, prepanel, strip, groups, xlab,
     xlim, ylab, ylim, drop.unused.levels, lattice.options,
     default.scales, subset}{

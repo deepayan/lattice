@@ -133,21 +133,6 @@ panel.parallel <-
 
 parallelplot <- function(x, data, ...) UseMethod("parallelplot")
 
-## {
-##     ocall <- sys.call()
-##     formula <- ocall$formula
-##     if (!is.null(formula))
-##     {
-##         warning("The 'formula' argument has been renamed to 'x'. See ?xyplot")
-##         ocall$formula <- NULL
-##         if (!("x" %in% names(ocall))) ocall$x <- formula else warning("'formula' overridden by 'x'")
-##         eval(ocall, parent.frame())
-##     }
-##     else UseMethod("parallelplot")
-## }
-
-
-
 parallelplot.matrix <-
 parallelplot.data.frame <-
     function(x, data = NULL, ..., groups = NULL, subset = TRUE)
@@ -388,7 +373,7 @@ parallelplot.formula <-
 
 parallel <- function(x, data, ...)
 {
-    .Deprecated("parallelplot")
+    .Defunct("parallelplot")
     ## ccall <- match.call()
     ## ccall[[1]] <- quote(lattice::parallelplot)
     ## eval.parent(ccall)

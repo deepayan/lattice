@@ -54,6 +54,13 @@ panel.qq <-
 
 qq <- function(x, data, ...)  UseMethod("qq")
 
+qq.data.frame <- function(x, data = NULL, formula = data, ...)
+{
+    ocall <- sys.call(); ocall[[1]] <- quote(qq)
+    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
+    modifyList(qq(formula, x, ...), list(call = ocall))
+}
+
 
 qq.formula <-
     function(x,

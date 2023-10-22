@@ -1,6 +1,7 @@
 \name{B_04_qqmath}
 \alias{qqmath}
 \alias{qqmath.formula}
+\alias{qqmath.data.frame}
 \alias{qqmath.numeric}
 \title{Q-Q Plot with Theoretical Distribution}
 \description{
@@ -8,7 +9,7 @@
   distribution, possibly conditioned on other variables.
 }
 \usage{
-qqmath(x, data, \dots)
+qqmath(x, data, ...)
 
 \method{qqmath}{formula}(x,
        data,
@@ -23,20 +24,23 @@ qqmath(x, data, \dots)
        scales, strip, groups,
        xlab, xlim, ylab, ylim,
        drop.unused.levels = lattice.getOption("drop.unused.levels"),
-       \dots,
+       ...,
        lattice.options = NULL,
        default.scales = list(),
        default.prepanel = lattice.getOption("prepanel.default.qqmath"),
        subscripts,
        subset)
-\method{qqmath}{numeric}(x, data = NULL, ylab, \dots)
+
+\method{qqmath}{data.frame}(x, data = NULL, formula = data, ...)
+
+\method{qqmath}{numeric}(x, data = NULL, ylab, ...)
 }
 \arguments{
   \item{x}{
     The object on which method dispatch is carried out.
 
     For the \code{"formula"} method, \code{x} should be a formula of the
-    form \code{~ x | g1 * g2 * \dots}, where \code{x} should be a
+    form \code{~ x | g1 * g2 * ...}, where \code{x} should be a
     numeric variable.  For the \code{"numeric"} method, \code{x} should
     be a numeric vector.
 
@@ -49,6 +53,10 @@ qqmath(x, data, \dots)
     specified for the other methods, and is ignored with a warning if it
     is.
 
+  }
+  \item{formula}{
+    The formula to be used for the \code{"data.frame"} methods. See
+    documentation for argument \code{x} for details.
   }
   \item{distribution}{
 
@@ -111,7 +119,7 @@ qqmath(x, data, \dots)
   \item{default.prepanel}{
     Fallback prepanel function.  See \code{\link{xyplot}}.
   }
-  \item{\dots}{
+  \item{...}{
     Further arguments.  See corresponding entry in \code{\link{xyplot}}
     for non-trivial details.
   }

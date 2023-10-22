@@ -1,32 +1,36 @@
 \name{B_05_qq}
 \alias{qq}
 \alias{qq.formula}
+\alias{qq.data.frame}
 \title{ Quantile-Quantile Plots of Two Samples }
 \description{
   Quantile-Quantile plots for comparing two Distributions
 }
 \usage{
-qq(x, data, \dots)
+qq(x, data, ...)
 
 \method{qq}{formula}(x, data, aspect = "fill", 
    panel = lattice.getOption("panel.qq"),
    prepanel, scales, strip, 
    groups, xlab, xlim, ylab, ylim, f.value = NULL, 
    drop.unused.levels = lattice.getOption("drop.unused.levels"),
-   \dots,
+   ...,
    lattice.options = NULL,
    qtype = 7,
    default.scales = list(),
    default.prepanel = lattice.getOption("prepanel.default.qq"),
    subscripts,
    subset)
+
+\method{qq}{data.frame}(x, data = NULL, formula = data, ...)
+
 }
 \arguments{
   \item{x}{
     The object on which method dispatch is carried out.
 
     For the \code{"formula"} method, \code{x} should be a formula of the
-    form \code{y ~ x | g1 * g2 * \dots}, where \code{x} should be a
+    form \code{y ~ x | g1 * g2 * ...}, where \code{x} should be a
     numeric variable, and \code{y} a factor, shingle, character, or
     numeric variable, with the restriction that there must be exactly
     two levels of \code{y}, which divide the values of \code{x} into two
@@ -44,6 +48,10 @@ qq(x, data, \dots)
     % specified for other methods, and is ignored with a warning if it
     % is.
 
+  }
+  \item{formula}{
+    The formula to be used for the \code{"data.frame"} method. See
+    documentation for argument \code{x} for details.
   }
   \item{f.value}{
 
@@ -94,7 +102,7 @@ qq(x, data, \dots)
   \item{default.prepanel}{
     Fallback prepanel function.  See \code{\link{xyplot}}.
   }
-  \item{\dots}{
+  \item{...}{
     Further arguments.  See corresponding entry in \code{\link{xyplot}}
     for non-trivial details.
   }
