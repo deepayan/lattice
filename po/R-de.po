@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 4.0.0 / Lattice 0.20.40\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2023-04-04 17:05\n"
+"POT-Creation-Date: 2023-10-21 23:49\n"
 "PO-Revision-Date: 2020-04-01 15:02+0200\n"
 "Last-Translator: Detlef Steuer <steuer@hsu-hh.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -42,6 +42,10 @@ msgstr ""
 
 msgid ","
 msgstr ","
+
+#, fuzzy
+msgid "'formula' must be a formula object"
+msgstr "Modell muss ein Formelobjekt sein"
 
 msgid "explicit 'data' specification ignored"
 msgstr "ausdrückliche 'data'-Spezifikation ignoriert"

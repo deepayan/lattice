@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: lattice 0.21-9\n"
-"POT-Creation-Date: 2023-09-30 18:19\n"
+"Project-Id-Version: lattice 0.22-4\n"
+"POT-Creation-Date: 2023-10-21 23:49\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,9 @@ msgid "%s must be length 1 or a vector of \n             length multiple of grou
 msgstr ""
 
 msgid ","
+msgstr ""
+
+msgid "'formula' must be a formula object"
 msgstr ""
 
 msgid "explicit 'data' specification ignored"

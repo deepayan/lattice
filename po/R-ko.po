@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 3.2.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2023-04-04 17:05\n"
+"POT-Creation-Date: 2023-10-21 23:49\n"
 "PO-Revision-Date: 2015-02-09 00:06-0600\n"
 "Last-Translator:Chel Hee Lee  <chl948@mail.usask.ca>\n"
 "Language-Team: Chel Hee Lee  <chl948@mail.usask.ca>\n"
@@ -51,6 +51,10 @@ msgstr ""
 
 msgid ","
 msgstr ","
+
+#, fuzzy
+msgid "'formula' must be a formula object"
+msgstr "model에 입력된 객체의 클래스는 반드시 포뮬러(formula)이어야 합니다."
 
 msgid "explicit 'data' specification ignored"
 msgstr "'data' 인자에 지정된 이름을 가진 데이터셋을 이용하지 않았습니다."

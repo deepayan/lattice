@@ -1,3 +1,98 @@
+commit 422afecd82ba2f74c8a89bb2a5539ba5f9af7bc2
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Oct 21 23:49:27 2023 -0400
+
+    new data.frame methods for high-level functions; make parallel() defunct
+
+M	DESCRIPTION
+M	NAMESPACE
+M	NEWS.md
+M	R/bwplot.R
+M	R/cloud.R
+M	R/densityplot.R
+M	R/histogram.R
+M	R/levelplot.R
+M	R/parallel.R
+M	R/qq.R
+M	R/qqmath.R
+M	R/tmd.R
+M	R/xyplot.R
+M	man/cloud.Rd
+M	man/histogram.Rd
+M	man/levelplot.Rd
+M	man/qq.Rd
+M	man/qqmath.Rd
+M	man/tmd.Rd
+M	man/xyplot.Rd
+A	tests/dataframe-methods.R
+M	tests/levelplot.R
+
+commit e724f26aa43f9c015317450ad0327288e4696f61
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sun Oct 15 10:32:04 2023 -0400
+
+    add zoo to Enhances to skip check warning about external help refs
+
+M	DESCRIPTION
+
+commit 7c9d9f3bab06eb4336df6c7d154d116af836ca8b
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Oct 14 23:08:49 2023 -0400
+
+    updated examples
+
+M	man/llines.Rd
+
+commit f26abbfee1650e60f2c71b8f452e4b50b4abf315
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Oct 14 22:55:49 2023 -0400
+
+    add new primitive lpolypath() etc as interface to grid.path()
+
+M	NAMESPACE
+M	R/miscellaneous.R
+M	man/llines.Rd
+
+commit 2e269fd727e072d548c20c54c67b10c5e4eaa5c7
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Oct 14 22:54:59 2023 -0400
+
+    clarify how to revert to old theme (#35)
+
+M	NEWS.md
+M	man/standard.theme.Rd
+
+commit 4dda4d184732c4e11fb8b7481a78c1df84e2abad
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Oct 10 17:07:42 2023 -0400
+
+    support for holes via grid.path() in lpolygon.default
+
+M	DESCRIPTION
+M	NEWS.md
+M	R/miscellaneous.R
+M	man/llines.Rd
+
+commit 2cb437dab814d93e8fce03427f1c9a939a05a346
+Merge: 148fb35 33c34f3
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Mon Oct 2 11:27:29 2023 -0400
+
+    Merge pull request #30 from courtiol/misc_generics
+
+    Add generics for larrows, lpolygon, lrect and lsegments (fixes #29)
+
+commit c3ccbc72793cd490696a281f6fb994fdafe24d42
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Sep 30 18:28:34 2023 -0400
+
+    update changelog
+
+M	ChangeLog
+M	DESCRIPTION
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	po/R-lattice.pot
+
 commit e2f44f54c40204737e6e7689904801fbea5df67d
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Thu May 18 18:07:18 2023 +0530
@@ -225,7 +320,7 @@ Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Fri Mar 31 12:06:14 2023 +0530
 
     Merge pull request #31 from zeileis/hcl-theme
-    
+
     New color defaults
 
 commit c368acacb242e1916df7d3637fbc6b7bd067e30a

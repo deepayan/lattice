@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2023-04-04 17:05\n"
+"POT-Creation-Date: 2023-10-21 23:49\n"
 "PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -50,6 +50,12 @@ msgstr ""
 
 msgid ","
 msgstr ","
+
+# lattice/R/common.R: 159
+# stop("model must be a formula object")
+#, fuzzy
+msgid "'formula' must be a formula object"
+msgstr "model musi być obiektem formuły"
 
 # lattice/R/cloud.R: 1427
 # warning("explicit 'data' specification ignored")
