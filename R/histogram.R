@@ -157,13 +157,6 @@ panel.histogram <-
 
 histogram <- function(x, data, ...) UseMethod("histogram")
 
-histogram.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(histogram)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(histogram(formula, x, ...), list(call = ocall))
-}
-
 
 histogram.factor <- histogram.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)

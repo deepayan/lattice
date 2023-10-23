@@ -911,18 +911,10 @@ panel.violin <-
 }
 
 
-
 ### dotplot, barchart and stripplot: essentially wrappers to bwplot
 
 
 dotplot <- function(x, data, ...) UseMethod("dotplot")
-
-dotplot.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(dotplot)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(dotplot(formula, x, ...), list(call = ocall))
-}
 
 ## dotplot.numeric <-
 ##     function(formula, data = NULL, xlab = deparse(substitute(formula)), ...)
@@ -1034,13 +1026,6 @@ dotplot.formula <-
 
 barchart <- function(x, data, ...) UseMethod("barchart")
 
-barchart.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(barchart)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(barchart(formula, x, ...), list(call = ocall))
-}
-
 barchart.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
@@ -1056,8 +1041,6 @@ barchart.numeric <-
     ans$call <- ocall
     ans
 }
-
-
 
 
 barchart.table <-
@@ -1135,13 +1118,6 @@ barchart.formula <-
 
 stripplot <- function(x, data, ...)  UseMethod("stripplot")
 
-stripplot.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(stripplot)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(stripplot(formula, x, ...), list(call = ocall))
-}
-
 stripplot.numeric <-
     function(x, data = NULL, xlab = deparse(substitute(x)), ...)
 {
@@ -1184,14 +1160,6 @@ stripplot.formula <-
 ### bwplot (the workhorse)
 
 bwplot <- function(x, data, ...) UseMethod("bwplot")
-
-bwplot.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(bwplot)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(bwplot(formula, x, ...), list(call = ocall))
-}
-
 
 
 bwplot.numeric <-

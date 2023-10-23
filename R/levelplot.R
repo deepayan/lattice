@@ -417,13 +417,6 @@ panel.levelplot <-
 
 contourplot <- function(x, data, ...) UseMethod("contourplot")
 
-contourplot.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(contourplot)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(contourplot(formula, x, ...), list(call = ocall))
-}
-
 
 contourplot.table <-
     function(x, data = NULL, aspect = "iso", ..., xlim, ylim)
@@ -537,13 +530,6 @@ contourplot.formula <-
 
 
 levelplot <- function(x, data, ...) UseMethod("levelplot")
-
-levelplot.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(levelplot)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(levelplot(formula, x, ...), list(call = ocall))
-}
 
 levelplot.array <- function(x, data = NULL, ...)
 {

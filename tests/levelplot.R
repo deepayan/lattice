@@ -68,7 +68,7 @@ cloud(z ~ x * y, foo, subset = z > 150)
 splom(~iris[,1:4], iris, groups = Species)
 splom(~iris[,1:4], iris, groups = Species, subset = 70:130, auto.key = T)
 
-parallel(~iris[,1:4] | Species, iris, subset = 30:130)
+parallelplot(~iris[,1:4] | Species, iris, subset = 30:130)
 
 ## NA-s in matrix
 

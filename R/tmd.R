@@ -184,13 +184,6 @@ panel.tmd.qqmath <-
 
 tmd <- function(object, ...) UseMethod("tmd")
 
-tmd.data.frame <- function(object, formula, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(tmd)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(tmd(formula, object, ...), list(call = ocall))
-}
-
 tmd.formula <- function(object, data = NULL, ...)
 {
     ocall <- sys.call(); ocall[[1]] <- quote(tmd)

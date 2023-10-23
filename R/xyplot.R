@@ -216,13 +216,6 @@ panel.xyplot <-
 
 xyplot <- function(x, data, ...) UseMethod("xyplot")
 
-xyplot.data.frame <- function(x, data = NULL, formula = data, ...)
-{
-    ocall <- sys.call(); ocall[[1]] <- quote(xyplot)
-    if (!inherits(formula, "formula")) stop("'formula' must be a formula object")
-    modifyList(xyplot(formula, x, ...), list(call = ocall))
-}
-
 
 
 ## xyplot.default <- 
