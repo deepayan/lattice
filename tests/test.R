@@ -13,7 +13,7 @@ densityplot(~ 1:5 | letters[1:5])
 x <- rnorm(200)
 y <- rnorm(200)
 z <- equal.count(rnorm(200))
-a <- factor(rep(1:3, len = 200))
+a <- factor(rep_len(1:3, 200))
 
 df.test <- list(xx = x+1-min(x), yy = y, zz = z, aa = a)
 

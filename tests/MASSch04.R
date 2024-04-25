@@ -164,7 +164,7 @@ xyplot(Fertility ~ Education | Cath, data = swiss,
 )
 
 Cath2 <- equal.count(swiss$Catholic, number = 2, overlap = 0)
-Agr <- equal.count(swiss$Agric, number = 3, overlap = 0.25)
+Agr <- equal.count(swiss$Agriculture, number = 3, overlap = 0.25)
 xyplot(Fertility ~ Education | Agr * Cath2, data = swiss,
   span = 1, aspect = "xy",
   panel = function(x, y, span) {
