@@ -112,10 +112,10 @@ bwplot(Age ~ Days | Sex*Lrn*Eth, data = Quine, layout = c(4, 2),
       strip = function(...) strip.default(..., style = 1))
 
 stripplot(Age ~ Days | Sex*Lrn*Eth, data = Quine,
-         jitter = TRUE, layout = c(4, 2))
+         jitter.data = TRUE, layout = c(4, 2))
 
 stripplot(Age ~ Days | Eth*Sex, data = Quine,
-   groups = Lrn, jitter = TRUE,
+   groups = Lrn, jitter.data = TRUE,
    panel = function(x, y, subscripts, jitter.data = F, ...) {
        if(jitter.data)  y <- jitter(as.numeric(y))
        panel.superpose(x, y, subscripts, ...)

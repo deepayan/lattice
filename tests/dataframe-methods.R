@@ -7,7 +7,7 @@ mtcars <-
                         labels = c("automatic", "manual")))
 
 stripplot(mtcars, am ~ mpg)
-stripplot(mtcars, gear ~ mpg | am, jitter = TRUE, grid = TRUE)
+stripplot(mtcars, gear ~ mpg | am, jitter.data = TRUE, grid = TRUE)
 bwplot(mtcars, am ~ mpg)
 qq(mtcars, am ~ mpg)
 qqmath(mtcars, ~ mpg | am)

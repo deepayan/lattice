@@ -88,8 +88,8 @@ splom(iris2, groups = iris$Species,
       pscales = list(list(at = 6, lab = "six"), list(at = 3), list(at = 4), list(at = 1)))
 
 splom(iris2, groups = iris$Species,
-      pscales = list(list(at = 6, lab = "six", limits = c(-10, 10)),
-      list(at = 3), list(at = 4), list(limits = c(-5, 5))))
+      pscales = list(list(at = 6, lab = "six", lim = c(-10, 10)),
+      list(at = 3), list(at = 4), list(lim = c(-5, 5))))
 
 
 ## factors in formula
@@ -116,9 +116,9 @@ splom(~iris[1:3]|Species, data = iris,
       layout=c(2,2), pscales = 0,
       varnames = c("Sepal\nLength", "Sepal\nWidth", "Petal\nLength"),
       page = function(...) {
-          ltext(x = seq(.6, .8, len = 4), 
-                y = seq(.9, .6, len = 4), 
-                lab = c("Three", "Varieties", "of", "Iris"),
+          ltext(x = seq(.6, .8, length.out = 4), 
+                y = seq(.9, .6, length.out = 4), 
+                labels = c("Three", "Varieties", "of", "Iris"),
                 cex = 2)
       }, par.settings = list(clip = list(panel = FALSE)))
 
