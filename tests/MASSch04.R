@@ -112,10 +112,10 @@ bwplot(Age ~ Days | Sex*Lrn*Eth, data = Quine, layout = c(4, 2),
       strip = function(...) strip.default(..., style = 1))
 
 stripplot(Age ~ Days | Sex*Lrn*Eth, data = Quine,
-         jitter = TRUE, layout = c(4, 2))
+         jitter.data = TRUE, layout = c(4, 2))
 
 stripplot(Age ~ Days | Eth*Sex, data = Quine,
-   groups = Lrn, jitter = TRUE,
+   groups = Lrn, jitter.data = TRUE,
    panel = function(x, y, subscripts, jitter.data = F, ...) {
        if(jitter.data)  y <- jitter(as.numeric(y))
        panel.superpose(x, y, subscripts, ...)
@@ -164,7 +164,7 @@ xyplot(Fertility ~ Education | Cath, data = swiss,
 )
 
 Cath2 <- equal.count(swiss$Catholic, number = 2, overlap = 0)
-Agr <- equal.count(swiss$Agric, number = 3, overlap = 0.25)
+Agr <- equal.count(swiss$Agriculture, number = 3, overlap = 0.25)
 xyplot(Fertility ~ Education | Agr * Cath2, data = swiss,
   span = 1, aspect = "xy",
   panel = function(x, y, span) {
