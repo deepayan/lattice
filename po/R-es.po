@@ -1,14 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.22-4\n"
+"Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
 "POT-Creation-Date: 2023-10-21 23:49\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2024-06-10 22:20+0000\n"
+"Last-Translator: Ricardo Villalba <rikivillalba@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.16.4\n"
 
 msgid "Invalid value of 'log'"
 msgstr ""
@@ -32,7 +35,7 @@ msgid "%s must be length 1 or a vector of \n             length multiple of grou
 msgstr ""
 
 msgid ","
-msgstr ""
+msgstr ","
 
 msgid "'formula' must be a formula object"
 msgstr ""
