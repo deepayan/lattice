@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: lattice 0.13-1\n"
 "Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
 "POT-Creation-Date: 2023-10-21 23:49\n"
-"PO-Revision-Date: 2024-05-21 10:20+0000\n"
-"Last-Translator: Nichole Haines <NicholeHaines54@gmail.com>\n"
+"PO-Revision-Date: 2024-08-18 17:31+0000\n"
+"Last-Translator: Christian Wiat <w9204-rs@yahoo.com>\n"
 "Language-Team: French <R-core@r-project.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -26,14 +26,15 @@ msgstr "'at' manquant ou incompatible avec 'labels'"
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
-"Spécifier 'labels' mais pas 'at' peut conduire à des résultats inattendus"
+"spécifier 'labels' mais pas 'at' peut conduire à des résultats inattendus"
 
 msgid "'origin' forced to 0 for stacked bars"
-msgstr "'origin' forcé à 0 pour les diagrammes en barre empilées"
+msgstr "'origin' forcé à 0 pour les diagrammes en barres empilées"
 
+#, fuzzy
 msgid "length of '%s' must be  1 or multiple of group length (%d)"
 msgstr ""
-"La longueur de '%s’doit être égale à 1 ou multiple de la longueur du groupe "
+"la longueur de '%s' doit être égale à 1 ou multiple de la longueur du groupe "
 "(%d)"
 
 msgid ""
@@ -46,6 +47,9 @@ msgstr ""
 msgid ","
 msgstr ","
 
+msgid "'formula' must be a formula object"
+msgstr "'formula' doit être un objet formule"
+
 msgid "explicit 'data' specification ignored"
 msgstr "spécification explicite de 'data' ignorée"
 
@@ -53,7 +57,7 @@ msgid "mismatch in number of packets"
 msgstr "incohérence dans le nombre de paquets"
 
 msgid "'type' has unsupported values"
-msgstr "argument 'type' contient des valeurs non autorisées"
+msgstr "'type' contient des valeurs non autorisées"
 
 msgid "Inappropriate arguments"
 msgstr "Arguments inadaptés"
@@ -71,7 +75,7 @@ msgid "invalid dimension '%s'"
 msgstr "dimension '%s' incorrecte"
 
 msgid "invalid model"
-msgstr "model incorrect"
+msgstr "modèle incorrect"
 
 msgid "newFactor cannot be NULL; you have found a bug!"
 msgstr "'newFactor' ne peut être NULL ; vous avez trouvé une anomalie !"
@@ -230,10 +234,11 @@ msgstr ""
 "les valeurs 'at' ne sont pas équidistantes ; le résultat peut être erroné"
 
 msgid "key specifies 'labels$labels' but not 'labels$at'"
-msgstr ""
+msgstr "clé spécifie 'labels$labels' et non pas 'labels$at'"
 
 msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
 msgstr ""
+"les longueurs de 'labels$labels' et 'labels$at' de la clé sont différentes"
 
 msgid "malformed colorkey"
 msgstr "'colorkey' inadéquat"
