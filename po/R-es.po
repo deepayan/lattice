@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: lattice 0.22-4\n"
 "Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
 "POT-Creation-Date: 2023-10-21 23:49\n"
-"PO-Revision-Date: 2024-06-16 12:25+0000\n"
+"PO-Revision-Date: 2024-08-21 15:31+0000\n"
 "Last-Translator: Ricardo Villalba <rikivillalba@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -43,7 +43,6 @@ msgstr ""
 "%s debe tener una longitud de 1 o un vector de \n"
 "      longitud múltiplo de la longitud del grupo (%d)"
 
-#, fuzzy
 msgid ","
 msgstr ","
 
