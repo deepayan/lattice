@@ -1,19 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
-"Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2026-02-09 00:45\n"
-"PO-Revision-Date: 2014-03-25 21:26+0100\n"
+"Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
+"POT-Creation-Date: 2023-10-21 23:49\n"
+"PO-Revision-Date: 2024-09-07 13:31+0000\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
-"Language: pl_PL\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.16.4\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
-"X-Generator: Poedit 1.5.4\n"
 
 # lattice/R/miscellaneous.R: 465
 # warning("Invalid value of 'pos' ignored.")
@@ -27,6 +27,7 @@ msgstr "brakuje 'at' lub niespójne z 'labels'"
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
+"określenie 'labels' ale nie 'at' może prowadzić do nieoczekiwanych wyników"
 
 # lattice/R/bwplot.R: 184
 # warning("'origin' forced to 0 for stacked bars")
@@ -36,15 +37,22 @@ msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' wymuszone aby być zerem dla ułożonych pasków"
 
 msgid "length of '%s' must be  1 or multiple of group length (%d)"
-msgstr ""
+msgstr "długość '%s' musi wynosić 1 lub być wielokrotnością długości (%d) grupy"
 
 msgid ""
 "%s must be length 1 or a vector of \n"
 "             length multiple of group length (%d)"
 msgstr ""
+"%s musi mieć długość 1 lub być wektorem o długości równej wielokrotności "
+"długości (%d) grupy"
 
 msgid ","
 msgstr ","
+
+# lattice/R/common.R: 159
+# stop("model must be a formula object")
+msgid "'formula' must be a formula object"
+msgstr "argument 'formula' musi być obiektem klasy \"formula\""
 
 # lattice/R/cloud.R: 1427
 # warning("explicit 'data' specification ignored")
@@ -412,10 +420,10 @@ msgstr ""
 "wartości 'at' nie są równomiernie rozmieszczone; wyjście może być błędne"
 
 msgid "key specifies 'labels$labels' but not 'labels$at'"
-msgstr ""
+msgstr "klucz określa 'labels$labels' ale nie 'labels$at'"
 
 msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
-msgstr ""
+msgstr "długości 'labels$labels' oraz 'labels$at' klucza różnią się"
 
 # lattice/R/legend.R: 892
 # stop("malformed colorkey")
@@ -515,9 +523,8 @@ msgstr "'a' jest nadpisane przez 'reg'"
 
 # lattice/R/panels.R: 54
 # warning("only using the first two of ", p, "regression coefficients")
-#, fuzzy
 msgid "only using the first two of %d regression coefficients"
-msgstr "używanie jedynie pierwszych dwóch z "
+msgstr "używanie tylko pierwszych dwóch z %d współczynników regresji"
 
 # lattice/R/panels.R: 73
 # warning("'a' and 'b' are overridden by 'coef'")
@@ -534,7 +541,7 @@ msgstr "'expr' musi być funkcją lub wyrażeniem zawierającym 'x'"
 # lattice/R/parallel.R: 240
 # stop("'varnames' has wrong length.")
 msgid "'varnames' has wrong length."
-msgstr "argument 'varnames' posiada błędną długość"
+msgstr "argument 'varnames' posiada błędną długość."
 
 # lattice/R/parallel.R: 255
 # gettext("Parallel Coordinate Plot")
@@ -580,7 +587,7 @@ msgstr "Reszty"
 # lattice/R/scales.R: 32
 # warning("Invalid or ambiguous component names: ", tmp_n, sep = "")
 msgid "Invalid or ambiguous component names:"
-msgstr "Niepoprawne lub niejednoznacznie nazwy komponentów"
+msgstr "Niepoprawne lub niejednoznacznie nazwy komponentów:"
 
 # lattice/R/scales.R: 35
 # stop("Multiple matches to component name")
