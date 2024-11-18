@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: lattice 0.22-4\n"
 "Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
 "POT-Creation-Date: 2023-10-21 23:49\n"
-"PO-Revision-Date: 2024-08-21 15:31+0000\n"
-"Last-Translator: Ricardo Villalba <rikivillalba@gmail.com>\n"
+"PO-Revision-Date: 2024-11-20 22:31+0000\n"
+"Last-Translator: \"Luis D. Verde Arregoitia\" <luisd@ciencias.unam.mx>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -13,23 +13,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.16.4\n"
 
-#, fuzzy
 msgid "Invalid value of 'log'"
 msgstr "Valor no válido de 'log'"
 
-#, fuzzy
 msgid "'at' missing or incompatible with 'labels'"
 msgstr "'at' falta o es incompatible con 'labels'"
 
-#, fuzzy
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr "especificar 'labels' pero no 'at' puede generar resultados inesperados"
 
-#, fuzzy
 msgid "range too small for min.n"
 msgstr "rango demasiado pequeño para min.n"
 
-#, fuzzy
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' forzado a 0 para barras apiladas"
 
@@ -46,7 +41,6 @@ msgstr ""
 msgid ","
 msgstr ","
 
-#, fuzzy
 msgid "'formula' must be a formula object"
 msgstr "'formula' debe ser un objeto de fórmula"
 
@@ -390,53 +384,42 @@ msgstr ""
 msgid "y must have exactly 2 levels"
 msgstr "y debe tener exactamente 2 niveles"
 
-#, fuzzy
 msgid "Can't have log X-scale"
-msgstr "No se puede tener escala log-x"
+msgstr "No se puede tener escala X con transformación logarítmica"
 
-#, fuzzy
 msgid "Fitted Values minus Mean"
 msgstr "Valores Ajustados menos Media"
 
-#, fuzzy
 msgid "Residuals"
 msgstr "Residuos"
 
-#, fuzzy
 msgid "Invalid or ambiguous component names:"
 msgstr "Nombres de componentes no válidos o ambiguos:"
 
-#, fuzzy
 msgid "Multiple matches to component name"
 msgstr "Múltiples coincidencias con el nombre del componente"
 
-#, fuzzy
 msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
 msgstr ""
 "los componentes 'at' y 'labels' de 'scales' pueden no estar en listas cuando "
 "'relation = \"same\"'"
 
-#, fuzzy
 msgid "limits cannot be a list when relation = same"
 msgstr "los límites no pueden ser una lista cuando 'relation = \"same\"'"
 
-#, fuzzy
 msgid "Explicitly specified limits ignored"
-msgstr "Se ignoran los límites especificados explícitamente"
+msgstr "Se ignoraron los límites especificados explícitamente"
 
-#, fuzzy
 msgid "need at least one panel"
 msgstr "necesita al menos un panel"
 
-#, fuzzy
 msgid "'aspect=\"iso\"' approximate since 'relation=\"free\"'"
-msgstr "'aspect=\"iso\"' aproximado desde 'relation=\"free\"'"
+msgstr "'aspect=\"iso\"' es aproximado ya que 'relation=\"free\"'"
 
-#, fuzzy
 msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
 msgstr ""
 "Nota: El dispositivo predeterminado se ha abierto para honrar el intento de "
-"modificar la configuración de trellis."
+"modificar la configuración de trellis"
 
 #, fuzzy
 msgid "Invalid 'theme' specified"
