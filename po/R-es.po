@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
 "POT-Creation-Date: 2023-10-21 23:49\n"
 "PO-Revision-Date: 2024-11-20 22:31+0000\n"
-"Last-Translator: \"Luis D. Verde Arregoitia\" <luisd@ciencias.unam.mx>\n"
+"Last-Translator: Patricia loto <patricia.andrea.loto@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -44,21 +44,18 @@ msgstr ","
 msgid "'formula' must be a formula object"
 msgstr "'formula' debe ser un objeto de fórmula"
 
-#, fuzzy
 msgid "explicit 'data' specification ignored"
-msgstr "se ignora la especificación explícita de 'data'"
+msgstr "se ignora la especificación  'data' explícita"
 
-#, fuzzy
 msgid "mismatch in number of packets"
-msgstr "discordancia en el número de paquetes"
+msgstr "no coincide el número de paquetes"
 
 #, fuzzy
 msgid "'type' has unsupported values"
 msgstr "'type' tiene valores no admitidos"
 
-#, fuzzy
 msgid "Inappropriate arguments"
-msgstr "Argumentos inapropiados"
+msgstr "Argumentos inadecuados"
 
 #, fuzzy
 msgid "shingles can not be concatenated"
