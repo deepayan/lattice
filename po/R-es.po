@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: lattice 0.22-4\n"
 "Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
 "POT-Creation-Date: 2023-10-21 23:49\n"
-"PO-Revision-Date: 2024-11-20 22:31+0000\n"
-"Last-Translator: Patricia loto <patricia.andrea.loto@gmail.com>\n"
+"PO-Revision-Date: 2024-11-22 16:31+0000\n"
+"Last-Translator: \"Osvaldo R. Salazar S.\" <orodolfo.salazars@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,9 @@ msgstr "rango demasiado pequeño para min.n"
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' forzado a 0 para barras apiladas"
 
-#, fuzzy
 msgid "length of '%s' must be  1 or multiple of group length (%d)"
 msgstr "la longitud de '%s' debe ser 1 o múltiplo de la longitud del grupo (%d)"
 
-#, fuzzy
 msgid "%s must be length 1 or a vector of \n             length multiple of group length (%d)"
 msgstr ""
 "%s debe tener una longitud de 1 o un vector de \n"
@@ -50,334 +48,256 @@ msgstr "se ignora la especificación  'data' explícita"
 msgid "mismatch in number of packets"
 msgstr "no coincide el número de paquetes"
 
-#, fuzzy
 msgid "'type' has unsupported values"
 msgstr "'type' tiene valores no admitidos"
 
 msgid "Inappropriate arguments"
 msgstr "Argumentos inadecuados"
 
-#, fuzzy
 msgid "shingles can not be concatenated"
 msgstr "los shingles no se pueden concatenar"
 
-#, fuzzy
 msgid "model must be a formula object"
 msgstr "el modelo debe ser un objeto de fórmula"
 
-#, fuzzy
 msgid "'multiple=TRUE' ignored ('groups' non-null with 'outer=FALSE')"
 msgstr "'multiple=TRUE' ignorado ('groups' no nulo con 'outer=FALSE')"
 
-#, fuzzy
 msgid "invalid dimension '%s'"
 msgstr "dimensión no válida '%s'"
 
-#, fuzzy
 msgid "invalid model"
 msgstr "modelo no válido"
 
-#, fuzzy
 msgid "newFactor cannot be NULL; you have found a bug!"
 msgstr "newFactor no puede ser NULL; ¡Has encontrado un error!"
 
-#, fuzzy
 msgid "newFactor != NULL && groups == NULL does not hold; you have found a bug!"
 msgstr ""
 "newFactor != NULL && groups == NULL no se cumple; ¡Has encontrado un error!"
 
-#, fuzzy
 msgid "Length check mismatch; you have found a bug!"
 msgstr "La verificación de longitud no coincide; ¡Has encontrado un error!"
 
-#, fuzzy
 msgid "Non matching lengths"
 msgstr "Longitudes no coincidentes"
 
-#, fuzzy
 msgid "'length' and 'prop' cannot both be specified"
 msgstr "'length' y 'prop' no se pueden especificar ambos"
 
-#, fuzzy
 msgid "'length' must be positive"
 msgstr "'length' debe ser positivo"
 
-#, fuzzy
 msgid "improper length of 'lim'"
 msgstr "longitud inadecuada de 'lim'"
 
-#, fuzzy
 msgid "Invalid value of perm.cond"
 msgstr "Valor no válido de perm.cond"
 
-#, fuzzy
 msgid "Invalid value of index.cond"
 msgstr "Valor no válido de index.cond"
 
-#, fuzzy
 msgid "skip cannot be all TRUE"
 msgstr "skip no puede ser todo TRUE"
 
-#, fuzzy
 msgid "layout must have at least 2 elements"
 msgstr "layout debe tener al menos 2 elementos"
 
-#, fuzzy
 msgid "Inadmissible value of layout."
 msgstr "Valor inadmisible de layout."
 
-#, fuzzy
 msgid "invalid value for layout"
 msgstr "valor no válido para layout"
 
-#, fuzzy
 msgid "More pages in layout than seem to be necessary."
 msgstr "Más páginas en layout de las que parecen necesarias."
 
-#, fuzzy
 msgid "Density"
 msgstr "Densidad"
 
-#, fuzzy
 msgid "Can't have log Y-scale"
 msgstr "No se puede tener una escala Y logarítmica"
 
-#, fuzzy
 msgid "type='%s' can be misleading in this context"
 msgstr "type='%s' puede ser engañoso en este contexto"
 
-#, fuzzy
 msgid "problem with 'hist' computations"
 msgstr "problema con los cálculos 'hist'"
 
-#, fuzzy
 msgid "Count"
 msgstr "Cantidad"
 
-#, fuzzy
 msgid "Percent of Total"
 msgstr "Porcentaje del total"
 
-#, fuzzy
 msgid "no observations within"
 msgstr "sin observaciones dentro"
 
-#, fuzzy
 msgid "points"
 msgstr "puntos"
 
-#, fuzzy
 msgid "nearest observation already identified"
 msgstr "observación más cercana ya identificada"
 
-#, fuzzy
 msgid "column must be specified"
 msgstr "se debe especificar la columna"
 
-#, fuzzy
 msgid "row must be specified"
 msgstr "se debe especificar la fila"
 
-#, fuzzy
 msgid "panel position unspecified or invalid"
 msgstr "posición del panel no especificada o no válida"
 
-#, fuzzy
 msgid "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
 msgstr ""
 "'trellis.switchFocus' no se puede utilizar para cambiar a un 'prefix' "
 "diferente. Utilice 'trellis.focus' primero"
 
-#, fuzzy
 msgid "Plot object was not saved, cannot retrieve panel data"
 msgstr ""
 "El objeto de trazado no se guardó, no se pueden recuperar los datos del panel"
 
-#, fuzzy
 msgid "Plot spans multiple pages, only last page can be updated"
 msgstr ""
 "La trama abarca varias páginas, solo se puede actualizar la última página"
 
-#, fuzzy
 msgid "You have to first select a panel using trellis.focus()"
 msgstr "Primero debe seleccionar un panel usando trellis.focus()"
 
-#, fuzzy
 msgid "Selecting panel at position (%g, %g)"
 msgstr "Selección del panel en la posición (%g, %g)"
 
-#, fuzzy
 msgid "No panels available"
 msgstr "No hay paneles disponibles"
 
-#, fuzzy
 msgid "Click on panel to focus"
 msgstr "Haga clic en el panel para centrarse"
 
-#, fuzzy
 msgid "'f.value' not supported; ignoring"
 msgstr "'f.value' no soportado; ignorando"
 
-#, fuzzy
 msgid "Click to choose one point to highlight"
 msgstr "Haga clic para elegir un punto para resaltar"
 
-#, fuzzy
 msgid "no points within"
 msgstr "sin puntos dentro"
 
-#, fuzzy
 msgid "points of click"
 msgstr "puntos de clic"
 
-#, fuzzy
 msgid "component '%s' duplicated in key and legend"
 msgstr "componente '%s' duplicado en clave y leyenda"
 
-#, fuzzy
 msgid "key must be a list"
 msgstr "la clave debe ser una lista"
 
-#, fuzzy
 msgid "first component of text must be vector of labels"
 msgstr "el primer componente del texto debe ser un vector de etiquetas"
 
-#, fuzzy
 msgid "Invalid key, need at least one component named lines, text, rect or points"
 msgstr ""
 "Clave no válida, necesita al menos un componente llamado \"lines\", \"text\""
 ", \"rect\" o \"points\""
 
-#, fuzzy
 msgid "not enough rows for columns"
 msgstr "no hay suficientes filas para las columnas"
 
-#, fuzzy
 msgid "Sorry, align=FALSE is not supported"
 msgstr "Lo sentimos, align=FALSE no está soportado"
 
-#, fuzzy
 msgid "'at' values are not equispaced; output may be wrong"
 msgstr ""
 "'at' los valores no están equiespaciados; la salida puede ser incorrecta"
 
-#, fuzzy
 msgid "key specifies 'labels$labels' but not 'labels$at'"
 msgstr "la clave (key) especifica 'labels$labels' pero no 'labels$at'"
 
-#, fuzzy
 msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
 msgstr "las longitudes de las claves 'labels$labels' y 'labels$at' difieren"
 
-#, fuzzy
 msgid "malformed colorkey"
 msgstr "clave de color (colorkey) mal formada"
 
-#, fuzzy
 msgid "Invalid value of 'tri.upper/tri.lower' ignored."
 msgstr "Se ignora el valor no válido de 'tri.upper/tri.lower'."
 
-#, fuzzy
 msgid "Invalid 'shrink' parameter ignored"
 msgstr "Parámetro 'shrink' no válido ignorado"
 
-#, fuzzy
 msgid "Invalid label.style"
 msgstr "label.style no válido"
 
-#, fuzzy
 msgid "device support for raster images unknown, ignoring 'raster=TRUE'"
 msgstr ""
 "soporte del dispositivo para imágenes rasterizadas desconocidas, ignorando "
 "'raster=TRUE'"
 
-#, fuzzy
 msgid "device has no raster support, ignoring 'raster=TRUE'"
 msgstr "el dispositivo no admite ráster, ignorando 'raster=TRUE'"
 
-#, fuzzy
 msgid "device does not support raster images with NA, ignoring 'raster=TRUE'"
 msgstr ""
 "el dispositivo no admite imágenes rasterizadas con NA, ignorando "
 "'raster=TRUE'"
 
-#, fuzzy
 msgid "'x' values are not equispaced; output may be wrong"
 msgstr "'x' los valores no están equiespaciados; la salida puede ser incorrecta"
 
-#, fuzzy
 msgid "'y' values are not equispaced; output may be wrong"
 msgstr "'y' los valores no están equiespaciados; la salida puede ser incorrecta"
 
-#, fuzzy
 msgid "x must be (coercible to be) a factor"
 msgstr "x debe ser (coercible a) un factor"
 
-#, fuzzy
 msgid "error"
 msgstr "error"
 
-#, fuzzy
 msgid "Invalid value of 'pos' ignored."
 msgstr "Se ignora el valor no válido de 'pos'."
 
-#, fuzzy
 msgid "(loaded the KernSmooth namespace)"
 msgstr "(se cargó el espacio de nombres KernSmooth)"
 
-#, fuzzy
 msgid "panel.smoothScatter() requires the KernSmooth package, but unable to load KernSmooth namespace"
 msgstr ""
 "panel.smoothScatter() requiere el paquete KernSmooth, pero no puede cargar "
 "el espacio de nombres KernSmooth"
 
-#, fuzzy
 msgid "'nbin' must be numeric of length 1 or 2"
 msgstr "'nbin' debe ser numérico de longitud 1 o 2"
 
-#, fuzzy
 msgid "'bandwidth' must be numeric"
 msgstr "'bandwidth' debe ser numérico"
 
-#, fuzzy
 msgid "'nrpoints' should be numeric scalar with value >= 0."
 msgstr "'nrpoints' debe ser un escalar numérico con valor >= 0."
 
-#, fuzzy
 msgid "'a' is overridden by 'reg'"
 msgstr "'reg' tiene precedencia sobre 'a'"
 
-#, fuzzy
 msgid "only using the first two of %d regression coefficients"
 msgstr "utilizando sólo los dos primeros de %d coeficientes de regresión"
 
-#, fuzzy
 msgid "'a' and 'b' are overridden by 'coef'"
 msgstr "'coef' tiene precedencia sobre 'a' y 'b'"
 
-#, fuzzy
 msgid "'expr' must be a function or an expression containing 'x'"
 msgstr "'expr' debe ser una función o una expresión que contenga 'x'"
 
-#, fuzzy
 msgid "'varnames' has wrong length."
 msgstr "'varnames' tiene una longitud incorrecta."
 
-#, fuzzy
 msgid "Parallel Coordinate Plot"
 msgstr "Gráfico de Coordenadas Paralelas"
 
-#, fuzzy
 msgid "cannot have log y-scale"
 msgstr "no puede tener escala log-y"
 
-#, fuzzy
 msgid "Error using packet %g\n%s"
 msgstr ""
 "Error al utilizar el paquete %g\n"
 "%s"
 
-#, fuzzy
 msgid "y must have exactly 2 levels"
 msgstr "y debe tener exactamente 2 niveles"
 
@@ -418,142 +338,109 @@ msgstr ""
 "Nota: El dispositivo predeterminado se ha abierto para honrar el intento de "
 "modificar la configuración de trellis"
 
-#, fuzzy
 msgid "Invalid 'theme' specified"
 msgstr "'theme' especificado no válido"
 
-#, fuzzy
 msgid "Could not find device function '%s'"
 msgstr "No se pudo encontrar la función del dispositivo '%s'"
 
-#, fuzzy
 msgid "'trellis.device' has changed, 'bg' may not be doing what you think it is"
 msgstr ""
 "'trellis.device' ha cambiado, es posible que 'bg' no esté haciendo lo que "
 "usted cree"
 
-#, fuzzy
 msgid "x must be a shingle"
 msgstr "x debe ser un \"shingle\""
 
-#, fuzzy
 msgid "x must be matrix with 2 columns"
 msgstr "x debe ser una matriz con 2 columnas"
 
-#, fuzzy
 msgid "bad value of 'intervals'"
 msgstr "valor erróneo de 'intervals'"
 
-#, fuzzy
 msgid "Data:"
 msgstr "Datos:"
 
-#, fuzzy
 msgid "no intervals"
 msgstr "sin intervalos"
 
-#, fuzzy
 msgid "Intervals:"
 msgstr "Intervalos:"
 
-#, fuzzy
 msgid "Overlap between adjacent intervals:"
 msgstr "Superposición entre intervalos adyacentes:"
 
-#, fuzzy
 msgid "Range"
 msgstr "Rango"
 
-#, fuzzy
 msgid "Panel"
 msgstr "Panel"
 
-#, fuzzy
 msgid "Scatter Plot Matrix"
 msgstr "Matriz de diagrama de dispersión"
 
-#, fuzzy
 msgid "Call:"
 msgstr "Llamar:"
 
-#, fuzzy
 msgid "Number of observations:"
 msgstr "Número de observaciones:"
 
-#, fuzzy
 msgid "supplied 'dimnames' have wrong length"
 msgstr "'dimnames' proporcionado tiene una longitud incorrecta"
 
-#, fuzzy
 msgid "some components of supplied 'dimnames' have wrong length"
 msgstr ""
 "algunos componentes del 'dimnames' suministrados tienen una longitud "
 "incorrecta"
 
-#, fuzzy
 msgid "mean"
 msgstr "promedio (mean)"
 
-#, fuzzy
 msgid "difference"
 msgstr "diferencia"
 
-#, fuzzy
 msgid "Requested 'trellis' object was not saved"
 msgstr "El objeto 'trellis' solicitado no se guardó"
 
-#, fuzzy
 msgid "Inappropriate value of 'as.table'"
 msgstr "Valor inapropiado de 'as.table'"
 
-#, fuzzy
 msgid "'par.strip.text' must be a list"
 msgstr "'par.strip.text' debe ser una lista"
 
-#, fuzzy
 msgid "'par.settings' must be a list"
 msgstr "'par.settings' debe ser una lista"
 
-#, fuzzy
 msgid "'plot.args' must be a list"
 msgstr "'plot.args' debe ser una lista"
 
-#, fuzzy
 msgid "'lattice.options' must be a list"
 msgstr "'lattice.options' debe ser una lista"
 
-#, fuzzy
 msgid "Invalid value of 'perm.cond'"
 msgstr "Valor no válido de 'perm.cond'"
 
-#, fuzzy
 msgid "Note: 'auto.key' ignored since legend already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"
 msgstr ""
 "Nota: 'auto.key' se ignora porque la leyenda ya está presente.\n"
 "Utilice 'update(..., legend = NULL)' para eliminar las leyendas existentes."
 
-#, fuzzy
 msgid "log scales cannot be changed via 'update'"
 msgstr "las escalas logarítmicas no se pueden cambiar mediante 'update'"
 
-#, fuzzy
 msgid "the at and labels components of scales may not be lists when relation = same"
 msgstr ""
-"los componentes at y tags de las escalas pueden no ser listas cuando "
+"los componentes at y labels de las escalas pueden no ser listas cuando "
 "relación = igual"
 
-#, fuzzy
 msgid "Unrecognized value of 'aspect': '%s'"
 msgstr "Valor no reconocido de 'aspect': '%s'"
 
-#, fuzzy
 msgid "Invalid value of 'aspect'"
 msgstr "Valor no válido de 'aspect'"
 
-#, fuzzy
 msgid "'drop=TRUE' ignored"
 msgstr "'drop=TRUE' ignorado"
 
-#, fuzzy
 msgid "Invalid indices"
 msgstr "Índices no válidos"
