@@ -1,3 +1,79 @@
+
+commit cbe2a8a3eb074314eb9f49985c501f852261c36f
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Mon Mar 31 17:42:35 2025 +0530
+
+    update as.data.frame.shingle method
+
+M	DESCRIPTION
+M	R/shingle.R
+
+commit 757d099b587878a507f3e493231bd519fbf70970
+Merge: f216545 3e29698
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Apr 26 15:37:41 2024 +0530
+
+    Merge pull request #40 from MichaelChirico/partial-matching
+
+    Fix partial matching issues in tests
+
+commit 3e29698999d3d8cee8dc9f90d1d0815c5803670c
+Author: Michael Chirico <michaelchirico4@gmail.com>
+Date:   Wed Apr 24 23:09:22 2024 -0700
+
+    second batch of fixes
+
+M	tests/MASSch04.R
+M	tests/dataframe-methods.R
+M	tests/temp.R
+M	tests/test.R
+
+commit e2dc8063d20ab8cbb928a9c9953f275b6ec098b3
+Author: Michael Chirico <michaelchirico4@gmail.com>
+Date:   Wed Apr 24 22:51:59 2024 -0700
+
+    fix partial matching issues
+
+M	tests/MASSch04.R
+M	tests/call.R
+M	tests/scales.R
+M	tests/test.R
+
+commit f216545a541cc346ba429938afa9f5ae6cdf3bb4
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Mon Oct 23 16:34:06 2023 -0400
+
+    reimplementation of data.frame methods
+
+M	DESCRIPTION
+M	R/bwplot.R
+M	R/cloud.R
+A	R/dataframe-methods.R
+M	R/densityplot.R
+M	R/histogram.R
+M	R/levelplot.R
+M	R/qq.R
+M	R/qqmath.R
+M	R/tmd.R
+M	R/xyplot.R
+M	tests/dataframe-methods.R
+M	tests/levelplot.R
+
+commit a5a55214cc8c5847f8bfc0911250a8acfc0ae29a
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Oct 21 23:54:52 2023 -0400
+
+    update changelog and translations
+
+M	ChangeLog
+M	inst/po/en@quot/LC_MESSAGES/R-lattice.mo
+M	po/R-de.po
+M	po/R-fr.po
+M	po/R-it.po
+M	po/R-ko.po
+M	po/R-lattice.pot
+M	po/R-pl.po
+
 commit 422afecd82ba2f74c8a89bb2a5539ba5f9af7bc2
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Sat Oct 21 23:49:27 2023 -0400

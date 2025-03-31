@@ -1,14 +1,14 @@
 # Translation of R-lattice.pot to German
-# Copyright (C) 2007-2012 The R Foundation
+# Copyright (C) 2007-2025 The R Foundation
 # This file is distributed under the same license as the lattice R package.
 # Chris Leick <c.leick@vollbio.de>, 2009.
-# Detlef Steuer <steuer@hsu-hh.de>, 2010-2012.
+# Detlef Steuer <steuer@hsu-hh.de>, 2010-2025.
 msgid ""
 msgstr ""
-"Project-Id-Version: R 4.0.0 / Lattice 0.20.40\n"
+"Project-Id-Version: R 4.5.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2023-10-21 23:49\n"
-"PO-Revision-Date: 2020-04-01 15:02+0200\n"
+"POT-Creation-Date: 2025-03-31 17:47\n"
+"PO-Revision-Date: 2025-03-18 11:16+0100\n"
 "Last-Translator: Detlef Steuer <steuer@hsu-hh.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "Language: de\n"
@@ -25,6 +25,8 @@ msgstr "'at' fehlt oder ist inkompatibel mit 'labels'"
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
+"Spezifizieren von 'labels', aber nicht von 'at' kann zu unerwarteten "
+"Ergebnissen führen"
 
 msgid "range too small for min.n"
 msgstr "Spannweite zu klein für min.n"
@@ -33,19 +35,17 @@ msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' wurde für gestapelte Balken zwangsweise auf 0 gesetzt"
 
 msgid "length of '%s' must be  1 or multiple of group length (%d)"
-msgstr ""
+msgstr "Länge von '%s' muss 1 sein oder ein Vielfaches der Gruppenlänge (%d)"
 
 msgid ""
 "%s must be length 1 or a vector of \n"
 "             length multiple of group length (%d)"
 msgstr ""
+"%s muss von Länge 1 sein oder ein Vektor mit\n"
+"              einer vielfachen Länge der Gruppenlänge (%d)"
 
 msgid ","
 msgstr ","
-
-#, fuzzy
-msgid "'formula' must be a formula object"
-msgstr "Modell muss ein Formelobjekt sein"
 
 msgid "explicit 'data' specification ignored"
 msgstr "ausdrückliche 'data'-Spezifikation ignoriert"
@@ -118,6 +118,12 @@ msgstr "ungültiger Wert für Layout"
 
 msgid "More pages in layout than seem to be necessary."
 msgstr "Mehr Seiten im Layout als anscheinend nötig"
+
+msgid "a formula must be specified for the 'data.frame' method"
+msgstr ""
+
+msgid "'formula' must be a formula object"
+msgstr "'formula' muss ein Formelobjekt sein"
 
 msgid "Density"
 msgstr "Dichte"
@@ -220,10 +226,12 @@ msgid "'at' values are not equispaced; output may be wrong"
 msgstr "'at' Werte sind nicht äquidistant; Ausgabe kann falsch sein"
 
 msgid "key specifies 'labels$labels' but not 'labels$at'"
-msgstr ""
+msgstr "Der Key spezifiziert 'labels$labels' aber nicht 'labels$at'"
 
 msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
 msgstr ""
+"Die Längen von 'labels$labels' und 'labels$at' des Schlüssels unterscheiden "
+"sich"
 
 msgid "malformed colorkey"
 msgstr "missgestalteter Farbschlüssel"

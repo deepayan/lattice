@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R-lattice\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2023-10-21 23:49\n"
+"POT-Creation-Date: 2025-03-31 17:47\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Daniele Medri <dmedri@gmail.com>\n"
 "Language-Team: Italian https://github.com/dmedri/R-italian-lang\n"
@@ -44,10 +44,6 @@ msgstr ""
 
 msgid ","
 msgstr ""
-
-#, fuzzy
-msgid "'formula' must be a formula object"
-msgstr "il modello dev'essere un oggetto formula"
 
 msgid "explicit 'data' specification ignored"
 msgstr "ignorata l'esplicita specificazione di 'data'"
@@ -119,6 +115,13 @@ msgstr "valore non valido per il layout"
 
 msgid "More pages in layout than seem to be necessary."
 msgstr ""
+
+msgid "a formula must be specified for the 'data.frame' method"
+msgstr ""
+
+#, fuzzy
+msgid "'formula' must be a formula object"
+msgstr "il modello dev'essere un oggetto formula"
 
 msgid "Density"
 msgstr "Densità"
