@@ -19,7 +19,7 @@ dat <-
     data.frame(a = letters[1:10],
                b = c("A","A","A","B","B","A","B","B", "A", "A"))
 
-dat <- dat[sample(1:10, 200, rep = TRUE), ]
+dat <- dat[sample(1:10, 200, replace = TRUE), ]
 dat$y <- rnorm(200, mean = unclass(as.factor(dat$a)))
 
 bwplot(a ~ y | b, data=dat, scales = "same") 

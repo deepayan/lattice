@@ -26,7 +26,7 @@ xyplot(y ~ x | g, subset = g != "2")
 xyplot(y ~ x | g, subset = g != "2",
        panel = function(x, y, subscripts) {
            print(subscripts)
-           ltext(x, y, lab = subscripts)
+           ltext(x, y, labels = subscripts)
        })
 
 
@@ -40,14 +40,14 @@ subset <- 20:40
 xyplot(y ~ x,
        panel = function(x, y, subscripts) {
            print(subscripts)
-           ltext(x, y, lab = subscripts)
+           ltext(x, y, labels = subscripts)
        })
 
 ## gives subscripts = 20:40
 xyplot(y ~ x, subset = subset,
        panel = function(x, y, subscripts) {
            print(subscripts)
-           ltext(x, y, lab = subscripts)
+           ltext(x, y, labels = subscripts)
        })
 
 g <- gl(2,1,50)

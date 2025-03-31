@@ -40,7 +40,7 @@ test.objects <-
               qqmath.formula = qqmath(~ x + y),
               qqmath.numeric = qqmath(x),
               stripplot.formula = stripplot(g2 ~ x + y, outer = TRUE),
-              stripplot.numeric = stripplot(y, jitter = TRUE),
+              stripplot.numeric = stripplot(y, jitter.data = TRUE),
               qq.formula = qq(g2 ~ x),
               xyplot.formula = xyplot(y ~ x),
               xyplot.ts = xyplot(ts(x)),
