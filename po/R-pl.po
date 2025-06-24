@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
 "POT-Creation-Date: 2023-10-21 23:49\n"
-"PO-Revision-Date: 2024-09-11 14:31+0000\n"
+"PO-Revision-Date: 2025-06-24 12:58+0000\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language: pl\n"
@@ -43,8 +43,8 @@ msgid ""
 "%s must be length 1 or a vector of \n"
 "             length multiple of group length (%d)"
 msgstr ""
-"%s musi mieć długość 1 lub być wektorem \n"
-"             o długości równej wielokrotności długości (%d) grupy"
+"%s musi mieć długość 1 lub być wektorem o długości równej wielokrotności "
+"długości (%d) grupy"
 
 msgid ","
 msgstr ","
@@ -164,18 +164,18 @@ msgstr "niepoprawny model"
 # lattice/R/common.R: 376
 # stop("newFactor cannot be NULL; you have found a bug!")
 msgid "newFactor cannot be NULL; you have found a bug!"
-msgstr "'newFactor' nie może mieć wartości NULL; znalazłeś błąd!"
+msgstr "'newFactor' nie może mieć wartości NULL; znaleziono błąd!"
 
 # lattice/R/common.R: 390
 # stop("newFactor != NULL && groups == NULL does not hold; you have found a bug!")
 msgid ""
 "newFactor != NULL && groups == NULL does not hold; you have found a bug!"
-msgstr "newFactor != NULL && groups == NULL nie trzyma się; znalazłeś błąd!"
+msgstr "newFactor != NULL && groups == NULL nie trzyma się; znaleziono błąd!"
 
 # lattice/R/common.R: 401
 # stop("Length check mismatch; you have found a bug!")
 msgid "Length check mismatch; you have found a bug!"
-msgstr "Sprawdzenie długości nie zgadza się; znalazłeś błąd!"
+msgstr "Sprawdzenie długości nie zgadza się; znaleziono błąd!"
 
 # lattice/R/common.R: 421
 # stop("Non matching lengths")
@@ -356,7 +356,7 @@ msgstr "Brak dostępnych paneli"
 # lattice/R/interaction.R: 618
 # message("Click on panel to focus")
 msgid "Click on panel to focus"
-msgstr "Kliknij na panel aby go sfokusować"
+msgstr "Kliknij na panel aby go skupić"
 
 # lattice/R/interaction.R: 673
 # warning("'f.value' not supported; ignoring")
@@ -411,7 +411,7 @@ msgstr "zbyt mało wierszy dla kolumn"
 # lattice/R/legend.R: 743
 # stop("Sorry, align=FALSE is not supported")
 msgid "Sorry, align=FALSE is not supported"
-msgstr "Przykro mi, 'allign = FALSE' nie jest wpierane"
+msgstr "Przepraszamy, 'allign = FALSE' nie jest wpierane"
 
 # lattice/R/legend.R: 831
 # warning("'at' values are not equispaced; output may be wrong")
@@ -650,8 +650,7 @@ msgstr "Nie można znaleźć funkcji '%s' urządzenia"
 # warning("'trellis.device' has changed, 'bg' may not be doing what you think it is")
 msgid ""
 "'trellis.device' has changed, 'bg' may not be doing what you think it is"
-msgstr ""
-"'trellis.device' zmienił się, 'bg' może nie robić tego co ci się wydaje"
+msgstr "'trellis.device' zmienił się, 'bg' może nie robić tego co ci się wydaje"
 
 # lattice/R/legend.R: 139
 # stop("key must be a list")
