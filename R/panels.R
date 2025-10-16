@@ -385,7 +385,7 @@ panel.grid <-
                 y <- as.character(y)
             mostattributes(scale) <- attributes(y)
         }
-        #at <- pretty(scale, n = n) ## FIXME: use pretty eventually
+        ## at <- pretty(scale, n = n)
         at <- formattedTicksAndLabels(scale, n = n)$at
         at <- at[at > min(scale) & at < max(scale)]
         grid.segments(y0 = at,
@@ -405,7 +405,7 @@ panel.grid <-
                 x <- as.character(y)
             mostattributes(scale) <- attributes(x)
         }
-        #at <- pretty(scale, n = n) ## FIXME: use pretty eventually
+        ## at <- pretty(scale, n = n)
         at <- formattedTicksAndLabels(scale, n = n)$at
         at <- at[at > min(scale) & at < max(scale)]
         grid.segments(x0 = at,
