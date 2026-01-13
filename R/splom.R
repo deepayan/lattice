@@ -84,7 +84,8 @@ diag.panel.splom <-
                                     at = if (is.null(at)) TRUE else at,
                                     labels = if (is.null(labels)) TRUE else labels,
                                     logsc = FALSE,
-                                    ..., n = tick.number)
+                                    ## ...,
+                                    n = tick.number)
         for (side in c("left", "top", "right", "bottom"))
             panel.axis(side = side,
                        at = axis.details$at,
