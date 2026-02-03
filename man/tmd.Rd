@@ -1,4 +1,4 @@
-\name{B_09_tmd}
+\name{B.09 tmd}
 \alias{tmd}
 \alias{tmd.formula}
 \alias{tmd.data.frame}

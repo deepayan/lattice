@@ -1,4 +1,4 @@
-\name{F_1_panel.xyplot}
+\name{F.1 panel.xyplot}
 \alias{panel.xyplot}
 \alias{panel.splom}
 \alias{panel.qq}

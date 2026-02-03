@@ -1,4 +1,4 @@
-\name{B_04_qqmath}
+\name{B.04 qqmath}
 \alias{qqmath}
 \alias{qqmath.formula}
 \alias{qqmath.data.frame}

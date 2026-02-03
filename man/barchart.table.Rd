@@ -1,4 +1,4 @@
-\name{B_02_barchart.table}
+\name{B.02 barchart.table}
 \title{table methods for barchart and dotplot}
 \alias{barchart.table}
 \alias{barchart.array}

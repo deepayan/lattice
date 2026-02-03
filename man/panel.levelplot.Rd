@@ -1,4 +1,4 @@
-\name{F_1_panel.levelplot}
+\name{F.1 panel.levelplot}
 \alias{panel.levelplot}
 \alias{panel.contourplot}
 \alias{panel.levelplot.raster}

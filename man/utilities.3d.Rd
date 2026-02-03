@@ -1,4 +1,4 @@
-\name{G_utilities.3d}
+\name{G utilities.3d}
 \alias{utilities.3d}
 \alias{palette.shade}
 \alias{ltransform3dMatrix}

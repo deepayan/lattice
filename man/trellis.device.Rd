@@ -1,4 +1,4 @@
-\name{C_01_trellis.device}
+\name{C.01 trellis.device}
 \alias{trellis.device}
 \title{ Initializing Trellis Displays }
 \description{

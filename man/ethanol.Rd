@@ -1,4 +1,4 @@
-\name{H_ethanol}
+\name{H ethanol}
 \alias{ethanol}
 \docType{data}
 \title{ Engine exhaust fumes from burning ethanol }

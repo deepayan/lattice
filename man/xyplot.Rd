@@ -1,4 +1,4 @@
-\name{B_00_xyplot}
+\name{B.00 xyplot}
 \title{Common Bivariate Trellis Plots}
 \alias{xyplot}
 \alias{xyplot.formula}

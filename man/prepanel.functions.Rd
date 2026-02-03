@@ -1,4 +1,4 @@
-\name{F_3_prepanel.functions}
+\name{F.3 prepanel.functions}
 \alias{prepanel.lmline}
 \alias{prepanel.loess}
 \alias{prepanel.spline}

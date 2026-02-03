@@ -1,4 +1,4 @@
-\name{F_2_llines}
+\name{F.2 llines}
 \alias{larrows}
 \alias{llines}
 \alias{lpoints}

@@ -1,4 +1,4 @@
-\name{F_1_panel.parallel}
+\name{F.1 panel.parallel}
 \alias{panel.parallel}
 \title{ Default Panel Function for parallel }
 \description{

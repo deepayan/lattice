@@ -1,4 +1,4 @@
-\name{C_07_shingles}
+\name{C.07 shingles}
 \alias{equal.count}
 \alias{plot.shingle}
 \alias{print.shingle}

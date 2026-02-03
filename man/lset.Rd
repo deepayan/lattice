@@ -1,4 +1,4 @@
-\name{I_lset}
+\name{I lset}
 \alias{lset}
 \title{Interface to modify Trellis Settings - Defunct}
 \description{

@@ -1,4 +1,4 @@
-\name{H_melanoma}
+\name{H melanoma}
 \alias{melanoma}
 \docType{data}
 \title{ Melanoma skin cancer incidence }
@@ -21,7 +21,7 @@
 
 \note{
   This dataset is not related to the \code{\link[boot]{melanoma}}
-  dataset in the \bold{boot} package with the same name.
+  dataset in the \pkg{boot} package with the same name.
 
   The S-PLUS 6.2 help for the melanoma data says that the incidence rate is
   per \emph{million}, but this is not consistent with data found at the

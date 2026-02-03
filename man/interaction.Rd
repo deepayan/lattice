@@ -1,4 +1,4 @@
-\name{E_interaction}
+\name{E interaction}
 \alias{panel.identify}
 \alias{panel.identify.qqmath}
 \alias{panel.identify.cloud}

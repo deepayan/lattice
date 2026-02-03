@@ -1,4 +1,4 @@
-\name{H_environmental}
+\name{H environmental}
 \alias{environmental}
 \docType{data}
 \title{ Atmospheric environmental conditions in New York City }

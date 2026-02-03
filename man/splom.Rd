@@ -1,4 +1,4 @@
-\name{B_08_splom}
+\name{B.08 splom}
 \title{Scatter Plot Matrices}
 \alias{splom}
 \alias{parallel}

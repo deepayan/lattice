@@ -1,4 +1,4 @@
-\name{H_USMortality}
+\name{H USMortality}
 \alias{USMortality}
 \alias{USRegionalMortality}
 \docType{data}

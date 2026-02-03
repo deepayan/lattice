@@ -1,4 +1,4 @@
-\name{D_draw.colorkey}
+\name{D draw.colorkey}
 \alias{draw.colorkey}
 \title{Produce a colorkey typically for levelplot}
 \description{

@@ -1,4 +1,4 @@
-\name{F_2_panel.smoothScatter}
+\name{F.2 panel.smoothScatter}
 \alias{panel.smoothScatter}
 \title{Lattice panel function analogous to smoothScatter}
 \description{

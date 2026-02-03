@@ -1,4 +1,4 @@
-\name{B_05_qq}
+\name{B.05 qq}
 \alias{qq}
 \alias{qq.formula}
 \alias{qq.data.frame}

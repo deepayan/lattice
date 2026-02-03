@@ -1,4 +1,4 @@
-\name{F_2_panel.functions}
+\name{F.2 panel.functions}
 \alias{panel.functions}
 %% Not data-dependent
 \alias{panel.abline}

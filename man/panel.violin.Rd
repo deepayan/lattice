@@ -1,4 +1,4 @@
-\name{F_2_panel.violin}
+\name{F.2 panel.violin}
 \alias{panel.violin}
 \title{ Panel Function to create Violin Plots }
 \description{

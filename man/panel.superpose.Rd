@@ -1,4 +1,4 @@
-\name{F_2_panel.superpose}
+\name{F.2 panel.superpose}
 \alias{panel.superpose}
 \alias{panel.superpose.2}
 \alias{panel.superpose.plain}

@@ -1,4 +1,4 @@
-\name{F_2_panel.loess}
+\name{F.2 panel.loess}
 \alias{panel.loess}
 \title{Panel Function to Add a LOESS Smooth}
 \description{

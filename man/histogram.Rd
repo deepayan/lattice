@@ -1,4 +1,4 @@
-\name{B_03_histogram}
+\name{B.03 histogram}
 \alias{histogram}
 \alias{histogram.factor}
 \alias{histogram.numeric}

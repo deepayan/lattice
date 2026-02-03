@@ -1,4 +1,4 @@
-\name{F_1_panel.stripplot}
+\name{F.1 panel.stripplot}
 \alias{panel.stripplot}
 \title{ Default Panel Function for stripplot }
 \description{

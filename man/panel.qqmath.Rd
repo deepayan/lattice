@@ -1,4 +1,4 @@
-\name{F_1_panel.qqmath}
+\name{F.1 panel.qqmath}
 \alias{panel.qqmath}
 \title{ Default Panel Function for qqmath }
 \description{

@@ -1,4 +1,4 @@
-\name{B_01_xyplot.ts}
+\name{B.01 xyplot.ts}
 \title{Time series plotting methods}
 \alias{xyplot.ts}
 

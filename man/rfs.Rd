@@ -1,4 +1,4 @@
-\name{B_10_rfs}
+\name{B.10 rfs}
 \alias{rfs}
 \title{ Residual and Fit Spread Plots}
 \description{

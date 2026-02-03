@@ -1,4 +1,4 @@
-\name{G_panel.number}
+\name{G panel.number}
 \alias{current.row}
 \alias{current.column}
 \alias{packet.number}

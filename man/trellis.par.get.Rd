@@ -1,4 +1,4 @@
-\name{C_02b_trellis.par.get}
+\name{C.02b trellis.par.get}
 \alias{trellis.par.get}
 \alias{trellis.par.set}
 \alias{show.settings}

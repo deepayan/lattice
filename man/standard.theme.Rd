@@ -1,4 +1,4 @@
-\name{C_02a_standard.theme}
+\name{C.02a standard.theme}
 \alias{standard.theme}
 \alias{classic.theme}
 \alias{canonical.theme}

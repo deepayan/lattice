@@ -1,4 +1,4 @@
-\name{D_strip.default}
+\name{D strip.default}
 \alias{strip.default}
 \alias{strip.custom}
 \title{Default Trellis Strip Function}

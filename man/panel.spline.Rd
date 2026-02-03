@@ -1,4 +1,4 @@
-\name{F_2_panel.spline}
+\name{F.2 panel.spline}
 \alias{panel.spline}
 \title{Panel Function to Add a Spline Smooth}
 \description{

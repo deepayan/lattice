@@ -1,4 +1,4 @@
-\name{D_trellis.object}
+\name{D trellis.object}
 \alias{trellis.object}
 \docType{class}
 %%\non_function{}

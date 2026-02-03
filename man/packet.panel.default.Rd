@@ -1,4 +1,4 @@
-\name{G_packet.panel.default}
+\name{G packet.panel.default}
 \alias{packet.panel.default}
 
 \title{Associating Packets with Panels}

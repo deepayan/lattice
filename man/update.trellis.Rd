@@ -1,4 +1,4 @@
-\name{C_06_update.trellis}
+\name{C.06 update.trellis}
 \alias{update.trellis}
 \alias{[.trellis}
 \alias{t.trellis}

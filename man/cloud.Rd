@@ -1,4 +1,4 @@
-\name{B_07_cloud}
+\name{B.07 cloud}
 \title{3d Scatter Plot and Wireframe Surface Plot}
 \alias{cloud}
 \alias{wireframe}

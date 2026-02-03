@@ -1,4 +1,4 @@
-\name{F_1_panel.barchart}
+\name{F.1 panel.barchart}
 \alias{panel.barchart}
 \title{ Default Panel Function for barchart}
 \description{

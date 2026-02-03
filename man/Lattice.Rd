@@ -1,4 +1,4 @@
-\name{A_01_Lattice}
+\name{A.01 Lattice}
 \alias{Lattice}
 \alias{lattice}
 \alias{lattice-package}
