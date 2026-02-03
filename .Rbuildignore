@@ -1,3 +1,5 @@
 update.sh
 ChangeLog.update
 man/lattice-internal.Rd.foo
+man/figures/logo-template.svg.in
+man/figures/README.R
