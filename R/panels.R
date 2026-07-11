@@ -360,7 +360,7 @@ panel.grid <-
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
                       default.units = "npc",
                       name = trellis.grobname(paste(identifier, "h", sep="."),
-                        type = "panel", group = group))
+                                              type = "panel", group = group))
 
     if (v > 0)
         grid.segments(x0 = 1:v / (v+1),
@@ -368,7 +368,7 @@ panel.grid <-
                       gp = gpar(col = col.line, lty = lty, lwd = lwd),
                       default.units = "npc",
                       name = trellis.grobname(paste(identifier, "v", sep="."),
-                        type = "panel", group = group))
+                                              type = "panel", group = group))
 
     ## Cheating here a bit for h=-1, v=-1. Can't think of any neat way to
     ## get the actual `at' values of the panel
