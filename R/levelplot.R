@@ -983,7 +983,7 @@ panel.levelplot.raster <-
     ## same things for y
     if (y.is.factor)
     {
-        ux <- seq(from = min(y, na.rm = TRUE), to = max(y, na.rm = TRUE))
+        uy <- seq(from = min(y, na.rm = TRUE), to = max(y, na.rm = TRUE))
         ywid <- 1L
     }
     else
