@@ -388,12 +388,13 @@ panel.grid <-
         ## at <- pretty(scale, n = n)
         at <- formattedTicksAndLabels(scale, n = n)$at
         at <- at[at > min(scale) & at < max(scale)]
-        grid.segments(y0 = at,
-                      y1 = at,
-                      gp = gpar(col = col.line, lty = lty, lwd = lwd),
-                      default.units = "native",
-                      name = trellis.grobname(paste(identifier, "h", sep="."),
-                        type = "panel", group = group))
+        if (length(at))
+            grid.segments(y0 = at,
+                          y1 = at,
+                          gp = gpar(col = col.line, lty = lty, lwd = lwd),
+                          default.units = "native",
+                          name = trellis.grobname(paste(identifier, "h", sep="."),
+                                                  type = "panel", group = group))
     }
     if (v < 0)
     {
@@ -408,12 +409,13 @@ panel.grid <-
         ## at <- pretty(scale, n = n)
         at <- formattedTicksAndLabels(scale, n = n)$at
         at <- at[at > min(scale) & at < max(scale)]
-        grid.segments(x0 = at,
-                      x1 = at,
-                      gp = gpar(col = col.line, lty = lty, lwd = lwd),
-                      default.units = "native",
-                      name = trellis.grobname(paste(identifier, "v", sep="."),
-                        type = "panel", group = group))
+        if (length(at))
+            grid.segments(x0 = at,
+                          x1 = at,
+                          gp = gpar(col = col.line, lty = lty, lwd = lwd),
+                          default.units = "native",
+                          name = trellis.grobname(paste(identifier, "v", sep="."),
+                                                  type = "panel", group = group))
     }
 }
 
