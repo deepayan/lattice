@@ -160,7 +160,7 @@
   \bold{Hypervariate:}
   \describe{
     \item{\code{\link{splom}}:}{ Scatterplot matrices. }
-    \item{\code{\link{parallel}}:}{ Parallel coordinate plots. }
+    \item{\code{\link{parallelplot}}:}{ Parallel coordinate plots. }
   }
   
   \bold{Miscellaneous:}

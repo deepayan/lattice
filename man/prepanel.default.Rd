@@ -20,22 +20,22 @@
 
 \usage{
 
-prepanel.default.bwplot(x, y, horizontal, nlevels, origin, stack, \dots)
-prepanel.default.histogram(x, breaks, equal.widths, type, nint, \dots)
-prepanel.default.qq(x, y, \dots)
-prepanel.default.xyplot(x, y, type, subscripts, groups, \dots)
+prepanel.default.bwplot(x, y, horizontal, nlevels, origin, stack, ...)
+prepanel.default.histogram(x, breaks, equal.widths, type, nint, ...)
+prepanel.default.qq(x, y, ...)
+prepanel.default.xyplot(x, y, type, subscripts, groups, ...)
 prepanel.default.cloud(perspective, distance,
                        xlim, ylim, zlim,
                        screen = list(z = 40, x = -60),
                        R.mat = diag(4),
                        aspect = c(1, 1), panel.aspect = 1,
-                       \dots, zoom = 0.8)
-prepanel.default.levelplot(x, y, subscripts, \dots)
+                       ..., zoom = 0.8)
+prepanel.default.levelplot(x, y, subscripts, ...)
 prepanel.default.qqmath(x, f.value, distribution, qtype,
-                        groups, subscripts, \dots, tails.n = 0)
-prepanel.default.densityplot(x, darg, groups, weights, subscripts, \dots)
-prepanel.default.parallel(x, y, z, \dots, horizontal.axis)
-prepanel.default.splom(z, \dots)
+                        groups, subscripts, ..., tails.n = 0)
+prepanel.default.densityplot(x, darg, groups, weights, subscripts, ...)
+prepanel.default.parallel(x, y, z, ..., horizontal.axis)
+prepanel.default.splom(z, ...)
 
 }
 \arguments{
@@ -66,7 +66,7 @@ prepanel.default.splom(z, \dots)
   \item{z}{ see \code{\link{panel.parallel}} and \code{\link{panel.pairs}} }
 
   \item{qtype}{ type of \code{\link{quantile}}}
-  \item{\dots}{ other arguments, usually ignored }
+  \item{...}{ other arguments, usually ignored }
 }
 
 \value{

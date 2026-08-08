@@ -39,7 +39,6 @@ export(histogram,     # high level generics:
        cloud,
        wireframe,
        splom,
-       parallel, # deprecated
        parallelplot,
        tmd,
 
@@ -303,11 +302,6 @@ S3method(splom,         data.frame)
 S3method(parallelplot,  formula)
 S3method(parallelplot,  matrix)
 S3method(parallelplot,  data.frame)
-
-# defunct
-S3method(parallel,  formula)
-S3method(parallel,  matrix)
-S3method(parallel,  data.frame)
 
 S3method(tmd,           formula)
 S3method(tmd,           data.frame)

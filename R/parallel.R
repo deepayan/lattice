@@ -327,7 +327,6 @@ parallelplot.formula <-
 
     cond.current.level <- rep(1, length(cond))
 
-
     for (packet.number in seq_len(npackets))
     {
         id <- compute.packet(cond, cond.current.level)
@@ -370,19 +369,5 @@ parallelplot.formula <-
     foo
 }
 
-
-parallel <- function(x, data, ...)
-{
-    .Defunct("parallelplot")
-    ## ccall <- match.call()
-    ## ccall[[1]] <- quote(lattice::parallelplot)
-    ## eval.parent(ccall)
-    UseMethod("parallel")
-}
-
-
-parallel.formula <- parallelplot.formula
-parallel.matrix <- parallelplot.matrix
-parallel.data.frame <- parallelplot.data.frame
 
 

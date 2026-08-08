@@ -1,8 +1,9 @@
 \name{F.1 panel.parallel}
 \alias{panel.parallel}
-\title{ Default Panel Function for parallel }
+\alias{panel.parallelplot}
+\title{ Default Panel Function for parallelplot }
 \description{
-  This is the default panel function for \code{parallel}.
+  This is the default panel function for \code{\link{parallelplot}}.
 }
 \usage{
 panel.parallel(x, y, z, subscripts,
@@ -61,9 +62,18 @@ panel.parallel(x, y, z, subscripts,
   }
 }
 
-\details{ Produces parallel coordinate plots, which are easier to
-  understand from an example than through a verbal description.  See
-  example for \code{\link{parallel}}
+\details{
+
+  Produces parallel coordinate plots, which are easier to understand
+  from an example than through a verbal description.  See example for
+  \code{\link{parallelplot}}.
+
+  The \code{\link{parallelplot}} function was historically called
+  \code{parallel} following the Trellis implementation is S-PLUS. It has
+  been renamed to avoid conflicts with the \pkg{parallel} package which
+  supports parallel computation in R. The name of the default panel
+  function, however, has remained unchanged.
+  
 }
 
 \references{
@@ -77,5 +87,5 @@ panel.parallel(x, y, z, subscripts,
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}
-\seealso{\code{\link{parallel}}}
+\seealso{\code{\link{parallelplot}}}
 \keyword{dplot}

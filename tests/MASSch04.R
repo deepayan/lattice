@@ -4,7 +4,11 @@
 
 # Chapter 4   Graphical Output
 
-library(MASS)
+if (!require("MASS")) {
+    message("The 'MASS' package is required to run these tests.")
+    q("no")
+}
+
 library(lattice)
 trellis.device(postscript, file="MASS-ch04.ps", width=8, height=6,
                pointsize=9)
@@ -25,10 +29,6 @@ contourplot(z ~ x * y, topo.lo1, aspect = 1,
      panel.xyplot(topo$x, topo$y, cex = 0.5)
   }
 )
-
-
-
-
 
 
 
@@ -137,22 +137,24 @@ stripplot(type ~ y | meas, data = fgl.df,
   scales = list(x = "free"), xlab = "", cex = 0.5,
   strip = function(...) strip.default(style = 1, ...))
 
-if(F) { # no data supplied
+if (FALSE) { # no data supplied
+
 xyplot(ratio ~ scant | subject, data = A5,
-      xlab = "scan interval (years)",
-      ylab = "ventricle/brain volume normalized to 1 at start",
-      subscripts = TRUE, ID = A5$ID,
-      strip = function(factor, ...)
-         strip.default(..., factor.levels = labs, style = 1),
-      layout = c(8, 5, 1),
-      skip = c(rep(FALSE, 37), rep(TRUE, 1), rep(FALSE, 1)),
-      panel = function(x, y, subscripts, ID) {
-          panel.xyplot(x, y, type = "b", cex = 0.5)
-          which <- unique(ID[subscripts])
-          panel.xyplot(c(0, 1.5), pr3[names(pr3) == which],
-                       type = "l", lty = 3)
-          if(which == 303 || which == 341) points(1.4, 1.3)
-      })
+       xlab = "scan interval (years)",
+       ylab = "ventricle/brain volume normalized to 1 at start",
+       subscripts = TRUE, ID = A5$ID,
+       strip = function(factor, ...)
+           strip.default(..., factor.levels = labs, style = 1),
+       layout = c(8, 5, 1),
+       skip = c(rep(FALSE, 37), rep(TRUE, 1), rep(FALSE, 1)),
+       panel = function(x, y, subscripts, ID) {
+           panel.xyplot(x, y, type = "b", cex = 0.5)
+           which <- unique(ID[subscripts])
+           panel.xyplot(c(0, 1.5), pr3[names(pr3) == which],
+                        type = "l", lty = 3)
+           if(which == 303 || which == 341) points(1.4, 1.3)
+       })
+
 }
 
 Cath <- equal.count(swiss$Catholic, number = 6, overlap = 0.25)

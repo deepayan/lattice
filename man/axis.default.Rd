@@ -139,8 +139,8 @@ densityplot(rln,
                 ans$top <- ans$bottom
                 ans$bottom$labels$labels <- parse(text = ans$bottom$labels$labels)
                 ans$top$labels$labels <-
-                    if (require(MASS))
-                        fractions(2^(ans$top$labels$at))
+                    if (requireNamespace("MASS"))
+                        MASS::fractions(2^(ans$top$labels$at))
                     else
                         2^(ans$top$labels$at)
                 ans
