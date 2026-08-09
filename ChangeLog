@@ -1,3 +1,29 @@
+commit e702bcaec941f6a610f579b98ad67ad42141abc4
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Feb 3 22:58:56 2026 +0530
+
+    update names in man pages
+
+
+commit 2e53134f73d3097f2eaea848058207521cff5a8e
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Feb 3 22:40:47 2026 +0530
+
+    update logo
+
+M	.Rbuildignore
+A	man/figures/README.R
+A	man/figures/logo-template.svg.in
+M	man/figures/logo.svg
+
+commit b8bbb05edeb7e46e194bffa4971c0e647a577d5d
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Tue Jan 13 22:24:41 2026 +0530
+
+    fix ... argument passing bug in diag.panel.splom (#44)
+
+M	DESCRIPTION
+M	R/splom.R
 
 commit cbe2a8a3eb074314eb9f49985c501f852261c36f
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>

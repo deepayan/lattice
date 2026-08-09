@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 4.5.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2025-03-31 17:47\n"
+"POT-Creation-Date: 2026-02-09 00:45\n"
 "PO-Revision-Date: 2025-03-18 11:16+0100\n"
 "Last-Translator: Detlef Steuer <steuer@hsu-hh.de>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
@@ -27,9 +27,6 @@ msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
 "Spezifizieren von 'labels', aber nicht von 'at' kann zu unerwarteten "
 "Ergebnissen führen"
-
-msgid "range too small for min.n"
-msgstr "Spannweite zu klein für min.n"
 
 msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' wurde für gestapelte Balken zwangsweise auf 0 gesetzt"
@@ -470,6 +467,9 @@ msgstr "'drop=TRUE' ignoriert"
 
 msgid "Invalid indices"
 msgstr "Falsche Indizes"
+
+#~ msgid "range too small for min.n"
+#~ msgstr "Spannweite zu klein für min.n"
 
 #~ msgid "missing values and NaN's not allowed if 'na.rm' is FALSE"
 #~ msgstr "fehlende Werte und NaNs nicht erlaubt, wenn 'na.rm' FALSE ist"

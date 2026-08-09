@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: R 3.2.0\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2025-03-31 17:47\n"
+"POT-Creation-Date: 2026-02-09 00:45\n"
 "PO-Revision-Date: 2015-02-09 00:06-0600\n"
 "Last-Translator:Chel Hee Lee  <chl948@mail.usask.ca>\n"
 "Language-Team: Chel Hee Lee  <chl948@mail.usask.ca>\n"
@@ -31,9 +31,6 @@ msgid "'at' missing or incompatible with 'labels'"
 msgstr "'at'의 값이 누락되었거나 'labels'의 길이와 일치하지 않습니다."
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
-msgstr ""
-
-msgid "range too small for min.n"
 msgstr ""
 
 msgid "'origin' forced to 0 for stacked bars"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
 "Report-Msgid-Bugs-To: bugs.r-project.org\n"
-"POT-Creation-Date: 2025-03-31 17:47\n"
+"POT-Creation-Date: 2026-02-09 00:45\n"
 "PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
@@ -27,11 +27,6 @@ msgstr "brakuje 'at' lub niespójne z 'labels'"
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
-
-# lattice/R/axis.R: 596
-# stop("range too small for min.n")
-msgid "range too small for min.n"
-msgstr "zakres dla 'min.n' jest zbyt mały"
 
 # lattice/R/bwplot.R: 184
 # warning("'origin' forced to 0 for stacked bars")
@@ -826,6 +821,11 @@ msgstr "'drop=TRUE' zostało zignorowane"
 # stop("Invalid indices")
 msgid "Invalid indices"
 msgstr "niepoprawne indeksy"
+
+# lattice/R/axis.R: 596
+# stop("range too small for min.n")
+#~ msgid "range too small for min.n"
+#~ msgstr "zakres dla 'min.n' jest zbyt mały"
 
 # lattice/R/qqmath.R: 35
 # stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
