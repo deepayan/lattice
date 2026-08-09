@@ -1,3 +1,76 @@
+commit eefab5b932054fb4bb10b8c2ecd62d44326d6c5c
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sun Aug 9 22:46:15 2026 +0530
+
+    option to provide case labels (case.names) to panel function
+
+M	R/common.R
+M	R/settings.R
+M	R/xyplot.R
+M	man/latticeParseFormula.Rd
+M	man/xyplot.Rd
+
+commit f2d7345627ac70901b81af9e18a4e09a43410826
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Aug 8 11:26:40 2026 +0530
+
+    remove defunct parallel() and use MASS conditionally
+
+M	DESCRIPTION
+M	NAMESPACE
+M	R/parallel.R
+M	man/Lattice.Rd
+M	man/axis.default.Rd
+M	man/panel.parallel.Rd
+M	man/prepanel.default.Rd
+M	tests/MASSch04.R
+
+commit df4e11e00851e1e7c8b8b283040b4ff672058a15
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Jul 11 23:04:46 2026 +0530
+
+    modernize structure of R datasets
+
+M	data/barley.R
+M	data/environmental.R
+M	data/ethanol.R
+M	data/melanoma.R
+M	data/singer.R
+
+commit c5273a6aa17bdb55e768b4f99687d129644b090e
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Jul 11 22:02:54 2026 +0530
+
+    use provided 'fill' in more places in custom.theme() to fix PR#32
+
+M	R/panels.R
+M	R/settings.R
+
+commit c95081ab23e276a5f3b6737d1f09a1e6b66e6fd1
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Sat Jul 11 11:44:02 2026 +0530
+
+    in panel.grid(), don't try to draw segments when there are none to draw (PR#46)
+
+M	DESCRIPTION
+M	R/panels.R
+
+commit d527dc243c04488024aa87c719a01a42eafc90d3
+Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
+Date:   Fri Jul 10 21:11:45 2026 +0530
+
+    add panel.polypath(...) to usage
+
+M	man/llines.Rd
+
+commit 018f27792cc81fdca1fcc4e7d5759fa36e1f10ac
+Author: Ivan K <krylov.r00t@gmail.com>
+Date:   Sat Jul 4 16:02:06 2026 +0300
+
+    panel.levelplot.raster: fix for y being a factor
+
+M	R/levelplot.R
+
 commit e702bcaec941f6a610f579b98ad67ad42141abc4
 Author: Deepayan Sarkar <deepayan.sarkar@gmail.com>
 Date:   Tue Feb 3 22:58:56 2026 +0530

@@ -1,3 +1,8 @@
+# Changes in lattice 0.23
+
+* Defunct `parallel()` function is completely removed.
+
+* Option to provide case labels (case.names) to panel function.
 
 
 # Changes in lattice 0.22
