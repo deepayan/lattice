@@ -260,7 +260,8 @@ xyplot.formula <-
              lattice.options = NULL,
              default.scales = list(),
              default.prepanel = lattice.getOption("prepanel.default.xyplot"),
-             subscripts = !is.null(groups),
+             subscripts = !is.null(groups) || !isFALSE(case.names),
+             case.names = lattice.getOption("default.args")$case.names,
              subset = TRUE)
 {
     formula <- x 
@@ -279,8 +280,10 @@ xyplot.formula <-
         latticeParseFormula(formula, data, subset = subset,
                             groups = groups, multiple = allow.multiple,
                             outer = outer, subscripts = TRUE,
-                            drop = drop.unused.levels)
+                            drop = drop.unused.levels,
+                            case.names = case.names)
     groups <- form$groups
+    case.names <- form$case.names # NULL or character vector
 
     if (!is.function(panel)) panel <- eval(panel)
     if (!is.function(strip)) strip <- eval(strip)
@@ -326,7 +329,7 @@ xyplot.formula <-
     dots <- foo$dots # arguments not processed by trellis.skeleton
     foo <- foo$foo
 
-### FIXME: For a long time, lattice has used
+### FIXME: For a long time, lattice had used
     ## foo$call <- sys.call(sys.parent()); foo$call[[1]] <- quote(xyplot)
 ### But this doesn't work in all contexts; e.g., 
 ### with(cars, xyplot(speed ~ dist))$call
@@ -393,6 +396,7 @@ xyplot.formula <-
 
     foo$panel.args.common <- dots
     if (subscripts) foo$panel.args.common$groups <- groups
+    if (!is.null(case.names)) foo$panel.args.common$case.names <- case.names
 
     npackets <- prod(cond.max.level)
     if (npackets != prod(sapply(foo$condlevels, length)))

@@ -74,9 +74,13 @@ interaction2 <-
 latticeParseFormula <-
     function(model, data, dimension = 2, subset = TRUE,
              groups = NULL, multiple = FALSE, outer = FALSE,
-             subscripts = FALSE, drop = NULL)
+             subscripts = FALSE, drop = NULL,
+             case.names = FALSE)
     ## this function mostly written by Saikat
 {
+    if (isTRUE(case.names)) case.names <- case.names(data)
+    else if (isFALSE(case.names)) case.names <- NULL
+    ## otherwise keep as-is (possibly user-specified)
 
     ## local function to get length 1 name from expressions (deparse
     ## can split long expressions into several pieces), typically for
@@ -363,10 +367,12 @@ latticeParseFormula <-
         ## in panel functions.
 
         if (!is.null(groups)) ans$groups <- groups
+        if (!is.null(case.names)) ans$case.names <- case.names
         if (subscripts) ans$subscr <- seq_len(nobs)[subset]
     }
     else if (outer) {
         if (!is.null(groups)) ans$groups <- rep(groups, nLHS * nRHS)
+        if (!is.null(case.names)) ans$case.names <- rep(case.names, nLHS * nRHS)
         if (!is.null(newFactor)) {
             if (is.null(ans$condition))
                 ans$condition <- list(newFactor)
@@ -395,6 +401,7 @@ latticeParseFormula <-
         ## new groups.
 
         if (subscripts) ans$subscr <- seq_len(length(newFactor))
+        if (!is.null(case.names)) ans$case.names <- rep(case.names, nLHS * nRHS)
 
         ## check
         if (length(newFactor) != nRows * nLHS * nRHS)

@@ -48,7 +48,8 @@ bwplot(x, data, ...)
        lattice.options = NULL,
        default.scales,
        default.prepanel = lattice.getOption("prepanel.default.xyplot"),
-       subscripts = !is.null(groups),
+       subscripts = !is.null(groups) || !isFALSE(case.names),
+       case.names = lattice.getOption("default.args")$case.names,
        subset = TRUE)
 
 \method{xyplot}{data.frame}(x, data = NULL, formula = data, ...)
@@ -742,12 +743,22 @@ bwplot(x, data, ...)
   \item{subscripts}{
     A logical flag specifying whether or not a vector named
     \code{subscripts} should be passed to the panel function.  Defaults
-    to \code{FALSE}, unless \code{groups} is specified, or if the panel
-    function accepts an argument named \code{subscripts}.  This argument
-    is useful if one wants the subscripts to be passed on even if these
-    conditions do not hold; a typical example is when one wishes to
-    augment a Lattice plot after it has been drawn, e.g., using
-    \code{\link{panel.identify}}.
+    to \code{FALSE}, unless \code{groups} is specified or
+    \code{case.names} are desired, or if the panel function accepts an
+    argument named \code{subscripts}.  It may be useful to specify this
+    argument explicitly if one wants the subscripts to be passed on even
+    if these conditions do not hold; a typical example is when one
+    wishes to augment a Lattice plot after it has been drawn, e.g.,
+    using \code{\link{panel.identify}}.
+  }
+  \item{case.names}{
+    A logical value indicating whether panel functions should be
+    provided case labels (typically row names of \code{data} via the
+    \code{\link{case.names}} function. Alternatively, a vector of case
+    labels may be specified (however, non-standard evaluation is not
+    applied). If desired, the case labels are supplied to the panel
+    function as the \code{case.names} argument, which may be
+    appropriately indexed using the \code{subscripts} argument.
   }
   \item{subset}{
     An expression that evaluates to a logical or integer indexing

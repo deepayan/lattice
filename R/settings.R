@@ -1076,6 +1076,7 @@ lattice.options <- function(...)
               ##layout = NULL,
               skip = FALSE,
               strip = strip.default,
+              case.names = TRUE, # if TRUE, try to provide reasonable case labels to panel function
               xscale.components = xscale.components.default,
               yscale.components = yscale.components.default,
               axis = axis.default),
