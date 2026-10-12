@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lattice 0.20-27\n"
-"Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
-"POT-Creation-Date: 2025-03-31 17:47\n"
-"PO-Revision-Date: 2025-06-25 10:02+0000\n"
+"Report-Msgid-Bugs-To: bugs.r-project.org\n"
+"POT-Creation-Date: 2026-02-09 00:45\n"
+"PO-Revision-Date: 2014-03-25 21:26+0100\n"
 "Last-Translator: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language-Team: Łukasz Daniel <lukasz.daniel@gmail.com>\n"
 "Language: pl\n"
@@ -37,7 +37,8 @@ msgid "'origin' forced to 0 for stacked bars"
 msgstr "'origin' wymuszone aby być zerem dla ułożonych pasków"
 
 msgid "length of '%s' must be  1 or multiple of group length (%d)"
-msgstr "długość '%s' musi wynosić 1 lub być wielokrotnością długości (%d) grupy"
+msgstr ""
+"długość '%s' musi wynosić 1 lub być wielokrotnością długości (%d) grupy"
 
 msgid ""
 "%s must be length 1 or a vector of \n"
@@ -48,11 +49,6 @@ msgstr ""
 
 msgid ","
 msgstr ","
-
-# lattice/R/common.R: 159
-# stop("model must be a formula object")
-msgid "'formula' must be a formula object"
-msgstr "argument 'formula' musi być obiektem klasy \"formula\""
 
 # lattice/R/cloud.R: 1427
 # warning("explicit 'data' specification ignored")
@@ -239,9 +235,8 @@ msgstr "dla metody 'data.frame' należy określić formułę"
 
 # lattice/R/common.R: 159
 # stop("model must be a formula object")
-#, fuzzy
 msgid "'formula' must be a formula object"
-msgstr "model musi być obiektem formuły"
+msgstr "argument 'formula' musi być obiektem klasy \"formula\""
 
 # lattice/R/densityplot.R: 288
 # gettext("Density")
@@ -650,7 +645,8 @@ msgstr "Nie można znaleźć funkcji '%s' urządzenia"
 # warning("'trellis.device' has changed, 'bg' may not be doing what you think it is")
 msgid ""
 "'trellis.device' has changed, 'bg' may not be doing what you think it is"
-msgstr "'trellis.device' zmienił się, 'bg' może nie robić tego co ci się wydaje"
+msgstr ""
+"'trellis.device' zmienił się, 'bg' może nie robić tego co ci się wydaje"
 
 # lattice/R/legend.R: 139
 # stop("key must be a list")
