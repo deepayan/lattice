@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.16.4\n"
 
 msgid "Invalid value of 'log'"
 msgstr "Valeur incorrecte pour 'log'"
@@ -26,17 +26,21 @@ msgstr "'at' manquant ou incompatible avec 'labels'"
 
 msgid "specifying 'labels' but not 'at' may lead to unexpected results"
 msgstr ""
+"spécifier 'labels' mais pas 'at' peut conduire à des résultats inattendus"
 
 msgid "'origin' forced to 0 for stacked bars"
-msgstr "'origin' forcé à 0 pour les diagrammes en barre empilées"
+msgstr "'origin' forcé à 0 pour les diagrammes en barres empilées"
 
 msgid "length of '%s' must be  1 or multiple of group length (%d)"
 msgstr ""
+"la longueur de '%s' doit être   1 ou multiple de la longueur du groupe (%d)"
 
 msgid ""
 "%s must be length 1 or a vector of \n"
 "             length multiple of group length (%d)"
 msgstr ""
+"%s doit être de longueur 1 ou un vecteur de.\n"
+"............multiple de longueur du groupe (%d)"
 
 msgid ","
 msgstr ","
@@ -48,7 +52,7 @@ msgid "mismatch in number of packets"
 msgstr "incohérence dans le nombre de paquets"
 
 msgid "'type' has unsupported values"
-msgstr "argument 'type' contient des valeurs non autorisées"
+msgstr "'type' contient des valeurs non autorisées"
 
 msgid "Inappropriate arguments"
 msgstr "Arguments inadaptés"
@@ -66,7 +70,7 @@ msgid "invalid dimension '%s'"
 msgstr "dimension '%s' incorrecte"
 
 msgid "invalid model"
-msgstr "model incorrect"
+msgstr "modèle incorrect"
 
 msgid "newFactor cannot be NULL; you have found a bug!"
 msgstr "'newFactor' ne peut être NULL ; vous avez trouvé une anomalie !"
@@ -116,11 +120,10 @@ msgid "More pages in layout than seem to be necessary."
 msgstr "La mise en page contient plus de pages qu'il ne semble nécessaire."
 
 msgid "a formula must be specified for the 'data.frame' method"
-msgstr ""
+msgstr "vous devez fournir une formule pour la méthode 'data.frame'"
 
-#, fuzzy
 msgid "'formula' must be a formula object"
-msgstr "l'argument 'model' doit être un objet formule"
+msgstr "'formula' doit être un objet formule"
 
 msgid "Density"
 msgstr "Densité"
@@ -225,10 +228,11 @@ msgstr ""
 "les valeurs 'at' ne sont pas équidistantes ; le résultat peut être erroné"
 
 msgid "key specifies 'labels$labels' but not 'labels$at'"
-msgstr ""
+msgstr "clé spécifie 'labels$labels' et non pas 'labels$at'"
 
 msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
 msgstr ""
+"les longueurs de 'labels$labels' et 'labels$at' de la clé sont différentes"
 
 msgid "malformed colorkey"
 msgstr "'colorkey' inadéquat"

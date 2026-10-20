@@ -1,0 +1,446 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: lattice 0.22-4\n"
+"Report-Msgid-Bugs-To: sourcestringbugs.o40l9j@zapiermail.com\n"
+"POT-Creation-Date: 2023-10-21 23:49\n"
+"PO-Revision-Date: 2025-09-13 08:05+0000\n"
+"Last-Translator: Riva Quiroga <riva.quiroga@uc.cl>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
+
+msgid "Invalid value of 'log'"
+msgstr "Valor no válido de 'log'"
+
+msgid "'at' missing or incompatible with 'labels'"
+msgstr "'at' falta o es incompatible con 'labels'"
+
+msgid "specifying 'labels' but not 'at' may lead to unexpected results"
+msgstr "especificar 'labels' pero no 'at' puede generar resultados inesperados"
+
+msgid "range too small for min.n"
+msgstr "rango demasiado pequeño para min.n"
+
+msgid "'origin' forced to 0 for stacked bars"
+msgstr "'origin' forzado a 0 para barras apiladas"
+
+msgid "length of '%s' must be  1 or multiple of group length (%d)"
+msgstr "la longitud de '%s' debe ser 1 o múltiplo de la longitud del grupo (%d)"
+
+msgid "%s must be length 1 or a vector of \n             length multiple of group length (%d)"
+msgstr ""
+"%s debe tener una longitud de 1 o un vector de \n"
+"      longitud múltiplo de la longitud del grupo (%d)"
+
+msgid ","
+msgstr ","
+
+msgid "'formula' must be a formula object"
+msgstr "'formula' debe ser un objeto de fórmula"
+
+msgid "explicit 'data' specification ignored"
+msgstr "especificación 'data' explícita ignorada"
+
+msgid "mismatch in number of packets"
+msgstr "no coincide el número de paquetes"
+
+msgid "'type' has unsupported values"
+msgstr "'type' tiene valores no admitidos"
+
+msgid "Inappropriate arguments"
+msgstr "Argumentos inadecuados"
+
+msgid "shingles can not be concatenated"
+msgstr "los shingles no se pueden concatenar"
+
+msgid "model must be a formula object"
+msgstr "el modelo debe ser un objeto de fórmula"
+
+msgid "'multiple=TRUE' ignored ('groups' non-null with 'outer=FALSE')"
+msgstr "'multiple=TRUE' ignorado ('groups' no nulo con 'outer=FALSE')"
+
+msgid "invalid dimension '%s'"
+msgstr "dimensión no válida '%s'"
+
+msgid "invalid model"
+msgstr "modelo no válido"
+
+msgid "newFactor cannot be NULL; you have found a bug!"
+msgstr "newFactor no puede ser NULL; ¡Has encontrado un error!"
+
+msgid "newFactor != NULL && groups == NULL does not hold; you have found a bug!"
+msgstr ""
+"newFactor != NULL && groups == NULL no se cumple; ¡Has encontrado un error!"
+
+msgid "Length check mismatch; you have found a bug!"
+msgstr "La verificación de longitud no coincide; ¡Has encontrado un error!"
+
+msgid "Non matching lengths"
+msgstr "Longitudes no coincidentes"
+
+msgid "'length' and 'prop' cannot both be specified"
+msgstr "'length' y 'prop' no se pueden especificar ambos"
+
+msgid "'length' must be positive"
+msgstr "'length' debe ser positivo"
+
+msgid "improper length of 'lim'"
+msgstr "longitud inadecuada de 'lim'"
+
+msgid "Invalid value of perm.cond"
+msgstr "Valor no válido de perm.cond"
+
+msgid "Invalid value of index.cond"
+msgstr "Valor no válido de index.cond"
+
+msgid "skip cannot be all TRUE"
+msgstr "skip no puede ser todo TRUE"
+
+msgid "layout must have at least 2 elements"
+msgstr "layout debe tener al menos 2 elementos"
+
+msgid "Inadmissible value of layout."
+msgstr "Valor inadmisible de layout."
+
+msgid "invalid value for layout"
+msgstr "valor no válido para layout"
+
+msgid "More pages in layout than seem to be necessary."
+msgstr "Más páginas en layout de las que parecen necesarias."
+
+msgid "Density"
+msgstr "Densidad"
+
+msgid "Can't have log Y-scale"
+msgstr "No se puede tener una escala Y logarítmica"
+
+msgid "type='%s' can be misleading in this context"
+msgstr "type='%s' puede ser engañoso en este contexto"
+
+msgid "problem with 'hist' computations"
+msgstr "problema con los cálculos 'hist'"
+
+msgid "Count"
+msgstr "Cantidad"
+
+msgid "Percent of Total"
+msgstr "Porcentaje del total"
+
+msgid "no observations within"
+msgstr "sin observaciones dentro"
+
+msgid "points"
+msgstr "puntos"
+
+msgid "nearest observation already identified"
+msgstr "observación más cercana ya identificada"
+
+msgid "column must be specified"
+msgstr "se debe especificar la columna"
+
+msgid "row must be specified"
+msgstr "se debe especificar la fila"
+
+msgid "panel position unspecified or invalid"
+msgstr "posición del panel no especificada o no válida"
+
+msgid "'trellis.switchFocus' cannot be used to switch to a different 'prefix'.  Use 'trellis.focus' first"
+msgstr ""
+"'trellis.switchFocus' no se puede utilizar para cambiar a un 'prefix' "
+"diferente. Utilice 'trellis.focus' primero"
+
+msgid "Plot object was not saved, cannot retrieve panel data"
+msgstr ""
+"El objeto de trazado no se guardó, no se pueden recuperar los datos del panel"
+
+msgid "Plot spans multiple pages, only last page can be updated"
+msgstr ""
+"La trama abarca varias páginas, solo se puede actualizar la última página"
+
+msgid "You have to first select a panel using trellis.focus()"
+msgstr "Primero debe seleccionar un panel usando trellis.focus()"
+
+msgid "Selecting panel at position (%g, %g)"
+msgstr "Selección del panel en la posición (%g, %g)"
+
+msgid "No panels available"
+msgstr "No hay paneles disponibles"
+
+msgid "Click on panel to focus"
+msgstr "Haga clic en el panel para centrarse"
+
+msgid "'f.value' not supported; ignoring"
+msgstr "'f.value' no soportado; ignorando"
+
+msgid "Click to choose one point to highlight"
+msgstr "Haga clic para elegir un punto para resaltar"
+
+msgid "no points within"
+msgstr "sin puntos dentro"
+
+msgid "points of click"
+msgstr "puntos de clic"
+
+msgid "component '%s' duplicated in key and legend"
+msgstr "componente '%s' duplicado en clave y leyenda"
+
+msgid "key must be a list"
+msgstr "la clave debe ser una lista"
+
+msgid "first component of text must be vector of labels"
+msgstr "el primer componente del texto debe ser un vector de etiquetas"
+
+msgid "Invalid key, need at least one component named lines, text, rect or points"
+msgstr ""
+"Clave no válida, necesita al menos un componente llamado \"lines\", \"text\""
+", \"rect\" o \"points\""
+
+msgid "not enough rows for columns"
+msgstr "no hay suficientes filas para las columnas"
+
+msgid "Sorry, align=FALSE is not supported"
+msgstr "Lo sentimos, align=FALSE no está soportado"
+
+msgid "'at' values are not equispaced; output may be wrong"
+msgstr ""
+"'at' los valores no están equiespaciados; la salida puede ser incorrecta"
+
+msgid "key specifies 'labels$labels' but not 'labels$at'"
+msgstr "la clave (key) especifica 'labels$labels' pero no 'labels$at'"
+
+msgid "lengths of key's 'labels$labels' and 'labels$at' differ"
+msgstr "las longitudes de las claves 'labels$labels' y 'labels$at' difieren"
+
+msgid "malformed colorkey"
+msgstr "clave de color (colorkey) mal formada"
+
+msgid "Invalid value of 'tri.upper/tri.lower' ignored."
+msgstr "Se ignora el valor no válido de 'tri.upper/tri.lower'."
+
+msgid "Invalid 'shrink' parameter ignored"
+msgstr "Parámetro 'shrink' no válido ignorado"
+
+msgid "Invalid label.style"
+msgstr "label.style no válido"
+
+msgid "device support for raster images unknown, ignoring 'raster=TRUE'"
+msgstr ""
+"soporte del dispositivo para imágenes rasterizadas desconocidas, ignorando "
+"'raster=TRUE'"
+
+msgid "device has no raster support, ignoring 'raster=TRUE'"
+msgstr "el dispositivo no admite ráster, ignorando 'raster=TRUE'"
+
+msgid "device does not support raster images with NA, ignoring 'raster=TRUE'"
+msgstr ""
+"el dispositivo no admite imágenes rasterizadas con NA, ignorando "
+"'raster=TRUE'"
+
+msgid "'x' values are not equispaced; output may be wrong"
+msgstr "'x' los valores no están equiespaciados; la salida puede ser incorrecta"
+
+msgid "'y' values are not equispaced; output may be wrong"
+msgstr "'y' los valores no están equiespaciados; la salida puede ser incorrecta"
+
+msgid "x must be (coercible to be) a factor"
+msgstr "x debe ser (coercible a) un factor"
+
+msgid "error"
+msgstr "error"
+
+msgid "Invalid value of 'pos' ignored."
+msgstr "Se ignora el valor no válido de 'pos'."
+
+msgid "(loaded the KernSmooth namespace)"
+msgstr "(se cargó el espacio de nombres KernSmooth)"
+
+msgid "panel.smoothScatter() requires the KernSmooth package, but unable to load KernSmooth namespace"
+msgstr ""
+"panel.smoothScatter() requiere el paquete KernSmooth, pero no puede cargar "
+"el espacio de nombres KernSmooth"
+
+msgid "'nbin' must be numeric of length 1 or 2"
+msgstr "'nbin' debe ser numérico de longitud 1 o 2"
+
+msgid "'bandwidth' must be numeric"
+msgstr "'bandwidth' debe ser numérico"
+
+msgid "'nrpoints' should be numeric scalar with value >= 0."
+msgstr "'nrpoints' debe ser un escalar numérico con valor >= 0."
+
+msgid "'a' is overridden by 'reg'"
+msgstr "'reg' tiene precedencia sobre 'a'"
+
+msgid "only using the first two of %d regression coefficients"
+msgstr "utilizando sólo los dos primeros de %d coeficientes de regresión"
+
+msgid "'a' and 'b' are overridden by 'coef'"
+msgstr "'coef' tiene precedencia sobre 'a' y 'b'"
+
+msgid "'expr' must be a function or an expression containing 'x'"
+msgstr "'expr' debe ser una función o una expresión que contenga 'x'"
+
+msgid "'varnames' has wrong length."
+msgstr "'varnames' tiene una longitud incorrecta."
+
+msgid "Parallel Coordinate Plot"
+msgstr "Gráfico de Coordenadas Paralelas"
+
+msgid "cannot have log y-scale"
+msgstr "no puede tener escala log-y"
+
+msgid "Error using packet %g\n%s"
+msgstr ""
+"Error al utilizar el paquete %g\n"
+"%s"
+
+msgid "y must have exactly 2 levels"
+msgstr "y debe tener exactamente 2 niveles"
+
+msgid "Can't have log X-scale"
+msgstr "No se puede tener escala X con transformación logarítmica"
+
+msgid "Fitted Values minus Mean"
+msgstr "Valores Ajustados menos Media"
+
+msgid "Residuals"
+msgstr "Residuos"
+
+msgid "Invalid or ambiguous component names:"
+msgstr "Nombres de componentes no válidos o ambiguos:"
+
+msgid "Multiple matches to component name"
+msgstr "Múltiples coincidencias con el nombre del componente"
+
+msgid "the 'at' and 'labels' components of 'scales' may not be lists when 'relation = \"same\"'"
+msgstr ""
+"los componentes 'at' y 'labels' de 'scales' pueden no estar en listas cuando "
+"'relation = \"same\"'"
+
+msgid "limits cannot be a list when relation = same"
+msgstr "los límites no pueden ser una lista cuando 'relation = \"same\"'"
+
+msgid "Explicitly specified limits ignored"
+msgstr "Se ignoraron los límites especificados explícitamente"
+
+msgid "need at least one panel"
+msgstr "necesita al menos un panel"
+
+msgid "'aspect=\"iso\"' approximate since 'relation=\"free\"'"
+msgstr "'aspect=\"iso\"' es aproximado ya que 'relation=\"free\"'"
+
+msgid "Note: The default device has been opened to honour attempt to modify trellis settings"
+msgstr ""
+"Nota: El dispositivo predeterminado se ha abierto para honrar el intento de "
+"modificar la configuración de trellis"
+
+msgid "Invalid 'theme' specified"
+msgstr "'theme' especificado no válido"
+
+msgid "Could not find device function '%s'"
+msgstr "No se pudo encontrar la función del dispositivo '%s'"
+
+msgid "'trellis.device' has changed, 'bg' may not be doing what you think it is"
+msgstr ""
+"'trellis.device' ha cambiado, es posible que 'bg' no esté haciendo lo que "
+"usted cree"
+
+msgid "x must be a shingle"
+msgstr "x debe ser un \"shingle\""
+
+msgid "x must be matrix with 2 columns"
+msgstr "x debe ser una matriz con 2 columnas"
+
+msgid "bad value of 'intervals'"
+msgstr "valor erróneo de 'intervals'"
+
+msgid "Data:"
+msgstr "Datos:"
+
+msgid "no intervals"
+msgstr "sin intervalos"
+
+msgid "Intervals:"
+msgstr "Intervalos:"
+
+msgid "Overlap between adjacent intervals:"
+msgstr "Superposición entre intervalos adyacentes:"
+
+msgid "Range"
+msgstr "Rango"
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Scatter Plot Matrix"
+msgstr "Matriz de diagrama de dispersión"
+
+msgid "Call:"
+msgstr "Llamar:"
+
+msgid "Number of observations:"
+msgstr "Número de observaciones:"
+
+msgid "supplied 'dimnames' have wrong length"
+msgstr "'dimnames' proporcionado tiene una longitud incorrecta"
+
+msgid "some components of supplied 'dimnames' have wrong length"
+msgstr ""
+"algunos componentes del 'dimnames' suministrados tienen una longitud "
+"incorrecta"
+
+msgid "mean"
+msgstr "promedio (mean)"
+
+msgid "difference"
+msgstr "diferencia"
+
+msgid "Requested 'trellis' object was not saved"
+msgstr "El objeto 'trellis' solicitado no se guardó"
+
+msgid "Inappropriate value of 'as.table'"
+msgstr "Valor inapropiado de 'as.table'"
+
+msgid "'par.strip.text' must be a list"
+msgstr "'par.strip.text' debe ser una lista"
+
+msgid "'par.settings' must be a list"
+msgstr "'par.settings' debe ser una lista"
+
+msgid "'plot.args' must be a list"
+msgstr "'plot.args' debe ser una lista"
+
+msgid "'lattice.options' must be a list"
+msgstr "'lattice.options' debe ser una lista"
+
+msgid "Invalid value of 'perm.cond'"
+msgstr "Valor no válido de 'perm.cond'"
+
+msgid "Note: 'auto.key' ignored since legend already present.\nUse 'update(..., legend = NULL)' to remove existing legend(s)"
+msgstr ""
+"Nota: 'auto.key' se ignora porque la leyenda ya está presente.\n"
+"Utilice 'update(..., legend = NULL)' para eliminar las leyendas existentes"
+
+msgid "log scales cannot be changed via 'update'"
+msgstr "las escalas logarítmicas no se pueden cambiar mediante 'update'"
+
+msgid "the at and labels components of scales may not be lists when relation = same"
+msgstr ""
+"los componentes at y labels de las escalas pueden no ser listas cuando "
+"relación = igual"
+
+msgid "Unrecognized value of 'aspect': '%s'"
+msgstr "Valor no reconocido de 'aspect': '%s'"
+
+msgid "Invalid value of 'aspect'"
+msgstr "Valor no válido de 'aspect'"
+
+msgid "'drop=TRUE' ignored"
+msgstr "'drop=TRUE' ignorado"
+
+msgid "Invalid indices"
+msgstr "Índices no válidos"
