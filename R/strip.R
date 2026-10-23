@@ -37,10 +37,6 @@ strip.custom <-
 }
 
 
-
-
-
-
 paste.and.draw <-
     function(left, right, sep = " : ",
              horizontal = TRUE,
@@ -48,7 +44,7 @@ paste.and.draw <-
              showl = TRUE,
              showr = TRUE,
              rot = if (horizontal) 0 else 90,
-             type = if (horizontal) "strip.horizontal" else "strip.vertical",
+             type,
              gp = gpar())
 {
     ## We are already in a viewport.  Essentially want to draw
@@ -57,8 +53,6 @@ paste.and.draw <-
     ## solution is to draw sep in the middle and left and right on
     ## either side.  The better solution is to combine and then
     ## center.
-
-    ## NOTE: type = "
 
     if (showl || showr)
     {
@@ -311,7 +305,7 @@ strip.default <-
     }
     upViewport()
 
-    ## border is drawn with clipping off
+    ## Repeat viewport creation for border, with clipping always off
     switch(side,
            top =
            pushViewport(viewport(y = (which.given - 0.5) / n.panels,
@@ -333,7 +327,6 @@ strip.default <-
                                  width = 1 / n.panels,
                                  clip = "off",
                                  name = vp.name.off)))
-
 
     strip.border <- trellis.par.get("strip.border")
     ## draw border for strip
