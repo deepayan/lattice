@@ -194,8 +194,6 @@ xyplot(y ~ x | gl(1, length(types)),
            grid::grid.rect()
        },
        scales = list(alternating = c(0, 2), tck = c(0, 0.7), draw = FALSE),
-       par.settings = 
-       list(layout.widths = list(strip.left = c(1, 0, 0, 0, 0))),
        panel = function(...) {
            type <- types[panel.number()]
            horizontal <- horiz[panel.number()]
