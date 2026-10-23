@@ -13,6 +13,7 @@ strip.default(which.given,
               sep = " : ",
               style = 1,
               horizontal = TRUE,
+              side = if (horizontal) "top" else "left",
               bg = trellis.par.get("strip.background")$col[which.given],
               fg = trellis.par.get("strip.shingle")$col[which.given],
               par.strip.text = trellis.par.get("add.text"))
@@ -108,9 +109,20 @@ strip.custom(\dots)
     \code{strip.names} and \code{strip.levels} have no effect if
     \code{style} is not 1 or 3.
   }
-  \item{horizontal}{ logical, specifying whether the labels etc should
-    be horizontal.  \code{horizontal=FALSE} is useful for strips on the
-    left of panels using \code{strip.left=TRUE} }
+  \item{horizontal}{ logical flag, specifying whether the labels etc
+    should be horizontal.  \code{horizontal = FALSE} is useful for strips
+    on the left or right of panels, but use of \code{side} is
+    recommended for finer control.
+  }
+  \item{side}{ character string specifying the side of the panel where
+    the strip is to be drawn; one of \code{"top"}, \code{"left"},
+    \code{"bottom"}, or \code{"right"}.  Defaults to \code{"top"} if
+    \code{horizontal = TRUE} and \code{"left"} otherwise.  When
+    \code{side = "right"}, vertical text defaults to \code{rot = -90}.
+
+    Strips are ordered such that \code{which.given = 1} is closest to
+    the panel.
+  }
   \item{par.strip.text}{ list with parameters controlling the text on
     each strip, with components \code{col}, \code{cex}, \code{font},
     etc.
@@ -155,6 +167,10 @@ xyplot(Petal.Length ~ Petal.Width | Species, iris,
 xyplot(Petal.Length ~ Petal.Width | Species, iris,
        strip = FALSE,
        strip.left = strip.custom(style = 4, horizontal = FALSE))
+
+xyplot(Petal.Length ~ Petal.Width | Species, iris,
+       strip = FALSE,
+       strip.left = strip.custom(style = 4, side = "right"))
 }
 
 \author{ Deepayan Sarkar \email{Deepayan.Sarkar@R-project.org}}

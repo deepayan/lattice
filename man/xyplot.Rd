@@ -546,10 +546,16 @@ bwplot(x, data, ...)
     Otherwise, strips are drawn using the \code{strip} function, which
     defaults to \code{strip.default}.  See documentation of
     \code{\link{strip.default}} to see the arguments that are available
-    to the strip function.  This description also applies to the
-    \code{strip.left} argument (see \code{...} below), which can be
-    used to draw strips on the left of each panel (useful for wide short
-    panels, e.g., in time-series plots).
+    to the strip function.
+
+    This description also applies to \code{strip.left},
+    \code{strip.right}, and \code{strip.bottom} arguments (see
+    \code{...} below). These can be used to draw strips on sides other
+    that the top (which is the default), which may be useful at times
+    (e.g., in time-series plots with wide short panels). Note that
+    enabling non-default strips does not automatically suppress the
+    default strip on top, which needs to be explicitly suppressed by
+    setting \code{strip = FALSE}.
   }
 
   \item{xlab}{
@@ -1177,10 +1183,9 @@ bwplot(x, data, ...)
         for arranging plots in an informative manner.
       }
 
-      \item{\code{strip.left}:}{
-        \code{strip.left} can be used to draw strips on the left of each
-        panel, which can be useful for wide short panels, as in
-        time-series (or similar) plots.  See the entry for \code{strip}
+      \item{\code{strip.left}, \code{strip.right}, \code{strip.bottom}:}{
+        These arguments can be used to draw strips on the left, right,
+        or bottom of each panel.  See the entry for \code{strip}
         for detailed usage.
       }
 

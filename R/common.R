@@ -562,6 +562,8 @@ trellis.skeleton <-
              skip = default.args$skip,
              strip = default.args$strip.default, # argument in xyplot
              strip.left = FALSE,
+             strip.right = FALSE,
+             strip.bottom = FALSE,
              xlab.default = NULL,
              ylab.default = NULL,
              xlab = NULL, # argument in xyplot
@@ -586,7 +588,7 @@ trellis.skeleton <-
 {
     default.args <- lattice.getOption("default.args")
     if (is.null(skip)) skip <- FALSE
-    foo <-
+    object <-
         list(formula = formula,
              as.table = as.table,
              aspect.fill = (aspect == "fill"),
@@ -596,10 +598,10 @@ trellis.skeleton <-
              page = page,
              layout = layout,
              skip = skip,
-             strip = if (is.logical(strip) && strip) "strip.default"
-             else strip,
-             strip.left = if (is.logical(strip.left) && strip.left) strip.custom(horizontal = FALSE)
-             else strip.left,
+             strip = if (isTRUE(strip)) strip.default else strip,
+             strip.left = if (isTRUE(strip.left)) strip.custom(horizontal = FALSE, side = "left") else strip.left,
+             strip.right = if (isTRUE(strip.right)) strip.custom(horizontal = FALSE, side = "right") else strip.right,
+             strip.bottom = if (isTRUE(strip.bottom)) strip.custom(horizontal = TRUE, side = "bottom") else strip.bottom,
              xscale.components = xscale.components,
              yscale.components = yscale.components,
              axis = axis,
@@ -620,12 +622,12 @@ trellis.skeleton <-
              index.cond = index.cond,
              perm.cond = perm.cond)
 
-    if (!is.null(between$x)) foo$x.between <- between$x
-    if (!is.null(between$y)) foo$y.between <- between$y
+    if (!is.null(between$x)) object$x.between <- between$x
+    if (!is.null(between$y)) object$y.between <- between$y
 
-    foo$condlevels <- lapply(cond, levels)
+    object$condlevels <- lapply(cond, levels)
 
-    list(foo = foo, dots = list(...))
+    list(foo = object, dots = list(...))
 }
 
 

@@ -292,7 +292,7 @@ panel.identify.cloud <-
 trellis.vpname <-
     function(name = 
              c("position", "split", "split.location", "toplevel", "figure",
-               "panel", "strip", "strip.left", "legend", "legend.region",
+               "panel", "strip", "strip.left", "strip.right", "strip.bottom", "legend", "legend.region",
                "main", "sub", "xlab", "ylab", "xlab.top", "ylab.right",
                "page"),
              column = lattice.getStatus("current.focus.column", prefix = prefix),
@@ -332,6 +332,14 @@ trellis.vpname <-
                  if (clip.off) paste("strip.left", column, row, "off", "vp", sep = ".")
                  else paste("strip.left", column, row, "vp", sep = "."), 
 
+                 strip.right =
+                 if (clip.off) paste("strip.right", column, row, "off", "vp", sep = ".")
+                 else paste("strip.right", column, row, "vp", sep = "."), 
+
+                 strip.bottom =
+                 if (clip.off) paste("strip.bottom", column, row, "off", "vp", sep = ".")
+                 else paste("strip.bottom", column, row, "vp", sep = "."), 
+
                  legend = paste("legend", side, "vp", sep = "."),
                  legend.region = "legend.region.vp"),
           sep = ".")
@@ -341,37 +349,35 @@ trellis.vpname <-
 
 trellis.grobname <-
     function(name,
-             type = c("", "panel", "strip", "strip.left", "key", "colorkey"),
+             type = c("", "panel", "strip", "strip.left", "strip.right", "strip.bottom", "key", "colorkey"),
              group = 0,
-             which.given = lattice.getStatus("current.which.given",
-               prefix = prefix),
-             which.panel = lattice.getStatus("current.which.panel",
-               prefix = prefix),
-             column = lattice.getStatus("current.focus.column",
-               prefix = prefix),
-             row = lattice.getStatus("current.focus.row",
-               prefix = prefix),
+             which.given = lattice.getStatus("current.which.given", prefix = prefix),
+             which.panel = lattice.getStatus("current.which.panel", prefix = prefix),
+             column = lattice.getStatus("current.focus.column", prefix = prefix),
+             row = lattice.getStatus("current.focus.row", prefix = prefix),
              prefix = lattice.getStatus("current.prefix"))
 {
-    stripname <- function(striplab,
-                          name, column, row, which.given, which.panel) {
-        if (length(which.panel) > 1) {
-            paste(name, "given", which.given, striplab, 
-                  column, row, sep=".")            
-        } else {
-            paste(name, striplab, column, row, sep=".")
+    stripname <-
+        function(striplab, name, column, row, which.given, which.panel) {
+            if (length(which.panel) > 1) {
+                paste(name, "given", which.given, striplab, 
+                      column, row, sep=".")            
+            } else {
+                paste(name, striplab, column, row, sep=".")
+            }
         }
-    }
     if (group > 0)
         name <- paste(name, "group", group, sep=".")
     paste(prefix,
           switch(type,
-                 panel=paste(name, type, column, row, sep="."),
-                 strip=,
-                 strip.left=stripname(type, name, column, row,
-                   which.given, which.panel),
-                 key=,
-                 colorkey=paste(type, name, sep="."),
+                 panel = paste(name, type, column, row, sep="."),
+                 strip =,
+                 strip.left = ,
+                 strip.right = ,
+                 strip.bottom = stripname(type, name, column, row,
+                                          which.given, which.panel),
+                 key =,
+                 colorkey = paste(type, name, sep="."),
                  name),
           sep = ".")
 }
@@ -412,7 +418,7 @@ trellis.focus <-
                                   guess = guess,
                                   verbose = verbose))
 
-    if (name %in% c("panel", "strip", "strip.left"))
+    if (name %in% c("panel", "strip", "strip.left", "strip.right", "strip.bottom"))
     {
         ll <- lattice.getStatus("current.panel.positions", prefix = prefix)
         if (column > 0 && row > 0 &&

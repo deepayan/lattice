@@ -472,6 +472,8 @@ plot.trellis <-
     panel <- getFunctionOrName(x$panel) # shall use "panel" in do.call
     strip <- getFunctionOrName(x$strip)
     strip.left <- getFunctionOrName(x$strip.left)
+    strip.right <- getFunctionOrName(x$strip.right)
+    strip.bottom <- getFunctionOrName(x$strip.bottom)
 
     axis.line <- trellis.par.get("axis.line")
     axis.text <- trellis.par.get("axis.text")
@@ -796,8 +798,8 @@ plot.trellis <-
             ## but don't do anything in it.  This is useful later for
             ## trellis.focus() like operations.
 
-            rowRange <- with(pos.heights, range(panel, strip, axis.panel))
-            colRange <- with(pos.widths, range(panel, strip.left, axis.panel))
+            rowRange <- with(pos.heights, range(panel, strip, strip.bottom, axis.panel))
+            colRange <- with(pos.widths, range(panel, strip.left, strip.right, axis.panel))
             pushViewport(viewport(layout.pos.row = rowRange,
                                   layout.pos.col = colRange,
                                   clip = "off",
@@ -1085,19 +1087,17 @@ plot.trellis <-
 
 
 
-                        ## X-axis bottom and Y-axis right
-                        pushViewport(viewport(layout.pos.row = pos.row,
+                        ## X-axis bottom
+                        pushViewport(viewport(layout.pos.row = pos.row + 1,
                                               layout.pos.col = pos.col,
                                               xscale = xscale,
-                                              yscale = yscale,
                                               clip = "off",
                                               name =
-                                              trellis.vpname("panel",
+                                              trellis.vpname("strip.bottom",
                                                              column = column,
                                                              row = row,
                                                              prefix = prefix,
                                                              clip.off = TRUE)))
-                        ## X-axis below
                         x$axis(side = "bottom",
                                scales = x$x.scales,
                                components = xscale.comps,
@@ -1115,7 +1115,19 @@ plot.trellis <-
                                line.lwd = xaxis.lwd,
                                line.alpha = xaxis.alpha.line,
                                prefix = prefix)
+                        upViewport()
+
                         ## Y-axis to the right
+                        pushViewport(viewport(layout.pos.row = pos.row,
+                                              layout.pos.col = pos.col + 1,
+                                              yscale = yscale,
+                                              clip = "off",
+                                              name =
+                                              trellis.vpname("strip.right",
+                                                             column = column,
+                                                             row = row,
+                                                             prefix = prefix,
+                                                             clip.off = TRUE)))
                         x$axis(side = "right",
                                scales = x$y.scales,
                                components = yscale.comps,
@@ -1133,13 +1145,24 @@ plot.trellis <-
                                line.lwd = yaxis.lwd,
                                line.alpha = yaxis.alpha.line,
                                prefix = prefix)
+                        upViewport()
 
                         ## N.B.: We'll need this viewport again later
                         ## to draw a border around it.  However, this
                         ## must be postponed till after the panel is
                         ## drawn, since otherwise the border is liable
                         ## to be obscured.
-                        
+                        pushViewport(viewport(layout.pos.row = pos.row,
+                                              layout.pos.col = pos.col,
+                                              xscale = xscale,
+                                              yscale = yscale,
+                                              clip = "off",
+                                              name =
+                                              trellis.vpname("panel",
+                                                             column = column,
+                                                             row = row,
+                                                             prefix = prefix,
+                                                             clip.off = TRUE)))
                         upViewport()
 
 
@@ -1260,21 +1283,23 @@ plot.trellis <-
                                                   which.panel,
                                                   prefix = prefix)
                                 
-                                strip(which.given = which.given,
-                                      which.panel = which.panel,
-##                                       panel.number = panel.number,
-##                                       packet.number = packet.number,
+                                checkArgsAndCall(strip,
+                                                 list(which.given = which.given,
+                                                      which.panel = which.panel,
+##                                                       panel.number = panel.number,
+##                                                       packet.number = packet.number,
 
-                                      var.name = names(x$condlevels),
-                                      factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
+                                                      var.name = names(x$condlevels),
+                                                      factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
 
-                                      shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
-                                      do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
+                                                      shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
+                                                      do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
 
-                                      horizontal = TRUE,
-                                      bg = strip.col.default.bg[i],
-                                      fg = strip.col.default.fg[i],
-                                      par.strip.text = par.strip.text)
+                                                      horizontal = TRUE,
+                                                      side = "top",
+                                                      bg = strip.col.default.bg[i],
+                                                      fg = strip.col.default.fg[i],
+                                                      par.strip.text = par.strip.text))
                                 
                             }
                             upViewport()
@@ -1315,21 +1340,117 @@ plot.trellis <-
                                                   which.panel,
                                                   prefix = prefix)
                                 
-                                strip.left(which.given = which.given,
-                                           which.panel = which.panel,
-##                                            panel.number = panel.number,
-##                                            packet.number = packet.number,
+                                checkArgsAndCall(strip.left,
+                                                 list(which.given = which.given,
+                                                      which.panel = which.panel,
+##                                                       panel.number = panel.number,
+##                                                       packet.number = packet.number,
 
-                                           var.name = names(x$condlevels),
-                                           factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
+                                                      var.name = names(x$condlevels),
+                                                      factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
 
-                                           shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
-                                           do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
+                                                      shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
+                                                      do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
 
-                                           horizontal = FALSE,
-                                           bg = strip.col.default.bg[i],
-                                           fg = strip.col.default.fg[i],
-                                           par.strip.text = par.strip.text)
+                                                      horizontal = FALSE,
+                                                      side = "left",
+                                                      bg = strip.col.default.bg[i],
+                                                      fg = strip.col.default.fg[i],
+                                                      par.strip.text = par.strip.text))
+                            }
+                            upViewport()
+                        }
+
+
+
+
+#########################################
+###     draw strip(s) on bottom       ###
+#########################################
+
+
+                        if (!is.null(strip.bottom) && !is.logical(strip.bottom))
+                        {
+                            pushViewport(viewport(layout.pos.row = pos.row + 1,
+                                                  layout.pos.col = pos.col,
+                                                  clip = "off",
+                                                  name =
+                                                  trellis.vpname("strip.bottom",
+                                                                 column = column,
+                                                                 row = row,
+                                                                 prefix = prefix,
+                                                                 clip.off = FALSE)))
+
+                            for(i in seq_len(number.of.cond))
+                            {
+                                which.given <- x$perm.cond[i]
+                                which.panel <- which.packet
+
+                                lattice.setStatus(current.which.given =
+                                                  which.given,
+                                                  current.which.panel =
+                                                  which.panel,
+                                                  prefix = prefix)
+
+                                checkArgsAndCall(strip.bottom,
+                                                 list(which.given = which.given,
+                                                      which.panel = which.panel,
+                                                      var.name = names(x$condlevels),
+                                                      factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
+                                                      shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
+                                                      do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
+                                                      horizontal = TRUE,
+                                                      side = "bottom",
+                                                      bg = strip.col.default.bg[i],
+                                                      fg = strip.col.default.fg[i],
+                                                      par.strip.text = par.strip.text))
+                            }
+                            upViewport()
+                        }
+
+
+
+
+#########################################
+###        draw strip(s) on right     ###
+#########################################
+
+
+                        if (!is.null(strip.right) && !is.logical(strip.right))
+                        {
+                            pushViewport(viewport(layout.pos.row = pos.row,
+                                                  layout.pos.col = pos.col + 1,
+                                                  clip = trellis.par.get("clip")$strip,
+                                                  name =
+                                                  trellis.vpname("strip.right",
+                                                                 column = column,
+                                                                 row = row,
+                                                                 prefix = prefix,
+                                                                 clip.off = FALSE)))
+
+                            for(i in seq_len(number.of.cond))
+                            {
+                                which.given <- x$perm.cond[i]
+                                which.panel <- which.packet
+
+                                lattice.setStatus(current.which.given =
+                                                  which.given,
+                                                  current.which.panel =
+                                                  which.panel,
+                                                  prefix = prefix)
+
+                                checkArgsAndCall(strip.right,
+                                                 list(which.given = which.given,
+                                                      which.panel = which.panel,
+                                                      var.name = names(x$condlevels),
+                                                      factor.levels = as.character(x$condlevels[[x$perm.cond[i]]]),
+                                                      shingle.intervals = if (is.list(x$condlevels[[x$perm.cond[i]]]))
+                                                      do.call("rbind", x$condlevels[[x$perm.cond[i]]]) else NULL,
+                                                      horizontal = FALSE,
+                                                      side = "right",
+                                                      bg = strip.col.default.bg[i],
+                                                      fg = strip.col.default.fg[i],
+                                                      par.strip.text = par.strip.text))
                             }
                             upViewport()
                         }
@@ -1352,22 +1473,22 @@ plot.trellis <-
                            left = 
                            drawInViewport(key.gf,
                                           viewport(layout.pos.col = pos.widths$key.left,
-                                                   layout.pos.row = range(pos.heights$panel, pos.heights$strip),
+                                                   layout.pos.row = range(pos.heights$panel, pos.heights$strip, pos.heights$strip.bottom),
                                                    name = trellis.vpname("legend", side = "left", prefix = prefix))),
                            right = 
                            drawInViewport(key.gf,
                                           viewport(layout.pos.col = pos.widths$key.right,
-                                                   layout.pos.row = range(pos.heights$panel, pos.heights$strip),
+                                                   layout.pos.row = range(pos.heights$panel, pos.heights$strip, pos.heights$strip.bottom),
                                                    name = trellis.vpname("legend", side = "right", prefix = prefix))),
                            top = 
                            drawInViewport(key.gf,
                                           viewport(layout.pos.row = pos.heights$key.top,
-                                                   layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                                   layout.pos.col = range(pos.widths$panel, pos.widths$strip.left, pos.widths$strip.right),
                                                    name = trellis.vpname("legend", side = "top", prefix = prefix))),
                            bottom = 
                            drawInViewport(key.gf,
                                           viewport(layout.pos.row = pos.heights$key.bottom,
-                                                   layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                                   layout.pos.col = range(pos.widths$panel, pos.widths$strip.left, pos.widths$strip.right),
                                                    name = trellis.vpname("legend", side = "bottom", prefix = prefix))),
                            inside = {
 
@@ -1385,8 +1506,8 @@ plot.trellis <-
                                                             layout.pos.col = c(1, n.col),
                                                             name = trellis.vpname("legend.region", prefix = prefix))),
                                       panel =
-                                      pushViewport(viewport(layout.pos.row = range(pos.heights$panel, pos.heights$strip),
-                                                            layout.pos.col = range(pos.widths$panel, pos.widths$strip.left),
+                                      pushViewport(viewport(layout.pos.row = range(pos.heights$panel, pos.heights$strip, pos.heights$strip.bottom),
+                                                            layout.pos.col = range(pos.widths$panel, pos.widths$strip.left, pos.widths$strip.right),
                                                             name = trellis.vpname("legend.region", prefix = prefix))))
                                key.corner <-
                                    if (is.null(legend[[i]]$corner)) c(0,1)

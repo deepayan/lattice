@@ -277,6 +277,7 @@ classic.theme <- function(name = .Device, color = name != "postscript")
                                      axis.top = 1,
                                      strip = 1,
                                      panel = 1, ## shouldn't be changed
+                                     strip.bottom = 1,
                                      axis.panel = 1, ## can be useful
                                      between = 1,
                                      axis.bottom = 1,
@@ -296,6 +297,7 @@ classic.theme <- function(name = .Device, color = name != "postscript")
                                      axis.panel = 1, ## can be useful
                                      strip.left = 1,
                                      panel = 1, ## shouldn't be changed
+                                     strip.right = 1,
                                      between = 1,
                                      axis.right = 1,
                                      axis.key.padding = 1,
@@ -1283,6 +1285,7 @@ lattice.options <- function(...)
               axis.top = list(x = 0, units = "mm", data = NULL),
               strip = list(x = 1, units = "lines", data = NULL),
               panel = list(x = 1, units = "null", data = NULL),
+              strip.bottom = list(x = 1, units = "lines", data = NULL),
               axis.panel = list(x = 0, units = "mm", data = NULL),
               between = list(x = 5, units = "mm", data = NULL),
               axis.bottom = list(x = 0, units = "mm", data = NULL),
@@ -1304,6 +1307,7 @@ lattice.options <- function(...)
               axis.panel = list(x = 0, units = "mm", data = NULL),
               strip.left = list(x = 1, units = "lines", data = NULL),
               panel = list(x = 1, units = "null", data = NULL),
+              strip.right = list(x = 1, units = "lines", data = NULL),
               between = list(x = 5, units = "mm", data = NULL),
               axis.right = list(x = 0, units = "mm", data = NULL),
               axis.key.padding = list(x = 0.01, units = "snpc", data = NULL),

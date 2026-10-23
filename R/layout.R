@@ -100,7 +100,7 @@ calculateGridLayout <-
 
     ## list giving positions (for indexing) of various components
 
-    last.panel <- (rows.per.page - 1) * 4 + 10
+    lastrow.panel <- (rows.per.page - 1) * 5 + 11
     between.seq <- seq_len(rows.per.page-1)
     panel.seq <- seq_len(rows.per.page)
 
@@ -117,20 +117,21 @@ calculateGridLayout <-
              xlab.top          = 5, #new
              key.axis.padding  = 6,
              axis.top          = 7,
-             strip             = (panel.seq - 1) * 4 + 8,
-             panel             = (panel.seq - 1) * 4 + 9,
-             axis.panel        = (panel.seq - 1) * 4 + 10,
-             between           = (between.seq - 1) * 4 + 11,
-             axis.bottom       = last.panel + 1,
-             axis.xlab.padding = last.panel + 2,
-             xlab              = last.panel + 3,
-             xlab.key.padding  = last.panel + 4,
-             key.bottom        = last.panel + 5,
-             key.sub.padding   = last.panel + 6,
-             sub               = last.panel + 7,
-             bottom.padding    = last.panel + 8)
+             strip             = (panel.seq - 1) * 5 + 8,
+             panel             = (panel.seq - 1) * 5 + 9,
+             strip.bottom      = (panel.seq - 1) * 5 + 10,
+             axis.panel        = (panel.seq - 1) * 5 + 11,
+             between           = (between.seq - 1) * 5 + 12,
+             axis.bottom       = lastrow.panel + 1,
+             axis.xlab.padding = lastrow.panel + 2,
+             xlab              = lastrow.panel + 3,
+             xlab.key.padding  = lastrow.panel + 4,
+             key.bottom        = lastrow.panel + 5,
+             key.sub.padding   = lastrow.panel + 6,
+             sub               = lastrow.panel + 7,
+             bottom.padding    = lastrow.panel + 8)
 
-    last.panel <- (cols.per.page - 1) * 4 + 9
+    lastcol.panel <- (cols.per.page - 1) * 5 + 10
     pos.widths <-
         list(left.padding      = 1,
              key.left          = 2,
@@ -138,15 +139,16 @@ calculateGridLayout <-
              ylab              = 4,
              ylab.axis.padding = 5,
              axis.left         = 6,
-             axis.panel        = (seq_len(cols.per.page) - 1) * 4 + 7,
-             strip.left        = (seq_len(cols.per.page) - 1) * 4 + 8,
-             panel             = (seq_len(cols.per.page) - 1) * 4 + 9,
-             between           = (seq_len(cols.per.page-1) - 1) * 4 + 10,
-             axis.right        = last.panel + 1,
-             axis.key.padding  = last.panel + 2,
-             ylab.right        = last.panel + 3, # new
-             key.right         = last.panel + 4,
-             right.padding     = last.panel + 5)
+             axis.panel        = (seq_len(cols.per.page) - 1) * 5 + 7,
+             strip.left        = (seq_len(cols.per.page) - 1) * 5 + 8,
+             panel             = (seq_len(cols.per.page) - 1) * 5 + 9,
+             strip.right       = (seq_len(cols.per.page) - 1) * 5 + 10,
+             between           = (seq_len(cols.per.page-1) - 1) * 5 + 11,
+             axis.right        = lastcol.panel + 1,
+             axis.key.padding  = lastcol.panel + 2,
+             ylab.right        = lastcol.panel + 3, # new
+             key.right         = lastcol.panel + 4,
+             right.padding     = lastcol.panel + 5)
 
     n.row <- sum(sapply(pos.heights, length))
     n.col <- sum(sapply(pos.widths, length))
@@ -197,22 +199,23 @@ calculateGridLayout <-
     #for (nm in names(widths.settings))
     #    w.mult[pos.widths[[nm]]] <- widths.settings[[nm]]
 
-
     ## set default units. These may be scaled by user controlled
     ## [heights/widths].settings (usually just 1)
 
     for (nm in names(heights.defaults))
     {
+        h.setting <- heights.settings[[nm]] %||% 1
         heights.x[pos.heights[[nm]]] <-
-            heights.settings[[nm]] * heights.defaults[[nm]]$x
+            h.setting * heights.defaults[[nm]]$x
         heights.units[pos.heights[[nm]]] <- heights.defaults[[nm]]$units
         if (!is.null(heights.defaults[[nm]]$data))
             heights.data[[ pos.heights[[nm]] ]] <- heights.defaults[[nm]]$data
     }
     for (nm in names(widths.defaults))
     {
+        w.setting <- widths.settings[[nm]] %||% 1
         widths.x[pos.widths[[nm]]] <-
-            widths.settings[[nm]] * widths.defaults[[nm]]$x
+            w.setting * widths.defaults[[nm]]$x
         widths.units[pos.widths[[nm]]] <- widths.defaults[[nm]]$units
         if (!is.null(widths.defaults[[nm]]$data))
             widths.data[[ pos.widths[[nm]] ]] <- widths.defaults[[nm]]$data
@@ -309,12 +312,22 @@ calculateGridLayout <-
 
     heights.x[pos.heights[["strip"]]] <-
         heights.x[pos.heights[["strip"]]] *
-            if (is.logical(x$strip)) 0  # which means strip = F, strips not to be drawn
+            if (is.null(x$strip) || isFALSE(x$strip)) 0  # which means strip = FALSE, strips not to be drawn
+            else par.strip.text$cex * par.strip.text$lines * number.of.cond
+
+    heights.x[pos.heights[["strip.bottom"]]] <-
+        heights.x[pos.heights[["strip.bottom"]]] *
+            if (is.null(x$strip.bottom) || isFALSE(x$strip.bottom)) 0
             else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
     widths.x[pos.widths[["strip.left"]]] <-
         widths.x[pos.widths[["strip.left"]]] *
-            if (is.logical(x$strip.left)) 0  # which means strip = F, strips not to be drawn
+            if (is.null(x$strip.left) || isFALSE(x$strip.left)) 0
+            else par.strip.text$cex * par.strip.text$lines * number.of.cond
+
+    widths.x[pos.widths[["strip.right"]]] <-
+        widths.x[pos.widths[["strip.right"]]] *
+            if (is.null(x$strip.right) || isFALSE(x$strip.right)) 0
             else par.strip.text$cex * par.strip.text$lines * number.of.cond
 
 

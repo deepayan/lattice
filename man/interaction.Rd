@@ -49,7 +49,9 @@ panel.brush.splom(threshold = 18, verbose = getOption("verbose"), \dots)
 
 
 trellis.vpname(name = c("position", "split", "split.location", "toplevel",
-                        "figure", "panel", "strip", "strip.left",
+                        "figure", "panel",
+                        "strip", "strip.left",
+                        "strip.right", "strip.bottom",
                         "legend", "legend.region", "main", "sub",
                         "xlab", "ylab", "xlab.top", "ylab.right", "page"),
                column, row,
@@ -57,6 +59,7 @@ trellis.vpname(name = c("position", "split", "split.location", "toplevel",
                clip.off = FALSE, prefix)
 trellis.grobname(name,
                  type = c("", "panel", "strip", "strip.left",
+                          "strip.right", "strip.bottom",
                           "key", "colorkey"),
                  group = 0,
                  which.given = lattice.getStatus("current.which.given",
@@ -141,8 +144,9 @@ trellis.panelArgs(x, packet.number)
     this assumes equal width and height for each panel, and may not work
     when this is not true.
 
-    When \code{name} is \code{"panel"}, \code{"strip"}, or
-    \code{"strip.left"}, \code{column} and \code{row} must also be
+    When \code{name} is \code{"panel"}, \code{"strip"},
+    \code{"strip.left"}, \code{"strip.right"}, or
+    \code{"strip.bottom"}, \code{column} and \code{row} must also be
     specified.  When \code{name} is \code{"legend"}, \code{side} must
     also be specified.
 
@@ -175,9 +179,9 @@ trellis.panelArgs(x, packet.number)
     A character string specifying whether the grob is specific to
     a particular panel or strip.
 
-    When \code{type} is \code{"panel"}, \code{"strip"}, or
-    \code{"strip.left"}, information about the panel is added to the
-    grob name.
+    When \code{type} is \code{"panel"}, \code{"strip"},
+    \code{"strip.left"}, \code{"strip.right"}, or \code{"strip.bottom"},
+    information about the panel is added to the grob name.
   }
   \item{group}{
     An integer specifying whether the grob is specific to a particular
@@ -191,10 +195,10 @@ trellis.panelArgs(x, packet.number)
     represented (within a strip) and the current levels of
     the conditional variables.
 
-    When \code{which.panel} has length greater than 1,
-    and the \code{type} is \code{"strip"} or \code{"strip.left"},
-    information about the conditional variable is added to
-    the grob name.
+    When \code{which.panel} has length greater than 1, and the
+    \code{type} is \code{"strip"}, \code{"strip.left"},
+    \code{"strip.right"}, or \code{"strip.bottom"}, information about
+    the conditional variable is added to the grob name.
   }
   \item{prefix}{
     A character string acting as a prefix identifying the plot of a

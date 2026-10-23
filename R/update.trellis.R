@@ -105,6 +105,8 @@ update.trellis <-
              skip,
              strip,
              strip.left,
+             strip.right,
+             strip.bottom,
              sub,
              xlab,
              ylab,
@@ -180,22 +182,19 @@ update.trellis <-
         else warning("'par.strip.text' must be a list")
     }
     if (!missing(skip)) object$skip <- skip
+    ## strips
     if (!missing(strip))
-    {
-        if (is.logical(strip)) {
-            if (strip) object$strip <- strip.default
-            else object$strip <- FALSE
-        }
-        else object$strip <- strip
-    }
+        object$strip <- if (isTRUE(strip)) strip.default
+                        else strip
     if (!missing(strip.left))
-    {
-        if (is.logical(strip.left)) {
-            if (strip.left) object$strip.left <- strip.custom(horizontal = FALSE)
-            else object$strip.left <- FALSE
-        }
-        else object$strip.left <- strip.left
-    }
+        object$strip.left <- if (isTRUE(strip.left)) strip.custom(horizontal = FALSE, side = "left")
+                             else strip.left
+    if (!missing(strip.right))
+        object$strip.right <- if (isTRUE(strip.right)) strip.custom(horizontal = FALSE, side = "right")
+                              else strip.right
+    if (!missing(strip.bottom))
+        object$strip.bottom <- if (isTRUE(strip.bottom)) strip.custom(horizontal = TRUE, side = "bottom")
+                               else strip.right
     if (!missing(par.settings))
     {
         ## this only overwrites earlier things, leaves alone those

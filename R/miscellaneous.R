@@ -26,6 +26,12 @@
 ## global environment.
 
 
+## FIXME: drop this eventually if we depend on R 4.4.0 or above
+if (getRversion() <= "4.4.0")
+    "%||%" <- function (x, y) if (is.null(x)) y else x
+
+
+
 getFunctionOrName <- function(FUN)
      ## Try lattice namespace first? Does that happen automatically?
 {

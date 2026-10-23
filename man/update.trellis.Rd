@@ -27,6 +27,8 @@
        skip,
        strip,
        strip.left,
+       strip.right,
+       strip.bottom,
        sub,
        xlab,
        ylab,
@@ -67,7 +69,7 @@ trellis.last.object(\dots, prefix)
 
   \item{panel, aspect, as.table, between, key, auto.key, legend, layout,
     main, page, par.strip.text, prepanel, scales, skip, strip,
-    strip.left, sub, xlab, ylab, xlab.top, ylab.right, xlim, ylim,
+    strip.left, strip.right, strip.bottom, sub, xlab, ylab, xlab.top, ylab.right, xlim, ylim,
     xscale.components, yscale.components, axis, par.settings, plot.args,
     lattice.options, index.cond, perm.cond, \dots}{
     arguments that will be used to update \code{object}. See details
